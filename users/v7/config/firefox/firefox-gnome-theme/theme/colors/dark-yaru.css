@@ -1,0 +1,23 @@
+@namespace xul url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* Variables that start with --gnome- are added by me and are assigned
+ * to elements somewhere in this code. The rest of the variables are
+ * built-in in Firefox, so you need to add an !important if you wanna
+ * override them. */
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* Buttons */
+		--gnome-button-suggested-action-background: linear-gradient(to top, #155099 2px, #864780);
+
+		/* Entries */
+		--gnome-focused-urlbar-border-color: #864780;
+
+		/* Switch */
+		--gnome-switch-active-background: #864780;
+
+		/* Tabs */
+		--gnome-tabbar-tab-active-border-bottom-color: #864780;
+		--gnome-tabbar-tab-active-border-bottom-color-contrast: #448de5;
+		--gnome-inactive-tabbar-tab-active-border-bottom-color: #864780;
+	}
+}
