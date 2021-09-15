@@ -1,0 +1,123 @@
+# Generated via dconf2nix
+{ lib, ... }:
+
+let
+  mkTuple = lib.hm.gvariant.mkTuple;
+in
+{
+  dconf.settings = {
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = "appmenu:minimize,close";
+      visual-bell = false;
+    };
+    
+    "org/gnome/mutter" = {
+      attach-modal-dialogs = true;
+      dynamic-workspaces = true;
+      edge-tiling = true;
+      focus-change-on-pointer-rest = true;
+      workspaces-only-on-primary = true;
+    };
+    
+    "org/gnome/desktop/interface" = {
+      clock-show-weekday = true;
+      enable-animations = true;
+      enable-hot-corners = false;
+      font-antialiasing = "grayscale";
+      font-hinting = "slight";
+      gtk-im-module = "gtk-im-context-simple";
+      gtk-theme = "Adwaita-dark";
+      icon-theme = "Papirus-Dark";
+      locate-pointer = true;
+      monospace-font-name = "MesloLGS NF 10";
+      show-battery-percentage = true;
+    };
+    
+    "org/gnome/desktop/peripherals/touchpad" = {
+      click-method = "areas";
+      tap-to-click = true;
+      two-finger-scrolling-enabled = true;
+    };
+    
+    "org/gnome/settings-daemon/plugins/power" = {
+      power-button-action = "interactive";
+      sleep-inactive-ac-type = "nothing";
+      sleep-inactive-battery-timeout = 1800;
+    };
+    
+    "org/gnome/desktop/a11y" = {
+      always-show-universal-access-status = true;
+    };
+    
+    "org/gnome/desktop/a11y/applications" = {
+      screen-magnifier-enabled = false;
+    };
+    
+    "org/gnome/desktop/a11y/magnifier" = {
+      cross-hairs-clip = true;
+      cross-hairs-color = "#15519a";
+      cross-hairs-length = 1440;
+      cross-hairs-opacity = 1.0;
+      mouse-tracking = "proportional";
+      show-cross-hairs = true;
+    };
+    
+    "org/gnome/desktop/calendar" = {
+      show-weekdate = true;
+    };
+    
+    "org/gnome/desktop/privacy" = {
+      disable-microphone = false;
+      old-files-age = "uint32 7";
+      remember-recent-files = false;
+      remove-old-temp-files = true;
+      remove-old-trash-files = true;
+    };
+    
+    "org/gnome/desktop/sound" = {
+      allow-volume-above-100-percent = true;
+    };
+    
+    "ca/desrt/dconf-editor" = {
+      show-warning = false;
+    };
+    
+    "org/gnome/Geary" = {
+      ask-open-attachment = true;
+      compose-as-html = true;
+      formatting-toolbar-visible = false;
+      migrated-config = true;
+      optional-plugins = [ "email-templates" "sent-sound" "mail-merge" ];
+      startup-notifications = true;
+    };
+    
+    "org/gnome/epiphany" = {
+      active-clear-data-items = 391;
+      ask-for-default = false;
+      default-search-engine = "Google";
+      restore-session-policy = "crashed";
+      use-google-search-suggestions = true;
+    };
+    
+    "org/gnome/epiphany/web" = {
+      default-zoom-level = 1.0;
+      enable-mouse-gestures = true;
+    };
+    
+    "org/gnome/nautilus/preferences" = {
+      click-policy = "single";
+      default-folder-viewer = "icon-view";
+      fts-enabled = true;
+      search-filter-time-type = "last_modified";
+      search-view = "list-view";
+      show-create-link = true;
+      show-delete-permanently = true;
+    };
+    
+    "org/gnome/gnome-screenshot" = {
+      delay = 0;
+      include-pointer = true;
+      last-save-directory = "file:///home/v7/Pictures/Screenshots";
+    };
+  };
+}

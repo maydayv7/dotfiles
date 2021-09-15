@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
 {
-  # User Program Configuration
   programs =
   {
     home-manager.enable = true;
+    
+    # Task Manager
     htop.enable = true;
     
     # Git

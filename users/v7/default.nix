@@ -1,5 +1,10 @@
 { config, lib, pkgs, ... }: 
+let
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
+in
 {
+  imports = [(import "${home-manager}/nixos")];
+  
   # User Configuration
   users.users.v7 =
   {
@@ -15,9 +20,21 @@
   };
   
   # Home Configuration
-  imports = [(import ./home.nix)];
+  home-manager.users.v7 =
+  {
+    # User Nix Configuration
+    nixpkgs.config.allowUnfree = true;
+    imports =
+    [
+      # Configuration Modules
+      ./modules
+      
+      # User Overlays
+      ./overlays
+    ];
+  };
   
-  # Security Configuration
+  # Security Settings
   security =
   {
     sudo.extraConfig =

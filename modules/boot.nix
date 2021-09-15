@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-  # Boot Configuration
   boot =
   {
     # Kernel

@@ -9,6 +9,14 @@
     libreoffice
     lollypop
     
+    # Utilities
+    lolcat
+    neofetch
+    touchegg
+    unzip
+    unrar
+    wget
+    
     # GNOME Apps
     gnome.dconf-editor
     gnome.gnome-boxes
@@ -25,13 +33,21 @@
     gnome.gnome-sudoku
     gnome.quadrapassel
     
-    # Utilities
-    lolcat
-    neofetch
-    touchegg
-    unzip
-    unrar
-    wget
+    
+    # GNOME Shell Extensions
+    gnomeExtensions.appindicator
+    gnomeExtensions.caffeine
+    gnomeExtensions.clipboard-indicator
+    gnomeExtensions.compiz-windows-effect
+    gnomeExtensions.compiz-alike-magic-lamp-effect
+    gnomeExtensions.custom-hot-corners-extended
+    gnomeExtensions.dash-to-panel
+    gnomeExtensions.just-perfection
+    gnomeExtensions.lock-keys
+    gnomeExtensions.screenshot-locations
+    gnomeExtensions.sound-output-device-chooser
+    gnomeExtensions.vitals
+    #gnomeExtensions.x11-gestures
   ];
   
   # Excluded GNOME Packages

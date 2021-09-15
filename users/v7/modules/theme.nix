@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-  # Theming
   gtk =
   {
     enable = true;

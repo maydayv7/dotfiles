@@ -24,7 +24,7 @@
   swapDevices =
     [ { device = "/dev/disk/by-label/swap"; } ];
 
-  # Hardware
+  # Hardware Configuration
   hardware =
   {
     cpu.intel.updateMicrocode = true;
@@ -33,7 +33,7 @@
     enableRedistributableFirmware = true;
   };
   
-  # Audio
+  # Audio Configuration
   sound.enable = true;
   hardware.pulseaudio =
   {

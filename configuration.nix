@@ -2,24 +2,14 @@
 {
   imports =
   [
-    # Package List
-    ./modules/packages.nix
+    # Modules
+    ./modules
     
-    # Boot Configuration
-    ./modules/boot.nix
-    
-    # Hardware Configuration
-    ./modules/hardware.nix
-    
-    # GUI Configuration
-    ./modules/gui.nix
-    
-    # Program Configuration
-    ./modules/programs.nix
+    # Overlays
+    ./overlays
     
     # User Configuration
-    ./users/root/user.nix # User root
-    ./users/v7/user.nix   # User V 7
+    ./users
   ];
   
   # System Configuration
@@ -47,12 +37,4 @@
     packages = with pkgs; [ terminus_font ];
     keyMap = "us";
   };
-  
-  # Overlays
-  nixpkgs.overlays = 
-  [ 
-    (import ./overlays/touchegg.nix)
-    (import ./overlays/plymouth.nix)
-    (import ./overlays/sof-firmware.nix)
-  ];
 }
