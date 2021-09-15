@@ -40,33 +40,33 @@
     Configuration for every application.
   -->
   <application name="All">
-    <gesture type="SWIPE" fingers="3" direction="UP">
+    <gesture type="SWIPE" fingers="4" direction="UP">
       <action type="MAXIMIZE_RESTORE_WINDOW">
         <animate>true</animate>
       </action>
     </gesture>
 
-    <gesture type="SWIPE" fingers="3" direction="DOWN">
+    <gesture type="SWIPE" fingers="4" direction="DOWN">
       <action type="MINIMIZE_WINDOW">
         <animate>true</animate>
       </action>
     </gesture>
 
-    <gesture type="SWIPE" fingers="3" direction="LEFT">
+    <gesture type="SWIPE" fingers="4" direction="LEFT">
       <action type="TILE_WINDOW">
         <direction>left</direction>
         <animate>true</animate>
       </action>
     </gesture>
 
-    <gesture type="SWIPE" fingers="3" direction="RIGHT">
+    <gesture type="SWIPE" fingers="4" direction="RIGHT">
       <action type="TILE_WINDOW">
         <direction>right</direction>
         <animate>true</animate>
       </action>
     </gesture>
 
-    <gesture type="PINCH" fingers="3" direction="IN">
+    <gesture type="PINCH" fingers="4" direction="IN">
       <action type="CLOSE_WINDOW">
         <animate>true</animate>
         <color>F84A53</color>
@@ -74,51 +74,11 @@
       </action>
     </gesture>
 
-    <gesture type="SWIPE" fingers="4" direction="UP">
-      <action type="CHANGE_DESKTOP">
-        <direction>auto</direction>
+    <gesture type="PINCH" fingers="4" direction="OUT">
+      <action type="CLOSE_WINDOW">
         <animate>true</animate>
-        <animationPosition>auto</animationPosition>
-      </action>
-    </gesture>
-
-    <gesture type="SWIPE" fingers="4" direction="LEFT">
-      <action type="CHANGE_DESKTOP">
-        <direction>auto</direction>
-        <animate>true</animate>
-        <animationPosition>auto</animationPosition>
-      </action>
-    </gesture>
-
-    <gesture type="SWIPE" fingers="4" direction="RIGHT">
-      <action type="CHANGE_DESKTOP">
-        <direction>auto</direction>
-        <animate>true</animate>
-        <animationPosition>auto</animationPosition>
-      </action>
-    </gesture>
-    
-    <gesture type="SWIPE" fingers="4" direction="UP">
-      <action type="SEND_KEYS">
-        <repeat>false</repeat>
-        <on>begin</on>
-        <modifiers>Super_L</modifiers>
-        <keys>S</keys>
-      </action>
-    </gesture>
-    
-    <gesture type="SWIPE" fingers="4" direction="DOWN">
-      <action type="SEND_KEYS">
-        <repeat>false</repeat>
-        <on>begin</on>
-        <modifiers>Super_L</modifiers>
-        <keys>A</keys>
-      </action>
-    </gesture>
-
-    <gesture type="PINCH" fingers="4" direction="DOWN">
-      <action type="SHOW_DESKTOP">
-        <animate>true</animate>
+        <color>F84A53</color>
+        <borderColor>F84A53</borderColor>
       </action>
     </gesture>
 

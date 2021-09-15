@@ -1,5 +1,11 @@
 { config, lib, pkgs, ... }:
-{  
+{
+  # Nix Configuration
+  nixpkgs =
+  {
+    config.allowUnfree = true;
+  };
+  
   # Network Management
   networking =
   {
@@ -26,6 +32,11 @@
   
   # Desktop Integration
   programs.dconf.enable = true;
+  services =
+  {
+    dbus.packages = [ pkgs.gnome.dconf ];
+    udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+  };
   xdg =
   {
     portal =

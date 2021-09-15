@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: 
 {
-  # User Configuration
+  # Root User Configuration
   users.extraUsers.root =
   {
     passwordFile = "/etc/nixos/users/root/password";

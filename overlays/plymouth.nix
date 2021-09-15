@@ -6,8 +6,8 @@ self: super:
       {
         owner = "maydayv7";
         repo = "plymouth-nixos";
-        rev = "cd46a74f69f08f2cc7847c441e6688f64afec024";
-        sha256 = "0ahqfdsjjvn95063krg7bac3nm8krghmgwahgrh8j278ybyiixps";
+        rev = "42aa1344774830ac49b56481cf18cf28fbef32a5";
+        sha256 = "1hgpvzgkprh1g2gim3mqnzmgj64khr3fzqcflr0mqrhy79xmbb3v";
       };
   });
 }

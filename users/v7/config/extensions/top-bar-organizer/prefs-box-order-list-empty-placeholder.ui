@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  This file is part of Top-Bar-Organizer (a Gnome Shell Extension for
+  organizing your Gnome Shell top bar).
+  Copyright (C) 2021 Julian Schacher
+
+  Top-Bar-Organizer is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<interface>
+    <template class="PrefsBoxOrderListEmptyPlaceholder" parent="GtkBox">
+        <child>
+            <object class="GtkBox">
+                <property name="spacing">10</property>
+                <property name="margin-top">10</property>
+                <property name="margin-bottom">10</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="label">Drop items onto here to add them to this box.</property>
+                        <property name="halign">start</property>
+                        <style>
+                            <class name="dim-label"/>
+                        </style>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>

@@ -34,6 +34,13 @@
     wget
   ];
   
+  # Excluded GNOME Packages
+  environment.gnome.excludePackages = with pkgs;
+  [
+    gnome.gnome-music
+    gnome.totem
+  ];
+  
   # Font Packages
   fonts.fonts = with pkgs; 
   [

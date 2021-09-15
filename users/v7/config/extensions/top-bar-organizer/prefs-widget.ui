@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  This file is part of Top-Bar-Organizer (a Gnome Shell Extension for
+  organizing your Gnome Shell top bar).
+  Copyright (C) 2021 Julian Schacher
+
+  Top-Bar-Organizer is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<interface>
+    <template class="PrefsWidget" parent="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="spacing">24</property>
+        <property name="margin-top">36</property>
+        <property name="margin-bottom">36</property>
+        <property name="margin-start">36</property>
+        <property name="margin-end">36</property>
+        <child>
+            <object class="GtkLabel">
+                <property name="label">Simply use drag and drop to order the items any way you want.</property>
+                <property name="halign">start</property>
+                <style>
+                    <class name="dim-label"/>
+                </style>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="label">Left Top Bar Box</property>
+                        <property name="halign">start</property>
+                        <property name="margin-bottom">12</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkListBox" id="left-box-order">
+                        <property name="selection-mode">none</property>
+                        <property name="show-separators">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="label">Center Top Bar Box</property>
+                        <property name="halign">start</property>
+                        <property name="margin-bottom">12</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkListBox" id="center-box-order">
+                        <property name="selection-mode">none</property>
+                        <property name="show-separators">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child>
+            <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                    <object class="GtkLabel">
+                        <property name="label">Right Top Bar Box</property>
+                        <property name="halign">start</property>
+                        <property name="margin-bottom">12</property>
+                        <attributes>
+                            <attribute name="weight" value="bold"/>
+                        </attributes>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkListBox" id="right-box-order">
+                        <property name="selection-mode">none</property>
+                        <property name="show-separators">True</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </template>
+</interface>

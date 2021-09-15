@@ -24,7 +24,6 @@
   
   # System Configuration
   system.stateVersion = "21.05";
-  nixpkgs.config.allowUnfree = true;
   users.mutableUsers = false;
   
   # Environment Configuration
