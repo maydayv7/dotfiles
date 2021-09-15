@@ -21,7 +21,8 @@
     # Firefox GNOME Theme
     # https://github.com/rafaelmardojai/firefox-gnome-theme
     ".mozilla/firefox/v7/user.js".source = .././config/firefox/firefox-gnome-theme/configuration/user.js;
-    ".mozilla/firefox/v7/chrome".source = .././config/firefox;
+    ".mozilla/firefox/v7/chrome/firefox-gnome-theme".source = .././config/firefox/firefox-gnome-theme;
+    ".mozilla/firefox/v7/chrome/userChrome.css".source = .././config/firefox/userChrome.css;
     
     # Custom GNOME Extensions
     ".local/share/gnome-shell/extensions/top-bar-organizer@julian.gse.jsts.xyz".source = .././config/extensions/top-bar-organizer;
