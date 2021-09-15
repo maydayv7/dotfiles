@@ -8,6 +8,9 @@
     # Overlays
     ./overlays
     
+    # Private Information
+    ./secrets
+    
     # User Configuration
     ./users
   ];
@@ -15,6 +18,7 @@
   # System Configuration
   system.stateVersion = "21.05";
   users.mutableUsers = false;
+  nix.trustedUsers = [ "root" "v7" ];
   
   # Environment Configuration
   environment =
@@ -25,6 +29,10 @@
       EDITOR = "nano";
     };
     shells = with pkgs; [ bashInteractive zsh ];
+    etc =
+    {
+      "nixos".source = "/data/V7/Other/Projects/nixos-config";
+    };
   };
   
   # Localization

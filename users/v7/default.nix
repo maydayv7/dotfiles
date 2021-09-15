@@ -16,7 +16,7 @@ in
     extraGroups = [ "wheel" "networkmanager" "audio" "libvirtd"];
     useDefaultShell = false;
     shell = pkgs.zsh;
-    passwordFile = "/etc/nixos/users/v7/password";
+    passwordFile = "/etc/secrets/password";
   };
   
   # Home Configuration

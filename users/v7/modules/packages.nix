@@ -19,6 +19,7 @@
     gimp
     gnome-podcasts
     gnome-passwordsafe
+    fractal
     kooha
     shortwave 
     

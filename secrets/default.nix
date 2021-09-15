@@ -2,7 +2,7 @@
 {
   imports =
   [
-    ./root # User root
-    ./v7   # User V 7
+    # Password Credentials
+    ./password.nix
   ];
 }
