@@ -47,8 +47,10 @@ in
   {
     text =
     ''
+      mkdir /home/v7/Pictures/Screenshots 2>/dev/null
+      chown v7 /home/v7/Pictures/Screenshots
       rm -f /var/lib/AccountsService/icons/v7
-      cp -av /home/v7/.local/share/backgrounds/Profile.png /var/lib/AccountsService/icons/v7
+      cp -av /home/v7/.local/share/backgrounds/Profile.png /var/lib/AccountsService/icons/v7 2>/dev/null
     '';
   };
   
