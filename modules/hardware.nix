@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 {
   # Partitions
   fileSystems =
@@ -20,8 +20,7 @@
         options = [ "rw" "uid=1000"];
       };
     };
-    
-  swapDevices =
+    swapDevices =
     [ { device = "/dev/disk/by-label/swap"; } ];
 
   # Hardware Configuration
@@ -35,13 +34,13 @@
   
   # Audio Configuration
   sound.enable = true;
+  nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio =
   {
     enable = true;
     support32Bit = true;
     package = pkgs.pulseaudioFull;
   };
-  nixpkgs.config.pulseaudio = true;
   
   # SSD Trim
   services.fstrim.enable = true;
@@ -51,12 +50,12 @@
   
   # Power Management
   nix.maxJobs = 12;
+  services.thermald.enable = true;
   powerManagement =
   {
     enable = true;
     cpuFreqGovernor = "powersave";
   };
-  services.thermald.enable = true;
   
   # Driver Packages
   hardware.opengl.extraPackages = with pkgs; 

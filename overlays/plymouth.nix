@@ -1,4 +1,5 @@
 # Overlay for latest Plymouth
+# https://gitlab.freedesktop.org/plymouth/plymouth
 self: super:
 {
   plymouth = super.plymouth.overrideAttrs (old: {

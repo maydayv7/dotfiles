@@ -21,11 +21,11 @@
     gnome-passwordsafe
     fractal
     kooha
-    shortwave 
+    shortwave
     
     # Unstable Packages
-    #fragments
-    #markets
-    #wike
+    unstable.fragments
+    unstable.markets
+    unstable.wike
   ];
 }

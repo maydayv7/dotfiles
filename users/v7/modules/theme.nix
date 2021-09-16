@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 {
+  # GTK+
   gtk =
   {
     enable = true;
@@ -15,6 +16,7 @@
     };
   };
   
+  # KDE/Qt
   qt =
   {
     enable = true;

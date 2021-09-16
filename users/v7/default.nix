@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: 
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz";
+  home-manager = import ../../repos/home-manager.nix;
 in
 {
   imports = [(import "${home-manager}/nixos")];
@@ -13,7 +13,7 @@ in
     description = "V 7";
     uid = 1000;
     group = "users";
-    extraGroups = [ "wheel" "networkmanager" "audio" "libvirtd"];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "libvirtd"];
     useDefaultShell = false;
     shell = pkgs.zsh;
     passwordFile = "/etc/secrets/password";
@@ -23,14 +23,24 @@ in
   home-manager.users.v7 =
   {
     # User Nix Configuration
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config =
+    {
+      allowUnfree = true;
+      packageOverrides = pkgs:
+      {
+        # Additional Repos
+        nur = import (import ../../repos/nur.nix) { inherit pkgs; };
+        unstable = import (import ../../repos/unstable.nix) { inherit pkgs; };
+      };
+    };
+    
     imports =
     [
       # Configuration Modules
-      ./modules
+      (import ./modules)
       
       # User Overlays
-      ./overlays
+      (import ./overlays)
     ];
   };
   

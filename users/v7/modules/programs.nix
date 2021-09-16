@@ -35,10 +35,7 @@
       enableAutosuggestions = true;
       enableCompletion = true;
       autocd = true;
-      initExtraBeforeCompInit =
-      "
-        source ~/.p10k.zsh
-      ";
+      initExtraBeforeCompInit = "source ~/.p10k.zsh";
       shellAliases =
       {
         sike = "neofetch";

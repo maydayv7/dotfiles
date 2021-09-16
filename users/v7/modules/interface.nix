@@ -5,7 +5,8 @@ let
   mkTuple = lib.hm.gvariant.mkTuple;
 in
 {
-  dconf.settings = {
+  dconf.settings =
+  {
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,close";
       visual-bell = false;

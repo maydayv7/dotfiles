@@ -33,7 +33,6 @@
     gnome.gnome-sudoku
     gnome.quadrapassel
     
-    
     # GNOME Shell Extensions
     gnomeExtensions.appindicator
     gnomeExtensions.caffeine

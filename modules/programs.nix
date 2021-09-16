@@ -1,7 +1,27 @@
 { config, lib, pkgs, ... }:
 {
   # Nix Configuration
-  nixpkgs.config.allowUnfree = true;
+  nix =
+  {
+    autoOptimiseStore = true;
+    # Garbage Collection
+    gc =
+    {
+      automatic = true;
+      dates     = "weekly";
+      options   = "--delete-older-than 7d";
+    };
+  };
+  nixpkgs.config =
+  {
+    allowUnfree = true;
+    packageOverrides = pkgs: 
+    {
+      # Additional Repos
+      nur = import (import ../repos/nur.nix) { inherit pkgs; };
+      unstable = import (import ../repos/unstable.nix) { inherit pkgs; };
+    };
+  };
   
   # Network Management
   networking =
@@ -34,7 +54,6 @@
     dbus.packages = [ pkgs.gnome.dconf ];
     udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
   };
-  
   xdg =
   {
     portal =

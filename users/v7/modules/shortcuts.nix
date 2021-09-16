@@ -4,7 +4,8 @@ let
   mkTuple = lib.hm.gvariant.mkTuple;
 in
 {
-  dconf.settings = {
+  dconf.settings =
+  {
     "org/gnome/desktop/wm/keybindings" = {
       begin-move = [];
       begin-resize = [];
