@@ -10,6 +10,8 @@
     lollypop
     
     # Utilities
+    git
+    git-crypt
     lolcat
     neofetch
     touchegg

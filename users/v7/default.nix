@@ -43,6 +43,14 @@ in
       (import ./overlays)
     ];
   };
+  system.activationScripts =
+  {
+    text =
+    ''
+      rm -f /var/lib/AccountsService/icons/v7
+      cp -av /home/v7/.local/share/backgrounds/Profile.png /var/lib/AccountsService/icons/v7
+    '';
+  };
   
   # Security Settings
   security =

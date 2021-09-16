@@ -1,6 +1,5 @@
 # Generated via dconf2nix
 { lib, ... }:
-
 let
   mkTuple = lib.hm.gvariant.mkTuple;
 in
@@ -119,6 +118,24 @@ in
       delay = 0;
       include-pointer = true;
       last-save-directory = "file:///home/v7/Pictures/Screenshots";
+    };
+    
+    "org/gnome/desktop/background" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///home/v7/.local/share/backgrounds/Firewatch.jpg";
+      primary-color = "#000000000000";
+      secondary-color = "#000000000000";
+    };
+    
+    "org/gnome/desktop/screensaver" = {
+      color-shading-type = "solid";
+      lock-delay = "uint32 0";
+      lock-enabled = false;
+      picture-options = "zoom";
+      picture-uri = "file:///home/v7/.local/share/backgrounds/Firewatch.jpg";
+      primary-color = "#000000000000";
+      secondary-color = "#000000000000";
     };
   };
 }
