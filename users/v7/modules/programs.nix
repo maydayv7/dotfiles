@@ -43,7 +43,7 @@
         edit = "sudo nano";
         hi = "echo 'Hi there. How are you?'";
         bye = "exit";
-        config = "cd /data/V7/Other/Projects/nixos-config";
+        config = (builtins.readFile ../../../volatile/path);
         update = "sudo nix-channel --update";
         upgrade = "sudo nixos-rebuild switch";
         cleanup = "sudo nix-collect-garbage -d";
