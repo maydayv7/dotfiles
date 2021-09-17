@@ -2,9 +2,6 @@
 {
   imports =
   [    
-    # Boot Configuration
-    ./boot.nix
-    
     # GUI Configuration
     ./gui.nix
     

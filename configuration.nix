@@ -12,7 +12,7 @@
     ./secrets
     
     # User Specified Configuration Path
-    ./profiles.nix
+    ./volatile/profiles.nix
   ];
   
   # System Configuration
@@ -31,7 +31,7 @@
     shells = with pkgs; [ bashInteractive zsh ];
     etc =
     {
-      "nixos".source = "/data/V7/Other/Projects/nixos-config";
+      "nixos".source = (builtins.readFile ./volatile/path);
     };
   };
   

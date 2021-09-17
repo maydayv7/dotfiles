@@ -7,6 +7,7 @@
     initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
     kernelModules = [ "kvm-intel" ];
     initrd.kernelModules = [ "i915" ];
+    extraModprobeConfig = "options kvm_intel nested=1";
     
     # Plymouth
     consoleLogLevel = 0;

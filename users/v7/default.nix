@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: 
 let
-  home-manager = import ../../repos/home-manager.nix;
+  home-manager = import ../../volatile/repos/home-manager.nix;
 in
 {
   imports = [(import "${home-manager}/nixos")];
@@ -29,8 +29,8 @@ in
       packageOverrides = pkgs:
       {
         # Additional Repos
-        nur = import (import ../../repos/nur.nix) { inherit pkgs; };
-        unstable = import (import ../../repos/unstable.nix) { inherit pkgs; };
+        nur = import (import ../../volatile/repos/nur.nix) { inherit pkgs; };
+        unstable = import (import ../../volatile/repos/unstable.nix) { inherit pkgs; };
       };
     };
     

@@ -2,6 +2,9 @@
 {
   imports =
   [
+    # Boot Configuration
+    ./boot.nix
+    
     # Package List
     ./packages.nix
     
