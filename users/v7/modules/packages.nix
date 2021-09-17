@@ -26,6 +26,7 @@
     # Unstable Packages
     unstable.fragments
     unstable.markets
+    unstable.onlyoffice-bin
     unstable.wike
   ];
 }

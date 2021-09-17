@@ -13,10 +13,10 @@ in
     description = "V 7";
     uid = 1000;
     group = "users";
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" "libvirtd"];
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "cdrom" "disk" "kvm" "libvirtd"];
     useDefaultShell = false;
     shell = pkgs.zsh;
-    passwordFile = "/etc/secrets/password";
+    passwordFile = "/etc/passwords/v7";
   };
   
   # Home Configuration
@@ -49,7 +49,6 @@ in
   {
     sudo.extraConfig =
     "
-      Defaults pwfeedback
       v7 ALL=(ALL) NOPASSWD: ALL
     ";
   };

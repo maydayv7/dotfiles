@@ -22,7 +22,6 @@
   {
     networkmanager.enable = true;
     firewall.enable = false;
-    hostName = "Vortex"; 
   };
   
   # Font Configuration
@@ -34,11 +33,13 @@
     enableGhostscriptFonts = true;
   };
   
-  # Virtualization
-  virtualisation =
+  # Security Settings
+  security =
   {
-    libvirtd.enable = true;
-    spiceUSBRedirection.enable = true;
+    sudo.extraConfig =
+    "
+      Defaults pwfeedback
+    ";
   };
   
   # Desktop Integration
@@ -47,19 +48,6 @@
   {
     dbus.packages = [ pkgs.gnome.dconf ];
     udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
-  };
-  xdg =
-  {
-    portal =
-    {
-      enable = true;
-      extraPortals = with pkgs; 
-      [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
-      gtkUsePortal = true;
-    };
   };
   
   # Touchegg X11 Gestures
@@ -77,7 +65,4 @@
       ExecStart = "${pkgs.touchegg}/bin/touchegg --daemon";
     };
   };
-  
-  # X11 SSH Password Auth
-  programs.ssh.askPassword = "";
 }

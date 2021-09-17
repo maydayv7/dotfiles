@@ -123,7 +123,7 @@ in
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/v7/.local/share/backgrounds/Firewatch.jpg";
+      picture-uri = "file:///home/v7/.local/share/backgrounds/Futura.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
@@ -133,7 +133,7 @@ in
       lock-delay = "uint32 0";
       lock-enabled = false;
       picture-options = "zoom";
-      picture-uri = "file:///home/v7/.local/share/backgrounds/Firewatch.jpg";
+      picture-uri = "file:///home/v7/.local/share/backgrounds/Futura.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };

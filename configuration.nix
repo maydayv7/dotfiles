@@ -11,8 +11,8 @@
     # Private Information
     ./secrets
     
-    # User Configuration
-    ./users
+    # User Specified Configuration Path
+    ./profiles.nix
   ];
   
   # System Configuration

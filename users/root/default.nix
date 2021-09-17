@@ -3,6 +3,6 @@
   # Root User Configuration
   users.extraUsers.root =
   {
-    passwordFile = "/etc/secrets/password";
+    passwordFile = "/etc/passwords/root";
   };
 }
