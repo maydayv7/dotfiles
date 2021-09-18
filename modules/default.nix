@@ -13,5 +13,8 @@
     
     # Program Configuration
     ./programs.nix
+    
+    # Device Specific Configuration
+    ../volatile/device.nix
   ];
 }

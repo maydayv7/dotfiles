@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: 
 let
-  home-manager = import ../../repos/home-manager.nix;
+  home-manager = import ../../volatile/repos/home-manager.nix;
 in
 {
   imports = [(import "${home-manager}/nixos")];

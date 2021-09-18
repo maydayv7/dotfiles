@@ -8,11 +8,8 @@
     # Package Overlays
     ./overlays
     
-    # Private Information
+    # Personal Credentials
     ./secrets
-    
-    # User Specified Configuration Path
-    ./volatile/profiles.nix
   ];
   
   # System Configuration
@@ -33,16 +30,5 @@
     {
       "nixos".source = (builtins.readFile ./volatile/path);
     };
-  };
-  
-  # Localization
-  time.timeZone = "Asia/Kolkata";
-  i18n.defaultLocale = "en_IN.UTF-8";
-  console =
-  {
-    earlySetup = true;
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
-    packages = with pkgs; [ terminus_font ];
-    keyMap = "us";
   };
 }
