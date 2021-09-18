@@ -46,7 +46,7 @@
         config = (builtins.readFile ../../../volatile/path);
         update = "sudo nix-channel --update";
         upgrade = "sudo nixos-rebuild switch";
-        cleanup = "sudo nix-collect-garbage -d";
+        cleanup = "sudo nix-collect-garbage";
       };
       history =
       {

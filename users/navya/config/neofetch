@@ -4,7 +4,7 @@
 print_info() {
 
     info underline
-    prin "v7 ✠ Vortex"
+    prin "Navya ✠ Futura"
     info underline
     prin "Software Information"
     info " " distro

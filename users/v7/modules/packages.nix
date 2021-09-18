@@ -3,7 +3,6 @@
   home.packages = with pkgs;
   [
     bluej
-    calibre
     dconf2nix
     discord
     gscan2pdf

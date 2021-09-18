@@ -42,20 +42,20 @@
     gnomeExtensions.compiz-windows-effect
     gnomeExtensions.compiz-alike-magic-lamp-effect
     gnomeExtensions.custom-hot-corners-extended
-    gnomeExtensions.dash-to-panel
+    dash-to-panel
     gnomeExtensions.just-perfection
     gnomeExtensions.lock-keys
     gnomeExtensions.screenshot-locations
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.vitals
-    #gnomeExtensions.x11-gestures
+    x11-gestures
   ];
   
   # Excluded GNOME Packages
   environment.gnome.excludePackages = with pkgs;
   [
-    gnome.gnome-music
     gnome.totem
+    gnome.gnome-music
   ];
   
   # Font Packages
@@ -63,14 +63,8 @@
   [
       corefonts
       dejavu_fonts
-      fira
-      fira-code
-      fira-mono
-      freefont_ttf
-      hack-font
       meslo-lgs-nf
       noto-fonts
-      noto-fonts-cjk
       noto-fonts-emoji
       source-code-pro
       ubuntu_font_family

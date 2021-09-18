@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 {
   imports =
-  [    
+  [
+    # Package List
+    ./packages.nix
+    
     # GUI Configuration
     ./gui.nix
     

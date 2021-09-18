@@ -5,9 +5,6 @@
     # Boot Configuration
     ./boot.nix
     
-    # Package List
-    ./packages.nix
-    
     # Hardware Configuration
     ./hardware.nix
   ];

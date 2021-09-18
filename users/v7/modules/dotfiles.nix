@@ -25,9 +25,5 @@
     # https://github.com/rafaelmardojai/firefox-gnome-theme
     ".mozilla/firefox/v7/chrome".source = ../config/firefox;
     ".mozilla/firefox/v7/user.js".source = ../config/firefox/firefox-gnome-theme/configuration/user.js;
-    
-    # Custom GNOME Extensions
-    ".local/share/gnome-shell/extensions/x11gestures@joseexposito.github.io".source = ../config/extensions/x11-gestures;
-    ".local/share/gnome-shell/extensions/top-bar-organizer@julian.gse.jsts.xyz".source = ../config/extensions/top-bar-organizer;
   };
 }

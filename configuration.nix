@@ -5,7 +5,7 @@
     # Modules
     ./modules
     
-    # Overlays
+    # Package Overlays
     ./overlays
     
     # Private Information
