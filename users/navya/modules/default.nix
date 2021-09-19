@@ -15,8 +15,6 @@
     ./programs.nix
     
     # Dconf Configuration    
-    ./shortcuts.nix  # Keyboard Shortcuts
-    ./interface.nix  # Apps and GNOME Shell Keys
-    ./extensions.nix # GNOME Shell Extensions Configuration
+    ./dconf
   ];
 }

@@ -1,7 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 {
   # Computer Name
-  networking.hostName = "Futura";
+  networking.hostName = "Vortex";
   
   # Hardware Configuration
   hardware =

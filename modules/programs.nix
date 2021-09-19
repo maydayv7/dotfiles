@@ -48,6 +48,12 @@
   {
     dbus.packages = [ pkgs.gnome.dconf ];
     udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+    gnome =
+    {
+      chrome-gnome-shell.enable = true;
+      gnome-keyring.enable = true;
+      gnome-remote-desktop.enable = true;
+    };
   };
   
   # Touchegg X11 Gestures
