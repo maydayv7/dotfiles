@@ -26,6 +26,11 @@
       };
       userName = "maydayv7";
       userEmail = "maydayv7@gmail.com";
+      signing =
+      {
+        key = "39136928FE7BDF1A";
+        signByDefault = true;
+      };
     };
     
     # Z Shell

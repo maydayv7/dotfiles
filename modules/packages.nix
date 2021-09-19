@@ -12,6 +12,8 @@
     # Utilities
     git
     git-crypt
+    gnupg
+    pinentry-gnome
     lolcat
     neofetch
     touchegg
@@ -48,7 +50,7 @@
     gnomeExtensions.screenshot-locations
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.vitals
-    x11-gestures
+    gnomeExtensions.x11-gestures
   ];
   
   # Excluded GNOME Packages
