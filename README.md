@@ -24,6 +24,7 @@ Here is an overview of the folders' structure:
 ├── secrets
 ├── setup.sh
 ├── overlays
+│   ├── patches
 │   └── packages
 ├── volatile
 │   ├── repos
