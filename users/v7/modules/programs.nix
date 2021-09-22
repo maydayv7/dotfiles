@@ -50,7 +50,7 @@
         bye = "exit";
         config = (builtins.readFile ../../../volatile/path);
         update = "sudo nix-channel --update";
-        upgrade = "sudo nixos-rebuild switch";
+        upgrade = "sudo nixos-rebuild";
         cleanup = "sudo nix-collect-garbage";
       };
       history =

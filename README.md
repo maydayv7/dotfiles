@@ -3,6 +3,10 @@ This repo contains the configuration files for my personal multi-pc NixOS setup
 
 ![desktop](./src/desktop.png)
 
+## Requirements:
++ Intel CPU + iGPU
++ UEFI System (for use with GRUB EFI Bootloader)
+
 ## Programs
 | Type                | Program                     |
 | :------------------ | :-------------------------: |
@@ -60,9 +64,9 @@ Here is an overview of the folders' structure:
 - `overlays`: overrides for pre-built packages
 - `packages`: locally built custom packages
 
-## Install
+## Installation
 Install NixOS using the following commands:  
-*(Please note that the partition label along with the `esp` and `boot` flags must be set on the ESP)*
+*Note that the partition label along with the `esp` and `boot` flags must be set on the EFI System Partition*
 <pre><code>mkfs.ext4 -L System <i>/path/to/root</i>
 mkswap -L swap <i>/path/to/swap</i>
 mkfs.fat -F 32 -n boot <i>/path/to/esp</i>
@@ -79,3 +83,4 @@ git clone --recurse-submodules https://github.com/maydayv7/nixos-config.git && c
 git-crypt unlock <i>/path/to/key</i>
 chmod +x setup.sh && ./setup.sh
 </code></pre>
+And follow the instructions to setup and rebuild the system

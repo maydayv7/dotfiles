@@ -19,6 +19,10 @@
         edit = "sudo nano";
         hi = "echo 'Hi there. How are you?'";
         bye = "exit";
+        config = (builtins.readFile ../../../volatile/path);
+        update = "sudo nix-channel --update";
+        upgrade = "sudo nixos-rebuild";
+        cleanup = "sudo nix-collect-garbage";
       };
       plugins =
       [

@@ -13,7 +13,7 @@
   ];
   
   # System Configuration
-  system.stateVersion = "21.05";
+  system.stateVersion = (builtins.readFile ./volatile/repos/nixos);
   users.mutableUsers = false;
   nix.trustedUsers = [ "root" "v7" ];
   

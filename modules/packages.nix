@@ -12,8 +12,6 @@
     # Utilities
     git
     git-crypt
-    gnupg
-    pinentry-gnome
     lolcat
     neofetch
     touchegg
