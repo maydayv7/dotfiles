@@ -3,7 +3,7 @@ This repo contains the configuration files for my personal multi-pc NixOS setup
 
 ![desktop](./src/desktop.png)
 
-## Requirements:
+## Requirements
 + Intel CPU + iGPU
 + UEFI System (for use with GRUB EFI Bootloader)
 

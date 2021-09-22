@@ -1,16 +1,7 @@
 { config, lib, pkgs, ... }:
 {
-  imports =
-  [
-    # Modules
-    ./modules
-    
-    # Package Overlays
-    ./overlays
-    
-    # Personal Credentials
-    ./secrets
-  ];
+  # Modulated Configuration
+  imports = (import ./modules) ++ (import ./volatile/device.nix);
   
   # System Configuration
   system.stateVersion = (builtins.readFile ./volatile/repos/nixos);

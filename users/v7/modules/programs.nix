@@ -7,6 +7,9 @@
     # Task Manager
     htop.enable = true;
     
+    # GNU Privacy Guard
+    gpg.enable = true;
+    
     # Git
     git =
     {

@@ -22,6 +22,9 @@ in
   # Home Configuration
   home-manager.users.v7 =
   {
+    # Modulated Configuration
+    imports = (import ./modules);
+    
     # User Nix Configuration
     nixpkgs.config =
     {
@@ -33,15 +36,6 @@ in
         unstable = import (import ../../volatile/repos/unstable.nix) { inherit pkgs; };
       };
     };
-    
-    imports =
-    [
-      # Configuration Modules
-      (import ./modules)
-      
-      # User Overlays
-      (import ./overlays)
-    ];
   };
   
   # Security Settings
