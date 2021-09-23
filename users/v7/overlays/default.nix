@@ -2,6 +2,6 @@
 {
   nixpkgs.overlays = 
   [
-    (import ./dconf.nix)
+    (import ./discord.nix)
   ];
 }

@@ -51,6 +51,7 @@
         edit = "sudo nano";
         hi = "echo 'Hi there. How are you?'";
         bye = "exit";
+        lol = (builtins.readFile ../config/message);
         config = (builtins.readFile ../../../volatile/path);
         update = "sudo nix-channel --update";
         upgrade = "sudo nixos-rebuild";

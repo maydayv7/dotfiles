@@ -2,7 +2,7 @@
 # https://github.com/NixOS/nixpkgs/pull/130884
 (self: super:
   {
-    sof-firmware = super.sof-firmware.overrideAttrs (_: rec
+    sof-firmware = super.sof-firmware.overrideAttrs (old: rec
     {
       version = "1.8";
       

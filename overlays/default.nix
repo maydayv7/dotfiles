@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 {
   nixpkgs.overlays = 
-  [ 
+  [
+    (import ./dconf.nix)
     (import ./touchegg.nix)
     (import ./plymouth.nix)
     (import ./sof-firmware.nix)

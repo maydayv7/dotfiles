@@ -2,7 +2,7 @@
 # https://github.com/NixOS/nixpkgs/pull/116393
 (self: super:
   {
-    touchegg = super.touchegg.overrideAttrs (_: rec
+    touchegg = super.touchegg.overrideAttrs (old: rec
     {
       version = "2.0.11";
       

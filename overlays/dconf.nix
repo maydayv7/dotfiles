@@ -2,7 +2,7 @@
 # https://github.com/gvolpe/dconf2nix
 (self: super:
   {
-    dconf2nix = super.dconf2nix.overrideAttrs (_: rec 
+    dconf2nix = super.dconf2nix.overrideAttrs (old: rec 
     {
       src = super.fetchFromGitHub
       {

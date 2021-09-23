@@ -2,7 +2,8 @@
 # https://gitlab.freedesktop.org/plymouth/plymouth
 self: super:
 {
-  plymouth = super.plymouth.overrideAttrs (old: {
+  plymouth = super.plymouth.overrideAttrs (old: rec
+  {
     src = super.fetchFromGitLab
     {
       domain = "gitlab.freedesktop.org";

@@ -1,11 +1,9 @@
 # My NixOS Setup
-This repo contains the configuration files for my personal multi-pc NixOS setup
+This repo contains the configuration files for my continuously evolving personal multi-pc NixOS setup
+
+I am pretty new to Nix, and my configuration is still WIP. If you have any doubts or suggestion, feel free to open an issue
 
 ![desktop](./src/desktop.png)
-
-## Requirements
-+ Intel CPU + iGPU
-+ UEFI System (for use with GRUB EFI Bootloader)
 
 ## Programs
 | Type                | Program                     |
@@ -82,3 +80,20 @@ git-crypt unlock <i>/path/to/key</i>
 chmod +x setup.sh && ./setup.sh
 </code></pre>
 And follow the instructions to setup and rebuild the system
+
+## Notes
+#### Requirements
++ Intel CPU + iGPU
++ UEFI System (for use with GRUB EFI Bootloader)
+
+#### Encryption
+The contents of `secrets` is encrypted is using `git-crypt`. It is the location where sensitive information and authentication credentials are stored
+
+#### Important Links
+
++ [NixOS Manual](https://nixos.org/manual/nixpkgs/stable)
++ [NixOS Discourse](https://discourse.nixos.org/)
++ [NixOS Package Search](https://search.nixos.org/)
++ [NixPkgs Repo](https://github.com/NixOS/nixpkgs)
++ [Nix User Repository](https://github.com/nix-community/NUR)
++ [home-manager Options](https://rycee.gitlab.io/home-manager/options.html)
