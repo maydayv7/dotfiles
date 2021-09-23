@@ -23,17 +23,22 @@ in
   home-manager.users.v7 =
   {
     # Modulated Configuration
-    imports = (import ./modules);
+    imports = (import ./modules) ++ (import ./modules/dconf);
     
-    # User Nix Configuration
-    nixpkgs.config =
+    nixpkgs =
     {
-      allowUnfree = true;
-      packageOverrides = pkgs:
+      # User Package Overlays
+      overlays = (import ./overlays);
+      # User Nix Configuration
+      config =
       {
-        # Additional Repos
-        nur = import (import ../../volatile/repos/nur.nix) { inherit pkgs; };
-        unstable = import (import ../../volatile/repos/unstable.nix) { inherit pkgs; };
+        allowUnfree = true;
+        packageOverrides = pkgs:
+        {
+          # Additional Repos
+          nur = import (import ../../volatile/repos/nur.nix) { inherit pkgs; };
+          unstable = import (import ../../volatile/repos/unstable.nix) { inherit pkgs; };
+        };
       };
     };
   };

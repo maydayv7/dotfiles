@@ -3,23 +3,19 @@
 # Shows the output of every command
 set +x
 
-# Precautionary Measure
-rm -f ./volatile/device.nix
-rm -f ./volatile/path
-
 # System Setup
 setup_system()
 {
   read -p "Do you want to setup the system? (Y/N): " choice
     case $choice in
-      [Yy]* ) ;;
+      [Yy]* ) rm -f ./device.nix; rm -f ./volatile/path;;
       [Nn]* ) exit;;
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
   printf "Setting up System...\n"
   sudo rm -rf /etc/nixos
-  echo "[" >> ./volatile/device.nix
-  echo "../users/root " >> ./volatile/device.nix
+  echo "[" >> ./device.nix
+  echo "./users/root " >> ./device.nix
   read -p "Enter path to NixOS configuration files: " path
   echo $path >> ./volatile/path
 }
@@ -28,13 +24,13 @@ setup_system()
 setup_vortex()
 {
   printf "Setting up Vortex...\n"
-  echo "../modules/devices/vortex" >> ./volatile/device.nix
+  echo "./modules/devices/vortex" >> ./device.nix
 }
 
 setup_futura()
 {
   printf "Setting up Futura...\n"
-  echo "../modules/devices/futura" >> ./volatile/device.nix
+  echo "./modules/devices/futura" >> ./device.nix
 }
 
 setup_device()
@@ -51,7 +47,7 @@ setup_device()
 setup_user()
 {
   printf "Setting up User V7...\n"
-  echo "../users/v7" >> ./volatile/device.nix
+  echo "./users/v7" >> ./device.nix
   mkdir -p /home/v7/Pictures/Screenshots
   printf "<- Setting Profile Picture ->\n"
   sudo cp -av ./users/v7/config/images/Profile.png /var/lib/AccountsService/icons/v7
@@ -77,5 +73,5 @@ setup_device
 printf "\n"
 setup_user
 printf "\n"
-echo "]" >> ./volatile/device.nix
+echo "]" >> ./device.nix
 rebuild

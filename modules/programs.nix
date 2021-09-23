@@ -12,14 +12,19 @@
       options   = "--delete-older-than 7d";
     };
   };
-  nixpkgs.config =
+  nixpkgs =
   {
-    allowUnfree = true;
-    packageOverrides = pkgs:
+    # Package Overlays
+    overlays = (import ../overlays);
+    config =
     {
-      # Additional Repos
-      nur = import (import ../volatile/repos/nur.nix) { inherit pkgs; };
-      unstable = import (import ../volatile/repos/unstable.nix) { inherit pkgs; };
+      allowUnfree = true;
+      packageOverrides = pkgs:
+      {
+        # Additional Repos
+        nur = import (import ../../volatile/repos/nur.nix) { inherit pkgs; };
+        unstable = import (import ../../volatile/repos/unstable.nix) { inherit pkgs; };
+      };
     };
   };
   

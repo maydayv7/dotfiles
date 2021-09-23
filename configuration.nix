@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   # Modulated Configuration
-  imports = (import ./modules) ++ (import ./volatile/device.nix);
+  imports = (import ./modules) ++ (import ./device.nix);
   
   # System Configuration
   system.stateVersion = (builtins.readFile ./volatile/repos/nixos);
@@ -19,6 +19,7 @@
     shells = with pkgs; [ bashInteractive zsh ];
     etc =
     {
+      # Configuration Files
       "nixos".source = (builtins.readFile ./volatile/path);
     };
   };

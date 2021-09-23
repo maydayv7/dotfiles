@@ -11,9 +11,6 @@
   # Program Configuration
   ./programs.nix
   
-  # Package Overlays
-  ../overlays
-  
   # Personal Credentials
   ../secrets
 ]
