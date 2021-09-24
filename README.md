@@ -1,7 +1,5 @@
 # My NixOS Setup
-This repo contains the configuration files for my continuously evolving personal multi-pc NixOS 21.05 setup
-
-I am pretty new to Nix, and my configuration is still WIP. If you have any doubts or suggestions, feel free to open an issue
+This repo contains the configuration files for my continuously evolving personal multi-pc **NixOS 21.05** setup
 
 ![desktop](./src/desktop.png)
 
@@ -82,6 +80,9 @@ chmod +x src/setup.sh && ./src/setup.sh
 And follow the instructions to setup and rebuild the system
 
 ## Notes
+#### Caution
+I am pretty new to Nix, and my configuration is still *WIP*. If you have any doubts or suggestions, feel free to open an issue
+
 #### Requirements
 - Intel CPU + iGPU
 - UEFI System (for use with GRUB EFI Bootloader)
