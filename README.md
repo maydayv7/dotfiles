@@ -88,7 +88,7 @@ I am pretty new to Nix, and my configuration is still *WIP*. If you have any dou
 - UEFI System (for use with GRUB EFI Bootloader)
 
 #### Encryption
-The contents of `secrets` is encrypted is using `git-crypt`. It is the location where any sensitive information and authentication credentials are stored
+The contents of `secrets` is encrypted is using `git-crypt`. It is the location where authentication credentials are stored
 
 #### Credentials
 Passwords are made using the command `mkpasswd -m sha-512` and then specified using the `hashedPassword` or by specifying the path to the plain text file containing the hashed password using the `passwordFile` option (which I have done by placing passwords in `/etc/passwords`). GPG Keys have to be externally imported (for security purposes)
@@ -96,7 +96,7 @@ Passwords are made using the command `mkpasswd -m sha-512` and then specified us
 #### Theming
 - [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
 - [Powerlevel10K](https://github.com/romkatv/powerlevel10k): P10K ZSH Theme for the fancy-looking prompt using custom configuration
-- [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration, submodule imported at `users/v7/config/firefox/`
+- [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration, git submodule imported at `users/v7/config/firefox/`
 
 #### Important Links
 

@@ -29,6 +29,8 @@ in
       fullscreen-global = false;
       watch-corners = false;
       ws-switch-wrap = true;
+      ws-switch-ignore-last = true;
+      ws-switch-indicator = true;
     };
     
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-left-0" = {
@@ -37,6 +39,7 @@ in
     
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-right-0" = {
       action = "showDesktopMon";
+      ctrl = false;
     };
     
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0" = {
@@ -51,6 +54,7 @@ in
     
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-right-0" = {
       action = "nextWorkspace";
+      ctrl = false;
     };
     
     "org/gnome/shell/extensions/just-perfection" = {
