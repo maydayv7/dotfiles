@@ -1,60 +1,54 @@
 #! /usr/bin/env bash
 # My NixOS Setup Script
+
 # Shows the output of every command
 set +x
 
+# Privilege Escalation
+sudo -v
+
 # System Setup
-setup_system()
+function setup_system()
 {
   read -p "Do you want to setup the system? (Y/N): " choice
     case $choice in
-      [Yy]* ) rm -f ./device.nix; rm -f ./volatile/path;;
+      [Yy]* ) rm -f ./src/path;;
       [Nn]* ) exit;;
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
   printf "Setting up System...\n"
   sudo rm -rf /etc/nixos
-  echo "[" >> ./device.nix
-  echo "./users/root " >> ./device.nix
   read -p "Enter path to NixOS configuration files: " path
-  echo $path >> ./volatile/path
-}
-
-# Device Specific Setup
-setup_vortex()
-{
-  printf "Setting up Vortex...\n"
-  echo "./modules/devices/vortex" >> ./device.nix
-}
-
-setup_futura()
-{
-  printf "Setting up Futura...\n"
-  echo "./modules/devices/futura" >> ./device.nix
-}
-
-setup_device()
-{
+  echo $path >> ./src/path
+  printf "\nSetting up Device...\n"
   read -p "Do you want to setup the device Vortex or Futura? (1/2): " choice
     case $choice in
-      [1]* ) setup_vortex;;
-      [2]* ) setup_futura;;
+      [1]* ) device=Vortex; printf "\n"; setup_v7;;
+      [2]* ) device=Futura; printf "\n"; setup_navya;;
       * ) echo "Please answer (1)Vortex or (2)Futura.";;
     esac
 }
 
 # Setup for User V7
-setup_user()
+function setup_v7()
 {
   printf "Setting up User V7...\n"
-  echo "./users/v7" >> ./device.nix
+  USER=v7
   mkdir -p /home/v7/Pictures/Screenshots
-  printf "<- Setting Profile Picture ->\n"
-  sudo cp -av ./users/v7/config/images/Profile.png /var/lib/AccountsService/icons/v7
+  sudo cp -av ./users/dotfiles/images/Profile.png /var/lib/AccountsService/icons/v7
+}
+
+# Setup for User Navya
+function setup_navya()
+{
+  printf "Setting up User Navya...\n"
+  USER=navya
+  mkdir -p /home/navya/Pictures/Screenshots
+  sudo cp -av ./users/dotfiles/images/Profile.png /var/lib/AccountsService/icons/navya
 }
 
 # Rebuild System
-rebuild()
+function rebuild()
 {
   read -p "Do you want to rebuild the system? (Y/N): " choice
     case $choice in
@@ -63,15 +57,12 @@ rebuild()
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
   printf "Rebuilding System...\n"
-  sudo nixos-rebuild switch -I nixos-config=./configuration.nix
+  sudo nixos-rebuild switch --flake .#$device
 }
 
 # Function Call
 setup_system
 printf "\n"
-setup_device
-printf "\n"
-setup_user
-printf "\n"
-echo "]" >> ./device.nix
 rebuild
+printf "\n"
+nixos apply-user
