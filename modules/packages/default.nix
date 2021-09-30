@@ -9,6 +9,7 @@
     gscan2pdf
     libreoffice
     lollypop
+    onlyoffice-bin
     
     # Internet
     google-chrome
@@ -21,8 +22,5 @@
     lolcat
     neofetch
     touchegg
-    
-    # Unstable Packages
-    #onlyoffice-bin
   ];
 }

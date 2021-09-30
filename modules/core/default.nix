@@ -3,10 +3,7 @@ let
   path = (builtins.readFile ../../src/path);
   scripts = import ./scripts.nix { inherit pkgs; };
 in
-{
-  # Authentication Credentials
-  imports = [ ../../secrets ];
-  
+{  
   # User Management
   users.mutableUsers = false;
   nix.trustedUsers = [ "root" "v7" ];

@@ -242,11 +242,6 @@ in
       action = "showApplications";
     };
     
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-right-0" = {
-      action = "showDesktopMon";
-      ctrl = false;
-    };
-    
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0" = {
       action = "toggleOverview";
       fullscreen = true;

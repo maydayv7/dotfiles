@@ -27,8 +27,8 @@ with builtins;
     homeDirectory = "/home/${username}";
     configuration =
     let
-      mkmodule = name: import (../users + "/${name}");
-      user_modules = map (r: mkmodule r) modules;
+      mkModule = name: import (../users + "/${name}");
+      user_modules = map (r: mkModule r) modules;
     in
     {
       # Modulated Configuration Imports

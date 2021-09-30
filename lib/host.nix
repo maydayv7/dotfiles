@@ -4,8 +4,19 @@ with builtins;
   mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, password, modprobe, modules, cpuCores, users, version }:
   let
     mkModule = name: import (../modules + "/${name}");
-    sys_modules = (map (r: mkModule r) modules);
-    sys_users = (map (u: user.mkUser u) users);
+    system_modules = (map (r: mkModule r) modules);
+    system_users = (map (u: user.mkUser u) users);
+    shared_modules =
+    [
+      # Shared System Configuration
+      ../modules/core
+      ../modules/boot
+      ../modules/hardware
+      ../modules/networking
+      
+      # Authentication Credentials
+      ../secrets
+    ];
   in lib.nixosSystem
   {
     inherit system;
@@ -14,7 +25,7 @@ with builtins;
     [
       {
         # Modulated Configuration Imports
-        imports = sys_modules ++ sys_users;
+        imports = shared_modules ++ system_modules ++ system_users;
         
         # Device Hostname
         networking.hostName = "${name}";

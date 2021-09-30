@@ -78,10 +78,5 @@
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.vitals
     gnomeExtensions.x11-gestures
-    
-    # Unstable Packages
-    #fragments
-    #markets
-    #wike
   ];
 }

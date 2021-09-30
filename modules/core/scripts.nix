@@ -11,12 +11,10 @@ in
       echo "--------------------------------------------------------------------------------"
       echo " Applying User Settings... "
       echo "--------------------------------------------------------------------------------"
- 
-      pushd /etc/nixos
-      nix build .#homeManagerConfigurations.$USER.activationPackage
+      
+      nix build /etc/nixos#homeManagerConfigurations.$USER.activationPackage
       ./result/activate
       rm -rf ./result
-      popd
     }
     
     function applySystem()
@@ -25,20 +23,18 @@ in
       echo "--------------------------------------------------------------------------------"
       echo " Applying Machine Settings... "
       echo "--------------------------------------------------------------------------------"
- 
-      pushd /etc/nixos
+      
       if [ -z "$2" ]; then
-        sudo nixos-rebuild switch --flake .#
+        sudo nixos-rebuild switch --flake /etc/nixos#
       elif [ $2 = "--boot" ]; then
-        sudo nixos-rebuild boot --flake .#
+        sudo nixos-rebuild boot --flake /etc/nixos#
       elif [ $2 = "--test" ]; then
-        sudo nixos-rebuild test --flake .#
+        sudo nixos-rebuild test --flake /etc/nixos#
       elif [ $2 = "--check" ]; then
-        nixos-rebuild dry-activate --flake .#
+        nixos-rebuild dry-activate --flake /etc/nixos#
       else
         echo "Unknown option $2"
       fi
-      popd
     }
     
     if [ -n "$INNIXSHELLHOME" ]; then
@@ -49,19 +45,19 @@ in
     
     case $1 in
     "clean")
-      echo "Running Garbage collection"
+      echo "Running Garbage collection..."
       nix-store --gc
-      echo "Deduplication running...this may take awhile"
+      echo "Deduplication running (This may take awhile)..."
       nix-store --optimise
     ;;
     "update")
-      echo "Updating dotfiles flake..."
+      echo "Updating flake inputs..."
       pushd /etc/nixos
       nix flake update
       popd
     ;;
     "apply")
-      applyMachine
+      applySystem
       applyUser
     ;;
     "apply-system")

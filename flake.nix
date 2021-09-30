@@ -7,9 +7,6 @@
     # NixOS Stable Release
     nixpkgs.url = "nixpkgs/nixos-21.05";
     
-    # Unstable Packages
-    unstable.url = "nixpkgs/nixos-unstable";
-    
     # Home Manager
     home-manager =
     {
@@ -18,7 +15,7 @@
     };
   };
   
-  outputs = { self, nixpkgs, unstable, home-manager }:
+  outputs = { self, nixpkgs, home-manager }:
   let
     # Architecture
     system = "x86_64-linux";
@@ -60,7 +57,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "options kvm_intel nested=1";
         cpuCores = 8;
-        modules = [ "boot" "core" "fonts" "git" "gnome" "hardware" "libvirt" "networking" "packages" "security" "services" "ssd" "xorg" ];
+        modules = [ "fonts" "git" "gnome" "libvirt" "packages" "security" "services" "ssd" "xorg" ];
         users =
         [
           {
@@ -85,7 +82,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "";
         cpuCores = 4;
-        modules = [ "boot" "core" "fonts" "git" "gnome" "hardware" "networking" "packages" "security" "services" "xorg" ];
+        modules = [ "fonts" "git" "gnome" "packages" "security" "services" "xorg" ];
         users =
         [
           {
