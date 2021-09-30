@@ -1,5 +1,7 @@
-# My NixOS Setup
-This repo contains the configuration files for my continuously evolving personal multi-pc **NixOS 21.05** setup
+# My PC Dotfiles
+This repo contains the configuration files for my continuously evolving multi-PC setup
+## OS
+**NixOS** 21.05
 
 ![desktop](./src/desktop.png)
 
@@ -16,12 +18,12 @@ This repo contains the configuration files for my continuously evolving personal
 Here is an overview of the folders' structure:
 
 ```
-┌── path
-├── flake.nix
+┌── flake.nix
 ├── flake.lock
 ├── secrets
 ├── users
 ├── src
+│   ├── path
 │   └── setup.sh
 ├── modules
 │   └── core
@@ -60,7 +62,7 @@ After rebooting, run the following commands:
 git-crypt unlock <i>/path/to/key</i>
 chmod +x src/setup.sh && ./src/setup.sh
 </code></pre>
-And follow the instructions to setup and rebuild the system
+And follow the instructions to setup and build the system
 
 ## Notes
 #### Caution
@@ -88,7 +90,7 @@ A system management script has been included in `modules/core/scripts.nix` and c
 #### Theming
 - [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
 - [Powerlevel10K](https://github.com/romkatv/powerlevel10k): P10K ZSH Theme for the fancy-looking prompt using custom configuration
-- [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration, `git submodule` imported at `users/v7/config/firefox/`
+- [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration, `git submodule` imported at `users/firefox/theme`
 - [DNOME Discord Theme](https://github.com/GeopJr/DNOME): Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
 
 #### Important Links

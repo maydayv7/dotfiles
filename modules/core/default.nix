@@ -5,7 +5,7 @@ let
 in
 {
   # Authentication Credentials
-  imports = (import ../../secrets);
+  imports = [ ../../secrets ];
   
   # User Management
   users.mutableUsers = false;
