@@ -5,7 +5,7 @@
   inputs =
   {
     # NixOS Stable Release
-    nixpkgs.url = "nixpkgs/nixos-21.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
     
     # Home Manager
     home-manager =
@@ -15,7 +15,7 @@
     };
   };
   
-  outputs = { self, nixpkgs, home-manager }:
+  outputs = inputs @ { self, nixpkgs, home-manager, unstable, ... }:
   let
     # Architecture
     system = "x86_64-linux";
@@ -42,7 +42,7 @@
     inherit (util) host;
     inherit (util) user;
   in
-  {    
+  {
     nixosConfigurations =
     {
       # Device Specific Configuration

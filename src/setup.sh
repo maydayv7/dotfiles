@@ -17,6 +17,8 @@ function setup_system()
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
   printf "Setting up System...\n"
+  rm $HOME/.config/nix/nix.conf
+  echo "experimental-features = nix-command flakes" >> $HOME/.config/nix/nix.conf
   sudo rm -rf /etc/nixos
   read -p "Enter path to NixOS configuration files: " path
   echo $path >> ./src/path

@@ -60,6 +60,7 @@ nixos-install
 After rebooting, run the following commands:
 <pre><code>git clone --recurse-submodules https://github.com/maydayv7/nixos-config.git && cd nixos-config
 git-crypt unlock <i>/path/to/key</i>
+nix-env -iA nixpkgs.nixUnstable
 chmod +x src/setup.sh && ./src/setup.sh
 </code></pre>
 And follow the instructions to setup and build the system
