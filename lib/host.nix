@@ -1,4 +1,4 @@
-{ system, pkgs, home-manager, lib, user, ... }:
+{ system, lib, user, inputs, pkgs, home-manager, ... }:
 with builtins;
 {
   mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, password, modprobe, modules, cpuCores, users, version }:
@@ -42,6 +42,7 @@ with builtins;
         
         # Package Configuration
         nixpkgs.pkgs = pkgs;
+        nixpkgs.overlays = (import ../overlays);
         nix.maxJobs = lib.mkDefault cpuCores;
         system.stateVersion = version;
       }

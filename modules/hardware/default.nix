@@ -49,6 +49,7 @@
   services.printing.enable = true;
   
   # Power Management
+  services.earlyoom.enable = true;
   services.thermald.enable = true;
   powerManagement =
   {

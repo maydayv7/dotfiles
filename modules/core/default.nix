@@ -8,9 +8,6 @@ in
   users.mutableUsers = false;
   nix.trustedUsers = [ "root" "v7" ];
   
-  # Package Overrides
-  nixpkgs.overlays = (import ../../overlays);
-  
   # System Scripts
   environment.systemPackages = with pkgs; [ scripts.management ];
   
@@ -44,7 +41,7 @@ in
     shells = with pkgs; [ bashInteractive zsh ];
     etc =
     {
-      # Configuration Files
+      # System Configuration Files
       "nixos".source = path;
     };
   };

@@ -15,7 +15,7 @@
     };
   };
   
-  outputs = inputs @ { self, nixpkgs, home-manager, unstable, ... }:
+  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
   let
     # Architecture
     system = "x86_64-linux";
@@ -38,7 +38,7 @@
     inherit (lib) attrValues;
     
     # Custom Functions
-    util = import ./lib { inherit system pkgs home-manager lib; };
+    util = import ./lib { inherit system lib inputs pkgs home-manager; };
     inherit (util) host;
     inherit (util) user;
   in
