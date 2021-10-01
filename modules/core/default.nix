@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 let
-  path = (builtins.readFile ../../src/path);
   scripts = import ./scripts.nix { inherit pkgs; };
 in
 {  
@@ -39,11 +38,6 @@ in
       EDITOR = "nano";
     };
     shells = with pkgs; [ bashInteractive zsh ];
-    etc =
-    {
-      # System Configuration Files
-      "nixos".source = path;
-    };
   };
   
   # Localization

@@ -26,6 +26,9 @@
     # Root Password
     password = "/etc/passwords/root";
     
+    # System Configuration Files Location
+    path = (builtins.readFile ./src/path);
+    
     # Package Configuration
     pkgs = import nixpkgs
     {
@@ -48,8 +51,7 @@
       # Device Specific Configuration
       Vortex = host.mkHost
       {
-        inherit version;
-        inherit password;
+        inherit version password path;
         name = "Vortex";
         kernelPackage = pkgs.linuxPackages_lqx;
         initrdMods = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
@@ -73,8 +75,7 @@
       
       Futura = host.mkHost
       {
-        inherit version;
-        inherit password;
+        inherit version password path;
         name = "Vortex";
         kernelPackage = pkgs.linuxPackages_lqx;
         initrdMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];

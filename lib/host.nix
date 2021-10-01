@@ -1,7 +1,7 @@
 { system, lib, user, inputs, pkgs, home-manager, ... }:
 with builtins;
 {
-  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, password, modprobe, modules, cpuCores, users, version }:
+  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, password, modprobe, modules, cpuCores, users, version, path }:
   let
     mkModule = name: import (../modules + "/${name}");
     system_modules = (map (r: mkModule r) modules);
@@ -33,6 +33,9 @@ with builtins;
         # Root User Configuration
         users.extraUsers.root.passwordFile = password;
         
+        # System Configuration Files Location
+        environment.etc."nixos".source = path;
+                
         # Boot Configuration
         boot.initrd.availableKernelModules = initrdMods;
         boot.kernelModules = kernelMods;
