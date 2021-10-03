@@ -1,4 +1,5 @@
 # My PC Dotfiles
+[![version](https://img.shields.io/badge/version-0.5-green.svg)](https://semver.org)  
 This repo contains the configuration files for my continuously evolving multi-PC setup
 ## OS
 **NixOS** 21.05  
@@ -57,8 +58,8 @@ nixos-install
 After rebooting, run the following commands:
 <pre><code>sudo rm -rf /etc/nixos && cd /etc
 sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
-sudo git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
-chmod +x .src/setup.sh && ./.src/setup.sh
+git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
+cd nixos && chmod +x .src/setup.sh && ./.src/setup.sh
 </code></pre>
 And follow the instructions to setup and build the system
 
@@ -86,7 +87,7 @@ A system management script has been included in `modules/core/scripts.nix` and c
 #### Theming
 - [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
 - [Powerlevel10K](https://github.com/romkatv/powerlevel10k): P10K ZSH Theme for the fancy-looking prompt using custom configuration
-- [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration, `git submodule` imported at `users/firefox/theme`
+- [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration, `git submodule` imported at `users/firefox/theme/firefox-gnome-theme`
 - [DNOME Discord Theme](https://github.com/GeopJr/DNOME): Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
 
 #### Important Links
