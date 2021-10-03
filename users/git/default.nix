@@ -18,6 +18,7 @@
       color.ui = "auto";
       pull.rebase = "false";
       init.defaultBranch = "master";
+      credential.helper = "store";
     };
     userName = "maydayv7";
     userEmail = "maydayv7@gmail.com";

@@ -50,7 +50,7 @@
   home.file =
   {
     # Z Shell Prompt
-    ".p10k.zsh".source = ./zsh-theme;
+    ".p10k.zsh".source = ./prompt;
     
     # Neofetch Config
     ".config/neofetch/config.conf".source = ./neofetch;
