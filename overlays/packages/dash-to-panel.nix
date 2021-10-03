@@ -8,8 +8,8 @@ stdenv.mkDerivation rec
   {
     owner = "maydayv7";
     repo = "dash-to-panel";
-    rev = "0d477b89559d246f49951766f01b7c466b95fe03";
-    sha256 = "1iakf7rq32z97cfh0xkgkzl00byxway1mvk58wsd3xlp7mm9kv1s";
+    rev = "1ffb608df053591919b42e1f06dbe4d757698ae5";
+    sha256 = "0yihkpfg1kpnjb6wr331r3kzy0av2qw34wgk1wjqcpa5rf3iibj3";
   };
   
   buildInputs =

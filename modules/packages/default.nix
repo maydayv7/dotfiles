@@ -21,6 +21,5 @@
     dconf2nix
     lolcat
     neofetch
-    touchegg
   ];
 }

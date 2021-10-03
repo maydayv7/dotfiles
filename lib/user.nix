@@ -1,7 +1,7 @@
 { pkgs, home-manager, lib, system, ... }:
 with builtins;
 {
-  mkUser = { name, description, groups, uid, shell, passwordFile, ... }:
+  mkUser = { name, description, groups, uid, shell, ... }:
   {
     # user Configuration
     users.users."${name}" =
@@ -15,7 +15,7 @@ with builtins;
       initialPassword = "password";
       useDefaultShell = false;
       shell = shell;
-      passwordFile = passwordFile;
+      passwordFile = "/etc/nixos/secrets/passwords/${name}";
     };
   };
   

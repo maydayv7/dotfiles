@@ -23,12 +23,6 @@
     # NixOS Version
     version = "21.05";
     
-    # Root Password
-    password = "/etc/passwords/root";
-    
-    # System Configuration Files Location
-    path = (builtins.readFile ./src/path);
-    
     # Package Configuration
     pkgs = import nixpkgs
     {
@@ -51,7 +45,7 @@
       # Device Specific Configuration
       Vortex = host.mkHost
       {
-        inherit version password path;
+        inherit version;
         name = "Vortex";
         kernelPackage = pkgs.linuxPackages_lqx;
         initrdMods = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
@@ -59,7 +53,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "options kvm_intel nested=1";
         cpuCores = 8;
-        modules = [ "fonts" "git" "gnome" "libvirt" "packages" "security" "services" "ssd" "xorg" ];
+        modules = [ "fonts" "git" "gnome" "libvirt" "packages" "security" "ssd" "xorg" ];
         users =
         [
           {
@@ -68,14 +62,13 @@
             groups = [ "wheel" "networkmanager" "audio" "video" "cdrom" "disk" "kvm" "libvirtd" ];
             uid = 1000;
             shell = pkgs.zsh;
-            passwordFile = "/etc/passwords/v7";
           }
         ];
       };
       
       Futura = host.mkHost
       {
-        inherit version password path;
+        inherit version;
         name = "Vortex";
         kernelPackage = pkgs.linuxPackages_lqx;
         initrdMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
@@ -83,7 +76,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "";
         cpuCores = 4;
-        modules = [ "fonts" "git" "gnome" "packages" "security" "services" "xorg" ];
+        modules = [ "fonts" "git" "gnome" "packages" "security" "xorg" ];
         users =
         [
           {
@@ -92,7 +85,6 @@
             groups = [ "wheel" "networkmanager" ];
             uid = 1000;
             shell = pkgs.zsh;
-            passwordFile = "/etc/passwords/navya";
           }
         ];
       };

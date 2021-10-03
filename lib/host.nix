@@ -1,7 +1,7 @@
 { system, lib, user, inputs, pkgs, home-manager, ... }:
 with builtins;
 {
-  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, password, modprobe, modules, cpuCores, users, version, path }:
+  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, modules, cpuCores, users, version }:
   let
     mkModule = name: import (../modules + "/${name}");
     system_modules = (map (r: mkModule r) modules);
@@ -13,9 +13,6 @@ with builtins;
       ../modules/boot
       ../modules/hardware
       ../modules/networking
-      
-      # Authentication Credentials
-      ../secrets
     ];
   in lib.nixosSystem
   {
@@ -31,11 +28,8 @@ with builtins;
         networking.hostName = "${name}";
         
         # Root User Configuration
-        users.extraUsers.root.passwordFile = password;
+        users.extraUsers.root.passwordFile = "/etc/nixos/secrets/passwords/root";
         
-        # System Configuration Files Location
-        environment.etc."nixos".source = path;
-                
         # Boot Configuration
         boot.initrd.availableKernelModules = initrdMods;
         boot.kernelModules = kernelMods;

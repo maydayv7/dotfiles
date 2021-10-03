@@ -10,11 +10,11 @@ in
     {
       echo "--------------------------------------------------------------------------------"
       echo " Applying User Settings... "
-      echo "--------------------------------------------------------------------------------"
       
       nix build /etc/nixos#homeManagerConfigurations.$USER.activationPackage
       ./result/activate
       rm -rf ./result
+      echo "--------------------------------------------------------------------------------"
     }
     
     function applySystem()
@@ -22,7 +22,6 @@ in
       sudo -v
       echo "--------------------------------------------------------------------------------"
       echo " Applying Machine Settings... "
-      echo "--------------------------------------------------------------------------------"
       
       if [ -z "$2" ]; then
         sudo nixos-rebuild switch --flake /etc/nixos#
@@ -35,6 +34,7 @@ in
       else
         echo "Unknown option $2"
       fi
+      echo "--------------------------------------------------------------------------------"
     }
     
     if [ -n "$INNIXSHELLHOME" ]; then
@@ -51,10 +51,8 @@ in
       nix-store --optimise
     ;;
     "update")
-      echo "Updating flake inputs..."
-      pushd /etc/nixos
-      nix flake update
-      popd
+      echo "Updating Flake inputs..."
+      nix flake update /etc/nixos
     ;;
     "apply")
       applySystem
@@ -73,7 +71,7 @@ in
       echo "Tool for Nix Operating System Management"
       echo ""
       echo "Usage:"
-      echo "update        - Updates system flake inputs"
+      echo "update        - Updates system Flake inputs"
       echo "apply         - Applies both user and system configuration"
       echo "apply-system  - Applies system configuration"
       echo "apply-user    - Applies user home-manager configuration"

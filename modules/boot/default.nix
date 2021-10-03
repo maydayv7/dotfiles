@@ -11,7 +11,7 @@
     # Boot Loader
     loader =
     {
-      systemd-boot.enable = false;
+      timeout = 0;
       efi =
       {
         canTouchEfiVariables = true;
@@ -22,19 +22,7 @@
         efiSupport = true;
         device = "nodev";
         splashImage = null;
-        extraConfig =
-        "
-        set timeout_style=hidden
-        if keystatus ; then
-          if keystatus --shift ; then
-            set timeout=-1
-          else
-            set timeout=0
-          fi
-        else
-          set timeout=5
-        fi
-        ";
+        extraConfig = "set timeout_style=hidden";
       };
     };
     

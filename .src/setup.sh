@@ -12,16 +12,14 @@ function setup_system()
 {
   read -p "Do you want to setup the system? (Y/N): " choice
     case $choice in
-      [Yy]* ) rm -f ./src/path;;
+      [Yy]* ) rm -f ./path;;
       [Nn]* ) exit;;
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
   printf "Setting up System...\n"
-  rm $HOME/.config/nix/nix.conf
+  nix-env -iA nixos.nixUnstable nixos.git nixos.git-crypt
+  rm -f $HOME/.config/nix/nix.conf
   echo "experimental-features = nix-command flakes" >> $HOME/.config/nix/nix.conf
-  sudo rm -rf /etc/nixos
-  read -p "Enter path to NixOS configuration files: " path
-  echo $path >> ./src/path
   printf "\nSetting up Device...\n"
   read -p "Do you want to setup the device Vortex or Futura? (1/2): " choice
     case $choice in
