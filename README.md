@@ -1,10 +1,10 @@
 # My PC Dotfiles
-[![version](https://img.shields.io/badge/version-v0.5pre-yellow.svg)](https://semver.org)  
+[![Version](https://img.shields.io/badge/version-v0.5pre-yellow.svg)](https://semver.org)  
 This repo contains the configuration files for my continuously evolving multi-PC setup
 ## OS
 **NixOS** 21.05  
 
-[![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
+[![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
 ![desktop](./.src/desktop.png)
 
@@ -25,6 +25,7 @@ Here is an overview of the file hierarchy:
 ├── flake.lock
 ├── secrets
 ├── users
+│   └── dotfiles
 ├── modules
 │   └── core
 ├── packages
@@ -56,7 +57,7 @@ After rebooting, run the following commands:
 <pre><code>sudo rm -rf /etc/nixos && cd /etc
 sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
-cd nixos && chmod +x .src/setup.sh && ./.src/setup.sh
+cd nixos && chmod +x .setup.sh && ./.setup.sh
 </code></pre>
 And follow the instructions to setup and build the system
 
@@ -79,7 +80,7 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 ##### Credentials
 The `secrets` directory is a `git submodule` pointing to a private repository containing passwords and other authentication credentials. User passwords are specified using the `passwordFile` option
 ##### Scripts
-A system management script has been included in `modules/core/scripts.nix` and can be invoked with the command `nixos`, used to apply user and system configuration changes or to perform various other useful functions. Also, a system setup script has been included at `.src/setup.sh` (see the Installation section)
+A system management script has been included in `modules/core/scripts.nix` and can be invoked with the command `nixos`, used to apply user and system configuration changes or to perform various other useful functions. Also, a system setup script has been included (see the Installation section)
 
 #### Theming
 - [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool

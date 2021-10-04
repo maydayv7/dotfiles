@@ -1,0 +1,202 @@
+
+---------------------------------- raw 1 ---------------------------------------
+
+you can choose where is the beginning and the end of the ring
+you can choose where is the center of the ring
+
+ring1
+    graph_start_angle=270
+    graph_unit_angle=2.7
+    x=40
+    y=40
+
+ring2
+    graph_start_angle=0
+    graph_unit_angle=3.59
+    x=120
+    y=40
+ring3
+    graph_start_angle=0
+    graph_unit_angle=1.8
+    x=160
+    y=40
+
+---------------------------------- raw 2 ---------------------------------------
+
+you can choose the radius and the thickness of the ring
+
+ring1
+    graph_radius=10
+    graph_thickness=5
+
+ring2
+    graph_radius=25
+    graph_thickness=10
+
+ring3
+    graph_radius=45
+    graph_thickness=5
+
+---------------------------------- raw 3 ---------------------------------------
+
+you can choose differents indicators of the value
+
+ring1
+    background:
+    graph_bg_colour=0xffffff      : white
+    graph_bg_alpha=0.1
+
+    no foreground:
+    graph_fg_colour=0xFFFFFF
+    graph_fg_alpha=0.0            : transparent
+
+    hand:
+    hand_fg_colour=0xFFAAAA
+    hand_fg_alpha=1.0             : full opacity
+
+
+ring2
+    background:
+    graph_bg_colour=0xffffff
+    graph_bg_alpha=0.1
+
+    foreground:
+    graph_fg_colour=0xFFFFFF
+    graph_fg_alpha=0.3
+
+    hand:
+    hand_fg_colour=0xFFAAAA       : red
+    hand_fg_alpha=1.0             : full opacity
+
+
+ring3
+    background:
+    graph_bg_colour=0xffffff
+    graph_bg_alpha=0.1
+
+    foreground:
+    graph_fg_colour=0xFFFFFF
+    graph_fg_alpha=0.3
+
+    no hand:
+    hand_fg_colour=0xFFFFFF
+    hand_fg_alpha=0.0            : transparent
+
+---------------------------------- raw 4 ---------------------------------------
+
+you can choose to display graduations
+
+ring1
+    graduation_radius=25          : centered on the ring
+    graduation_thickness=10
+    graduation_mark_thickness=2   : thickness of the mark
+    graduation_unit_angle=27      : draw a mark every 27 degree
+    graduation_fg_colour=0xFFFFFF
+    graduation_fg_alpha=0.3
+
+ring2
+    graduation_radius=32          : exterior of the ring
+    graduation_thickness=4
+    graduation_mark_thickness=3
+    graduation_unit_angle=72      : draw a mark every 72 degree
+    graduation_fg_colour=0xFFFFFF
+    graduation_fg_alpha=0.3
+
+ring3
+    graduation_radius=18          : interior of the ring
+    graduation_thickness=6
+    graduation_mark_thickness=4
+    graduation_unit_angle=45      : draw a mark every 45 degree
+    graduation_fg_colour=0xFFAAAA : red
+    graduation_fg_alpha=1.0       : full opacity
+
+
+---------------------------------- raw 5 ---------------------------------------
+
+you can choose to display values
+
+ring1
+    txt_radius=38          : exterior of the ring
+    txt_weight=0           : normal
+    txt_size=10.0
+    txt_fg_colour=0xFFAAAA : red
+    txt_fg_alpha=1.0       : full opacity
+
+ring2
+    txt_radius=15          : interior of the ring
+    txt_weight=0
+    txt_size=8.0
+    txt_fg_colour=0xFFAAAA
+    txt_fg_alpha=1.0
+
+ring3
+    txt_radius=40          : exterior of the ring
+    txt_weight=1           : bold
+    txt_size=12.0
+    txt_fg_colour=0xAAAAAA
+    txt_fg_alpha=1.0
+
+
+---------------------------------- raw 6 ---------------------------------------
+
+caption and others stuff
+
+ring1
+    graph_radius=40             graph_thickness=2
+    graph_start_angle=270       graph_unit_angle=0.9    graph_unit_thickness=0.9
+    graph_bg_colour=0xffffff    graph_bg_alpha=0.1
+    graph_fg_colour=0xFFAAAA    graph_fg_alpha=1.0
+
+    txt_radius=48               txt_weight=0            txt_size=9.0
+    txt_fg_colour=0xFFAAAA      txt_fg_alpha=1.0
+
+    caption='/home'
+    caption_weight=1            caption_size=9.0
+    caption_fg_colour=0xFFFFFF  caption_fg_alpha=0.5
+
+    hand_fg_alpha=0.0
+    graduation_thickness=0
+
+
+ring2
+    graph_radius=40             graph_thickness=8
+    graph_start_angle=0         graph_unit_angle=3.59   graph_unit_thickness=1.59
+    graph_bg_colour=0xffffff    graph_bg_alpha=0.1
+    graph_fg_colour=0xFFFFFF    graph_fg_alpha=1.0
+
+    txt_radius=15               txt_weight=0            txt_size=8.0
+    txt_fg_colour=0xFFAAAA      txt_fg_alpha=0.0
+
+    hand_fg_alpha=0.0
+    graduation_thickness=0
+
+
+ring3
+    graph_radius=25             graph_thickness=5
+    graph_start_angle=0         graph_unit_angle=1.8    graph_unit_thickness=1.8
+    graph_bg_colour=0xffffff    graph_bg_alpha=0.1
+    graph_fg_colour=0xFFFFFF    graph_fg_alpha=0.3
+
+    txt_radius=40               txt_weight=1                txt_size=12.0
+    txt_fg_colour=0xAAAAAA      txt_fg_alpha=1.0
+
+    caption='disk'
+    caption_weight=1            caption_size=10.0
+    caption_fg_colour=0xFFFFFF  caption_fg_alpha=1.0
+
+    hand_fg_alpha=0.0
+    graduation_thickness=0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
