@@ -53,13 +53,13 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "options kvm_intel nested=1";
         cpuCores = 8;
-        modules = [ "fonts" "git" "gnome" "libvirt" "packages" "security" "ssd" "xorg" ];
+        modules = [ "android" "fonts" "git" "gnome" "libvirt" "packages" "security" "ssd" "xorg" ];
         users =
         [
           {
             name = "v7";
             description = "V 7";
-            groups = [ "wheel" "networkmanager" "audio" "video" "cdrom" "disk" "kvm" "libvirtd" ];
+            groups = [ "wheel" "networkmanager" "audio" "video" "cdrom" "disk" "kvm" "libvirtd" "adbusers" ];
             uid = 1000;
             shell = pkgs.zsh;
           }

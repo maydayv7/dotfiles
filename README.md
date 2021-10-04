@@ -1,5 +1,5 @@
 # My PC Dotfiles
-[![version](https://img.shields.io/badge/version-0.5-green.svg)](https://semver.org)  
+[![version](https://img.shields.io/badge/version-v0.5pre-yellow.svg)](https://semver.org)  
 This repo contains the configuration files for my continuously evolving multi-PC setup
 ## OS
 **NixOS** 21.05  

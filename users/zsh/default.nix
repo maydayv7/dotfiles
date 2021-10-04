@@ -18,7 +18,7 @@
       hi = "echo 'Hi there. How are you?'";
       bye = "exit";
       lol = (builtins.readFile ./message);
-      config = "cd /etc/nixos";
+      dotfiles = "cd /etc/nixos";
     };
     history =
     {
