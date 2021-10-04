@@ -1,5 +1,5 @@
 # My PC Dotfiles
-[![Version](https://img.shields.io/badge/version-v0.5pre-yellow.svg)](https://semver.org)  
+![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases) ![Issues](https://img.shields.io/github/issues/maydayv7/dotfiles) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles)  
 This repo contains the configuration files for my continuously evolving multi-PC setup
 ## OS
 **NixOS** 21.05  
