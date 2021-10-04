@@ -17,7 +17,7 @@
       edit = "sudo nano";
       hi = "echo 'Hi there. How are you?'";
       bye = "exit";
-      lol = (builtins.readFile ./message);
+      lol = "echo \"${builtins.readFile ./message}\"";
       dotfiles = "cd /etc/nixos";
     };
     history =

@@ -39,7 +39,7 @@ with builtins;
         
         # Package Configuration
         nixpkgs.pkgs = pkgs;
-        nixpkgs.overlays = (import ../overlays);
+        nixpkgs.overlays = (import ../packages);
         nix.maxJobs = lib.mkDefault cpuCores;
         system.stateVersion = version;
       }

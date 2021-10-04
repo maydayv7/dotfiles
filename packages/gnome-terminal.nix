@@ -5,7 +5,7 @@ self: super:
   gnome = super.gnome.overrideScope' (gself: gsuper:
   {
     gnome-terminal = gsuper.gnome-terminal.overrideAttrs (old: {
-      patches = [ ./patches/terminal-transparency.patch ];
+      patches = [ ./sources/terminal-transparency.patch ];
     });
   });
 }

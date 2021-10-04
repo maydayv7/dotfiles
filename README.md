@@ -18,7 +18,7 @@ This repo contains the configuration files for my continuously evolving multi-PC
 
 ## Structure
 
-Here is an overview of the folders' structure:
+Here is an overview of the file hierarchy:
 
 ```
 ┌── flake.nix
@@ -27,9 +27,7 @@ Here is an overview of the folders' structure:
 ├── users
 ├── modules
 │   └── core
-├── overlays
-│   ├── packages
-│   └── patches
+├── packages
 └── lib
     ├── host.nix
     └── user.nix
@@ -38,8 +36,7 @@ Here is an overview of the folders' structure:
 - `flake.nix`: main system configuration file, using [Flakes](https://nixos.wiki/wiki/Flakes) for easier repository version control and multi-device management
 - `modules`: modulated configuration for effortless management
 - `core`: shared system configuration and scripts
-- `overlays`: overrides for pre-built packages
-- `packages`: locally built custom packages
+- `packages`: overrides for pre-built packages and locally built custom packages
 - `users`: user related configuration and dotfiles
 
 ## Installation

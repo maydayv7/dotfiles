@@ -4,3 +4,6 @@
 [submodule "users/firefox/theme/firefox-gnome-theme"]
 	path = users/firefox/theme/firefox-gnome-theme
 	url = https://github.com/rafaelmardojai/firefox-gnome-theme.git
+[submodule "packages/sources/dash-to-panel"]
+	path = packages/sources/dash-to-panel
+	url = https://github.com/maydayv7/dash-to-panel.git
