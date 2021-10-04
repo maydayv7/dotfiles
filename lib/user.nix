@@ -1,4 +1,4 @@
-{ pkgs, home-manager, lib, system, ... }:
+{ system, lib, inputs, pkgs, ... }:
 with builtins;
 {
   mkUser = { name, description, groups, uid, shell, ... }:
@@ -20,7 +20,7 @@ with builtins;
   };
   
   mkHome = { username, version, modules }:
-  home-manager.lib.homeManagerConfiguration
+  inputs.home-manager.lib.homeManagerConfiguration
   {
     inherit system username pkgs;
     stateVersion = version;

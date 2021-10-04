@@ -15,7 +15,7 @@
     };
   };
   
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
+  outputs = { self, ... } @ inputs:
   let
     # Architecture
     system = "x86_64-linux";
@@ -24,18 +24,22 @@
     version = "21.05";
     
     # Package Configuration
-    pkgs = import nixpkgs
+    pkgs = import inputs.nixpkgs
     {
       inherit system;
-      config.allowUnfree = true;
+      config =
+      {
+        allowUnfree = true;
+        allowBroken = true;
+      };
     };
     
     # System Libraries
-    inherit (nixpkgs) lib;
+    inherit (inputs.nixpkgs) lib;
     inherit (lib) attrValues;
     
     # Custom Functions
-    util = import ./lib { inherit system lib inputs pkgs home-manager; };
+    util = import ./lib { inherit system lib inputs pkgs; };
     inherit (util) host;
     inherit (util) user;
   in

@@ -1,4 +1,4 @@
-{ system, lib, user, inputs, pkgs, home-manager, ... }:
+{ system, lib, user, inputs, pkgs, ... }:
 with builtins;
 {
   mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, modules, cpuCores, users, version }:
