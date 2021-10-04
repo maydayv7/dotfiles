@@ -6,23 +6,24 @@ in
   management = pkgs.writeScriptBin "nixos"
   ''
     #!${runtimeShell}
+    
+    if [ -n "$INNIXSHELLHOME" ]; then
+      echo "You are in a Nix Shell that redirected ~"
+      echo "The tool cannot work here properly"
+      exit 1
+    fi
+    
     function applyUser()
     {
-      echo "----------------------------------------------------------------------------------------------------"
-      echo " Applying User Settings... "
-      
+      echo "Applying User Settings..."
       nix build /etc/nixos#homeManagerConfigurations.$USER.activationPackage
       ./result/activate
       rm -rf ./result
-      echo "----------------------------------------------------------------------------------------------------"
     }
     
     function applySystem()
     {
-      sudo -v
-      echo "----------------------------------------------------------------------------------------------------"
-      echo " Applying Machine Settings... "
-      
+      echo "Applying Machine Settings..."
       if [ -z "$2" ]; then
         sudo nixos-rebuild switch --flake /etc/nixos#
       elif [ $2 = "--boot" ]; then
@@ -34,29 +35,30 @@ in
       else
         echo "Unknown option $2"
       fi
-      echo "----------------------------------------------------------------------------------------------------"
     }
     
-    if [ -n "$INNIXSHELLHOME" ]; then
-      echo "You are in a nix shell that redirected home!"
-      echo "SYS will not work from here properly."
-      exit 1
-    fi
+    function saveState()
+    {
+      echo "Saving changes"
+      pushd /etc/nixos
+      git add .
+      read -p "Enter comment: " comment
+      git commit -m "$(echo $comment)"
+      git pull --rebase
+      git push
+      popd
+    }
     
     case $1 in
     "clean")
-      echo "----------------------------------------------------------------------------------------------------"
       echo "Running Garbage collection..."
       nix-store --gc
-      echo "Deduplication running (This may take awhile)..."
+      echo "De-duplication running (This may take a while)..."
       nix-store --optimise
-      echo "----------------------------------------------------------------------------------------------------"
     ;;
     "update")
-      echo "----------------------------------------------------------------------------------------------------"
       echo "Updating Flake inputs..."
       nix flake update /etc/nixos
-      echo "----------------------------------------------------------------------------------------------------"
     ;;
     "apply")
       applySystem
@@ -71,6 +73,9 @@ in
     "list")
       nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq
     ;;
+    "save")
+      saveState
+    ;;
     *)
       echo "Tool for Nix Operating System Management"
       echo ""
@@ -81,6 +86,7 @@ in
       echo "apply-user    - Applies user home-manager configuration"
       echo "clean         - Garbage collects and hard links Nix Store"
       echo "list          - Lists all installed packages"
+      echo "save          - Saves system configuration state to repository"
     ;;
     esac
   '';
