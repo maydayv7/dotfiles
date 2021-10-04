@@ -2,6 +2,9 @@
 {
   home.file =
   {
+    # Font Rendering
+    ".Xresources".source = ./xorg;
+    
     # Wallpapers
     ".local/share/backgrounds".source = ./images;
     
