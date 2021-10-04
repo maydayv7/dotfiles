@@ -1,8 +1,6 @@
 # Generated via dconf2nix
 { lib, ... }:
-let
-  mkTuple = lib.hm.gvariant.mkTuple;
-in
+with lib.hm.gvariant;
 {
   # Dconf Keys
   dconf.settings =
@@ -72,6 +70,7 @@ in
   
   "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,close";
+      titlebar-font = "Product Sans Bold 11";
       visual-bell = false;
     };
     
@@ -85,16 +84,19 @@ in
     
     "org/gnome/desktop/interface" = {
       clock-show-weekday = true;
+      document-font-name = "Product Sans 11";
       enable-animations = true;
       enable-hot-corners = false;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
+      font-name = "Product Sans Medium, Medium 11";
       gtk-im-module = "gtk-im-context-simple";
       gtk-theme = "Adwaita-dark";
       icon-theme = "Papirus-Dark";
       locate-pointer = true;
       monospace-font-name = "MesloLGS NF 10";
       show-battery-percentage = true;
+      toolkit-accessibility = false;
     };
     
     "org/gnome/desktop/peripherals/touchpad" = {

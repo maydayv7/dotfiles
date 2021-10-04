@@ -23,7 +23,7 @@ A clear and concise description of what you expected to happen
 If applicable, add screenshots to help explain your problem
 
 ### Additional context
-Add any other context about the problem here.
+Add any other context about the problem
 
 ### Metadata
 Please run `nix-shell -p nix-info --run "nix-info -m"` and paste the result
