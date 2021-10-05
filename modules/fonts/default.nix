@@ -15,6 +15,7 @@
         monospace = [ "MesloLGS NF" ];
         sansSerif = [ "Product Sans" ];
         serif = [ "Noto Serif" ];
+        emoji = ["Noto Color Emoji"];
       };
     };
   };
