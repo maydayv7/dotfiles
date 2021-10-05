@@ -1,4 +1,5 @@
-{ lib, stdenv }:
+{ pkgs, ... }:
+with pkgs;
 stdenv.mkDerivation rec
 {
   pname = "product-sans";
@@ -11,6 +12,6 @@ stdenv.mkDerivation rec
   installPhase =
   ''
     mkdir -p $out/share/fonts/product-sans/
-    cp ./* $out/share/fonts/product-sans/
+    cp * $out/share/fonts/product-sans/
   '';
 }

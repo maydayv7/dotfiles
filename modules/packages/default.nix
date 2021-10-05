@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, inputs, pkgs, ... }:
 {
   # Apps and Games
   environment.systemPackages = with pkgs;
@@ -9,7 +9,7 @@
     gscan2pdf
     libreoffice
     lollypop
-    onlyoffice-bin
+    custom.onlyoffice
     
     # Internet
     google-chrome
@@ -21,5 +21,8 @@
     dconf2nix
     lolcat
     neofetch
+    
+    # System Scripts
+    scripts.management
   ];
 }

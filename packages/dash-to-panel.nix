@@ -1,4 +1,5 @@
-{ lib, stdenv, glib, gettext }:
+{ pkgs, ... }:
+with pkgs;
 stdenv.mkDerivation rec
 {
   pname = "gnome-shell-extension-dash-to-panel";

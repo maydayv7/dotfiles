@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  # Git utilities
+  # Git Utilities
   environment.systemPackages = with pkgs;
   [
     git

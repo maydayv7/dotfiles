@@ -13,6 +13,7 @@ with builtins;
       ../modules/boot
       ../modules/hardware
       ../modules/networking
+      ../modules/packages
     ];
   in lib.nixosSystem
   {
@@ -39,7 +40,6 @@ with builtins;
         
         # Package Configuration
         nixpkgs.pkgs = pkgs;
-        nixpkgs.overlays = (import ../packages);
         nix.maxJobs = lib.mkDefault cpuCores;
         system.stateVersion = version;
       }

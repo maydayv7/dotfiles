@@ -12,7 +12,7 @@
     desktopManager.gnome.enable = true;
   };
   
-  # GNOME Desktop Integration
+  # Desktop Integration
   programs.dconf.enable = true;
   services =
   {
@@ -63,7 +63,7 @@
     fractal
     kooha
     shortwave
-    touchegg
+    custom.touchegg
     
     # GNOME Shell Extensions
     gnomeExtensions.appindicator
@@ -72,7 +72,7 @@
     gnomeExtensions.compiz-windows-effect
     gnomeExtensions.compiz-alike-magic-lamp-effect
     gnomeExtensions.custom-hot-corners-extended
-    dash-to-panel
+    custom.dash-to-panel
     gnomeExtensions.just-perfection
     gnomeExtensions.lock-keys
     gnomeExtensions.screenshot-locations
@@ -81,7 +81,7 @@
     gnomeExtensions.x11-gestures
   ];
   
-  # Touchegg X11 Gestures Daemon
+  # X11 Gestures Daemon
   systemd.services.touchegg =
   {
     enable = true;
@@ -93,7 +93,7 @@
       Group = "input";
       Restart = "on-failure";
       RestartSec = 5;
-      ExecStart = "${pkgs.touchegg}/bin/touchegg --daemon";
+      ExecStart = "${pkgs.custom.touchegg}/bin/touchegg --daemon";
     };
   };
 }

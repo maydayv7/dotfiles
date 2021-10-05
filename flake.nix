@@ -13,6 +13,9 @@
       url = "github:nix-community/home-manager/release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    # Nix User Repository
+    nur.url = "github:nix-community/NUR";
   };
   
   outputs = { self, ... } @ inputs:
@@ -23,6 +26,19 @@
     # NixOS Version
     version = "21.05";
     
+    # System Libraries
+    inherit (inputs.nixpkgs) lib;
+    inherit (lib) attrValues;
+    
+    # Custom Functions
+    util = import ./lib { inherit system lib inputs pkgs; };
+    inherit (util) host;
+    inherit (util) user;
+    
+    # Package Overrides
+    inherit (import ./packages { inherit pkgs; }) custom;
+    inherit (import ./packages/overlays { inherit system lib inputs pkgs scripts custom; }) overlays;
+    
     # Package Configuration
     pkgs = import inputs.nixpkgs
     {
@@ -32,16 +48,11 @@
         allowUnfree = true;
         allowBroken = true;
       };
+      inherit overlays;
     };
     
-    # System Libraries
-    inherit (inputs.nixpkgs) lib;
-    inherit (lib) attrValues;
-    
-    # Custom Functions
-    util = import ./lib { inherit system lib inputs pkgs; };
-    inherit (util) host;
-    inherit (util) user;
+    # System Scripts
+    scripts = import ./scripts { inherit lib pkgs; };
   in
   {
     nixosConfigurations =
@@ -57,7 +68,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "options kvm_intel nested=1";
         cpuCores = 8;
-        modules = [ "android" "fonts" "git" "gnome" "libvirt" "packages" "security" "ssd" "xorg" ];
+        modules = [ "android" "fonts" "git" "gnome" "libvirt" "security" "ssd" "xorg" ];
         users =
         [
           {
@@ -74,13 +85,13 @@
       {
         inherit version;
         name = "Vortex";
-        kernelPackage = pkgs.linuxPackages_lqx;
+        kernelPackage = pkgs.linuxPackages_5_4;
         initrdMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
         kernelMods = [ ];
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "";
         cpuCores = 4;
-        modules = [ "fonts" "git" "gnome" "packages" "security" "xorg" ];
+        modules = [ "fonts" "git" "gnome" "security" "xorg" ];
         users =
         [
           {

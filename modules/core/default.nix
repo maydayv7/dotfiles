@@ -1,14 +1,8 @@
 { config, lib, pkgs, ... }:
-let
-  scripts = import ./scripts.nix { inherit pkgs; };
-in
 {  
   # User Management
   users.mutableUsers = false;
   nix.trustedUsers = [ "root" "v7" ];
-  
-  # System Scripts
-  environment.systemPackages = with pkgs; [ scripts.management ];
   
   # Nix Configuration
   nix =

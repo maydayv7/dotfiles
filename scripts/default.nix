@@ -1,9 +1,6 @@
-{ pkgs,  ... }:
+{ lib, pkgs,  ... }:
 let
-  runtimeShell = pkgs.runtimeShell;
-in
-{
-  management = pkgs.writeScriptBin "nixos"
+  management = with pkgs; writeScriptBin "nixos"
   ''
     #!${runtimeShell}
     
@@ -15,7 +12,7 @@ in
     
     function applyUser()
     {
-      echo "Applying User Settings..."
+      echo "<------- Applying User Settings ------->"
       nix build /etc/nixos#homeManagerConfigurations.$USER.activationPackage
       ./result/activate
       rm -rf ./result
@@ -23,7 +20,7 @@ in
     
     function applySystem()
     {
-      echo "Applying Machine Settings..."
+      echo "<------- Applying Machine Settings ------->"
       if [ -z "$2" ]; then
         sudo nixos-rebuild switch --flake /etc/nixos#
       elif [ $2 = "--boot" ]; then
@@ -39,7 +36,7 @@ in
     
     function saveState()
     {
-      echo "Saving changes"
+      echo "<------- Saving Changes ------->"
       pushd /etc/nixos
       git add .
       read -p "Enter comment: " comment
@@ -51,17 +48,19 @@ in
     
     case $1 in
     "clean")
-      echo "Running Garbage collection..."
+      echo "<------- Running Garbage Collection ------->"
       nix-store --gc
-      echo "De-duplication running (This may take a while)..."
+      printf "\n"
+      echo "<------- Running De-duplication ------->"
       nix-store --optimise
     ;;
     "update")
-      echo "Updating Flake inputs..."
+      echo "<------- Updating Flake inputs ------->"
       nix flake update /etc/nixos
     ;;
     "apply")
       applySystem
+      printf "\n"
       applyUser
     ;;
     "apply-system")
@@ -90,4 +89,15 @@ in
     ;;
     esac
   '';
+in
+{
+  overlay =
+  (final: prev:
+  {
+    scripts =
+    {
+      # System Management Tool
+      inherit management;
+    };
+  });
 }

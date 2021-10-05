@@ -14,6 +14,7 @@ This repo contains the configuration files for my continuously evolving multi-PC
 | Editor              | [gEdit](https://wiki.gnome.org/Apps/Gedit) |
 | Shell               | [ZSH](https://www.zsh.org) |
 | Terminal            | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal) |
+| Browser               | [Firefox](https://www.mozilla.org/en-US/firefox/) |
 | Desktop Environment | [GNOME](https://www.gnome.org) |
 
 ## Structure
@@ -24,11 +25,14 @@ Here is an overview of the file hierarchy:
 ┌── flake.nix
 ├── flake.lock
 ├── secrets
+├── scripts
+│   └── setup.sh
 ├── users
 │   └── dotfiles
 ├── modules
 │   └── core
 ├── packages
+│   └── overlays
 └── lib
     ├── host.nix
     └── user.nix
@@ -37,7 +41,8 @@ Here is an overview of the file hierarchy:
 - `flake.nix`: main system configuration file, using [Flakes](https://nixos.wiki/wiki/Flakes) for easier repository version control and multi-device management
 - `modules`: modulated configuration for effortless management
 - `core`: shared system configuration and scripts
-- `packages`: overrides for pre-built packages and locally built custom packages
+- `overlays`: overrides for pre-built packages
+- `packages`: locally built custom packages
 - `users`: user related configuration and dotfiles
 
 ## Installation
@@ -57,7 +62,7 @@ After rebooting, run the following commands:
 <pre><code>sudo rm -rf /etc/nixos && cd /etc
 sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
-cd nixos && chmod +x .setup.sh && ./.setup.sh
+cd nixos && chmod +x scripts/setup.sh && ./scripts/setup.sh
 </code></pre>
 And follow the instructions to setup and build the system
 
@@ -66,7 +71,7 @@ And follow the instructions to setup and build the system
 I am pretty new to Nix, and my configuration is still *WIP*, right now undergoing a transition to using Nix [Flakes](https://nixos.wiki/wiki/Flakes), an unstable feature. If you have any doubts or suggestions, feel free to open an issue
 
 #### Branches
-There are two branches, `stable` and `develop`. The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and may not even build successfully. Releases are always made from the `stable` branch after it has been battle-tested
+There are two branches, `stable` and `develop`. The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been battle-tested
 
 #### Requirements
 - Intel CPU + iGPU
@@ -80,11 +85,12 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 ##### Credentials
 The `secrets` directory is a `git submodule` pointing to a private repository containing passwords and other authentication credentials. User passwords are specified using the `passwordFile` option
 ##### Scripts
-A system management script has been included in `modules/core/scripts.nix` and can be invoked with the command `nixos`, used to apply user and system configuration changes or to perform various other useful functions. Also, a system setup script has been included (see the Installation section)
+A system management script has been included in `scripts`, invoked with the command `nixos`, which can be used to apply user and system configuration changes or perform various other useful functions. A system setup script has also been included (see [here](#installation))
 
 #### Theming
 - [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
-- [Powerlevel10K](https://github.com/romkatv/powerlevel10k): P10K ZSH Theme for the fancy-looking prompt using custom configuration
+- [Powerlevel10K](https://github.com/romkatv/powerlevel10k): ZSH Theme for the fancy-looking prompt with immense customization capabilities
+- [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel): GNOME Shell Extension providing a highly customizable icon taskbar for maximized productivity, `git submodule` imported at `packages/sources/dash-to-panel` (personal [fork](https://github.com/maydayv7/dash-to-panel))
 - [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration, `git submodule` imported at `users/firefox/theme/firefox-gnome-theme`
 - [DNOME Discord Theme](https://github.com/GeopJr/DNOME): Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
 

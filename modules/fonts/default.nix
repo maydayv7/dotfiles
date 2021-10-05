@@ -23,6 +23,7 @@
   fonts.fonts = with pkgs; 
   [
       cantarell_fonts
+      nur.repos.mic92.clearsans
       corefonts
       dejavu_fonts
       fira
@@ -34,12 +35,26 @@
       meslo-lgs-nf
       noto-fonts
       noto-fonts-emoji
+      custom.product-sans
       roboto
       source-code-pro
       ttf_bitstream_vera
       ubuntu_font_family
       
-      # Custom Fonts
-      product-sans
+      # Patched Nerd Fonts
+      (nerdfonts.override
+      {
+        fonts =
+        [
+          "FiraCode"
+          "FiraMono"
+          "FantasqueSansMono"
+          "Hack"
+          "JetBrainsMono"
+          "Meslo"
+          "RobotoMono"
+          "SourceCodePro"
+        ];
+      })
   ];
 }
