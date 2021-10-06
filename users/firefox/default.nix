@@ -18,6 +18,5 @@
   home.file =
   {
     ".mozilla/firefox/v7/chrome".source = ./theme;
-    ".mozilla/firefox/v7/user.js".source = ./theme/firefox-gnome-theme/configuration/user.js;
   };
 }

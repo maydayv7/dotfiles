@@ -33,6 +33,7 @@
     };
     shells = with pkgs; [ bashInteractive zsh ];
   };
+  programs.command-not-found.enable = true;
   
   # Localization
   time.timeZone = "Asia/Kolkata";
