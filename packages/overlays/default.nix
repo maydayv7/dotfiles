@@ -2,6 +2,9 @@
 {
   overlays =
   [
+    # Unstable Packages Overlay
+    (final: prev: { unstable = inputs.unstable.legacyPackages.x86_64-linux; })
+    
     # Nix User Repository Overlay
     inputs.nur.overlay
     

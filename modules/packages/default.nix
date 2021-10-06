@@ -9,7 +9,6 @@
     gscan2pdf
     libreoffice
     lollypop
-    custom.onlyoffice
     
     # Internet
     google-chrome
@@ -21,6 +20,9 @@
     dconf2nix
     lolcat
     neofetch
+    
+    # Unstable Packages
+    unstable.onlyoffice-bin
     
     # System Scripts
     scripts.management

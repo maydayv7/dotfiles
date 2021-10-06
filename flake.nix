@@ -7,6 +7,9 @@
     # NixOS Stable Release
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
     
+    # Unstable Packages Repository
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    
     # Home Manager
     home-manager =
     {

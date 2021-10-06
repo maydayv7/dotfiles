@@ -3,9 +3,6 @@ with pkgs;
 {
   custom =
   {
-    # Latest OnlyOffice Stable
-    onlyoffice = callPackage ./onlyoffice.nix {};
-    
     # X11 Gestures
     touchegg = callPackage ./touchegg.nix {};
     
