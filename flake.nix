@@ -19,6 +19,13 @@
     
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
+    
+    # GNOME Icon Taskbar
+    gnome-panel =
+    {
+      url = "github:maydayv7/gnome-panel";
+      flake = false;
+    };
   };
   
   outputs = { self, ... } @ inputs:

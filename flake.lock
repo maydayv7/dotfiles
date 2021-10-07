@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "gnome-panel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1633578899,
+        "narHash": "sha256-V7TvuKlbDv9ACRuzjks6YsZGiy0I7Vquco+DyPO+LV8=",
+        "owner": "maydayv7",
+        "repo": "gnome-panel",
+        "rev": "94790c292e988d8c11404641b2d44804dd341ff0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "maydayv7",
+        "repo": "gnome-panel",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -54,6 +70,7 @@
     },
     "root": {
       "inputs": {
+        "gnome-panel": "gnome-panel",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
