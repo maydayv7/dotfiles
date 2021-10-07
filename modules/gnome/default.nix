@@ -56,14 +56,16 @@
     apostrophe
     drawing
     deja-dup
+    fractal
+    unstable.fragments
     giara
     gimp
     gnome-podcasts
     gnome-passwordsafe
-    fractal
     kooha
+    unstable.markets
     shortwave
-    custom.touchegg
+    unstable.wike
     
     # GNOME Shell Extensions
     gnomeExtensions.appindicator
@@ -72,13 +74,16 @@
     gnomeExtensions.compiz-windows-effect
     gnomeExtensions.compiz-alike-magic-lamp-effect
     gnomeExtensions.custom-hot-corners-extended
-    custom.dash-to-panel
+    gnomeExtensions.dash-to-panel
     gnomeExtensions.just-perfection
     gnomeExtensions.lock-keys
     gnomeExtensions.screenshot-locations
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.vitals
     gnomeExtensions.x11-gestures
+    
+    # Utilities
+    unstable.touchegg
   ];
   
   # X11 Gestures Daemon
@@ -93,7 +98,7 @@
       Group = "input";
       Restart = "on-failure";
       RestartSec = 5;
-      ExecStart = "${pkgs.custom.touchegg}/bin/touchegg --daemon";
+      ExecStart = "${pkgs.unstable.touchegg}/bin/touchegg --daemon";
     };
   };
 }

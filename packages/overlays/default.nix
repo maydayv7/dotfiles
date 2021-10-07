@@ -31,12 +31,27 @@
         };
       });
       
+      # GNOME Shell Extension Dash to Panel - Personal Fork
+      # https://github.com/maydayv7/gnome-panel
+      gnomeExtensions = prev.gnomeExtensions //
+      {
+        dash-to-panel = lib.overrideDerivation prev.gnomeExtensions.dash-to-panel (drv: {
+          src = prev.fetchFromGitHub
+          {
+            owner = "maydayv7";
+            repo = "gnome-panel";
+            rev = "94790c292e988d8c11404641b2d44804dd341ff0";
+            sha256 = "0prdpvrwi0wgfap5mv885n5ldik2795qxcqv150gy3jvm6wfzd2p";
+          };
+        });
+      };
+      
       # GNOME Terminal Transparency Patch
-      # https://aur.archlinux.org/packages/gnome-terminal-transparency/
+      # https://aur.archlinux.org/packages/gnome-terminal-transparency
       gnome = prev.gnome //
       {
         gnome-terminal = lib.overrideDerivation prev.gnome.gnome-terminal (drv: {
-          patches = drv.patches ++ [ ../sources/terminal-transparency.patch ];
+          patches = drv.patches ++ [ ../sources/transparency.patch ];
         });
       };
       

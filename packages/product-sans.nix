@@ -11,7 +11,7 @@ stdenv.mkDerivation rec
   
   installPhase =
   ''
-    mkdir -p $out/share/fonts/product-sans/
-    cp * $out/share/fonts/product-sans/
+    mkdir -p $out/share/fonts/custom/
+    cp * $out/share/fonts/custom/
   '';
 }
