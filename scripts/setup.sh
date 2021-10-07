@@ -12,15 +12,27 @@ function setup_system()
 {
   read -p "Do you want to setup the system? (Y/N): " choice
     case $choice in
-      [Yy]* ) rm -f ./path;;
+      [Yy]* ) ;;
       [Nn]* ) exit;;
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
-  printf "Setting up System...\n"
-  nix-env -iA nixos.nixUnstable nixos.git nixos.git-crypt
+  printf "--------------------------------------------"
+  printf "|----------- Setting up System ------------|"
+  printf "--------------------------------------------"
+  printf "\n"
+  # Install Required Packages
+  nix-env -iA nixos.nixUnstable nixos.git nixos.git-crypt nixos.gnupg
+  # Nix Flakes Support
   rm -f $HOME/.config/nix/nix.conf
   echo "experimental-features = nix-command flakes" >> $HOME/.config/nix/nix.conf
-  printf "\nSetting up Device...\n"
+  # GPG Keys Import
+  gpg --import ./secrets/gpg/public.gpg
+  gpg --import ./secrets/gpg/private.gpg
+  printf "\n"
+  printf "--------------------------------------------"
+  printf "|----------- Setting up Device ------------|"
+  printf "--------------------------------------------"
+  printf "\n"
   read -p "Do you want to setup the device Vortex or Futura? (1/2): " choice
     case $choice in
       [1]* ) device=Vortex; printf "\n"; setup_v7;;
@@ -32,18 +44,28 @@ function setup_system()
 # Setup for User V7
 function setup_v7()
 {
-  printf "Setting up User V7...\n"
+  printf "--------------------------------------------"
+  printf "|----------- Setting up User V7 -----------|"
+  printf "--------------------------------------------"
+  printf "\n"
   USER=v7
+  # Create Screenshots Directory
   mkdir -p /home/v7/Pictures/Screenshots
+  # Set Profile Picture
   sudo cp -av ./users/dotfiles/images/Profile.png /var/lib/AccountsService/icons/v7
 }
 
 # Setup for User Navya
 function setup_navya()
 {
-  printf "Setting up User Navya...\n"
+  printf "--------------------------------------------"
+  printf "|--------- Setting up User Navya ----------|"
+  printf "--------------------------------------------"
+  printf "\n"
   USER=navya
+  # Create Screenshots Directory
   mkdir -p /home/navya/Pictures/Screenshots
+  # Set Profile Picture
   sudo cp -av ./users/dotfiles/images/Profile.png /var/lib/AccountsService/icons/navya
 }
 
@@ -56,7 +78,10 @@ function rebuild()
       [Nn]* ) exit;;
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
-  printf "Rebuilding System...\n"
+  printf "--------------------------------------------"
+  printf "|----------- Rebuilding System ------------|"
+  printf "--------------------------------------------"
+  printf "\n"
   sudo nixos-rebuild switch --flake .#$device
 }
 
