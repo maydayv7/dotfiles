@@ -82,6 +82,8 @@ There are two branches, `stable` and `develop`. The `stable` branch can be used 
 User files are stored on an NTFS partition mounted to `/data`
 ##### Build
 While rebuilding system with Flakes, make sure that any file with unstaged changes will not be included. Use `git add .` in cases where the `git` tree is dirty
+##### Cache
+The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 ##### Credentials
 The `secrets` directory is a `git submodule` pointing to a private repository containing passwords and other authentication credentials. User passwords are specified using the `passwordFile` option
 ##### Scripts

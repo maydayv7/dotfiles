@@ -3,7 +3,7 @@ with builtins;
 {
   mkUser = { name, description, groups, uid, shell, ... }:
   {
-    # user Configuration
+    # User Configuration
     users.users."${name}" =
     {
       name = name;

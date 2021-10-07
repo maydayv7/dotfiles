@@ -11,6 +11,7 @@ with builtins;
       # Shared System Configuration
       ../modules/core
       ../modules/boot
+      ../modules/cachix
       ../modules/hardware
       ../modules/networking
       ../modules/packages

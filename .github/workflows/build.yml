@@ -1,6 +1,12 @@
+# Automatically build Nix Flake Configuration
+#
+# For more information, see:
+# https://github.com/cachix/install-nix-action
 name: "Build Nix Flake Configuration"
 on:
   pull_request:
+    paths-ignore:
+        - '**/README.md'
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -16,5 +22,13 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
+    - uses: cachix/cachix-action@v10
+      with:
+        name: maydayv7-dotfiles
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    # Build User Configuration
     - run: nix build .#homeManagerConfigurations.v7.activationPackage
     - run: nix build .#homeManagerConfigurations.navya.activationPackage
+    # Build System Configuration
+    - run: nix build .#nixosConfigurations.Vortex.config.system.build.toplevel
+    - run: nix build .#nixosConfigurations.Futura.config.system.build.toplevel

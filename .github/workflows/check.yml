@@ -1,7 +1,8 @@
 name: "Check Nix Flake Syntax"
 on:
-  pull_request:
   push:
+    paths-ignore:
+        - '**/README.md'
 jobs:
   tests:
     runs-on: ubuntu-latest
