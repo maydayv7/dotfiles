@@ -2,7 +2,7 @@ name: "Check Nix Flake Syntax"
 on:
   push:
     paths-ignore:
-        - '**/README.md'
+      - '**.md'
 jobs:
   tests:
     runs-on: ubuntu-latest
