@@ -1,5 +1,5 @@
 {
-  description = "My NixOS Config";
+  description = "My Reproducible, Hermetic, Functional, Portable, Atomic, Multi-PC NixOS Dotfiles";
   
   # Package Repositories
   inputs =
@@ -9,6 +9,9 @@
     
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    
+    # Nix Flake Utility Functions
+    flake-utils.url = "github:numtide/flake-utils";
     
     # Home Manager
     home-manager =
@@ -42,8 +45,9 @@
     
     # Custom Functions
     util = import ./lib { inherit system lib inputs pkgs; };
-    inherit (util) host;
+    inherit (util) shell;
     inherit (util) user;
+    inherit (util) host;
     
     # Package Overrides
     inherit (import ./packages { inherit pkgs; }) custom;
@@ -65,6 +69,41 @@
     scripts = import ./scripts { inherit lib pkgs; };
   in
   {
+    # User Specific Configuration
+    homeManagerConfigurations =
+    {
+      # Nix Developer Shell
+      packages."${system}" = pkgs;
+      devShell."${system}" = import ./shell.nix { inherit pkgs; };
+      
+      shells =
+      {
+        video = shell.mkShell
+        {
+          name = "Productivity";
+          buildInputs = with pkgs; [ git git-crypt gnupg ];
+          script =
+          ''
+            echo "Productivity"
+          '';
+        };
+      };
+      
+      v7 = user.mkHome
+      {
+        username = "v7";
+        modules = [ "dconf" "discord" "dotfiles" "firefox" "git" "terminal" "theme" "zsh" ];
+        inherit version;
+      };
+      
+      navya = user.mkHome
+      {
+        username = "navya";
+        modules = [ "dconf" "dotfiles" "firefox" "git" "terminal" "theme" "zsh" ];
+        inherit version;
+      };
+    };
+    
     nixosConfigurations =
     {
       # Device Specific Configuration
@@ -112,24 +151,6 @@
             shell = pkgs.zsh;
           }
         ];
-      };
-    };
-    
-    # User Specific Configuration
-    homeManagerConfigurations =
-    {
-      v7 = user.mkHome
-      {
-        username = "v7";
-        modules = [ "dconf" "discord" "dotfiles" "firefox" "git" "terminal" "theme" "zsh" ];
-        inherit version;
-      };
-      
-      navya = user.mkHome
-      {
-        username = "navya";
-        modules = [ "dconf" "dotfiles" "firefox" "git" "terminal" "theme" "zsh" ];
-        inherit version;
       };
     };
   };
