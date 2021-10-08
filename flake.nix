@@ -10,9 +10,6 @@
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     
-    # Nix Flake Utility Functions
-    flake-utils.url = "github:numtide/flake-utils";
-    
     # Home Manager
     home-manager =
     {
@@ -45,7 +42,6 @@
     
     # Custom Functions
     util = import ./lib { inherit system lib inputs pkgs; };
-    inherit (util) shell;
     inherit (util) user;
     inherit (util) host;
     
@@ -72,24 +68,7 @@
     # User Specific Configuration
     homeManagerConfigurations =
     {
-      # Nix Developer Shell
-      packages."${system}" = pkgs;
-      devShell."${system}" = import ./shell.nix { inherit pkgs; };
-      
-      shells =
-      {
-        video = shell.mkShell
-        {
-          name = "Productivity";
-          buildInputs = with pkgs; [ git git-crypt gnupg ];
-          script =
-          ''
-            echo "Productivity"
-          '';
-        };
-      };
-      
-      v7 = user.mkHome
+     v7 = user.mkHome
       {
         username = "v7";
         modules = [ "dconf" "discord" "dotfiles" "firefox" "git" "terminal" "theme" "zsh" ];
