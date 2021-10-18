@@ -4,6 +4,6 @@ with pkgs;
   custom =
   {
     # Custom Fonts
-    product-sans = callPackage ./product-sans.nix {};
+    fonts = callPackage ./fonts.nix {};
   };
 }

@@ -84,6 +84,7 @@
     gnomeExtensions.x11-gestures
     
     # Utilities
+    dconf2nix
     gnuchess
     unstable.touchegg
   ];

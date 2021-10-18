@@ -23,18 +23,6 @@
     '';
   };
   
-  # Environment Configuration
-  programs.command-not-found.enable = true;
-  environment =
-  {
-    pathsToLink = [ "/share/zsh" ];
-    variables =
-    {
-      EDITOR = "nano";
-    };
-    shells = with pkgs; [ bashInteractive zsh ];
-  };
-  
   # Localization
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_IN.UTF-8";
@@ -45,4 +33,10 @@
     packages = with pkgs; [ terminus_font ];
     keyMap = "us";
   };
+  
+  # System Scripts
+  environment.systemPackages = with pkgs;
+  [
+    scripts.management
+  ];
 }

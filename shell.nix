@@ -1,8 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 with pkgs;
-# Use nix develop to run this developer shell
 let
-nixBin = writeShellScriptBin "nix"
+  nixBin = writeShellScriptBin "nix"
   ''
     ${nixUnstable}/bin/nix --option experimental-features "nix-command flakes" "$@"
   '';
@@ -10,6 +9,8 @@ in
 mkShell
 {
   name = "DevShell";
+  
+  # Required Packages
   buildInputs =
   [
     git
@@ -18,8 +19,10 @@ mkShell
     nixUnstable
   ];
   
+  # Init Script
   shellHook =
   ''
+    # Nix Flakes Compatibility
     export FLAKE="$(pwd)"
     export PATH="$FLAKE/bin:${nixBin}/bin:$PATH"
   '';

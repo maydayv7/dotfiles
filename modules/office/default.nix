@@ -1,6 +1,5 @@
-{ lib, inputs, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
-  # Apps and Games
   environment.systemPackages = with pkgs;
   [
     # Productivity
@@ -17,13 +16,5 @@
     teams
     whatsapp-for-linux
     zoom-us
-    
-    # Utilities
-    dconf2nix
-    lolcat
-    neofetch
-    
-    # System Scripts
-    scripts.management
   ];
 }

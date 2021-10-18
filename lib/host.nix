@@ -14,7 +14,7 @@ with builtins;
       ../modules/cachix
       ../modules/hardware
       ../modules/networking
-      ../modules/packages
+      ../modules/shell
     ];
   in lib.nixosSystem
   {

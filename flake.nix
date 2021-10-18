@@ -58,7 +58,6 @@
     
     # Custom Functions
     util = import ./lib { inherit system lib inputs pkgs; };
-    inherit (util) shell;
     inherit (util) user;
     inherit (util) host;
     
@@ -81,13 +80,14 @@
     scripts = import ./scripts { inherit lib pkgs; };
   in
   {
-    # Nix Developer Shell
-    defaultPackage."${system}" = pkgs.nix;
+    ## Nix Developer Shell ##
+    # Run nix develop in this directory to use it
     devShell."${system}" = import ./shell.nix { inherit pkgs; };
     
-    # User Specific Configuration
+    ## User Specific Configuration ##
     homeManagerConfigurations =
     {
+      # User V7
       v7 = user.mkHome
       {
         username = "v7";
@@ -95,6 +95,7 @@
         inherit version;
       };
       
+      # User Navya
       navya = user.mkHome
       {
         username = "navya";
@@ -103,9 +104,10 @@
       };
     };
     
+    ## Device Specific Configuration ##
     nixosConfigurations =
     {
-      # Device Specific Configuration
+      # PC - Dell Inspiron 15 5000
       Vortex = host.mkHost
       {
         inherit version;
@@ -116,7 +118,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "options kvm_intel nested=1";
         cpuCores = 8;
-        modules = [ "android" "fonts" "git" "gnome" "libvirt" "security" "ssd" "xorg" ];
+        modules = [ "android" "fonts" "git" "gnome" "libvirt" "office" "security" "ssd" "xorg" ];
         users =
         [
           {
@@ -129,6 +131,7 @@
         ];
       };
       
+      # PC - Dell Inspiron 11 3000
       Futura = host.mkHost
       {
         inherit version;
@@ -139,7 +142,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "";
         cpuCores = 4;
-        modules = [ "fonts" "git" "gnome" "security" "xorg" ];
+        modules = [ "fonts" "git" "gnome" "office" "security" "xorg" ];
         users =
         [
           {

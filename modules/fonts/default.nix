@@ -36,7 +36,6 @@
       meslo-lgs-nf
       noto-fonts
       noto-fonts-emoji
-      custom.product-sans
       roboto
       source-code-pro
       ttf_bitstream_vera
@@ -57,5 +56,8 @@
           "SourceCodePro"
         ];
       })
+      
+      # Custom Fonts
+      custom.fonts
   ];
 }
