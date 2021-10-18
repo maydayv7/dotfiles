@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "dconf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634299565,
+        "narHash": "sha256-GM3eWz4Z1VsPN+Rp34ZhdgNbYIVgK358i+A73lOfbGs=",
+        "owner": "gvolpe",
+        "repo": "dconf2nix",
+        "rev": "7aea3b548f446702897c04cb6766448ca31b609b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gvolpe",
+        "repo": "dconf2nix",
+        "type": "github"
+      }
+    },
     "gnome-panel": {
       "flake": false,
       "locked": {
@@ -68,12 +84,30 @@
         "type": "github"
       }
     },
+    "plymouth": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634390423,
+        "narHash": "sha256-vJ8cTi/c3qSchu0+o+hzX0I+Qpy0PdTQtER1Sd0JH2c=",
+        "owner": "maydayv7",
+        "repo": "plymouth",
+        "rev": "66091a1f2dfcfa146f59868ec5df15334596a26f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "maydayv7",
+        "repo": "plymouth",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "dconf": "dconf",
         "gnome-panel": "gnome-panel",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "plymouth": "plymouth",
         "unstable": "unstable"
       }
     },

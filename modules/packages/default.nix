@@ -15,6 +15,7 @@
     google-chrome
     megasync
     teams
+    whatsapp-for-linux
     zoom-us
     
     # Utilities

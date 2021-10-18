@@ -41,6 +41,11 @@ with builtins;
         
         # Package Configuration
         nixpkgs.pkgs = pkgs;
+        nix.nixPath =
+        [
+          "nixpkgs=${inputs.nixpkgs}"
+        ];
+        nix.registry.nixpkgs.flake = inputs.nixpkgs;
         nix.maxJobs = lib.mkDefault cpuCores;
         system.stateVersion = version;
       }

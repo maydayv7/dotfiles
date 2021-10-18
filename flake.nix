@@ -4,6 +4,7 @@
   # Package Repositories
   inputs =
   {
+    ## Main Repos ##
     # NixOS Stable Release
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
     
@@ -20,10 +21,25 @@
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
     
+    ## Additional Repos ##
     # GNOME Icon Taskbar
     gnome-panel =
     {
       url = "github:maydayv7/gnome-panel";
+      flake = false;
+    };
+    
+    # Plymouth Boot Logo
+    plymouth =
+    {
+      url = "github:maydayv7/plymouth";
+      flake = false;
+    };
+    
+    # Convert Dconf to Nix
+    dconf =
+    {
+      url = "github:gvolpe/dconf2nix";
       flake = false;
     };
   };
@@ -42,6 +58,7 @@
     
     # Custom Functions
     util = import ./lib { inherit system lib inputs pkgs; };
+    inherit (util) shell;
     inherit (util) user;
     inherit (util) host;
     
@@ -52,23 +69,26 @@
     # Package Configuration
     pkgs = import inputs.nixpkgs
     {
-      inherit system;
+      inherit system overlays;
       config =
       {
         allowUnfree = true;
         allowBroken = true;
       };
-      inherit overlays;
     };
     
     # System Scripts
     scripts = import ./scripts { inherit lib pkgs; };
   in
   {
+    # Nix Developer Shell
+    defaultPackage."${system}" = pkgs.nix;
+    devShell."${system}" = import ./shell.nix { inherit pkgs; };
+    
     # User Specific Configuration
     homeManagerConfigurations =
     {
-     v7 = user.mkHome
+      v7 = user.mkHome
       {
         username = "v7";
         modules = [ "dconf" "discord" "dotfiles" "firefox" "git" "terminal" "theme" "zsh" ];
