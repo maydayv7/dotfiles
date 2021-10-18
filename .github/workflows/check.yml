@@ -1,18 +1,26 @@
+# Check Nix Flake Configuration Syntax on Push
+#
+# For more information, see:
+# https://github.com/cachix/install-nix-action
 name: "Check Nix Flake Syntax"
 on:
   push:
     paths-ignore:
       - '**.md'
+env:
+  NIX_SHOW_STATS: 1
 jobs:
-  tests:
+  check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
-    - uses: cachix/install-nix-action@v14
+    - name: Install Nix
+      uses: cachix/install-nix-action@v14
       with:
-        install_url: https://nixos-nix-install-tests.cachix.org/serve/vij683ly7sl95nnhb67bdjjfabclr85m/install
-        install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
+        install_url: https://github.com/numtide/nix-unstable-installer/releases/latest/download/install
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
-    - run: nix flake check
+          system-features = nixos-test benchmark big-parallel kvm
+    - name: Test
+      run: nix flake check --log-format raw -v
