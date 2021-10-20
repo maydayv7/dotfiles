@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 {
-  # Git Utilities
+  ## Git Configuration ##
+  # Utilities
   environment.systemPackages = with pkgs;
   [
     git
@@ -9,6 +10,7 @@
     unrar
     wget
   ];
+  
   # GPG Key Signing
   programs.gnupg.agent =
   {

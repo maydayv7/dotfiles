@@ -1,10 +1,7 @@
 { config, lib, pkgs, ... }:
-{  
-  # User Management
-  users.mutableUsers = false;
-  nix.trustedUsers = [ "root" "v7" ];
-  
-  # Nix Configuration
+{
+  ## Core System Configuration ##
+  # Nix Settings
   nix =
   {
     autoOptimiseStore = true;

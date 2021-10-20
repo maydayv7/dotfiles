@@ -1,8 +1,8 @@
+## Dconf Keys ##
 # Generated via dconf2nix
 { lib, ... }:
 with lib.hm.gvariant;
 {
-  # Dconf Keys
   dconf.settings =
   {
     "org/gnome/desktop/wm/keybindings" = {
@@ -206,7 +206,7 @@ with lib.hm.gvariant;
       command-history = [ "rt" "r" ];
       disable-user-extensions = false;
       disabled-extensions = [ "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
-      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "compiz-windows-effect@hermes83.github.com" "compiz-alike-magic-lamp-effect@hermes83.github.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "just-perfection-desktop@just-perfection" "appindicatorsupport@rgcjonas.gmail.com" "lockkeys@vaina.lt" "screenshotlocations.timur@linux.com" "sound-output-device-chooser@kgshank.net" "Vitals@CoreCoding.com" "custom-hot-corners-extended@G-dH.github.com" "color-picker@tuberry" "top-bar-organizer@julian.gse.jsts.xyz" "drive-menu@gnome-shell-extensions.gcampax.github.com" "x11gestures@joseexposito.github.io" "dash-to-panel@jderose9.github.com" ];
+      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "compiz-windows-effect@hermes83.github.com" "compiz-alike-magic-lamp-effect@hermes83.github.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "just-perfection-desktop@just-perfection" "appindicatorsupport@rgcjonas.gmail.com" "lockkeys@vaina.lt" "screenshotlocations.timur@linux.com" "sound-output-device-chooser@kgshank.net" "Vitals@CoreCoding.com" "custom-hot-corners-extended@G-dH.github.com" "color-picker@tuberry" "top-bar-organizer@julian.gse.jsts.xyz" "drive-menu@gnome-shell-extensions.gcampax.github.com" "x11gestures@joseexposito.github.io" "dash-to-panel@jderose9.github.com" "flypie@schneegans.github.com" ];
       favorite-apps = [ "google-chrome.desktop" "org.gnome.Geary.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Terminal.desktop" "org.gnome.gedit.desktop" "gnome-control-center.desktop" ];
     };
   
@@ -355,6 +355,101 @@ with lib.hm.gvariant;
       window-preview-show-title = true;
       window-preview-size = 150;
       window-preview-title-position = "TOP";
+    };
+    
+    "org/gnome/shell/extensions/flypie" = {
+      active-stack-child = "settings-page";
+      background-color = "rgba(0, 0, 0, 0.26)";
+      center-auto-color-luminance = 0.8;
+      center-auto-color-luminance-hover = 0.8;
+      center-auto-color-opacity = 0.0;
+      center-auto-color-opacity-hover = 0.0;
+      center-auto-color-saturation = 0.75;
+      center-auto-color-saturation-hover = 0.75;
+      center-background-image = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      center-background-image-hover = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      center-color-mode = "fixed";
+      center-color-mode-hover = "fixed";
+      center-fixed-color = "rgba(255,255,255,0)";
+      center-fixed-color-hover = "rgba(255,255,255,0)";
+      center-icon-crop = 0.8;
+      center-icon-crop-hover = 0.8;
+      center-icon-opacity = 0.17;
+      center-icon-opacity-hover = 1.0;
+      center-icon-scale = 0.7;
+      center-icon-scale-hover = 0.7;
+      center-size = 110.0;
+      center-size-hover = 90.0;
+      child-auto-color-luminance = 0.7;
+      child-auto-color-luminance-hover = 0.8802816901408451;
+      child-auto-color-opacity = 1.0;
+      child-auto-color-opacity-hover = 1.0;
+      child-auto-color-saturation = 0.9;
+      child-auto-color-saturation-hover = 1.0;
+      child-background-image = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      child-background-image-hover = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      child-color-mode = "fixed";
+      child-color-mode-hover = "fixed";
+      child-draw-above = false;
+      child-fixed-color = "rgba(255,255,255,0)";
+      child-fixed-color-hover = "rgba(255,255,255,0)";
+      child-icon-crop = 0.8;
+      child-icon-crop-hover = 0.8;
+      child-icon-opacity = 1.0;
+      child-icon-opacity-hover = 1.0;
+      child-icon-scale = 0.7;
+      child-icon-scale-hover = 0.7;
+      child-offset = 106.0;
+      child-offset-hover = 113.0;
+      child-size = 59.0;
+      child-size-hover = 77.0;
+      easing-duration = 0.25;
+      easing-mode = "ease-out";
+      font = "Product Sans Medium, Medium 11";
+      grandchild-background-image = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      grandchild-background-image-hover = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      grandchild-color-mode = "fixed";
+      grandchild-color-mode-hover = "fixed";
+      grandchild-draw-above = false;
+      grandchild-fixed-color = "rgba(189,184,178,0)";
+      grandchild-fixed-color-hover = "rgba(189,184,178,0)";
+      grandchild-offset = 25.0;
+      grandchild-offset-hover = 31.0;
+      grandchild-size = 17.0;
+      grandchild-size-hover = 27.0;
+      menu-configuration = "[{\"name\":\"Navigation\",\"icon\":\"application-menu\",\"shortcut\":\"F9\",\"centered\":false,\"id\":0,\"children\":[{\"name\":\"Sound\",\"icon\":\"audio-speakers\",\"children\":[{\"name\":\"Mute\",\"icon\":\"discord-tray-muted\",\"type\":\"Shortcut\",\"data\":\"AudioMute\",\"angle\":-1},{\"name\":\"Play / Pause\",\"icon\":\"exaile-play\",\"type\":\"Shortcut\",\"data\":\"AudioPlay\",\"angle\":-1},{\"name\":\"Next\",\"icon\":\"go-next-symbolic\",\"type\":\"Shortcut\",\"data\":\"AudioNext\",\"angle\":90},{\"name\":\"Previous\",\"icon\":\"go-next-symbolic-rtl\",\"type\":\"Shortcut\",\"data\":\"AudioPrev\",\"angle\":270}],\"type\":\"CustomMenu\",\"data\":{},\"angle\":-1},{\"name\":\"Menu\",\"type\":\"Command\",\"icon\":\"gnome-menu\",\"data\":{\"command\":\"gnome-extensions prefs flypie@schneegans.github.com\"},\"angle\":-1},{\"name\":\"Tasks\",\"type\":\"Command\",\"icon\":\"gnome-system-monitor\",\"data\":{\"command\":\"gnome-system-monitor\"},\"angle\":-1},{\"name\":\"System\",\"type\":\"System\",\"icon\":\"system-log-out\",\"angle\":-1,\"data\":{}},{\"name\":\"Previous\",\"icon\":\"go-previous\",\"type\":\"Shortcut\",\"data\":{\"shortcut\":\"<Super>Left\"},\"angle\":270},{\"name\":\"Close\",\"icon\":\"window-close\",\"type\":\"Shortcut\",\"data\":\"<Alt>F4\",\"angle\":-1},{\"name\":\"Switcher\",\"icon\":\"preferences-system-windows\",\"type\":\"RunningApps\",\"data\":{\"activeWorkspaceOnly\":false,\"appGrouping\":true,\"hoverPeeking\":true,\"nameRegex\":\"\"},\"angle\":-1},{\"name\":\"Favorites\",\"icon\":\"emblem-favorite\",\"type\":\"Favorites\",\"data\":{},\"angle\":-1},{\"name\":\"Maximize\",\"icon\":\"view-fullscreen\",\"type\":\"Shortcut\",\"data\":{\"shortcut\":\"<Super>Up\"},\"angle\":-1},{\"name\":\"Next\",\"icon\":\"go-next\",\"type\":\"Shortcut\",\"data\":{\"shortcut\":\"<Super>Right\"},\"angle\":-1}],\"type\":\"CustomMenu\",\"data\":{}}]";
+      preview-on-right-side = true;
+      stashed-items = "[]";
+      stats-abortions = mkUint32 38;
+      stats-achievement-dates = "{'previewmenus0': int64 1634446334091, 'sponsors': 1634446553904, 'previewmenus1': 1634446586787, 'cancellor0': 1634446795557, 'bigmenus0': 1634447105383, 'journey0': 1634447304624}";
+      stats-added-items = mkUint32 6;
+      stats-click-selections-depth1 = mkUint32 15;
+      stats-click-selections-depth2 = mkUint32 8;
+      stats-click-selections-depth3 = mkUint32 7;
+      stats-dbus-menus = mkUint32 24;
+      stats-gesture-selections-depth1 = mkUint32 5;
+      stats-gesture-selections-depth2 = mkUint32 3;
+      stats-gesture-selections-depth3 = mkUint32 1;
+      stats-preview-menus = mkUint32 19;
+      stats-selections = mkUint32 39;
+      stats-selections-1000ms-depth1 = mkUint32 6;
+      stats-selections-2000ms-depth2 = mkUint32 1;
+      stats-selections-3000ms-depth3 = mkUint32 1;
+      stats-selections-750ms-depth1 = mkUint32 5;
+      stats-settings-opened = mkUint32 13;
+      stats-sponsors-viewed = mkUint32 1;
+      stats-tutorial-menus = mkUint32 6;
+      stats-unread-achievements = mkUint32 0;
+      text-color = "rgb(222,222,222)";
+      trace-color = "rgba(0,0,0,0.462838)";
+      trace-min-length = 200.0;
+      trace-thickness = 8.0;
+      wedge-color = "rgba(0,0,0,0.129992)";
+      wedge-color-hover = "rgba(0,0,0,0.0747331)";
+      wedge-inner-radius = 43.0;
+      wedge-separator-color = "rgba(255, 255, 255, 0.13)";
+      wedge-separator-width = 1.0;
+      wedge-width = 300.0;
     };
   };
 }

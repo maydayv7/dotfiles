@@ -1,4 +1,5 @@
 { lib, pkgs,  ... }:
+## System Scripts ##
 let
   management = with pkgs; writeScriptBin "nixos"
   ''
@@ -12,9 +13,7 @@ let
     
     function applyUser()
     {
-      echo "--------------------------------------------"
-      echo "|--------- Applying User Settings ---------|"
-      echo "--------------------------------------------"
+      echo "<---------- Applying User Settings ---------->"
       nix build /etc/nixos#homeManagerConfigurations.$USER.activationPackage
       ./result/activate
       rm -rf ./result
@@ -22,9 +21,7 @@ let
     
     function applySystem()
     {
-      echo "--------------------------------------------"
-      echo "|------- Applying Machine Settings --------|"
-      echo "--------------------------------------------"
+      echo "<-------- Applying Machine Settings --------->"
       if [ -z "$2" ]; then
         sudo nixos-rebuild switch --flake /etc/nixos#
       elif [ $2 = "--boot" ]; then
@@ -40,9 +37,7 @@ let
     
     function saveState()
     {
-      echo "--------------------------------------------"
-      echo "|------------- Saving Changes -------------|"
-      echo "--------------------------------------------"
+      echo "<-------------- Saving Changes -------------->"
       pushd /etc/nixos
       git add .
       read -p "Enter comment: " comment
@@ -54,28 +49,24 @@ let
     
     case $1 in
     "clean")
-      echo "--------------------------------------------"
-      echo "|------- Running Garbage Collection -------|"
-      echo "--------------------------------------------"
+      echo "<-------- Running Garbage Collection -------->"
       nix-store --gc
       printf "\n"
-      echo "--------------------------------------------"
-      echo "|--------- Running De-duplication ---------|"
-      echo "--------------------------------------------"
+      echo "<---------- Running De-Duplication ---------->"
       nix-store --optimise
     ;;
     "update")
-      echo "--------------------------------------------"
-      echo "|--------- Updating Flake Inputs ----------|"
-      echo "--------------------------------------------"
+      echo "<---------- Updating Flake Inputs ----------->"
       nix flake update /etc/nixos
     ;;
     "apply")
+      sudo -v
       applySystem
       printf "\n"
       applyUser
     ;;
     "apply-system")
+      sudo -v
       applySystem
     ;;
     "apply-user")
@@ -88,11 +79,9 @@ let
       saveState
     ;;
     *)
-      echo "--------------------------------------------"
-      echo "| Tool for Nix Operating System Management |"
-      echo "--------------------------------------------"
+      echo "<----- Tool for NixOS System Management ----->"
       echo ""
-      echo "|----------------- Usage ------------------|"
+      echo "Usage:"
       echo "update        - Updates system Flake inputs"
       echo "apply         - Applies both user and system configuration"
       echo "apply-system  - Applies system configuration"

@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  # Font Configuration
+  ## Font Configuration ##
   fonts =
   {
     enableDefaultFonts = true;

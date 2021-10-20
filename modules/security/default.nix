@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  # Security Settings
+  ## Security Settings ##
   security =
   {
     sudo.extraConfig =

@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 {
+  ## Desktop Theming ##
   # GTK+
   gtk =
   {

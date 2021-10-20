@@ -3,12 +3,16 @@ with builtins;
 {
   mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, modules, cpuCores, users, version }:
   let
+    # Module Import Function
     mkModule = name: import (../modules + "/${name}");
     system_modules = (map (r: mkModule r) modules);
+    
+    # User Creation
     system_users = (map (u: user.mkUser u) users);
+    
+    # Shared System Configuration Modules
     shared_modules =
     [
-      # Shared System Configuration
       ../modules/core
       ../modules/boot
       ../modules/cachix
@@ -29,7 +33,9 @@ with builtins;
         # Device Hostname
         networking.hostName = "${name}";
         
-        # Root User Configuration
+        # User Settings
+        users.mutableUsers = false;
+        nix.trustedUsers = [ "root" "v7" ];
         users.extraUsers.root.passwordFile = "/etc/nixos/secrets/passwords/root";
         
         # Boot Configuration
@@ -41,10 +47,7 @@ with builtins;
         
         # Package Configuration
         nixpkgs.pkgs = pkgs;
-        nix.nixPath =
-        [
-          "nixpkgs=${inputs.nixpkgs}"
-        ];
+        nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
         nix.registry.nixpkgs.flake = inputs.nixpkgs;
         nix.maxJobs = lib.mkDefault cpuCores;
         system.stateVersion = version;

@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 {
+  ## Shell Configuration ##
   environment =
   {
-    # Shell Configuration
     shells = with pkgs; [ bashInteractive zsh ];
     pathsToLink = [ "/share/zsh" ];
     

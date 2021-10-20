@@ -1,5 +1,6 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
+  ## Office Environment Configuration ##
   environment.systemPackages = with pkgs;
   [
     # Productivity

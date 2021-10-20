@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  # Z Shell
+  ## User Z Shell Configuration ##
   programs.zsh =
   {
     enable = true;
@@ -56,6 +56,7 @@
     ".config/neofetch/config.conf".source = ./neofetch;
   };
   
+  # Utilities
   home.packages = with pkgs;
   [
     nix-zsh-completions

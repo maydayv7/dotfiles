@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 {
+  ## Shared Hardware Configuration ##
   # Partitions
   fileSystems =
   {
@@ -27,7 +28,7 @@
   swapDevices =
   [ { device = "/dev/disk/by-label/swap"; } ];
   
-  # Hardware Configuration
+  # Firmware
   hardware =
   {
     cpu.intel.updateMicrocode = true;
@@ -35,8 +36,9 @@
     opengl.enable = true;
     enableRedistributableFirmware = true;
   };
+  environment.systemPackages = with pkgs; [ unstable.sof-firmware ];
   
-  # Audio Configuration
+  # Audio
   sound.enable = true;
   nixpkgs.config.pulseaudio = true;
   hardware.pulseaudio =

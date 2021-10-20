@@ -16,9 +16,7 @@ function setup_system()
       [Nn]* ) exit;;
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
-  printf "--------------------------------------------"
-  printf "|----------- Setting up System ------------|"
-  printf "--------------------------------------------"
+  printf "<----------- Setting up System ------------>"
   printf "\n"
   # Install Required Packages
   nix-env -iA nixos.nixUnstable nixos.git nixos.git-crypt nixos.gnupg
@@ -29,9 +27,7 @@ function setup_system()
   gpg --import ./secrets/gpg/public.gpg
   gpg --import ./secrets/gpg/private.gpg
   printf "\n"
-  printf "--------------------------------------------"
-  printf "|----------- Setting up Device ------------|"
-  printf "--------------------------------------------"
+  printf "<----------- Setting up Device ------------>"
   printf "\n"
   read -p "Do you want to setup the device Vortex or Futura? (1/2): " choice
     case $choice in
@@ -44,9 +40,7 @@ function setup_system()
 # Setup for User V7
 function setup_v7()
 {
-  printf "--------------------------------------------"
-  printf "|----------- Setting up User V7 -----------|"
-  printf "--------------------------------------------"
+  printf "<----------- Setting up User V7 ----------->"
   printf "\n"
   USER=v7
   # Create Screenshots Directory
@@ -58,9 +52,7 @@ function setup_v7()
 # Setup for User Navya
 function setup_navya()
 {
-  printf "--------------------------------------------"
-  printf "|--------- Setting up User Navya ----------|"
-  printf "--------------------------------------------"
+  printf "<--------- Setting up User Navya ---------->"
   printf "\n"
   USER=navya
   # Create Screenshots Directory
@@ -78,9 +70,7 @@ function rebuild()
       [Nn]* ) exit;;
       * ) echo "Please answer (Y)es or (N)o.";;
     esac
-  printf "--------------------------------------------"
-  printf "|----------- Rebuilding System ------------|"
-  printf "--------------------------------------------"
+  printf "<----------- Rebuilding System ------------>"
   printf "\n"
   sudo nixos-rebuild switch --flake .#$device
 }

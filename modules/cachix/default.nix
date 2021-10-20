@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
+## Package Cache Configuration using Cachix ##
 let
+  # Cachix Repos
   folder = ./repos;
   toImport = name: value: folder + ("/" + name);
   filterCaches = key: value: value == "regular" && lib.hasSuffix ".nix" key;

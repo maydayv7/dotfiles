@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 {
+  ## GNOME Desktop Configuration ##
   services.xserver =
   {   
     # Touchpad

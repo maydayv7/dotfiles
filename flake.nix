@@ -1,10 +1,10 @@
 {
-  description = "My Reproducible, Hermetic, Functional, Portable, Atomic, Multi-PC NixOS Dotfiles";
+  description = "My Reproducible, Hermetic, Derivational, Portable, Atomic, Multi-PC NixOS Dotfiles";
   
-  # Package Repositories
+  ## Package Repositories ##
   inputs =
   {
-    ## Main Repos ##
+    ## Main Repositories ##
     # NixOS Stable Release
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
     
@@ -21,7 +21,7 @@
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
     
-    ## Additional Repos ##
+    ## Additional Repositories ##
     # GNOME Icon Taskbar
     gnome-panel =
     {
@@ -44,26 +44,15 @@
     };
   };
   
+  ## Output Configuration ##
   outputs = { self, ... } @ inputs:
   let
+    ## Variable Declaration ##
     # Architecture
     system = "x86_64-linux";
     
     # NixOS Version
     version = "21.05";
-    
-    # System Libraries
-    inherit (inputs.nixpkgs) lib;
-    inherit (lib) attrValues;
-    
-    # Custom Functions
-    util = import ./lib { inherit system lib inputs pkgs; };
-    inherit (util) user;
-    inherit (util) host;
-    
-    # Package Overrides
-    inherit (import ./packages { inherit pkgs; }) custom;
-    inherit (import ./packages/overlays { inherit system lib inputs pkgs scripts custom; }) overlays;
     
     # Package Configuration
     pkgs = import inputs.nixpkgs
@@ -75,6 +64,19 @@
         allowBroken = true;
       };
     };
+    
+    # Package Overrides
+    inherit (import ./packages { inherit pkgs; }) custom;
+    inherit (import ./packages/overlays { inherit system lib inputs pkgs scripts custom; }) overlays;
+    
+    # System Libraries
+    inherit (inputs.nixpkgs) lib;
+    inherit (lib) attrValues;
+    
+    # Custom Functions
+    util = import ./lib { inherit system lib inputs pkgs; };
+    inherit (util) user;
+    inherit (util) host;
     
     # System Scripts
     scripts = import ./scripts { inherit lib pkgs; };

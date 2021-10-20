@@ -1,9 +1,11 @@
 { config, lib, pkgs, ... }:
 {
-  # GNOME Terminal Settings
+  ## GNOME Terminal Settings ##
   programs.gnome-terminal =
   {
     enable = true;
+    
+    # Terminal Profiles
     profile.v7 =
     {
       default = true;

@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  # Git Configuration
+  ## User Git Configuration ##
   programs.git =
   {
     enable = true;
@@ -20,6 +20,8 @@
       init.defaultBranch = "master";
       credential.helper = "store";
     };
+    
+    # User Information
     userName = "maydayv7";
     userEmail = "maydayv7@gmail.com";
     signing =

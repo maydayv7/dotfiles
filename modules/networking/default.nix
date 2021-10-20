@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  # Network Settings
+  ## Network Settings ##
   networking =
   {
     networkmanager.enable = true;

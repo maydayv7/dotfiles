@@ -1,16 +1,18 @@
 { config, lib, pkgs, ... }:
 {
-  # Discord Configuration
+  ## Discord Configuration ##
   home.packages = with pkgs;
   [
     betterdiscordctl
     discord
   ];
   
-  # Plugins and Theme
   home.file =
   {
+    # Theme
     ".config/BetterDiscord/themes/DNOME.theme.css".source = ./theme;
+    
+    # Plugins
     ".config/BetterDiscord/plugins" =
     {
       source = ./plugins;

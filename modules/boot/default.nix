@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  # Boot Configuration
+  ## Boot Configuration ##
   boot =
   {
     # Plymouth

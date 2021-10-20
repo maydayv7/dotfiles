@@ -1,5 +1,6 @@
 { config, lib, ... }:
 {
+  ## User Dotfiles ##
   home.file =
   {
     # Wallpapers

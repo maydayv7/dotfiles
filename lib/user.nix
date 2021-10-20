@@ -1,24 +1,32 @@
 { system, lib, inputs, pkgs, ... }:
 with builtins;
 {
+  ## User Configuration ##
   mkUser = { name, description, groups, uid, shell, ... }:
   {
-    # User Configuration
     users.users."${name}" =
     {
+      # Profile
       name = name;
       description = description;
       isNormalUser = true;
+      uid = uid;
+      
+      # Groups
       group = "users";
       extraGroups = groups;
-      uid = uid;
-      initialPassword = "password";
+      
+      # Shell
       useDefaultShell = false;
       shell = shell;
+      
+      # Password
+      initialPassword = "password";
       passwordFile = "/etc/nixos/secrets/passwords/${name}";
     };
   };
   
+  ## User Home Configuration ##
   mkHome = { username, version, modules }:
   inputs.home-manager.lib.homeManagerConfiguration
   {
@@ -27,6 +35,7 @@ with builtins;
     homeDirectory = "/home/${username}";
     configuration =
     let
+      # Module Import Function
       mkModule = name: import (../users + "/${name}");
       user_modules = map (r: mkModule r) modules;
     in
