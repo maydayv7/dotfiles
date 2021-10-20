@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 {
   ## GNOME Terminal Settings ##
   programs.gnome-terminal =

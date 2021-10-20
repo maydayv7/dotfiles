@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, ... }:
 {
   ## User Dotfiles ##
   home.file =

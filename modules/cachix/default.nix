@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 ## Package Cache Configuration using Cachix ##
 let
   # Cachix Repos

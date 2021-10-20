@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 {
   ## User Git Configuration ##
   programs.git =

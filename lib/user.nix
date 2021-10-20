@@ -27,7 +27,7 @@ with builtins;
   };
   
   ## User Home Configuration ##
-  mkHome = { username, version, modules }:
+  mkHome = { username, version, modules, ... }:
   inputs.home-manager.lib.homeManagerConfiguration
   {
     inherit system username pkgs;
@@ -49,6 +49,7 @@ with builtins;
       # Home Manager Configuration
       systemd.user.startServices = true;
       home.username = username;
+      _module.args.inputs = inputs;
     };
   };
 }

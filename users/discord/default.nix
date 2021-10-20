@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   ## Discord Configuration ##
   home.packages = with pkgs;

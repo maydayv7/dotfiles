@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   ## GNOME Desktop Configuration ##
   services.xserver =

@@ -108,7 +108,8 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "plymouth": "plymouth",
-        "unstable": "unstable"
+        "unstable": "unstable",
+        "zsh-syntax": "zsh-syntax"
       }
     },
     "unstable": {
@@ -124,6 +125,23 @@
         "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "zsh-syntax": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1582925650,
+        "narHash": "sha256-gOG0NLlaJfotJfs+SUhGgLTNOnGLjoqnUp54V9aFJg8=",
+        "owner": "zsh-users",
+        "repo": "zsh-syntax-highlighting",
+        "rev": "932e29a0c75411cb618f02995b66c0a4a25699bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zsh-users",
+        "repo": "zsh-syntax-highlighting",
+        "rev": "932e29a0c75411cb618f02995b66c0a4a25699bc",
         "type": "github"
       }
     }

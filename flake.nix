@@ -29,6 +29,13 @@
       flake = false;
     };
     
+    # Z Shell Syntax Highlighting
+    zsh-syntax =
+    {
+      url = "github:zsh-users/zsh-syntax-highlighting?rev=932e29a0c75411cb618f02995b66c0a4a25699bc";
+      flake = false;
+    };
+    
     # Plymouth Boot Logo
     plymouth =
     {
@@ -83,8 +90,8 @@
   in
   {
     ## Nix Developer Shell ##
-    # Run nix develop in this directory to use it
-    legacyPackages.x86_64-linux = (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
+    # Run it using nix develop
+    legacyPackages."${system}" = (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
     devShell."${system}" = import ./shell.nix { inherit pkgs; };
     
     ## User Specific Configuration ##
@@ -121,7 +128,8 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "options kvm_intel nested=1";
         cpuCores = 8;
-        modules = [ "android" "fonts" "git" "gnome" "libvirt" "office" "security" "ssd" "xorg" ];
+        ssd = true;
+        modules = [ "android" "fonts" "git" "gnome" "libvirt" "office" "security" "xorg" ];
         users =
         [
           {
@@ -133,7 +141,7 @@
           }
         ];
       };
-      
+            
       # PC - Dell Inspiron 11 3000
       Futura = host.mkHost
       {
@@ -145,6 +153,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "";
         cpuCores = 4;
+        ssd = false;
         modules = [ "fonts" "git" "gnome" "office" "security" "xorg" ];
         users =
         [

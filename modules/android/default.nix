@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 {
   ## Android Compatibilty Configuration ##
   # Android Device Bridge

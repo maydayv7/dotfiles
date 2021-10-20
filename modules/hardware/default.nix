@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   ## Shared Hardware Configuration ##
   # Partitions
@@ -27,6 +27,8 @@
   # SWAP Partition
   swapDevices =
   [ { device = "/dev/disk/by-label/swap"; } ];
+  # SWAP Usage
+  boot.kernel.sysctl."vm.swappiness" = 1;
   
   # Firmware
   hardware =
@@ -51,7 +53,12 @@
   services.printing.enable = true;
   
   # Power Management
-  services.earlyoom.enable = true;
+  services.earlyoom =
+  {
+    enable = true;
+    freeMemThreshold = 5;
+    freeSwapThreshold = 90;
+  };
   services.thermald.enable = true;
   powerManagement =
   {

@@ -1,7 +1,7 @@
 { system, lib, user, inputs, pkgs, ... }:
 with builtins;
 {
-  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, modules, cpuCores, users, version }:
+  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, modules, cpuCores, users, version, ssd ? false }:
   let
     # Module Import Function
     mkModule = name: import (../modules + "/${name}");
@@ -24,6 +24,11 @@ with builtins;
   {
     inherit system;
     
+    specialArgs =
+    {
+      inherit inputs;
+    };
+    
     modules =
     [
       {
@@ -35,7 +40,7 @@ with builtins;
         
         # User Settings
         users.mutableUsers = false;
-        nix.trustedUsers = [ "root" "v7" ];
+        nix.trustedUsers = [ "root" "@wheel" ];
         users.extraUsers.root.passwordFile = "/etc/nixos/secrets/passwords/root";
         
         # Boot Configuration
@@ -47,11 +52,19 @@ with builtins;
         
         # Package Configuration
         nixpkgs.pkgs = pkgs;
-        nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-        nix.registry.nixpkgs.flake = inputs.nixpkgs;
         nix.maxJobs = lib.mkDefault cpuCores;
         system.stateVersion = version;
       }
+      
+      # Configuration Options
+      (if ssd
+        then
+        {
+          # SSD Trim
+          services.fstrim.enable = true;
+        }
+        else { }
+      )
     ];
   };
 }

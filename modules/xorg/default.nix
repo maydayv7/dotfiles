@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 {
   ## Xorg Configuration ##
   services.xserver =

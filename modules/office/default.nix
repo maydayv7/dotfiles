@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   ## Office Environment Configuration ##
   environment.systemPackages = with pkgs;
