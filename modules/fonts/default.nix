@@ -15,7 +15,7 @@
         monospace = [ "MesloLGS NF" ];
         sansSerif = [ "Product Sans" ];
         serif = [ "Noto Serif" ];
-        emoji = ["Noto Color Emoji"];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
@@ -23,15 +23,11 @@
   # Font Packages
   fonts.fonts = with pkgs; 
   [
-      cantarell_fonts
-      nur.repos.mic92.clearsans
       corefonts
       dejavu_fonts
       fira
       fira-code
       fira-mono
-      inconsolata
-      iosevka
       liberation_ttf
       meslo-lgs-nf
       noto-fonts
@@ -48,10 +44,8 @@
         [
           "FiraCode"
           "FiraMono"
-          "FantasqueSansMono"
           "Hack"
           "JetBrainsMono"
-          "Meslo"
           "RobotoMono"
           "SourceCodePro"
         ];

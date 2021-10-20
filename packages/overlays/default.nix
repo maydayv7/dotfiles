@@ -30,7 +30,7 @@
       };
       
       # Latest Plymouth built from master
-      # https://gitlab.freedesktop.org/plymouth/plymouth
+      # https://github.com/freedesktop/plymouth
       plymouth = prev.plymouth.overrideAttrs (old:
       {
         src = inputs.plymouth;

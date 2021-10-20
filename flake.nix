@@ -32,7 +32,7 @@
     # Plymouth Boot Logo
     plymouth =
     {
-      url = "github:maydayv7/plymouth";
+      url = "github:freedesktop/plymouth";
       flake = false;
     };
     
@@ -84,6 +84,7 @@
   {
     ## Nix Developer Shell ##
     # Run nix develop in this directory to use it
+    legacyPackages.x86_64-linux = (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
     devShell."${system}" = import ./shell.nix { inherit pkgs; };
     
     ## User Specific Configuration ##
