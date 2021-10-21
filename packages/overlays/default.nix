@@ -13,7 +13,10 @@
     scripts.overlay
     
     # Package Overrides
-    # If you don't know the hash for package source, set:
+    # It is advisable to use Flake inputs as source for overriden packages
+    # To pin a package revision add '?rev=' after the input url
+    # Else you may also specify the package source using fetch
+    # In case you don't know the hash for the source (using a fetch command), set:
     # sha256 = "0000000000000000000000000000000000000000000000000000";
     # Then Nix will fail the build with an error message and give the correct sha256 in base64
     # Use nix hash to-base32 'sha256-hash' to compute the right hash

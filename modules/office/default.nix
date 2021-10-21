@@ -5,10 +5,8 @@
   [
     # Productivity
     bluej
-    celluloid
     gscan2pdf
     libreoffice
-    lollypop
     unstable.onlyoffice-bin
     
     # Internet
@@ -17,5 +15,10 @@
     teams
     whatsapp-for-linux
     zoom-us
+    
+    # Entertainment
+    celluloid
+    handbrake
+    lollypop
   ];
 }
