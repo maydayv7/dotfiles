@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "gnome-firefox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1632687521,
+        "narHash": "sha256-kyfzjwVp73xIofJ+1CxLocqSb9Or5nZjH123yNBFHoY=",
+        "owner": "rafaelmardojai",
+        "repo": "firefox-gnome-theme",
+        "rev": "0b4065ff35e5034cd096fef8f3a5981dd751a48e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rafaelmardojai",
+        "repo": "firefox-gnome-theme",
+        "type": "github"
+      }
+    },
     "gnome-panel": {
       "flake": false,
       "locked": {
@@ -103,6 +119,7 @@
     "root": {
       "inputs": {
         "dconf": "dconf",
+        "gnome-firefox": "gnome-firefox",
         "gnome-panel": "gnome-panel",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

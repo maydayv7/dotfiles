@@ -1,6 +1,12 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   ## Firefox Browser Configuration ##
+  home.packages = with pkgs;
+  [
+    custom.gnome-firefox
+    firefox
+  ];
+  
   programs.firefox =
   {
     enable = true;
@@ -15,8 +21,5 @@
   };
   
   # Theme
-  home.file =
-  {
-    ".mozilla/firefox/v7/chrome".source = ./theme;
-  };
+  home.file.".mozilla/firefox/v7/chrome/userChrome.css".text = ''@import "${pkgs.custom.gnome-firefox}/firefox-gnome-theme/userChrome.css";'';
 }

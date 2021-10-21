@@ -94,7 +94,7 @@ A system management script has been included in `scripts`, invoked with the comm
 - [Powerlevel10K](https://github.com/romkatv/powerlevel10k): ZSH Theme for the fancy-looking prompt with immense customization capabilities
 - [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel): GNOME Shell Extension providing a highly customizable icon taskbar for maximized productivity (personal [fork](https://github.com/maydayv7/dash-to-panel))
 - [DNOME Discord Theme](https://github.com/GeopJr/DNOME): Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
-- [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration, `git submodule` imported at `users/firefox/theme/firefox-gnome-theme`
+- [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration
 
 #### Important Links
 - [NixOS Manual](https://nixos.org/manual/nixpkgs/stable)

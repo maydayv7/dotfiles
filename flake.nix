@@ -29,6 +29,13 @@
       flake = false;
     };
     
+    # Firefox GNOME Theme
+    gnome-firefox =
+    {
+      url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    };
+    
     # Z Shell Syntax Highlighting
     zsh-syntax =
     {
@@ -73,7 +80,7 @@
     };
     
     # Package Overrides
-    inherit (import ./packages { inherit pkgs; }) custom;
+    inherit (import ./packages { inherit inputs pkgs; }) custom;
     inherit (import ./packages/overlays { inherit system lib inputs pkgs scripts custom; }) overlays;
     
     # System Libraries
