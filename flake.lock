@@ -87,11 +87,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1634980285,
-        "narHash": "sha256-mPq/71QTv3HFjBuK7lNB9/A/jtB1j18Ms8GhSyPiNBA=",
+        "lastModified": 1634990768,
+        "narHash": "sha256-qjHDpHH7I41TIVdPbwNHHAwOxZvkhJn7RjnFVNLXS/A=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "cebc11c0be3cfc08a2cce0741d4164f9cb4fc5b4",
+        "rev": "6515e752bf397085f1378afc5696e73a1509a913",
         "type": "github"
       },
       "original": {
@@ -133,10 +133,10 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1634996497,
-        "narHash": "sha256-r1eZ2UF+9MOaR3XZIeTAP5Q5MOZwmhJaQBFkqgTIBkI=",
+        "lastModified": 1634999494,
+        "narHash": "sha256-cS10BZM6BNBbem+to++YDOZUrmXiiMbZ31NEvCr1Pd4=",
         "ref": "master",
-        "rev": "0cbf35b4cda05ec671a826278373bee7c280c263",
+        "rev": "003582f3ff5a8f85dd43c3089ce0a87a270d96be",
         "revCount": 14,
         "type": "git",
         "url": "ssh://git@github.com/maydayv7/secrets.git"

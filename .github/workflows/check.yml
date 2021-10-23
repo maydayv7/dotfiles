@@ -15,6 +15,9 @@ jobs:
     steps:
     - name: Clone Repo
       uses: actions/checkout@v2.3.4
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        submodules: recursive
     - name: Install Nix
       uses: cachix/install-nix-action@v14
       with:
@@ -23,5 +26,16 @@ jobs:
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
           system-features = nixos-test benchmark big-parallel kvm
-    - name: Test
+    - name: Import Keys
+      env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      run: |
+          mkdir -p /home/runner/.ssh
+          echo "${{ secrets.SSH_KEY_PRIVATE }}" > /home/runner/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY_PUBLIC }}" > /home/runner/.ssh/id_rsa.pub
+          chmod 600 /home/runner/.ssh/id_rsa
+          chmod 600 /home/runner/.ssh/id_rsa.pub
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add
+    - name: Check Syntax
       run: nix flake check --log-format raw -v
