@@ -1,7 +1,7 @@
 { system, lib, user, inputs, pkgs, ... }:
 with builtins;
 {
-  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, modules, cpuCores, users, version, ssd ? false }:
+  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, modules, cpuCores, users, version, filesystem ? "ext4", ssd ? false }:
   let
     # Module Import Function
     mkModule = name: import (../modules + "/${name}");
@@ -41,7 +41,7 @@ with builtins;
         # User Settings
         users.mutableUsers = false;
         nix.trustedUsers = [ "root" "@wheel" ];
-        users.extraUsers.root.passwordFile = "/etc/nixos/secrets/passwords/root";
+        users.extraUsers.root.initialHashedPassword = (readFile ../secrets/passwords/root);
         
         # Boot Configuration
         boot.initrd.availableKernelModules = initrdMods;
@@ -56,14 +56,16 @@ with builtins;
         system.stateVersion = version;
       }
       
-      # Configuration Options
-      (if ssd
-        then
-        {
-          # SSD Trim
-          services.fstrim.enable = true;
-        }
+      ## Conditional Implementation ##
+      # SSD Configuration
+      (if ssd == true
+        then (import ../modules/hardware/ssd)
         else { }
+      )
+      # File System Choice
+      (if filesystem == "ext4"
+        then (import ../modules/filesystem/ext4)
+        else (import ../modules/filesystem/btrfs)
       )
     ];
   };

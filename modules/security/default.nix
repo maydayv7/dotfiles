@@ -6,6 +6,7 @@
     sudo.extraConfig =
     "
       Defaults pwfeedback
+      Defaults lecture = never
     ";
   };
 }

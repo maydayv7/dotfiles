@@ -21,8 +21,7 @@ with builtins;
       shell = shell;
       
       # Password
-      initialPassword = "password";
-      passwordFile = "/etc/nixos/secrets/passwords/${name}";
+      initialHashedPassword = (readFile (../secrets/passwords + "/${name}"));
     };
   };
   

@@ -4,6 +4,7 @@
   # Utilities
   environment.systemPackages = with pkgs;
   [
+    etcher
     git
     git-crypt
     unzip

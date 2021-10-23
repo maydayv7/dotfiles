@@ -1,19 +1,13 @@
 { lib, pkgs, ... }:
 {
   ## Shared Hardware Configuration ##
-  # Partitions
+  # Core Partitions
   fileSystems =
   {
-    # ROOT Partition
-    "/" =
-    {
-      device = "/dev/disk/by-label/System";
-      fsType = "ext4";
-    };
     # EFI System Partition
-    "/boot/efi" =
+    "/boot" =
     {
-      device = "/dev/disk/by-partlabel/boot";
+      device = "/dev/disk/by-partlabel/ESP";
       fsType = "vfat";
     };
     # DATA Partition
@@ -21,7 +15,7 @@
     {
       device = "/dev/disk/by-label/Files";
       fsType = "ntfs";
-      options = [ "rw" "uid=1000"];
+      options = [ "rw" "uid=1000" ];
     };
   };
   # SWAP Partition

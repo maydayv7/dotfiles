@@ -15,7 +15,8 @@
       settings = 
       {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "browser.download.dir" = "/home/v7/Downloads";
+        "browser.uidensity" = 0;
+        "svg.context-properties.content.enabled" = true;
       };
     };
   };

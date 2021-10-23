@@ -12,21 +12,14 @@
     loader =
     {
       timeout = 0;
+      systemd-boot.enable = true;
       efi =
       {
         canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
-      grub =
-      {
-        efiSupport = true;
-        device = "nodev";
-        splashImage = null;
-        extraConfig = "set timeout_style=hidden";
       };
     };
     
     # Filesystems
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [ "ntfs" "btrfs" ];
   };
 }

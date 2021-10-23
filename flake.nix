@@ -135,6 +135,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "options kvm_intel nested=1";
         cpuCores = 8;
+        filesystem = "btrfs";
         ssd = true;
         modules = [ "android" "fonts" "git" "gnome" "libvirt" "office" "security" "xorg" ];
         users =
@@ -160,6 +161,7 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         modprobe = "";
         cpuCores = 4;
+        filesystem = "ext4";
         ssd = false;
         modules = [ "fonts" "git" "gnome" "office" "security" "xorg" ];
         users =

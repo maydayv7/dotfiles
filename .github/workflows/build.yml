@@ -5,12 +5,14 @@
 name: "Build Nix Flake Configuration"
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths-ignore:
       - '**.md'
 env:
   NIX_SHOW_STATS: 1
 jobs:
   build:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
@@ -29,9 +31,11 @@ jobs:
       with:
         name: maydayv7-dotfiles
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Build User Configuration
+    - name: Build User V7
       run: nix build .#homeManagerConfigurations.v7.activationPackage
+    - name: Build User Navya
       run: nix build .#homeManagerConfigurations.navya.activationPackage
-    - name: Build System Configuration
+    - name: Build Device Vortex
       run: nix build .#nixosConfigurations.Vortex.config.system.build.toplevel
+    - name: Build Device Futura
       run: nix build .#nixosConfigurations.Futura.config.system.build.toplevel
