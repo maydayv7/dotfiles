@@ -2,10 +2,10 @@
 with pkgs;
 stdenv.mkDerivation rec
 {
-  pname = "gnome-firefox";
-  version = "90";
+  pname = "secrets";
+  version = "v1.0";
   
-  src = inputs.gnome-firefox;
+  src = inputs.secrets;
   
   dontBuild = true;
   

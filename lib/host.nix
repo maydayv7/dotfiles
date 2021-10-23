@@ -41,7 +41,7 @@ with builtins;
         # User Settings
         users.mutableUsers = false;
         nix.trustedUsers = [ "root" "@wheel" ];
-        users.extraUsers.root.initialHashedPassword = (readFile ../secrets/passwords/root);
+        users.extraUsers.root.initialHashedPassword = (readFile "${pkgs.custom.secrets}/passwords/root");
         
         # Boot Configuration
         boot.initrd.availableKernelModules = initrdMods;

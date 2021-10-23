@@ -53,14 +53,13 @@ Download the latest NixOS .iso from [here](https://nixos.org/download.html), the
 #### Partition Scheme
 Partition the drive using a tool such as [Gparted](https://gparted.org/)  
 *Note that partition labels must be set on all the partitions, along with the `esp` and `boot` flags on the ESP*
-```
-Name                Label		    Format          Size (minimum)
---------------------------------------------------------------------------
-ESP             |       ESP         |	vfat            |	500M
-ROOT Partition	|	System	    |	ext4/BTRFS	|	25G
-SWAP Area       |	swap	    |	swap		|	4G
-DATA Partition	|	Files	    |	NTFS		|	10G
-```
+
+| Name           | Label  | Format     | Size (minimum) |
+| :------------- | :----: | :--------: | :------------: |
+| BOOT Partition | ESP    | vfat       | 500M           |
+| ROOT Partition | System | ext4/BTRFS | 25G            |
+| SWAP Area      | swap   | swap       | 4G             |
+| DATA Partition | Files  | NTFS       | 10G            |
 
 #### Commands
 Then, install the OS using the following commands:  
@@ -115,8 +114,9 @@ cd /persist/etc && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 cd nixos && nixos apply
 mkdir -p ~/Pictures/Screenshots
 sudo cp -av ./users/dotfiles/images/Profile.png /var/lib/AccountsService/icons/<i>user</i>
-gpg --import ./secrets/keys/gpg/public.gpg
-gpg --import ./secrets/keys/gpg/private.gpg
+gpg --import ./secrets/gpg/public.gpg
+gpg --import ./secrets/gpg/private.gpg
+cp ./secrets/ssh ~/.ssh -r && ssh-add
 </pre></code>
 
 ## Notes

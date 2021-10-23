@@ -22,6 +22,13 @@
     nur.url = "github:nix-community/NUR";
     
     ## Additional Repositories ##
+    # User Credentials
+    secrets =
+    {
+      url = "git+ssh://git@github.com/maydayv7/secrets.git";
+      flake = false;
+    };
+    
     # GNOME Icon Taskbar
     gnome-panel =
     {

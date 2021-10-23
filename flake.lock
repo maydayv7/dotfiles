@@ -125,8 +125,25 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "plymouth": "plymouth",
+        "secrets": "secrets",
         "unstable": "unstable",
         "zsh-syntax": "zsh-syntax"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634996497,
+        "narHash": "sha256-r1eZ2UF+9MOaR3XZIeTAP5Q5MOZwmhJaQBFkqgTIBkI=",
+        "ref": "master",
+        "rev": "0cbf35b4cda05ec671a826278373bee7c280c263",
+        "revCount": 14,
+        "type": "git",
+        "url": "ssh://git@github.com/maydayv7/secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/maydayv7/secrets.git"
       }
     },
     "unstable": {

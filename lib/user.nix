@@ -21,7 +21,7 @@ with builtins;
       shell = shell;
       
       # Password
-      initialHashedPassword = (readFile (../secrets/passwords + "/${name}"));
+      initialHashedPassword = (readFile ("${pkgs.custom.secrets}/passwords" + "/${name}"));
     };
   };
   
