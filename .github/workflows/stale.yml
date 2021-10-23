@@ -17,7 +17,8 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/stale@v3
+    - name: Stale Marker
+      uses: actions/stale@v3
       with:
         repo-token: ${{ secrets.ACCESS_TOKEN }}
         stale-issue-message: 'This Issue is marked stale because it has been open 30 days without any further activity'

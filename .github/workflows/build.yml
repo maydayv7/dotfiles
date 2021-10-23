@@ -15,7 +15,8 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.4
+    - name: Clone Repo
+      uses: actions/checkout@v2.3.4
       with:
         token: ${{ secrets.ACCESS_TOKEN }}
         submodules: recursive

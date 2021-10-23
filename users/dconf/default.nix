@@ -183,7 +183,6 @@ with lib.hm.gvariant;
     "org/gnome/gnome-screenshot" = {
       delay = 0;
       include-pointer = true;
-      last-save-directory = "file:///home/v7/Pictures/Screenshots";
     };
     
     "org/gnome/desktop/background" = {
@@ -266,10 +265,6 @@ with lib.hm.gvariant;
     
     "org/gnome/shell/extensions/lockkeys" = {
       style = "show-hide";
-    };
-    
-    "org/gnome/shell/extensions/screenshotlocations" = {
-      save-directory = "/home/v7/Pictures/Screenshots";
     };
     
     "org/gnome/shell/extensions/sound-output-device-chooser" = {

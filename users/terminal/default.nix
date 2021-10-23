@@ -6,7 +6,7 @@
     enable = true;
     
     # Terminal Profiles
-    profile.v7 =
+    profile.terminal =
     {
       default = true;
       visibleName = "Terminal";
