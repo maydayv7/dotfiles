@@ -46,9 +46,24 @@ with builtins;
       nixpkgs.config.allowUnfree = true;
       
       # Home Manager Configuration
+      _module.args.inputs = inputs;
       systemd.user.startServices = true;
       home.username = username;
-      _module.args.inputs = inputs;
+      programs.home-manager.enable = true;
+      
+      # Home Activation Script
+      home.activation =
+      {
+        screenshotsDir = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
+        ''
+          $DRY_RUN_CMD mkdir -p $VERBOSE_ARG ~/Pictures/Screenshots
+        '';
+        
+        profilePic = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
+        ''
+          $DRY_RUN_CMD sudo cp -av $VERBOSE_ARG ~/.local/share/backgrounds/Profile.png /var/lib/AccountsService/icons/${username}
+        '';
+      };
     };
   };
 }

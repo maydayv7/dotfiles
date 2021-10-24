@@ -110,14 +110,18 @@ sudo mv /etc/NetworkManager/system-connections /persist/etc/NetworkManager/syste
 cd /persist/etc && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 ```
 
-<pre><code>git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
+
+```
+git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
 cd nixos && nixos apply
-mkdir -p ~/Pictures/Screenshots
-sudo cp -av ./users/dotfiles/images/Profile.png /var/lib/AccountsService/icons/<i>user</i>
+```
+
+##### Keys
+```
 gpg --import ./secrets/gpg/public.gpg
 gpg --import ./secrets/gpg/private.gpg
 cp ./secrets/ssh ~/.ssh -r && ssh-add
-</pre></code>
+```
 
 ## Notes
 #### Caution
@@ -162,4 +166,4 @@ These configuration files can be used to setup the system using either ext4 or B
 - [NixOS Package Search](https://search.nixos.org/)
 - [Nixpkgs Repository](https://github.com/NixOS/nixpkgs)
 - [Nix User Repository](https://github.com/nix-community/NUR)
-- [Home Manager Options](https://rycee.gitlab.io/home-manager/options.html)
+- [Home Manager Options](https://nix-community.github.io/home-manager/options.html)
