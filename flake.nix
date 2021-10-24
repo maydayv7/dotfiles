@@ -21,6 +21,9 @@
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
     
+    # Persistent State Handler
+    impermanence.url = "github:nix-community/impermanence";
+    
     ## Additional Repositories ##
     # User Credentials
     secrets =

@@ -76,15 +76,11 @@ mount /dev/disk/by-label/System /mnt
 btrfs subvolume create /mnt/home
 btrfs subvolume create /mnt/nix
 btrfs subvolume create /mnt/persist
-btrfs subvolume create /mnt/log
-btrfs subvolume create /mnt/lib
 umount /mnt
-mkdir /mnt/{home,nix,persist,var,var/log,var/lib}
+mkdir /mnt/{home,nix,persist}
 mount -o subvol=home,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/home
 mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/nix
 mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/persist
-mount -o subvol=log,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/var/log
-mount -o subvol=lib,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/var/lib
 ```
 
 <pre><code>mkdir -p /mnt/boot
@@ -104,9 +100,12 @@ sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 ##### BTRFS
 ```console
 sudo rm -rf /etc/nixos
-sudo mkdir -p /persist/etc/{nixos,NetworkManager}
+sudo mkdir -p /persist/{etc/nixos,etc/NetworkManager,var/log,var/lib}
 sudo mv /etc/machine-id /persist/etc/machine-id
 sudo mv /etc/NetworkManager/system-connections /persist/etc/NetworkManager/system-connections
+sudo mv /var/lib/AccountsService /persist/var/lib/AccountsService
+sudo mv /var/lib/bluetooth /persist/var/lib/bluetooth
+sudo mv /var/lib/libvirt /persist/var/lib/libvirt
 cd /persist/etc && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 ```
 

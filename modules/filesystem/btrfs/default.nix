@@ -34,28 +34,24 @@
       options = [ "subvol=persist" "compress=zstd" "autodefrag" "noatime" ];
       neededForBoot = true;
     };
-    # LOGS Subvolume
-    "/var/log" =
-    {
-      device = "/dev/disk/by-label/System";
-      fsType = "btrfs";
-      options = [ "subvol=log" "compress=zstd" "autodefrag" "noatime" ];
-      neededForBoot = true;
-    };
-    # LIBRARY Subvolume
-    "/var/lib" =
-    {
-      device = "/dev/disk/by-label/System";
-      fsType = "btrfs";
-      options = [ "subvol=lib" "compress=zstd" "autodefrag" "noatime" ];
-    };
   };
   
   # Persisted Files
-  environment.etc =
+  environment.persistence."/persist" =
   {
-    nixos.source = "/persist/etc/nixos";
-    "NetworkManager/system-connections".source = "/persist/etc/NetworkManager/system-connections";
-    machine-id.source = "/persist/etc/machine-id";
+    directories =
+    [
+      "/etc/nixos"
+      "/etc/NetworkManager/system-connections"
+      "/var/log"
+      "/var/lib/AccountsService"
+      "/var/lib/bluetooth"
+      "/var/lib/libvirt"
+    ];
+    
+    files =
+    [
+      "/etc/machine-id"
+    ];
   };
 }

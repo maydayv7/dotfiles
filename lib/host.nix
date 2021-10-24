@@ -19,6 +19,7 @@ with builtins;
       ../modules/hardware
       ../modules/networking
       ../modules/shell
+      inputs.impermanence.nixosModules.impermanence
     ];
   in lib.nixosSystem
   {
@@ -41,7 +42,7 @@ with builtins;
         # User Settings
         users.mutableUsers = false;
         nix.trustedUsers = [ "root" "@wheel" ];
-        users.extraUsers.root.initialHashedPassword = (readFile "${pkgs.custom.secrets}/passwords/root");
+        users.extraUsers.root.initialHashedPassword = (readFile "${inputs.secrets}/passwords/root");
         
         # Boot Configuration
         boot.initrd.availableKernelModules = initrdMods;

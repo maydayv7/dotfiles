@@ -69,13 +69,28 @@
         "type": "github"
       }
     },
+    "impermanence": {
+      "locked": {
+        "lastModified": 1611747548,
+        "narHash": "sha256-2z5wmWda1uI4IkTZrW52jiHq3bzhYLc+GgjvaSd544M=",
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "rev": "58558845bc68dcf2bb32caa80564f7fe3f6cbc61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1634883236,
-        "narHash": "sha256-Z9ofgNzSmYVhs+STOAvk6QNy5KVsUmADOE+UIfur2ug=",
+        "lastModified": 1635024461,
+        "narHash": "sha256-yUU86lOsqqe/qI2pItEJGxx87cHeJiEJhDZvAXvrqfQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b0274abf85097e9a2da868b28a5532918dc14380",
+        "rev": "95eed9b64eee24975b880308065654fd059f22c3",
         "type": "github"
       },
       "original": {
@@ -87,11 +102,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1634990768,
-        "narHash": "sha256-qjHDpHH7I41TIVdPbwNHHAwOxZvkhJn7RjnFVNLXS/A=",
+        "lastModified": 1635042269,
+        "narHash": "sha256-tYOtMv5qTkHEUWg//Cimh7RGqMn3ZHY03EADLN4kNgE=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "6515e752bf397085f1378afc5696e73a1509a913",
+        "rev": "fc9e7c997596b17f180154a38f56655aac976f8e",
         "type": "github"
       },
       "original": {
@@ -122,6 +137,7 @@
         "gnome-firefox": "gnome-firefox",
         "gnome-panel": "gnome-panel",
         "home-manager": "home-manager",
+        "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "plymouth": "plymouth",
