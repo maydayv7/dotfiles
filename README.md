@@ -141,7 +141,7 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 ##### Credentials
-The `secrets` directory is a `git submodule` pointing to a private repository containing passwords and other authentication credentials. User passwords are specified using the `passwordFile` option
+The `secrets` directory is a `git submodule` pointing to a private repository containing passwords and other authentication credentials. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
 
 ##### Scripts
 A system management script has been included in `scripts`, invoked with the command `nixos`, which can be used to apply user and system configuration changes or perform various other useful functions
