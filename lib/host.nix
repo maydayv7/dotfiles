@@ -21,6 +21,12 @@ with builtins;
       ../modules/shell
       inputs.impermanence.nixosModules.impermanence
     ];
+    
+    unstable_modules =
+    [
+      "${inputs.unstable}/nixos/modules/services/backup/btrbk.nix"
+      "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix"
+    ];
   in lib.nixosSystem
   {
     inherit system;
@@ -34,7 +40,7 @@ with builtins;
     [
       {
         # Modulated Configuration Imports
-        imports = shared_modules ++ system_modules ++ system_users;
+        imports = system_modules ++ system_users ++ shared_modules ++ unstable_modules;
         
         # Device Hostname
         networking.hostName = "${name}";

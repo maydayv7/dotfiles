@@ -19,11 +19,19 @@
   {
     dbus.packages = [ pkgs.gnome.dconf ];
     udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+    touchegg =
+    {
+      enable = true;
+      package = pkgs.unstable.touchegg;
+    };
     gnome =
     {
       chrome-gnome-shell.enable = true;
+      experimental-features.realtime-scheduling = true;
+      gnome-initial-setup.enable = true;
       gnome-keyring.enable = true;
       gnome-remote-desktop.enable = true;
+      sushi.enable = true;
     };
   };
   
@@ -87,22 +95,5 @@
     # Utilities
     dconf2nix
     gnuchess
-    unstable.touchegg
   ];
-  
-  # X11 Gestures Daemon
-  systemd.services.touchegg =
-  {
-    enable = true;
-    description = "The daemon for Touchégg X11 Gestures.";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = 
-    {
-      Type = "simple";
-      Group = "input";
-      Restart = "on-failure";
-      RestartSec = 5;
-      ExecStart = "${pkgs.unstable.touchegg}/bin/touchegg --daemon";
-    };
-  };
 }
