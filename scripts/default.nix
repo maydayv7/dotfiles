@@ -21,6 +21,7 @@ let
     
     function applySystem()
     {
+      sudo -v
       echo "<-------- Applying Machine Settings --------->"
       if [ -z "$2" ]; then
         sudo nixos-rebuild switch --flake /etc/nixos#
@@ -60,13 +61,11 @@ let
       nix flake update /etc/nixos
     ;;
     "apply")
-      sudo -v
       applySystem
       printf "\n"
       applyUser
     ;;
     "apply-system")
-      sudo -v
       applySystem
     ;;
     "apply-user")

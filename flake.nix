@@ -6,23 +6,31 @@
   {
     ## Main Repositories ##
     # NixOS Stable Release
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-21.05";
     
     # Unstable Packages Repository
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     
     # Home Manager
     home-manager =
     {
-      url = "github:nix-community/home-manager/release-21.05";
+      url = "github:nix-community/home-manager?ref=release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
     # Nix User Repository
-    nur.url = "github:nix-community/NUR";
+    nur =
+    {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     # Persistent State Handler
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence =
+    {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     ## Additional Repositories ##
     # User Credentials

@@ -39,6 +39,11 @@ with builtins;
       user_modules = map (r: mkModule r) modules;
     in
     {
+      _module.args =
+      {
+        inherit inputs;
+      };
+      
       # Modulated Configuration Imports
       imports = user_modules;
       
@@ -46,10 +51,9 @@ with builtins;
       nixpkgs.config.allowUnfree = true;
       
       # Home Manager Configuration
-      _module.args.inputs = inputs;
-      systemd.user.startServices = true;
       home.username = username;
       programs.home-manager.enable = true;
+      systemd.user.startServices = true;
       
       # Home Activation Script
       home.activation =
@@ -62,6 +66,12 @@ with builtins;
         profilePic = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
         ''
           $DRY_RUN_CMD sudo cp -av $VERBOSE_ARG ~/.local/share/backgrounds/Profile.png /var/lib/AccountsService/icons/${username}
+        '';
+        
+        importKeys = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
+        ''
+          $DRY_RUN_CMD gpg --import ${inputs.secrets}/gpg/public.gpg $VERBOSE_ARG && $DRY_RUN_CMD gpg --import ${inputs.secrets}/gpg/private.gpg $VERBOSE_ARG
+          $DRY_RUN_CMD sudo rm -rf ~/.ssh && $DRY_RUN_CMD cp ${inputs.secrets}/ssh ~/.ssh -r $VERBOSE_ARG && $DRY_RUN_CMD chmod 600 ~/.ssh && $DRY_RUN_CMD ssh-add
         '';
       };
     };

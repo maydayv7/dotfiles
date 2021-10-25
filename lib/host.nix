@@ -64,9 +64,9 @@ with builtins;
         else { }
       )
       # File System Choice
-      (if filesystem == "ext4"
-        then (import ../modules/filesystem/ext4)
-        else (import ../modules/filesystem/btrfs)
+      (if filesystem == "btrfs"
+        then (import ../modules/filesystem/btrfs)
+        else (import ../modules/filesystem/ext4)
       )
     ];
   };

@@ -77,17 +77,21 @@ btrfs subvolume create /mnt/home
 btrfs subvolume create /mnt/nix
 btrfs subvolume create /mnt/persist
 umount /mnt
+mount -t tmpfs none /mnt
 mkdir /mnt/{home,nix,persist}
 mount -o subvol=home,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/home
 mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/nix
 mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/persist
 ```
 
-<pre><code>mkdir -p /mnt/boot
+*Before installing, import the SSH Keys for the `secrets` submodule*  
+*Replace* ***HOST*** *with the desired hostname*
+```
+mkdir -p /mnt/boot
 mount /dev/disk/by-partlabel/ESP /mnt/boot
-nixos-install --no-root-passwd --flake github:maydayv7/dotfiles#<i>host</i>
+nixos-install --no-root-passwd --flake github:maydayv7/dotfiles#HOST
 reboot now
-</pre></code>
+```
 
 #### Post Install
 ##### ext4
@@ -113,13 +117,6 @@ cd /persist/etc && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 ```
 git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
 cd nixos && nixos apply
-```
-
-##### Keys
-```
-gpg --import ./secrets/gpg/public.gpg
-gpg --import ./secrets/gpg/private.gpg
-cp ./secrets/ssh ~/.ssh -r && ssh-add
 ```
 
 ## Notes
