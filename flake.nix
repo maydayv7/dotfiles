@@ -126,7 +126,7 @@
       v7 = user.mkHome
       {
         username = "v7";
-        modules = [ "dconf" "discord" "dotfiles" "firefox" "git" "terminal" "theme" "zsh" ];
+        modules = [ "dconf" "discord" "firefox" "git" "zsh" ];
         inherit version;
       };
       
@@ -134,7 +134,7 @@
       navya = user.mkHome
       {
         username = "navya";
-        modules = [ "dconf" "dotfiles" "firefox" "git" "terminal" "theme" "zsh" ];
+        modules = [ "dconf" "firefox" "git" "zsh" ];
         inherit version;
       };
     };

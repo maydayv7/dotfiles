@@ -26,7 +26,7 @@ with builtins;
   };
   
   ## User Home Configuration ##
-  mkHome = { username, version, modules, ... }:
+  mkHome = { username, modules, version, ... }:
   inputs.home-manager.lib.homeManagerConfiguration
   {
     inherit system username pkgs;
@@ -37,15 +37,24 @@ with builtins;
       # Module Import Function
       mkModule = name: import (../users + "/${name}");
       user_modules = map (r: mkModule r) modules;
+      
+      # Shared User Configuration Modules
+      shared_modules =
+      [
+        ../users/dotfiles
+        ../users/terminal
+        ../users/theme
+        ../scripts/home
+      ];
     in
     {
       _module.args =
       {
-        inherit inputs;
+        inherit inputs username;
       };
       
       # Modulated Configuration Imports
-      imports = user_modules;
+      imports = user_modules ++ shared_modules;
       
       # Package Configuraton
       nixpkgs.config.allowUnfree = true;
@@ -54,26 +63,6 @@ with builtins;
       home.username = username;
       programs.home-manager.enable = true;
       systemd.user.startServices = true;
-      
-      # Home Activation Script
-      home.activation =
-      {
-        screenshotsDir = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
-        ''
-          $DRY_RUN_CMD mkdir -p $VERBOSE_ARG ~/Pictures/Screenshots
-        '';
-        
-        profilePic = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
-        ''
-          $DRY_RUN_CMD sudo cp -av $VERBOSE_ARG ~/.local/share/backgrounds/Profile.png /var/lib/AccountsService/icons/${username}
-        '';
-        
-        importKeys = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
-        ''
-          $DRY_RUN_CMD gpg --import ${inputs.secrets}/gpg/public.gpg $VERBOSE_ARG && $DRY_RUN_CMD gpg --import ${inputs.secrets}/gpg/private.gpg $VERBOSE_ARG
-          $DRY_RUN_CMD sudo rm -rf ~/.ssh && $DRY_RUN_CMD cp ${inputs.secrets}/ssh ~/.ssh -r $VERBOSE_ARG && $DRY_RUN_CMD chmod 600 ~/.ssh && $DRY_RUN_CMD ssh-add
-        '';
-      };
     };
   };
 }

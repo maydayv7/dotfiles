@@ -446,5 +446,9 @@ with lib.hm.gvariant;
       wedge-separator-width = 1.0;
       wedge-width = 300.0;
     };
+    
+    "org/gnome/shell/extensions/user-theme" = {
+      name = "Adwaita";
+    };
   };
 }
