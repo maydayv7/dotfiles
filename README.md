@@ -30,7 +30,7 @@ Here is an overview of the file hierarchy:
 │   └── setup.sh
 ├── users
 │   └── dotfiles
-├── modules
+├── roles
 │   └── core
 ├── packages
 │   └── overlays
@@ -40,7 +40,7 @@ Here is an overview of the file hierarchy:
 ```
 
 - `flake.nix`: main system configuration file, using [Flakes](https://nixos.wiki/wiki/Flakes) for easier repository version control and multi-device management
-- `modules`: modulated configuration for effortless management
+- `roles`: modulated role-based configuration for effortless management
 - `core`: shared system configuration and scripts
 - `overlays`: overrides for pre-built packages
 - `packages`: locally built custom packages
@@ -65,8 +65,8 @@ Partition the drive using a tool such as [Gparted](https://gparted.org/)
 Then, install the OS using the following commands:  
 <pre><code>sudo -i
 nix-env -iA nixos.nixUnstable
-parted /dev/nvme0n1 -- mkpart ESP fat32 1MiB 512MiB
-parted /dev/nvme0n1 -- set 1 esp on
+parted /dev/<i>disk</i> -- mkpart ESP fat32 1MiB 512MiB
+parted /dev/<i>disk</i> -- set 1 esp on
 mkswap -L swap <i>/path/to/swap</i>
 mount /dev/disk/by-label/System /mnt
 </pre></code>
@@ -98,7 +98,7 @@ reboot now
 ```
 sudo rm -rf /etc/nixos
 cd /etc
-sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
+sudo mkdir nixos
 ```
 
 ##### BTRFS
@@ -110,13 +110,14 @@ sudo mv /etc/NetworkManager/system-connections /persist/etc/NetworkManager/syste
 sudo mv /var/lib/AccountsService /persist/var/lib/AccountsService
 sudo mv /var/lib/bluetooth /persist/var/lib/bluetooth
 sudo mv /var/lib/libvirt /persist/var/lib/libvirt
-cd /persist/etc && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
+sudo umount -l /etc/nixos && cd /persist/etc
 ```
 
 
 ```
+sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
-cd nixos && nixos apply
+cd nixos && sudo nixos-rebuild switch --flake .# && nixos apply-user
 ```
 
 ## Notes

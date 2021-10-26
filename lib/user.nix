@@ -26,7 +26,7 @@ with builtins;
   };
   
   ## User Home Configuration ##
-  mkHome = { username, modules, version, ... }:
+  mkHome = { username, roles, version, ... }:
   inputs.home-manager.lib.homeManagerConfiguration
   {
     inherit system username pkgs;
@@ -35,11 +35,11 @@ with builtins;
     configuration =
     let
       # Module Import Function
-      mkModule = name: import (../users + "/${name}");
-      user_modules = map (r: mkModule r) modules;
+      mkRole = name: import (../users + "/${name}");
+      user_roles = map (r: mkRole r) roles;
       
-      # Shared User Configuration Modules
-      shared_modules =
+      # Shared User Roles
+      shared_roles =
       [
         ../users/dotfiles
         ../users/terminal
@@ -54,7 +54,7 @@ with builtins;
       };
       
       # Modulated Configuration Imports
-      imports = user_modules ++ shared_modules;
+      imports = shared_roles ++ user_roles;
       
       # Package Configuraton
       nixpkgs.config.allowUnfree = true;

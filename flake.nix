@@ -11,6 +11,9 @@
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     
+    # Nix User Repository
+    nur.url = "github:nix-community/NUR";
+    
     # Home Manager
     home-manager =
     {
@@ -18,22 +21,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
-    # Nix User Repository
-    nur =
-    {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    
     # Persistent State Handler
-    impermanence =
-    {
-      url = "github:nix-community/impermanence";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    impermanence.url = "github:nix-community/impermanence";
     
     ## Additional Repositories ##
-    # User Credentials
+    # Personal Credentials
+    # Fetched using SSH Keys
     secrets =
     {
       url = "git+ssh://git@github.com/maydayv7/secrets.git";
@@ -116,7 +109,7 @@
   {
     ## Nix Developer Shell ##
     # Run it using nix develop
-    legacyPackages."${system}" = (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
+    packages."${system}" = pkgs;
     devShell."${system}" = import ./shell.nix { inherit pkgs; };
     
     ## User Specific Configuration ##
@@ -126,7 +119,7 @@
       v7 = user.mkHome
       {
         username = "v7";
-        modules = [ "dconf" "discord" "firefox" "git" "zsh" ];
+        roles = [ "dconf" "discord" "firefox" "git" "zsh" ];
         inherit version;
       };
       
@@ -134,7 +127,7 @@
       navya = user.mkHome
       {
         username = "navya";
-        modules = [ "dconf" "firefox" "git" "zsh" ];
+        roles = [ "dconf" "firefox" "git" "zsh" ];
         inherit version;
       };
     };
@@ -155,7 +148,7 @@
         cpuCores = 8;
         filesystem = "btrfs";
         ssd = true;
-        modules = [ "android" "fonts" "git" "gnome" "libvirt" "office" "security" "xorg" ];
+        roles = [ "android" "fonts" "git" "gnome" "libvirt" "office" "security" "xorg" ];
         users =
         [
           {
@@ -181,7 +174,7 @@
         cpuCores = 4;
         filesystem = "ext4";
         ssd = false;
-        modules = [ "fonts" "git" "gnome" "office" "security" "xorg" ];
+        roles = [ "fonts" "git" "gnome" "office" "security" "xorg" ];
         users =
         [
           {

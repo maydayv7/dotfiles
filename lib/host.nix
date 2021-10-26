@@ -1,29 +1,30 @@
 { system, lib, user, inputs, pkgs, ... }:
 with builtins;
 {
-  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, modules, cpuCores, users, version, filesystem ? "ext4", ssd ? false }:
+  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, roles, cpuCores, users, version, filesystem ? "ext4", ssd ? false }:
   let
-    # Module Import Function
-    mkModule = name: import (../modules + "/${name}");
-    system_modules = (map (r: mkModule r) modules);
+    # Roles Import Function
+    mkRole = name: import (../roles + "/${name}");
+    system_roles = (map (r: mkRole r) roles);
     
     # User Creation
     system_users = (map (u: user.mkUser u) users);
     
-    # Shared System Configuration Modules
-    shared_modules =
+    # Shared System Roles
+    shared_roles =
     [
-      ../modules/core
-      ../modules/boot
-      ../modules/cachix
-      ../modules/hardware
-      ../modules/networking
-      ../modules/shell
-      inputs.impermanence.nixosModules.impermanence
+      ../roles/core
+      ../roles/boot
+      ../roles/cachix
+      ../roles/hardware
+      ../roles/networking
+      ../roles/shell
     ];
     
-    unstable_modules =
+    # Extra Configuration Modules
+    extra_modules =
     [
+      inputs.impermanence.nixosModules.impermanence
       "${inputs.unstable}/nixos/modules/services/backup/btrbk.nix"
       "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix"
     ];
@@ -40,7 +41,7 @@ with builtins;
     [
       {
         # Modulated Configuration Imports
-        imports = system_modules ++ system_users ++ shared_modules ++ unstable_modules;
+        imports = shared_roles ++ system_roles ++ system_users ++ extra_modules;
         
         # Device Hostname
         networking.hostName = "${name}";
@@ -66,13 +67,13 @@ with builtins;
       ## Conditional Implementation ##
       # SSD Configuration
       (if ssd == true
-        then (import ../modules/hardware/ssd)
+        then (import ../roles/hardware/ssd)
         else { }
       )
       # File System Choice
       (if filesystem == "btrfs"
-        then (import ../modules/filesystem/btrfs)
-        else (import ../modules/filesystem/ext4)
+        then (import ../roles/filesystem/btrfs)
+        else (import ../roles/filesystem/ext4)
       )
     ];
   };
