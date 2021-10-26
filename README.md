@@ -25,25 +25,26 @@ Here is an overview of the file hierarchy:
 ```
 ┌── flake.nix
 ├── flake.lock
-├── secrets
+├── modules
 ├── scripts
 │   └── setup.sh
-├── users
-│   └── dotfiles
-├── roles
-│   └── core
 ├── packages
 │   └── overlays
+├── roles
+│   ├── core
+│   └── users
+│       └── dotfiles
 └── lib
     ├── host.nix
     └── user.nix
 ```
 
 - `flake.nix`: main system configuration file, using [Flakes](https://nixos.wiki/wiki/Flakes) for easier repository version control and multi-device management
+- `modules`: custom-made configuration modules for additional functionality
+- `packages`: locally built custom packages
+- `overlays`: overrides for pre-built packages
 - `roles`: modulated role-based configuration for effortless management
 - `core`: shared system configuration and scripts
-- `overlays`: overrides for pre-built packages
-- `packages`: locally built custom packages
 - `users`: user related configuration and dotfiles
 
 ## Installation
@@ -84,7 +85,7 @@ mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /
 mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/persist
 ```
 
-*Before installing, import the SSH Keys for the `secrets` submodule*  
+*Before installing, import the SSH Keys for the authentication credentials*  
 *Replace* ***HOST*** *with the desired hostname*
 ```
 mkdir -p /mnt/boot
@@ -142,7 +143,7 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 ##### Credentials
-The `secrets` directory is a `git submodule` pointing to a private repository containing passwords and other authentication credentials. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
+The authentication credentials are stored in a private repository containing passwords and other security keys, which is imported into the configuration as an `input`, and cloned using SSH Keys. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
 
 ##### Scripts
 A system management script has been included in `scripts`, invoked with the command `nixos`, which can be used to apply user and system configuration changes or perform various other useful functions

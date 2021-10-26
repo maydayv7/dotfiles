@@ -35,15 +35,15 @@ with builtins;
     configuration =
     let
       # Module Import Function
-      mkRole = name: import (../users + "/${name}");
+      mkRole = name: import (../roles/users + "/${name}");
       user_roles = map (r: mkRole r) roles;
       
       # Shared User Roles
       shared_roles =
       [
-        ../users/dotfiles
-        ../users/terminal
-        ../users/theme
+        ../roles/users/dotfiles
+        ../roles/users/terminal
+        ../roles/users/theme
         ../scripts/home
       ];
     in

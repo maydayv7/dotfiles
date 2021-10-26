@@ -109,7 +109,6 @@
   {
     ## Nix Developer Shell ##
     # Run it using nix develop
-    packages."${system}" = pkgs;
     devShell."${system}" = import ./shell.nix { inherit pkgs; };
     
     ## User Specific Configuration ##
@@ -173,7 +172,6 @@
         modprobe = "";
         cpuCores = 4;
         filesystem = "ext4";
-        ssd = false;
         roles = [ "fonts" "git" "gnome" "office" "security" "xorg" ];
         users =
         [

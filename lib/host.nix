@@ -24,6 +24,7 @@ with builtins;
     # Extra Configuration Modules
     extra_modules =
     [
+      ../modules
       inputs.impermanence.nixosModules.impermanence
       "${inputs.unstable}/nixos/modules/services/backup/btrbk.nix"
       "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix"
@@ -43,8 +44,10 @@ with builtins;
         # Modulated Configuration Imports
         imports = shared_roles ++ system_roles ++ system_users ++ extra_modules;
         
-        # Device Hostname
+        # Device Configuration
         networking.hostName = "${name}";
+        hardware.filesystem = filesystem;
+        hardware.ssd = ssd;
         
         # User Settings
         users.mutableUsers = false;
@@ -63,18 +66,6 @@ with builtins;
         nix.maxJobs = lib.mkDefault cpuCores;
         system.stateVersion = version;
       }
-      
-      ## Conditional Implementation ##
-      # SSD Configuration
-      (if ssd == true
-        then (import ../roles/hardware/ssd)
-        else { }
-      )
-      # File System Choice
-      (if filesystem == "btrfs"
-        then (import ../roles/filesystem/btrfs)
-        else (import ../roles/filesystem/ext4)
-      )
     ];
   };
 }
