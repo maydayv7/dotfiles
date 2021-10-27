@@ -151,15 +151,15 @@
       "locked": {
         "lastModified": 1635248017,
         "narHash": "sha256-MziQDq95V0Zb9gTfXApTM7IeMBrOS9bvm1QGvqmw3h0=",
-        "ref": "master",
+        "owner": "maydayv7",
+        "repo": "secrets",
         "rev": "50689657b98cbe402661c3e0bca56c1ef2e78339",
-        "revCount": 15,
-        "type": "git",
-        "url": "ssh://git@github.com/maydayv7/secrets.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/maydayv7/secrets.git"
+        "owner": "maydayv7",
+        "repo": "secrets",
+        "type": "github"
       }
     },
     "unstable": {

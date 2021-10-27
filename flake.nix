@@ -26,10 +26,9 @@
     
     ## Additional Repositories ##
     # Personal Credentials
-    # Fetched using SSH Keys
     secrets =
     {
-      url = "git+ssh://git@github.com/maydayv7/secrets.git";
+      url = "github:maydayv7/secrets";
       flake = false;
     };
     

@@ -45,7 +45,7 @@ Here is an overview of the file hierarchy:
 - `overlays`: overrides for pre-built packages
 - `roles`: modulated role-based configuration for effortless management
 - `core`: shared system configuration and scripts
-- `users`: user related configuration and dotfiles
+- `user`: user related configuration and dotfiles
 
 ## Installation
 Download the latest NixOS .iso from [here](https://nixos.org/download.html), then either burn it to a USB using [Etcher](https://www.balena.io/etcher/) or a CD using [Brasero](https://wiki.gnome.org/Apps/Brasero), and boot the LiveCD  
@@ -85,12 +85,11 @@ mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /
 mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/persist
 ```
 
-*Before installing, import the SSH Keys for the authentication credentials*  
-*Replace* ***HOST*** *with the desired hostname*
+*Replace* ***HOST*** *with the desired hostname, and* ***KEY*** *with the `Github` authentication token*
 ```
 mkdir -p /mnt/boot
 mount /dev/disk/by-partlabel/ESP /mnt/boot
-nixos-install --no-root-passwd --flake github:maydayv7/dotfiles#HOST
+nixos-install --no-root-passwd --flake github:maydayv7/dotfiles#HOST --option access-tokens= github.com=KEY
 reboot now
 ```
 
@@ -111,6 +110,7 @@ cd /persist/etc
 ```
 sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos && cd nixos
+mkdir -p ~/.config/nix && echo "access-tokens = github.com=KEY" >> ~/.config/nix/nix.conf
 sudo nixos-rebuild switch --flake .#
 nix build .#homeManagerConfigurations.$USER.activationPackage
 ./result/activate && rm -rf ./result
@@ -139,7 +139,7 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 ##### Credentials
-The authentication credentials are stored in a private repository containing passwords and other security keys, which is imported into the configuration as an `input`, and cloned using SSH Keys. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
+The authentication credentials are stored in a private repository containing passwords and other security keys, which is imported into the configuration as an `input`, and cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
 
 ##### Scripts
 A system management script has been included in `scripts`, invoked with the command `nixos`, which can be used to apply user and system configuration changes or perform various other useful functions

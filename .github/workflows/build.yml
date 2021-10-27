@@ -28,15 +28,6 @@ jobs:
       with:
         name: maydayv7-dotfiles
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Import Keys
-      env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-      run: |
-          mkdir -p /home/runner/.ssh
-          echo "${{ secrets.SSH_KEY }}" > /home/runner/.ssh/id_rsa
-          chmod 600 /home/runner/.ssh/id_rsa
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add
     - name: Build User V7
       run: nix build github:maydayv7/dotfiles#homeManagerConfigurations.v7.activationPackage
     - name: Build User Navya
