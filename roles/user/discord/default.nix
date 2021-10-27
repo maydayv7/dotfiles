@@ -9,9 +9,6 @@
   
   home.file =
   {
-    # Theme
-    ".config/BetterDiscord/themes/DNOME.theme.css".source = ./theme;
-    
     # Plugins
     ".config/BetterDiscord/plugins" =
     {

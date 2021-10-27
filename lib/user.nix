@@ -44,7 +44,12 @@ with builtins;
         ../roles/user/dotfiles
         ../roles/user/terminal
         ../roles/user/theme
-        ../scripts/activation.nix
+      ];
+      
+      # Extra Configuration Modules
+      extra_modules =
+      [
+        ../modules/user
       ];
     in
     {
@@ -54,10 +59,11 @@ with builtins;
       };
       
       # Modulated Configuration Imports
-      imports = shared_roles ++ user_roles;
+      imports = shared_roles ++ user_roles ++ extra_modules;
       
       # Home Manager Configuration
       home.username = username;
+      home.activate = true;
       programs.home-manager.enable = true;
       systemd.user.startServices = true;
     };
