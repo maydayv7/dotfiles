@@ -111,7 +111,7 @@
     devShell."${system}" = import ./shell.nix { inherit pkgs; };
     
     ## User Specific Configuration ##
-    homeManagerConfigurations =
+    homeConfigurations =
     {
       # User V7
       v7 = user.mkHome

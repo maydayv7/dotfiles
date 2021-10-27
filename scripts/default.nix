@@ -12,27 +12,27 @@ let
     
     case $1 in
     "clean")
-      echo "<-------- Running Garbage Collection -------->"
+      echo "Running Garbage Collection..."
       nix-store --gc
       printf "\n"
-      echo "<---------- Running De-Duplication ---------->"
+      echo "Running De-Duplication..."
       nix-store --optimise
     ;;
     "update")
-      echo "<---------- Updating Flake Inputs ----------->"
+      echo "Updating Flake Inputs..."
       nix flake update /etc/nixos
     ;;
     "apply")
-      echo "<-------- Applying Machine Settings --------->"
+      echo "Applying Device Settings..."
       sudo nixos-rebuild switch --flake /etc/nixos#
       printf "\n"
-      echo "<---------- Applying User Settings ---------->"
-      nix build /etc/nixos#homeManagerConfigurations.$USER.activationPackage
+      echo "Applying User Settings..."
+      nix build /etc/nixos#homeConfigurations.$USER.activationPackage
       ./result/activate
       rm -rf ./result
     ;;
     "apply-system")
-      echo "<-------- Applying Machine Settings --------->"
+      echo "Applying Device Settings..."
       if [ -z "$2" ]; then
         sudo nixos-rebuild switch --flake /etc/nixos#
       elif [ $2 = "--boot" ]; then
@@ -47,8 +47,8 @@ let
       rm -rf ./result
     ;;
     "apply-user")
-      echo "<---------- Applying User Settings ---------->"
-      nix build /etc/nixos#homeManagerConfigurations.$USER.activationPackage
+      echo "Applying User Settings..."
+      nix build /etc/nixos#homeConfigurations.$USER.activationPackage
       ./result/activate
       rm -rf ./result
    ;;
@@ -56,7 +56,7 @@ let
       nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq
     ;;
     "save")
-      echo "<-------------- Saving Changes -------------->"
+      echo "Saving Changes..."
       pushd /etc/nixos
       git add .
       read -p "Enter comment: " comment
@@ -66,7 +66,7 @@ let
       popd
     ;;
     *)
-      echo "<----- Tool for NixOS System Management ----->"
+      echo "############### Tool for NixOS System Management ###############"
       echo ""
       echo "Usage:"
       echo "update        - Updates system Flake inputs"
