@@ -49,7 +49,7 @@
         $DRY_RUN_CMD gpg --import ${inputs.secrets}/gpg/public.gpg $VERBOSE_ARG
         $DRY_RUN_CMD gpg --import ${inputs.secrets}/gpg/private.gpg $VERBOSE_ARG
         $DRY_RUN_CMD cp ${inputs.secrets}/ssh ~/.ssh -r $VERBOSE_ARG
-        $DRY_RUN_CMD chmod 400 ~/.ssh/id_rsa
+        $DRY_RUN_CMD chmod 600 ~/.ssh/id_rsa
         $DRY_RUN_CMD ssh-add ~/.ssh/id_rsa
       fi
     '';

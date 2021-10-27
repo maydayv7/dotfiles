@@ -2,7 +2,7 @@
 #
 # For more information, see:
 # https://github.com/cachix/install-nix-action
-name: "Check Nix Flake Syntax"
+name: "Check Syntax"
 on:
   push:
     paths-ignore:
@@ -13,11 +13,6 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-    - name: Clone Repo
-      uses: actions/checkout@v2.3.5
-      with:
-        token: ${{ secrets.ACCESS_TOKEN }}
-        submodules: recursive
     - name: Install Nix
       uses: cachix/install-nix-action@v14
       with:
@@ -25,7 +20,6 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
-          system-features = nixos-test benchmark big-parallel kvm
     - name: Import Keys
       env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -36,4 +30,4 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add
     - name: Check Syntax
-      run: nix flake check --log-format raw -v
+      run: nix flake check github:maydayv7/dotfiles

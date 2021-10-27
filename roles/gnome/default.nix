@@ -51,7 +51,6 @@
     gnome.gnome-notes
     gnome.gnome-sound-recorder
     gnome.gnome-terminal
-    gnome.gnome-todo
     gnome.gnome-tweaks
     gnome.polari
     

@@ -2,8 +2,9 @@
 #
 # For more information, see:
 # https://github.com/cachix/install-nix-action
-name: "Build Nix Flake Configuration"
+name: "Build Configuration"
 on:
+  workflow_dispatch:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths-ignore:
@@ -15,11 +16,6 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-    - name: Clone Repo
-      uses: actions/checkout@v2.3.5
-      with:
-        token: ${{ secrets.ACCESS_TOKEN }}
-        submodules: recursive
     - name: Install Nix
       uses: cachix/install-nix-action@v14
       with:
@@ -42,10 +38,10 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add
     - name: Build User V7
-      run: nix build .#homeManagerConfigurations.v7.activationPackage
+      run: nix build github:maydayv7/dotfiles#homeManagerConfigurations.v7.activationPackage
     - name: Build User Navya
-      run: nix build .#homeManagerConfigurations.navya.activationPackage
+      run: nix build github:maydayv7/dotfiles#homeManagerConfigurations.navya.activationPackage
     - name: Build Device Vortex
-      run: nix build .#nixosConfigurations.Vortex.config.system.build.toplevel
+      run: nix build github:maydayv7/dotfiles#nixosConfigurations.Vortex.config.system.build.toplevel
     - name: Build Device Futura
-      run: nix build .#nixosConfigurations.Futura.config.system.build.toplevel
+      run: nix build github:maydayv7/dotfiles#nixosConfigurations.Futura.config.system.build.toplevel
