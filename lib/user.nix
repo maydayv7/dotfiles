@@ -35,29 +35,26 @@ with builtins;
     configuration =
     let
       # Module Import Function
-      mkRole = name: import (../roles/users + "/${name}");
+      mkRole = name: import (../roles/user + "/${name}");
       user_roles = map (r: mkRole r) roles;
       
       # Shared User Roles
       shared_roles =
       [
-        ../roles/users/dotfiles
-        ../roles/users/terminal
-        ../roles/users/theme
-        ../scripts/home
+        ../roles/user/dotfiles
+        ../roles/user/terminal
+        ../roles/user/theme
+        ../scripts/activation.nix
       ];
     in
     {
       _module.args =
       {
-        inherit inputs username;
+        inherit inputs pkgs username;
       };
       
       # Modulated Configuration Imports
       imports = shared_roles ++ user_roles;
-      
-      # Package Configuraton
-      nixpkgs.config.allowUnfree = true;
       
       # Home Manager Configuration
       home.username = username;

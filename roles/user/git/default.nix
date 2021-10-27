@@ -26,7 +26,7 @@
     userEmail = "maydayv7@gmail.com";
     signing =
     {
-      key = "39136928FE7BDF1A";
+      key = "CF616EB19C2765E4";
       signByDefault = true;
     };
   };

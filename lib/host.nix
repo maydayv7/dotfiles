@@ -24,7 +24,7 @@ with builtins;
     # Extra Configuration Modules
     extra_modules =
     [
-      ../modules
+      ../modules/system
       inputs.impermanence.nixosModules.impermanence
       "${inputs.unstable}/nixos/modules/services/backup/btrbk.nix"
       "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix"

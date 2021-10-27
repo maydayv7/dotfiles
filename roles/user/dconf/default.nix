@@ -180,6 +180,15 @@ with lib.hm.gvariant;
       show-delete-permanently = true;
     };
     
+    "org/gnome/gedit/preferences/editor" = {
+      scheme = "tango-dark";
+      wrap-last-split-mode = "word";
+    };
+
+    "org/gnome/gedit/preferences/ui" = {
+      show-tabs-mode = "auto";
+    };
+    
     "org/gnome/gnome-screenshot" = {
       delay = 0;
       include-pointer = true;
@@ -341,7 +350,7 @@ with lib.hm.gvariant;
       trans-gradient-bottom-color = "#8ab4f8";
       trans-gradient-bottom-opacity = 5.0e-2;
       trans-panel-opacity = 0.0;
-      trans-use-custom-bg = false;
+      trans-use-custom-bg = true;
       trans-use-custom-gradient = false;
       trans-use-custom-opacity = false;
       trans-use-dynamic-opacity = false;

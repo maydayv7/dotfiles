@@ -32,7 +32,7 @@ Here is an overview of the file hierarchy:
 │   └── overlays
 ├── roles
 │   ├── core
-│   └── users
+│   └── user
 │       └── dotfiles
 └── lib
     ├── host.nix
@@ -99,26 +99,22 @@ reboot now
 ```
 sudo rm -rf /etc/nixos
 cd /etc
-sudo mkdir nixos
 ```
 
 ##### BTRFS
 ```console
-sudo rm -rf /etc/nixos
-sudo mkdir -p /persist/{etc/nixos,etc/NetworkManager,var/log,var/lib}
-sudo mv /etc/machine-id /persist/etc/machine-id
-sudo mv /etc/NetworkManager/system-connections /persist/etc/NetworkManager/system-connections
-sudo mv /var/lib/AccountsService /persist/var/lib/AccountsService
-sudo mv /var/lib/bluetooth /persist/var/lib/bluetooth
-sudo mv /var/lib/libvirt /persist/var/lib/libvirt
-sudo umount -l /etc/nixos && cd /persist/etc
+sudo rm -rf /persist/etc/nixos
+cd /persist/etc
 ```
 
 
 ```
-sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
-git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos
-cd nixos && sudo nixos-rebuild switch --flake .# && nixos apply-user
+sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
+git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos && cd nixos
+sudo nixos-rebuild switch --flake .#
+nix build .#homeManagerConfigurations.$USER.activationPackage
+./result/activate && rm -rf ./result
+reboot now
 ```
 
 ## Notes

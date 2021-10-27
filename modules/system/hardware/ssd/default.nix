@@ -12,7 +12,7 @@ in rec
     default = false;
   };
   
-  config = mkIf (cfg == "true")
+  config = mkIf (cfg == true)
   {
     ## Additional SSD Settings ##
     # SSD Trim
