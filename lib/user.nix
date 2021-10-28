@@ -34,38 +34,34 @@ with builtins;
     homeDirectory = "/home/${username}";
     configuration =
     let
-      # Module Import Function
+      # Role Import Function
       mkRole = name: import (../roles/user + "/${name}");
       user_roles = map (r: mkRole r) roles;
       
-      # Shared User Roles
-      shared_roles =
-      [
-        ../roles/user/dotfiles
-        ../roles/user/terminal
-        ../roles/user/theme
-      ];
-      
-      # Extra Configuration Modules
-      extra_modules =
-      [
-        ../modules/user
-      ];
+      # User Configuration Modules
+      user_modules = [ ../modules/user ];
     in
     {
       _module.args =
       {
-        inherit inputs pkgs username;
+        inherit inputs;
       };
       
       # Modulated Configuration Imports
-      imports = shared_roles ++ user_roles ++ extra_modules;
+      imports = user_roles ++ user_modules;
       
       # Home Manager Configuration
       home.username = username;
       home.activate = true;
+      home.dotfiles = true;
       programs.home-manager.enable = true;
       systemd.user.startServices = true;
+      
+      # Shell Configuration
+      shell.git.enable = true;
+      shell.git.key = "CF616EB19C2765E4";
+      shell.terminal.enable = true;
+      shell.zsh.enable = true;
     };
   };
 }

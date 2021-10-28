@@ -113,17 +113,17 @@
       # User V7
       v7 = user.mkHome
       {
-        username = "v7";
-        roles = [ "dconf" "discord" "firefox" "git" "zsh" ];
         inherit version;
+        username = "v7";
+        roles = [ "dconf" "discord" "firefox" "theme" ];
       };
       
       # User Navya
       navya = user.mkHome
       {
-        username = "navya";
-        roles = [ "dconf" "firefox" "git" "zsh" ];
         inherit version;
+        username = "navya";
+        roles = [ "dconf" "firefox" "theme" ];
       };
     };
     
@@ -165,7 +165,7 @@
         name = "Vortex";
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
-        kernelPackage = pkgs.linuxPackages_5_4;
+        kernel = pkgs.linuxPackages_5_4;
         kernelMods = [ ];
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         initrdMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];

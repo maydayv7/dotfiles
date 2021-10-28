@@ -1,8 +1,9 @@
-{ config, lib, inputs, username, ... }:
+{ config, lib, inputs, ... }:
 with lib;
 with builtins;
 let
   cfg = config.home.activate;
+  username = config.home.username;
 in rec
 {
   options.home.activate = mkOption

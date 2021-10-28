@@ -10,8 +10,8 @@ with builtins;
     # User Creation
     device_users = (map (u: user.mkUser u) users);
     
-    # Extra Configuration Modules
-    extra_modules =
+    # System Configuration Modules
+    system_modules =
     [
       ../modules/system
       inputs.impermanence.nixosModules.impermanence
@@ -31,7 +31,7 @@ with builtins;
     [
       {
         # Modulated Configuration Imports
-        imports = device_roles ++ device_users ++ extra_modules;
+        imports = device_roles ++ device_users ++ system_modules;
         
         # Localization
         time.timeZone = timezone;

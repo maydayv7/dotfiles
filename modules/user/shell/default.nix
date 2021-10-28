@@ -1,0 +1,5 @@
+[
+  ./git
+  ./terminal
+  ./zsh
+]
