@@ -1,25 +1,14 @@
 { system, lib, user, inputs, pkgs, ... }:
 with builtins;
 {
-  mkHost = { name, initrdMods, kernelMods, kernelParams, kernelPackage, modprobe, roles, cpuCores, users, version, filesystem ? "ext4", ssd ? false }:
+  mkHost = { version, name, timezone, locale, kernel, kernelMods, kernelParams, initrdMods, modprobe, cpuCores, filesystem, ssd ? false, roles, users }:
   let
     # Roles Import Function
-    mkRole = name: import (../roles + "/${name}");
-    system_roles = (map (r: mkRole r) roles);
+    mkRole = name: import (../roles/system + "/${name}");
+    device_roles = (map (r: mkRole r) roles);
     
     # User Creation
-    system_users = (map (u: user.mkUser u) users);
-    
-    # Shared System Roles
-    shared_roles =
-    [
-      ../roles/core
-      ../roles/boot
-      ../roles/cachix
-      ../roles/hardware
-      ../roles/networking
-      ../roles/shell
-    ];
+    device_users = (map (u: user.mkUser u) users);
     
     # Extra Configuration Modules
     extra_modules =
@@ -42,29 +31,42 @@ with builtins;
     [
       {
         # Modulated Configuration Imports
-        imports = shared_roles ++ system_roles ++ system_users ++ extra_modules;
+        imports = device_roles ++ device_users ++ extra_modules;
+        
+        # Localization
+        time.timeZone = timezone;
+        i18n.defaultLocale = locale;
         
         # Device Configuration
+        base.enable = true;
         networking.hostName = "${name}";
         hardware.filesystem = filesystem;
         hardware.ssd = ssd;
+        
+        # Boot Configuration
+        boot.kernelPackages = kernel;
+        boot.kernelModules = kernelMods;
+        boot.kernelParams = kernelParams;
+        boot.initrd.availableKernelModules = initrdMods;
+        boot.extraModprobeConfig = modprobe;
+        
+        # Package Configuration
+        system.stateVersion = version;
+        nixpkgs.pkgs = pkgs;
+        nix.maxJobs = lib.mkDefault cpuCores;
         
         # User Settings
         users.mutableUsers = false;
         nix.trustedUsers = [ "root" "@wheel" ];
         users.extraUsers.root.initialHashedPassword = (readFile "${inputs.secrets}/passwords/root");
         
-        # Boot Configuration
-        boot.initrd.availableKernelModules = initrdMods;
-        boot.kernelModules = kernelMods;
-        boot.kernelParams = kernelParams;
-        boot.kernelPackages = kernelPackage;
-        boot.extraModprobeConfig = modprobe;
+        # GUI Configuration
+        gui.xorg.enable = true;
+        gui.gnome.enable = true;
+        gui.enableFonts = true;
         
-        # Package Configuration
-        nixpkgs.pkgs = pkgs;
-        nix.maxJobs = lib.mkDefault cpuCores;
-        system.stateVersion = version;
+        # System Scripts
+        scripts.management = true;
       }
     ];
   };

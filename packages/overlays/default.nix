@@ -1,4 +1,4 @@
-{ system, lib, inputs, pkgs, scripts, custom, ... }:
+{ system, lib, inputs, pkgs, custom, ... }:
 {
   ## System Package Overlays ##
   overlays =
@@ -8,9 +8,6 @@
     
     # Nix User Repository Enablement
     inputs.nur.overlay
-    
-    # System Scripts Enablement
-    scripts.overlay
     
     # Package Overrides
     # It is advisable to use Flake inputs as source for overriden packages

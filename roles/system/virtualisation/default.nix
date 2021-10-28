@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  ## Virtualization Enablement ##
+  ## Virtualisation Enablement ##
   virtualisation =
   {
     libvirtd.enable = true;

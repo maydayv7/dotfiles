@@ -91,7 +91,7 @@
     
     # Package Overrides
     inherit (import ./packages { inherit inputs pkgs; }) custom;
-    inherit (import ./packages/overlays { inherit system lib inputs pkgs scripts custom; }) overlays;
+    inherit (import ./packages/overlays { inherit system lib inputs pkgs custom; }) overlays;
     
     # System Libraries
     inherit (inputs.nixpkgs) lib;
@@ -101,9 +101,6 @@
     util = import ./lib { inherit system lib inputs pkgs; };
     inherit (util) user;
     inherit (util) host;
-    
-    # System Scripts
-    scripts = import ./scripts { inherit lib pkgs; };
   in
   {
     ## Nix Developer Shell ##
@@ -138,15 +135,17 @@
       {
         inherit version;
         name = "Vortex";
-        kernelPackage = pkgs.linuxPackages_lqx;
-        initrdMods = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+        timezone = "Asia/Kolkata";
+        locale = "en_IN.UTF-8";
+        kernel = pkgs.linuxPackages_lqx;
         kernelMods = [ "kvm-intel" ];
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
+        initrdMods = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
         modprobe = "options kvm_intel nested=1";
         cpuCores = 8;
         filesystem = "btrfs";
         ssd = true;
-        roles = [ "android" "fonts" "git" "gnome" "libvirt" "office" "security" "xorg" ];
+        roles = [ "android" "office" "virtualisation" ];
         users =
         [
           {
@@ -158,20 +157,22 @@
           }
         ];
       };
-            
+      
       # PC - Dell Inspiron 11 3000
       Futura = host.mkHost
       {
         inherit version;
         name = "Vortex";
+        timezone = "Asia/Kolkata";
+        locale = "en_IN.UTF-8";
         kernelPackage = pkgs.linuxPackages_5_4;
-        initrdMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
         kernelMods = [ ];
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
+        initrdMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
         modprobe = "";
         cpuCores = 4;
         filesystem = "ext4";
-        roles = [ "fonts" "git" "gnome" "office" "security" "xorg" ];
+        roles = [ "office" ];
         users =
         [
           {

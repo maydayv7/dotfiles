@@ -1,9 +1,11 @@
-{ lib, pkgs,  ... }:
-## System Scripts ##
+{ config, lib, pkgs, ... }:
+with lib;
+with builtins;
 let
-  management = with pkgs; writeScriptBin "nixos"
+  cfg = config.scripts.management;
+  script = with pkgs; writeScriptBin "nixos"
   ''
-    #!${runtimeShell}
+    #!${pkgs.runtimeShell}
     if [ -n "$INNIXSHELLHOME" ]; then
       echo "You are in a Nix Shell that redirected ~"
       echo "The tool cannot work here properly"
@@ -67,8 +69,7 @@ let
     ;;
     *)
       echo "############### Tool for NixOS System Management ###############"
-      echo ""
-      echo "Usage:"
+      echo "Usage ->"
       echo "update        - Updates system Flake inputs"
       echo "apply         - Applies both user and system configuration"
       echo "apply-system  - Applies system configuration"
@@ -79,15 +80,17 @@ let
     ;;
     esac
   '';
-in
+in rec
 {
-  overlay =
-  (final: prev:
+  options.scripts.management = mkOption
   {
-    scripts =
-    {
-      # System Management Tool
-      inherit management;
-    };
-  });
+    description = "Script for NixOS System Management";
+    type = types.bool;
+    default = false;
+  };
+  
+  config = mkIf (cfg == true)
+  {
+    environment.systemPackages = [ script ]; 
+  };
 }

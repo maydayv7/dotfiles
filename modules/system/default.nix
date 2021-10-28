@@ -1,5 +1,5 @@
 { pkgs, ... }:
 {
   # Custom-Made System Configuration Modules
-  imports = (import ./hardware);
+  imports = (import ./base) ++ (import ./gui) ++ (import ./hardware) ++ (import ./scripts);
 }

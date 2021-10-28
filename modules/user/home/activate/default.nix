@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, username, ... }:
+{ config, lib, inputs, username, ... }:
 with lib;
 with builtins;
 let
