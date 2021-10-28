@@ -25,24 +25,25 @@ Here is an overview of the file hierarchy:
 ```
 ┌── flake.nix
 ├── flake.lock
-├── modules
 ├── scripts
 │   └── setup.sh
 ├── packages
 │   └── overlays
-├── roles
-│   ├── core
+├── modules
+│   ├── system
 │   └── user
-│       └── dotfiles
+├── roles
+│   ├── system
+│   └── user
 └── lib
     ├── host.nix
     └── user.nix
 ```
 
 - `flake.nix`: main system configuration file, using [Flakes](https://nixos.wiki/wiki/Flakes) for easier repository version control and multi-device management
-- `modules`: custom-made configuration modules for additional functionality
 - `packages`: locally built custom packages
 - `overlays`: overrides for pre-built packages
+- `modules`: custom-made configuration modules for additional functionality
 - `roles`: modulated role-based configuration for effortless management
 - `core`: shared system configuration and scripts
 - `user`: user related configuration and dotfiles
@@ -112,7 +113,7 @@ sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
 git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos && cd nixos
 mkdir -p ~/.config/nix && echo "access-tokens = github.com=KEY" >> ~/.config/nix/nix.conf
 sudo nixos-rebuild switch --flake .#
-nix build .#homeManagerConfigurations.$USER.activationPackage
+nix build .#homeConfigurations.$USER.activationPackage
 ./result/activate && rm -rf ./result
 reboot now
 ```
@@ -142,7 +143,7 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 The authentication credentials are stored in a private repository containing passwords and other security keys, which is imported into the configuration as an `input`, and cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
 
 ##### Scripts
-A system management script has been included in `scripts`, invoked with the command `nixos`, which can be used to apply user and system configuration changes or perform various other useful functions
+A system management script has been included in `modules/system/scripts`, invoked with the command `nixos`, which can be used to apply user and system configuration changes or perform various other useful functions
 
 ##### File System
 These configuration files can be used to setup the system using either ext4 or BTRFS (with opt-in state). The opt-in state (using TMPFS for `/`) allows for a vastly improved experience, preventing any cruft to form and exerting total control over the system's state, by erasing the system at every boot, keeping only what's required/defined
@@ -161,3 +162,4 @@ These configuration files can be used to setup the system using either ext4 or B
 - [Nixpkgs Repository](https://github.com/NixOS/nixpkgs)
 - [Nix User Repository](https://github.com/nix-community/NUR)
 - [Home Manager Options](https://nix-community.github.io/home-manager/options.html)
+- [Impermanence Module](https://github.com/nix-community/impermanence)

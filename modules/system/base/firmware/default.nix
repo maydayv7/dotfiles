@@ -5,9 +5,10 @@ let
   cfg = config.base.enable;
 in rec
 {
+  #W Device Firmware ##
   config = mkIf (cfg == true)
   {
-    # Firmware
+    # Drivers
     hardware =
     {
       cpu.intel.updateMicrocode = true;
@@ -15,8 +16,17 @@ in rec
       opengl.enable = true;
       enableRedistributableFirmware = true;
     };
+
+    # Driver Packages
+    hardware.opengl.extraPackages = with pkgs; 
+    [
+      intel-media-driver
+      libvdpau-va-gl
+      vaapiIntel
+      vaapiVdpau
+    ];
     environment.systemPackages = with pkgs; [ unstable.sof-firmware ];
-    
+
     # Audio
     sound.enable = true;
     nixpkgs.config.pulseaudio = true;
@@ -25,10 +35,10 @@ in rec
       enable = true;
       support32Bit = true;
     };
-    
+
     # Printing
     services.printing.enable = true;
-    
+
     # Power Management
     services.earlyoom =
     {
@@ -42,14 +52,5 @@ in rec
       enable = true;
       cpuFreqGovernor = "powersave";
     };
-    
-    # Driver Packages
-    hardware.opengl.extraPackages = with pkgs; 
-    [
-      intel-media-driver
-      libvdpau-va-gl
-      vaapiIntel
-      vaapiVdpau
-    ];
   };
 }

@@ -1,20 +1,18 @@
 { config, lib, ... }:
-with lib;
-with builtins;
 let
   cfg = config.base.enable;
 in rec
 {
-  config = mkIf (cfg == true)
+  ## Boot Configuration ##
+  config = lib.mkIf (cfg == true)
   {
-    ## Boot Configuration ##
     boot =
     {
       # Plymouth
       consoleLogLevel = 0;
       initrd.verbose = false;
       plymouth.enable = true;
-      
+
       # Boot Loader
       loader =
       {
@@ -22,7 +20,7 @@ in rec
         efi.canTouchEfiVariables = true;
         systemd-boot.enable = true;
       };
-      
+
       # Filesystems
       supportedFilesystems = [ "ntfs" "btrfs" ];
     };

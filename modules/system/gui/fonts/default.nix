@@ -1,20 +1,18 @@
 { config, lib, pkgs, ... }:
-with lib;
-with builtins;
 let
   cfg = config.gui.enableFonts;
 in rec
 {
-  options.gui.enableFonts = mkOption
+  options.gui.enableFonts = lib.mkOption
   {
-    description = "System Fonts Configuration";
-    type = types.bool;
+    description = "Enable System Fonts Configuration";
+    type = lib.types.bool;
     default = false;
   };
-  
-  config = mkIf (cfg == true)
+
+  ## Font Configuration ##
+  config = lib.mkIf (cfg == true)
   {
-    ## Font Configuration ##
     fonts =
     {
       enableDefaultFonts = true;
@@ -23,7 +21,7 @@ in rec
       fontconfig =
       {
         enable = true;
-        localConf = builtins.readFile ./fontconfig;
+        localConf = (builtins.readFile ./fontconfig);
         defaultFonts =
         {
           monospace = [ "MesloLGS NF" ];
@@ -33,7 +31,7 @@ in rec
         };
       };
     };
-    
+
     # Font Packages
     fonts.fonts = with pkgs; 
     [
@@ -50,7 +48,7 @@ in rec
       source-code-pro
       ttf_bitstream_vera
       ubuntu_font_family
-      
+
       # Patched Nerd Fonts
       (nerdfonts.override
       {
@@ -64,7 +62,7 @@ in rec
           "SourceCodePro"
         ];
       })
-      
+
       # Custom Fonts
       custom.fonts
     ];

@@ -1,26 +1,24 @@
 { config, lib, ... }:
-with lib;
-with builtins;
 let
   cfg = config.gui.xorg;
 in rec
 {
-  options.gui.xorg.enable = mkOption
+  options.gui.xorg.enable = lib.mkOption
   {
-    description = "XORG Configuration";
-    type = types.bool;
+    description = "Enable XORG Configuration";
+    type = lib.types.bool;
     default = false;
   };
-  
-  config = mkIf (cfg.enable == true)
+
+  ## Xorg Configuration ##
+  config = lib.mkIf (cfg.enable == true)
   {
-    ## Xorg Configuration ##
     services.xserver =
     {
       enable = true;
       autorun = true;
       layout = "us";
-      
+
       # Driver Settings
       videoDrivers = [ "modesetting" ];
       useGlamor = true;

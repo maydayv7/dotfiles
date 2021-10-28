@@ -1,22 +1,21 @@
 { config, lib, ... }:
-with lib;
-with builtins;
 let
   cfg = config.hardware.filesystem;
 in rec
 {
-  options.hardware.filesystem = mkOption
+  options.hardware.filesystem = lib.mkOption
   {
-    type = types.enum [ "btrfs" "ext4" ];
-    description = "This is the File System to be used by the disk";
+    description = "File System to be used by the disk";
+    type = lib.types.enum [ "btrfs" "ext4" ];
     default = "ext4";
   };
-  
-  config = mkMerge
+
+  ## File System Configuration ##
+  config = lib.mkMerge
   [
     {
       ## Partitions ##
-      # Core Partitions
+      # Base Partitions
       fileSystems =
       {
         # EFI System Partition
@@ -33,16 +32,16 @@ in rec
           options = [ "rw" "uid=1000" ];
         };
       };
-      
+
       # SWAP Partition
       swapDevices =
       [ { device = "/dev/disk/by-label/swap"; } ];
       # SWAP Usage
       boot.kernel.sysctl."vm.swappiness" = 1;
     }
-    
+
     ## EXT4 File System Configuration ##
-    (mkIf (cfg == "ext4")
+    (lib.mkIf (cfg == "ext4")
     {
       fileSystems =
       {
@@ -53,9 +52,9 @@ in rec
         };
       };
     })
-    
+
     ## BTRFS Opt-in State File System Configuration ##
-    (mkIf (cfg == "btrfs")
+    (lib.mkIf (cfg == "btrfs")
     {
       fileSystems =
       {
@@ -97,7 +96,7 @@ in rec
           neededForBoot = true;
         };
       };
-      
+
       # Persisted Files
       environment.persistence."/persist" =
       {
@@ -110,13 +109,13 @@ in rec
           "/var/lib/bluetooth"
           "/var/lib/libvirt"
         ];
-        
+
         files =
         [
           "/etc/machine-id"
         ];
       };
-      
+
       # Snapshots
       services.btrbk =
       {

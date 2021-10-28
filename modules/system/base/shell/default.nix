@@ -1,11 +1,10 @@
 { config, lib, pkgs, ... }:
-with lib;
-with builtins;
 let
   cfg = config.base.enable;
 in rec
 {
-  config = mkIf (cfg == true)
+  ## Shell Configuration ##
+  config = lib.mkIf (cfg == true)
   {
     # Console Setup
     console =
@@ -15,13 +14,13 @@ in rec
       packages = with pkgs; [ terminus_font ];
       keyMap = "us";
     };
-    
-    ## Shell Configuration ##
+
+    # Shell Environment
     environment =
     {
       shells = with pkgs; [ bashInteractive zsh ];
       pathsToLink = [ "/share/zsh" ];
-      
+
       # Utilities
       systemPackages = with pkgs;
       [
@@ -34,14 +33,14 @@ in rec
         unrar
         wget
       ];
-      
+
       # Environment Variables
       variables =
       {
         EDITOR = "nano";
       };
     };
-    
+
     programs =
     {
       # Command Not Found Helper

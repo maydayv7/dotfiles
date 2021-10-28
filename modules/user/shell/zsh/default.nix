@@ -1,20 +1,18 @@
 { config, lib, inputs, pkgs, ... }:
-with lib;
-with builtins;
 let
   cfg = config.shell.zsh;
 in rec
 {
-  options.shell.zsh.enable = mkOption
+  options.shell.zsh.enable = lib.mkOption
   {
-    description = "User Terminal Configuration";
-    type = types.bool;
+    description = "User ZSH Configuration";
+    type = lib.types.bool;
     default = false;
   };
-  
-  config = mkIf (cfg.enable == true)
+
+  ## User Z Shell Configuration ##
+  config = lib.mkIf (cfg.enable == true)
   {
-    ## User Z Shell Configuration ##
     programs.zsh =
     {
       enable = true;
@@ -55,7 +53,7 @@ in rec
         }
       ];
     };
-    
+
     home.file =
     {
       # Z Shell Prompt
@@ -64,7 +62,7 @@ in rec
       # Neofetch Config
       ".config/neofetch/config.conf".source = ./neofetch;
     };
-    
+
     # Utilities
     home.packages = with pkgs;
     [

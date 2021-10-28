@@ -6,10 +6,10 @@
     betterdiscordctl
     discord
   ];
-  
+
+  # Plugins
   home.file =
   {
-    # Plugins
     ".config/BetterDiscord/plugins" =
     {
       source = ./plugins;

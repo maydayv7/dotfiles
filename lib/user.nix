@@ -1,7 +1,6 @@
 { system, lib, inputs, pkgs, ... }:
-with builtins;
 {
-  ## User Configuration ##
+  ## User Configuration Function ##
   mkUser = { name, description, groups, uid, shell, ... }:
   {
     users.users."${name}" =
@@ -11,21 +10,21 @@ with builtins;
       description = description;
       isNormalUser = true;
       uid = uid;
-      
+
       # Groups
       group = "users";
       extraGroups = groups;
-      
+
       # Shell
       useDefaultShell = false;
       shell = shell;
-      
+
       # Password
-      initialHashedPassword = (readFile ("${inputs.secrets}/passwords" + "/${name}"));
+      initialHashedPassword = (builtins.readFile ("${inputs.secrets}/passwords" + "/${name}"));
     };
   };
-  
-  ## User Home Configuration ##
+
+  ## User Home Configuration Function ##
   mkHome = { username, roles, version, ... }:
   inputs.home-manager.lib.homeManagerConfiguration
   {
@@ -34,10 +33,10 @@ with builtins;
     homeDirectory = "/home/${username}";
     configuration =
     let
-      # Role Import Function
+      # User Roles Import Function
       mkRole = name: import (../roles/user + "/${name}");
-      user_roles = map (r: mkRole r) roles;
-      
+      user_roles = (builtins.map (r: mkRole r) roles);
+
       # User Configuration Modules
       user_modules = [ ../modules/user ];
     in
@@ -46,17 +45,17 @@ with builtins;
       {
         inherit inputs;
       };
-      
+
       # Modulated Configuration Imports
       imports = user_roles ++ user_modules;
-      
+
       # Home Manager Configuration
       home.username = username;
       home.activate = true;
       home.dotfiles = true;
       programs.home-manager.enable = true;
       systemd.user.startServices = true;
-      
+
       # Shell Configuration
       shell.git.enable = true;
       shell.git.key = "CF616EB19C2765E4";

@@ -6,7 +6,8 @@
     custom.gnome-firefox
     firefox
   ];
-  
+
+  # Profiles
   programs.firefox =
   {
     enable = true;
@@ -20,7 +21,7 @@
       };
     };
   };
-  
+
   # Theme
   home.file.".mozilla/firefox/v7/chrome/userChrome.css".text = ''@import "${pkgs.custom.gnome-firefox}/userChrome.css";'';
 }

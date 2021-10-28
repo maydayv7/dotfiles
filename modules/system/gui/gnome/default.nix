@@ -1,20 +1,18 @@
 { config, lib, pkgs, ... }:
-with lib;
-with builtins;
 let
   cfg = config.gui.gnome;
 in rec
 {
-  options.gui.gnome.enable = mkOption
+  options.gui.gnome.enable = lib.mkOption
   {
-    description = "GNOME Desktop Configuration";
-    type = types.bool;
+    description = "Enable GNOME Desktop Configuration";
+    type = lib.types.bool;
     default = false;
   };
-  
-  config = mkIf (cfg.enable == true)
+
+  ## GNOME Desktop Configuration ##
+  config = lib.mkIf (cfg.enable == true)
   {
-    ## GNOME Desktop Configuration ##
     gui.xorg.enable = true;
     services.xserver =
     {   
@@ -27,7 +25,7 @@ in rec
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
     };
-    
+
     # Desktop Integration
     programs.dconf.enable = true;
     programs.gnupg.agent.pinentryFlavor = "gnome3";
@@ -50,14 +48,14 @@ in rec
         sushi.enable = true;
       };
     };
-    
+
     # Excluded GNOME Packages
     environment.gnome.excludePackages = with pkgs;
     [
       gnome.totem
       gnome.gnome-music
     ];
-    
+
     environment.systemPackages = with pkgs;
     [
       # GNOME Apps
@@ -69,13 +67,13 @@ in rec
       gnome.gnome-terminal
       gnome.gnome-tweaks
       gnome.polari
-      
+
       # GNOME Games
       gnome.gnome-chess
       gnome.gnome-mines
       gnome.gnome-sudoku
       gnome.quadrapassel
-      
+
       # GNOME Circle
       apostrophe
       drawing
@@ -90,7 +88,7 @@ in rec
       unstable.markets
       shortwave
       unstable.wike
-      
+
       # GNOME Shell Extensions
       gnomeExtensions.appindicator
       gnomeExtensions.caffeine
@@ -106,7 +104,7 @@ in rec
       gnomeExtensions.sound-output-device-chooser
       gnomeExtensions.vitals
       gnomeExtensions.x11-gestures
-      
+
       # Utilities
       dconf2nix
       gnuchess

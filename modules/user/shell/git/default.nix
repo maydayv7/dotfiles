@@ -1,43 +1,41 @@
 { config, lib, ... }:
-with lib;
-with builtins;
 let
   cfg = config.shell.git;
 in rec
 {
   options.shell.git =
   {
-    enable = mkOption
+    enable = lib.mkOption
     {
       description = "Enable User git Configuration";
-      type = types.bool;
+      type = lib.types.bool;
       default = false;
     };
-    
-    userName = mkOption
+
+    userName = lib.mkOption
     {
       description = "Name for git";
-      type = types.str;
+      type = lib.types.str;
       default = "maydayv7";
     };
 
-    userMail = mkOption
+    userMail = lib.mkOption
     {
       description = "Email for git";
-      type = types.str;
+      type = lib.types.str;
       default = "maydayv7@gmail.com";
     };
-    
-    key = mkOption
+
+    key = lib.mkOption
     {
-      type = types.str;
+      type = lib.types.str;
       description = "GPG Signing Key";
     };
   };
-  
-  config = mkIf (cfg.enable == true)
+
+  ## User Git Configuration ##
+  config = lib.mkIf (cfg.enable == true)
   {
-    ## User Git Configuration ##
     programs.git =
     {
       enable = true;
@@ -57,8 +55,8 @@ in rec
         init.defaultBranch = "master";
         credential.helper = "store";
       };
-      
-      # User Information
+
+      # User Credentials
       userName = cfg.userName;
       userEmail = cfg.userMail;
       signing =

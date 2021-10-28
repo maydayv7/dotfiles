@@ -1,16 +1,15 @@
 [
-  ({ config, lib, ... }:
-  with lib;
+  ({ lib, ... }:
   rec
   {
-    options.base.enable = mkOption
+    options.base.enable = lib.mkOption
     {
-      type = types.bool;
       description = "Base System Configuration";
+      type = lib.types.bool;
       default = true;
     };
   })
-  
+
   ./boot
   ./cachix
   ./firmware

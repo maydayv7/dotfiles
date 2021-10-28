@@ -2,5 +2,7 @@
 + Installation Commands
 + Online Accounts Sign-in
 + Virtual Machine Management
-+ Discord Setup
-+ Application Associations
++ Applications
+  * App Grid
+  * Discord Setup
+  * File Associations

@@ -1,6 +1,4 @@
 { config, lib, pkgs, ... }:
-with lib;
-with builtins;
 let
   cfg = config.scripts.management;
   script = with pkgs; writeScriptBin "nixos"
@@ -11,7 +9,7 @@ let
       echo "The tool cannot work here properly"
       exit 1
     fi
-    
+
     case $1 in
     "clean")
       echo "Running Garbage Collection..."
@@ -82,14 +80,14 @@ let
   '';
 in rec
 {
-  options.scripts.management = mkOption
+  options.scripts.management = lib.mkOption
   {
     description = "Script for NixOS System Management";
-    type = types.bool;
+    type = lib.types.bool;
     default = false;
   };
-  
-  config = mkIf (cfg == true)
+
+  config = lib.mkIf (cfg == true)
   {
     environment.systemPackages = [ script ]; 
   };

@@ -1,21 +1,19 @@
 { config, lib, inputs, ... }:
-with lib;
-with builtins;
 let
   cfg = config.home.activate;
   username = config.home.username;
 in rec
 {
-  options.home.activate = mkOption
+  options.home.activate = lib.mkOption
   {
     description = "User Home Activation Script";
-    type = types.bool;
+    type = lib.types.bool;
     default = true;
   };
-  
-  config = mkIf (cfg == true)
+
+  ## Home Activation Script ##
+  config = lib.mkIf (cfg == true)
   {
-    # Home Activation Script
     home.activation =
     {
       screenshotsDir = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
@@ -23,7 +21,7 @@ in rec
         $DRY_RUN_CMD mkdir -p $VERBOSE_ARG ~/Pictures/Screenshots
         $DRY_RUN_CMD dconf write /org/gnome/shell/extensions/screenshotlocations/save-directory "'$HOME/Pictures/Screenshots'"
       '';
-      
+
       addBookmarks = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
       ''
         FILE=~/.config/gtk-3.0/bookmarks
@@ -33,10 +31,10 @@ in rec
         else
           echo "Adding Bookmarks"
           $DRY_RUN_CMD mkdir -p ~/.config/gtk-3.0 $VERBOSE_ARG
-          $DRY_RUN_CMD cp ${inputs.self}/roles/user/dotfiles/bookmarks ~/.config/gtk-3.0/ $VERBOSE_ARG
+          $DRY_RUN_CMD cp ${inputs.self}/modules/user/home/dotfiles/bookmarks ~/.config/gtk-3.0/ $VERBOSE_ARG
         fi
       '';
-      
+
       profilePic = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
       ''
         FILE=/var/lib/AccountsService/icons
@@ -51,7 +49,7 @@ in rec
           $DRY_RUN_CMD sudo cp -av $VERBOSE_ARG ~/.local/share/backgrounds/Profile.png /var/lib/AccountsService/icons/${username}
         fi
       '';
-      
+
       importKeys = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
       ''
         $DRY_RUN_CMD mkdir -p ~/.gnupg $VERBOSE_ARG

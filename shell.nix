@@ -1,24 +1,23 @@
 { pkgs ? import <nixpkgs> { } }:
-with pkgs;
 let
-  nixBin = writeShellScriptBin "nix"
+  nixBin = pkgs.writeShellScriptBin "nix"
   ''
-    ${nixUnstable}/bin/nix --option experimental-features "nix-command flakes" "$@"
+    ${pkgs.nixUnstable}/bin/nix --option experimental-features "nix-command flakes" "$@"
   '';
 in
-mkShell
+pkgs.mkShell
 {
   name = "DevShell";
-  
+
   # Required Packages
-  buildInputs =
+  buildInputs = with pkgs;
   [
     git
     git-crypt
     gnupg
     nixUnstable
   ];
-  
+
   # Init Script
   shellHook =
   ''
