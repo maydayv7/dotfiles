@@ -27,7 +27,7 @@ in rec
         # DATA Partition
         "/data" =
         {
-          device = "/dev/disk/by-label/Files";
+          device = "/dev/disk/by-partlabel/Files";
           fsType = "ntfs";
           options = [ "rw" "uid=1000" ];
         };
@@ -35,7 +35,7 @@ in rec
 
       # SWAP Partition
       swapDevices =
-      [ { device = "/dev/disk/by-label/swap"; } ];
+      [ { device = "/dev/disk/by-partlabel/swap"; } ];
       # SWAP Usage
       boot.kernel.sysctl."vm.swappiness" = 1;
     }
@@ -47,7 +47,7 @@ in rec
       {
         "/" =
         {
-          device = "/dev/disk/by-label/System";
+          device = "/dev/disk/by-partlabel/System";
           fsType = "ext4";
         };
       };
@@ -69,28 +69,28 @@ in rec
         # BTRFS Partition
         "/mnt/btrfs" =
         {
-          device = "/dev/disk/by-label/System";
+          device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvolid=5" "compress=zstd" "autodefrag" "noatime" ];
         };
         # HOME Subvolume
         "/home" =
         {
-          device = "/dev/disk/by-label/System";
+          device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvol=home" ];
         };
         # NIX Subvolume
         "/nix" =
         {
-          device = "/dev/disk/by-label/System";
+          device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvol=nix" ];
         };
         # PERSISTENT Subvolume
         "/persist" =
         {
-          device = "/dev/disk/by-label/System";
+          device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvol=persist" ];
           neededForBoot = true;

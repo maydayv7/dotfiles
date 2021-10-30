@@ -1,5 +1,5 @@
 { pkgs, ... }:
 {
-  # Custom-Made User Configuration Modules
+  # Custom User Configuration Modules
   imports = (import ./home) ++ (import ./shell);
 }

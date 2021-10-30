@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, inputs, ... }:
 let
   cfg = config.shell.git;
 in rec
@@ -65,5 +65,13 @@ in rec
         signByDefault = true;
       };
     };
+
+    # GPG Key Activation
+    home.activation.importKeys = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
+    ''
+      $DRY_RUN_CMD mkdir -p ~/.gnupg $VERBOSE_ARG
+      $DRY_RUN_CMD gpg --import ${inputs.secrets}/gpg/public.gpg $VERBOSE_ARG
+      $DRY_RUN_CMD gpg --import ${inputs.secrets}/gpg/private.gpg $VERBOSE_ARG
+    '';
   };
 }

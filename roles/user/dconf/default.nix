@@ -466,7 +466,6 @@ with lib.hm.gvariant;
       preview-on-right-side = true;
       stashed-items = "[]";
       stats-abortions = mkUint32 38;
-      stats-achievement-dates = "{'previewmenus0': int64 1634446334091, 'sponsors': 1634446553904, 'previewmenus1': 1634446586787, 'cancellor0': 1634446795557, 'bigmenus0': 1634447105383, 'journey0': 1634447304624}";
       stats-added-items = mkUint32 6;
       stats-click-selections-depth1 = mkUint32 15;
       stats-click-selections-depth2 = mkUint32 8;

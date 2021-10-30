@@ -1,0 +1,34 @@
+# Create release on Push (tag)
+#
+# For more information, see:
+# https://github.com/ncipollo/release-action
+name: "Create Release"
+on:
+  push:
+    tags:
+      - '*'
+env:
+  NIX_SHOW_STATS: 1
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Nix
+      uses: cachix/install-nix-action@v14
+      with:
+        install_url: https://github.com/numtide/nix-unstable-installer/releases/latest/download/install
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
+    - name: Build ISO - GNOME
+      run: nix build github:maydayv7/dotfiles#installMedia.gnome.config.system.build.isoImage
+    - name: Publish Release
+      uses: ncipollo/release-action@v1.8.10
+      with:
+        artifacts: "result/iso/nixos.iso"
+        artifactErrorsFailBuild: true
+        allowUpdates: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        draft: true
+        token: ${{ secrets.ACCESS_TOKEN }}

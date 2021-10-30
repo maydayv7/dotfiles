@@ -1,6 +1,6 @@
-{ system, lib, inputs, pkgs, ... }:
+{ system, version, lib, inputs, pkgs, ... }:
 rec
 {
-  user = import ./user.nix { inherit system lib inputs pkgs; };
-  host = import ./host.nix { inherit system lib user inputs pkgs; };
+  user = import ./user.nix { inherit system version lib inputs pkgs; };
+  device = import ./device.nix { inherit system version lib user inputs pkgs; };
 }

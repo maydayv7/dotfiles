@@ -1,17 +1,10 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.gui.gnome;
+  cfg = config.gui.desktop;
 in rec
 {
-  options.gui.gnome.enable = lib.mkOption
-  {
-    description = "Enable GNOME Desktop Configuration";
-    type = lib.types.bool;
-    default = false;
-  };
-
   ## GNOME Desktop Configuration ##
-  config = lib.mkIf (cfg.enable == true)
+  config = lib.mkIf (cfg == "gnome")
   {
     gui.xorg.enable = true;
     services.xserver =
@@ -20,7 +13,7 @@ in rec
       libinput.enable = true;
       libinput.touchpad.tapping = true;
       libinput.touchpad.tappingDragLock = true;
-      
+
       # GNOME
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;

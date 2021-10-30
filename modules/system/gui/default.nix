@@ -1,5 +1,0 @@
-[
-  ./fonts
-  ./gnome
-  ./xorg
-]

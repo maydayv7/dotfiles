@@ -78,6 +78,9 @@
     # NixOS Version
     version = "21.05";
 
+    # GPG Key
+    key = "CF616EB19C2765E4";
+
     # Package Configuration
     pkgs = import inputs.nixpkgs
     {
@@ -98,9 +101,9 @@
     inherit (lib) attrValues;
 
     # Custom Functions
-    util = import ./lib { inherit system lib inputs pkgs; };
+    util = import ./lib { inherit system version lib inputs pkgs; };
     inherit (util) user;
-    inherit (util) host;
+    inherit (util) device;
   in
   {
     ## Nix Developer Shell ##
@@ -113,17 +116,30 @@
       # User V7
       v7 = user.mkHome
       {
-        inherit version;
         username = "v7";
         roles = [ "dconf" "discord" "firefox" "theme" ];
+        inherit key;
       };
 
       # User Navya
       navya = user.mkHome
       {
-        inherit version;
         username = "navya";
         roles = [ "dconf" "firefox" "theme" ];
+        inherit key;
+      };
+    };
+
+    ## Install Media Configuration ##
+    installMedia =
+    {
+      gnome = device.mkISO
+      {
+        name = "nixos";
+        timezone = "Asia/Kolkata";
+        locale = "en_IN.UTF-8";
+        kernel = pkgs.linuxPackages_5_10;
+        desktop = "gnome";
       };
     };
 
@@ -131,9 +147,8 @@
     nixosConfigurations =
     {
       # PC - Dell Inspiron 15 5000
-      Vortex = host.mkHost
+      Vortex = device.mkHost
       {
-        inherit version;
         name = "Vortex";
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
@@ -142,9 +157,10 @@
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         initrdMods = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
         modprobe = "options kvm_intel nested=1";
-        cpuCores = 8;
+        cores = 8;
         filesystem = "btrfs";
         ssd = true;
+        desktop = "gnome";
         roles = [ "android" "office" "virtualisation" ];
         users =
         [
@@ -159,19 +175,17 @@
       };
 
       # PC - Dell Inspiron 11 3000
-      Futura = host.mkHost
+      Futura = device.mkHost
       {
-        inherit version;
-        name = "Vortex";
+        name = "Futura";
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
         kernel = pkgs.linuxPackages_5_4;
-        kernelMods = [ ];
         kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
         initrdMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
-        modprobe = "";
-        cpuCores = 4;
+        cores = 4;
         filesystem = "ext4";
+        desktop = "gnome";
         roles = [ "office" ];
         users =
         [

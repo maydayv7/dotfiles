@@ -24,13 +24,13 @@ in rec
       # Utilities
       systemPackages = with pkgs;
       [
-        lolcat
-        neofetch
         etcher
         git
         git-crypt
-        unzip
+        lolcat
+        neofetch
         unrar
+        unzip
         wget
       ];
 
@@ -45,10 +45,10 @@ in rec
     {
       # Command Not Found Helper
       command-not-found.enable = true;
-      
+
       # GPG Key Signing
       gnupg.agent.enable = true;
-      
+
       # X11 SSH Password Auth
       ssh.askPassword = "";
     };

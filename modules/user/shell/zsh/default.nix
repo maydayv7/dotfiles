@@ -58,7 +58,7 @@ in rec
     {
       # Z Shell Prompt
       ".p10k.zsh".source = ./prompt;
-      
+
       # Neofetch Config
       ".config/neofetch/config.conf".source = ./neofetch;
     };

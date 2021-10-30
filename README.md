@@ -7,7 +7,7 @@ This repo contains the configuration files for my continuously evolving multi-PC
 
 [![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
-![desktop](./src/desktop.png)
+![](./src/images/desktop.png)
 
 ## Programs
 | Type                | Program                     |
@@ -29,107 +29,62 @@ Here is an overview of the file hierarchy:
 │   └── setup.sh
 ├── packages
 │   └── overlays
-├── modules
-│   ├── system
-│   └── user
+├── lib
+│   ├── device.nix
+│   └── user.nix
 ├── roles
-│   ├── system
+│   ├── device
 │   └── user
-└── lib
-    ├── host.nix
-    └── user.nix
+└── modules
+    ├── device
+    ├── iso
+    └── user
 ```
 
 - `flake.nix`: main system configuration file, using [Flakes](https://nixos.wiki/wiki/Flakes) for easier repository version control and multi-device management
 - `packages`: locally built custom packages
 - `overlays`: overrides for pre-built packages
-- `modules`: custom-made configuration modules for additional functionality
+- `lib`: custom functions designed for conveniently defining device and user configuration
 - `roles`: modulated role-based configuration for effortless management
-- `core`: shared system configuration and scripts
+- `modules`: custom-made configuration modules for additional functionality
+- `device`: shared device configuration and scripts
+- `iso`: resources for creation of install media
 - `user`: user related configuration and dotfiles
 
 ## Installation
-Download the latest NixOS .iso from [here](https://nixos.org/download.html), then either burn it to a USB using [Etcher](https://www.balena.io/etcher/) or a CD using [Brasero](https://wiki.gnome.org/Apps/Brasero), and boot the LiveCD  
-*In case it doesn't boot, disable `secure boot` and `RAID` from `BIOS`*
+Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the `.iso`:
+*Replace* ***VARIANT*** *with the name of install media to create*
+```
+nix build github:maydayv7/dotfiles#installMedia.VARIANT.config.system.build.isoImage
+```
 
 #### Partition Scheme
-Partition the drive using a tool such as [Gparted](https://gparted.org/)  
-*Note that partition labels must be set on all the partitions, along with the `esp` and `boot` flags on the ESP*
+*Note that the `install` script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
 
 | Name           | Label  | Format     | Size (minimum) |
 | :------------- | :----: | :--------: | :------------: |
 | BOOT Partition | ESP    | vfat       | 500M           |
 | ROOT Partition | System | ext4/BTRFS | 25G            |
-| SWAP Area      | swap   | swap       | 4G             |
+| SWAP Area      | swap   | swap       | 8G             |
 | DATA Partition | Files  | NTFS       | 10G            |
 
-#### Commands
-Then, install the OS using the following commands:  
-<pre><code>sudo -i
-nix-env -iA nixos.nixUnstable
-parted /dev/<i>disk</i> -- mkpart ESP fat32 1MiB 512MiB
-parted /dev/<i>disk</i> -- set 1 esp on
-mkswap -L swap <i>/path/to/swap</i>
-mount /dev/disk/by-label/System /mnt
-</pre></code>
-
-##### BTRFS
-```console
-btrfs subvolume create /mnt/home
-btrfs subvolume create /mnt/nix
-btrfs subvolume create /mnt/persist
-umount /mnt
-mount -t tmpfs none /mnt
-mkdir /mnt/{home,nix,persist}
-mount -o subvol=home,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/home
-mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/nix
-mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-label/System /mnt/persist
-```
-
-*Replace* ***HOST*** *with the desired hostname, and* ***KEY*** *with the `Github` authentication token*
-```
-mkdir -p /mnt/boot
-mount /dev/disk/by-partlabel/ESP /mnt/boot
-nixos-install --no-root-passwd --flake github:maydayv7/dotfiles#HOST --option access-tokens= github.com=KEY
-reboot now
-```
-
-#### Post Install
-##### ext4
-```
-sudo rm -rf /etc/nixos
-cd /etc
-```
-
-##### BTRFS
-```console
-sudo rm -rf /persist/etc/nixos
-cd /persist/etc
-```
-
-
-```
-sudo mkdir nixos && sudo chown $USER ./nixos && sudo chmod ugo+rw ./nixos
-git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git nixos && cd nixos
-mkdir -p ~/.config/nix && echo "access-tokens = github.com=KEY" >> ~/.config/nix/nix.conf
-sudo nixos-rebuild switch --flake .#
-nix build .#homeConfigurations.$USER.activationPackage
-./result/activate && rm -rf ./result
-reboot now
-```
+#### Procedure
+To install the OS, just boot the Live USB and run `sudo install`  
+*In case it doesn't boot, try disabling the `secure boot` and `RAID` options from `BIOS`*  
+After the reboot, run `setup` in the newly installed system to finish setup
 
 ## Notes
 #### Caution
 I am pretty new to Nix, and my configuration is still *WIP*, right now undergoing a transition to using Nix [Flakes](https://nixos.wiki/wiki/Flakes), an unstable feature. If you have any doubts or suggestions, feel free to open an issue
 
 #### Branches
-There are two branches, `stable` and `develop`. The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been battle-tested
+There are two branches, `stable` and `develop`. The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been extensively tested
 
 #### Requirements
 - Intel CPU + iGPU
 - UEFI System (for use with GRUB EFI Bootloader)
 
-#### System Management
+#### Device Management
 ##### Data Storage
 User files are stored on an NTFS partition mounted to `/data`
 
@@ -143,10 +98,10 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 The authentication credentials are stored in a private repository containing passwords and other security keys, which is imported into the configuration as an `input`, and cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
 
 ##### Scripts
-A system management script has been included in `modules/system/scripts`, invoked with the command `nixos`, which can be used to apply user and system configuration changes or perform various other useful functions
+A system management script invoked with the command `nixos` has been included, which can be used to apply user and device configuration changes or perform various other useful functions. The `install` and `setup` scripts have also been included to painlessly install the OS and setup the device, using a single command
 
 ##### File System
-These configuration files can be used to setup the system using either ext4 or BTRFS (with opt-in state). The opt-in state (using TMPFS for `/`) allows for a vastly improved experience, preventing any cruft to form and exerting total control over the system's state, by erasing the system at every boot, keeping only what's required/defined
+These configuration files can be used to setup the system using either ext4 or BTRFS (with opt-in state). The opt-in state (using TMPFS for `/`) allows for a vastly improved experience, preventing any cruft to form and exerting total control over the device state, by erasing the system at every boot, keeping only what's required/defined
 
 #### Theming
 - [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool

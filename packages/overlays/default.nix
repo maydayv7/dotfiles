@@ -61,7 +61,7 @@
         ''
           exe=$out/bin/google-chrome-stable
           fix=" --enable-features=WebUIDarkMode --force-dark-mode"
-          
+
           substituteInPlace $out/share/applications/google-chrome.desktop \
             --replace $exe "$exe$fix"
         '';

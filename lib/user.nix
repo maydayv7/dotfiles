@@ -1,4 +1,4 @@
-{ system, lib, inputs, pkgs, ... }:
+{ system, version, lib, inputs, pkgs, ... }:
 {
   ## User Configuration Function ##
   mkUser = { name, description, groups, uid, shell, ... }:
@@ -25,7 +25,7 @@
   };
 
   ## User Home Configuration Function ##
-  mkHome = { username, roles, version, ... }:
+  mkHome = { username, roles, key, ... }:
   inputs.home-manager.lib.homeManagerConfiguration
   {
     inherit system username pkgs;
@@ -58,7 +58,7 @@
 
       # Shell Configuration
       shell.git.enable = true;
-      shell.git.key = "CF616EB19C2765E4";
+      shell.git.key = key;
       shell.terminal.enable = true;
       shell.zsh.enable = true;
     };
