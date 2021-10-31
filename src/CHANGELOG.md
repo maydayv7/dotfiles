@@ -37,8 +37,8 @@
 
 ### v0.5pre
 + Added support for Nix Flakes (#5)
-+ Added Custom Libraries for system and user management
-+ Created System management script
++ Added Custom Libraries for device and user management
++ Created system management script
 + Update README and install script
 + Add full support for multi-device configuration
 + Use better repository management

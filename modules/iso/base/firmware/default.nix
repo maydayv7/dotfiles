@@ -8,6 +8,9 @@ in rec
   #W Device Firmware ##
   config = mkIf (cfg == true)
   {
+    # Device Firmware
+    hardware.enableRedistributableFirmware = true;
+
     # Audio
     sound.enable = true;
     hardware.pulseaudio.enable = true;
@@ -15,14 +18,9 @@ in rec
     # Filesystems
     boot.supportedFilesystems = [ "btrfs" "vfat" "ntfs" ];
 
+    # Installer Packages
     environment.systemPackages = with pkgs;
     [
-      # Device Firmware
-      alsa-firmware
-      firmwareLinuxNonfree
-      sof-firmware
-
-      # Installer Packages
       efibootmgr
       efivar
       git

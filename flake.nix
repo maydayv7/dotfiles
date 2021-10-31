@@ -138,7 +138,7 @@
         name = "nixos";
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
-        kernel = pkgs.linuxPackages_5_10;
+        kernel = pkgs.linuxPackages_latest;
         desktop = "gnome";
       };
     };

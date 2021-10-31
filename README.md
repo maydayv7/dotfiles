@@ -52,7 +52,7 @@ Here is an overview of the file hierarchy:
 - `user`: user related configuration and dotfiles
 
 ## Installation
-Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the `.iso`:
+Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the `.iso`:  
 *Replace* ***VARIANT*** *with the name of install media to create*
 ```
 nix build github:maydayv7/dotfiles#installMedia.VARIANT.config.system.build.isoImage
