@@ -149,11 +149,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1635328790,
-        "narHash": "sha256-WIpvrNxna7mikcnqmfIO7uQ4zKr01yPYgSZ4KhtQ7ao=",
+        "lastModified": 1635740102,
+        "narHash": "sha256-wo2Le9YEkgrHreD61/N/SEfLY0ogD2TDBetJftPMJPc=",
         "owner": "maydayv7",
         "repo": "secrets",
-        "rev": "e6dd324dc60b79f89c2b9ae6556da30eaac08d53",
+        "rev": "1048f8a882aea4ffb622f0378452c13aeac41584",
         "type": "github"
       },
       "original": {
@@ -181,17 +181,16 @@
     "zsh-syntax": {
       "flake": false,
       "locked": {
-        "lastModified": 1582925650,
-        "narHash": "sha256-gOG0NLlaJfotJfs+SUhGgLTNOnGLjoqnUp54V9aFJg8=",
+        "lastModified": 1632454857,
+        "narHash": "sha256-vwtgFWEs51ZfrUbWmRjcHZz+WPMFUrSHfIt4FjrMOoU=",
         "owner": "zsh-users",
         "repo": "zsh-syntax-highlighting",
-        "rev": "932e29a0c75411cb618f02995b66c0a4a25699bc",
+        "rev": "1a9264bc661b3d52756916bf9ec3f41687d64db2",
         "type": "github"
       },
       "original": {
         "owner": "zsh-users",
         "repo": "zsh-syntax-highlighting",
-        "rev": "932e29a0c75411cb618f02995b66c0a4a25699bc",
         "type": "github"
       }
     }

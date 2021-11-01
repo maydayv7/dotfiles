@@ -25,7 +25,7 @@
   };
 
   ## User Home Configuration Function ##
-  mkHome = { username, roles, key, ... }:
+  mkHome = { username, roles, ... }:
   inputs.home-manager.lib.homeManagerConfiguration
   {
     inherit system username pkgs;
@@ -58,7 +58,7 @@
 
       # Shell Configuration
       shell.git.enable = true;
-      shell.git.key = key;
+      shell.git.key = (builtins.readFile ("${inputs.secrets}/gpg/gpg.key"));
       shell.terminal.enable = true;
       shell.zsh.enable = true;
     };

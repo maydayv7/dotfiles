@@ -49,7 +49,7 @@
     # Z Shell Syntax Highlighting
     zsh-syntax =
     {
-      url = "github:zsh-users/zsh-syntax-highlighting?rev=932e29a0c75411cb618f02995b66c0a4a25699bc";
+      url = "github:zsh-users/zsh-syntax-highlighting";
       flake = false;
     };
 
@@ -77,9 +77,6 @@
 
     # NixOS Version
     version = "21.05";
-
-    # GPG Key
-    key = "CF616EB19C2765E4";
 
     # Package Configuration
     pkgs = import inputs.nixpkgs
@@ -118,7 +115,6 @@
       {
         username = "v7";
         roles = [ "dconf" "discord" "firefox" "theme" ];
-        inherit key;
       };
 
       # User Navya
@@ -126,13 +122,13 @@
       {
         username = "navya";
         roles = [ "dconf" "firefox" "theme" ];
-        inherit key;
       };
     };
 
     ## Install Media Configuration ##
     installMedia =
     {
+      # GNOME Install Media
       gnome = device.mkISO
       {
         name = "nixos";

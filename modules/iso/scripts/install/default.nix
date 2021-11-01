@@ -23,8 +23,13 @@ let
     mkdir -p /mnt
     printf "\n"
 
-    if [ "$SCHEME" == "btrfs" ];
+    if [ "$SCHEME" == "ext4" ];
       then
+        echo "Mounting EXT4 Partitions..."
+        mkfs.ext4 /dev/disk/by-partlabel/System
+        mount /dev/disk/by-partlabel/System /mnt
+        printf "\n"
+      else
         echo "Mounting BTRFS Partitions..."
         mkfs.btrfs -f /dev/disk/by-partlabel/System
         mount /dev/disk/by-partlabel/System /mnt
@@ -37,11 +42,6 @@ let
         mount -o subvol=home,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/home
         mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/nix
         mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/persist
-        printf "\n"
-      else
-        echo "Mounting EXT4 Partitions..."
-        mkfs.ext4 /dev/disk/by-partlabel/System
-        mount /dev/disk/by-partlabel/System /mnt
         printf "\n"
     fi
 

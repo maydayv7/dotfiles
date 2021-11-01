@@ -32,8 +32,8 @@ let
 
     echo "Applying User Configuration..."
     nix build $DIR/nixos#homeConfigurations.$USER.activationPackage
-    $DIR/nixos/result/activate
-    rm -rf $DIR/nixos/result
+    ./result/activate
+    rm -rf ./result
     printf "\n"
 
     read -p "Do you want to reboot the system? (Y/N): " choice
