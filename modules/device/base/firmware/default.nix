@@ -25,7 +25,8 @@ in rec
       vaapiIntel
       vaapiVdpau
     ];
-    environment.systemPackages = with pkgs; [ unstable.sof-firmware ];
+    environment.systemPackages = with pkgs; [ unstable.sof-firmware libimobiledevice ];
+    services.usbmuxd.enable = true;
 
     # Audio
     sound.enable = true;
