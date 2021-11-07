@@ -1,5 +1,10 @@
-[
-  ./git
-  ./terminal
-  ./zsh
-]
+{ lib, ... }:
+rec
+{
+  imports =
+  [
+    ./git
+    ./terminal
+    ./zsh
+  ];
+}

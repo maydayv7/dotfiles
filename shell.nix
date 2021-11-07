@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { } }:
 let
-  nixBin = pkgs.writeShellScriptBin "nix"
+  nix = pkgs.writeShellScriptBin "nix"
   ''
     ${pkgs.nixUnstable}/bin/nix --option experimental-features "nix-command flakes" "$@"
   '';
@@ -23,6 +23,6 @@ pkgs.mkShell
   ''
     # Nix Flakes Compatibility
     export FLAKE="$(pwd)"
-    export PATH="$FLAKE/bin:${nixBin}/bin:$PATH"
+    export PATH="$FLAKE/bin:${nix}/bin:$PATH"
   '';
 }

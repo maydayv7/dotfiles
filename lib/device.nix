@@ -2,27 +2,16 @@
 {
   ## Install Media Configuration Function ##
   mkISO = { name, timezone, locale, kernel, desktop }:
-  let
-    # Install Media Configuration Modules
-    iso_modules =
-    [
-      ../modules/iso
-      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
-    ];
-  in lib.nixosSystem
+  lib.nixosSystem
   {
     inherit system;
-
-    specialArgs =
-    {
-      inherit inputs;
-    };
+    specialArgs = { inherit inputs; };
 
     modules =
     [
       {
         # Modulated Configuration Imports
-        imports = iso_modules;
+        imports = [ ../modules/iso ];
 
         # Device Configuration
         base.enable = true;
@@ -47,7 +36,7 @@
         # ISO Creation Settings
         isoImage.makeEfiBootable = true;
         isoImage.makeUsbBootable = true;
-        environment.pathsToLink = ["/libexec" ];
+        environment.pathsToLink = [ "/libexec" ];
 
         # System Scripts
         scripts.install = true;
@@ -56,37 +45,24 @@
   };
 
   ## Host Configuration Function ##
-  mkHost = { name, timezone, locale, kernel, kernelMods ? [ ], kernelParams, initrdMods, modprobe ? "", cores, filesystem, ssd ? false, desktop, roles, users }:
+  mkHost = { name, timezone, locale, kernel, kernel_modules ? [ ], kernel_params, init_modules, modprobe ? "", cores, filesystem, ssd ? false, desktop, roles, users }:
   let
-    # Device Roles Import Function
-    mkRole = name: import (../roles/device + "/${name}");
-    device_roles = (builtins.map (r: mkRole r) roles);
-
     # User Creation
     device_users = (builtins.map (u: user.mkUser u) users);
 
-    # Device Configuration Modules
-    device_modules =
-    [
-      ../modules/device
-      inputs.impermanence.nixosModules.impermanence
-      "${inputs.unstable}/nixos/modules/services/backup/btrbk.nix"
-      "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix"
-    ];
+    # Device Roles Import Function
+    mkRole = name: import (../roles/device + "/${name}");
+    device_roles = (builtins.map (r: mkRole r) roles);
   in lib.nixosSystem
   {
     inherit system;
-
-    specialArgs =
-    {
-      inherit inputs;
-    };
+    specialArgs = { inherit inputs; };
 
     modules =
     [
       {
         # Modulated Configuration Imports
-        imports = device_roles ++ device_users ++ device_modules;
+        imports = device_users ++ device_roles ++ [ ../modules/device ];
 
         # Localization
         time.timeZone = timezone;
@@ -100,9 +76,9 @@
 
         # Boot Configuration
         boot.kernelPackages = kernel;
-        boot.kernelModules = kernelMods;
-        boot.kernelParams = kernelParams;
-        boot.initrd.availableKernelModules = initrdMods;
+        boot.kernelModules = kernel_modules;
+        boot.kernelParams = kernel_params;
+        boot.initrd.availableKernelModules = init_modules;
         boot.extraModprobeConfig = modprobe;
 
         # Package Configuration

@@ -1,4 +1,9 @@
-[
-  ./filesystem
-  ./ssd
-]
+{ lib, ... }:
+rec
+{
+  imports =
+  [
+    ./filesystem
+    ./ssd
+  ];
+}

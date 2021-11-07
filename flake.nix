@@ -149,15 +149,15 @@
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
         kernel = pkgs.linuxPackages_lqx;
-        kernelMods = [ "kvm-intel" ];
-        kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
-        initrdMods = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+        kernel_modules = [ "kvm-intel" ];
+        kernel_params = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
+        init_modules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
         modprobe = "options kvm_intel nested=1";
         cores = 8;
         filesystem = "btrfs";
         ssd = true;
         desktop = "gnome";
-        roles = [ "android" "office" "virtualisation" ];
+        roles = [ "android" "ios" "office" "virtualisation" ];
         users =
         [
           {
@@ -177,8 +177,8 @@
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
         kernel = pkgs.linuxPackages_5_4;
-        kernelParams = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
-        initrdMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
+        kernel_params = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
+        init_modules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
         cores = 4;
         filesystem = "ext4";
         desktop = "gnome";

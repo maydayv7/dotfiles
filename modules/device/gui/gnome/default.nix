@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, inputs, pkgs, ... }:
 let
   cfg = config.gui.desktop;
 in rec
 {
+  imports = [ "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix" ];
+
   ## GNOME Desktop Configuration ##
   config = lib.mkIf (cfg == "gnome")
   {

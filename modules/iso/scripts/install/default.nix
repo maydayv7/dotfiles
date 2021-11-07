@@ -23,8 +23,7 @@ let
     mkdir -p /mnt
     printf "\n"
 
-    if [ "$SCHEME" == "ext4" ];
-      then
+    if [ "$SCHEME" == "ext4" ]; then
         echo "Mounting EXT4 Partitions..."
         mkfs.ext4 /dev/disk/by-partlabel/System
         mount /dev/disk/by-partlabel/System /mnt

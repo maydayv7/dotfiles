@@ -15,6 +15,13 @@ in rec
     sound.enable = true;
     hardware.pulseaudio.enable = true;
 
+    # Network Settings
+    networking =
+    {
+      networkmanager.enable = true;
+      firewall.enable = false;
+    };
+
     # Filesystems
     boot.supportedFilesystems = [ "btrfs" "vfat" "ntfs" ];
 

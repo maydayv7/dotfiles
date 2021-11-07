@@ -1,3 +1,8 @@
-[
-  ./install
-]
+{ lib, ... }:
+rec
+{
+  imports =
+  [
+    ./install
+  ];
+}

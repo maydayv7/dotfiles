@@ -75,10 +75,10 @@ let
     ;;
     "clean")
       echo "Running Garbage Collection..."
-      nix-store --gc
+      nix store gc
       printf "\n"
       echo "Running De-Duplication..."
-      nix-store --optimise
+      nix store optimise
     ;;
     *)
       echo "########################## Tool for NixOS System Management ##########################"

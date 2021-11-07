@@ -8,15 +8,6 @@ in rec
   {
     nix =
     {
-      # Garbage Collection
-      autoOptimiseStore = true;
-      gc =
-      {
-        automatic = true;
-        dates     = "weekly";
-        options   = "--delete-older-than 7d";
-      };
-
       # Nix Path
       nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
@@ -26,15 +17,6 @@ in rec
       ''
         experimental-features = nix-command flakes
       '';
-
-      # Flakes Registry
-      registry =
-      {
-        self.flake = inputs.self;
-        nixpkgs.flake = inputs.nixpkgs;
-        unstable.flake = inputs.unstable;
-        home-manager.flake = inputs.home-manager;
-      };
     };
   };
 }

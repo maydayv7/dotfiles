@@ -66,7 +66,6 @@ in rec
     # Utilities
     home.packages = with pkgs;
     [
-      nix-zsh-completions
       fzf
       fzf-zsh
     ];

@@ -9,39 +9,29 @@ let
     read -p "Enter Github authentication token: " KEY
 
     if mount | grep ext4 > /dev/null; then
-      DIR=/etc
+      DIR=/etc/nixos
     else
-      DIR=/persist/etc
+      DIR=/persist/etc/nixos
     fi
 
     echo "Preparing Directory..."
-    sudo rm -rf $DIR/nixos
-    sudo mkdir $DIR/nixos
-    sudo chown $USER $DIR/nixos
-    sudo chmod ugo+rw $DIR/nixos
+    sudo rm -rf $DIR
+    sudo mkdir $DIR
+    sudo chown $USER $DIR
+    sudo chmod ugo+rw $DIR
     printf "\n"
 
     echo "Cloning Repo..."
-    git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git $DIR/nixos
+    git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git $DIR
     mkdir -p ~/.config/nix && echo "access-tokens = github.com=$KEY" >> ~/.config/nix/nix.conf
     printf "\n"
 
-    echo "Applying Device Configuration..."
-    sudo nixos-rebuild switch --flake $DIR/nixos#
-    printf "\n"
+    if [ "$DIR" == "/persist/etc/nixos" ]; then
+        sudo umount -l /etc/nixos
+        sudo mount $DIR
+    fi
 
-    echo "Applying User Configuration..."
-    nix build $DIR/nixos#homeConfigurations.$USER.activationPackage
-    ./result/activate
-    rm -rf ./result
-    printf "\n"
-
-    read -p "Do you want to reboot the system? (Y/N): " choice
-      case $choice in
-        [Yy]* ) reboot;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer (Y)es or (N)o.";;
-      esac
+    nixos apply
   '';
 in rec
 {

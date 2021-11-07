@@ -16,6 +16,7 @@ in rec
       opengl.enable = true;
       enableRedistributableFirmware = true;
     };
+    environment.systemPackages = with pkgs; [ unstable.sof-firmware ];
 
     # Driver Packages
     hardware.opengl.extraPackages = with pkgs; 
@@ -25,8 +26,6 @@ in rec
       vaapiIntel
       vaapiVdpau
     ];
-    environment.systemPackages = with pkgs; [ unstable.sof-firmware libimobiledevice ];
-    services.usbmuxd.enable = true;
 
     # Audio
     sound.enable = true;
@@ -35,6 +34,13 @@ in rec
     {
       enable = true;
       support32Bit = true;
+    };
+
+    # Network Settings
+    networking =
+    {
+      networkmanager.enable = true;
+      firewall.enable = false;
     };
 
     # Printing

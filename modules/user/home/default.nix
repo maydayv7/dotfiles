@@ -1,4 +1,9 @@
-[
-  ./activate
-  ./dotfiles
-]
+{ lib, ... }:
+rec
+{
+  imports =
+  [
+    ./activate
+    ./dotfiles
+  ];
+}

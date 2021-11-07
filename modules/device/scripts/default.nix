@@ -1,4 +1,9 @@
-[
-  ./management
-  ./setup
-]
+{ lib, ... }:
+rec
+{
+  imports =
+  [
+    ./management
+    ./setup
+  ];
+}

@@ -1,8 +1,14 @@
-{ config, lib, ... }:
+{ config, lib, inputs, ... }:
 let
   cfg = config.hardware.filesystem;
 in rec
 {
+  imports =
+  [
+    inputs.impermanence.nixosModules.impermanence
+    "${inputs.unstable}/nixos/modules/services/backup/btrbk.nix"
+  ];
+
   options.hardware.filesystem = lib.mkOption
   {
     description = "File System to be used by the disk";
