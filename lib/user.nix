@@ -45,8 +45,7 @@
 
       # Home Manager Configuration
       home.username = username;
-      home.activate = true;
-      home.dotfiles = true;
+      dotfiles.enable = true;
       programs.home-manager.enable = true;
       systemd.user.startServices = true;
 

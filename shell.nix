@@ -1,10 +1,4 @@
 { pkgs ? import <nixpkgs> { } }:
-let
-  nix = pkgs.writeShellScriptBin "nix"
-  ''
-    ${pkgs.nixUnstable}/bin/nix --option experimental-features "nix-command flakes" "$@"
-  '';
-in
 pkgs.mkShell
 {
   name = "DevShell";
@@ -15,14 +9,11 @@ pkgs.mkShell
     git
     git-crypt
     gnupg
-    nixUnstable
   ];
 
   # Init Script
   shellHook =
   ''
-    # Nix Flakes Compatibility
-    export FLAKE="$(pwd)"
-    export PATH="$FLAKE/bin:${nix}/bin:$PATH"
+    echo "######################### Welcome to the Nix Developer Shell #########################"
   '';
 }

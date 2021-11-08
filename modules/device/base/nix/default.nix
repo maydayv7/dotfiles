@@ -24,13 +24,11 @@ in rec
       trustedUsers = [ "root" "@wheel" ];
 
       # Flakes
-      package = pkgs.nixUnstable;
+      package = pkgs.unstable.nix_2_4;
       extraOptions =
       ''
         experimental-features = nix-command flakes
       '';
-
-      # Flakes Registry
       registry =
       {
         self.flake = inputs.self;

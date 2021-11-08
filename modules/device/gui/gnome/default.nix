@@ -92,7 +92,7 @@ in rec
       gnomeExtensions.compiz-alike-magic-lamp-effect
       gnomeExtensions.custom-hot-corners-extended
       gnomeExtensions.dash-to-panel
-      unstable.gnomeExtensions.fly-pie
+      # gnomeExtensions.fly-pie
       gnomeExtensions.just-perfection
       gnomeExtensions.lock-keys
       gnomeExtensions.screenshot-locations

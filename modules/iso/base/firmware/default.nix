@@ -25,6 +25,16 @@ in rec
     # Filesystems
     boot.supportedFilesystems = [ "btrfs" "vfat" "ntfs" ];
 
+    # Nix Settings
+    nix =
+    {
+      package = pkgs.unstable.nix_2_4;
+      extraOptions =
+      ''
+        experimental-features = nix-command flakes
+      '';
+    };
+
     # Installer Packages
     environment.systemPackages = with pkgs;
     [

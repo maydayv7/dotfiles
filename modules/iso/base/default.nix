@@ -4,7 +4,6 @@ rec
   imports =
   [
     ./firmware
-    ./nix
     ./user
 
     # Install Media Build Module

@@ -1,25 +1,54 @@
 { config, lib, inputs, ... }:
 let
-  cfg = config.home.activate;
+  cfg = config.dotfiles;
   username = config.home.username;
 in rec
 {
-  options.home.activate = lib.mkOption
+  options.dotfiles.enable = lib.mkOption
   {
-    description = "User Home Activation Script";
+    description = "User Home Dotfiles";
     type = lib.types.bool;
-    default = true;
+    default = false;
   };
 
-  ## Home Activation Script ##
-  config = lib.mkIf (cfg == true)
+  ## User Dotfiles ##
+  config = lib.mkIf (cfg.enable == true)
   {
+    home.file =
+    {
+      # Wallpapers
+      ".local/share/backgrounds".source = ./images;
+
+      # X11 Gestures
+      ".config/touchegg/touchegg.conf".source = ./gestures;
+
+      # Document Templates
+      "Templates" =
+      {
+        source = ./templates;
+        recursive = true;
+      };
+
+      # Font Rendering
+      ".local/share/fonts" =
+      {
+        source = ./fonts;
+        recursive = true;
+      };
+    };
+
+    # Xorg Configuration
+    xresources.extraConfig = (builtins.readFile ./xorg);
+
+    ## Activation Scripts ##
+    # Screenshots Directory
     home.activation.screenshotsDir = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
     ''
       $DRY_RUN_CMD mkdir -p $VERBOSE_ARG ~/Pictures/Screenshots
       $DRY_RUN_CMD dconf write /org/gnome/shell/extensions/screenshotlocations/save-directory "'$HOME/Pictures/Screenshots'"
     '';
 
+    # GTK+ Bookmarks
     home.activation.addBookmarks = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
     ''
       FILE=~/.config/gtk-3.0/bookmarks
@@ -29,10 +58,11 @@ in rec
       else
         echo "Adding Bookmarks"
         $DRY_RUN_CMD mkdir -p ~/.config/gtk-3.0 $VERBOSE_ARG
-        $DRY_RUN_CMD cp ${inputs.self}/modules/user/home/dotfiles/bookmarks ~/.config/gtk-3.0/ $VERBOSE_ARG
+        $DRY_RUN_CMD cp ${inputs.self}/modules/user/dotfiles/bookmarks ~/.config/gtk-3.0/ $VERBOSE_ARG
       fi
     '';
 
+    # Profile Picture
     home.activation.profilePic = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
     ''
       FILE=/var/lib/AccountsService/icons
