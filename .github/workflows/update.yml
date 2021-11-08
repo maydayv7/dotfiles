@@ -1,0 +1,37 @@
+name: Update Flake Inputs
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 */5 * *'
+env:
+  NIX_SHOW_STATS: 1
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Nix
+      uses: actions/checkout@v2.3.5
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        fetch-depth: 0
+    - name: Install Nix
+      uses: cachix/install-nix-action@v14.1
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
+    - name: Set Git User Name
+      run: git config --global user.name "GitHub"
+    - name: Set Git User Mail
+      run: git config --global user.email "noreply@github.com"
+    - name: Import Access Token
+      run: mkdir -p ~/.config/nix && echo "access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}" >> ~/.config/nix/nix.conf
+    - name: Update Flake Lock File
+      run: nix flake update --commit-lock-file
+    - name: Create PR
+      uses: peter-evans/create-pull-request@v3.11.0
+      with:
+        branch: update
+        commit-message: "Update Flake Inputs"
+        delete-branch: true
+        title: "Update Flake Inputs"

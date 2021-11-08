@@ -15,16 +15,14 @@ let
     case $1 in
     "update")
       echo "Updating Flake Inputs..."
-      nix flake update /etc/nixos
+      nix flake update /etc/nixos $2
     ;;
     "apply")
       echo "Applying Device Settings..."
       sudo nixos-rebuild switch --flake /etc/nixos#
       printf "\n"
       echo "Applying User Settings..."
-      nix build /etc/nixos#homeConfigurations.$USER.activationPackage
-      ./result/activate
-      rm -rf ./result
+      nix build /etc/nixos#homeConfigurations.$USER.activationPackage && ./result/activate && rm -rf ./result
     ;;
     "apply-device")
       echo "Applying Device Settings..."
@@ -39,13 +37,10 @@ let
       else
         echo "Unknown option $2"
       fi
-      rm -rf ./result
     ;;
     "apply-user")
       echo "Applying User Settings..."
-      nix build /etc/nixos#homeConfigurations.$USER.activationPackage
-      ./result/activate
-      rm -rf ./result
+      nix build /etc/nixos#homeConfigurations.$USER.activationPackage && ./result/activate && rm -rf ./result
    ;;
    "iso")
      echo "Building $2 ISO file..."

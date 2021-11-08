@@ -1,7 +1,3 @@
-# Automatically build Nix Flake Configuration on PR
-#
-# For more information, see:
-# https://github.com/cachix/install-nix-action
 name: "Build Configuration"
 on:
   workflow_dispatch:
