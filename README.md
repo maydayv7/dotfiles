@@ -37,7 +37,6 @@ Here is an overview of the file hierarchy:
 │   └── user
 └── modules
     ├── device
-    ├── iso
     └── user
 ```
 

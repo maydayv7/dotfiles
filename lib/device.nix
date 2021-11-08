@@ -11,9 +11,9 @@
     [
       {
         # Modulated Configuration Imports
-        imports = [ ../modules/iso ];
+        imports = [ ../modules/device/iso ];
 
-        # Device Configuration
+        # Hardware Configuration
         base.enable = true;
         networking.hostName = "${name}";
 
@@ -31,12 +31,7 @@
         nixpkgs.pkgs = pkgs;
 
         # GUI Configuration
-        gui.desktop = desktop;
-
-        # ISO Creation Settings
-        isoImage.makeEfiBootable = true;
-        isoImage.makeUsbBootable = true;
-        environment.pathsToLink = [ "/libexec" ];
+        gui.desktop = (desktop + "-minimal");
 
         # System Scripts
         scripts.install = true;
@@ -68,9 +63,10 @@
         time.timeZone = timezone;
         i18n.defaultLocale = locale;
 
-        # Device Configuration
+        # Hardware Configuration
         base.enable = true;
         networking.hostName = "${name}";
+        hardware.boot = true;
         hardware.filesystem = filesystem;
         hardware.ssd = ssd;
 

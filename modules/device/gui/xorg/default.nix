@@ -10,7 +10,7 @@ in rec
     default = false;
   };
 
-  ## Xorg Configuration ##
+  ## XORG Configuration ##
   config = lib.mkIf (cfg.enable == true)
   {
     services.xserver =

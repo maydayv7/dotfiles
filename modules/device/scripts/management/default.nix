@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.scripts.management;
+
+  # System Management Script
   script = with pkgs; writeScriptBin "nixos"
   ''
     #!${pkgs.runtimeShell}

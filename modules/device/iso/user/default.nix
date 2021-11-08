@@ -6,13 +6,15 @@ in rec
   ## User Configuration ##
   config = lib.mkIf (cfg == true)
   {
-    # Nix Permissions
-    nix.trustedUsers = [ "root" "@wheel" ];
-
     # Root User
     users.extraUsers.root.initialPassword = "";
 
     # Default User
+    services.xserver.displayManager.autoLogin =
+    {
+      enable = true;
+      user = "nixos";
+    };
     users.users.nixos =
     {
       name = "nixos";

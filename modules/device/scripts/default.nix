@@ -3,6 +3,7 @@ rec
 {
   imports =
   [
+    ./install
     ./management
     ./setup
   ];

@@ -4,7 +4,7 @@
   overlays =
   [
     # Unstable Packages Enablement
-    (final: prev: { unstable = inputs.unstable.legacyPackages.x86_64-linux; })
+    (final: prev: { unstable = inputs.unstable.legacyPackages."${system}"; })
 
     # Nix User Repository Enablement
     inputs.nur.overlay

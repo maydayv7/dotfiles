@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.scripts.install;
+
+  # NixOS Install Script
   script = with pkgs; writeScriptBin "install"
   ''
     #!${pkgs.runtimeShell}

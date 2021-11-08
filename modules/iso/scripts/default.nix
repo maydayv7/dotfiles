@@ -1,8 +1,0 @@
-{ lib, ... }:
-rec
-{
-  imports =
-  [
-    ./install
-  ];
-}

@@ -5,7 +5,7 @@ let
   cfg = config.base.enable;
 in rec
 {
-  #W Device Firmware ##
+  ## Device Firmware ##
   config = mkIf (cfg == true)
   {
     # Drivers
@@ -17,6 +17,9 @@ in rec
       enableRedistributableFirmware = true;
     };
     environment.systemPackages = with pkgs; [ unstable.sof-firmware ];
+
+    # Filesystem Support
+    boot.supportedFilesystems = [ "vfat" "ntfs" "btrfs" ];
 
     # Driver Packages
     hardware.opengl.extraPackages = with pkgs; 

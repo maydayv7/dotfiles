@@ -11,7 +11,7 @@ in rec
 
   options.hardware.filesystem = lib.mkOption
   {
-    description = "File System to be used by the disk";
+    description = "Disk File System Configuration";
     type = lib.types.enum [ "btrfs" "ext4" ];
     default = "ext4";
   };
@@ -42,7 +42,6 @@ in rec
       # SWAP Partition
       swapDevices =
       [ { device = "/dev/disk/by-partlabel/swap"; } ];
-      # SWAP Usage
       boot.kernel.sysctl."vm.swappiness" = 1;
     }
 

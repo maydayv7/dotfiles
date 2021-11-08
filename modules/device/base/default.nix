@@ -3,7 +3,6 @@ rec
 {
   imports =
   [
-    ./boot
     ./cachix
     ./firmware
     ./nix
@@ -13,7 +12,7 @@ rec
 
   options.base.enable = lib.mkOption
   {
-    description = "Base System Configuration";
+    description = "Base Device Configuration";
     type = lib.types.bool;
     default = true;
   };

@@ -1,8 +1,15 @@
 { config, lib, ... }:
 let
-  cfg = config.base.enable;
+  cfg = config.hardware.boot;
 in rec
 {
+  options.hardware.boot = lib.mkOption
+  {
+    description = "Device Boot Configuration";
+    type = lib.types.bool;
+    default = "true";
+  };
+
   ## Boot Configuration ##
   config = lib.mkIf (cfg == true)
   {
@@ -20,9 +27,6 @@ in rec
         efi.canTouchEfiVariables = true;
         systemd-boot.enable = true;
       };
-
-      # Filesystems
-      supportedFilesystems = [ "ntfs" "btrfs" ];
     };
   };
 }

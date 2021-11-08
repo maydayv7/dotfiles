@@ -5,7 +5,7 @@ in rec
 {
   options.gui.enableFonts = lib.mkOption
   {
-    description = "Enable System Fonts Configuration";
+    description = "Enable Device Fonts Configuration";
     type = lib.types.bool;
     default = false;
   };

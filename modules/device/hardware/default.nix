@@ -3,6 +3,7 @@ rec
 {
   imports =
   [
+    ./boot
     ./filesystem
     ./ssd
   ];

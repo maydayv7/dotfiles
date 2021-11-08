@@ -5,7 +5,18 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 ### Credentials
-The authentication credentials are stored in a private repository containing passwords and other security keys, which is imported into the configuration as an `input`, and cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
+The authentication credentials are stored in a private repository containing passwords and other security keys, which is imported into the configuration as an `input`, and cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option. The basic structure of the `secrets` submodule is as follows:
+```
+┌── cachix
+│   └── maydayv7-dotfiles.token
+├── gpg
+│   ├── public.gpg
+│   └── private.gpg
+└── passwords
+    ├── root
+    ├── v7
+    └── navya
+```
 
 ### Scripts
 A system management script invoked with the command `nixos` has been included, which can be used to apply user and device configuration changes or perform various other useful functions. The `install` and `setup` scripts have also been included to painlessly install the OS and setup the device, using a single command

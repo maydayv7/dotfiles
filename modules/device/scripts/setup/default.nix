@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.scripts.setup;
+
+  # System Setup Script
   script = with pkgs; writeScriptBin "setup"
   ''
     #!${pkgs.runtimeShell}

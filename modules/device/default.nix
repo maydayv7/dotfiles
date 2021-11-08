@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  # Custom System Configuration Modules
+  # Custom Device Configuration Modules
   imports =
   [
     ./base
