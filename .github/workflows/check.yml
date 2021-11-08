@@ -3,6 +3,7 @@ on:
   push:
     paths-ignore:
       - '**.md'
+      - '.github/**'
 env:
   NIX_SHOW_STATS: 1
 jobs:

@@ -2,7 +2,7 @@ name: Update Flake Inputs
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0 0 */5 * *'
+    - cron:  '0 0 */10 * *'
 env:
   NIX_SHOW_STATS: 1
 jobs:

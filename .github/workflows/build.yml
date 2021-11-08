@@ -1,10 +1,15 @@
 name: "Build Configuration"
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Update Flake Inputs", "Create Release"]
+    types:
+      - completed
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths-ignore:
       - '**.md'
+      - '.github/**'
 env:
   NIX_SHOW_STATS: 1
 jobs:
