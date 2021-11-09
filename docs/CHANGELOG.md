@@ -1,4 +1,10 @@
 ## Changelog
+### v2.2
++ Add `docs` directory
++ Fix `.iso` Boot and Install Errors
++ Add Support for Nix Developer Shells at `shells`
++ Improve CI with automatic `flake.lock` update and dependency-checking
+
 ### v2.1
 + Simplify Installation (#13)
   * Add `install` Script

@@ -1,15 +1,8 @@
 { config, lib, ... }:
 let
-  cfg = config.hardware.boot;
+  cfg = config.base.enable;
 in rec
 {
-  options.hardware.boot = lib.mkOption
-  {
-    description = "Device Boot Configuration";
-    type = lib.types.bool;
-    default = "true";
-  };
-
   ## Boot Configuration ##
   config = lib.mkIf (cfg == true)
   {

@@ -1,7 +1,7 @@
 { system, version, lib, inputs, pkgs, ... }:
 {
   ## User Configuration Function ##
-  mkUser = { name, description, groups, uid, shell, ... }:
+  mkUser = { name, description, groups, uid, shell }:
   {
     users.users."${name}" =
     {
@@ -25,7 +25,7 @@
   };
 
   ## User Home Configuration Function ##
-  mkHome = { username, roles, ... }:
+  mkHome = { username, roles }:
   inputs.home-manager.lib.homeManagerConfiguration
   {
     inherit system username pkgs;
@@ -34,14 +34,14 @@
     configuration =
     let
       # User Roles Import Function
-      mkRole = name: import (../roles/user + "/${name}");
+      mkRole = name: import (../../roles/user + "/${name}");
       user_roles = (builtins.map (r: mkRole r) roles);
     in
     {
       _module.args = { inherit inputs; };
 
       # Modulated Configuration Imports
-      imports = user_roles ++ [ ../modules/user ];
+      imports = user_roles ++ [ ../../modules/user ];
 
       # Home Manager Configuration
       home.username = username;

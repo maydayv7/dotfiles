@@ -11,7 +11,7 @@
     [
       {
         # Modulated Configuration Imports
-        imports = [ ../modules/device/iso ];
+        imports = [ ../../modules/device/iso ];
 
         # Hardware Configuration
         base.enable = true;
@@ -30,6 +30,11 @@
         system.stateVersion = version;
         nixpkgs.pkgs = pkgs;
 
+        # ISO Creation Settings
+        isoImage.makeEfiBootable = true;
+        isoImage.makeUsbBootable = true;
+        environment.pathsToLink = [ "/libexec" ];
+
         # GUI Configuration
         gui.desktop = (desktop + "-minimal");
 
@@ -46,7 +51,7 @@
     device_users = (builtins.map (u: user.mkUser u) users);
 
     # Device Roles Import Function
-    mkRole = name: import (../roles/device + "/${name}");
+    mkRole = name: import (../../roles/device + "/${name}");
     device_roles = (builtins.map (r: mkRole r) roles);
   in lib.nixosSystem
   {
@@ -57,7 +62,7 @@
     [
       {
         # Modulated Configuration Imports
-        imports = device_users ++ device_roles ++ [ ../modules/device ];
+        imports = device_users ++ device_roles ++ [ ../../modules/device ];
 
         # Localization
         time.timeZone = timezone;
@@ -66,7 +71,6 @@
         # Hardware Configuration
         base.enable = true;
         networking.hostName = "${name}";
-        hardware.boot = true;
         hardware.filesystem = filesystem;
         hardware.ssd = ssd;
 

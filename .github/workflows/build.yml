@@ -1,10 +1,7 @@
 name: "Build Configuration"
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Update Flake Inputs", "Create Release"]
-    types:
-      - completed
+  workflow_call:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths-ignore:
@@ -16,6 +13,14 @@ jobs:
   build:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        device: [Vortex, Futura]
+        include:
+          - device: Vortex
+            user: v7
+          - device: Futura
+            user: navya
     steps:
     - name: Install Nix
       uses: cachix/install-nix-action@v14.1
@@ -28,11 +33,7 @@ jobs:
       with:
         name: maydayv7-dotfiles
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Build User V7
-      run: nix build github:maydayv7/dotfiles#homeConfigurations.v7.activationPackage
-    - name: Build User Navya
-      run: nix build github:maydayv7/dotfiles#homeConfigurations.navya.activationPackage
-    - name: Build Device Vortex
-      run: nix build github:maydayv7/dotfiles#nixosConfigurations.Vortex.config.system.build.toplevel
-    - name: Build Device Futura
-      run: nix build github:maydayv7/dotfiles#nixosConfigurations.Futura.config.system.build.toplevel
+    - name: Build User Home Configuration
+      run: nix build github:maydayv7/dotfiles#homeConfigurations.${{ matrix.user }}.activationPackage
+    - name: Build Device Configuration
+      run: nix build github:maydayv7/dotfiles#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel

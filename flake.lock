@@ -1,22 +1,6 @@
 {
   "nodes": {
-    "dconf": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1634299565,
-        "narHash": "sha256-GM3eWz4Z1VsPN+Rp34ZhdgNbYIVgK358i+A73lOfbGs=",
-        "owner": "gvolpe",
-        "repo": "dconf2nix",
-        "rev": "7aea3b548f446702897c04cb6766448ca31b609b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "gvolpe",
-        "repo": "dconf2nix",
-        "type": "github"
-      }
-    },
-    "gnome-firefox": {
+    "firefox-theme": {
       "flake": false,
       "locked": {
         "lastModified": 1632687521,
@@ -29,22 +13,6 @@
       "original": {
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
-        "type": "github"
-      }
-    },
-    "gnome-panel": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1636190037,
-        "narHash": "sha256-84ueQkqiT130Ca+2qs0dEVHCevpFGFQKT1c1ZpFNBZg=",
-        "owner": "maydayv7",
-        "repo": "gnome-panel",
-        "rev": "38c2fa581dc589b1fe4db0016c74c0f69e2a9b7e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "maydayv7",
-        "repo": "gnome-panel",
         "type": "github"
       }
     },
@@ -86,11 +54,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1636196544,
-        "narHash": "sha256-15s56Yu3vF8Na4yx4HkNc3997WZltOIB2CT1sOiCKKM=",
+        "lastModified": 1636333654,
+        "narHash": "sha256-3wh9PtCzcaJQuZrgZ+ygKfhltkDNNqT6zOzGsRbjZEo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ce48bcdde86eef5780a60bea55b9bc9dbd8248cd",
+        "rev": "e74894146a42ba552ebafa19ab2d1df7ccbc1738",
         "type": "github"
       },
       "original": {
@@ -102,11 +70,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1636362216,
-        "narHash": "sha256-2HO/sqfNLqudcfRDQ1RN6HIywVOxXF+s/IFTgGnroYY=",
+        "lastModified": 1636434235,
+        "narHash": "sha256-ibh1ahmtKP2/H4PFYF/4lygxe0CpX5SLhKMHW/Lhfy4=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "bb50b6679b2cbac426d7b8255cce7099b19f0c8a",
+        "rev": "8d331cfe5ca61caabda1d1ff193470dc4e7ee4a6",
         "type": "github"
       },
       "original": {
@@ -133,9 +101,7 @@
     },
     "root": {
       "inputs": {
-        "dconf": "dconf",
-        "gnome-firefox": "gnome-firefox",
-        "gnome-panel": "gnome-panel",
+        "firefox-theme": "firefox-theme",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",

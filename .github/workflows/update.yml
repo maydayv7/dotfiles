@@ -20,18 +20,21 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
-    - name: Set Git User Name
-      run: git config --global user.name "GitHub"
-    - name: Set Git User Mail
-      run: git config --global user.email "noreply@github.com"
-    - name: Import Access Token
-      run: mkdir -p ~/.config/nix && echo "access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}" >> ~/.config/nix/nix.conf
+    - name: Set Git Credentials
+      run: |
+        git config --global user.name "GitHub"
+        git config --global user.email "noreply@github.com"
+        mkdir -p ~/.config/nix && echo "access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}" >> ~/.config/nix/nix.conf
     - name: Update Flake Lock File
       run: nix flake update --commit-lock-file
     - name: Create PR
       uses: peter-evans/create-pull-request@v3.11.0
       with:
         branch: update
-        commit-message: "Update Flake Inputs"
         delete-branch: true
         title: "Update Flake Inputs"
+        commit-message: "Update Flake Inputs"
+
+  build:
+    needs: update
+    uses: maydayv7/dotfiles/.github/workflows/build.yml@stable

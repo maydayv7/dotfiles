@@ -19,29 +19,12 @@
     # Use nix hash to-base32 'sha256-hash' to compute the right hash
     (final: prev:
     {
-      # GNOME Shell Extension Dash to Panel
-      # https://github.com/home-sweet-gnome/dash-to-panel
-      gnomeExtensions = prev.gnomeExtensions //
-      {
-        dash-to-panel = lib.overrideDerivation prev.gnomeExtensions.dash-to-panel (drv:
-        {
-          src = inputs.gnome-panel;
-        });
-      };
-
       # Latest Plymouth built from master
       # https://github.com/freedesktop/plymouth
       plymouth = prev.plymouth.overrideAttrs (old:
       {
         src = inputs.plymouth;
         patches = [];
-      });
-
-      # Latest dconf2nix built from master
-      # https://github.com/gvolpe/dconf2nix
-      dconf2nix = prev.dconf2nix.overrideAttrs (old:
-      {
-        src = inputs.dconf;
       });
 
       # GNOME Terminal Transparency Patch

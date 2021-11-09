@@ -1,6 +1,6 @@
 { system, version, lib, inputs, pkgs, ... }:
 rec
 {
-  user = import ./user.nix { inherit system version lib inputs pkgs; };
-  device = import ./device.nix { inherit system version lib user inputs pkgs; };
+  device = import ./device { inherit system version lib user inputs pkgs; };
+  user = import ./user { inherit system version lib inputs pkgs; };
 }

@@ -32,15 +32,8 @@
       flake = false;
     };
 
-    # GNOME Icon Taskbar
-    gnome-panel =
-    {
-      url = "github:maydayv7/gnome-panel";
-      flake = false;
-    };
-
     # Firefox GNOME Theme
-    gnome-firefox =
+    firefox-theme =
     {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
@@ -57,13 +50,6 @@
     plymouth =
     {
       url = "github:freedesktop/plymouth";
-      flake = false;
-    };
-
-    # Convert Dconf to Nix
-    dconf =
-    {
-      url = "github:gvolpe/dconf2nix";
       flake = false;
     };
   };
@@ -99,13 +85,27 @@
 
     # Custom Functions
     util = import ./lib { inherit system version lib inputs pkgs; };
-    inherit (util) user;
     inherit (util) device;
+    inherit (util) user;
   in
   {
-    ## Nix Developer Shell ##
-    # Run it using nix develop
-    devShell."${system}" = import ./shell.nix { inherit pkgs; };
+    ## Developer Shells ##
+    devShell."${system}" = import ./shells { inherit pkgs; };
+    devShells."${system}" = import ./shells/custom { inherit pkgs; };
+
+    ## Install Media Configuration ##
+    installMedia =
+    {
+      # GNOME Install Media
+      gnome = device.mkISO
+      {
+        name = "nixos";
+        timezone = "Asia/Kolkata";
+        locale = "en_IN.UTF-8";
+        kernel = pkgs.linuxPackages_latest;
+        desktop = "gnome";
+      };
+    };
 
     ## User Specific Configuration ##
     homeConfigurations =
@@ -122,20 +122,6 @@
       {
         username = "navya";
         roles = [ "dconf" "firefox" "theme" ];
-      };
-    };
-
-    ## Install Media Configuration ##
-    installMedia =
-    {
-      # GNOME Install Media
-      gnome = device.mkISO
-      {
-        name = "nixos";
-        timezone = "Asia/Kolkata";
-        locale = "en_IN.UTF-8";
-        kernel = pkgs.linuxPackages_latest;
-        desktop = "gnome";
       };
     };
 

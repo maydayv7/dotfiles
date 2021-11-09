@@ -6,12 +6,6 @@ let
   script = with pkgs; writeScriptBin "nixos"
   ''
     #!${pkgs.runtimeShell}
-    if [ -n "$INNIXSHELLHOME" ]; then
-      echo "You are in a Nix Shell that redirected ~"
-      echo "The tool cannot work here properly"
-      exit 1
-    fi
-
     case $1 in
     "update")
       echo "Updating Flake Inputs..."
@@ -57,6 +51,13 @@ let
        echo "Unexpected option $3"
      fi
     ;;
+    "shell")
+      if [ -z "$2" ]; then
+        nix develop /etc/nixos
+      else
+        nix develop /etc/nixos#$2
+      fi
+    ;;
     "list")
       nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq
     ;;
@@ -80,13 +81,14 @@ let
     *)
       echo "########################## Tool for NixOS System Management ##########################"
       echo "Usage :-"
-      echo "update                        - Updates Device Flake Inputs"
+      echo "update                        - Updates Nix Flake Inputs"
       echo "apply                         - Applies both Device and User Configuration"
       echo "apply-device [ --'option' ]   - Applies Device Configuration"
       echo "apply-user                    - Applies User Home configuration"
-      echo "iso 'image' [ --burn 'path' ] - Builds Install Media and optionally copies it to USB"
+      echo "iso 'image' [ --burn 'path' ] - Builds Install Media and optionally burns it to USB"
+      echo "shell [ 'name' ]              - Opens desired Nix Developer Shell"
       echo "list                          - Lists all Installed Packages"
-      echo "save                          - Saves configuration state to repository"
+      echo "save                          - Saves Configuration State to Repository"
       echo "clean                         - Garbage Collects and Hard-Links Nix Store"
     ;;
     esac

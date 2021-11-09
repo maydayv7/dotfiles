@@ -1,15 +1,18 @@
 # Dotfiles
-![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square)  
+![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)   
 This repo contains the configuration files for my continuously evolving multi-PC setup
 
-## OS
-**NixOS** 21.05  
+![](./docs/resources/desktop.png)
 
-[![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
-
-![](./notes/resources/desktop.png)
+## Features
++ Declarative
++ Device-Agnostic
++ Hermetically Reproducible
++ Atomic, Generational and Immutable
 
 ## Programs
+[![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
+
 | Type                | Program                     |
 | :------------------ | :-------------------------: |
 | Editor              | [gEdit](https://wiki.gnome.org/Apps/Gedit) |
@@ -19,7 +22,6 @@ This repo contains the configuration files for my continuously evolving multi-PC
 | Desktop Environment | [GNOME](https://www.gnome.org) |
 
 ## Structure
-
 Here is an overview of the file hierarchy:
 
 ```
@@ -73,4 +75,4 @@ To install the OS, just boot the Live USB and run `sudo install`
 After the reboot, run `setup` in the newly installed system to finish setup
 
 ## Notes
-Please see the [notes](./notes/README.md) directory for additional information about my dotfiles
+Please see the [docs](./docs/README.md) directory for additional information about my dotfiles
