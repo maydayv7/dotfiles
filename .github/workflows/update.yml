@@ -34,7 +34,3 @@ jobs:
         delete-branch: true
         title: "Update Flake Inputs"
         commit-message: "Update Flake Inputs"
-
-  build:
-    needs: update
-    uses: maydayv7/dotfiles/.github/workflows/build.yml@stable

@@ -27,7 +27,3 @@ jobs:
         omitNameDuringUpdate: true
         draft: true
         token: ${{ secrets.ACCESS_TOKEN }}
-
-  build:
-    needs: release
-    uses: maydayv7/dotfiles/.github/workflows/build.yml@stable
