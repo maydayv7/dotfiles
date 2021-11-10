@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
-with lib;
-with builtins;
 let
   cfg = config.base.enable;
 in rec
 {
   ## Device Firmware ##
-  config = mkIf (cfg == true)
+  config = lib.mkIf (cfg == true)
   {
     # Drivers
     hardware =

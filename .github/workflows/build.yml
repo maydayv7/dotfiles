@@ -32,7 +32,7 @@ jobs:
       uses: cachix/cachix-action@v10
       with:
         name: maydayv7-dotfiles
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        authToken: '${{ secrets.CACHIX_TOKEN }}'
     - name: Build User Home Configuration
       run: nix build github:maydayv7/dotfiles#homeConfigurations.${{ matrix.user }}.activationPackage
     - name: Build Device Configuration

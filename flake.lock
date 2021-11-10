@@ -115,11 +115,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1635740102,
-        "narHash": "sha256-wo2Le9YEkgrHreD61/N/SEfLY0ogD2TDBetJftPMJPc=",
+        "lastModified": 1636515066,
+        "narHash": "sha256-dBMS2BLTjGF3PeCvWKZGRJAkCgykS/fwi8SJ6IE4Ixw=",
         "owner": "maydayv7",
         "repo": "secrets",
-        "rev": "1048f8a882aea4ffb622f0378452c13aeac41584",
+        "rev": "c320de44d40b8f8046d51c34133ff5cce3f950bb",
         "type": "github"
       },
       "original": {
