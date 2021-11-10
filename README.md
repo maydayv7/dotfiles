@@ -2,7 +2,7 @@
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)   
 This repo contains the configuration files for my continuously evolving multi-PC setup
 
-![](./docs/resources/desktop.png)
+![](./docs/sources/desktop.png)
 
 ## Features
 + Declarative
@@ -25,24 +25,32 @@ This repo contains the configuration files for my continuously evolving multi-PC
 Here is an overview of the file hierarchy:
 
 ```
-┌── flake.nix
-├── flake.lock
-├── scripts
-│   └── setup.sh
-├── packages
-│   └── overlays
-├── lib
-│   ├── device.nix
-│   └── user.nix
-├── roles
-│   ├── device
-│   └── user
-└── modules
-    ├── device
-    └── user
+dotfiles ──┐ 
+   ┌── configuration.nix
+   ├── flake.nix
+   ├── flake.lock
+   ├── scripts
+   │   └── setup.sh
+   ├── packages
+   │   └── overlays
+   ├── lib
+   │   ├── device.nix
+   │   └── user.nix
+   ├── roles
+   │   ├── device
+   │   └── user
+   ├── modules
+   │   ├── device
+   │   └── user
+   └── secrets ──┐
+           ┌── cachix
+           ├── gpg
+           ├── ssh
+           └── passwords
 ```
 
-- `flake.nix`: main system configuration file, using [Flakes](https://nixos.wiki/wiki/Flakes) for easier repository version control and multi-device management
+- `configuration.nix`: main system configuration file
+- `flake.nix`: repository version control using `inputs`
 - `packages`: locally built custom packages
 - `overlays`: overrides for pre-built packages
 - `lib`: custom functions designed for conveniently defining device and user configuration
@@ -51,6 +59,7 @@ Here is an overview of the file hierarchy:
 - `device`: shared device configuration and scripts
 - `iso`: resources for creation of install media
 - `user`: user related configuration and dotfiles
+- `secrets`: private `git submodule` containing authentication credentials
 
 ## Installation
 Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the `.iso`:  
@@ -75,4 +84,14 @@ To install the OS, just boot the Live USB and run `sudo install`
 After the reboot, run `setup` in the newly installed system to finish setup
 
 ## Notes
+#### Caution
+I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature. If you have any doubts or suggestions, feel free to open an issue
+
+#### Requirements
+- Intel CPU + iGPU
+- UEFI System (for use with GRUB EFI Bootloader)
+
+#### Branches
+There are two branches, `stable` and `develop`. The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been extensively tested
+
 Please see the [docs](./docs/README.md) directory for additional information about my dotfiles

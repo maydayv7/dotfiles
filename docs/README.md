@@ -1,6 +1,5 @@
 # Index
-+ [Important](./IMPORTANT.md) Notes -  ***READ FIRST***
 + [Changelog](./CHANGELOG.md)
-+ Known [Limitations](./LIMITATIONS.md) and/or Workarounds
-+ [Device](./DEVICE.md) Management
++ Known [Issues](./LIMITATIONS.md)
++ Device [Management](./MANAGEMENT.md)
 + Additional [Links](./LINKS.md)

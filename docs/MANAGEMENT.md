@@ -8,18 +8,7 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 This repository makes use of `Github Actions` (placed in `.github/workflows`) in order to automatically check the syntax on every push, update the `inputs` every 10 days, build the configuration and upload the build cache to Cachix, and build the `.iso` and upload it to a draft release upon creation of a tag
 
 ### Credentials
-The authentication credentials are stored in a private repository containing passwords and other security keys, which is imported into the configuration as an `input`, and cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option. The basic structure of the `secrets` submodule is as follows:
-```
-┌── cachix
-│   └── maydayv7-dotfiles.token
-├── gpg
-│   ├── public.gpg
-│   └── private.gpg
-└── passwords
-    ├── root
-    ├── v7
-    └── navya
-```
+The authentication credentials are stored in a private repository which contains the passwords and other security keys, and is imported into the configuration as an `input`, cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and are specified using the `hashedPassword` option
 
 ### Scripts
 A system management script invoked with the command `nixos` has been included, which can be used to apply user and device configuration changes or perform various other useful functions. The `install` and `setup` scripts have also been included to painlessly install the OS and setup the device, using a single command
