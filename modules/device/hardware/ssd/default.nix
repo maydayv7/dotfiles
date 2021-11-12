@@ -11,7 +11,7 @@ in rec
   };
 
   ## Additional SSD Settings ##
-  config = lib.mkIf (cfg == true)
+  config = lib.mkIf cfg
   {
     # SSD Trim
     services.fstrim.enable = true;

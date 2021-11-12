@@ -2,6 +2,7 @@
 let
   cfg = config.dotfiles;
   username = config.home.username;
+  path = "${inputs.self}/modules/user/dotfiles";
 in rec
 {
   options.dotfiles.enable = lib.mkOption
@@ -12,7 +13,7 @@ in rec
   };
 
   ## User Dotfiles ##
-  config = lib.mkIf (cfg.enable == true)
+  config = lib.mkIf cfg.enable
   {
     home.file =
     {
@@ -56,9 +57,9 @@ in rec
       then
         echo "Bookmarks already added"
       else
-        echo "Adding Bookmarks"
+        echo "Adding Bookmarks..."
         $DRY_RUN_CMD mkdir -p ~/.config/gtk-3.0 $VERBOSE_ARG
-        $DRY_RUN_CMD cp ${inputs.self}/modules/user/dotfiles/bookmarks ~/.config/gtk-3.0/ $VERBOSE_ARG
+        $DRY_RUN_CMD cp ${path}/bookmarks ~/.config/gtk-3.0/ $VERBOSE_ARG
       fi
     '';
 
@@ -70,11 +71,11 @@ in rec
       then
         echo "Profile Pic already copied"
       else
-        echo "Copying Profile Pic"
+        echo "Copying Profile Pic..."
         $DRY_RUN_CMD sudo mkdir -p /var/lib/AccountsService/{icons,users} $VERBOSE_ARG
         echo "[User]" | sudo tee /var/lib/AccountsService/users/${username} &> /dev/null
         echo "Icon=/var/lib/AccountsService/icons/${username}" | sudo tee -a /var/lib/AccountsService/users/${username} &> /dev/null
-        $DRY_RUN_CMD sudo cp -av $VERBOSE_ARG ~/.local/share/backgrounds/Profile.png /var/lib/AccountsService/icons/${username}
+        $DRY_RUN_CMD sudo cp -av $VERBOSE_ARG ${path}/images/Profile.png /var/lib/AccountsService/icons/${username}
       fi
     '';
   };

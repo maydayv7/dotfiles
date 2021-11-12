@@ -1,12 +1,15 @@
 { system, version, lib, inputs, pkgs, ... }:
 {
   ## User Configuration Function ##
-  mkUser = { name, description, groups, uid, shell }:
+  mkUser = { username, description, groups, uid, shell }:
+  let
+    password = (builtins.readFile ("${inputs.secrets}/passwords" + "/${username}"));
+  in
   {
-    users.users."${name}" =
+    users.users."${username}" =
     {
       # Profile
-      name = name;
+      name = username;
       description = description;
       isNormalUser = true;
       uid = uid;
@@ -20,7 +23,7 @@
       shell = shell;
 
       # Password
-      initialHashedPassword = (builtins.readFile ("${inputs.secrets}/passwords" + "/${name}"));
+      initialHashedPassword = password;
     };
   };
 
@@ -36,12 +39,19 @@
       # User Roles Import Function
       mkRole = name: import (../../roles/user + "/${name}");
       user_roles = (builtins.map (r: mkRole r) roles);
+
+      # User Home Configuration Modules
+      user_modules =
+      [
+        ../../modules/user/dotfiles
+        ../../modules/user/keys
+        ../../modules/user/shell
+      ];
     in
     {
-      _module.args = { inherit inputs; };
-
       # Modulated Configuration Imports
-      imports = user_roles ++ [ ../../modules/user ];
+      _module.args = { inherit inputs; };
+      imports = user_roles ++ user_modules;
 
       # Home Manager Configuration
       home.username = username;
@@ -50,8 +60,8 @@
       systemd.user.startServices = true;
 
       # Shell Configuration
+      keys.enable = true;
       shell.git.enable = true;
-      shell.git.key = (builtins.readFile ("${inputs.secrets}/gpg/gpg.key"));
       shell.terminal.enable = true;
       shell.zsh.enable = true;
     };

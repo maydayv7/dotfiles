@@ -1,12 +1,15 @@
 { config, lib, inputs, pkgs, ... }:
 let
   cfg = config.gui.desktop;
+  device = config.device.enable;
+  iso = config.iso.enable;
 in rec
 {
   imports = [ "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix" ];
 
   ## GNOME Desktop Configuration ##
-  config = lib.mkMerge
+  config = lib.mkIf (cfg == "gnome")
+  (lib.mkMerge
   [
     {
       gui.xorg.enable = true;
@@ -31,7 +34,7 @@ in rec
     }
 
     # Full-Fledged GNOME Desktop Configuration
-    (lib.mkIf (cfg == "gnome")
+    (lib.mkIf device
     {
       # Desktop Integration
       programs.dconf.enable = true;
@@ -111,7 +114,7 @@ in rec
     })
 
     # Minimal GNOME Desktop Configuration
-    (lib.mkIf (cfg == "gnome-minimal")
+    (lib.mkIf iso
     {
       # Disable Suspension
       services.xserver.displayManager.gdm.autoSuspend = false;
@@ -138,5 +141,5 @@ in rec
         hicolor-icon-theme
       ];
     })
-  ];
+  ]);
 }

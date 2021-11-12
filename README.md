@@ -25,28 +25,28 @@ This repo contains the configuration files for my continuously evolving multi-PC
 Here is an overview of the file hierarchy:
 
 ```
-dotfiles ──┐ 
-   ┌── configuration.nix
-   ├── flake.nix
-   ├── flake.lock
-   ├── scripts
-   │   └── setup.sh
-   ├── packages
-   │   └── overlays
-   ├── lib
-   │   ├── device.nix
-   │   └── user.nix
-   ├── roles
-   │   ├── device
-   │   └── user
-   ├── modules
-   │   ├── device
-   │   └── user
-   └── secrets ──┐
-           ┌── cachix
-           ├── gpg
-           ├── ssh
-           └── passwords
+── dotfiles ──┐ 
+ ┌── configuration.nix
+ ├── flake.nix
+ ├── flake.lock
+ ├── scripts
+ │   └── setup.sh
+ ├── packages
+ │   └── overlays
+ ├── lib
+ │   ├── device.nix
+ │   └── user.nix
+ ├── roles
+ │   ├── device
+ │   └── user
+ ├── modules
+ │   ├── device
+ │   └── user
+ └── secrets ──┐
+         ┌── cachix
+         ├── gpg
+         ├── ssh
+         └── passwords
 ```
 
 - `configuration.nix`: main system configuration file
@@ -59,7 +59,7 @@ dotfiles ──┐
 - `device`: shared device configuration and scripts
 - `iso`: resources for creation of install media
 - `user`: user related configuration and dotfiles
-- `secrets`: private `git submodule` containing authentication credentials
+- `secrets`: private `git` repository containing authentication credentials
 
 ## Installation
 Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the `.iso`:  
@@ -94,4 +94,4 @@ I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes
 #### Branches
 There are two branches, `stable` and `develop`. The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been extensively tested
 
-Please see the [docs](./docs/README.md) directory for additional information about my dotfiles
+See the [docs](./docs/README.md) directory for additional information about my dotfiles

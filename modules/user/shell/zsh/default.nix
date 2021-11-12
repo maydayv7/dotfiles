@@ -11,7 +11,7 @@ in rec
   };
 
   ## User Z Shell Configuration ##
-  config = lib.mkIf (cfg.enable == true)
+  config = lib.mkIf cfg.enable
   {
     programs.zsh =
     {

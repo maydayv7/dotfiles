@@ -8,8 +8,6 @@ let
     #!${pkgs.runtimeShell}
     set +x
 
-    read -p "Enter Github authentication token: " KEY
-
     if mount | grep ext4 > /dev/null; then
       DIR=/etc/nixos
     else
@@ -24,8 +22,7 @@ let
     printf "\n"
 
     echo "Cloning Repo..."
-    git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git $DIR
-    mkdir -p ~/.config/nix && echo "access-tokens = github.com=$KEY" >> ~/.config/nix/nix.conf
+    git clone https://github.com/maydayv7/dotfiles.git $DIR
     printf "\n"
 
     if [ "$DIR" == "/persist/etc/nixos" ]; then
@@ -44,8 +41,8 @@ in rec
     default = false;
   };
 
-  config = lib.mkIf (cfg == true)
+  config = lib.mkIf cfg
   {
-    environment.systemPackages = [ script ]; 
+    environment.systemPackages = [ script ];
   };
 }

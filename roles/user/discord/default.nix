@@ -28,6 +28,7 @@
     then
       echo "Discord setup already over"
     else
+      echo "Setting up Discord..."
       $DRY_RUN_CMD /usr/bin/env betterdiscordctl install
     fi
   '';

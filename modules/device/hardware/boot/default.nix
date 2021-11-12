@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
-  cfg = config.base.enable;
+  device = config.device.enable;
 in rec
 {
   ## Boot Configuration ##
-  config = lib.mkIf (cfg == true)
+  config = lib.mkIf device
   {
     boot =
     {

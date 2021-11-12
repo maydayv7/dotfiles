@@ -2,7 +2,7 @@
 ### v2.2
 + Add `docs` directory
 + Fix `.iso` Boot and Install Errors
-+ Add Support for Nix Developer Shells at `shells`
++ Add Support for Nix Developer Shells at `shells` (#16)
 + Improve CI with automatic `flake.lock` update and dependency-checking
 
 ### v2.1

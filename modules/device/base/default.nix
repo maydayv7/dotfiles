@@ -1,19 +1,29 @@
-{ lib, ... }:
+{ config, lib, ... }:
 rec
 {
   imports =
   [
-    ./cachix
     ./firmware
+    ./iso
     ./nix
-    ./security
     ./shell
+    ./user
   ];
 
-  options.base.enable = lib.mkOption
+  options =
   {
-    description = "Base Device Configuration";
-    type = lib.types.bool;
-    default = true;
+    device.enable = lib.mkOption
+    {
+      description = "Base Device Configuration";
+      type = lib.types.bool;
+      default = true;
+    };
+
+    iso.enable = lib.mkOption
+    {
+      description = "Install Media Configuration";
+      type = lib.types.bool;
+      default = false;
+    };
   };
 }

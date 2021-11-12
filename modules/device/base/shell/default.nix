@@ -1,10 +1,11 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.base.enable;
+  device = config.device.enable;
+  iso = config.iso.enable;
 in rec
 {
   ## Shell Configuration ##
-  config = lib.mkIf (cfg == true)
+  config = lib.mkIf (device || iso)
   {
     # Console Setup
     console =

@@ -1,41 +1,59 @@
 { config, lib, inputs, pkgs, ... }:
 let
-  cfg = config.base.enable;
+  device = config.device.enable;
+  iso = config.iso.enable;
+  token = (builtins.readFile "${inputs.secrets}/github/token");
 in rec
 {
   ## Nix Settings ##
-  config = lib.mkIf (cfg == true)
-  {
-    nix =
+  config = lib.mkIf (device || iso)
+  (lib.mkMerge
+  [
     {
-      # Garbage Collection
-      autoOptimiseStore = true;
-      gc =
+      # Utilities
+      environment.systemPackages = with pkgs; [ cachix ];
+
+      nix =
       {
-        automatic = true;
-        dates     = "weekly";
-        options   = "--delete-older-than 7d";
+        # Cachix Binary Cache
+        binaryCaches =
+        [
+          "https://cache.nixos.org"
+          "https://maydayv7-dotfiles.cachix.org"
+        ];
+        binaryCachePublicKeys = [ "maydayv7-dotfiles.cachix.org-1:dpECO0Z2ZMttY6JgWHuAR5M7cqeyfFjUsvHdnMz+j6U=" ];
+
+        # Garbage Collection
+        autoOptimiseStore = true;
+        gc =
+        {
+          automatic = true;
+          dates     = "weekly";
+          options   = "--delete-older-than 7d";
+        };
+
+        # Nix Path
+        nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+
+        # User Permissions
+        trustedUsers = [ "root" "@wheel" ];
+
+        # Flakes
+        package = pkgs.unstable.nix_2_4;
+        extraOptions = "experimental-features = nix-command flakes";
+        registry =
+        {
+          self.flake = inputs.self;
+          nixpkgs.flake = inputs.nixpkgs;
+          unstable.flake = inputs.unstable;
+          home-manager.flake = inputs.home-manager;
+        };
       };
+    }
 
-      # Nix Path
-      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-
-      # User Permissions
-      trustedUsers = [ "root" "@wheel" ];
-
-      # Flakes
-      package = pkgs.unstable.nix_2_4;
-      extraOptions =
-      ''
-        experimental-features = nix-command flakes
-      '';
-      registry =
-      {
-        self.flake = inputs.self;
-        nixpkgs.flake = inputs.nixpkgs;
-        unstable.flake = inputs.unstable;
-        home-manager.flake = inputs.home-manager;
-      };
-    };
-  };
+    (lib.mkIf device
+    {
+      nix.extraOptions = "access-tokens = github.com=${token}";
+    })
+  ]);
 }

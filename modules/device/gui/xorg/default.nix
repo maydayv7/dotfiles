@@ -11,7 +11,7 @@ in rec
   };
 
   ## XORG Configuration ##
-  config = lib.mkIf (cfg.enable == true)
+  config = lib.mkIf cfg.enable
   {
     services.xserver =
     {

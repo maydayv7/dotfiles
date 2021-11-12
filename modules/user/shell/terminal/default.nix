@@ -11,7 +11,7 @@ in rec
   };
 
   ## GNOME Terminal Settings ##
-  config = lib.mkIf (cfg.enable == true)
+  config = lib.mkIf cfg.enable
   {
     programs.gnome-terminal =
     {

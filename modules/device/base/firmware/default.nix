@@ -1,10 +1,11 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.base.enable;
+  device = config.device.enable;
+  iso = config.iso.enable;
 in rec
 {
   ## Device Firmware ##
-  config = lib.mkIf (cfg == true)
+  config = lib.mkIf (device || iso)
   {
     # Drivers
     hardware =

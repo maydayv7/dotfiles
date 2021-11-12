@@ -8,10 +8,22 @@ let
     #!${pkgs.runtimeShell}
     set +x
 
-    read -p "Enter name of Device to install: " HOST
-    read -p "Enter path to disk: /dev/" DISK
-    read -p "Enter filesystem to use for disk: " SCHEME
-    read -p "Enter Github authentication token: " KEY
+    read -p "Select Device to Install (Vortex/Futura): " choice
+      case $choice in
+        1) HOST=Vortex;;
+        2) HOST=Futura;;
+        *) echo "error: Answer (1)Vortex or (2)Futura"; exit 125;;
+      esac
+
+    read -p "Select Filesystem to use for Disk (ext4/btrfs): " choice
+      case $choice in
+        1) SCHEME=ext4;;
+        2) SCHEME=btrfs;;
+        *) echo "error: Answer (1)ext4 or (2)btrfs"; exit 125;;
+      esac
+
+    read -p "Enter Path to Disk: /dev/" DISK
+    read -p "Enter Github Authentication Token: " KEY
 
     echo "Creating Partitions..."
     parted /dev/$DISK -- mkpart ESP fat32 1MiB 1024MiB
@@ -58,9 +70,8 @@ let
 
     read -p "Do you want to reboot the system? (Y/N): " choice
       case $choice in
-        [Yy]* ) reboot;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer (Y)es or (N)o.";;
+        [Yy]*) reboot;;
+        *) exit;;
       esac
   '';
 in rec
@@ -72,8 +83,8 @@ in rec
     default = false;
   };
 
-  config = lib.mkIf (cfg == true)
+  config = lib.mkIf cfg
   {
-    environment.systemPackages = [ script ]; 
+    environment.systemPackages = [ script ];
   };
 }

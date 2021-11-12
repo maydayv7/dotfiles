@@ -13,6 +13,7 @@ let
     inherit system overlays;
     config =
     {
+      allowAliases = true;
       allowUnfree = true;
       allowBroken = true;
     };
@@ -90,7 +91,7 @@ in
       users =
       [
         {
-          name = "v7";
+          username = "v7";
           description = "V 7";
           groups = [ "wheel" "networkmanager" "kvm" "libvirtd" "adbusers" ];
           uid = 1000;
@@ -115,7 +116,7 @@ in
       users =
       [
         {
-          name = "navya";
+          username = "navya";
           description = "Navya";
           groups = [ "wheel" "networkmanager" ];
           uid = 1000;

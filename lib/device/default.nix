@@ -2,7 +2,18 @@
 {
   ## Install Media Configuration Function ##
   mkISO = { name, timezone, locale, kernel, desktop }:
-  lib.nixosSystem
+  let
+    # Install Media Configuration Modules
+    iso_modules =
+    [
+      ../../modules/device/base
+      ../../modules/device/gui
+      ../../modules/device/scripts
+
+      # Build Module
+      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
+    ];
+  in lib.nixosSystem
   {
     inherit system;
     specialArgs = { inherit inputs; };
@@ -11,10 +22,10 @@
     [
       {
         # Modulated Configuration Imports
-        imports = [ ../../modules/device/iso ];
+        imports = iso_modules;
 
-        # Hardware Configuration
-        base.enable = true;
+        # System Configuration
+        iso.enable = true;
         networking.hostName = "${name}";
 
         # Localization
@@ -26,17 +37,17 @@
         boot.kernelModules = [ "kvm-intel" ];
         boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ];
 
-        # Package Configuration
-        system.stateVersion = version;
-        nixpkgs.pkgs = pkgs;
-
         # ISO Creation Settings
         isoImage.makeEfiBootable = true;
         isoImage.makeUsbBootable = true;
         environment.pathsToLink = [ "/libexec" ];
 
+        # Package Configuration
+        system.stateVersion = version;
+        nixpkgs.pkgs = pkgs;
+
         # GUI Configuration
-        gui.desktop = (desktop + "-minimal");
+        gui.desktop = desktop;
 
         # System Scripts
         scripts.install = true;
@@ -53,6 +64,15 @@
     # Device Roles Import Function
     mkRole = name: import (../../roles/device + "/${name}");
     device_roles = (builtins.map (r: mkRole r) roles);
+
+    # Device Configuration Modules
+    device_modules =
+    [
+      ../../modules/device/base
+      ../../modules/device/gui
+      ../../modules/device/hardware
+      ../../modules/device/scripts
+    ];
   in lib.nixosSystem
   {
     inherit system;
@@ -62,14 +82,14 @@
     [
       {
         # Modulated Configuration Imports
-        imports = device_users ++ device_roles ++ [ ../../modules/device ];
+        imports = device_users ++ device_roles ++ device_modules;
 
         # Localization
         time.timeZone = timezone;
         i18n.defaultLocale = locale;
 
-        # Hardware Configuration
-        base.enable = true;
+        # System Configuration
+        device.enable = true;
         networking.hostName = "${name}";
         hardware.filesystem = filesystem;
         hardware.ssd = ssd;
@@ -86,17 +106,16 @@
         nixpkgs.pkgs = pkgs;
         nix.maxJobs = lib.mkDefault cores;
 
-        # User Settings
-        users.mutableUsers = false;
-        users.extraUsers.root.initialHashedPassword = (builtins.readFile "${inputs.secrets}/passwords/root");
-
         # GUI Configuration
         gui.desktop = desktop;
-        gui.enableFonts = true;
+        gui.fonts.enable = true;
 
         # System Scripts
         scripts.management = true;
         scripts.setup = true;
+
+        # Authentication Credentials
+        environment.etc."nixos/secrets".source = inputs.secrets;
       }
     ];
   };
