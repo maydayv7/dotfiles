@@ -7,7 +7,6 @@ in rec
   {
     description = "SSD Configuration";
     type = lib.types.bool;
-    default = false;
   };
 
   ## Additional SSD Settings ##

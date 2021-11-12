@@ -16,7 +16,7 @@ rec
     {
       description = "Base Device Configuration";
       type = lib.types.bool;
-      default = true;
+      default = false;
     };
 
     iso.enable = lib.mkOption

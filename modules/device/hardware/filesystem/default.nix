@@ -13,7 +13,6 @@ in rec
   {
     description = "Disk File System Configuration";
     type = lib.types.enum [ "btrfs" "ext4" ];
-    default = "ext4";
   };
 
   ## File System Configuration ##

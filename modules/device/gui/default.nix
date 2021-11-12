@@ -12,6 +12,5 @@ rec
   {
     description = "GUI Desktop Configuration";
     type = lib.types.str;
-    default = "gnome";
   };
 }

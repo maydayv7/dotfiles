@@ -1,8 +1,10 @@
 ## Changelog
-### v2.2
+### v2.3
 + Add `docs` directory
 + Fix `.iso` Boot and Install Errors
++ Improve Scripts with error-checking
 + Add Support for Nix Developer Shells at `shells` (#16)
++ Use `secrets` as an `input` rather than as a `submodule` (#20)
 + Improve CI with automatic `flake.lock` update and dependency-checking
 
 ### v2.1

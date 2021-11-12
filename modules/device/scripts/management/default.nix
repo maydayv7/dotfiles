@@ -6,6 +6,12 @@ let
   script = with pkgs; writeScriptBin "nixos"
   ''
     #!${pkgs.runtimeShell}
+    error()
+    {
+      printf "\033[0;31merror:\033[0m $1\n"
+      exit 125
+    }
+
     case $1 in
     "update")
       echo "Updating Flake Inputs..."
@@ -25,14 +31,14 @@ let
         "--boot") sudo nixos-rebuild boot --flake /etc/nixos#;;
         "--test") sudo nixos-rebuild test --flake /etc/nixos#;;
         "--check") nixos-rebuild dry-activate --flake /etc/nixos#;;
-        *) echo "error: Unknown option $3" && exit 125;;
+        *) error "Unknown option $3";;
         esac
       ;;
       "user")
         echo "Applying User Settings..."
         nix build /etc/nixos#homeConfigurations.$USER.activationPackage && ./result/activate && rm -rf ./result
       ;;
-      *) echo "error: Unknown option $2" && exit 125;;
+      *) error "Unknown option $2";;
       esac
     ;;
     "iso")
@@ -42,11 +48,11 @@ let
       "") echo "The --burn option can be used to burn the Image to a USB";;
       "--burn")
         case $4 in
-        "") echo "error: Expected a path to USB Drive following --burn" && exit 125;;
+        "") error "Expected a path to USB Drive following --burn";;
         *) sudo dd if=./result/iso/nixos.iso of=$4 status=progress bs=1M;;
         esac
       ;;
-      *) echo "error: Unknown option $3" && exit 125;;
+      *) error "Unknown option $3";;
       esac
     ;;
     "shell")
@@ -80,7 +86,7 @@ let
       "list") tree -C --noreport ${inputs.secrets};;
       "edit")
         case $3 in
-        "") echo "error: Expected a path to Secret following edit command" && exit 125;;
+        "") error "Expected a path to Secret following edit command";;
         *)
           echo "Editing Secret $3..."
           git clone https://github.com/maydayv7/secrets secrets.bak && pushd secrets.bak
@@ -94,7 +100,7 @@ let
         ;;
         esac
       ;;
-      *) echo "error: Unknown option $2" && exit 125;;
+      *) error "Unknown option $2";;
       esac
     ;;
     *)

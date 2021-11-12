@@ -7,19 +7,24 @@ let
   ''
     #!${pkgs.runtimeShell}
     set +x
+    error()
+    {
+      printf "\033[0;31merror:\033[0m $1\n"
+      exit 125
+    }
 
     read -p "Select Device to Install (Vortex/Futura): " choice
       case $choice in
         1) HOST=Vortex;;
         2) HOST=Futura;;
-        *) echo "error: Answer (1)Vortex or (2)Futura"; exit 125;;
+        *) error "Choose (1)Vortex or (2)Futura";;
       esac
 
     read -p "Select Filesystem to use for Disk (ext4/btrfs): " choice
       case $choice in
         1) SCHEME=ext4;;
         2) SCHEME=btrfs;;
-        *) echo "error: Answer (1)ext4 or (2)btrfs"; exit 125;;
+        *) error "Choose (1)ext4 or (2)btrfs";;
       esac
 
     read -p "Enter Path to Disk: /dev/" DISK

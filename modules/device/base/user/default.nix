@@ -39,7 +39,7 @@ in rec
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         uid = 1000;
-        initialPassword = "";
+        initialPassword = "password";
         useDefaultShell = true;
       };
 
