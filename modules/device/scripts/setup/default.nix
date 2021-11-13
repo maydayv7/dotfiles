@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.scripts.setup;
+  enable = config.scripts.setup;
 
   # System Setup Script
   script = with pkgs; writeScriptBin "setup"
@@ -41,7 +41,7 @@ in rec
     default = false;
   };
 
-  config = lib.mkIf cfg
+  config = lib.mkIf enable
   {
     environment.systemPackages = [ script ];
   };

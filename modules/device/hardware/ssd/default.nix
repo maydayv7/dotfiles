@@ -1,16 +1,17 @@
 { config, lib, ... }:
 let
-  cfg = config.hardware.ssd;
+  enable = config.hardware.ssd;
 in rec
 {
   options.hardware.ssd = lib.mkOption
   {
     description = "SSD Configuration";
     type = lib.types.bool;
+    default = false;
   };
 
   ## Additional SSD Settings ##
-  config = lib.mkIf cfg
+  config = lib.mkIf enable
   {
     # SSD Trim
     services.fstrim.enable = true;

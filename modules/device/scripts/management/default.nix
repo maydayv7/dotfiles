@@ -1,6 +1,6 @@
 { config, lib, inputs, pkgs, ... }:
 let
-  cfg = config.scripts.management;
+  enable = config.scripts.management;
 
   # System Management Script
   script = with pkgs; writeScriptBin "nixos"
@@ -9,7 +9,6 @@ let
     error()
     {
       printf "\033[0;31merror:\033[0m $1\n"
-      exit 125
     }
 
     case $1 in
@@ -31,14 +30,25 @@ let
         "--boot") sudo nixos-rebuild boot --flake /etc/nixos#;;
         "--test") sudo nixos-rebuild test --flake /etc/nixos#;;
         "--check") nixos-rebuild dry-activate --flake /etc/nixos#;;
-        *) error "Unknown option $3";;
+        *)
+          error "Unknown option $3"
+          echo "# Usage #"
+          echo "  --boot  - Apply Configuration on boot"
+          echo "  --test  - Test Configuration Build"
+          echo "  --check - Check Configuration Build"
+        ;;
         esac
       ;;
       "user")
         echo "Applying User Settings..."
         nix build /etc/nixos#homeConfigurations.$USER.activationPackage && ./result/activate && rm -rf ./result
       ;;
-      *) error "Unknown option $2";;
+      *)
+        error "Unknown option $2"
+        echo "# Usage #"
+        echo "  device [ --'option' ] - Apply Device Configuration"
+        echo "  user                  - Apply User Configuration"
+      ;;
       esac
     ;;
     "iso")
@@ -48,7 +58,7 @@ let
       "") echo "The --burn option can be used to burn the Image to a USB";;
       "--burn")
         case $4 in
-        "") error "Expected a path to USB Drive following --burn";;
+        "") error "Expected a path to USB Drive following --burn command";;
         *) sudo dd if=./result/iso/nixos.iso of=$4 status=progress bs=1M;;
         esac
       ;;
@@ -84,6 +94,7 @@ let
     "secret")
       case $2 in
       "list") tree -C --noreport ${inputs.secrets};;
+      "show") echo "$3:" && cat ${inputs.secrets}/$3;;
       "edit")
         case $3 in
         "") error "Expected a path to Secret following edit command";;
@@ -100,10 +111,21 @@ let
         ;;
         esac
       ;;
-      *) error "Unknown option $2";;
+      *)
+        if ! [ -z "$2" ]; then
+          error "Unknown option $2"
+        fi
+        echo "# Usage #"
+        echo "  list        - List system Secrets"
+        echo "  show 'path' - Show desired Secret"
+        echo "  edit 'path' - Edit desired Secret"
+      ;;
       esac
     ;;
     *)
+      if ! [ -z "$1" ]; then
+        error "Unknown option $1"
+      fi
       echo "## Tool for NixOS System Management ##"
       echo "# Usage #"
       echo "  update [ --'option' ]              - Updates Nix Flake Inputs"
@@ -126,7 +148,7 @@ in rec
     default = false;
   };
 
-  config = lib.mkIf cfg
+  config = lib.mkIf enable
   {
     environment.systemPackages = with pkgs; [ script tree ];
   };

@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.gui.xorg;
+  enable = config.gui.xorg.enable;
 in rec
 {
   options.gui.xorg.enable = lib.mkOption
@@ -11,7 +11,7 @@ in rec
   };
 
   ## XORG Configuration ##
-  config = lib.mkIf cfg.enable
+  config = lib.mkIf enable
   {
     services.xserver =
     {

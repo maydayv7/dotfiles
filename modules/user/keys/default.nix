@@ -1,6 +1,6 @@
 { config, lib, inputs, ... }:
 let
-  cfg = config.keys.enable;
+  enable = config.keys.enable;
   gpg = "${inputs.secrets}/gpg";
   ssh = "${inputs.secrets}/ssh";
 in rec
@@ -13,7 +13,7 @@ in rec
   };
 
   ## Import User Keys ##
-  config = lib.mkIf cfg
+  config = lib.mkIf enable
   {
     # GPG Keys
     home.activation.importGPGKeys = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]

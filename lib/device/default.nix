@@ -2,18 +2,7 @@
 {
   ## Install Media Configuration Function ##
   mkISO = { name, timezone, locale, kernel, desktop }:
-  let
-    # Install Media Configuration Modules
-    iso_modules =
-    [
-      ../../modules/device/base
-      ../../modules/device/gui
-      ../../modules/device/scripts
-
-      # Build Module
-      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
-    ];
-  in lib.nixosSystem
+  lib.nixosSystem
   {
     inherit system;
     specialArgs = { inherit inputs; };
@@ -22,7 +11,11 @@
     [
       {
         # Modulated Configuration Imports
-        imports = iso_modules;
+        imports =
+        [
+          ../../modules/device
+          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
+        ];
 
         # System Configuration
         iso.enable = true;
@@ -64,15 +57,6 @@
     # Device Roles Import Function
     mkRole = name: import (../../roles/device + "/${name}");
     device_roles = (builtins.map (r: mkRole r) roles);
-
-    # Device Configuration Modules
-    device_modules =
-    [
-      ../../modules/device/base
-      ../../modules/device/gui
-      ../../modules/device/hardware
-      ../../modules/device/scripts
-    ];
   in lib.nixosSystem
   {
     inherit system;
@@ -82,7 +66,7 @@
     [
       {
         # Modulated Configuration Imports
-        imports = device_users ++ device_roles ++ device_modules;
+        imports = device_users ++ device_roles ++ [ ../../modules/device ];
 
         # Localization
         time.timeZone = timezone;

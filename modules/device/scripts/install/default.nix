@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.scripts.install;
+  enable = config.scripts.install;
 
   # NixOS Install Script
   script = with pkgs; writeScriptBin "install"
@@ -10,21 +10,20 @@ let
     error()
     {
       printf "\033[0;31merror:\033[0m $1\n"
-      exit 125
     }
 
     read -p "Select Device to Install (Vortex/Futura): " choice
       case $choice in
         1) HOST=Vortex;;
         2) HOST=Futura;;
-        *) error "Choose (1)Vortex or (2)Futura";;
+        *) error "Choose (1)Vortex or (2)Futura"; exit 125;;
       esac
 
     read -p "Select Filesystem to use for Disk (ext4/btrfs): " choice
       case $choice in
         1) SCHEME=ext4;;
         2) SCHEME=btrfs;;
-        *) error "Choose (1)ext4 or (2)btrfs";;
+        *) error "Choose (1)ext4 or (2)btrfs"; exit 125;;
       esac
 
     read -p "Enter Path to Disk: /dev/" DISK
@@ -88,7 +87,7 @@ in rec
     default = false;
   };
 
-  config = lib.mkIf cfg
+  config = lib.mkIf enable
   {
     environment.systemPackages = [ script ];
   };

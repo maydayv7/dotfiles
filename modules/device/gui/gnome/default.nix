@@ -1,6 +1,6 @@
 { config, lib, inputs, pkgs, ... }:
 let
-  cfg = config.gui.desktop;
+  desktop = config.gui.desktop;
   device = config.device.enable;
   iso = config.iso.enable;
 in rec
@@ -8,7 +8,7 @@ in rec
   imports = [ "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix" ];
 
   ## GNOME Desktop Configuration ##
-  config = lib.mkIf (cfg == "gnome")
+  config = lib.mkIf (desktop == "gnome")
   (lib.mkMerge
   [
     {

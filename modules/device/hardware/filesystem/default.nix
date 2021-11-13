@@ -1,6 +1,7 @@
 { config, lib, inputs, ... }:
 let
-  cfg = config.hardware.filesystem;
+  device = config.device.enable;
+  filesystem = config.hardware.filesystem;
 in rec
 {
   imports =
@@ -16,7 +17,8 @@ in rec
   };
 
   ## File System Configuration ##
-  config = lib.mkMerge
+  config = lib.mkIf device
+  (lib.mkMerge
   [
     {
       ## Partitions ##
@@ -45,7 +47,7 @@ in rec
     }
 
     ## EXT4 File System Configuration ##
-    (lib.mkIf (cfg == "ext4")
+    (lib.mkIf (filesystem == "ext4")
     {
       fileSystems =
       {
@@ -58,7 +60,7 @@ in rec
     })
 
     ## BTRFS Opt-in State File System Configuration ##
-    (lib.mkIf (cfg == "btrfs")
+    (lib.mkIf (filesystem == "btrfs")
     {
       fileSystems =
       {
@@ -142,5 +144,5 @@ in rec
         };
       };
     })
-  ];
+  ]);
 }

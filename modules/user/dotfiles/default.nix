@@ -1,6 +1,6 @@
 { config, lib, inputs, ... }:
 let
-  cfg = config.dotfiles;
+  enable = config.dotfiles.enable;
   username = config.home.username;
   path = "${inputs.self}/modules/user/dotfiles";
 in rec
@@ -13,7 +13,7 @@ in rec
   };
 
   ## User Dotfiles ##
-  config = lib.mkIf cfg.enable
+  config = lib.mkIf enable
   {
     home.file =
     {

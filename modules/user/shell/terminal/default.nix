@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.shell.terminal;
+  enable = config.shell.terminal.enable;
 in rec
 {
   options.shell.terminal.enable = lib.mkOption
@@ -11,7 +11,7 @@ in rec
   };
 
   ## GNOME Terminal Settings ##
-  config = lib.mkIf cfg.enable
+  config = lib.mkIf enable
   {
     programs.gnome-terminal =
     {

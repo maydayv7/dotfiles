@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.gui.fonts;
+  enable = config.gui.fonts.enable;
 in rec
 {
   options.gui.fonts.enable = lib.mkOption
@@ -11,7 +11,7 @@ in rec
   };
 
   ## Font Configuration ##
-  config = lib.mkIf cfg.enable
+  config = lib.mkIf enable
   {
     fonts =
     {

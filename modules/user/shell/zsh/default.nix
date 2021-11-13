@@ -1,6 +1,6 @@
 { config, lib, inputs, pkgs, ... }:
 let
-  cfg = config.shell.zsh;
+  enable = config.shell.zsh.enable;
 in rec
 {
   options.shell.zsh.enable = lib.mkOption
@@ -11,7 +11,7 @@ in rec
   };
 
   ## User Z Shell Configuration ##
-  config = lib.mkIf cfg.enable
+  config = lib.mkIf enable
   {
     programs.zsh =
     {

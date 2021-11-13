@@ -39,19 +39,11 @@
       # User Roles Import Function
       mkRole = name: import (../../roles/user + "/${name}");
       user_roles = (builtins.map (r: mkRole r) roles);
-
-      # User Home Configuration Modules
-      user_modules =
-      [
-        ../../modules/user/dotfiles
-        ../../modules/user/keys
-        ../../modules/user/shell
-      ];
     in
     {
       # Modulated Configuration Imports
       _module.args = { inherit inputs; };
-      imports = user_roles ++ user_modules;
+      imports = user_roles ++ [ ../../modules/user ];
 
       # Home Manager Configuration
       home.username = username;

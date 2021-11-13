@@ -3,6 +3,7 @@ rec
 {
   imports =
   [
+    ./boot
     ./firmware
     ./iso
     ./nix
