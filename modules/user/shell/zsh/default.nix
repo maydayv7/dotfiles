@@ -54,6 +54,18 @@ in rec
       ];
     };
 
+    # DirENV Integration
+    programs.direnv =
+    {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv =
+      {
+        enable = true;
+        enableFlakes = true;
+      };
+    };
+
     home.file =
     {
       # Z Shell Prompt
