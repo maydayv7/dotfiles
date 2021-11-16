@@ -2,13 +2,55 @@
 let
   enable = config.scripts.management;
 
+  # Usage Description
+  usage =
+  {
+    script =
+    ''
+      ## Tool for NixOS System Management ##
+      # Usage #
+        update [ --'option' ]              - Updates Nix Flake Inputs
+        apply  [ 'choice' [ --'option' ] ] - Applies Device and User Configuration
+        iso 'variant' [ --burn 'path' ]    - Builds Install Media
+        shell [ 'name' ]                   - Opens desired Nix Developer Shell
+        list                               - Lists all Installed Packages
+        save                               - Saves Configuration State to Repository
+        clean                              - Garbage Collects and Hard-Links Nix Store
+        secret 'choice' [ 'path' ]         - Manages system Secrets
+    '';
+
+    apply =
+    ''
+      # Usage #
+        device [ --'option' ] - Apply Device Configuration
+        user                  - Apply User Configuration
+    '';
+
+    device =
+    ''
+      # Usage #
+        --boot  - Apply Configuration on boot
+        --test  - Test Configuration Build
+        --check - Check Configuration Build
+    '';
+
+    secret =
+    ''
+      # Usage #
+        list        - List system Secrets
+        show 'path' - Show desired Secret
+        edit 'path' - Edit desired Secret
+    '';
+  };
+
   # System Management Script
   script = with pkgs; writeScriptBin "nixos"
   ''
     #!${pkgs.runtimeShell}
     error()
     {
-      printf "\033[0;31merror:\033[0m $1\n"
+      echo -e "\033[0;31merror:\033[0m $1"
+      exit 125
     }
 
     case $1 in
@@ -30,25 +72,14 @@ let
         "--boot") sudo nixos-rebuild boot --flake /etc/nixos#;;
         "--test") sudo nixos-rebuild test --flake /etc/nixos#;;
         "--check") nixos-rebuild dry-activate --flake /etc/nixos#;;
-        *)
-          error "Unknown option $3"
-          echo "# Usage #"
-          echo "  --boot  - Apply Configuration on boot"
-          echo "  --test  - Test Configuration Build"
-          echo "  --check - Check Configuration Build"
-        ;;
+        *) error "Unknown option $3\n${usage.device}";;
         esac
       ;;
       "user")
         echo "Applying User Settings..."
         nix build /etc/nixos#homeConfigurations.$USER.activationPackage && ./result/activate && rm -rf ./result
       ;;
-      *)
-        error "Unknown option $2"
-        echo "# Usage #"
-        echo "  device [ --'option' ] - Apply Device Configuration"
-        echo "  user                  - Apply User Configuration"
-      ;;
+      *) error "Unknown option $2\n${usage.apply}";;
       esac
     ;;
     "iso")
@@ -112,30 +143,20 @@ let
         esac
       ;;
       *)
-        if ! [ -z "$2" ]; then
-          error "Unknown option $2"
+        if [ -z "$2" ]; then
+          echo "${usage.secret}"
+        else
+          error "Unknown option $2\n${usage.secret}"
         fi
-        echo "# Usage #"
-        echo "  list        - List system Secrets"
-        echo "  show 'path' - Show desired Secret"
-        echo "  edit 'path' - Edit desired Secret"
       ;;
       esac
     ;;
     *)
-      if ! [ -z "$1" ]; then
-        error "Unknown option $1"
+      if [ -z "$1" ]; then
+        echo "${usage.script}"
+      else
+        error "Unknown option $1\n${usage.script}"
       fi
-      echo "## Tool for NixOS System Management ##"
-      echo "# Usage #"
-      echo "  update [ --'option' ]              - Updates Nix Flake Inputs"
-      echo "  apply  [ 'choice' [ --'option' ] ] - Applies Device and User Configuration"
-      echo "  iso 'variant' [ --burn 'path' ]    - Builds Install Media"
-      echo "  shell [ 'name' ]                   - Opens desired Nix Developer Shell"
-      echo "  list                               - Lists all Installed Packages"
-      echo "  save                               - Saves Configuration State to Repository"
-      echo "  clean                              - Garbage Collects and Hard-Links Nix Store"
-      echo "  secret 'choice' [ 'path' ]         - Manages system Secrets"
     ;;
     esac
   '';

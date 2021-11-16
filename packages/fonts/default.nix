@@ -5,7 +5,7 @@ stdenv.mkDerivation rec
   pname = "fonts";
   version = "7";
 
-  src = ./sources/fonts;
+  src = ./source;
 
   dontBuild = true;
 

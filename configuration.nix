@@ -21,7 +21,7 @@ let
 
   # Package Overrides
   inherit (import ./packages { inherit inputs pkgs; }) custom;
-  inherit (import ./packages/overlays { inherit system lib inputs pkgs custom; }) overlays;
+  inherit (import ./overlays { inherit system lib inputs pkgs custom; }) overlays;
 
   # System Libraries
   inherit (inputs.nixpkgs) lib;

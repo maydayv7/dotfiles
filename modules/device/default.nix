@@ -6,6 +6,6 @@
     ./base
     ./gui
     ./hardware
-    ./scripts
+    ../../scripts
   ];
 }

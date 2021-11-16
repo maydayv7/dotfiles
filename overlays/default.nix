@@ -33,7 +33,7 @@
       {
         gnome-terminal = lib.overrideDerivation prev.gnome.gnome-terminal (drv:
         {
-          patches = drv.patches ++ [ ../sources/transparency.patch ];
+          patches = drv.patches ++ [ ./source/transparency.patch ];
         });
       };
 
