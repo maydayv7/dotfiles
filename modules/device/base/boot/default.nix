@@ -8,6 +8,8 @@ in rec
   {
     boot =
     {
+      cleanTmpDir = true;
+
       # Plymouth
       consoleLogLevel = 0;
       initrd.verbose = false;

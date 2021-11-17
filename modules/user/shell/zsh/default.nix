@@ -54,6 +54,16 @@ in rec
       ];
     };
 
+    # Z Shell Prompt
+    home.file.".p10k.zsh".source = ./prompt;
+
+    # Command Not Found Helper
+    programs.nix-index =
+    {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     # DirENV Integration
     programs.direnv =
     {
@@ -64,15 +74,6 @@ in rec
         enable = true;
         enableFlakes = true;
       };
-    };
-
-    home.file =
-    {
-      # Z Shell Prompt
-      ".p10k.zsh".source = ./prompt;
-
-      # Neofetch Config
-      ".config/neofetch/config.conf".source = ./neofetch;
     };
 
     # Utilities

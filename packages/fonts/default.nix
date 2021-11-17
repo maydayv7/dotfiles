@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 with pkgs;
 stdenv.mkDerivation rec
 {
   pname = "fonts";
   version = "7";
 
-  src = ./source;
+  src = inputs.fonts;
 
   dontBuild = true;
 

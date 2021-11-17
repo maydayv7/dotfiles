@@ -1,11 +1,11 @@
 # Dotfiles
-![[Logo]](https://socialify.git.ci/maydayv7/dotfiles/image?description=1&font=Source%20Code%20Pro&logo=https%3A%2F%2Fraw.githubusercontent.com%2FNixOS%2Fnixos-artwork%2Fmaster%2Flogo%2Fwhite.svg&name=1&owner=1&pattern=Circuit%20Board&theme=Dark)
+![[Logo]](https://socialify.git.ci/maydayv7/dotfiles/image?description=1&font=Source%20Code%20Pro&logo=https%3A%2F%2Fraw.githubusercontent.com%2FNixOS%2Fnixos-artwork%2F9bd73014f75c2ce97d104c78314d78eb2493e24d%2Flogo%2Fwhite.svg&name=1&owner=1&pattern=Circuit%20Board&theme=Dark)
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
 
 This repo contains the configuration files for my continuously evolving multi-PC setup
 
-![](./docs/source/desktop.png)
+![](./docs/resources/desktop.png)
 
 ## Features
 [![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
@@ -35,9 +35,10 @@ Here is an overview of the file hierarchy:
  ├── flake.lock
  ├── packages
  ├── overlays
+ ├── shells
  ├── lib
- │   ├── device.nix
- │   └── user.nix
+ │   ├── device
+ │   └── user
  ├── scripts
  │   ├── setup
  │   ├── install
@@ -65,6 +66,7 @@ Here is an overview of the file hierarchy:
 + `flake.nix`: repository version control using `inputs`
 + `packages`: locally built custom packages
 + `overlays`: overrides for pre-built packages
++ `shells`: sandboxed shells for development purposes
 + `lib`: custom functions designed for conveniently defining device and user configuration
 + `scripts`: useful system management scripts
 + `roles`: modulated role-based configuration for effortlessly managing workflows
@@ -74,7 +76,7 @@ Here is an overview of the file hierarchy:
 + `secrets`: private `git` repository containing authentication credentials
 
 ## Installation
-Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the `.iso`:  
+Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the Install Media:  
 *Replace* ***VARIANT*** *with the name of install media to create*
 <pre><code>nix build github:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage
 </code></pre>

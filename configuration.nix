@@ -5,7 +5,7 @@ let
   system = "x86_64-linux";
 
   # NixOS Version
-  version = "21.05";
+  version = (builtins.readFile ./version);
 
   # Package Configuration
   pkgs = import inputs.nixpkgs
@@ -34,8 +34,8 @@ let
 in
 {
   ## Developer Shells ##
-  devShell."${system}" = import ./shells { inherit pkgs; };
-  devShells."${system}" = import ./shells/custom { inherit pkgs; };
+  devShell."${system}" = import ./shells/default { inherit pkgs; };
+  devShells."${system}" = import ./shells { inherit pkgs; };
 
   ## Install Media Configuration ##
   installMedia =
@@ -80,7 +80,7 @@ in
       locale = "en_IN.UTF-8";
       kernel = pkgs.linuxPackages_lqx;
       kernel_modules = [ "kvm-intel" ];
-      kernel_params = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
+      kernel_params = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" "boot.shell_on_fail" ];
       init_modules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
       modprobe = "options kvm_intel nested=1";
       cores = 8;

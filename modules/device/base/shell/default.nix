@@ -26,6 +26,9 @@ in rec
       systemPackages = with pkgs;
       [
         etcher
+        exa
+        fd
+        file
         git
         git-crypt
         lolcat

@@ -5,6 +5,6 @@ with pkgs;
   custom =
   {
     # Custom Fonts
-    fonts = callPackage ./fonts { };
+    fonts = callPackage ./fonts { inherit inputs; };
   };
 }

@@ -53,6 +53,7 @@ in rec
 
     (lib.mkIf device
     {
+      # Github Authentication Token
       nix.extraOptions = "access-tokens = github.com=${token}";
     })
   ]);

@@ -20,6 +20,9 @@ in rec
       # Wallpapers
       ".local/share/backgrounds".source = ./images;
 
+      # Neofetch Config
+      ".config/neofetch/config.conf".source = ./fetch;
+
       # X11 Gestures
       ".config/touchegg/touchegg.conf".source = ./gestures;
 

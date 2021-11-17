@@ -1,6 +1,6 @@
 { system, lib, inputs, pkgs, custom, ... }:
 {
-  ## System Package Overlays ##
+  ## Overrides for Pre-Built Packages ##
   overlays =
   [
     # Unstable Packages Enablement
@@ -33,7 +33,14 @@
       {
         gnome-terminal = lib.overrideDerivation prev.gnome.gnome-terminal (drv:
         {
-          patches = drv.patches ++ [ ./source/transparency.patch ];
+          patches = drv.patches ++
+          [ (prev.fetchpatch
+            {
+              url = "https://aur.archlinux.org/cgit/aur.git/plain/transparency.patch?h=gnome-terminal-transparency&id=b319fb2fa68d7aaff8361cbbca79b23c4e2b29c9";
+              sha256 = "1r5x8a1kbj9clm3q7hf3h5jz1h1pgsa4r206arl5vlcb6568yzdi";
+              name = "transparency.patch";
+            })
+          ];
         });
       };
 
