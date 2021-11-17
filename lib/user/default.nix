@@ -1,10 +1,7 @@
-{ system, version, lib, inputs, pkgs, ... }:
+{ system, version, secrets, lib, inputs, pkgs, ... }:
 {
   ## User Configuration Function ##
   mkUser = { username, description, groups, uid, shell }:
-  let
-    password = (builtins.readFile ("${inputs.secrets}/passwords" + "/${username}"));
-  in
   {
     users.users."${username}" =
     {
@@ -23,7 +20,7 @@
       shell = shell;
 
       # Password
-      initialHashedPassword = password;
+      initialHashedPassword = secrets."${username}";
     };
   };
 
@@ -42,7 +39,7 @@
     in
     {
       # Modulated Configuration Imports
-      _module.args = { inherit inputs; };
+      _module.args = { inherit secrets inputs; };
       imports = user_roles ++ [ ../../modules/user ];
 
       # Home Manager Configuration

@@ -1,8 +1,7 @@
-{ config, lib, inputs, pkgs, ... }:
+{ config, secrets, lib, inputs, pkgs, ... }:
 let
   device = config.device.enable;
   iso = config.iso.enable;
-  token = (builtins.readFile "${inputs.secrets}/github/token");
 in rec
 {
   ## Nix Settings ##
@@ -54,7 +53,7 @@ in rec
     (lib.mkIf device
     {
       # Github Authentication Token
-      nix.extraOptions = "access-tokens = github.com=${token}";
+      nix.extraOptions = "access-tokens = github.com=${secrets.github}";
     })
   ]);
 }

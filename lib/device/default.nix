@@ -1,4 +1,4 @@
-{ system, version, lib, user, inputs, pkgs, ... }:
+{ system, version, secrets, lib, user, inputs, pkgs, ... }:
 {
   ## Install Media Configuration Function ##
   mkISO = { name, timezone, locale, kernel, desktop }:
@@ -60,7 +60,7 @@
   in lib.nixosSystem
   {
     inherit system;
-    specialArgs = { inherit inputs; };
+    specialArgs = { inherit secrets inputs; };
 
     modules =
     [
@@ -97,9 +97,6 @@
         # System Scripts
         scripts.management = true;
         scripts.setup = true;
-
-        # Authentication Credentials
-        environment.etc."nixos/secrets".source = inputs.secrets;
       }
     ];
   };

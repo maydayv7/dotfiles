@@ -1,8 +1,7 @@
-{ config, lib, inputs, ... }:
+{ config, secrets, lib, inputs, ... }:
 let
   device = config.device.enable;
   iso = config.iso.enable;
-  password = (builtins.readFile "${inputs.secrets}/passwords/root");
 in rec
 {
   ## Device User Configuration ##
@@ -13,7 +12,7 @@ in rec
       users.mutableUsers = false;
 
       # Root User
-      users.extraUsers.root.initialHashedPassword = password;
+      users.extraUsers.root.initialHashedPassword = secrets.root;
 
       # Security Settings
       security.sudo.extraConfig =

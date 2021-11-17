@@ -7,6 +7,9 @@ let
   # NixOS Version
   version = (builtins.readFile ./version);
 
+  # Authentication Credentials
+  secrets = import ./secrets { inherit inputs; };
+
   # Package Configuration
   pkgs = import inputs.nixpkgs
   {
@@ -28,7 +31,7 @@ let
   inherit (lib) attrValues;
 
   # Custom Functions
-  util = import ./lib { inherit system version lib inputs pkgs; };
+  util = import ./lib { inherit system version secrets lib inputs pkgs; };
   inherit (util) device;
   inherit (util) user;
 in
