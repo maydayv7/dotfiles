@@ -8,6 +8,10 @@
 
   # Keys
   github = (builtins.readFile "${inputs.secrets}/github/token");
-  gpg = "${inputs.secrets}/gpg";
-  ssh = "${inputs.secrets}/ssh";
+  ssh.path = "${inputs.secrets}/ssh";
+  gpg =
+  {
+    path = "${inputs.secrets}/gpg";
+    key = (builtins.readFile "${inputs.secrets}/gpg/key");
+  };
 }

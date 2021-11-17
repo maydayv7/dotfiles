@@ -13,6 +13,7 @@ let
         apply  [ 'choice' [ --'option' ] ] - Applies Device and User Configuration
         iso 'variant' [ --burn 'path' ]    - Builds Install Media
         shell [ 'name' ]                   - Opens desired Nix Developer Shell
+        explore                            - Opens REPL to explore Nix syntax and configuration
         list                               - Lists all Installed Packages
         save                               - Saves Configuration State to Repository
         clean                              - Garbage Collects and Hard-Links Nix Store
@@ -101,6 +102,9 @@ let
       "") nix develop /etc/nixos;;
       *) nix develop /etc/nixos#$2;;
       esac
+    ;;
+    "explore")
+      nix repl /etc/nixos/repl.nix
     ;;
     "list")
       nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq

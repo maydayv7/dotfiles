@@ -20,7 +20,7 @@ in rec
       enableCompletion = true;
       enableVteIntegration = true;
       autocd = true;
-      initExtra =''bindkey "\e[3~" delete-char'';
+      initExtra ='' bindkey "\e[3~" delete-char '';
       initExtraBeforeCompInit = "source ~/.p10k.zsh";
       shellAliases =
       {

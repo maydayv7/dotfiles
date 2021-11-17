@@ -1,7 +1,6 @@
-{ config, lib, inputs, ... }:
+{ config, secrets, lib, inputs, ... }:
 let
   cfg = config.shell.git;
-  key = (builtins.readFile "${inputs.secrets}/gpg/key");
 in rec
 {
   options.shell.git =
@@ -56,7 +55,7 @@ in rec
       userEmail = cfg.userMail;
       signing =
       {
-        inherit key;
+        key = secrets.gpg.key;
         signByDefault = true;
       };
     };
