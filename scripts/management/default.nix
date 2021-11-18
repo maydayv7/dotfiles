@@ -9,25 +9,18 @@ let
     ''
       ## Tool for NixOS System Management ##
       # Usage #
-        update [ --'option' ]              - Updates Nix Flake Inputs
-        apply  [ 'choice' [ --'option' ] ] - Applies Device and User Configuration
-        iso 'variant' [ --burn 'path' ]    - Builds Install Media
-        shell [ 'name' ]                   - Opens desired Nix Developer Shell
-        explore                            - Opens REPL to explore Nix syntax and configuration
-        list                               - Lists all Installed Packages
-        save                               - Saves Configuration State to Repository
-        clean                              - Garbage Collects and Hard-Links Nix Store
-        secret 'choice' [ 'path' ]         - Manages system Secrets
+        update [ --'option' ]           - Updates Nix Flake Inputs
+        apply [ --'option' ]            - Applies Device and User Configuration
+        iso 'variant' [ --burn 'path' ] - Builds Install Media
+        shell [ 'name' ]                - Opens desired Nix Developer Shell
+        explore                         - Opens interactive shell to explore syntax and configuration
+        list                            - Lists all Installed Packages
+        save                            - Saves Configuration State to Repository
+        clean                           - Garbage Collects and Hard-Links Nix Store
+        secret 'choice' [ 'path' ]      - Manages system Secrets
     '';
 
     apply =
-    ''
-      # Usage #
-        device [ --'option' ] - Apply Device Configuration
-        user                  - Apply User Configuration
-    '';
-
-    device =
     ''
       # Usage #
         --boot  - Apply Configuration on boot
@@ -60,26 +53,12 @@ let
       nix flake update /etc/nixos $2
     ;;
     "apply")
+      echo "Applying Configuration..."
       case $2 in
-      "")
-        nixos apply device
-        printf "\n"
-        nixos apply user
-      ;;
-      "device")
-        echo "Applying Device Settings..."
-        case $3 in
-        "") sudo nixos-rebuild switch --flake /etc/nixos#;;
-        "--boot") sudo nixos-rebuild boot --flake /etc/nixos#;;
-        "--test") sudo nixos-rebuild test --flake /etc/nixos#;;
-        "--check") nixos-rebuild dry-activate --flake /etc/nixos#;;
-        *) error "Unknown option $3\n${usage.device}";;
-        esac
-      ;;
-      "user")
-        echo "Applying User Settings..."
-        nix build /etc/nixos#homeConfigurations.$USER.activationPackage && ./result/activate && rm -rf ./result
-      ;;
+      "") sudo nixos-rebuild switch --flake /etc/nixos#;;
+      "--boot") sudo nixos-rebuild boot --flake /etc/nixos#;;
+      "--test") sudo nixos-rebuild test --flake /etc/nixos#;;
+      "--check") nixos-rebuild dry-activate --flake /etc/nixos#;;
       *) error "Unknown option $2\n${usage.apply}";;
       esac
     ;;
@@ -104,7 +83,7 @@ let
       esac
     ;;
     "explore")
-      nix repl /etc/nixos/repl.nix
+      nix repl /etc/nixos/shells/repl
     ;;
     "list")
       nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq

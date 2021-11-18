@@ -14,7 +14,7 @@ in rec
   config = lib.mkIf enable
   {
     # GPG Keys
-    home.activation.importGPGKeys = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
+    home.activation.importGPGKeys = inputs.home.lib.hm.dag.entryAfter ["writeBoundary"]
     ''
       echo "Importing GPG Keys..."
       $DRY_RUN_CMD mkdir -p ~/.gnupg $VERBOSE_ARG
@@ -23,7 +23,7 @@ in rec
     '';
 
     # SSH Keys
-    home.activation.importSSHKeys = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
+    home.activation.importSSHKeys = inputs.home.lib.hm.dag.entryAfter ["writeBoundary"]
     ''
       FILE=~/.ssh
       if [ -e "$FILE" ];

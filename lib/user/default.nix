@@ -1,7 +1,7 @@
 { system, version, secrets, lib, inputs, pkgs, ... }:
 {
   ## User Configuration Function ##
-  mkUser = { username, description, groups, uid, shell }:
+  mkUser = { username, description, groups, uid, shell, roles }:
   {
     users.users."${username}" =
     {
@@ -22,16 +22,12 @@
       # Password
       initialHashedPassword = secrets."${username}";
     };
-  };
 
-  ## User Home Configuration Function ##
-  mkHome = { username, roles }:
-  inputs.home-manager.lib.homeManagerConfiguration
-  {
-    inherit system username pkgs;
-    stateVersion = version;
-    homeDirectory = "/home/${username}";
-    configuration =
+    # Home Configuration
+    home-manager.useGlobalPkgs = true;
+    home-manager.backupFileExtension = "bak";
+    home-manager.sharedModules = [ ../../modules/user ];
+    home-manager.users."${username}" =
     let
       # User Roles Import Function
       mkRole = name: import (../../roles/user + "/${name}");
@@ -40,10 +36,12 @@
     {
       # Modulated Configuration Imports
       _module.args = { inherit secrets inputs; };
-      imports = user_roles ++ [ ../../modules/user ];
+      imports = user_roles;
 
       # Home Manager Configuration
       home.username = username;
+      home.homeDirectory = "/home/${username}";
+      home.stateVersion = version;
       dotfiles.enable = true;
       programs.home-manager.enable = true;
       systemd.user.startServices = true;

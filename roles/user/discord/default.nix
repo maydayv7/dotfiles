@@ -21,7 +21,7 @@
   };
 
   # Discord Activation  
-  home.activation.discordSetup = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"]
+  home.activation.discordSetup = inputs.home.lib.hm.dag.entryAfter ["writeBoundary"]
   ''
     FILE=~/.config/BetterDiscord
     if [ -e "$FILE" ];

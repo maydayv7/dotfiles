@@ -43,7 +43,7 @@ in rec
       [
         {
           name = "zsh-syntax-highlighting";
-          src = inputs.zsh-syntax;
+          src = inputs.zsh;
           file = "zsh-syntax-highlighting.zsh";
         }
         {

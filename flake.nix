@@ -1,5 +1,5 @@
 {
-  description = "My Reproducible, Hermetic, Derivational, Portable, Atomic, Multi-PC NixOS Dotfiles";
+  description = "My Purely Reproducible, Hermetic, Declarative, Atomic, Immutable, Multi-PC NixOS Dotfiles";
 
   ## Package Repositories ##
   inputs =
@@ -15,7 +15,7 @@
     nur.url = "github:nix-community/NUR";
 
     # Home Manager
-    home-manager =
+    home =
     {
       url = "github:nix-community/home-manager?ref=release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,14 +40,14 @@
     };
 
     # Firefox GNOME Theme
-    firefox-theme =
+    firefox =
     {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
 
     # Z Shell Syntax Highlighting
-    zsh-syntax =
+    zsh =
     {
       url = "github:zsh-users/zsh-syntax-highlighting";
       flake = false;

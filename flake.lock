@@ -1,13 +1,13 @@
 {
   "nodes": {
-    "firefox-theme": {
+    "firefox": {
       "flake": false,
       "locked": {
-        "lastModified": 1632687521,
-        "narHash": "sha256-kyfzjwVp73xIofJ+1CxLocqSb9Or5nZjH123yNBFHoY=",
+        "lastModified": 1637189985,
+        "narHash": "sha256-vJ8+EjeDmSnt+AOeXtDz2pyaHP2mTuMVyKc1av8sqbg=",
         "owner": "rafaelmardojai",
         "repo": "firefox-gnome-theme",
-        "rev": "0b4065ff35e5034cd096fef8f3a5981dd751a48e",
+        "rev": "edfa268d49651060fd5652dcb64364251f0f2111",
         "type": "github"
       },
       "original": {
@@ -32,7 +32,7 @@
         "type": "github"
       }
     },
-    "home-manager": {
+    "home": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -86,11 +86,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1637122188,
-        "narHash": "sha256-52UiPwaB8PnzAnGZAtdrVeDwdnl0xt4cgQZVfGE9TlU=",
+        "lastModified": 1637220516,
+        "narHash": "sha256-t0hd9qbqi8LhvAN2egfcPOPD+Z+sMCKZRWEadd2gs0s=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "3729f4bd9009fd1176d4b05e88818578cc6311d1",
+        "rev": "85858c07e59c1802d804bc009994fc5c8b7de8b7",
         "type": "github"
       },
       "original": {
@@ -117,16 +117,16 @@
     },
     "root": {
       "inputs": {
-        "firefox-theme": "firefox-theme",
+        "firefox": "firefox",
         "fonts": "fonts",
-        "home-manager": "home-manager",
+        "home": "home",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "plymouth": "plymouth",
         "secrets": "secrets",
         "unstable": "unstable",
-        "zsh-syntax": "zsh-syntax"
+        "zsh": "zsh"
       }
     },
     "secrets": {
@@ -161,7 +161,7 @@
         "type": "github"
       }
     },
-    "zsh-syntax": {
+    "zsh": {
       "flake": false,
       "locked": {
         "lastModified": 1636857900,

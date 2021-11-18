@@ -54,25 +54,7 @@ in
     };
   };
 
-  ## User Specific Configuration ##
-  homeConfigurations =
-  {
-    # User V7
-    v7 = user.mkHome
-    {
-      username = "v7";
-      roles = [ "dconf" "discord" "firefox" "theme" ];
-    };
-
-    # User Navya
-    navya = user.mkHome
-    {
-      username = "navya";
-      roles = [ "dconf" "firefox" "theme" ];
-    };
-  };
-
-  ## Device Specific Configuration ##
+  ## Device Configuration ##
   nixosConfigurations =
   {
     # PC - Dell Inspiron 15 5000
@@ -93,12 +75,14 @@ in
       roles = [ "android" "ios" "office" "virtualisation" ];
       users =
       [
+        # User V7 Configuration
         {
           username = "v7";
           description = "V 7";
           groups = [ "wheel" "networkmanager" "kvm" "libvirtd" "adbusers" ];
           uid = 1000;
           shell = pkgs.zsh;
+          roles = [ "dconf" "discord" "firefox" "theme" ];
         }
       ];
     };
@@ -118,12 +102,14 @@ in
       roles = [ "office" ];
       users =
       [
+        # User Navya Configuration
         {
           username = "navya";
           description = "Navya";
           groups = [ "wheel" "networkmanager" ];
           uid = 1000;
           shell = pkgs.zsh;
+          roles = [ "dconf" "firefox" "theme" ];
         }
       ];
     };

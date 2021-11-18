@@ -1,4 +1,7 @@
 { system, version, secrets, lib, user, inputs, pkgs, ... }:
+let
+  device_module = [ ../../modules/device ];
+in
 {
   ## Install Media Configuration Function ##
   mkISO = { name, timezone, locale, kernel, desktop }:
@@ -11,11 +14,7 @@
     [
       {
         # Modulated Configuration Imports
-        imports =
-        [
-          ../../modules/device
-          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
-        ];
+        imports = device_module ++ [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
 
         # System Configuration
         iso.enable = true;
@@ -51,7 +50,7 @@
   ## Host Configuration Function ##
   mkHost = { name, timezone, locale, kernel, kernel_modules ? [ ], kernel_params, init_modules, modprobe ? "", cores, filesystem, ssd ? false, desktop, roles, users }:
   let
-    # User Creation
+    # User Creation Function Call
     device_users = (builtins.map (u: user.mkUser u) users);
 
     # Device Roles Import Function
@@ -66,7 +65,7 @@
     [
       {
         # Modulated Configuration Imports
-        imports = device_users ++ device_roles ++ [ ../../modules/device ];
+        imports = device_module ++ device_roles ++ device_users ++ [ inputs.home.nixosModules.home-manager ];
 
         # Localization
         time.timeZone = timezone;

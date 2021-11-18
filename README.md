@@ -33,9 +33,11 @@ Here is an overview of the file hierarchy:
  ┌── configuration.nix
  ├── flake.nix
  ├── flake.lock
+ ├── version
  ├── packages
  ├── overlays
  ├── shells
+ │   └── repl
  ├── lib
  │   ├── device
  │   └── user
@@ -64,16 +66,18 @@ Here is an overview of the file hierarchy:
 
 + `configuration.nix`: main system configuration file
 + `flake.nix`: repository version control using `inputs`
++ `version`: system state version
 + `packages`: locally built custom packages
 + `overlays`: overrides for pre-built packages
 + `shells`: sandboxed shells for development purposes
++ `repl`: interactive shell to explore syntax and configuration
 + `lib`: custom functions designed for conveniently defining device and user configuration
 + `scripts`: useful system management scripts
 + `roles`: modulated role-based configuration for effortlessly managing workflows
 + `modules`: custom configuration modules for additional functionality
 + `device`: device and install media specific configuration
 + `user`: user related configuration and dotfiles
-+ `secrets`: private `git` repository containing authentication credentials
++ `secrets`: authentication credentials declaration
 
 ## Installation
 Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the Install Media:  

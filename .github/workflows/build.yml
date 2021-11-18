@@ -17,11 +17,6 @@ jobs:
     strategy:
       matrix:
         device: [Vortex, Futura]
-        include:
-          - device: Vortex
-            user: v7
-          - device: Futura
-            user: navya
     steps:
     - name: Install Nix
       uses: cachix/install-nix-action@v15
@@ -34,7 +29,5 @@ jobs:
       with:
         name: maydayv7-dotfiles
         authToken: '${{ secrets.CACHIX_TOKEN }}'
-    - name: Build User Home Configuration
-      run: nix build github:maydayv7/dotfiles#homeConfigurations.${{ matrix.user }}.activationPackage
-    - name: Build Device Configuration
+    - name: Build Configuration
       run: nix build github:maydayv7/dotfiles#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel

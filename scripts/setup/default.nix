@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, secrets, lib, pkgs, ... }:
 let
   enable = config.scripts.setup;
 
@@ -24,6 +24,13 @@ let
     echo "Cloning Repo..."
     git clone https://github.com/maydayv7/dotfiles.git $DIR
     printf "\n"
+
+    echo "Setting up User..."
+    mkdir -p ~/Pictures/Screenshots
+    sudo mkdir -p /var/lib/AccountsService/{icons,users}
+    echo "[User]" | sudo tee /var/lib/AccountsService/users/$USER &> /dev/null
+    echo "Icon=/var/lib/AccountsService/icons/$USER" | sudo tee -a /var/lib/AccountsService/users/$USER &> /dev/null
+    sudo cp -av $VERBOSE_ARG $DIR/modules/user/dotfiles/images/Profile.png /var/lib/AccountsService/icons/$USER
 
     if [ "$DIR" == "/persist/etc/nixos" ]; then
         sudo umount -l /etc/nixos

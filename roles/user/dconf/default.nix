@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 with lib.hm.gvariant;
 {
   ## Dconf Keys ##
@@ -311,6 +311,11 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/lockkeys" =
     {
       style = "show-hide";
+    };
+
+    "org/gnome/shell/extensions/screenshotlocations" =
+    {
+      save-directory = "/home/${config.home.username}/Pictures/Screenshots";
     };
 
     "org/gnome/shell/extensions/sound-output-device-chooser" =

@@ -45,7 +45,7 @@ in rec
           self.flake = inputs.self;
           nixpkgs.flake = inputs.nixpkgs;
           unstable.flake = inputs.unstable;
-          home-manager.flake = inputs.home-manager;
+          home-manager.flake = inputs.home;
         };
       };
     }

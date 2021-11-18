@@ -17,5 +17,5 @@
   };
 
   # Theme
-  home.file.".mozilla/firefox/v7/chrome/userChrome.css".text = ''@import "${inputs.firefox-theme}/userChrome.css";'';
+  home.file.".mozilla/firefox/v7/chrome/userChrome.css".text = ''@import "${inputs.firefox}/userChrome.css";'';
 }
