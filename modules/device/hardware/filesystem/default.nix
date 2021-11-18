@@ -13,7 +13,7 @@ in rec
   options.hardware.filesystem = lib.mkOption
   {
     description = "Disk File System Configuration";
-    type = lib.types.enum [ "btrfs" "ext4" ];
+    type = lib.types.enum [ "simple" "advanced" ];
   };
 
   ## File System Configuration ##
@@ -46,8 +46,8 @@ in rec
       boot.kernel.sysctl."vm.swappiness" = 1;
     }
 
-    ## EXT4 File System Configuration ##
-    (lib.mkIf (filesystem == "ext4")
+    ## Simple File System Configuration using EXT4 ##
+    (lib.mkIf (filesystem == "simple")
     {
       fileSystems =
       {
@@ -59,8 +59,8 @@ in rec
       };
     })
 
-    ## BTRFS Opt-in State File System Configuration ##
-    (lib.mkIf (filesystem == "btrfs")
+    ## Advanced File System Configuration using BTRFS ##
+    (lib.mkIf (filesystem == "advanced")
     {
       fileSystems =
       {
@@ -70,7 +70,7 @@ in rec
         {
           device = "tmpfs";
           fsType = "tmpfs";
-          options = [ "defaults" "size=3G" "mode=755" ];
+          options = [ "defaults" "size=2G" "mode=755" ];
         };
         # BTRFS Partition
         "/mnt/btrfs" =

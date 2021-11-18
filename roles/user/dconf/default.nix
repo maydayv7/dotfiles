@@ -202,6 +202,43 @@ with lib.hm.gvariant;
       show-delete-permanently = true;
     };
 
+    "org/gnome/terminal/legacy" =
+    {
+      default-show-menubar = true;
+      new-tab-position = "next";
+      schema-version = 3;
+      theme-variant = "dark";
+    };
+
+    "org/gnome/terminal/legacy/profiles:" =
+    {
+      default = "b1dcc9dd-5262-4d8d-a863-c897e6d979b9";
+      list = [ "b1dcc9dd-5262-4d8d-a863-c897e6d979b9" ];
+    };
+
+    "org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9" =
+    {
+      audible-bell = false;
+      background-transparency-percent = 8;
+      backspace-binding = "ascii-delete";
+      cursor-blink-mode = "system";
+      cursor-shape = "ibeam";
+      default-size-columns = 100;
+      default-size-rows = 30;
+      delete-binding = "delete-sequence";
+      exit-action = "close";
+      login-shell = false;
+      palette = [ "rgb(23,20,33)" "rgb(192,28,40)" "rgb(38,162,105)" "rgb(162,115,76)" "rgb(18,72,139)" "rgb(163,71,186)" "rgb(42,161,179)" "rgb(208,207,204)" "rgb(94,92,100)" "rgb(246,97,81)" "rgb(51,209,122)" "rgb(233,173,12)" "rgb(42,123,222)" "rgb(192,97,203)" "rgb(51,199,222)" "rgb(255,255,255)" ];
+      scrollback-lines = 70000;
+      scrollback-unlimited = true;
+      scrollbar-policy = "always";
+      use-custom-command = false;
+      use-system-font = true;
+      use-theme-colors = true;
+      use-transparent-background = true;
+      visible-name = "Terminal";
+    };
+
     "org/gnome/gedit/preferences/editor" =
     {
       scheme = "tango-dark";

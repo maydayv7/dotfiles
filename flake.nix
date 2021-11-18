@@ -1,3 +1,11 @@
+#############################################################
+##  Author  = Vishrut Gurrala <maydayv7@gmail.com>         ##
+##  URL     = https://github.com/maydayv7/dotfiles         ##
+##  License = MIT                                          ##
+##                                                         ##
+##  Welcome to Ground Zero! The very heart of my dotfiles  ##
+#############################################################
+
 {
   description = "My Purely Reproducible, Hermetic, Declarative, Atomic, Immutable, Multi-PC NixOS Dotfiles";
 

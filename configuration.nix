@@ -69,7 +69,7 @@ in
       init_modules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
       modprobe = "options kvm_intel nested=1";
       cores = 8;
-      filesystem = "btrfs";
+      filesystem = "advanced";
       ssd = true;
       desktop = "gnome";
       roles = [ "android" "ios" "office" "virtualisation" ];
@@ -97,7 +97,7 @@ in
       kernel_params = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
       init_modules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
       cores = 4;
-      filesystem = "ext4";
+      filesystem = "simple";
       desktop = "gnome";
       roles = [ "office" ];
       users =

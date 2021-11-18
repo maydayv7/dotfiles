@@ -4,7 +4,6 @@ rec
   imports =
   [
     ./git
-    ./terminal
     ./zsh
   ];
 }

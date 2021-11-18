@@ -92,8 +92,7 @@ let
       echo "Saving Changes..."
       pushd /etc/nixos
       git add .
-      read -p "Enter comment: " comment
-      git commit -m "$(echo $comment)"
+      git commit
       git pull --rebase
       git push
       popd
@@ -117,8 +116,7 @@ let
           git clone https://github.com/maydayv7/secrets secrets.bak && pushd secrets.bak
           nano ./$3
           git add .
-          read -p "Enter comment: " comment
-          git commit -m "$(echo $comment)"
+          git commit
           git push
           popd && rm -rf secrets.bak
           nix flake lock --update-input secrets /etc/nixos

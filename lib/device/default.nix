@@ -65,7 +65,7 @@ in
     [
       {
         # Modulated Configuration Imports
-        imports = device_module ++ device_roles ++ device_users ++ [ inputs.home.nixosModules.home-manager ];
+        imports = device_module ++ device_roles ++ device_users;
 
         # Localization
         time.timeZone = timezone;

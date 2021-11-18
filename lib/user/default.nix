@@ -3,6 +3,7 @@
   ## User Configuration Function ##
   mkUser = { username, description, groups, uid, shell, roles }:
   {
+    # User Creation
     users.users."${username}" =
     {
       # Profile
@@ -24,6 +25,7 @@
     };
 
     # Home Configuration
+    imports = [ inputs.home.nixosModules.home-manager ];
     home-manager.useGlobalPkgs = true;
     home-manager.backupFileExtension = "bak";
     home-manager.sharedModules = [ ../../modules/user ];
@@ -42,14 +44,13 @@
       home.username = username;
       home.homeDirectory = "/home/${username}";
       home.stateVersion = version;
-      dotfiles.enable = true;
       programs.home-manager.enable = true;
       systemd.user.startServices = true;
 
-      # Shell Configuration
+      # User Configuration
+      dotfiles.enable = true;
       keys.enable = true;
       shell.git.enable = true;
-      shell.terminal.enable = true;
       shell.zsh.enable = true;
     };
   };

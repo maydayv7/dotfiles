@@ -14,7 +14,7 @@ The authentication credentials are stored in a private repository which contains
 A system management script, invoked with the command `nixos`, has been included, which can be used to apply user and device configuration changes or perform various other useful functions. The `install` and `setup` scripts have also been provided to painlessly install the OS and setup the device, using a single command
 
 ### File System
-The system may be set up using either ext4 or BTRFS (with opt-in state) filesystems. The BTRFS opt-in state configuration (using TMPFS for `/`) allows for a vastly improved experience, preventing any cruft to form and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
+The system may be set up using either a simple or advanced filesystem layout. The advanced BTRFS opt-in state filesystem configuration (using TMPFS for `/`) allows for a vastly improved experience, preventing any cruft to form and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
 
 #### Data Storage
 User files are stored on an NTFS partition mounted to `/data`
