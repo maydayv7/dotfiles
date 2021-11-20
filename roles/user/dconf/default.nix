@@ -279,7 +279,7 @@ with lib.hm.gvariant;
       command-history = [ "rt" "r" ];
       disable-user-extensions = false;
       disabled-extensions = [ "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
-      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "compiz-windows-effect@hermes83.github.com" "compiz-alike-magic-lamp-effect@hermes83.github.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "just-perfection-desktop@just-perfection" "appindicatorsupport@rgcjonas.gmail.com" "lockkeys@vaina.lt" "screenshotlocations.timur@linux.com" "sound-output-device-chooser@kgshank.net" "Vitals@CoreCoding.com" "custom-hot-corners-extended@G-dH.github.com" "color-picker@tuberry" "top-bar-organizer@julian.gse.jsts.xyz" "drive-menu@gnome-shell-extensions.gcampax.github.com" "x11gestures@joseexposito.github.io" "dash-to-panel@jderose9.github.com" "flypie@schneegans.github.com" ];
+      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "compiz-windows-effect@hermes83.github.com" "compiz-alike-magic-lamp-effect@hermes83.github.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "just-perfection-desktop@just-perfection" "appindicatorsupport@rgcjonas.gmail.com" "lockkeys@vaina.lt" "screenshotlocations.timur@linux.com" "sound-output-device-chooser@kgshank.net" "Vitals@CoreCoding.com" "custom-hot-corners-extended@G-dH.github.com" "color-picker@tuberry" "top-bar-organizer@julian.gse.jsts.xyz" "drive-menu@gnome-shell-extensions.gcampax.github.com" "x11gestures@joseexposito.github.io" "dash-to-panel@jderose9.github.com" "flypie@schneegans.github.com" "color-picker@tuberry" ];
       favorite-apps = [ "google-chrome.desktop" "org.gnome.Geary.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Terminal.desktop" "org.gnome.gedit.desktop" "gnome-control-center.desktop" ];
     };
 
@@ -289,6 +289,16 @@ with lib.hm.gvariant;
       nightlight-control = "never";
       show-notifications = false;
       user-enabled = true;
+    };
+
+    "org/gnome/shell/extensions/color-picker" =
+    {
+      color-picker-shortcut = [ "<Super>c" ];
+      enable-shortcut = true;
+      enable-systray = true;
+      menu-size = "uint32 8";
+      notify-style = "uint32 1";
+      persistent-mode = true;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" =

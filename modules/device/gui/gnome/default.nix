@@ -42,6 +42,7 @@ in rec
     {
       # Desktop Integration
       programs.dconf.enable = true;
+      qt5.platformTheme = "gnome";
       programs.gnupg.agent.pinentryFlavor = "gnome3";
       services =
       {
@@ -99,6 +100,7 @@ in rec
         gnomeExtensions.appindicator
         gnomeExtensions.caffeine
         gnomeExtensions.clipboard-indicator
+        gnomeExtensions.color-picker
         gnomeExtensions.compiz-windows-effect
         gnomeExtensions.compiz-alike-magic-lamp-effect
         gnomeExtensions.custom-hot-corners-extended
@@ -123,7 +125,7 @@ in rec
       # Disable Suspension
       services.xserver.displayManager.gdm.autoSuspend = false;
 
-      # Excluded GNOME Packages
+      # Additional Excluded GNOME Packages
       environment.gnome.excludePackages = with pkgs;
       [
         gnome.baobab

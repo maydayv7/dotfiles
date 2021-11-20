@@ -31,6 +31,19 @@ let
     echo "[User]" | sudo tee /var/lib/AccountsService/users/$USER &> /dev/null
     echo "Icon=/var/lib/AccountsService/icons/$USER" | sudo tee -a /var/lib/AccountsService/users/$USER &> /dev/null
     sudo cp -av $VERBOSE_ARG $DIR/modules/user/dotfiles/images/Profile.png /var/lib/AccountsService/icons/$USER
+    printf "\n"
+
+    echo "Importing GPG Keys..."
+    mkdir -p ~/.gnupg
+    gpg --import ${secrets.gpg.path}/public.gpg
+    gpg --import ${secrets.gpg.path}/private.gpg
+    printf "\n"
+
+    echo "Importing SSH Keys..."
+    cp -r ${secrets.ssh.path} ~/.ssh
+    chmod 400 ~/.ssh/id_ed25519
+    ssh-add ~/.ssh/id_ed25519
+    printf "\n"
 
     if [ "$DIR" == "/persist/etc/nixos" ]; then
         sudo umount -l /etc/nixos

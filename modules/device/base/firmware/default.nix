@@ -46,7 +46,11 @@ in rec
     };
 
     # Printing
-    services.printing.enable = true;
+    services.printing =
+    {
+      enable = true;
+      drivers = with pkgs; [ gutenprint cnijfilter2 ];
+    };
 
     # Power Management
     services.earlyoom =

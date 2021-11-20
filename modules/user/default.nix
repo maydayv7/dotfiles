@@ -4,7 +4,6 @@
   imports =
   [
     ./dotfiles
-    ./keys
     ./shell
   ];
 }

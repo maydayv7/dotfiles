@@ -16,22 +16,6 @@
         "type": "github"
       }
     },
-    "fonts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1637132865,
-        "narHash": "sha256-9WfFB1+kANgognwHuL264ns6ERf5UiQ/fxycqWrkkIQ=",
-        "owner": "maydayv7",
-        "repo": "fonts",
-        "rev": "a606a4f1261f4cc7d04a38b0c2a68fcecb1ecda4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "maydayv7",
-        "repo": "fonts",
-        "type": "github"
-      }
-    },
     "home": {
       "inputs": {
         "nixpkgs": [
@@ -118,7 +102,6 @@
     "root": {
       "inputs": {
         "firefox": "firefox",
-        "fonts": "fonts",
         "home": "home",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",

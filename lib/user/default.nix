@@ -18,7 +18,7 @@
 
       # Shell
       useDefaultShell = false;
-      shell = shell;
+      shell = pkgs."${shell}";
 
       # Password
       initialHashedPassword = secrets."${username}";
@@ -49,7 +49,6 @@
 
       # User Configuration
       dotfiles.enable = true;
-      keys.enable = true;
       shell.git.enable = true;
       shell.zsh.enable = true;
     };

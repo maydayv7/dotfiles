@@ -41,6 +41,15 @@ let
   script = with pkgs; writeScriptBin "nixos"
   ''
     #!${pkgs.runtimeShell}
+    edit()
+    {
+      if [ -z "$EDITOR" ]; then
+        nano $1
+      else
+        $EDITOR $1
+      fi
+    }
+
     error()
     {
       echo -e "\033[0;31merror:\033[0m $1"
@@ -106,7 +115,7 @@ let
     ;;
     "secret")
       case $2 in
-      "list") tree -C --noreport ${inputs.secrets};;
+      "list") tree -C --noreport -I *.md ${inputs.secrets};;
       "show") echo "$3:" && cat ${inputs.secrets}/$3;;
       "edit")
         case $3 in
@@ -114,7 +123,8 @@ let
         *)
           echo "Editing Secret $3..."
           git clone https://github.com/maydayv7/secrets secrets.bak && pushd secrets.bak
-          nano ./$3
+          edit ./$3
+          echo "Updating Secrets..."
           git add .
           git commit
           git push

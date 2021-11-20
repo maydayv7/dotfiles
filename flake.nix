@@ -40,13 +40,6 @@
     impermanence.url = "github:nix-community/impermanence";
 
     ## Additional Repositories ##
-    # Custom Fonts
-    fonts =
-    {
-      url = "github:maydayv7/fonts";
-      flake = false;
-    };
-
     # Firefox GNOME Theme
     firefox =
     {

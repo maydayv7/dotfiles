@@ -81,7 +81,7 @@ in
           description = "V 7";
           groups = [ "wheel" "networkmanager" "kvm" "libvirtd" "adbusers" ];
           uid = 1000;
-          shell = pkgs.zsh;
+          shell = "zsh";
           roles = [ "dconf" "discord" "firefox" "theme" ];
         }
       ];
@@ -108,7 +108,7 @@ in
           description = "Navya";
           groups = [ "wheel" "networkmanager" ];
           uid = 1000;
-          shell = pkgs.zsh;
+          shell = "zsh";
           roles = [ "dconf" "firefox" "theme" ];
         }
       ];
