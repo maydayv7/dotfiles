@@ -16,33 +16,33 @@ in rec
     home.file =
     {
       # Wallpapers
-      ".local/share/backgrounds".source = ../../../config/wallpapers;
+      ".local/share/backgrounds".source = ../../config/wallpapers;
 
       # Neofetch Config
-      ".config/neofetch/config.conf".source = ../../../config/neofetch/config.conf;
+      ".config/neofetch/config.conf".source = ../../config/neofetch/config.conf;
 
       # GTK+ Bookmarks
-      ".config/gtk-3.0/bookmarks".source = ../../../config/gnome/bookmarks;
+      ".config/gtk-3.0/bookmarks".source = ../../config/gnome/bookmarks;
 
       # X11 Gestures
-      ".config/touchegg/touchegg.conf".source = ../../../config/touchegg/touchegg.conf;
+      ".config/touchegg/touchegg.conf".source = ../../config/touchegg/touchegg.conf;
 
       # Document Templates
       "Templates" =
       {
-        source = ../../../config/templates;
+        source = ../../config/templates;
         recursive = true;
       };
 
       # Font Rendering
       ".local/share/fonts" =
       {
-        source = ../../../config/fonts;
+        source = ../../config/fonts;
         recursive = true;
       };
     };
 
     # Xorg Configuration
-    xresources.extraConfig = (builtins.readFile ../../../config/xorg/xresources);
+    xresources.extraConfig = (builtins.readFile ../../config/xorg/xresources);
   };
 }

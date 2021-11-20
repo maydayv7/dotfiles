@@ -8,7 +8,7 @@ let
   version = (builtins.readFile ./version);
 
   # Authentication Credentials
-  secrets = import ./secrets { inherit inputs; };
+  secrets = import ./secrets.nix { inherit inputs; };
 
   # Package Configuration
   pkgs = import inputs.nixpkgs
@@ -24,7 +24,7 @@ let
 
   # Package Overrides
   inherit (import ./packages { inherit inputs pkgs; }) custom;
-  inherit (import ./overlays { inherit system lib inputs pkgs custom; }) overlays;
+  inherit (import ./packages/overlays.nix { inherit system lib inputs pkgs custom; }) overlays;
 
   # System Libraries
   inherit (inputs.nixpkgs) lib;
@@ -37,7 +37,7 @@ let
 in
 {
   ## Developer Shells ##
-  devShell."${system}" = import ./shells/default { inherit pkgs; };
+  devShell."${system}" = import ./shells/shell.nix { inherit pkgs; };
   devShells."${system}" = import ./shells { inherit pkgs; };
 
   ## Install Media Configuration ##

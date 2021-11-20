@@ -10,12 +10,12 @@
   home.file =
   {
     # Theme
-    ".config/BetterDiscord/data/stable/custom.css".source = ../../../config/discord/theme.css;
+    ".config/BetterDiscord/data/stable/custom.css".source = ../../config/discord/theme.css;
 
     # Plugins
     ".config/BetterDiscord/plugins" =
     {
-      source = ../../../config/discord/plugins;
+      source = ../../config/discord/plugins;
       recursive = true;
     };
   };

@@ -3,12 +3,11 @@ rec
 {
   imports =
   [
-    ./boot
-    ./firmware
-    ./iso
-    ./nix
-    ./shell
-    ./user
+    ./boot.nix
+    ./firmware.nix
+    ./nix.nix
+    ./shell.nix
+    ./user.nix
   ];
 
   options =

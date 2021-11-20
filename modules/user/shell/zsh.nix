@@ -29,7 +29,7 @@ in rec
         edit = "sudo nano";
         hi = "echo 'Hi there. How are you?'";
         bye = "exit";
-        lol = "echo \"${builtins.readFile ../../../../config/zsh/message}\"";
+        lol = "echo \"${builtins.readFile ../../../config/zsh/message}\"";
         dotfiles = "cd /etc/nixos";
       };
       history =
@@ -55,7 +55,7 @@ in rec
     };
 
     # Z Shell Prompt
-    home.file.".p10k.zsh".source = ../../../../config/zsh/p10k.zsh;
+    home.file.".p10k.zsh".source = ../../../config/zsh/p10k.zsh;
 
     # Command Not Found Helper
     programs.nix-index =

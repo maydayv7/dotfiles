@@ -2,5 +2,5 @@
 {
   ## Tailored Developer Shells ##
   # Video Editing Shell
-  video = import ./video { inherit pkgs; };
+  video = import ./video.nix { inherit pkgs; };
 }

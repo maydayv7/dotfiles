@@ -3,9 +3,9 @@ rec
 {
   imports =
   [
-    ./fonts
-    ./gnome
-    ./xorg
+    ./fonts.nix
+    ./gnome.nix
+    ./xorg.nix
   ];
 
   options.gui.desktop = lib.mkOption

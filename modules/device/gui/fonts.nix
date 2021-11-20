@@ -21,7 +21,7 @@ in rec
       fontconfig =
       {
         enable = true;
-        localConf = (builtins.readFile ../../../../config/fonts/fontconfig);
+        localConf = (builtins.readFile ../../../config/fonts/fontconfig);
         defaultFonts =
         {
           monospace = [ "MesloLGS NF" ];

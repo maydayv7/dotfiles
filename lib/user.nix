@@ -28,11 +28,11 @@
     imports = [ inputs.home.nixosModules.home-manager ];
     home-manager.useGlobalPkgs = true;
     home-manager.backupFileExtension = "bak";
-    home-manager.sharedModules = [ ../../modules/user ];
+    home-manager.sharedModules = [ ../modules/user ];
     home-manager.users."${username}" =
     let
       # User Roles Import Function
-      mkRole = name: import (../../roles/user + "/${name}");
+      mkRole = name: import (../roles/user + "/${name}.nix");
       user_roles = (builtins.map (r: mkRole r) roles);
     in
     {

@@ -3,7 +3,7 @@ rec
 {
   imports =
   [
-    ./git
-    ./zsh
+    ./git.nix
+    ./zsh.nix
   ];
 }

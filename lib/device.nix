@@ -1,6 +1,6 @@
 { system, version, secrets, lib, user, inputs, pkgs, ... }:
 let
-  device_module = [ ../../modules/device ];
+  device_module = [ ../modules/device ];
 in
 {
   ## Install Media Configuration Function ##
@@ -54,7 +54,7 @@ in
     device_users = (builtins.map (u: user.mkUser u) users);
 
     # Device Roles Import Function
-    mkRole = name: import (../../roles/device + "/${name}");
+    mkRole = name: import (../roles/device + "/${name}.nix");
     device_roles = (builtins.map (r: mkRole r) roles);
   in lib.nixosSystem
   {

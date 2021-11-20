@@ -3,7 +3,7 @@
   # Custom User Configuration Modules
   imports =
   [
-    ./dotfiles
+    ./dotfiles.nix
     ./shell
   ];
 }

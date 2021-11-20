@@ -3,7 +3,7 @@ rec
 {
   imports =
   [
-    ./filesystem
-    ./ssd
+    ./filesystem.nix
+    ./ssd.nix
   ];
 }

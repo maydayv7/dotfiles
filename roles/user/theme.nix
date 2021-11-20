@@ -20,10 +20,10 @@
   home.file =
   {
     # Custome GNOME Shell Theme
-    ".themes/Adwaita/gnome-shell/gnome-shell.css".source = ../../../config/gnome/gnome-shell.css;
+    ".themes/Adwaita/gnome-shell/gnome-shell.css".source = ../../config/gnome/gnome-shell.css;
 
     # gEdit Color Scheme
-    ".local/share/gtksourceview-4/styles/tango-dark.xml".source = ../../../config/gedit/tango-dark.xml;
-    ".local/share/gtksourceview-4/language-specs/nix.lang".source = ../../../config/gedit/nix.lang;
+    ".local/share/gtksourceview-4/styles/tango-dark.xml".source = ../../config/gedit/tango-dark.xml;
+    ".local/share/gtksourceview-4/language-specs/nix.lang".source = ../../config/gedit/nix.lang;
   };
 }

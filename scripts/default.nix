@@ -3,8 +3,8 @@ rec
 {
   imports =
   [
-    ./install
-    ./management
-    ./setup
+    ./install.nix
+    ./management.nix
+    ./setup.nix
   ];
 }
