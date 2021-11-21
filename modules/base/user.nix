@@ -27,8 +27,32 @@ in rec
       # Password
       users.users."${username}".initialHashedPassword = secrets."${username}";
 
-      # Wallpapers
-      home-manager.users."${username}".home.file.".local/share/backgrounds".source = files.wallpapers;
+      home-manager.users."${username}" =
+      {
+        # XDG Configuration
+        xdg =
+        {
+          enable = true;
+          userDirs =
+          {
+            enable = true;
+            createDirectories = true;
+            desktop = "$HOME/Desktop";
+            documents = "$HOME/Documents";
+            download = "$HOME/Downloads";
+            music = "$HOME/Music";
+            pictures = "$HOME/Pictures";
+            publicShare = "$HOME/Public";
+            templates = "$HOME/Templates";
+            videos = "$HOME/Videos";
+            extraConfig = { XDG_SCREENSHOTS_DIR = "$HOME/Screenshots"; };
+          };
+          mime.enable = true;
+        };
+
+        # Wallpapers
+        home.file.".local/share/backgrounds".source = files.wallpapers;
+      };
     })
 
     (lib.mkIf iso

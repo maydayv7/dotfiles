@@ -100,10 +100,10 @@ in rec
           ".local/share/gtksourceview-4/language-specs/nix.lang".text = files.gedit.syntax;
 
           # Discord DNOME Theme
-          ".config/BetterDiscord/data/stable/custom.css".text = (lib.mkIf apps.discord.enable) files.discord.theme;
+          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf apps.discord.enable { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/v7/chrome/userChrome.css".text = (lib.mkIf apps.firefox.enable) ''@import "${inputs.firefox}/userChrome.css";'';
+          ".mozilla/firefox/v7/chrome/userChrome.css" = lib.mkIf apps.firefox.enable { text = ''@import "${inputs.firefox}/userChrome.css";''; };
         };
       };
 

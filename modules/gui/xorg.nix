@@ -1,4 +1,4 @@
-{ config, files, lib, ... }:
+{ config, files, username, lib, ... }:
 let
   enable = config.gui.enableXorg;
 in rec
@@ -17,9 +17,9 @@ in rec
       # Driver Settings
       videoDrivers = [ "modesetting" ];
       useGlamor = true;
-
-      # Additional Configuration
-      config = files.xorg;
     };
+
+    # Additional Configuration
+    home-manager.users."${username}".xresources.extraConfig = files.xorg;
   };
 }
