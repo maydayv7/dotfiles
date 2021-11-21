@@ -34,45 +34,36 @@ Here is an overview of the file hierarchy:
  ├── flake.nix
  ├── flake.lock
  ├── version
- ├── config
+ ├── files
  ├── packages
+ │   └── overlays
  ├── shells
  │   └── repl.nix
  ├── lib
  │   ├── device.nix
  │   └── user.nix
- ├── scripts
- │   ├── setup.nix
- │   ├── install.nix
- │   └── management.nix
- ├── roles
- │   ├── device
- │   └── user
  ├── modules
- │   ├── device
- │   │   ├── base
- │   │   ├── gui
- │   │   └── hardware
- │   └── user
- │       ├── dotfiles
- │       └── shell
+ │   ├── apps
+ │   ├── base
+ │   ├── gui
+ │   ├── hardware
+ │   ├── scripts
+ │   └── shell
  └── secrets.nix
 ```
 
 + `configuration.nix`: main system configuration file
 + `flake.nix`: repository version control using `inputs`
 + `version`: system state version
-+ `config`: program configuration and dotfiles
-+ `packages`: locally built custom packages and overrides for pre-built packages
++ `files`: program configuration and dotfiles
++ `packages`: locally built custom packages
++ `overlays`: overrides for pre-built packages
 + `shells`: sandboxed shells for development purposes
 + `repl.nix`: interactive shell to explore syntax and configuration
 + `lib`: custom functions designed for conveniently defining device and user configuration
-+ `scripts`: useful system management scripts
-+ `roles`: modulated role-based configuration for effortlessly managing workflows
 + `modules`: custom configuration modules for additional functionality
-+ `device`: device and install media specific configuration
-+ `user`: user related home configuration
-+ `secrets.nix`: authentication credentials declaration
++ `scripts`: useful system management scripts
++ `secrets.nix`: authentication credentials
 
 ## Installation
 Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the Install Media:  
@@ -107,7 +98,7 @@ I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes
 #### License
 The files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
 
-***Caution:*** This repo may contain proprietary [fonts](./config/fonts) and [wallpapers](./config/wallpapers) which do not come under the above-mentioned license, hence it is advisable not to use them other than for personal use
+***Caution:*** This repo may contain proprietary [fonts](./files/fonts) and [wallpapers](./files/wallpapers) which do not come under the above-mentioned license, hence it is advisable not to use them other than for personal use
 
 #### Branches
 There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been extensively tested

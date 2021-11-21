@@ -1,10 +1,10 @@
-{ inputs, pkgs, ... }:
+{ files, inputs, pkgs, ... }:
 with pkgs;
 {
   ## Custom Self-Built Packages ##
   custom =
   {
     # Custom Fonts
-    fonts = callPackage ./fonts.nix { };
+    fonts = callPackage ./fonts.nix { inherit files; };
   };
 }

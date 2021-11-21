@@ -10,6 +10,9 @@ let
   # Authentication Credentials
   secrets = import ./secrets.nix { inherit inputs; };
 
+  # Dotfiles
+  files = import ./files { };
+
   # Package Configuration
   pkgs = import inputs.nixpkgs
   {
@@ -23,15 +26,15 @@ let
   };
 
   # Package Overrides
-  inherit (import ./packages { inherit inputs pkgs; }) custom;
-  inherit (import ./packages/overlays.nix { inherit system lib inputs pkgs custom; }) overlays;
+  inherit (import ./packages { inherit files inputs pkgs; }) custom;
+  inherit (import ./packages/overlays { inherit system lib inputs pkgs custom; }) overlays;
 
   # System Libraries
   inherit (inputs.nixpkgs) lib;
   inherit (lib) attrValues;
 
   # Custom Functions
-  util = import ./lib { inherit system version secrets lib inputs pkgs; };
+  util = import ./lib { inherit system version files secrets lib inputs pkgs; };
   inherit (util) device;
   inherit (util) user;
 in
@@ -43,7 +46,7 @@ in
   ## Install Media Configuration ##
   installMedia =
   {
-    # GNOME Install Media
+    # Install Media - GNOME
     gnome = device.mkISO
     {
       name = "nixos";
@@ -58,21 +61,24 @@ in
   nixosConfigurations =
   {
     # PC - Dell Inspiron 15 5000
-    Vortex = device.mkHost
+    Vortex = device.mkPC
     {
       name = "Vortex";
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
       kernel = pkgs.linuxPackages_lqx;
-      kernel_modules = [ "kvm-intel" ];
-      kernel_params = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" "boot.shell_on_fail" ];
-      init_modules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
-      modprobe = "options kvm_intel nested=1";
-      cores = 8;
-      filesystem = "advanced";
-      ssd = true;
+      kernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+
+      hardware =
+      {
+        cores = 8;
+        mobile = true;
+        filesystem = "advanced";
+        ssd = true;
+        virtualisation = true;
+      };
+
       desktop = "gnome";
-      roles = [ "android" "ios" "office" "virtualisation" ];
       users =
       [
         # User V7 Configuration
@@ -82,24 +88,33 @@ in
           groups = [ "wheel" "networkmanager" "kvm" "libvirtd" "adbusers" ];
           uid = 1000;
           shell = "zsh";
-          roles = [ "dconf" "discord" "firefox" "theme" ];
+          apps =
+          {
+            discord.enable = true;
+            firefox.enable = true;
+            git.enable = true;
+            office.enable = true;
+          };
         }
       ];
     };
 
     # PC - Dell Inspiron 11 3000
-    Futura = device.mkHost
+    Futura = device.mkPC
     {
       name = "Futura";
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
       kernel = pkgs.linuxPackages_5_4;
-      kernel_params = [ "quiet" "splash" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
-      init_modules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
-      cores = 4;
-      filesystem = "simple";
+      kernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
+
+      hardware =
+      {
+        cores = 4;
+        filesystem = "simple";
+      };
+
       desktop = "gnome";
-      roles = [ "office" ];
       users =
       [
         # User Navya Configuration
@@ -109,7 +124,12 @@ in
           groups = [ "wheel" "networkmanager" ];
           uid = 1000;
           shell = "zsh";
-          roles = [ "dconf" "firefox" "theme" ];
+          apps =
+          {
+            firefox.enable = true;
+            git.enable = true;
+            office.enable = true;
+          };
         }
       ];
     };

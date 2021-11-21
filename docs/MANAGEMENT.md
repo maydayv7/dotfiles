@@ -11,7 +11,7 @@ This repository makes use of `Github Actions` (placed in [`.github/workflows`](.
 The authentication credentials are stored in a private repository which contains passwords and other keys, imported into the configuration as an `input`, and cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and specified using the `hashedPassword` option
 
 ### Scripts
-A system management script, invoked with the command `nixos`, has been included, which can be used to apply user and device configuration changes or perform various other useful functions. The `install` and `setup` scripts have also been provided at [`scripts`](../scripts) to painlessly install the OS and setup the device, using a single command
+A system management script, invoked with the command `nixos`, has been included, which can be used to apply user and device configuration changes or perform various other useful functions. The `install` and `setup` scripts have also been provided at [`modules/scripts`](../modules/scripts) to painlessly install the OS and setup the device, using a single command
 
 ### File System
 The system may be set up using either a simple or advanced filesystem layout. The advanced BTRFS opt-in state filesystem configuration (using TMPFS for `/`) allows for a vastly improved experience, preventing any cruft to form and exerting total control over the device state, by erasing the system at every boot, keeping only what's required

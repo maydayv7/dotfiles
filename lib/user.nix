@@ -1,44 +1,36 @@
-{ system, version, secrets, lib, inputs, pkgs, ... }:
+{ system, version, files, secrets, lib, inputs, pkgs, ... }:
 {
   ## User Configuration Function ##
-  mkUser = { username, description, groups, uid, shell, roles }:
+  mkUser = { username, description, groups, uid, shell, apps }:
   {
     # User Creation
+    _module.args = { inherit username; };
     users.users."${username}" =
     {
       # Profile
       name = username;
       description = description;
       isNormalUser = true;
-      uid = uid;
+      inherit uid;
 
       # Groups
       group = "users";
       extraGroups = groups;
-
-      # Shell
-      useDefaultShell = false;
-      shell = pkgs."${shell}";
-
-      # Password
-      initialHashedPassword = secrets."${username}";
     };
+
+    # Program Configuration
+    inherit apps;
+    shell.enable = true;
+    shell.shell = shell;
 
     # Home Configuration
     imports = [ inputs.home.nixosModules.home-manager ];
     home-manager.useGlobalPkgs = true;
     home-manager.backupFileExtension = "bak";
-    home-manager.sharedModules = [ ../modules/user ];
     home-manager.users."${username}" =
-    let
-      # User Roles Import Function
-      mkRole = name: import (../roles/user + "/${name}.nix");
-      user_roles = (builtins.map (r: mkRole r) roles);
-    in
     {
       # Modulated Configuration Imports
-      _module.args = { inherit secrets inputs; };
-      imports = user_roles;
+      _module.args = { inherit files secrets inputs; };
 
       # Home Manager Configuration
       home.username = username;
@@ -46,11 +38,6 @@
       home.stateVersion = version;
       programs.home-manager.enable = true;
       systemd.user.startServices = true;
-
-      # User Configuration
-      dotfiles.enable = true;
-      shell.git.enable = true;
-      shell.zsh.enable = true;
     };
   };
 }

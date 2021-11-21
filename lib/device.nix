@@ -1,7 +1,4 @@
-{ system, version, secrets, lib, user, inputs, pkgs, ... }:
-let
-  device_module = [ ../modules/device ];
-in
+{ system, version, files, secrets, lib, user, inputs, pkgs, ... }:
 {
   ## Install Media Configuration Function ##
   mkISO = { name, timezone, locale, kernel, desktop }:
@@ -14,10 +11,10 @@ in
     [
       {
         # Modulated Configuration Imports
-        imports = device_module ++ [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
+        imports = [ ../modules ] ++ [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
 
         # System Configuration
-        iso.enable = true;
+        device = "ISO";
         networking.hostName = "${name}";
 
         # Localization
@@ -39,7 +36,7 @@ in
         nixpkgs.pkgs = pkgs;
 
         # GUI Configuration
-        gui.desktop = desktop;
+        gui.desktop = (desktop + "-minimal");
 
         # System Scripts
         scripts.install = true;
@@ -48,50 +45,38 @@ in
   };
 
   ## Host Configuration Function ##
-  mkHost = { name, timezone, locale, kernel, kernel_modules ? [ ], kernel_params, init_modules, modprobe ? "", cores, filesystem, ssd ? false, desktop, roles, users }:
-  let
-    # User Creation Function Call
-    device_users = (builtins.map (u: user.mkUser u) users);
-
-    # Device Roles Import Function
-    mkRole = name: import (../roles/device + "/${name}.nix");
-    device_roles = (builtins.map (r: mkRole r) roles);
-  in lib.nixosSystem
+  mkPC = { name, timezone, locale, kernel, kernelModules, hardware, desktop, users }:
+  lib.nixosSystem
   {
     inherit system;
-    specialArgs = { inherit secrets inputs; };
+    specialArgs = { inherit files secrets inputs; };
 
     modules =
     [
       {
         # Modulated Configuration Imports
-        imports = device_module ++ device_roles ++ device_users;
+        imports = [ ../modules ] ++ (builtins.map (u: user.mkUser u) users);
 
         # Localization
         time.timeZone = timezone;
         i18n.defaultLocale = locale;
 
         # System Configuration
-        device.enable = true;
+        device = "PC";
         networking.hostName = "${name}";
-        hardware.filesystem = filesystem;
-        hardware.ssd = ssd;
 
-        # Boot Configuration
+        # Hardware Configuration
         boot.kernelPackages = kernel;
-        boot.kernelModules = kernel_modules;
-        boot.kernelParams = kernel_params;
-        boot.initrd.availableKernelModules = init_modules;
-        boot.extraModprobeConfig = modprobe;
+        boot.initrd.availableKernelModules = kernelModules;
+        inherit hardware;
 
         # Package Configuration
         system.stateVersion = version;
         nixpkgs.pkgs = pkgs;
-        nix.maxJobs = lib.mkDefault cores;
 
         # GUI Configuration
         gui.desktop = desktop;
-        gui.fonts.enable = true;
+        gui.enableFonts = true;
 
         # System Scripts
         scripts.management = true;

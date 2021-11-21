@@ -2,7 +2,7 @@ name: Update Flake Inputs
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0 0 */10 * *'
+    - cron: '0 0 * * 0'
 env:
   NIX_SHOW_STATS: 1
 jobs:
@@ -20,17 +20,5 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
-    - name: Set Git Credentials
-      run: |
-        git config --global user.name "GitHub"
-        git config --global user.email "noreply@github.com"
-        mkdir -p ~/.config/nix && echo "access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}" >> ~/.config/nix/nix.conf
     - name: Update Flake Lock File
-      run: nix flake update --commit-lock-file
-    - name: Create PR
-      uses: peter-evans/create-pull-request@v3.11.0
-      with:
-        branch: update
-        delete-branch: true
-        title: "Update Flake Inputs"
-        commit-message: "Update Flake Inputs"
+      uses: DeterminateSystems/update-flake-lock@v4
