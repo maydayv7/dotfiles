@@ -12,7 +12,6 @@ rec
       opengl.enable = true;
       enableRedistributableFirmware = true;
     };
-    environment.systemPackages = with pkgs; [ unstable.sof-firmware ];
 
     # Filesystem Support
     boot.supportedFilesystems = [ "vfat" "ntfs" "btrfs" ];

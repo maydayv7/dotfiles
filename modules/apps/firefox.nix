@@ -1,11 +1,8 @@
-{ config, username, lib, inputs, pkgs, ... }:
+{ config, username, lib, ... }:
 let
-  enable = config.apps.firefox.enable;
-  desktop = config.gui.desktop;
+  enable = (builtins.elem "firefox" config.apps.list);
 in rec
 {
-  options.apps.firefox.enable = lib.mkEnableOption "Enable Firefox Web Browser";
-
   ## Firefox Browser Configuration ##
   config =
   {

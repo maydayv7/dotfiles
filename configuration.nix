@@ -90,10 +90,13 @@ in
           shell = "zsh";
           apps =
           {
-            discord.enable = true;
-            firefox.enable = true;
-            git.enable = true;
-            office.enable = true;
+            list = [ "discord" "firefox" "git" "office" ];
+            git =
+            {
+              name = "maydayv7";
+              mail = "maydayv7@gmail.com";
+              key = "CF616EB19C2765E4";
+            };
           };
         }
       ];
@@ -124,12 +127,7 @@ in
           groups = [ "wheel" "networkmanager" ];
           uid = 1000;
           shell = "zsh";
-          apps =
-          {
-            firefox.enable = true;
-            git.enable = true;
-            office.enable = true;
-          };
+          apps.list = [ "firefox" "office" ];
         }
       ];
     };

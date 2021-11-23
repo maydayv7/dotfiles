@@ -64,11 +64,7 @@ in rec
       {
         enable = true;
         enableZshIntegration = true;
-        nix-direnv =
-        {
-          enable = true;
-          enableFlakes = true;
-        };
+        nix-direnv.enable = true;
       };
 
       # Utilities

@@ -3,11 +3,7 @@ let
   filesystem = config.hardware.filesystem;
 in rec
 {
-  imports =
-  [
-    inputs.impermanence.nixosModules.impermanence
-    "${inputs.unstable}/nixos/modules/services/backup/btrbk.nix"
-  ];
+  imports = [ inputs.impermanence.nixosModules.impermanence ];
 
   options.hardware.filesystem = lib.mkOption
   {

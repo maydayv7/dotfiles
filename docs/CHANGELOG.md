@@ -1,4 +1,7 @@
 ## Changelog
+### v3.0
++ Upgrade to NixOS v21.11
+
 ### v2.3
 + Add `docs` directory
 + Fix `.iso` Boot and Install Errors

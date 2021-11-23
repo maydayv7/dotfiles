@@ -19,14 +19,6 @@
     # Use nix hash to-base32 'sha256-hash' to compute the right hash
     (final: prev:
     {
-      # Latest Plymouth built from master
-      # https://github.com/freedesktop/plymouth
-      plymouth = prev.plymouth.overrideAttrs (old:
-      {
-        src = inputs.plymouth;
-        patches = [];
-      });
-
       # GNOME Terminal Transparency Patch
       # https://aur.archlinux.org/packages/gnome-terminal-transparency
       gnome = prev.gnome //
@@ -36,8 +28,8 @@
           patches = drv.patches ++
           [ (prev.fetchpatch
             {
-              url = "https://aur.archlinux.org/cgit/aur.git/plain/transparency.patch?h=gnome-terminal-transparency&id=b319fb2fa68d7aaff8361cbbca79b23c4e2b29c9";
-              sha256 = "1r5x8a1kbj9clm3q7hf3h5jz1h1pgsa4r206arl5vlcb6568yzdi";
+              url = "https://aur.archlinux.org/cgit/aur.git/plain/transparency.patch?h=gnome-terminal-transparency&id=7dd7cd2471e42af8130cda7905b2b2c2a334ac4b";
+              sha256 = "0y116dww3j1mk4s2qklkgw8jjmvdfdpwynbijq0iwazvlggmsilk";
               name = "transparency.patch";
             })
           ];
@@ -49,7 +41,6 @@
       {
         installPhase = old.installPhase +
         ''
-          exe=$out/bin/google-chrome-stable
           fix=" --enable-features=WebUIDarkMode --force-dark-mode"
 
           substituteInPlace $out/share/applications/google-chrome.desktop \

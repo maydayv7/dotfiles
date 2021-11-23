@@ -1,10 +1,8 @@
 { config, files, username, lib, pkgs, ... }:
 let
-  enable = config.apps.office.enable;
+  enable = (builtins.elem "office" config.apps.list);
 in rec
 {
-  options.apps.office.enable = lib.mkEnableOption "Enable Office Environment";
-
   ## Office Environment Configuration ##
   config = lib.mkIf enable
   {
@@ -15,7 +13,7 @@ in rec
       bluej
       gscan2pdf
       libreoffice
-      unstable.onlyoffice-bin
+      onlyoffice-bin
 
       # Internet
       google-chrome

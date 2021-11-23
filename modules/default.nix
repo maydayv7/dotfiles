@@ -8,6 +8,6 @@
     ./gui
     ./hardware
     ./shell
-    ./scripts
+    ../scripts
   ];
 }

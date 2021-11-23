@@ -42,7 +42,7 @@ in rec
         maxJobs = lib.mkDefault cores;
 
         # Flakes
-        package = pkgs.unstable.nix_2_4;
+        package = pkgs.nix_2_4;
         extraOptions = "experimental-features = nix-command flakes";
         registry =
         {

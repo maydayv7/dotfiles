@@ -35,6 +35,7 @@ Here is an overview of the file hierarchy:
  ├── flake.lock
  ├── version
  ├── files
+ ├── scripts
  ├── packages
  │   └── overlays
  ├── shells
@@ -47,7 +48,6 @@ Here is an overview of the file hierarchy:
  │   ├── base
  │   ├── gui
  │   ├── hardware
- │   ├── scripts
  │   └── shell
  └── secrets.nix
 ```

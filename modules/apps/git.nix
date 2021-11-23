@@ -1,34 +1,32 @@
 { config, secrets, username, lib, inputs, ... }:
 let
+  enable = (builtins.elem "git" config.apps.list);
   cfg = config.apps.git;
 in rec
 {
   options.apps.git =
   {
-    enable = lib.mkOption
-    {
-      description = "Enable User git Configuration";
-      type = lib.types.bool;
-      default = false;
-    };
-
     name = lib.mkOption
     {
       description = "Name for git";
       type = lib.types.str;
-      default = "maydayv7";
     };
 
     mail = lib.mkOption
     {
       description = "Email for git";
       type = lib.types.str;
-      default = "maydayv7@gmail.com";
+    };
+
+    key = lib.mkOption
+    {
+      description = "GPG Key for git";
+      type = lib.types.str;
     };
   };
 
   ## User Git Configuration ##
-  config = lib.mkIf cfg.enable
+  config = lib.mkIf enable
   {
     home-manager.users."${username}".programs.git =
     {
@@ -55,7 +53,7 @@ in rec
       userEmail = cfg.mail;
       signing =
       {
-        key = secrets.gpg.key;
+        key = cfg.key;
         signByDefault = true;
       };
     };

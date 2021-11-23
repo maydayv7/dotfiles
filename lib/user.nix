@@ -29,10 +29,6 @@
     home-manager.backupFileExtension = "bak";
     home-manager.users."${username}" =
     {
-      # Modulated Configuration Imports
-      _module.args = { inherit files secrets inputs; };
-
-      # Home Manager Configuration
       home.username = username;
       home.homeDirectory = "/home/${username}";
       home.stateVersion = version;

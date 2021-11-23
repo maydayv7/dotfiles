@@ -14,7 +14,7 @@
   {
     ## Main Repositories ##
     # NixOS Stable Release
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-21.05";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-21.11";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -25,7 +25,7 @@
     # Home Manager
     home =
     {
-      url = "github:nix-community/home-manager?ref=release-21.05";
+      url = "github:nix-community/home-manager?ref=release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -51,13 +51,6 @@
     zsh =
     {
       url = "github:zsh-users/zsh-syntax-highlighting";
-      flake = false;
-    };
-
-    # Plymouth Boot Logo
-    plymouth =
-    {
-      url = "github:freedesktop/plymouth";
       flake = false;
     };
   };

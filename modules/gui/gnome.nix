@@ -1,11 +1,9 @@
 { config, files, username, lib, inputs, pkgs, ... }:
 let
   desktop = config.gui.desktop;
-  apps = config.apps;
+  apps = config.apps.list;
 in rec
 {
-  imports = [ "${inputs.unstable}/nixos/modules/services/x11/touchegg.nix" ];
-
   ## GNOME Desktop Configuration ##
   config = lib.mkIf (desktop == "gnome" || desktop == "gnome-minimal")
   (lib.mkMerge
@@ -41,17 +39,12 @@ in rec
     {
       # Desktop Integration
       programs.dconf.enable = true;
-      qt5.platformTheme = "gnome";
       programs.gnupg.agent.pinentryFlavor = "gnome3";
       services =
       {
         dbus.packages = [ pkgs.gnome.dconf ];
         udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
-        touchegg =
-        {
-          enable = true;
-          package = pkgs.unstable.touchegg;
-        };
+        touchegg.enable = true;
         gnome =
         {
           chrome-gnome-shell.enable = true;
@@ -100,10 +93,10 @@ in rec
           ".local/share/gtksourceview-4/language-specs/nix.lang".text = files.gedit.syntax;
 
           # Discord DNOME Theme
-          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf apps.discord.enable { text = files.discord.theme; };
+          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (builtins.elem "discord" apps) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/v7/chrome/userChrome.css" = lib.mkIf apps.firefox.enable { text = ''@import "${inputs.firefox}/userChrome.css";''; };
+          ".mozilla/firefox/v7/chrome/userChrome.css" = lib.mkIf (builtins.elem "firefox" apps) { text = ''@import "${inputs.firefox}/userChrome.css";''; };
         };
       };
 
@@ -129,15 +122,15 @@ in rec
         drawing
         deja-dup
         fractal
-        unstable.fragments
+        fragments
         giara
         gimp
         gnome-podcasts
         gnome-passwordsafe
         kooha
-        unstable.markets
+        markets
         shortwave
-        unstable.wike
+        wike
 
         # GNOME Shell Extensions
         gnomeExtensions.appindicator
@@ -151,7 +144,7 @@ in rec
         # gnomeExtensions.fly-pie
         gnomeExtensions.just-perfection
         gnomeExtensions.lock-keys
-        gnomeExtensions.screenshot-locations
+        # gnomeExtensions.screenshot-locations
         gnomeExtensions.sound-output-device-chooser
         gnomeExtensions.vitals
         gnomeExtensions.x11-gestures

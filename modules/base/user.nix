@@ -45,7 +45,7 @@ in rec
             publicShare = "$HOME/Public";
             templates = "$HOME/Templates";
             videos = "$HOME/Videos";
-            extraConfig = { XDG_SCREENSHOTS_DIR = "$HOME/Screenshots"; };
+            extraConfig = { XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots"; };
           };
           mime.enable = true;
         };

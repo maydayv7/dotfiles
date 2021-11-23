@@ -1,11 +1,8 @@
 { config, files, username, lib, inputs, pkgs, ... }:
 let
-  enable = config.apps.discord.enable;
-  desktop = config.gui.desktop;
+  enable = (builtins.elem "discord" config.apps.list);
 in
 {
-  options.apps.discord.enable = lib.mkEnableOption "Enable Discord Chat";
-
   ## Discord Configuration ##
   config = lib.mkIf enable
   {
