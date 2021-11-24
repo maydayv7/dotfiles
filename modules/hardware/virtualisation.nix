@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
 let
-  enable = config.hardware.virtualisation;
+  enable = (builtins.elem "virtualisation" config.hardware.support);
 in rec
 {
-  options.hardware.virtualisation = lib.mkEnableOption "Enable Support for Virtualisation";
-
   ## Virtualisation Enablement ##
   config = lib.mkIf enable
   {

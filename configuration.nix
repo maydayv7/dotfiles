@@ -7,9 +7,6 @@ let
   # NixOS Version
   version = (builtins.readFile ./version);
 
-  # Authentication Credentials
-  secrets = import ./secrets.nix { inherit inputs; };
-
   # Dotfiles
   files = import ./files { };
 
@@ -34,7 +31,7 @@ let
   inherit (lib) attrValues;
 
   # Custom Functions
-  util = import ./lib { inherit system version files secrets lib inputs pkgs; };
+  util = import ./lib { inherit system version files lib inputs pkgs; };
   inherit (util) device;
   inherit (util) user;
 in
@@ -72,32 +69,31 @@ in
       hardware =
       {
         cores = 8;
-        mobile = true;
         filesystem = "advanced";
-        ssd = true;
-        virtualisation = true;
+        support = [ "mobile" "printer" "ssd" "virtualisation" ];
       };
 
       desktop = "gnome";
+      apps =
+      {
+        list = [ "discord" "firefox" "git" "office" ];
+        git =
+        {
+          name = "maydayv7";
+          mail = "maydayv7@gmail.com";
+          key = "CF616EB19C2765E4";
+        };
+      };
+
       users =
       [
         # User V7 Configuration
         {
           username = "v7";
           description = "V 7";
-          groups = [ "wheel" "networkmanager" "kvm" "libvirtd" "adbusers" ];
+          groups = [ "wheel" "networkmanager" "kvm" "libvirtd" "adbusers" "scanner" ];
           uid = 1000;
           shell = "zsh";
-          apps =
-          {
-            list = [ "discord" "firefox" "git" "office" ];
-            git =
-            {
-              name = "maydayv7";
-              mail = "maydayv7@gmail.com";
-              key = "CF616EB19C2765E4";
-            };
-          };
         }
       ];
     };
@@ -118,6 +114,8 @@ in
       };
 
       desktop = "gnome";
+      apps.list = [ "firefox" "office" ];
+
       users =
       [
         # User Navya Configuration
@@ -127,7 +125,6 @@ in
           groups = [ "wheel" "networkmanager" ];
           uid = 1000;
           shell = "zsh";
-          apps.list = [ "firefox" "office" ];
         }
       ];
     };

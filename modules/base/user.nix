@@ -1,7 +1,8 @@
-{ config, files, secrets, username, lib, inputs, ... }:
+{ config, files, username, lib, inputs, ... }:
 let
   pc = (config.device == "PC");
   iso = (config.device == "ISO");
+  secrets = config.age.secrets;
 in rec
 {
   ## Device User Configuration ##
@@ -10,9 +11,6 @@ in rec
   [
     {
       users.mutableUsers = false;
-
-      # Root User
-      users.extraUsers.root.initialHashedPassword = secrets.root;
 
       # Security Settings
       security.sudo.extraConfig =
@@ -24,8 +22,12 @@ in rec
 
     (lib.mkIf pc
     {
-      # Password
-      users.users."${username}".initialHashedPassword = secrets."${username}";
+      # Passwords
+      users =
+      {
+        extraUsers.root.passwordFile = secrets."passwords/root".path;
+        users."${username}".passwordFile = secrets."passwords/${username}".path;
+      };
 
       home-manager.users."${username}" =
       {
@@ -61,13 +63,13 @@ in rec
       services.xserver.displayManager.autoLogin =
       {
         enable = true;
-        user = "nixos";
+        user = "${username}";
       };
 
       # Default User
       users.users.nixos =
       {
-        name = "nixos";
+        name = "${username}";
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         uid = 1000;

@@ -1,4 +1,4 @@
-{ config, secrets, username, lib, inputs, ... }:
+{ config, username, lib, inputs, ... }:
 let
   enable = (builtins.elem "git" config.apps.list);
   cfg = config.apps.git;

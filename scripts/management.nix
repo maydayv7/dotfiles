@@ -34,6 +34,7 @@ let
       # Usage #
         list        - List system Secrets
         show 'path' - Show desired Secret
+        update      - Update Secrets to defined keys
         edit 'path' - Edit desired Secret
     '';
   };
@@ -42,10 +43,29 @@ let
   script = with pkgs; writeScriptBin "nixos"
   ''
     #!${pkgs.runtimeShell}
+    edit()
+    {
+      if ! [ -z "$EDITOR" ]; then
+        $EDITOR $1
+      else
+        nano $1
+      fi
+    }
+
     error()
     {
       echo -e "\033[0;31merror:\033[0m $1"
       exit 125
+    }
+
+    pushd ()
+    {
+      command pushd "$@" > /dev/null
+    }
+
+    popd ()
+    {
+      command popd "$@" > /dev/null
     }
 
     case $1 in
@@ -108,26 +128,36 @@ let
     ;;
     "secret")
       case $2 in
-      "list") tree -C --noreport -I *.md ${inputs.secrets};;
-      "show") echo "$3:" && cat ${inputs.secrets}/$3;;
+      "list") tree -C --noreport -I secrets.nix /etc/nixos/secrets/encrypted | sed -e 's/\.age$//';;
+      "show") sudo cat /run/agenix/$3;;
+      "update")
+        echo "Updating Secrets..."
+        pushd /etc/nixos/secrets/encrypted
+        agenix -r -i /etc/ssh/ssh_key
+        popd
+      ;;
       "edit")
         case $3 in
         "") error "Expected a path to Secret following edit command";;
         *)
           echo "Editing Secret $3..."
-          git clone https://github.com/maydayv7/secrets secrets.bak && pushd secrets.bak
-          $EDITOR ./$3
-          echo "Updating Secrets..."
-          git add .
-          git commit
-          git push
-          popd && rm -rf secrets.bak
-          nix flake lock --update-input secrets /etc/nixos
+          pushd /etc/nixos/secrets/encrypted
+          if ! grep -Fq "$3" secrets.nix
+          then
+            read -p "Do you want to add an entry for the new Secret in secrets.nix? (Y/N): " choice
+              case $choice in
+                [Yy]*) edit secrets.nix;;
+                *) exit;;
+              esac
+          fi
+          agenix -e $3.age -i /etc/ssh/ssh_key
+          popd
         ;;
         esac
       ;;
       *)
-        if [ -z "$2" ]; then
+        if [ -z "$2" ]
+        then
           echo "${usage.secret}"
         else
           error "Unknown option $2\n${usage.secret}"
@@ -136,7 +166,8 @@ let
       esac
     ;;
     *)
-      if [ -z "$1" ]; then
+      if [ -z "$1" ]
+      then
         echo "${usage.script}"
       else
         error "Unknown option $1\n${usage.script}"
@@ -155,6 +186,6 @@ in rec
 
   config = lib.mkIf enable
   {
-    environment.systemPackages = with pkgs; [ script tree ];
+    environment.systemPackages = with pkgs; [ script ];
   };
 }

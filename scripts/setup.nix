@@ -1,6 +1,7 @@
-{ config, secrets, lib, pkgs, ... }:
+{ config, files, lib, pkgs, ... }:
 let
   enable = config.scripts.setup;
+  secrets = config.age.secrets;
 
   # System Setup Script
   script = with pkgs; writeScriptBin "setup"
@@ -8,7 +9,8 @@ let
     #!${pkgs.runtimeShell}
     set +x
 
-    if mount | grep ext4 > /dev/null; then
+    if mount | grep ext4 > /dev/null
+    then
       DIR=/etc/nixos
     else
       DIR=/persist/etc/nixos
@@ -22,7 +24,7 @@ let
     printf "\n"
 
     echo "Cloning Repo..."
-    git clone https://github.com/maydayv7/dotfiles.git $DIR
+    git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git $DIR
     printf "\n"
 
     echo "Setting up User..."
@@ -30,24 +32,20 @@ let
     sudo mkdir -p /var/lib/AccountsService/{icons,users}
     echo "[User]" | sudo tee /var/lib/AccountsService/users/$USER &> /dev/null
     echo "Icon=/var/lib/AccountsService/icons/$USER" | sudo tee -a /var/lib/AccountsService/users/$USER &> /dev/null
-    sudo cp -av $VERBOSE_ARG $DIR/modules/user/dotfiles/images/Profile.png /var/lib/AccountsService/icons/$USER
+    sudo cp -av $VERBOSE_ARG ${files.wallpapers}/Profile.png /var/lib/AccountsService/icons/$USER
     printf "\n"
 
-    echo "Importing GPG Keys..."
+    echo "Importing Keys..."
+    sudo ssh-add /etc/ssh/ssh_key
     mkdir -p ~/.gnupg
-    gpg --import ${secrets.gpg.path}/public.gpg
-    gpg --import ${secrets.gpg.path}/private.gpg
+    gpg --import ${secrets."gpg/public.gpg".path}
+    gpg --import ${secrets."gpg/private.gpg".path}
     printf "\n"
 
-    echo "Importing SSH Keys..."
-    cp -r ${secrets.ssh.path} ~/.ssh
-    chmod 400 ~/.ssh/id_ed25519
-    ssh-add ~/.ssh/id_ed25519
-    printf "\n"
-
-    if [ "$DIR" == "/persist/etc/nixos" ]; then
-        sudo umount -l /etc/nixos
-        sudo mount $DIR
+    if [ "$DIR" == "/persist/etc/nixos" ]
+    then
+      sudo umount -l /etc/nixos
+      sudo mount $DIR
     fi
 
     nixos apply

@@ -8,13 +8,13 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 This repository makes use of `Github Actions` (placed in [`.github/workflows`](../.github/workflows)) in order to automatically check the syntax on every push, update the `inputs` every 10 days, build the configuration and upload the build cache to Cachix, and build the `.iso` and upload it to a draft release upon creation of a tag
 
 ### Credentials
-The authentication credentials are stored in a private repository which contains passwords and other keys, imported into the configuration as an `input`, and cloned using the `Github` authentication token. User passwords are made using the command `mkpasswd -m sha-512` and specified using the `hashedPassword` option
+The authentication credentials are managed using [`agenix`](https://github.com/ryantm/agenix) at [`secrets`](../secrets). The encrypted keys are stored at [`secrets/encrypted`](../secrets/encrypted), and a private `git submodule` is present at [`secrets/unencrypted`](../secrets/unencrypted) containing the plain-text credentials. User passwords are made using the command `mkpasswd -m sha-512` and specified using the `passwordFile` option
 
 ### Scripts
 A system management script, invoked with the command `nixos`, has been included, which can be used to apply user and device configuration changes or perform various other useful functions. The `install` and `setup` scripts have also been provided at [`modules/scripts`](../modules/scripts) to painlessly install the OS and setup the device, using a single command
 
 ### File System
-The system may be set up using either a simple or advanced filesystem layout. The advanced BTRFS opt-in state filesystem configuration (using TMPFS for `/`) allows for a vastly improved experience, preventing any cruft to form and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
+The system may be set up using either a simple or advanced filesystem layout. The advanced BTRFS opt-in state filesystem configuration (using TMPFS for `/`) allows for a vastly improved experience, preventing formation of cruft and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
 
 #### Data Storage
 User files are stored on an NTFS partition mounted to `/data`

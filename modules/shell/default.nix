@@ -23,7 +23,7 @@ in rec
     # Environment Variables
     environment.variables =
     {
-      EDITOR = "nano";
+      EDITOR = "nano -Ll";
     };
 
     # User Configuration
@@ -48,6 +48,7 @@ in rec
       file
       lolcat
       neofetch
+      tree
     ];
 
     # Neofetch Config

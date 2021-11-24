@@ -1,17 +1,26 @@
-{ system, version, files, secrets, lib, user, inputs, pkgs, ... }:
+{ system, version, files, lib, user, inputs, pkgs, ... }:
+let
+  device_modules = [ ../modules inputs.home.nixosModules.home-manager ];
+in
 {
   ## Install Media Configuration Function ##
   mkISO = { name, timezone, locale, kernel, desktop }:
-  lib.nixosSystem
+  let
+    # Default User
+    username = "nixos";
+
+    # Install Media Build Module
+    iso_module = [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
+  in lib.nixosSystem
   {
     inherit system;
-    specialArgs = { inherit inputs; };
+    specialArgs = { inherit system files username inputs; };
 
     modules =
     [
       {
         # Modulated Configuration Imports
-        imports = [ ../modules ] ++ [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
+        imports = device_modules ++ iso_module;
 
         # System Configuration
         device = "ISO";
@@ -34,6 +43,7 @@
         # Package Configuration
         system.stateVersion = version;
         nixpkgs.pkgs = pkgs;
+        home-manager.useGlobalPkgs = true;
 
         # GUI Configuration
         gui.desktop = (desktop + "-minimal");
@@ -45,17 +55,20 @@
   };
 
   ## Host Configuration Function ##
-  mkPC = { name, timezone, locale, kernel, kernelModules, hardware, desktop, users }:
-  lib.nixosSystem
+  mkPC = { name, timezone, locale, kernel, kernelModules, hardware, desktop, apps, users }:
+  let
+    # User Creation Function
+    device_users = (builtins.map (u: user.mkUser u) users);
+  in lib.nixosSystem
   {
     inherit system;
-    specialArgs = { inherit files secrets inputs; };
+    specialArgs = { inherit system files inputs; };
 
     modules =
     [
       {
         # Modulated Configuration Imports
-        imports = [ ../modules ] ++ (builtins.map (u: user.mkUser u) users);
+        imports = device_modules ++ device_users;
 
         # Localization
         time.timeZone = timezone;
@@ -77,6 +90,9 @@
         # GUI Configuration
         gui.desktop = desktop;
         gui.enableFonts = true;
+
+        # Program Configuration
+        inherit apps;
 
         # System Scripts
         scripts.management = true;

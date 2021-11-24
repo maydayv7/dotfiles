@@ -127,6 +127,7 @@ in rec
         gimp
         gnome-podcasts
         gnome-passwordsafe
+        gthumb
         kooha
         markets
         shortwave

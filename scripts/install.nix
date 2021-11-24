@@ -28,7 +28,7 @@ let
       esac
 
     read -p "Enter Path to Disk: /dev/" DISK
-    read -p "Enter Github Authentication Token: " KEY
+    read -p "Enter Path to SSH Keys: " KEY
 
     echo "Creating Partitions..."
     parted /dev/$DISK -- mkpart ESP fat32 1MiB 1024MiB
@@ -42,25 +42,26 @@ let
     mkdir -p /mnt
     printf "\n"
 
-    if [ "$SCHEME" == "ext4" ]; then
-        echo "Mounting EXT4 Partitions..."
-        mkfs.ext4 /dev/disk/by-partlabel/System
-        mount /dev/disk/by-partlabel/System /mnt
-        printf "\n"
-      else
-        echo "Mounting BTRFS Partitions..."
-        mkfs.btrfs -f /dev/disk/by-partlabel/System
-        mount /dev/disk/by-partlabel/System /mnt
-        btrfs subvolume create /mnt/home
-        btrfs subvolume create /mnt/nix
-        btrfs subvolume create /mnt/persist
-        umount /mnt
-        mount -t tmpfs none /mnt
-        mkdir /mnt/{home,nix,persist}
-        mount -o subvol=home,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/home
-        mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/nix
-        mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/persist
-        printf "\n"
+    if [ "$SCHEME" == "ext4" ]
+    then
+      echo "Mounting EXT4 Partitions..."
+      mkfs.ext4 /dev/disk/by-partlabel/System
+      mount /dev/disk/by-partlabel/System /mnt
+      printf "\n"
+    else
+      echo "Mounting BTRFS Partitions..."
+      mkfs.btrfs -f /dev/disk/by-partlabel/System
+      mount /dev/disk/by-partlabel/System /mnt
+      btrfs subvolume create /mnt/home
+      btrfs subvolume create /mnt/nix
+      btrfs subvolume create /mnt/persist
+      umount /mnt
+      mount -t tmpfs none /mnt
+      mkdir /mnt/{home,nix,persist}
+      mount -o subvol=home,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/home
+      mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/nix
+      mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/persist
+      printf "\n"
     fi
 
     echo "Mounting Other Partitions..."
@@ -69,8 +70,16 @@ let
     swapon /dev/disk/by-partlabel/swap
     printf "\n"
 
+    echo "Importing Keys..."
+    cp -r $KEY/. /etc/ssh
+    chmod 400 /etc/ssh/ssh_key
+    ssh-add /etc/ssh/ssh_key
+    printf "\n"
+
     echo "Installing System..."
-    nixos-install --no-root-passwd --flake github:maydayv7/dotfiles#$HOST --option access-tokens= github.com=$KEY
+    nixos-install --no-root-passwd --flake github:maydayv7/dotfiles#$HOST
+    cp -r $KEY/. /mnt/etc/ssh
+    chmod 400 /mnt/etc/ssh/ssh_key
     printf "\n"
 
     read -p "Do you want to reboot the system? (Y/N): " choice

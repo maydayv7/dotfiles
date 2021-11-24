@@ -1,5 +1,5 @@
 #############################################################
-##  Author  = Vishrut Gurrala <maydayv7@gmail.com>         ##
+##  Author  = V 7      <maydayv7@gmail.com>                ##
 ##  URL     = https://github.com/maydayv7/dotfiles         ##
 ##  License = MIT                                          ##
 ##                                                         ##
@@ -30,10 +30,10 @@
     };
 
     # Authentication Credentials
-    secrets =
+    agenix =
     {
-      url = "github:maydayv7/secrets";
-      flake = false;
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Persistent State Handler

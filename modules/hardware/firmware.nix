@@ -41,13 +41,6 @@ rec
       firewall.enable = false;
     };
 
-    # Printing
-    services.printing =
-    {
-      enable = true;
-      drivers = with pkgs; [ gutenprint cnijfilter2 ];
-    };
-
     # Power Management
     services.earlyoom =
     {

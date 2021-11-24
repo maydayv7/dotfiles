@@ -1,6 +1,12 @@
 ## Changelog
 ### v3.0
-+ Upgrade to NixOS v21.11
++ Upgrade to NixOS v21.11 (Porcupine)! (#27)
++ Improve usage of Developer Shells
++ Add Support for Instant Nix REPL
++ Use `home-manager` as a Module (#22)
++ Merge Device and User Configuration (#24)
+* Move all program configuration and dotfiles to `files`
++ Use `agenix` at `secrets` for managing authentication credentials (#28)
 
 ### v2.3
 + Add `docs` directory

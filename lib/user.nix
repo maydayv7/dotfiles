@@ -1,7 +1,7 @@
-{ system, version, files, secrets, lib, inputs, pkgs, ... }:
+{ system, version, files, lib, inputs, pkgs, ... }:
 {
   ## User Configuration Function ##
-  mkUser = { username, description, groups, uid, shell, apps }:
+  mkUser = { username, description, groups, uid, shell }:
   {
     # User Creation
     _module.args = { inherit username; };
@@ -18,13 +18,11 @@
       extraGroups = groups;
     };
 
-    # Program Configuration
-    inherit apps;
+    # Shell Configuration
     shell.enable = true;
     shell.shell = shell;
 
     # Home Configuration
-    imports = [ inputs.home.nixosModules.home-manager ];
     home-manager.useGlobalPkgs = true;
     home-manager.backupFileExtension = "bak";
     home-manager.users."${username}" =

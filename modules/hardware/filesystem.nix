@@ -8,7 +8,8 @@ in rec
   options.hardware.filesystem = lib.mkOption
   {
     description = "Disk File System Configuration";
-    type = lib.types.enum [ "simple" "advanced" ];
+    type = lib.types.enum [ "none" "simple" "advanced" ];
+    default = "none";
   };
 
   ## File System Configuration ##
@@ -101,19 +102,16 @@ in rec
       # Persisted Files
       environment.persistence."/persist" =
       {
+        files = [ "/etc/machine-id" ];
         directories =
         [
           "/etc/nixos"
           "/etc/NetworkManager/system-connections"
+          "/etc/ssh"
           "/var/log"
           "/var/lib/AccountsService"
           "/var/lib/bluetooth"
           "/var/lib/libvirt"
-        ];
-
-        files =
-        [
-          "/etc/machine-id"
         ];
       };
 

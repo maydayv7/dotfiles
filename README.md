@@ -29,27 +29,29 @@ This repo contains the configuration files for my continuously evolving multi-PC
 Here is an overview of the file hierarchy:
 
 ```
-── dotfiles ──┐
- ┌── configuration.nix
- ├── flake.nix
- ├── flake.lock
- ├── version
- ├── files
- ├── scripts
- ├── packages
- │   └── overlays
- ├── shells
- │   └── repl.nix
- ├── lib
- │   ├── device.nix
- │   └── user.nix
- ├── modules
- │   ├── apps
- │   ├── base
- │   ├── gui
- │   ├── hardware
- │   └── shell
- └── secrets.nix
+┌── configuration.nix
+├── flake.nix
+├── flake.lock
+├── version
+├── files
+├── scripts
+├── packages
+│   └── overlays
+├── shells
+│   └── repl.nix
+├── lib
+│   ├── device.nix
+│   └── user.nix
+├── modules
+│   ├── apps
+│   ├── base
+│   ├── gui
+│   ├── hardware
+│   └── shell
+└── secrets
+    ├── keys
+    ├── encrypted
+    └── unencrypted
 ```
 
 + `configuration.nix`: main system configuration file
@@ -63,7 +65,7 @@ Here is an overview of the file hierarchy:
 + `lib`: custom functions designed for conveniently defining device and user configuration
 + `modules`: custom configuration modules for additional functionality
 + `scripts`: useful system management scripts
-+ `secrets.nix`: authentication credentials
++ `secrets`: authentication credentials management using `agenix`
 
 ## Installation
 Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the Install Media:  

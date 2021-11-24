@@ -9,5 +9,6 @@
     ./hardware
     ./shell
     ../scripts
+    ../secrets
   ];
 }

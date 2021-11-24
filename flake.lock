@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1637625975,
+        "narHash": "sha256-ByDgmhpLykhAVeaFggjqoSRdl2OzTDODnxjPuu97fL4=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "a0e9ca505c82e762d39e9477a428b537a0aab022",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "firefox": {
       "flake": false,
       "locked": {
@@ -85,30 +105,14 @@
     },
     "root": {
       "inputs": {
+        "agenix": "agenix",
         "firefox": "firefox",
         "home": "home",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
-        "secrets": "secrets",
         "unstable": "unstable",
         "zsh": "zsh"
-      }
-    },
-    "secrets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1637302337,
-        "narHash": "sha256-FKiq16i7bAr/92ZX15+35zgvo4AwXvwMvaOOBjg+vTA=",
-        "owner": "maydayv7",
-        "repo": "secrets",
-        "rev": "d2c626864f28d9071e8dc540d622004d2179fe0e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "maydayv7",
-        "repo": "secrets",
-        "type": "github"
       }
     },
     "unstable": {

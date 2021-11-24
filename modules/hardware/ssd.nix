@@ -1,10 +1,8 @@
 { config, lib, ... }:
 let
-  enable = config.hardware.ssd;
+  enable = (builtins.elem "ssd" config.hardware.support);
 in rec
 {
-  options.hardware.ssd = lib.mkEnableOption "SSD Configuration";
-
   ## Additional SSD Settings ##
   config = lib.mkIf enable
   {
