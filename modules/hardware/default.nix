@@ -3,8 +3,8 @@ rec
 {
   imports =
   [
+    ./boot.nix
     ./filesystem.nix
-    ./firmware.nix
     ./mobile.nix
     ./ssd.nix
     ./virtualisation.nix

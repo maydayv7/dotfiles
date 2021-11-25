@@ -8,8 +8,8 @@ in rec
   options.hardware.filesystem = lib.mkOption
   {
     description = "Disk File System Configuration";
-    type = lib.types.enum [ "none" "simple" "advanced" ];
-    default = "none";
+    type = lib.types.enum [ "simple" "advanced" ];
+    default = "simple";
   };
 
   ## File System Configuration ##

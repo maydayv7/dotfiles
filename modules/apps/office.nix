@@ -1,4 +1,4 @@
-{ config, files, username, lib, pkgs, ... }:
+{ config, lib, username, pkgs, files, ... }:
 let
   enable = (builtins.elem "office" config.apps.list);
 in rec

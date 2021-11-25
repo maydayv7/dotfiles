@@ -7,8 +7,9 @@ let
   # NixOS Version
   version = (builtins.readFile ./version);
 
-  # Dotfiles
-  files = import ./files { };
+  # System Libraries
+  inherit (inputs.nixpkgs) lib;
+  inherit (lib) attrValues;
 
   # Package Configuration
   pkgs = import inputs.nixpkgs
@@ -26,25 +27,38 @@ let
   inherit (import ./packages { inherit files inputs pkgs; }) custom;
   inherit (import ./packages/overlays { inherit system lib inputs pkgs custom; }) overlays;
 
-  # System Libraries
-  inherit (inputs.nixpkgs) lib;
-  inherit (lib) attrValues;
+  # Program Configuration and Dotfiles
+  files = import ./files { };
 
   # Custom Functions
   util = import ./lib { inherit system version files lib inputs pkgs; };
-  inherit (util) device;
-  inherit (util) user;
+  inherit (util) device iso user;
 in
 {
   ## Developer Shells ##
   devShell."${system}" = import ./shells/shell.nix { inherit pkgs; };
   devShells."${system}" = import ./shells { inherit pkgs; };
 
+  ## Custom Configuration Modules ##
+  nixosModules =
+  {
+    apps = import ./modules/apps;
+    base = import ./modules/base;
+    gui = import ./modules/gui;
+    hardware = import ./modules/hardware;
+    iso = import ./modules/iso;
+    nix = import ./modules/nix;
+    scripts = import ./scripts;
+    secrets = import ./secrets;
+    shell = import ./modules/shell;
+    user = import ./modules/user;
+  };
+
   ## Install Media Configuration ##
   installMedia =
   {
     # Install Media - GNOME
-    gnome = device.mkISO
+    gnome = iso.build
     {
       name = "nixos";
       timezone = "Asia/Kolkata";
@@ -58,7 +72,7 @@ in
   nixosConfigurations =
   {
     # PC - Dell Inspiron 15 5000
-    Vortex = device.mkPC
+    Vortex = device.build
     {
       name = "Vortex";
       timezone = "Asia/Kolkata";
@@ -99,7 +113,7 @@ in
     };
 
     # PC - Dell Inspiron 11 3000
-    Futura = device.mkPC
+    Futura = device.build
     {
       name = "Futura";
       timezone = "Asia/Kolkata";

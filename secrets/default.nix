@@ -1,8 +1,9 @@
 { config, options, system, lib, inputs, pkgs, ... }:
 let
-  path = if (config.hardware.filesystem == "simple")
-  then "/etc"
-  else "/persist/etc";
+  inherit (lib) mapAttrs' nameValuePair removeSuffix;
+  path = if (config.fileSystems."/".fsType == "tmpfs")
+  then "/persist/etc"
+  else "/etc";
 in
 {
   imports = [ inputs.agenix.nixosModules.age ];
@@ -14,7 +15,7 @@ in
 
     age =
     {
-      secrets = lib.mapAttrs' (name: _: lib.nameValuePair (lib.removeSuffix ".age" name)
+      secrets = mapAttrs' (name: _: nameValuePair (removeSuffix ".age" name)
       {
         file = "${builtins.toString ./encrypted}/${name}";
         owner = "root";

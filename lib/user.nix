@@ -1,7 +1,7 @@
-{ system, version, files, lib, inputs, pkgs, ... }:
+{ system, version, lib, inputs, pkgs, files, ... }:
 {
   ## User Configuration Function ##
-  mkUser = { username, description, groups, uid, shell }:
+  build = { username, description, groups, uid, shell }:
   {
     # User Creation
     _module.args = { inherit username; };
@@ -24,6 +24,7 @@
 
     # Home Configuration
     home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
     home-manager.backupFileExtension = "bak";
     home-manager.users."${username}" =
     {

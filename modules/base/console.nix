@@ -1,11 +1,8 @@
-{ config, lib, pkgs, ... }:
-let
-  pc = (config.device == "PC");
-  iso = (config.device == "ISO");
-in rec
+{ pkgs, ... }:
+rec
 {
   ## Console Configuration ##
-  config = lib.mkIf (pc || iso)
+  config =
   {
     # Setup
     console =

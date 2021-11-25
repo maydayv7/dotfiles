@@ -1,4 +1,4 @@
-{ config, files, lib, pkgs, ... }:
+{ config, lib, pkgs, files, ... }:
 let
   enable = config.gui.enableFonts;
 in rec

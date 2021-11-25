@@ -58,15 +58,8 @@ let
       exit 125
     }
 
-    pushd ()
-    {
-      command pushd "$@" > /dev/null
-    }
-
-    popd ()
-    {
-      command popd "$@" > /dev/null
-    }
+    pushd () { command pushd "$@" > /dev/null; }
+    popd () { command popd "$@" > /dev/null; }
 
     case $1 in
     "update")

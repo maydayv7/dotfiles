@@ -1,68 +1,28 @@
-{ system, version, files, lib, user, inputs, pkgs, ... }:
-let
-  device_modules = [ ../modules inputs.home.nixosModules.home-manager ];
-in
+{ system, version, lib, user, inputs, pkgs, files, ... }:
 {
-  ## Install Media Configuration Function ##
-  mkISO = { name, timezone, locale, kernel, desktop }:
+  ## Device Configuration Function ##
+  build = { name, timezone, locale, kernel, kernelModules, hardware, desktop, apps, users }:
   let
-    # Default User
-    username = "nixos";
+    # User Creation
+    device_users = (builtins.map (u: user.build u) users);
 
-    # Install Media Build Module
-    iso_module = [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
-  in lib.nixosSystem
-  {
-    inherit system;
-    specialArgs = { inherit system files username inputs; };
-
-    modules =
+    # Device Configuration Modules
+    device_modules =
     [
-      {
-        # Modulated Configuration Imports
-        imports = device_modules ++ iso_module;
-
-        # System Configuration
-        device = "ISO";
-        networking.hostName = "${name}";
-
-        # Localization
-        time.timeZone = timezone;
-        i18n.defaultLocale = locale;
-
-        # Boot Configuration
-        boot.kernelPackages = kernel;
-        boot.kernelModules = [ "kvm-intel" ];
-        boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ];
-
-        # ISO Creation Settings
-        isoImage.makeEfiBootable = true;
-        isoImage.makeUsbBootable = true;
-        environment.pathsToLink = [ "/libexec" ];
-
-        # Package Configuration
-        system.stateVersion = version;
-        nixpkgs.pkgs = pkgs;
-        home-manager.useGlobalPkgs = true;
-
-        # GUI Configuration
-        gui.desktop = (desktop + "-minimal");
-
-        # System Scripts
-        scripts.install = true;
-      }
+      inputs.self.nixosModules.apps
+      inputs.self.nixosModules.base
+      inputs.self.nixosModules.gui
+      inputs.self.nixosModules.hardware
+      inputs.self.nixosModules.nix
+      inputs.self.nixosModules.scripts
+      inputs.self.nixosModules.secrets
+      inputs.self.nixosModules.shell
+      inputs.self.nixosModules.user
     ];
-  };
-
-  ## Host Configuration Function ##
-  mkPC = { name, timezone, locale, kernel, kernelModules, hardware, desktop, apps, users }:
-  let
-    # User Creation Function
-    device_users = (builtins.map (u: user.mkUser u) users);
   in lib.nixosSystem
   {
     inherit system;
-    specialArgs = { inherit system files inputs; };
+    specialArgs = { inherit system inputs files; };
 
     modules =
     [
@@ -70,13 +30,12 @@ in
         # Modulated Configuration Imports
         imports = device_modules ++ device_users;
 
+        # Device Hostname
+        networking.hostName = "${name}";
+
         # Localization
         time.timeZone = timezone;
         i18n.defaultLocale = locale;
-
-        # System Configuration
-        device = "PC";
-        networking.hostName = "${name}";
 
         # Hardware Configuration
         boot.kernelPackages = kernel;
@@ -86,6 +45,7 @@ in
         # Package Configuration
         system.stateVersion = version;
         nixpkgs.pkgs = pkgs;
+        nix.maxJobs = lib.mkDefault hardware.cores;
 
         # GUI Configuration
         gui.desktop = desktop;

@@ -1,26 +1,13 @@
-{ config, lib, inputs, pkgs, ... }:
-let
-  pc = (config.device == "PC");
-  iso = (config.device == "ISO");
-  cores = config.hardware.cores;
-in rec
+{ inputs, pkgs, ... }:
+rec
 {
-  ## Nix Settings ##
-  config = lib.mkIf (pc || iso)
-  {
-    # Utilities
-    environment.systemPackages = with pkgs; [ cachix ];
+  imports = [ ./cachix.nix ];
 
+  ## Nix Settings ##
+  config =
+  {
     nix =
     {
-      # Cachix Binary Cache
-      binaryCaches =
-      [
-        "https://cache.nixos.org"
-        "https://maydayv7-dotfiles.cachix.org"
-      ];
-      binaryCachePublicKeys = [ "maydayv7-dotfiles.cachix.org-1:dpECO0Z2ZMttY6JgWHuAR5M7cqeyfFjUsvHdnMz+j6U=" ];
-
       # Garbage Collection
       autoOptimiseStore = true;
       gc =
@@ -35,9 +22,6 @@ in rec
 
       # User Permissions
       trustedUsers = [ "root" "@wheel" ];
-
-      # Build Options
-      maxJobs = lib.mkDefault cores;
 
       # Flakes
       package = pkgs.nix_2_4;

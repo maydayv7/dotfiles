@@ -41,6 +41,7 @@ Here is an overview of the file hierarchy:
 │   └── repl.nix
 ├── lib
 │   ├── device.nix
+│   ├── iso.nix
 │   └── user.nix
 ├── modules
 │   ├── apps
@@ -62,7 +63,7 @@ Here is an overview of the file hierarchy:
 + `overlays`: overrides for pre-built packages
 + `shells`: sandboxed shells for development purposes
 + `repl.nix`: interactive shell to explore syntax and configuration
-+ `lib`: custom functions designed for conveniently defining device and user configuration
++ `lib`: custom functions designed for conveniently defining configuration
 + `modules`: custom configuration modules for additional functionality
 + `scripts`: useful system management scripts
 + `secrets`: authentication credentials management using `agenix`

@@ -1,7 +1,7 @@
-{ config, files, username, lib, inputs, pkgs, ... }:
+{ config, options, lib, username, inputs, pkgs, files, ... }:
 let
   desktop = config.gui.desktop;
-  apps = config.apps.list;
+  apps = config.environment.systemPackages;
 in rec
 {
   ## GNOME Desktop Configuration ##
@@ -93,10 +93,10 @@ in rec
           ".local/share/gtksourceview-4/language-specs/nix.lang".text = files.gedit.syntax;
 
           # Discord DNOME Theme
-          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (builtins.elem "discord" apps) { text = files.discord.theme; };
+          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (builtins.elem pkgs.discord apps) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/v7/chrome/userChrome.css" = lib.mkIf (builtins.elem "firefox" apps) { text = ''@import "${inputs.firefox}/userChrome.css";''; };
+          ".mozilla/firefox/${username}/chrome/userChrome.css" = lib.mkIf (builtins.elem pkgs.firefox apps) { text = ''@import "${inputs.firefox}/userChrome.css";''; };
         };
       };
 

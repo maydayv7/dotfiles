@@ -1,11 +1,8 @@
-{ config, lib, ... }:
-let
-  pc = (config.device == "PC");
-  iso = (config.device == "ISO");
-in rec
+{ ... }:
+rec
 {
   ## Boot Configuration ##
-  config = lib.mkIf pc
+  config =
   {
     boot =
     {

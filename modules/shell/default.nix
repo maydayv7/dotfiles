@@ -1,4 +1,4 @@
-{ config, files, username, lib, pkgs, ... }:
+{ config, lib, username, pkgs, files, ... }:
 let
   enable = config.shell.enable;
   shell = config.shell.shell;
@@ -31,13 +31,6 @@ in rec
     {
       useDefaultShell = false;
       shell = pkgs."${shell}";
-    };
-
-    # Shell Environment
-    environment =
-    {
-      shells = with pkgs; [ bashInteractive zsh ];
-      pathsToLink = [ "/share/zsh" ];
     };
 
     # Utilities

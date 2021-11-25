@@ -1,4 +1,4 @@
-{ config, files, username, lib, inputs, pkgs, ... }:
+{ config, lib, username, inputs, pkgs, files, ... }:
 let
   shell = config.shell.shell;
 in rec
@@ -6,6 +6,14 @@ in rec
   ## User Z Shell Configuration ##
   config = lib.mkIf (shell == "zsh")
   {
+    # Shell Environment
+    environment =
+    {
+      shells = with pkgs; [ bashInteractive zsh ];
+      pathsToLink = [ "/share/zsh" ];
+    };
+
+    # User Configuration
     home-manager.users."${username}" =
     {
       programs.zsh =

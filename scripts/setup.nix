@@ -1,4 +1,4 @@
-{ config, files, lib, pkgs, ... }:
+{ config, lib, pkgs, files, ... }:
 let
   enable = config.scripts.setup;
   secrets = config.age.secrets;

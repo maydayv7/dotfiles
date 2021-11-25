@@ -1,4 +1,4 @@
-{ config, files, username, lib, inputs, pkgs, ... }:
+{ config, lib, username, inputs, pkgs, files, ... }:
 let
   enable = (builtins.elem "discord" config.apps.list);
 in

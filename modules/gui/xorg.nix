@@ -1,4 +1,4 @@
-{ config, files, username, lib, ... }:
+{ config, lib, username, files, ... }:
 let
   enable = config.gui.enableXorg;
 in rec
