@@ -44,6 +44,7 @@
 
         # Package Configuration
         system.stateVersion = version;
+        system.configurationRevision = with inputs; lib.mkIf (self ? rev) self.rev;
         nixpkgs.pkgs = pkgs;
         nix.maxJobs = lib.mkDefault hardware.cores;
 

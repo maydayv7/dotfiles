@@ -34,35 +34,40 @@ Here is an overview of the file hierarchy:
 ├── flake.lock
 ├── version
 ├── files
-├── scripts
+├── shells
+├── repl.nix
 ├── packages
 │   └── overlays
-├── shells
-│   └── repl.nix
 ├── lib
 │   ├── device.nix
 │   ├── iso.nix
+│   ├── modules.nix
+│   ├── packages.nix
 │   └── user.nix
-├── modules
-│   ├── apps
-│   ├── base
-│   ├── gui
-│   ├── hardware
-│   └── shell
-└── secrets
-    ├── keys
-    ├── encrypted
-    └── unencrypted
+└── modules
+    ├── apps
+    ├── base
+    ├── gui
+    ├── hardware
+    ├── iso
+    ├── nix
+    ├── scripts
+    ├── secrets
+    │   ├── keys
+    │   ├── encrypted
+    │   └── unencrypted
+    ├── shell
+    └── user
 ```
 
 + `configuration.nix`: main system configuration file
 + `flake.nix`: repository version control using `inputs`
 + `version`: system state version
 + `files`: program configuration and dotfiles
-+ `packages`: locally built custom packages
-+ `overlays`: overrides for pre-built packages
 + `shells`: sandboxed shells for development purposes
 + `repl.nix`: interactive shell to explore syntax and configuration
++ `packages`: locally built custom packages
++ `overlays`: overrides for pre-built packages
 + `lib`: custom functions designed for conveniently defining configuration
 + `modules`: custom configuration modules for additional functionality
 + `scripts`: useful system management scripts

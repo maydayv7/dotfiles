@@ -98,7 +98,7 @@ let
       esac
     ;;
     "explore")
-      nix repl /etc/nixos/shells/repl.nix
+      nix repl /etc/nixos/repl.nix
     ;;
     "list")
       nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq
@@ -121,11 +121,11 @@ let
     ;;
     "secret")
       case $2 in
-      "list") tree -C --noreport -I secrets.nix /etc/nixos/secrets/encrypted | sed -e 's/\.age$//';;
+      "list") tree -C --noreport -I secrets.nix /etc/nixos/modules/secrets/encrypted | sed -e 's/\.age$//';;
       "show") sudo cat /run/agenix/$3;;
       "update")
         echo "Updating Secrets..."
-        pushd /etc/nixos/secrets/encrypted
+        pushd /etc/nixos/modules/secrets/encrypted
         agenix -r -i /etc/ssh/ssh_key
         popd
       ;;
@@ -134,7 +134,7 @@ let
         "") error "Expected a path to Secret following edit command";;
         *)
           echo "Editing Secret $3..."
-          pushd /etc/nixos/secrets/encrypted
+          pushd /etc/nixos/modules/secrets/encrypted
           if ! grep -Fq "$3" secrets.nix
           then
             read -p "Do you want to add an entry for the new Secret in secrets.nix? (Y/N): " choice

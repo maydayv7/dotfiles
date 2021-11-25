@@ -1,6 +1,12 @@
-{ pkgs }:
+{ pkgs ? import <nixpkgs> { } }:
+pkgs.mkShell
 {
-  ## Tailored Developer Shells ##
-  # Video Editing Shell
-  video = import ./video.nix { inherit pkgs; };
+  name = "devShell";
+  shellHook = '' echo "## Default Developer Shell ##" '';
+  buildInputs = with pkgs;
+  [
+    git
+    git-crypt
+    gnupg
+  ];
 }

@@ -1,8 +1,10 @@
 ## Changelog
 ### v3.0
 + Upgrade to NixOS v21.11 (Porcupine)! (#27)
-+ Improve usage of Developer Shells
++ Improve Package Declaration
 + Add Support for Instant Nix REPL
++ Improve usage of Developer Shells
++ Import Modules using `nixosModules`
 + Use `home-manager` as a Module (#22)
 + Merge Device and User Configuration (#24)
 * Move all program configuration and dotfiles to `files`

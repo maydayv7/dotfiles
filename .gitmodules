@@ -1,3 +1,3 @@
-[submodule "secrets/unencrypted"]
-	path = secrets/unencrypted
+[submodule "modules/secrets/unencrypted"]
+	path = modules/secrets/unencrypted
 	url = https://github.com/maydayv7/secrets.git

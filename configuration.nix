@@ -11,48 +11,32 @@ let
   inherit (inputs.nixpkgs) lib;
   inherit (lib) attrValues;
 
-  # Package Configuration
-  pkgs = import inputs.nixpkgs
-  {
-    inherit system overlays;
-    config =
-    {
-      allowAliases = true;
-      allowUnfree = true;
-      allowBroken = true;
-    };
-  };
-
-  # Package Overrides
-  inherit (import ./packages { inherit files inputs pkgs; }) custom;
-  inherit (import ./packages/overlays { inherit system lib inputs pkgs custom; }) overlays;
+  # Custom Functions
+  util = import ./lib { inherit system version files lib inputs pkgs; };
+  inherit (util) device iso modules packages user;
 
   # Program Configuration and Dotfiles
   files = import ./files { };
 
-  # Custom Functions
-  util = import ./lib { inherit system version files lib inputs pkgs; };
-  inherit (util) device iso user;
+  # Package Configuration
+  unstable = packages.build inputs.unstable [ ];
+  pkgs = packages.build inputs.nixpkgs
+  [
+    inputs.nur.overlay
+    (final: prev: { inherit unstable; custom = self.packages."${system}"; })
+  ];
 in
 {
   ## Developer Shells ##
-  devShell."${system}" = import ./shells/shell.nix { inherit pkgs; };
-  devShells."${system}" = import ./shells { inherit pkgs; };
+  devShell."${system}" = import ./shells { inherit pkgs; };
+  devShells."${system}" = modules.map ./shells (name: import name { inherit pkgs; });
+
+  ## Package Overrides ##
+  overrides = modules.map ./packages/overlays import;
+  packages."${system}" = modules.map ./packages (name: pkgs.callPackage name { inherit files; });
 
   ## Custom Configuration Modules ##
-  nixosModules =
-  {
-    apps = import ./modules/apps;
-    base = import ./modules/base;
-    gui = import ./modules/gui;
-    hardware = import ./modules/hardware;
-    iso = import ./modules/iso;
-    nix = import ./modules/nix;
-    scripts = import ./scripts;
-    secrets = import ./secrets;
-    shell = import ./modules/shell;
-    user = import ./modules/user;
-  };
+  nixosModules = modules.map ./modules import;
 
   ## Install Media Configuration ##
   installMedia =
