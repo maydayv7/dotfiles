@@ -3,7 +3,7 @@ on:
   push:
     paths-ignore:
       - '**.md'
-      - '.archive/**'
+      - 'files/**'
       - '.github/**'
 env:
   NIX_SHOW_STATS: 1
@@ -19,3 +19,5 @@ jobs:
           access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
     - name: Check Syntax
       run: nix flake check github:maydayv7/dotfiles
+    - name: Check Shells
+      run: nix develop github:maydayv7/dotfiles

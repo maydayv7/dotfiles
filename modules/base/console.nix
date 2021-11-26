@@ -16,7 +16,6 @@ rec
     # Essential Utilities
     environment.systemPackages = with pkgs;
     [
-      etcher
       git
       git-crypt
       gparted

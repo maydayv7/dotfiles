@@ -7,17 +7,18 @@
     device_users = (builtins.map (u: user.build u) users);
 
     # Device Configuration Modules
+    inherit (inputs.self) nixosModules;
     device_modules =
     [
-      inputs.self.nixosModules.apps
-      inputs.self.nixosModules.base
-      inputs.self.nixosModules.gui
-      inputs.self.nixosModules.hardware
-      inputs.self.nixosModules.nix
-      inputs.self.nixosModules.scripts
-      inputs.self.nixosModules.secrets
-      inputs.self.nixosModules.shell
-      inputs.self.nixosModules.user
+      nixosModules.apps
+      nixosModules.base
+      nixosModules.gui
+      nixosModules.hardware
+      nixosModules.nix
+      nixosModules.scripts
+      nixosModules.secrets
+      nixosModules.shell
+      nixosModules.user
     ];
   in lib.nixosSystem
   {

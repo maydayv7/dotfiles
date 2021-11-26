@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths-ignore:
       - '**.md'
-      - '.archive/**'
+      - 'files/**'
       - '.github/**'
 env:
   NIX_SHOW_STATS: 1

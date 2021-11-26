@@ -1,13 +1,11 @@
 { system, lib, inputs, ... }:
-let
-  inherit (builtins) attrValues;
-in rec
+rec
 {
-  ## Package Build Function ##
-  build = pkgs: overlays: import pkgs
+  ## Package Set Build Function ##
+  build = pkgs: overlay: import pkgs
   {
     inherit system;
-    overlays = overlays ++ (attrValues inputs.self.overrides);
+    overlays = overlay ++ (builtins.attrValues inputs.self.overlays);
     config =
     {
       allowAliases = true;

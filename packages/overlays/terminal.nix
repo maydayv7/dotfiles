@@ -1,13 +1,10 @@
-final:
-let
-  inherit (final) lib;
-in prev:
+final: prev:
 {
   # GNOME Terminal Transparency Patch
   # https://aur.archlinux.org/packages/gnome-terminal-transparency
   gnome = prev.gnome //
   {
-    gnome-terminal = lib.overrideDerivation prev.gnome.gnome-terminal (drv:
+    gnome-terminal = final.lib.overrideDerivation prev.gnome.gnome-terminal (drv:
     {
       patches = drv.patches ++
       [

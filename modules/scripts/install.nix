@@ -29,6 +29,10 @@ let
 
     read -p "Enter Path to Disk: /dev/" DISK
     read -p "Enter Path to SSH Keys: " KEY
+    if [ -z "$KEY" ]
+    then
+      error "Path to SSH Keys cannot be empty"
+    fi
 
     echo "Creating Partitions..."
     parted /dev/$DISK -- mkpart ESP fat32 1MiB 1024MiB

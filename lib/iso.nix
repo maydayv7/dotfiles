@@ -1,4 +1,4 @@
-{ system, version, lib, inputs, pkgs, files, ... }:
+{ system, version, lib, inputs, pkgs, ... }:
 {
   ## Install Media Configuration Function ##
   build = { name, timezone, locale, kernel, desktop }:
@@ -7,18 +7,19 @@
     username = "nixos";
 
     # Install Media Configuration Modules
+    inherit (inputs.self) nixosModules;
     iso_modules =
     [
-      inputs.self.nixosModules.base
-      inputs.self.nixosModules.gui
-      inputs.self.nixosModules.iso
-      inputs.self.nixosModules.nix
-      inputs.self.nixosModules.scripts
+      nixosModules.base
+      nixosModules.gui
+      nixosModules.iso
+      nixosModules.nix
+      nixosModules.scripts
     ];
   in lib.nixosSystem
   {
     inherit system;
-    specialArgs = { inherit inputs username files; };
+    specialArgs = { inherit inputs username; };
 
     modules =
     [
@@ -35,7 +36,6 @@
 
         # Boot Configuration
         boot.kernelPackages = kernel;
-        boot.kernelModules = [ "kvm-intel" ];
         boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ];
 
         # ISO Creation Settings
@@ -47,7 +47,6 @@
         system.stateVersion = version;
         nixpkgs.pkgs = pkgs;
         nix.maxJobs = lib.mkDefault 4;
-        home-manager.useGlobalPkgs = true;
 
         # GUI Configuration
         gui.desktop = (desktop + "-minimal");

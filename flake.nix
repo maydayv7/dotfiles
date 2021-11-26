@@ -29,7 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Authentication Credentials
+    # Authentication Credentials Manager
     agenix =
     {
       url = "github:ryantm/agenix";

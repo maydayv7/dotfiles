@@ -18,8 +18,5 @@ in rec
       videoDrivers = [ "modesetting" ];
       useGlamor = true;
     };
-
-    # Additional Configuration
-    home-manager.users."${username}".xresources.extraConfig = files.xorg;
   };
 }

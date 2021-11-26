@@ -1,5 +1,6 @@
 { config, options, lib, username, inputs, pkgs, files, ... }:
 let
+  inherit (lib) mkForce;
   desktop = config.gui.desktop;
   apps = config.environment.systemPackages;
 in rec
@@ -48,6 +49,7 @@ in rec
         gnome =
         {
           chrome-gnome-shell.enable = true;
+          core-developer-tools.enable = true;
           experimental-features.realtime-scheduling = true;
           gnome-initial-setup.enable = true;
           gnome-keyring.enable = true;
@@ -77,6 +79,9 @@ in rec
           };
         };
 
+        # Display Settings
+        xresources.extraConfig = files.xorg;
+
         home.file =
         {
           # GTK+ Bookmarks
@@ -103,7 +108,6 @@ in rec
       environment.systemPackages = with pkgs;
       [
         # GNOME Apps
-        gnome.dconf-editor
         gnome.gnome-boxes
         gnome.gnome-dictionary
         gnome.gnome-notes
@@ -145,7 +149,7 @@ in rec
         # gnomeExtensions.fly-pie
         gnomeExtensions.just-perfection
         gnomeExtensions.lock-keys
-        # gnomeExtensions.screenshot-locations
+        gnomeExtensions.screenshot-locations
         gnomeExtensions.sound-output-device-chooser
         gnomeExtensions.vitals
         gnomeExtensions.x11-gestures
@@ -162,26 +166,26 @@ in rec
       # Disable Suspension
       services.xserver.displayManager.gdm.autoSuspend = false;
 
-      # Additional Excluded GNOME Packages
-      environment.gnome.excludePackages = with pkgs;
+      # Additional Excluded Packages
+      xdg.portal.enable = mkForce false;
+      qt5.enable = mkForce false;
+      services.gnome.core-utilities.enable = mkForce false;
+      environment.systemPackages = with pkgs.gnome;
       [
-        gnome.baobab
-        gnome.geary
-        gnome.gnome-backgrounds
-        gnome.gnome-calendar
-        gnome.gnome-characters
-        gnome-connections
-        gnome.gnome-contacts
-        gnome.gnome-logs
-        gnome.gnome-maps
-        gnome.gnome-weather
-        gnome-photos
-        gnome.simple-scan
-        gnome.simple-scan
-        gnome-tour
-        gnome-user-docs
-        gnome.yelp
-        hicolor-icon-theme
+        epiphany
+        gedit
+        gnome-screenshot
+        gnome-system-monitor
+        nautilus
+      ];
+      environment.gnome.excludePackages = with pkgs.gnome;
+      [
+        gnome-backgrounds
+        gnome-shell-extensions
+        gnome-themes-extra
+        pkgs.gnome-tour
+        pkgs.gnome-user-docs
+        pkgs.hicolor-icon-theme
       ];
     })
   ]);

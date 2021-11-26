@@ -122,7 +122,7 @@ in rec
         {
           home =
           {
-            onCalendar = "daily";
+            onCalendar = "hourly";
             settings =
             {
               timestamp_format = "long";

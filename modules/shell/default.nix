@@ -36,6 +36,7 @@ in rec
     # Utilities
     environment.systemPackages = with pkgs;
     [
+      etcher
       exa
       fd
       file

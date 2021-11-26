@@ -15,16 +15,12 @@ let
   util = import ./lib { inherit system version files lib inputs pkgs; };
   inherit (util) device iso modules packages user;
 
-  # Program Configuration and Dotfiles
-  files = import ./files { };
-
   # Package Configuration
   unstable = packages.build inputs.unstable [ ];
-  pkgs = packages.build inputs.nixpkgs
-  [
-    inputs.nur.overlay
-    (final: prev: { inherit unstable; custom = self.packages."${system}"; })
-  ];
+  pkgs = packages.build inputs.nixpkgs [ self.overlay inputs.nur.overlay ];
+
+  # Program Configuration and Dotfiles
+  files = import ./files { };
 in
 {
   ## Developer Shells ##
@@ -32,7 +28,8 @@ in
   devShells."${system}" = modules.map ./shells (name: import name { inherit pkgs; });
 
   ## Package Overrides ##
-  overrides = modules.map ./packages/overlays import;
+  overlay = final: prev: { inherit unstable; custom = self.packages."${system}"; };
+  overlays = modules.map ./packages/overlays import;
   packages."${system}" = modules.map ./packages (name: pkgs.callPackage name { inherit files; });
 
   ## Custom Configuration Modules ##

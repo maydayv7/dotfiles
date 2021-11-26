@@ -7,43 +7,43 @@ with lib.hm.gvariant;
   {
     "org/gnome/desktop/wm/keybindings" =
     {
-      begin-move = [];
-      begin-resize = [];
-      cycle-group = [];
-      cycle-group-backward = [];
-      maximize = [];
+      begin-move = [ ];
+      begin-resize = [ ];
+      cycle-group = [ ];
+      cycle-group-backward = [ ];
+      maximize = [ ];
       minimize = [ "<Super>Down" ];
-      move-to-workspace-1 = [];
-      move-to-workspace-last = [];
+      move-to-workspace-1 = [ ];
+      move-to-workspace-last = [ ];
       move-to-workspace-left = [ "<Primary><Super>Left" ];
       move-to-workspace-right = [ "<Primary><Super>Right" ];
-      panel-main-menu = [];
+      panel-main-menu = [ ];
       panel-run-dialog = [ "<Super>F2" ];
-      switch-group = [];
-      switch-group-backward = [];
+      switch-group = [ ];
+      switch-group-backward = [ ];
       switch-to-workspace-left = [ "<Super>Left" ];
       switch-to-workspace-right = [ "<Super>Right" ];
       toggle-maximized = [ "<Super>Up" ];
-      unmaximize = [];
+      unmaximize = [ ];
     };
 
     "org/gnome/mutter/keybindings" =
     {
-      toggle-tiled-left = [];
-      toggle-tiled-right = [];
+      toggle-tiled-left = [ ];
+      toggle-tiled-right = [ ];
     };
 
     "org/gnome/shell/keybindings" =
     {
-      focus-active-notification = [];
-      open-application-menu = [];
-      toggle-message-tray = [];
+      focus-active-notification = [ ];
+      open-application-menu = [ ];
+      toggle-message-tray = [ ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" =
     {
       area-screenshot = [ "Print" ];
-      area-screenshot-clip = [];
+      area-screenshot-clip = [ ];
       control-center = [ "<Super>i" ];
       custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/" ];
       email = [ "<Super>e" ];
@@ -52,11 +52,11 @@ with lib.hm.gvariant;
       magnifier-zoom-in = [ "<Super>equal" ];
       magnifier-zoom-out = [ "<Super>minus" ];
       screencast = [ "<Alt>Print" ];
-      screenreader = [];
+      screenreader = [ ];
       screenshot = [ "<Shift>Print" ];
-      screenshot-clip = [];
+      screenshot-clip = [ ];
       window-screenshot = [ "<Primary>Print" ];
-      window-screenshot-clip = [];
+      window-screenshot-clip = [ ];
       www = [ "<Super>w" ];
     };
 
@@ -278,6 +278,7 @@ with lib.hm.gvariant;
     {
       command-history = [ "rt" "r" ];
       disable-user-extensions = false;
+      disable-extension-version-validation = true;
       disabled-extensions = [ "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
       enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "compiz-windows-effect@hermes83.github.com" "compiz-alike-magic-lamp-effect@hermes83.github.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "just-perfection-desktop@just-perfection" "appindicatorsupport@rgcjonas.gmail.com" "lockkeys@vaina.lt" "screenshotlocations.timur@linux.com" "sound-output-device-chooser@kgshank.net" "Vitals@CoreCoding.com" "custom-hot-corners-extended@G-dH.github.com" "color-picker@tuberry" "top-bar-organizer@julian.gse.jsts.xyz" "drive-menu@gnome-shell-extensions.gcampax.github.com" "x11gestures@joseexposito.github.io" "dash-to-panel@jderose9.github.com" "flypie@schneegans.github.com" "color-picker@tuberry" ];
       favorite-apps = [ "google-chrome.desktop" "org.gnome.Geary.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Terminal.desktop" "org.gnome.gedit.desktop" "gnome-control-center.desktop" ];
@@ -304,47 +305,43 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/clipboard-indicator" =
     {
       cache-size = 1051;
-      clear-history = [];
+      clear-history = [ ];
       confirm-clear = false;
       history-size = 70;
       move-item-first = true;
-      next-entry = [];
-      prev-entry = [];
+      next-entry = [ ];
+      prev-entry = [ ];
       strip-text = true;
       toggle-menu = [ "<Super>v" ];
     };
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/misc" =
     {
-      barrier-fallback = true;
-      fullscreen-global = false;
-      watch-corners = false;
       ws-switch-wrap = true;
       ws-switch-ignore-last = true;
-      ws-switch-indicator = true;
+      ws-switch-indicator-mode = 1;
     };
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-left-0" =
     {
-      action = "showApplications";
+      action = "show-applications";
+    };
+
+    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-right-0" =
+    {
+      action = "show-desktop";
+      ctrl = true;
     };
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0" =
     {
-      action = "toggleOverview";
-      fullscreen = true;
-    };
-
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-1" =
-    {
-      h-expand = true;
-      v-expand = true;
+      action = "toggle-overview";
     };
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-right-0" =
     {
-      action = "nextWorkspace";
-      ctrl = false;
+      action = "next-workspace";
+      ctrl = true;
     };
 
     "org/gnome/shell/extensions/just-perfection" =
@@ -516,7 +513,7 @@ with lib.hm.gvariant;
       grandchild-size-hover = 27.0;
       menu-configuration = "[{\"name\":\"Navigation\",\"icon\":\"application-menu\",\"shortcut\":\"F9\",\"centered\":false,\"id\":0,\"children\":[{\"name\":\"Sound\",\"icon\":\"audio-speakers\",\"children\":[{\"name\":\"Mute\",\"icon\":\"discord-tray-muted\",\"type\":\"Shortcut\",\"data\":\"AudioMute\",\"angle\":-1},{\"name\":\"Play / Pause\",\"icon\":\"exaile-play\",\"type\":\"Shortcut\",\"data\":\"AudioPlay\",\"angle\":-1},{\"name\":\"Next\",\"icon\":\"go-next-symbolic\",\"type\":\"Shortcut\",\"data\":\"AudioNext\",\"angle\":90},{\"name\":\"Previous\",\"icon\":\"go-next-symbolic-rtl\",\"type\":\"Shortcut\",\"data\":\"AudioPrev\",\"angle\":270}],\"type\":\"CustomMenu\",\"data\":{},\"angle\":-1},{\"name\":\"Menu\",\"type\":\"Command\",\"icon\":\"gnome-menu\",\"data\":{\"command\":\"gnome-extensions prefs flypie@schneegans.github.com\"},\"angle\":-1},{\"name\":\"Tasks\",\"type\":\"Command\",\"icon\":\"gnome-system-monitor\",\"data\":{\"command\":\"gnome-system-monitor\"},\"angle\":-1},{\"name\":\"System\",\"type\":\"System\",\"icon\":\"system-log-out\",\"angle\":-1,\"data\":{}},{\"name\":\"Previous\",\"icon\":\"go-previous\",\"type\":\"Shortcut\",\"data\":{\"shortcut\":\"<Super>Left\"},\"angle\":270},{\"name\":\"Close\",\"icon\":\"window-close\",\"type\":\"Shortcut\",\"data\":\"<Alt>F4\",\"angle\":-1},{\"name\":\"Switcher\",\"icon\":\"preferences-system-windows\",\"type\":\"RunningApps\",\"data\":{\"activeWorkspaceOnly\":false,\"appGrouping\":true,\"hoverPeeking\":true,\"nameRegex\":\"\"},\"angle\":-1},{\"name\":\"Favorites\",\"icon\":\"emblem-favorite\",\"type\":\"Favorites\",\"data\":{},\"angle\":-1},{\"name\":\"Maximize\",\"icon\":\"view-fullscreen\",\"type\":\"Shortcut\",\"data\":{\"shortcut\":\"<Super>Up\"},\"angle\":-1},{\"name\":\"Next\",\"icon\":\"go-next\",\"type\":\"Shortcut\",\"data\":{\"shortcut\":\"<Super>Right\"},\"angle\":-1}],\"type\":\"CustomMenu\",\"data\":{}}]";
       preview-on-right-side = true;
-      stashed-items = "[]";
+      stashed-items = "[ ]";
       stats-abortions = mkUint32 38;
       stats-added-items = mkUint32 6;
       stats-click-selections-depth1 = mkUint32 15;

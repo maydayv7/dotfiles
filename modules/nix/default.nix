@@ -26,7 +26,7 @@ rec
       # Flakes
       package = pkgs.nix_2_4;
       extraOptions = "experimental-features = nix-command flakes recursive-nix";
-      systemFeatures = [ "recursive-nix" ];
+      systemFeatures = [ "kvm" "recursive-nix" ];
       registry =
       {
         self.flake = inputs.self;

@@ -111,4 +111,4 @@ The files and scripts in this repository are licensed under the very permissive 
 #### Branches
 There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been extensively tested
 
-See the [docs](./docs/README.md) for additional information about my dotfiles
+See the [docs](./docs/README.md) for additional information

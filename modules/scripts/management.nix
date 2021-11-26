@@ -45,7 +45,8 @@ let
     #!${pkgs.runtimeShell}
     edit()
     {
-      if ! [ -z "$EDITOR" ]; then
+      if ! [ -z "$EDITOR" ]
+      then
         $EDITOR $1
       else
         nano $1
