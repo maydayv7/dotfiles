@@ -3,7 +3,7 @@ let
   enable = (builtins.elem "ssd" config.hardware.support);
 in rec
 {
-  ## Additional SSD Settings ##
+  ## SSD Settings ##
   config = lib.mkIf enable
   {
     # SSD Trim

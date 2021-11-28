@@ -1,5 +1,6 @@
 { config, lib, username, pkgs, files, ... }:
 let
+  inherit (lib) mkIf mkOption mkEnableOption types;
   enable = config.shell.enable;
   shell = config.shell.shell;
 in rec
@@ -8,17 +9,17 @@ in rec
 
   options.shell =
   {
-    enable = lib.mkEnableOption "Enable Shell Configuration";
-    shell = lib.mkOption
+    enable = mkEnableOption "Enable Shell Configuration";
+    shell = mkOption
     {
       description = "User Shell Choice";
-      type = lib.types.str;
+      type = types.str;
       default = "bash";
     };
   };
 
   ## Shell Configuration ##
-  config = lib.mkIf enable
+  config = mkIf enable
   {
     # Environment Variables
     environment.variables =
@@ -26,7 +27,7 @@ in rec
       EDITOR = "nano -Ll";
     };
 
-    # User Configuration
+    # User Shell Configuration
     users.users."${username}" =
     {
       useDefaultShell = false;
@@ -46,7 +47,7 @@ in rec
     ];
 
     # Neofetch Config
-    home-manager.users."${username}".home.file.".config/neofetch/config.conf".text = files.neofetch;
+    home-manager.users."${username}".home.file.".config/neofetch/config.conf".text = files.fetch;
 
     programs =
     {

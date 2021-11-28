@@ -20,10 +20,10 @@ jobs:
     - name: Publish Release
       uses: ncipollo/release-action@v1.8.10
       with:
-        artifacts: "result/iso/nixos.iso"
-        artifactErrorsFailBuild: true
         allowUpdates: true
+        artifactErrorsFailBuild: true
+        artifacts: "result/iso/nixos.iso"
+        draft: true
         omitBodyDuringUpdate: true
         omitNameDuringUpdate: true
-        draft: true
         token: ${{ secrets.ACCESS_TOKEN }}

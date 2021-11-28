@@ -3,7 +3,7 @@ let
   shell = config.shell.shell;
 in rec
 {
-  ## User Z Shell Configuration ##
+  ## Z Shell Configuration ##
   config = lib.mkIf (shell == "zsh")
   {
     # Shell Environment
@@ -19,12 +19,16 @@ in rec
       programs.zsh =
       {
         enable = true;
+
+        # Features
         enableAutosuggestions = true;
         enableCompletion = true;
         enableVteIntegration = true;
         autocd = true;
         initExtra ='' bindkey "\e[3~" delete-char '';
         initExtraBeforeCompInit = "source ~/.p10k.zsh";
+
+        # Command Aliases
         shellAliases =
         {
           sike = "neofetch";
@@ -35,6 +39,8 @@ in rec
           lol = "echo \"${files.zsh.message}\"";
           dotfiles = "cd /etc/nixos";
         };
+
+        # Command History
         history =
         {
           size = 1000000000;
@@ -42,6 +48,8 @@ in rec
           expireDuplicatesFirst = true;
           ignorePatterns = [ "rm *" "pkill *" ];
         };
+
+        # Extra Shell Plugins
         plugins =
         [
           {

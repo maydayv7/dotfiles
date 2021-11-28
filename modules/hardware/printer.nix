@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, username, pkgs, ... }:
 let
   enable = (builtins.elem "printer" config.hardware.support);
 in rec
@@ -7,6 +7,7 @@ in rec
   config = lib.mkIf enable
   {
     # Scanning
+    users.users."${username}".extraGroups = [ "scanner" ];
     # hardware.sane.enable = true;
 
     # Printing

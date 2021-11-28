@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ modulesPath, ... }:
 rec
 {
   imports =
@@ -6,6 +6,6 @@ rec
     ./user.nix
 
     # Install Media Build Module
-    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
+    "${modulesPath}/installer/cd-dvd/iso-image.nix"
   ];
 }

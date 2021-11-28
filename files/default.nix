@@ -14,6 +14,9 @@ in
     theme = readFile ./discord/theme.css;
   };
 
+  # Neofetch
+  fetch = readFile ./neofetch/config.conf;
+
   # Custom Fonts
   fonts =
   {
@@ -21,34 +24,27 @@ in
     config = readFile ./fonts/fontconfig;
   };
 
-  # gEdit Text Editor
-  gedit =
-  {
-    syntax = readFile ./gedit/nix.lang;
-    theme = readFile ./gedit/tango-dark.xml;
-  };
+  # X11 Gestures
+  gestures = readFile ./touchegg/touchegg.conf;
 
   # GNOME Desktop
   gnome =
   {
+    accounts = readFile ./gnome/accounts.conf;
     bookmarks = readFile ./gnome/bookmarks;
-    theme = readFile ./gnome/gnome-shell.css;
+    shell = readFile ./gnome/gnome-shell.css;
+    syntax = readFile ./gnome/nix.lang;
+    theme = readFile ./gnome/tango-dark.xml;
   };
-
-  # Neofetch
-  neofetch = readFile ./neofetch/config.conf;
 
   # Document Templates
   templates = ./templates;
-
-  # X11 Gestures
-  touchegg = readFile ./touchegg/touchegg.conf;
 
   # Wallpapers
   wallpapers = ./wallpapers;
 
   # XORG Display Server
-  xorg = readFile ./xorg/xresources;
+  xorg = readFile ./xorg/Xresources;
 
   # Z Shell
   zsh =

@@ -9,33 +9,33 @@ let
     ''
       ## Tool for NixOS System Management ##
       # Usage #
-        update [ --'option' ]           - Updates Nix Flake Inputs
         apply [ --'option' ]            - Applies Device and User Configuration
-        iso 'variant' [ --burn 'path' ] - Builds Install Media
-        shell [ 'name' ]                - Opens desired Nix Developer Shell
+        clean                           - Garbage Collects and Hard-Links Nix Store
         explore                         - Opens interactive shell to explore syntax and configuration
+        iso 'variant' [ --burn 'path' ] - Builds Install Media
         list                            - Lists all Installed Packages
         save                            - Saves Configuration State to Repository
-        clean                           - Garbage Collects and Hard-Links Nix Store
         secret 'choice' [ 'path' ]      - Manages system Secrets
+        shell [ 'name' ]                - Opens desired Nix Developer Shell
+        update [ --'option' ]           - Updates Nix Flake Inputs
     '';
 
     apply =
     ''
       # Usage #
         --boot     - Apply Configuration on boot
+        --check    - Check Configuration Build
         --rollback - Revert to last Build Generation
         --test     - Test Configuration Build
-        --check    - Check Configuration Build
     '';
 
     secret =
     ''
       # Usage #
+        edit 'path' - Edit desired Secret
         list        - List system Secrets
         show 'path' - Show desired Secret
         update      - Update Secrets to defined keys
-        edit 'path' - Edit desired Secret
     '';
   };
 
@@ -63,21 +63,25 @@ let
     popd () { command popd "$@" > /dev/null; }
 
     case $1 in
-    "update")
-      echo "Updating Flake Inputs..."
-      nix flake update /etc/nixos $2
-    ;;
     "apply")
       echo "Applying Configuration..."
       case $2 in
       "") sudo nixos-rebuild switch --flake /etc/nixos#;;
       "--boot") sudo nixos-rebuild boot --flake /etc/nixos#;;
+      "--check") nixos-rebuild dry-activate --flake /etc/nixos#;;
       "--rollback") sudo nixos-rebuild switch --rollback;;
       "--test") sudo nixos-rebuild test --flake /etc/nixos#;;
-      "--check") nixos-rebuild dry-activate --flake /etc/nixos#;;
       *) error "Unknown option $2\n${usage.apply}";;
       esac
     ;;
+    "clean")
+      echo "Running Garbage Collection..."
+      nix store gc
+      printf "\n"
+      echo "Running De-Duplication..."
+      nix store optimise
+    ;;
+    "explore") nix repl /etc/nixos/shells/repl/repl.nix;;
     "iso")
       echo "Building $2 ISO file..."
       nix build /etc/nixos#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso"
@@ -92,15 +96,6 @@ let
       *) error "Unknown option $3";;
       esac
     ;;
-    "shell")
-      case $2 in
-      "") nix develop /etc/nixos;;
-      *) nix develop /etc/nixos#$2;;
-      esac
-    ;;
-    "explore")
-      nix repl /etc/nixos/repl.nix
-    ;;
     "list")
       nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq
     ;;
@@ -113,23 +108,8 @@ let
       git push
       popd
     ;;
-    "clean")
-      echo "Running Garbage Collection..."
-      nix store gc
-      printf "\n"
-      echo "Running De-Duplication..."
-      nix store optimise
-    ;;
     "secret")
       case $2 in
-      "list") tree -C --noreport -I secrets.nix /etc/nixos/modules/secrets/encrypted | sed -e 's/\.age$//';;
-      "show") sudo cat /run/agenix/$3;;
-      "update")
-        echo "Updating Secrets..."
-        pushd /etc/nixos/modules/secrets/encrypted
-        agenix -r -i /etc/ssh/ssh_key
-        popd
-      ;;
       "edit")
         case $3 in
         "") error "Expected a path to Secret following edit command";;
@@ -157,7 +137,25 @@ let
           error "Unknown option $2\n${usage.secret}"
         fi
       ;;
+      "list") tree -C --noreport -I secrets.nix /etc/nixos/modules/secrets/encrypted | sed -e 's/\.age$//';;
+      "show") sudo cat /run/agenix/$3;;
+      "update")
+        echo "Updating Secrets..."
+        pushd /etc/nixos/modules/secrets/encrypted
+        agenix -r -i /etc/ssh/ssh_key
+        popd
+      ;;
       esac
+    ;;
+    "shell")
+      case $2 in
+      "") nix develop /etc/nixos --command $SHELL;;
+      *) nix develop /etc/nixos#$2 --command $SHELL;;
+      esac
+    ;;
+    "update")
+      echo "Updating Flake Inputs..."
+      nix flake update /etc/nixos $2
     ;;
     *)
       if [ -z "$1" ]

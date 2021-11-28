@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ username, pkgs, ... }:
 rec
 {
   ## Device Firmware ##
@@ -14,7 +14,7 @@ rec
     };
 
     # Filesystem Support
-    boot.supportedFilesystems = [ "vfat" "ntfs" "btrfs" ];
+    boot.supportedFilesystems = [ "ntfs" "btrfs" "vfat" ];
 
     # Driver Packages
     hardware.opengl.extraPackages = with pkgs; 
@@ -35,6 +35,7 @@ rec
     };
 
     # Network Settings
+    users.users."${username}".extraGroups = [ "networkmanager" ];
     networking =
     {
       networkmanager.enable = true;

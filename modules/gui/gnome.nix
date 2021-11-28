@@ -1,13 +1,13 @@
-{ config, options, lib, username, inputs, pkgs, files, ... }:
+{ config, lib, username, inputs, pkgs, files, ... }:
 let
-  inherit (lib) mkForce;
+  inherit (lib) mkIf mkForce mkMerge;
   desktop = config.gui.desktop;
   apps = config.environment.systemPackages;
 in rec
 {
   ## GNOME Desktop Configuration ##
-  config = lib.mkIf (desktop == "gnome" || desktop == "gnome-minimal")
-  (lib.mkMerge
+  config = mkIf (desktop == "gnome" || desktop == "gnome-minimal")
+  (mkMerge
   [
     {
       gui.enableXorg = true;
@@ -36,7 +36,7 @@ in rec
     }
 
     # Full-Fledged GNOME Desktop Configuration
-    (lib.mkIf (desktop == "gnome")
+    (mkIf (desktop == "gnome")
     {
       # Desktop Integration
       programs.dconf.enable = true;
@@ -61,9 +61,10 @@ in rec
       # User Configuration
       home-manager.users."${username}" =
       {
+        # Dconf Keys
         imports = [ files.dconf ];
 
-        # GTK+
+        # GTK+ Theming
         gtk =
         {
           enable = true;
@@ -82,20 +83,52 @@ in rec
         # Display Settings
         xresources.extraConfig = files.xorg;
 
+        # Default Applications
+        xdg.mimeApps.defaultApplications =
+        {
+          # Browser
+          "text/html" = "google-chrome.desktop";
+          "x-scheme-handler/http" = "google-chrome.desktop";
+          "x-scheme-handler/https" = "google-chrome.desktop";
+
+          # Video Player
+          "video/mp4" = "io.github.celluloid_player.Celluloid.desktop";
+          "video/mpeg" = "io.github.celluloid_player.Celluloid.desktop";
+          "video/ogg" = "io.github.celluloid_player.Celluloid.desktop";
+          "video/webm" = "io.github.celluloid_player.Celluloid.desktop";
+
+          # Image Viewer
+          "image/jpeg" = "org.gnome.eog.desktop";
+          "image/bmp" = "org.gnome.eog.desktop";
+          "image/gif" = "org.gnome.eog.desktop";
+          "image/jpg" = "org.gnome.eog.desktop";
+          "image/png" = "org.gnome.eog.desktop";
+          "image/heif" = "org.gnome.eog.desktop";
+
+          # Text Editor
+          "application/xml" = "org.gnome.gedit.desktop";
+          "text/plain" = "org.gnome.gedit.desktop";
+          "text/markdown" = "org.gnome.gitlab.somas.Apostrophe.desktop";
+          "application/pdf" = "org.gnome.Evince.desktop";
+        };
+
         home.file =
         {
           # GTK+ Bookmarks
           ".config/gtk-3.0/bookmarks".text = files.gnome.bookmarks;
 
           # X11 Gestures
-          ".config/touchegg/touchegg.conf".text = files.touchegg;
+          ".config/touchegg/touchegg.conf".text = files.gestures;
+
+          # Online Accounts
+          ".config/goa-1.0/accounts.conf".text = files.gnome.accounts;
 
           # Custome GNOME Shell Theme
-          ".themes/Adwaita/gnome-shell/gnome-shell.css".text = files.gnome.theme;
+          ".themes/Adwaita/gnome-shell/gnome-shell.css".text = files.gnome.shell;
 
           # gEdit Color Scheme
-          ".local/share/gtksourceview-4/styles/tango-dark.xml".text = files.gedit.theme;
-          ".local/share/gtksourceview-4/language-specs/nix.lang".text = files.gedit.syntax;
+          ".local/share/gtksourceview-4/styles/tango-dark.xml".text = files.gnome.theme;
+          ".local/share/gtksourceview-4/language-specs/nix.lang".text = files.gnome.syntax;
 
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (builtins.elem pkgs.discord apps) { text = files.discord.theme; };
@@ -156,20 +189,18 @@ in rec
 
         # Utilities
         dconf2nix
+        google-chrome
         gnuchess
       ];
     })
 
     # Minimal GNOME Desktop Configuration
-    (lib.mkIf (desktop == "gnome-minimal")
+    (mkIf (desktop == "gnome-minimal")
     {
       # Disable Suspension
       services.xserver.displayManager.gdm.autoSuspend = false;
 
-      # Additional Excluded Packages
-      xdg.portal.enable = mkForce false;
-      qt5.enable = mkForce false;
-      services.gnome.core-utilities.enable = mkForce false;
+      # Essential Utilities
       environment.systemPackages = with pkgs.gnome;
       [
         epiphany
@@ -178,6 +209,11 @@ in rec
         gnome-system-monitor
         nautilus
       ];
+
+      # Additional Excluded Packages
+      xdg.portal.enable = mkForce false;
+      qt5.enable = mkForce false;
+      services.gnome.core-utilities.enable = mkForce false;
       environment.gnome.excludePackages = with pkgs.gnome;
       [
         gnome-backgrounds

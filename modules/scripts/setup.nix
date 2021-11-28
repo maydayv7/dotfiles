@@ -28,7 +28,6 @@ let
     printf "\n"
 
     echo "Setting up User..."
-    mkdir -p ~/Pictures/Screenshots
     sudo mkdir -p /var/lib/AccountsService/{icons,users}
     echo "[User]" | sudo tee /var/lib/AccountsService/users/$USER &> /dev/null
     echo "Icon=/var/lib/AccountsService/icons/$USER" | sudo tee -a /var/lib/AccountsService/users/$USER &> /dev/null

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, username, pkgs, ... }:
 let
   enable = (builtins.elem "mobile" config.hardware.support);
 in rec
@@ -8,6 +8,7 @@ in rec
   {
     ## Android Compatibilty Configuration ##
     # Android Device Bridge
+    users.users."${username}".extraGroups = [ "adbusers" ];
     programs.adb.enable = true;
     
     ## iOS Compatibilty Configuration ##

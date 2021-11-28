@@ -1,7 +1,7 @@
 # Dotfiles
 ![[Logo]](https://socialify.git.ci/maydayv7/dotfiles/image?description=1&font=Source%20Code%20Pro&logo=https%3A%2F%2Fraw.githubusercontent.com%2FNixOS%2Fnixos-artwork%2F9bd73014f75c2ce97d104c78314d78eb2493e24d%2Flogo%2Fwhite.svg&name=1&owner=1&pattern=Circuit%20Board&theme=Dark)
 
-![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
+![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
 
 This repo contains the configuration files for my continuously evolving multi-PC setup
 
@@ -35,15 +35,12 @@ Here is an overview of the file hierarchy:
 ├── version
 ├── files
 ├── shells
-├── repl.nix
+│   └── repl
 ├── packages
 │   └── overlays
 ├── lib
-│   ├── device.nix
-│   ├── iso.nix
-│   ├── modules.nix
-│   ├── packages.nix
-│   └── user.nix
+│   ├── build.nix
+│   └── map.nix
 └── modules
     ├── apps
     ├── base
@@ -63,9 +60,9 @@ Here is an overview of the file hierarchy:
 + `configuration.nix`: main system configuration file
 + `flake.nix`: repository version control using `inputs`
 + `version`: system state version
-+ `files`: program configuration and dotfiles
++ `files`: dotfiles and program configuration
 + `shells`: sandboxed shells for development purposes
-+ `repl.nix`: interactive shell to explore syntax and configuration
++ `repl`: interactive shell to explore syntax and configuration
 + `packages`: locally built custom packages
 + `overlays`: overrides for pre-built packages
 + `lib`: custom functions designed for conveniently defining configuration

@@ -1,9 +1,11 @@
-{ config, lib, username, files, ... }:
+{ config, username, ... }:
 let
   secrets = config.age.secrets;
 in rec
 {
-  ## Device User Configuration ##
+  imports = [ ./home.nix ];
+
+  ## User Configuration ##
   config =
   {
     users =
@@ -21,32 +23,5 @@ in rec
       Defaults pwfeedback
       Defaults lecture = never
     '';
-
-    home-manager.users."${username}" =
-    {
-      # XDG Configuration
-      xdg =
-      {
-        enable = true;
-        userDirs =
-        {
-          enable = true;
-          createDirectories = true;
-          desktop = "$HOME/Desktop";
-          documents = "$HOME/Documents";
-          download = "$HOME/Downloads";
-          music = "$HOME/Music";
-          pictures = "$HOME/Pictures";
-          publicShare = "$HOME/Public";
-          templates = "$HOME/Templates";
-          videos = "$HOME/Videos";
-          extraConfig = { XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots"; };
-        };
-        mime.enable = true;
-      };
-
-      # Wallpapers
-      home.file.".local/share/backgrounds".source = files.wallpapers;
-    };
   };
 }

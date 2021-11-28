@@ -1,6 +1,9 @@
-{ config, lib, username, ... }:
+{ config, lib, username, inputs, ... }:
 rec
 {
+  # Home Manager Module
+  imports = [ inputs.home.nixosModules.home-manager ];
+
   ## Install Media User Configuration ##
   config =
   {
@@ -9,7 +12,7 @@ rec
     {
       name = "${username}";
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" ];
       uid = 1000;
       initialPassword = "password";
       useDefaultShell = true;

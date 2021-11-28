@@ -16,7 +16,6 @@ in rec
       onlyoffice-bin
 
       # Internet
-      google-chrome
       megasync
       teams
       whatsapp-for-linux

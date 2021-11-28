@@ -1,24 +1,25 @@
 { config, lib, inputs, ... }:
 let
+  inherit (lib) mkIf mkMerge mkOption types;
   filesystem = config.hardware.filesystem;
 in rec
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.hardware.filesystem = lib.mkOption
+  options.hardware.filesystem = mkOption
   {
     description = "Disk File System Configuration";
-    type = lib.types.enum [ "simple" "advanced" ];
+    type = types.enum [ "simple" "advanced" ];
     default = "simple";
   };
 
   ## File System Configuration ##
-  config = lib.mkIf (filesystem == "simple" || filesystem == "advanced")
-  (lib.mkMerge
+  config = mkIf (filesystem == "simple" || filesystem == "advanced")
+  (mkMerge
   [
     {
       ## Partitions ##
-      # Base Partitions
+      # Common Partitions
       fileSystems =
       {
         # EFI System Partition
@@ -27,6 +28,7 @@ in rec
           device = "/dev/disk/by-partlabel/ESP";
           fsType = "vfat";
         };
+
         # DATA Partition
         "/data" =
         {
@@ -43,10 +45,11 @@ in rec
     }
 
     ## Simple File System Configuration using EXT4 ##
-    (lib.mkIf (filesystem == "simple")
+    (mkIf (filesystem == "simple")
     {
       fileSystems =
       {
+        # ROOT Partition
         "/" =
         {
           device = "/dev/disk/by-partlabel/System";
@@ -56,7 +59,7 @@ in rec
     })
 
     ## Advanced File System Configuration using BTRFS ##
-    (lib.mkIf (filesystem == "advanced")
+    (mkIf (filesystem == "advanced")
     {
       fileSystems =
       {
@@ -68,6 +71,7 @@ in rec
           fsType = "tmpfs";
           options = [ "defaults" "size=2G" "mode=755" ];
         };
+
         # BTRFS Partition
         "/mnt/btrfs" =
         {
@@ -75,6 +79,7 @@ in rec
           fsType = "btrfs";
           options = [ "subvolid=5" "compress=zstd" "autodefrag" "noatime" ];
         };
+
         # HOME Subvolume
         "/home" =
         {
@@ -82,6 +87,7 @@ in rec
           fsType = "btrfs";
           options = [ "subvol=home" ];
         };
+
         # NIX Subvolume
         "/nix" =
         {
@@ -89,6 +95,7 @@ in rec
           fsType = "btrfs";
           options = [ "subvol=nix" ];
         };
+
         # PERSISTENT Subvolume
         "/persist" =
         {

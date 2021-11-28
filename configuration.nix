@@ -9,37 +9,42 @@ let
 
   # System Libraries
   inherit (inputs.nixpkgs) lib;
-  inherit (lib) attrValues;
 
   # Custom Functions
   util = import ./lib { inherit system version files lib inputs pkgs; };
-  inherit (util) device iso modules packages user;
+  inherit (util) build map;
 
   # Package Configuration
-  unstable = packages.build inputs.unstable [ ];
-  pkgs = packages.build inputs.nixpkgs [ self.overlay inputs.nur.overlay ];
+  unstable = map.packages inputs.unstable [ ];
+  pkgs = map.packages inputs.nixpkgs [ self.overlay inputs.nur.overlay ];
 
-  # Program Configuration and Dotfiles
+  # Dotfiles and Program Configuration
   files = import ./files { };
 in
 {
   ## Developer Shells ##
+  # Default Developer Shell
   devShell."${system}" = import ./shells { inherit pkgs; };
-  devShells."${system}" = modules.map ./shells (name: import name { inherit pkgs; });
 
-  ## Package Overrides ##
+  # Tailored Developer Shells
+  devShells."${system}" = map.modules ./shells (name: import name { inherit pkgs; });
+
+  ## Package Configuration ##
+  # Overrides
   overlay = final: prev: { inherit unstable; custom = self.packages."${system}"; };
-  overlays = modules.map ./packages/overlays import;
-  packages."${system}" = modules.map ./packages (name: pkgs.callPackage name { inherit files; });
+  overlays = map.modules ./packages/overlays import;
+
+  # Custom Packages
+  packages."${system}" = map.modules ./packages (name: pkgs.callPackage name { inherit files; });
 
   ## Custom Configuration Modules ##
-  nixosModules = modules.map ./modules import;
+  nixosModules = map.modules ./modules import;
 
   ## Install Media Configuration ##
   installMedia =
   {
     # Install Media - GNOME
-    gnome = iso.build
+    gnome = build.iso
     {
       name = "nixos";
       timezone = "Asia/Kolkata";
@@ -53,7 +58,7 @@ in
   nixosConfigurations =
   {
     # PC - Dell Inspiron 15 5000
-    Vortex = device.build
+    Vortex = build.device
     {
       name = "Vortex";
       timezone = "Asia/Kolkata";
@@ -86,7 +91,7 @@ in
         {
           username = "v7";
           description = "V 7";
-          groups = [ "wheel" "networkmanager" "kvm" "libvirtd" "adbusers" "scanner" ];
+          groups = [ "wheel" ];
           uid = 1000;
           shell = "zsh";
         }
@@ -94,7 +99,7 @@ in
     };
 
     # PC - Dell Inspiron 11 3000
-    Futura = device.build
+    Futura = build.device
     {
       name = "Futura";
       timezone = "Asia/Kolkata";
@@ -117,8 +122,6 @@ in
         {
           username = "navya";
           description = "Navya";
-          groups = [ "wheel" "networkmanager" ];
-          uid = 1000;
           shell = "zsh";
         }
       ];

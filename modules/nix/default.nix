@@ -8,6 +8,8 @@ rec
   {
     nix =
     {
+      package = pkgs.nix_2_4;
+
       # Garbage Collection
       autoOptimiseStore = true;
       gc =
@@ -23,10 +25,11 @@ rec
       # User Permissions
       trustedUsers = [ "root" "@wheel" ];
 
-      # Flakes
-      package = pkgs.nix_2_4;
+      # Additional Features
       extraOptions = "experimental-features = nix-command flakes recursive-nix";
       systemFeatures = [ "kvm" "recursive-nix" ];
+
+      # Flakes
       registry =
       {
         self.flake = inputs.self;

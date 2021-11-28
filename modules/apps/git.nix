@@ -1,37 +1,57 @@
-{ config, lib, username, inputs, ... }:
+{ config, options, lib, username, inputs, ... }:
 let
+  inherit (lib) mkOption types;
   enable = (builtins.elem "git" config.apps.list);
+  opt = options.apps.git;
   cfg = config.apps.git;
 in rec
 {
   options.apps.git =
   {
-    name = lib.mkOption
+    name = mkOption
     {
       description = "Name for git";
-      type = lib.types.str;
+      type = types.str;
+      default = "";
     };
 
-    mail = lib.mkOption
+    mail = mkOption
     {
-      description = "Email for git";
-      type = lib.types.str;
+      description = "Mail ID for git";
+      type = types.str;
+      default = "";
     };
 
-    key = lib.mkOption
+    key = mkOption
     {
       description = "GPG Key for git";
-      type = lib.types.str;
+      type = types.str;
+      default = "";
     };
   };
 
-  ## User Git Configuration ##
+  ## git Configuration ##
   config = lib.mkIf enable
   {
+    # Warnings
+    assertions =
+    [
+      {
+        assertion = cfg.name != "";
+        message = (opt.name.description + " must be set");
+      }
+      {
+        assertion = cfg.mail != "";
+        message = (opt.mail.description + " must be set");
+      }
+    ];
+
     home-manager.users."${username}".programs.git =
     {
       enable = true;
       delta.enable = true;
+
+      # Command Aliases
       aliases =
       {
         ci = "commit";
@@ -40,10 +60,12 @@ in rec
         mod = "submodule";
         sum = "log --graph --decorate --oneline --color --all";
       };
+
+      # Additional Parameters
       extraConfig =
       {
         color.ui = "auto";
-        pull.rebase = "false";
+        pull.rebase = "true";
         init.defaultBranch = "master";
         credential.helper = "store";
       };
@@ -54,7 +76,7 @@ in rec
       signing =
       {
         key = cfg.key;
-        signByDefault = true;
+        signByDefault = lib.mkIf (cfg.key != "") true;
       };
     };
   };

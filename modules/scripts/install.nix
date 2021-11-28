@@ -28,6 +28,11 @@ let
       esac
 
     read -p "Enter Path to Disk: /dev/" DISK
+    if [ -z "$DISK" ]
+    then
+      error "Path to Disk cannot be empty. If unsure, use the command 'fdisk -l'"
+    fi
+
     read -p "Enter Path to SSH Keys: " KEY
     if [ -z "$KEY" ]
     then
@@ -81,7 +86,7 @@ let
     printf "\n"
 
     echo "Installing System..."
-    nixos-install --no-root-passwd --flake github:maydayv7/dotfiles#$HOST
+    nixos-install --no-root-passwd --root /mnt --flake github:maydayv7/dotfiles#$HOST
     cp -r $KEY/. /mnt/etc/ssh
     chmod 400 /mnt/etc/ssh/ssh_key
     printf "\n"

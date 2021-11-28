@@ -276,12 +276,37 @@ with lib.hm.gvariant;
 
     "org/gnome/shell" =
     {
+      app-picker-layout = "[{'firefox.desktop': <{'position': <0>}>, 'teams.desktop': <{'position': <1>}>, 'bluej.desktop': <{'position': <2>}>, 'Zoom.desktop': <{'position': <3>}>, 'a136187d-1d93-4d35-8423-082f15957be9': <{'position': <4>}>, 'org.gnome.Calculator.desktop': <{'position': <5>}>, 'org.gnome.Lollypop.desktop': <{'position': <6>}>, 'io.github.celluloid_player.Celluloid.desktop': <{'position': <7>}>, 'org.gnome.clocks.desktop': <{'position': <8>}>, 'org.gnome.Boxes.desktop': <{'position': <9>}>, 'org.gnome.Connections.desktop': <{'position': <10>}>, 'gnome-system-monitor.desktop': <{'position': <11>}>, 'org.gnome.Extensions.desktop': <{'position': <12>}>, 'org.gnome.tweaks.desktop': <{'position': <13>}>, 'org.gnome.DiskUtility.desktop': <{'position': <14>}>}, {'org.gnome.FileRoller.desktop': <{'position': <0>}>, 'org.gnome.DejaDup.desktop': <{'position': <1>}>, 'org.gnome.Calendar.desktop': <{'position': <2>}>, 'org.gnome.Characters.desktop': <{'position': <3>}>, 'org.gnome.Cheese.desktop': <{'position': <4>}>, 'org.gnome.Contacts.desktop': <{'position': <5>}>, 'ca.desrt.dconf-editor.desktop': <{'position': <6>}>, 'org.gnome.Dictionary.desktop': <{'position': <7>}>, 'org.gnome.Evince.desktop': <{'position': <8>}>, 'simple-scan.desktop': <{'position': <9>}>, 'com.github.maoschanz.drawing.desktop': <{'position': <10>}>, 'org.gnome.font-viewer.desktop': <{'position': <11>}>, '4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff': <{'position': <12>}>, 'org.gnome.eog.desktop': <{'position': <13>}>, 'org.gnome.Maps.desktop': <{'position': <14>}>, 'org.gnome.Notes.desktop': <{'position': <15>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <16>}>, 'org.gnome.Photos.desktop': <{'position': <17>}>, 'org.gnome.Screenshot.desktop': <{'position': <18>}>, 'org.gnome.SoundRecorder.desktop': <{'position': <19>}>, 'b79e9b82-2127-459b-9e82-11bd3be09d04': <{'position': <20>}>, 'org.gnome.Weather.desktop': <{'position': <21>}>}, {'org.gnome.gitlab.somas.Apostrophe.desktop': <{'position': <0>}>, 'balena-etcher-electron.desktop': <{'position': <1>}>, 'org.gnome.Builder.desktop': <{'position': <2>}>, 'discord.desktop': <{'position': <3>}>, 'org.gnome.Fractal.desktop': <{'position': <4>}>, 'de.haeckerfelix.Fragments.desktop': <{'position': <5>}>, 'org.gabmus.giara.desktop': <{'position': <6>}>, 'gimp.desktop': <{'position': <7>}>, 'gparted.desktop': <{'position': <8>}>, 'org.gnome.gThumb.desktop': <{'position': <9>}>, 'fr.handbrake.ghb.desktop': <{'position': <10>}>, 'io.github.seadve.Kooha.desktop': <{'position': <11>}>, 'com.bitstower.Markets.desktop': <{'position': <12>}>, 'megasync.desktop': <{'position': <13>}>, 'org.gnome.PasswordSafe.desktop': <{'position': <14>}>, 'org.gnome.Podcasts.desktop': <{'position': <15>}>, 'org.gnome.Polari.desktop': <{'position': <16>}>, 'de.haeckerfelix.Shortwave.desktop': <{'position': <17>}>, 'org.gnome.Sysprof3.desktop': <{'position': <18>}>, 'org.gnome.Epiphany.desktop': <{'position': <19>}>, 'whatsapp-for-linux.desktop': <{'position': <20>}>, 'com.github.hugolabe.Wike.desktop': <{'position': <21>}>}]";
       command-history = [ "rt" "r" ];
       disable-user-extensions = false;
       disable-extension-version-validation = true;
       disabled-extensions = [ "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
       enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "compiz-windows-effect@hermes83.github.com" "compiz-alike-magic-lamp-effect@hermes83.github.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "just-perfection-desktop@just-perfection" "appindicatorsupport@rgcjonas.gmail.com" "lockkeys@vaina.lt" "screenshotlocations.timur@linux.com" "sound-output-device-chooser@kgshank.net" "Vitals@CoreCoding.com" "custom-hot-corners-extended@G-dH.github.com" "color-picker@tuberry" "top-bar-organizer@julian.gse.jsts.xyz" "drive-menu@gnome-shell-extensions.gcampax.github.com" "x11gestures@joseexposito.github.io" "dash-to-panel@jderose9.github.com" "flypie@schneegans.github.com" "color-picker@tuberry" ];
       favorite-apps = [ "google-chrome.desktop" "org.gnome.Geary.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Terminal.desktop" "org.gnome.gedit.desktop" "gnome-control-center.desktop" ];
+    };
+
+    "org/gnome/desktop/app-folders" =
+    {
+      folder-children = [ "a136187d-1d93-4d35-8423-082f15957be9" "b79e9b82-2127-459b-9e82-11bd3be09d04" "4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff" ];
+    };
+
+    "org/gnome/desktop/app-folders/folders/4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff" =
+    {
+      apps = [ "org.gnome.Chess.desktop" "org.gnome.Sudoku.desktop" "org.gnome.Mines.desktop" "org.gnome.Quadrapassel.desktop" ];
+      name = "Games";
+    };
+
+    "org/gnome/desktop/app-folders/folders/a136187d-1d93-4d35-8423-082f15957be9" =
+    {
+      apps = [ "startcenter.desktop" "writer.desktop" "impress.desktop" "draw.desktop" "base.desktop" "calc.desktop" "math.desktop" "onlyoffice-desktopeditors.desktop" "net.sourceforge.gscan2pdf.desktop" "virt-manager.desktop" ];
+      name = "Office";
+    };
+
+    "org/gnome/desktop/app-folders/folders/b79e9b82-2127-459b-9e82-11bd3be09d04" =
+    {
+      apps = [ "org.gnome.Logs.desktop" "org.gnome.Devhelp.desktop" "org.gnome.Tour.desktop" "cups.desktop" "nixos-manual.desktop" "yelp.desktop" "org.gnome.baobab.desktop" "xterm.desktop" ];
+      name = "Utilities";
+      translate = false;
     };
 
     "org/gnome/shell/extensions/caffeine" =

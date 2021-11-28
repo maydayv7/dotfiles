@@ -4,7 +4,7 @@ let
 in rec
 {
   ## Firefox Browser Configuration ##
-  config =
+  config = lib.mkIf enable
   {
     environment.systemPackages = with pkgs; [ firefox ];
 
