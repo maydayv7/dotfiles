@@ -42,8 +42,8 @@ in rec
       fd
       file
       lolcat
+      nano
       neofetch
-      tree
     ];
 
     # Neofetch Config

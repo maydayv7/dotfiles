@@ -178,6 +178,6 @@ in rec
 
   config = lib.mkIf enable
   {
-    environment.systemPackages = with pkgs; [ script ];
+    environment.systemPackages = with pkgs; [ bash script tree nano ];
   };
 }

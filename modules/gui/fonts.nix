@@ -28,7 +28,7 @@ in rec
     };
 
     # Font Packages
-    fonts.fonts = with pkgs; 
+    fonts.fonts = with pkgs;
     [
       corefonts
       dejavu_fonts

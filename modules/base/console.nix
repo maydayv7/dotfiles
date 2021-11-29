@@ -7,10 +7,22 @@ rec
     # Setup
     console =
     {
-      earlySetup = true;
-      font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
-      packages = with pkgs; [ terminus_font ];
+      font = "ter-132n";
+      packages = [ pkgs.terminus_font ];
       keyMap = "us";
+    };
+
+    # TTY
+    fonts.fonts = [ pkgs.meslo-lgs-nf ];
+    services.kmscon =
+    {
+      enable = true;
+      hwRender = true;
+      extraConfig =
+      ''
+        font-name=MesloLGS NF
+        font-size=14
+      '';
     };
 
     # Essential Utilities

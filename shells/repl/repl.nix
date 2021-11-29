@@ -6,8 +6,8 @@ let
   outputs = (removeAttrs (nixpkgs // nixpkgs.lib) [ "options" "config" ]);
 in
 { inherit flake; }
-// flake
 // builtins
+// outputs
+// flake
 // flake.nixosConfigurations
 // flake.nixosConfigurations."${hostname}"
-// outputs
