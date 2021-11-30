@@ -1,27 +1,24 @@
 { build, system, version, lib, inputs, pkgs, files, ... }:
-let
-  inherit (builtins) map;
-  inherit (inputs.self) nixosModules;
-in
+with inputs;
 {
   ## Device Configuration Function ##
   device = { name, timezone, locale, kernel, kernelModules, hardware, desktop, apps, user }:
   let
     # User Creation
-    device_user = (map (u: build.user u) user);
+    device_user = (builtins.map (u: build.user u) user);
 
     # Device Configuration Modules
     device_modules =
     [
-      nixosModules.apps
-      nixosModules.base
-      nixosModules.gui
-      nixosModules.hardware
-      nixosModules.nix
-      nixosModules.scripts
-      nixosModules.secrets
-      nixosModules.shell
-      nixosModules.user
+      self.nixosModules.apps
+      self.nixosModules.base
+      self.nixosModules.gui
+      self.nixosModules.hardware
+      self.nixosModules.nix
+      self.nixosModules.scripts
+      self.nixosModules.secrets
+      self.nixosModules.shell
+      self.nixosModules.user
     ];
   in lib.nixosSystem
   {
@@ -48,7 +45,7 @@ in
 
         # Package Configuration
         system.stateVersion = version;
-        system.configurationRevision = with inputs; lib.mkIf (self ? rev) self.rev;
+        system.configurationRevision = lib.mkIf (self ? rev) self.rev;
         nixpkgs.pkgs = pkgs;
         nix.maxJobs = lib.mkDefault hardware.cores;
 
@@ -70,7 +67,7 @@ in
   iso = { name, timezone, locale, kernel, desktop }:
   let
     # Default User
-    iso_user = (map (u: build.user u) user);
+    iso_user = (builtins.map (u: build.user u) user);
     user =
     [{
       username = "nixos";
@@ -83,10 +80,10 @@ in
     # Install Media Configuration Modules
     iso_modules =
     [
-      nixosModules.base
-      nixosModules.gui
-      nixosModules.nix
-      nixosModules.scripts
+      self.nixosModules.base
+      self.nixosModules.gui
+      self.nixosModules.nix
+      self.nixosModules.scripts
 
       # Install Media Build Module
       "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
@@ -136,7 +133,7 @@ in
   user = { username, description ? "", groups ? [ ], uid ? 1000, shell, password ? "", autologin ? false }:
   {
     # Home Manager Modules
-    imports = [ inputs.home.nixosModules.home-manager ];
+    imports = [ home.nixosModules.home-manager ];
 
     # User Creation
     _module.args = { inherit username; };

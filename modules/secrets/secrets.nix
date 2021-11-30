@@ -1,9 +1,9 @@
 let
   # SSH Key
-  key = builtins.readFile ../keys/ssh_key.pub;
+  key = builtins.readFile ./ssh/key.pub;
 in
 {
-  # Github TOken
+  # Github Token
   "github/token.age".publicKeys = [ key ];
 
   # Cachix Token

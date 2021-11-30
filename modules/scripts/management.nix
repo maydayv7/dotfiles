@@ -2,6 +2,15 @@
 let
   enable = config.scripts.management;
 
+  # Module Path
+  path =
+  {
+    system = "/etc/nixos";
+    key = "/etc/ssh/key";
+    repl = "${path.system}/repl.nix";
+    secrets = "${path.system}/modules/secrets";
+  };
+
   # Usage Description
   usage =
   {
@@ -46,16 +55,15 @@ let
     error() { echo -e "\033[0;31merror:\033[0m $1"; exit 125; }
     pushd () { command pushd "$@" > /dev/null; }
     popd () { command popd "$@" > /dev/null; }
-
     case $1 in
     "apply")
       echo "Applying Configuration..."
       case $2 in
-      "") sudo nixos-rebuild switch --flake /etc/nixos#;;
-      "--boot") sudo nixos-rebuild boot --flake /etc/nixos#;;
-      "--check") nixos-rebuild dry-activate --flake /etc/nixos#;;
+      "") sudo nixos-rebuild switch --flake ${path.system}#;;
+      "--boot") sudo nixos-rebuild boot --flake ${path.system}#;;
+      "--check") nixos-rebuild dry-activate --flake ${path.system}#;;
       "--rollback") sudo nixos-rebuild switch --rollback;;
-      "--test") sudo nixos-rebuild test --flake /etc/nixos#;;
+      "--test") sudo nixos-rebuild test --flake ${path.system}s#;;
       *) error "Unknown option $2\n${usage.apply}";;
       esac
     ;;
@@ -66,10 +74,10 @@ let
       echo "Running De-Duplication..."
       nix store optimise
     ;;
-    "explore") nix repl /etc/nixos/shells/repl/repl.nix;;
+    "explore") nix repl ${path.repl};;
     "iso")
       echo "Building $2 ISO file..."
-      nix build /etc/nixos#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso"
+      nix build ${path.system}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso"
       case $3 in
       "") echo "The --burn option can be used to burn the Image to a USB";;
       "--burn")
@@ -86,7 +94,7 @@ let
     ;;
     "save")
       echo "Saving Changes..."
-      pushd /etc/nixos
+      pushd ${path.system}
       git add .
       git commit
       git pull --rebase
@@ -100,26 +108,26 @@ let
         "") error "Expected a path to Secret following edit command";;
         *)
           echo "Editing Secret $3..."
-          pushd /etc/nixos/modules/secrets/encrypted
-          if ! grep -Fq "$3" secrets.nix
+          pushd ${path.secrets}
+          if ! grep -Fq "$3" ${path.secrets}/secrets.nix
           then
             read -p "Do you want to add an entry for the new Secret in secrets.nix? (Y/N): " choice
               case $choice in
-                [Yy]*) $EDITOR secrets.nix;;
+                [Yy]*) $EDITOR ${path.secrets}/secrets.nix;;
                 *) exit;;
               esac
           fi
-          agenix -e $3.age -i /etc/ssh/ssh_key
+          agenix -e $3.age -i ${path.key}
           popd
         ;;
         esac
       ;;
-      "list") tree -C --noreport -I secrets.nix /etc/nixos/modules/secrets/encrypted | sed -e 's/\.age$//';;
+      "list") tree -C --noreport -I '*.nix' ${path.secrets} | sed -e 's/\.age$//';;
       "show") sudo cat /run/agenix/$3;;
       "update")
         echo "Updating Secrets..."
-        pushd /etc/nixos/modules/secrets/encrypted
-        sudo agenix -r -i /etc/ssh/ssh_key
+        pushd ${path.secrets}
+        agenix -r -i ${path.key}
         popd
       ;;
       *)
@@ -134,13 +142,13 @@ let
     ;;
     "shell")
       case $2 in
-      "") nix develop /etc/nixos --command $SHELL;;
-      *) nix develop /etc/nixos#$2 --command $SHELL;;
+      "") nix develop ${path.system} --command $SHELL;;
+      *) nix develop ${path.system}#$2 --command $SHELL;;
       esac
     ;;
     "update")
       echo "Updating Flake Inputs..."
-      nix flake update /etc/nixos $2
+      nix flake update ${path.system} $2
     ;;
     *)
       if [ -z "$1" ]
@@ -158,6 +166,6 @@ in rec
 
   config = lib.mkIf enable
   {
-    environment.systemPackages = with pkgs; [ bash script tree nano ];
+    environment.systemPackages = with pkgs; [ script tree ];
   };
 }

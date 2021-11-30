@@ -35,7 +35,7 @@ Here is an overview of the file hierarchy:
 ├── version
 ├── files
 ├── shells
-│   └── repl
+├── repl.nix
 ├── packages
 │   └── overlays
 ├── lib
@@ -50,9 +50,6 @@ Here is an overview of the file hierarchy:
     ├── nix
     ├── scripts
     ├── secrets
-    │   ├── keys
-    │   ├── encrypted
-    │   └── unencrypted
     ├── shell
     └── user
 ```
@@ -62,7 +59,7 @@ Here is an overview of the file hierarchy:
 + `version`: system state version
 + `files`: dotfiles and program configuration
 + `shells`: sandboxed shells for development purposes
-+ `repl`: interactive shell to explore syntax and configuration
++ `repl.nix`: interactive shell to explore syntax and configuration
 + `packages`: locally built custom packages
 + `overlays`: overrides for pre-built packages
 + `lib`: custom functions designed for conveniently defining configuration

@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   enable = config.scripts.install;
+  path.key = "/etc/ssh/key";
 
   # NixOS Install Script
   script = with pkgs; writeScriptBin "install"
@@ -29,10 +30,10 @@ let
       error "Path to Disk cannot be empty. If unsure, use the command 'fdisk -l'"
     fi
 
-    read -p "Enter Path to SSH Keys: " KEY
+    read -p "Enter Path to SSH Key: " KEY
     if [ -z "$KEY" ]
     then
-      error "Path to SSH Keys cannot be empty"
+      error "Path to SSH Key cannot be empty"
     fi
 
     echo "Creating Partitions..."
@@ -76,15 +77,15 @@ let
     printf "\n"
 
     echo "Importing Keys..."
-    cp -r $KEY/. /etc/ssh
-    chmod 400 /etc/ssh/ssh_key
-    ssh-add /etc/ssh/ssh_key
+    cp $KEY ${path.key}
+    chmod 400 ${path.key}
+    ssh-add ${path.key}
     printf "\n"
 
     echo "Installing System..."
     nixos-install --no-root-passwd --root /mnt --flake github:maydayv7/dotfiles#$HOST
-    cp -r $KEY/. /mnt/etc/ssh
-    chmod 400 /mnt/etc/ssh/ssh_key
+    cp $KEY /mnt/${path.key}
+    chmod 400 /mnt/${path.key}
     printf "\n"
 
     read -p "Do you want to reboot the system? (Y/N): " choice

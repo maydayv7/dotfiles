@@ -16,12 +16,12 @@ in
       # Encrypted Secrets
       secrets = mapAttrs' (name: _: nameValuePair (removeSuffix ".age" name)
       {
-        file = "${builtins.toString ./encrypted}/${name}";
+        file = "${builtins.toString ./.}/${name}";
         owner = "root";
-      }) (import ./encrypted/secrets.nix);
+      }) (import ./secrets.nix);
 
       # SSH Keys
-      sshKeyPaths = options.age.sshKeyPaths.default ++ [ "${path}/etc/ssh/ssh_key" ];
+      sshKeyPaths = options.age.sshKeyPaths.default ++ [ "${path}/etc/ssh/key" ];
     };
   };
 }

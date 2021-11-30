@@ -8,6 +8,7 @@ let
   version = (builtins.readFile ./version);
 
   # System Libraries
+  inherit (builtins) head attrValues;
   inherit (inputs.nixpkgs) lib;
 
   # Custom Functions
@@ -30,6 +31,8 @@ in
   devShells."${system}" = map.modules ./shells (name: import name { inherit pkgs; });
 
   ## Package Configuration ##
+  legacyPackages."${system}" = (head (attrValues self.nixosConfigurations)).pkgs;
+
   # Overrides
   overlay = final: prev: { inherit unstable; custom = self.packages."${system}"; };
   overlays = map.modules ./packages/overlays import;

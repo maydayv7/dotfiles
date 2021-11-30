@@ -2,6 +2,7 @@
 let
   enable = config.scripts.setup;
   secrets = config.age.secrets;
+  path.system = "/etc/nixos";
 
   # System Setup Script
   script = with pkgs; writeScriptBin "setup"
@@ -11,9 +12,9 @@ let
 
     if mount | grep ext4 > /dev/null
     then
-      DIR=/etc/nixos
+      DIR=${path.system}
     else
-      DIR=/persist/etc/nixos
+      DIR=/persist${path.system}
     fi
 
     echo "Preparing Directory..."
@@ -24,7 +25,7 @@ let
     printf "\n"
 
     echo "Cloning Repo..."
-    git clone --recurse-submodules https://github.com/maydayv7/dotfiles.git $DIR
+    git clone https://github.com/maydayv7/dotfiles.git $DIR
     printf "\n"
 
     echo "Setting up User..."
@@ -35,18 +36,18 @@ let
     printf "\n"
 
     echo "Importing Keys..."
-    sudo ssh-add /etc/ssh/ssh_key
+    sudo ssh-add /etc/ssh/key
     sudo cat ${secrets."gpg/public.gpg".path} | gpg --import
     sudo cat ${secrets."gpg/private.gpg".path} | gpg --import
     printf "\n"
 
-    if [ "$DIR" == "/persist/etc/nixos" ]
+    if [ "$DIR" == "/persist${path.system}" ]
     then
-      sudo umount -l /etc/nixos
+      sudo umount -l ${path.system}
       sudo mount $DIR
     fi
 
-    nixos apply
+    sudo nixos-rebuild switch --flake ${path.system}
   '';
 in rec
 {
