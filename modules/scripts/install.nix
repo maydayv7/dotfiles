@@ -7,11 +7,7 @@ let
   ''
     #!${pkgs.runtimeShell}
     set +x
-    error()
-    {
-      echo -e "\033[0;31merror:\033[0m $1"
-      exit 125
-    }
+    error() { echo -e "\033[0;31merror:\033[0m $1"; exit 125; }
 
     read -p "Select Device to Install (Vortex/Futura): " choice
       case $choice in
@@ -99,12 +95,7 @@ let
   '';
 in rec
 {
-  options.scripts.install = lib.mkOption
-  {
-    description = "Script for Installing NixOS";
-    type = lib.types.bool;
-    default = false;
-  };
+  options.scripts.install = lib.mkEnableOption "Script for Installing NixOS";
 
   config = lib.mkIf enable
   {

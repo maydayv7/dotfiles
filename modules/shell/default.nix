@@ -1,37 +1,15 @@
-{ config, lib, username, pkgs, files, ... }:
-let
-  inherit (lib) mkIf mkOption mkEnableOption types;
-  enable = config.shell.enable;
-  shell = config.shell.shell;
-in rec
+{ username, pkgs, files, ... }:
+rec
 {
   imports = [ ./zsh.nix ];
 
-  options.shell =
-  {
-    enable = mkEnableOption "Enable Shell Configuration";
-    shell = mkOption
-    {
-      description = "User Shell Choice";
-      type = types.str;
-      default = "bash";
-    };
-  };
-
   ## Shell Configuration ##
-  config = mkIf enable
+  config =
   {
     # Environment Variables
     environment.variables =
     {
       EDITOR = "nano -Ll";
-    };
-
-    # User Shell Configuration
-    users.users."${username}" =
-    {
-      useDefaultShell = false;
-      shell = pkgs."${shell}";
     };
 
     # Utilities

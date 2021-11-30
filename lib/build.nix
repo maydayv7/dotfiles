@@ -1,13 +1,14 @@
 { build, system, version, lib, inputs, pkgs, files, ... }:
 let
+  inherit (builtins) map;
   inherit (inputs.self) nixosModules;
 in
 {
   ## Device Configuration Function ##
-  device = { name, timezone, locale, kernel, kernelModules, hardware, desktop, apps, users }:
+  device = { name, timezone, locale, kernel, kernelModules, hardware, desktop, apps, user }:
   let
     # User Creation
-    device_users = (builtins.map (u: build.user u) users);
+    device_user = (map (u: build.user u) user);
 
     # Device Configuration Modules
     device_modules =
@@ -31,7 +32,7 @@ in
     [
       {
         # Modulated Configuration Imports
-        imports = device_modules ++ device_users;
+        imports = device_modules ++ device_user;
 
         # Device Hostname
         networking.hostName = "${name}";
@@ -69,27 +70,37 @@ in
   iso = { name, timezone, locale, kernel, desktop }:
   let
     # Default User
-    username = "nixos";
+    iso_user = (map (u: build.user u) user);
+    user =
+    [{
+      username = "nixos";
+      uid = 1000;
+      groups = [ "wheel" ];
+      password = "password";
+      shell = "bash";
+    }];
 
     # Install Media Configuration Modules
     iso_modules =
     [
       nixosModules.base
       nixosModules.gui
-      nixosModules.iso
       nixosModules.nix
       nixosModules.scripts
+
+      # Install Media Build Module
+      "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
     ];
   in lib.nixosSystem
   {
     inherit system;
-    specialArgs = { inherit inputs username; };
+    specialArgs = { inherit inputs; };
 
     modules =
     [
       {
         # Modulated Configuration Imports
-        imports = iso_modules;
+        imports = iso_modules ++ iso_user;
 
         # Hostname
         networking.hostName = "${name}";
@@ -122,8 +133,11 @@ in
   };
 
   ## User Configuration Function ##
-  user = { username, description, groups ? [ ], uid ? 1000, shell }:
+  user = { username, description ? "", groups ? [ ], uid ? 1000, shell, password ? "", autologin ? false }:
   {
+    # Home Manager Modules
+    imports = [ inputs.home.nixosModules.home-manager ];
+
     # User Creation
     _module.args = { inherit username; };
     users.users."${username}" =
@@ -133,14 +147,22 @@ in
       description = description;
       isNormalUser = true;
       inherit uid;
+      initialPassword = password;
 
       # Groups
       group = "users";
       extraGroups = groups;
+
+      # Shell
+      useDefaultShell = false;
+      shell = pkgs."${shell}";
     };
 
-    # Shell Configuration
-    shell.enable = true;
-    shell.shell = shell;
+    # User Login
+    services.xserver.displayManager.autoLogin =
+    {
+      enable = autologin;
+      user = "${username}";
+    };
   };
 }

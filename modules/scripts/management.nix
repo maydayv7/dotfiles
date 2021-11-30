@@ -43,22 +43,7 @@ let
   script = with pkgs; writeScriptBin "nixos"
   ''
     #!${pkgs.runtimeShell}
-    edit()
-    {
-      if ! [ -z "$EDITOR" ]
-      then
-        $EDITOR $1
-      else
-        nano $1
-      fi
-    }
-
-    error()
-    {
-      echo -e "\033[0;31merror:\033[0m $1"
-      exit 125
-    }
-
+    error() { echo -e "\033[0;31merror:\033[0m $1"; exit 125; }
     pushd () { command pushd "$@" > /dev/null; }
     popd () { command popd "$@" > /dev/null; }
 
@@ -120,7 +105,7 @@ let
           then
             read -p "Do you want to add an entry for the new Secret in secrets.nix? (Y/N): " choice
               case $choice in
-                [Yy]*) edit secrets.nix;;
+                [Yy]*) $EDITOR secrets.nix;;
                 *) exit;;
               esac
           fi
@@ -129,6 +114,14 @@ let
         ;;
         esac
       ;;
+      "list") tree -C --noreport -I secrets.nix /etc/nixos/modules/secrets/encrypted | sed -e 's/\.age$//';;
+      "show") sudo cat /run/agenix/$3;;
+      "update")
+        echo "Updating Secrets..."
+        pushd /etc/nixos/modules/secrets/encrypted
+        sudo agenix -r -i /etc/ssh/ssh_key
+        popd
+      ;;
       *)
         if [ -z "$2" ]
         then
@@ -136,14 +129,6 @@ let
         else
           error "Unknown option $2\n${usage.secret}"
         fi
-      ;;
-      "list") tree -C --noreport -I secrets.nix /etc/nixos/modules/secrets/encrypted | sed -e 's/\.age$//';;
-      "show") sudo cat /run/agenix/$3;;
-      "update")
-        echo "Updating Secrets..."
-        pushd /etc/nixos/modules/secrets/encrypted
-        agenix -r -i /etc/ssh/ssh_key
-        popd
       ;;
       esac
     ;;
@@ -169,12 +154,7 @@ let
   '';
 in rec
 {
-  options.scripts.management = lib.mkOption
-  {
-    description = "Script for NixOS System Management";
-    type = lib.types.bool;
-    default = false;
-  };
+  options.scripts.management = lib.mkEnableOption "Script for NixOS System Management";
 
   config = lib.mkIf enable
   {

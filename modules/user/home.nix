@@ -1,12 +1,9 @@
-{ config, username, inputs, pkgs, files, ... }:
+{ config, username, files, ... }:
 let
   version = config.system.stateVersion;
   homeDir = config.home-manager.users."${username}".home.homeDirectory;
 in rec
 {
-  # Home Manager Module
-  imports = [ inputs.home.nixosModules.home-manager ];
-
   ## Home Manager Settings ##
   config =
   {

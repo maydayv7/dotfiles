@@ -1,10 +1,8 @@
-{ config, lib, username, inputs, pkgs, files, ... }:
-let
-  shell = config.shell.shell;
-in rec
+{ username, inputs, pkgs, files, ... }:
+rec
 {
   ## Z Shell Configuration ##
-  config = lib.mkIf (shell == "zsh")
+  config =
   {
     # Shell Environment
     environment =

@@ -36,9 +36,8 @@ let
 
     echo "Importing Keys..."
     sudo ssh-add /etc/ssh/ssh_key
-    mkdir -p ~/.gnupg
-    gpg --import ${secrets."gpg/public.gpg".path}
-    gpg --import ${secrets."gpg/private.gpg".path}
+    sudo cat ${secrets."gpg/public.gpg".path} | gpg --import
+    sudo cat ${secrets."gpg/private.gpg".path} | gpg --import
     printf "\n"
 
     if [ "$DIR" == "/persist/etc/nixos" ]
@@ -51,13 +50,7 @@ let
   '';
 in rec
 {
-  options.scripts.setup = lib.mkOption
-  {
-    description = "Script for setting up NixOS";
-    type = lib.types.bool;
-    default = false;
-  };
-
+  options.scripts.setup = lib.mkEnableOption "Script for setting up NixOS";
   config = lib.mkIf enable
   {
     environment.systemPackages = [ script ];

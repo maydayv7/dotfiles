@@ -85,17 +85,15 @@ in
         };
       };
 
-      users =
-      [
-        # User V7 Configuration
-        {
+      # User V7
+      user =
+      [{
           username = "v7";
           description = "V 7";
           groups = [ "wheel" ];
           uid = 1000;
           shell = "zsh";
-        }
-      ];
+      }];
     };
 
     # PC - Dell Inspiron 11 3000
@@ -116,15 +114,13 @@ in
       desktop = "gnome";
       apps.list = [ "firefox" "office" ];
 
-      users =
-      [
-        # User Navya Configuration
-        {
+      # User Navya
+      user =
+      [{
           username = "navya";
           description = "Navya";
           shell = "zsh";
-        }
-      ];
+      }];
     };
   };
 }

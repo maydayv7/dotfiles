@@ -1,5 +1,6 @@
 { config, lib, username, inputs, pkgs, files, ... }:
 let
+  inherit (builtins) elem;
   inherit (lib) mkIf mkForce mkMerge;
   desktop = config.gui.desktop;
   apps = config.environment.systemPackages;
@@ -68,11 +69,13 @@ in rec
         gtk =
         {
           enable = true;
+
           theme =
           {
             name = "Adwaita-dark";
             package = pkgs.gnome.gnome-themes-extra;
           };
+
           iconTheme =
           {
             name = "Papirus-Dark";
@@ -131,10 +134,10 @@ in rec
           ".local/share/gtksourceview-4/language-specs/nix.lang".text = files.gnome.syntax;
 
           # Discord DNOME Theme
-          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (builtins.elem pkgs.discord apps) { text = files.discord.theme; };
+          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/${username}/chrome/userChrome.css" = lib.mkIf (builtins.elem pkgs.firefox apps) { text = ''@import "${inputs.firefox}/userChrome.css";''; };
+          ".mozilla/firefox/${username}/chrome/userChrome.css" = lib.mkIf (elem pkgs.firefox apps) { text = ''@import "${inputs.firefox}/userChrome.css";''; };
         };
       };
 
