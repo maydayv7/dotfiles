@@ -1,7 +1,6 @@
 { config, lib, pkgs, files, ... }:
 let
   enable = config.scripts.setup;
-  secrets = config.age.secrets;
   path.system = "/etc/nixos";
 
   # System Setup Script
@@ -35,10 +34,18 @@ let
     sudo cp -av $VERBOSE_ARG ${files.wallpapers}/Profile.png /var/lib/AccountsService/icons/$USER
     printf "\n"
 
+    read -p "Enter Path to GPG Keys: " KEY
+    if [ -z "$KEY" ]
+    then
+      error "Path to GPG Keys cannot be empty"
+    fi
+
     echo "Importing Keys..."
-    sudo ssh-add /etc/ssh/key
-    sudo cat ${secrets."gpg/public.gpg".path} | gpg --import
-    sudo cat ${secrets."gpg/private.gpg".path} | gpg --import
+    gpg --import $KEY/public.gpg
+    gpg --import $KEY/private.gpg
+    sudo mkdir -p /etc/gpg
+    sudo gpg --homedir /etc/gpg --import $KEY/public.gpg
+    sudo gpg --homedir /etc/gpg --import $KEY/private.gpg
     printf "\n"
 
     if [ "$DIR" == "/persist${path.system}" ]

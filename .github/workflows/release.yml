@@ -14,7 +14,7 @@ jobs:
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Build Default Install Media
       run: nix build github:maydayv7/dotfiles#installMedia.gnome.config.system.build.isoImage
     - name: Publish Release
@@ -26,4 +26,4 @@ jobs:
         draft: true
         omitBodyDuringUpdate: true
         omitNameDuringUpdate: true
-        token: ${{ secrets.ACCESS_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}

@@ -6,7 +6,6 @@ let
   path =
   {
     system = "/etc/nixos";
-    key = "/etc/ssh/key";
     repl = "${path.system}/repl.nix";
     secrets = "${path.system}/modules/secrets";
   };
@@ -53,8 +52,7 @@ let
   ''
     #!${pkgs.runtimeShell}
     error() { echo -e "\033[0;31merror:\033[0m $1"; exit 125; }
-    pushd () { command pushd "$@" > /dev/null; }
-    popd () { command popd "$@" > /dev/null; }
+
     case $1 in
     "apply")
       echo "Applying Configuration..."
@@ -94,12 +92,12 @@ let
     ;;
     "save")
       echo "Saving Changes..."
-      pushd ${path.system}
+      pushd ${path.system} > /dev/null
       git add .
       git commit
       git pull --rebase
       git push
-      popd
+      popd > /dev/null
     ;;
     "secret")
       case $2 in
@@ -108,27 +106,18 @@ let
         "") error "Expected a path to Secret following edit command";;
         *)
           echo "Editing Secret $3..."
-          pushd ${path.secrets}
-          if ! grep -Fq "$3" ${path.secrets}/secrets.nix
-          then
-            read -p "Do you want to add an entry for the new Secret in secrets.nix? (Y/N): " choice
-              case $choice in
-                [Yy]*) $EDITOR ${path.secrets}/secrets.nix;;
-                *) exit;;
-              esac
-          fi
-          agenix -e $3.age -i ${path.key}
-          popd
+          sops --config ${path.secrets}/.sops.yaml -i ${path.secrets}/encrypted/$3
         ;;
         esac
       ;;
-      "list") tree -C --noreport -I '*.nix' ${path.secrets} | sed -e 's/\.age$//';;
-      "show") sudo cat /run/agenix/$3;;
+      "list") tree -C --noreport -I '*.nix' ${path.secrets};;
+      "show") sops --config ${path.secrets}/.sops.yaml -d ${path.secrets}/encrypted/$3;;
       "update")
         echo "Updating Secrets..."
-        pushd ${path.secrets}
-        agenix -r -i ${path.key}
-        popd
+        for secret in /etc/nixos/modules/secrets/encrypted/*
+        do
+          sops --config /etc/nixos/modules/secrets/.sops.yaml updatekeys $secret
+        done
       ;;
       *)
         if [ -z "$2" ]

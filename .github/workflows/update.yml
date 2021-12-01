@@ -12,13 +12,13 @@ jobs:
     - name: Clone Repo
       uses: actions/checkout@v2.4.0
       with:
-        token: ${{ secrets.ACCESS_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
     - name: Install Nix
       uses: cachix/install-nix-action@v16
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.ACCESS_TOKEN }}
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Update Flake Lock File
       uses: DeterminateSystems/update-flake-lock@v4

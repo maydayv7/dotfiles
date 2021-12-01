@@ -30,9 +30,9 @@
     };
 
     # Authentication Credentials Manager
-    agenix =
+    sops =
     {
-      url = "github:ryantm/agenix";
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

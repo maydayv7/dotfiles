@@ -8,7 +8,7 @@
 + Use `home-manager` as a Module (#22)
 + Merge Device and User Configuration (#24)
 * Move all program configuration and dotfiles to `files`
-+ Use `agenix` at `secrets` for managing authentication credentials (#28)
++ Use `sops-nix` at `secrets` for managing authentication credentials
 
 ### v2.3
 + Add `docs` directory

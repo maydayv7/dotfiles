@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   enable = config.scripts.install;
-  path.key = "/etc/ssh/key";
 
   # NixOS Install Script
   script = with pkgs; writeScriptBin "install"
@@ -30,11 +29,17 @@ let
       error "Path to Disk cannot be empty. If unsure, use the command 'fdisk -l'"
     fi
 
-    read -p "Enter Path to SSH Key: " KEY
+    read -p "Enter Path to GPG Keys: " KEY
     if [ -z "$KEY" ]
     then
-      error "Path to SSH Key cannot be empty"
+      error "Path to GPG Keys cannot be empty"
     fi
+
+    echo "Importing Keys..."
+    sudo mkdir -p /etc/gpg
+    sudo gpg --homedir /etc/gpg --import $KEY/public.gpg
+    sudo gpg --homedir /etc/gpg --import $KEY/private.gpg
+    printf "\n"
 
     echo "Creating Partitions..."
     parted /dev/$DISK -- mkpart ESP fat32 1MiB 1024MiB
@@ -76,16 +81,8 @@ let
     swapon /dev/disk/by-partlabel/swap
     printf "\n"
 
-    echo "Importing Keys..."
-    cp $KEY ${path.key}
-    chmod 400 ${path.key}
-    ssh-add ${path.key}
-    printf "\n"
-
     echo "Installing System..."
     nixos-install --no-root-passwd --root /mnt --flake github:maydayv7/dotfiles#$HOST
-    cp $KEY /mnt/${path.key}
-    chmod 400 /mnt/${path.key}
     printf "\n"
 
     read -p "Do you want to reboot the system? (Y/N): " choice

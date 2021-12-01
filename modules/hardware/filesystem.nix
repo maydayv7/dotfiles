@@ -112,9 +112,9 @@ in rec
         files = [ "/etc/machine-id" ];
         directories =
         [
+          "/etc/gpg"
           "/etc/nixos"
           "/etc/NetworkManager/system-connections"
-          "/etc/ssh"
           "/var/log"
           "/var/lib/AccountsService"
           "/var/lib/bluetooth"

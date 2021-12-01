@@ -1,27 +1,52 @@
-{ config, options, system, lib, inputs, pkgs, ... }:
+{ config, lib, username, inputs, pkgs, ... }:
 let
-  inherit (lib) mapAttrs' nameValuePair removeSuffix;
+  inherit (builtins) readDir;
+  inherit (lib) mkMerge mapAttrs' nameValuePair removeSuffix;
+  group = config.users.groups.keys.name;
   path = if (config.fileSystems."/".fsType == "tmpfs") then "/persist" else "";
 in
 {
-  imports = [ inputs.agenix.nixosModules.age ];
+  imports = [ inputs.sops.nixosModules.sops ];
 
   ## Authentication Credentials Management ##
   config =
   {
-    environment.systemPackages = [ inputs.agenix.defaultPackage."${system}" ];
+    environment.systemPackages = with pkgs; [ sops ];
 
-    age =
+    sops =
     {
       # Encrypted Secrets
-      secrets = mapAttrs' (name: _: nameValuePair (removeSuffix ".age" name)
-      {
-        file = "${builtins.toString ./.}/${name}";
-        owner = "root";
-      }) (import ./secrets.nix);
+      secrets = mkMerge
+      [
+        (mapAttrs' (name: type: (nameValuePair name
+        {
+          sopsFile =  ./encrypted + "/${name}";
+          format = "binary";
+        })) (readDir ./encrypted))
 
-      # SSH Keys
-      sshKeyPaths = options.age.sshKeyPaths.default ++ [ "${path}/etc/ssh/key" ];
+        {
+          "password.root".neededForUsers = true;
+          "password.${username}".neededForUsers = true;
+        }
+      ];
+
+      # GPG Key Import
+      gnupg =
+      {
+        home = "${path}/etc/gpg";
+        sshKeyPaths = [ ];
+      };
+    };
+
+    # User Passwords
+    users =
+    {
+      extraUsers.root.passwordFile = config.sops.secrets."password.root".path;
+      users."${username}" =
+      {
+        passwordFile = config.sops.secrets."password.${username}".path;
+        extraGroups = [ group ];
+      };
     };
   };
 }

@@ -12,5 +12,5 @@
 + [Nixpkgs Repository](https://github.com/NixOS/nixpkgs)
 + [Nix User Repository](https://github.com/nix-community/NUR)
 + [Home Manager Options](https://nix-community.github.io/home-manager/options.html)
-+ [Agenix Module](https://github.com/ryantm/agenix)
++ [Sops Module](https://github.com/Mic92/sops-nix)
 + [Impermanence Module](https://github.com/nix-community/impermanence)

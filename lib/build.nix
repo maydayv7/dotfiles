@@ -23,7 +23,7 @@ with inputs;
   in lib.nixosSystem
   {
     inherit system;
-    specialArgs = { inherit system inputs files; };
+    specialArgs = { inherit inputs files; };
 
     modules =
     [

@@ -26,7 +26,7 @@ in rec
     {
       description = "GPG Key for git";
       type = types.str;
-      default = "";
+      default = "CF616EB19C2765E4";
     };
   };
 
@@ -76,7 +76,7 @@ in rec
       signing =
       {
         key = cfg.key;
-        signByDefault = lib.mkIf (cfg.key != "") true;
+        signByDefault = true;
       };
     };
   };

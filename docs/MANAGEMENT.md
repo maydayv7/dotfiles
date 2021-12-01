@@ -8,7 +8,7 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 This repository makes use of `Github Actions` (placed in [`.github/workflows`](../.github/workflows)) in order to automatically check the syntax on every push, update the `inputs` every 10 days, build the configuration and upload the build cache to Cachix, and build the `.iso` and upload it to a draft release upon creation of a tag
 
 ### Credentials
-The authentication credentials are managed using [`agenix`](https://github.com/ryantm/agenix) at [`modules/secrets`](../modules/secrets). User passwords are made using the command `mkpasswd -m sha-512` and specified using the `passwordFile` option
+The authentication credentials are managed using [`sops-nix`](https://github.com/Mic92/sops-nix) at [`modules/secrets`](../modules/secrets). The encrypted keys (using GPG authentication) are stored at [`modules/secrets/encrypted`](../modules/secrets/encrypted), and keys unencrypted by [`sops`](https://github.com/mozilla/sops) (but managed using `git-crypt`) are located at [`modules/secrets/unencrypted`](../modules/secrets/unencrypted). User passwords are made using the command `mkpasswd -m sha-512` and specified using the `passwordFile` option
 
 ### Scripts
 A system management script, invoked with the command `nixos`, has been included, which can be used to apply user and device configuration changes or perform various other useful functions. The `install` and `setup` scripts have also been provided at [`modules/scripts`](../modules/scripts) to painlessly install the OS and setup the device, using a single command

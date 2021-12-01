@@ -84,7 +84,6 @@ in
         {
           name = "maydayv7";
           mail = "maydayv7@gmail.com";
-          key = "CF616EB19C2765E4";
         };
       };
 
