@@ -3,6 +3,7 @@
 + Upgrade to NixOS v21.11 (Porcupine)! (#27)
 + Improve Package Declaration
 + Add Support for Instant Nix REPL
++ Add Support for patching `inputs`
 + Improve usage of Developer Shells
 + Import Modules using `nixosModules`
 + Use `home-manager` as a Module (#22)

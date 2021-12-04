@@ -34,6 +34,14 @@ in rec
     };
   };
 
+  # Input Patch Mapping Function
+  patches = pkgs: local: remote: pkgs.legacyPackages."${system}".applyPatches
+  {
+    name = "nixpkgs-patched";
+    src = pkgs;
+    patches = local ++ builtins.map pkgs.legacyPackages."${system}".fetchpatch remote;
+  };
+
   # Secrets Mapping Function
   secrets = dir: choice:
     mapAttrs' (name: type: (nameValuePair name
