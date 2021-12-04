@@ -281,7 +281,7 @@ with lib.hm.gvariant;
       disable-user-extensions = false;
       disable-extension-version-validation = true;
       disabled-extensions = [ "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
-      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "compiz-windows-effect@hermes83.github.com" "compiz-alike-magic-lamp-effect@hermes83.github.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "just-perfection-desktop@just-perfection" "appindicatorsupport@rgcjonas.gmail.com" "lockkeys@vaina.lt" "screenshotlocations.timur@linux.com" "sound-output-device-chooser@kgshank.net" "Vitals@CoreCoding.com" "custom-hot-corners-extended@G-dH.github.com" "color-picker@tuberry" "top-bar-organizer@julian.gse.jsts.xyz" "drive-menu@gnome-shell-extensions.gcampax.github.com" "x11gestures@joseexposito.github.io" "dash-to-panel@jderose9.github.com" "flypie@schneegans.github.com" "color-picker@tuberry" ];
+      enabled-extensions = [ "user-theme@gnome-shell-extensions.gcampax.github.com" "compiz-windows-effect@hermes83.github.com" "compiz-alike-magic-lamp-effect@hermes83.github.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "just-perfection-desktop@just-perfection" "appindicatorsupport@rgcjonas.gmail.com" "lockkeys@vaina.lt" "screenshotlocations.timur@linux.com" "sound-output-device-chooser@kgshank.net" "Vitals@CoreCoding.com" "custom-hot-corners-extended@G-dH.github.com" "color-picker@tuberry" "top-bar-organizer@julian.gse.jsts.xyz" "drive-menu@gnome-shell-extensions.gcampax.github.com" "x11gestures@joseexposito.github.io" "dash-to-panel@jderose9.github.com" "flypie@schneegans.github.com" "color-picker@tuberry" "pop-shell@system76.com" ];
       favorite-apps = [ "google-chrome.desktop" "org.gnome.Geary.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Terminal.desktop" "org.gnome.gedit.desktop" "gnome-control-center.desktop" ];
     };
 
@@ -568,6 +568,13 @@ with lib.hm.gvariant;
       wedge-separator-color = "rgba(255, 255, 255, 0.13)";
       wedge-separator-width = 1.0;
       wedge-width = 300.0;
+    };
+
+    "org/gnome/shell/extensions/pop-shell" =
+    {
+      smart-gaps = true;
+      snap-to-grid = false;
+      tile-by-default = false;
     };
 
     "org/gnome/shell/extensions/user-theme" =

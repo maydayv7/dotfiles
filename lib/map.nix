@@ -1,7 +1,7 @@
 { system, lib, inputs, ... }:
 let
-  inherit (builtins) attrValues readDir pathExists;
-  inherit (lib) mapAttrs' filterAttrs hasPrefix hasSuffix nameValuePair removeSuffix;
+  inherit (builtins) attrValues readDir toString hashString pathExists;
+  inherit (lib) flatten mapAttrs' mapAttrsToList filterAttrs hasPrefix hasSuffix nameValuePair removeSuffix;
 in rec
 {
   ## Map Functions ##
@@ -23,10 +23,15 @@ in rec
       (readDir dir);
 
   # Package Set Mapping Function
-  packages = pkgs: overlay: import pkgs
+  packages = pkgs: overlays: patches: import (pkgs.legacyPackages."${system}".applyPatches
+  {
+    name = "patched-input-${hashString "md5" (toString pkgs)}";
+    src = pkgs;
+    inherit patches;
+  })
   {
     inherit system;
-    overlays = overlay ++ (attrValues inputs.self.overlays);
+    overlays = overlays ++ (attrValues inputs.self.overlays);
     config =
     {
       allowAliases = true;
@@ -34,13 +39,12 @@ in rec
     };
   };
 
-  # Input Patch Mapping Function
-  patches = pkgs: local: remote: pkgs.legacyPackages."${system}".applyPatches
-  {
-    name = "nixpkgs-patched";
-    src = pkgs;
-    patches = local ++ builtins.map pkgs.legacyPackages."${system}".fetchpatch remote;
-  };
+  # Patch Mapping Function
+  patches = dir: flatten (mapAttrsToList (name: type:
+  if hasSuffix ".diff" name || hasSuffix ".patch" name
+    then dir + "/${name}"
+  else null)
+  (readDir dir));
 
   # Secrets Mapping Function
   secrets = dir: choice:

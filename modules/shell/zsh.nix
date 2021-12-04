@@ -1,6 +1,7 @@
 { config, lib, inputs, pkgs, files, ... }:
 let
   shell = config.user.shell;
+  path = config.path;
 in rec
 {
   ## Z Shell Configuration ##
@@ -37,7 +38,7 @@ in rec
           hi = "echo 'Hi there. How are you?'";
           bye = "exit";
           lol = "echo \"${files.zsh.message}\"";
-          dotfiles = "cd /etc/nixos";
+          dotfiles = "cd ${path.system}";
         };
 
         # Command History

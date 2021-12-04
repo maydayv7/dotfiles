@@ -46,7 +46,6 @@ Here is an overview of the file hierarchy:
     ├── base
     ├── gui
     ├── hardware
-    ├── iso
     ├── nix
     ├── scripts
     ├── secrets
@@ -65,7 +64,7 @@ Here is an overview of the file hierarchy:
 + `lib`: custom functions designed for conveniently defining configuration
 + `modules`: custom configuration modules for additional functionality
 + `scripts`: useful system management scripts
-+ `secrets`: authentication credentials management using `agenix`
++ `secrets`: authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 
 ## Installation
 Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the Install Media:  

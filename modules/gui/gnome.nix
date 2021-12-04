@@ -185,6 +185,7 @@ in rec
         # gnomeExtensions.fly-pie
         gnomeExtensions.just-perfection
         gnomeExtensions.lock-keys
+        gnomeExtensions.pop-shell
         gnomeExtensions.screenshot-locations
         gnomeExtensions.sound-output-device-chooser
         gnomeExtensions.vitals

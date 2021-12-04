@@ -1,9 +1,8 @@
-{ build, system, version, lib, util, inputs, pkgs, patches, files, ... }:
+{ build, system, version, lib, util, inputs, pkgs, files, ... }:
 with inputs;
 let
   inherit (self) nixosModules;
   specialArgs = { inherit util inputs files; };
-  nixosSystem = import (patches + "/nixos/lib/eval-config.nix");
 
   # Shared Configuration Modules
   common =
@@ -27,7 +26,7 @@ in
       nixosModules.secrets
       nixosModules.shell
     ];
-  in nixosSystem
+  in lib.nixosSystem
   {
     inherit system specialArgs;
     modules =
@@ -64,7 +63,7 @@ in
   let
     # Install Media Build Module
     module = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
-  in nixosSystem
+  in lib.nixosSystem
   {
     inherit system specialArgs;
     modules =

@@ -12,13 +12,13 @@ let
   inherit (inputs.nixpkgs) lib;
 
   # Custom Functions
-  util = import ./lib { inherit system version lib util inputs pkgs patches files; };
+  util = import ./lib { inherit system version lib util inputs pkgs files; };
   inherit (util) build map;
 
   # Package Configuration
-  unstable = map.packages inputs.unstable [ ];
-  pkgs = map.packages inputs.nixpkgs [ self.overlay inputs.nur.overlay ];
-  patches = map.patches inputs.nixpkgs [ ] [ ];
+  unstable = map.packages inputs.unstable [ ] [ ];
+  pkgs = map.packages inputs.nixpkgs [ self.overlay inputs.nur.overlay ] patches;
+  patches = map.patches ./packages/patches;
 
   # Dotfiles and Program Configuration
   files = import ./files;
