@@ -1,4 +1,3 @@
-{ ... }:
 let
   inherit (builtins) readFile;
 in

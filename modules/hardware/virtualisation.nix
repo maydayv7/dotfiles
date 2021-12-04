@@ -1,4 +1,4 @@
-{ config, lib, username, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   enable = (builtins.elem "virtualisation" config.hardware.support);
 in rec
@@ -7,7 +7,7 @@ in rec
   config = lib.mkIf enable
   {
     # Virtualisation Enablement
-    users.users."${username}".extraGroups = [ "kvm" "libvirtd" ];
+    user.settings.extraGroups = [ "kvm" "libvirtd" ];
     boot =
     {
       kernelModules = [ "kvm-intel" ];

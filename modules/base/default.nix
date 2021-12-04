@@ -5,5 +5,6 @@ rec
   [
     ./console.nix
     ./firmware.nix
+    ./path.nix
   ];
 }

@@ -1,6 +1,7 @@
-{ config, lib, username, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   enable = (builtins.elem "firefox" config.apps.list);
+  username = config.user.name;
 in rec
 {
   ## Firefox Browser Configuration ##
@@ -9,7 +10,7 @@ in rec
     environment.systemPackages = with pkgs; [ firefox ];
 
     # Profile
-    home-manager.users."${username}".programs.firefox =
+    user.home.programs.firefox =
     {
       enable = true;
       profiles."${username}".settings = 

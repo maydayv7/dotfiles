@@ -1,0 +1,11 @@
+keys:
+  - &key 8C240C0C11293EE56260601CCF616EB19C2765E4
+creation_rules:
+  - path_regex: modules/secrets/encrypted/.*$
+    key_groups:
+    - pgp:
+      - *key
+  - path_regex: modules/user/passwords/.*$
+    key_groups:
+    - pgp:
+      - *key

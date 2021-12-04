@@ -39,8 +39,7 @@ in rec
       };
 
       # SWAP Partition
-      swapDevices =
-      [ { device = "/dev/disk/by-partlabel/swap"; } ];
+      swapDevices = [ { device = "/dev/disk/by-partlabel/swap"; } ];
       boot.kernel.sysctl."vm.swappiness" = 1;
     }
 
@@ -112,7 +111,6 @@ in rec
         files = [ "/etc/machine-id" ];
         directories =
         [
-          "/etc/gpg"
           "/etc/nixos"
           "/etc/NetworkManager/system-connections"
           "/var/log"

@@ -1,4 +1,4 @@
-{ config, options, lib, username, inputs, ... }:
+{ config, options, lib, inputs, ... }:
 let
   inherit (lib) mkOption types;
   enable = (builtins.elem "git" config.apps.list);
@@ -46,7 +46,7 @@ in rec
       }
     ];
 
-    home-manager.users."${username}".programs.git =
+    user.home.programs.git =
     {
       enable = true;
       delta.enable = true;

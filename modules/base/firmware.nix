@@ -1,4 +1,4 @@
-{ username, pkgs, ... }:
+{ config, pkgs, ... }:
 rec
 {
   ## Device Firmware ##
@@ -35,7 +35,7 @@ rec
     };
 
     # Network Settings
-    users.users."${username}".extraGroups = [ "networkmanager" ];
+    user.settings.extraGroups = [ "networkmanager" ];
     networking =
     {
       networkmanager.enable = true;

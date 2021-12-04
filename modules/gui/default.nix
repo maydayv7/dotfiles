@@ -1,5 +1,8 @@
-{ lib, ... }:
-rec
+{ config, options, lib, ... }:
+let
+  desktop = config.gui.desktop;
+  opt = options.gui.desktop;
+in rec
 {
   imports =
   [
@@ -10,7 +13,13 @@ rec
 
   options.gui.desktop = lib.mkOption
   {
-    description = "GUI Desktop Configuration";
+    description = "GUI Desktop Choice";
     type = lib.types.str;
   };
+
+  config.assertions =
+  [{
+    assertion = desktop != "";
+    message = (opt.description + " must be set");
+  }];
 }

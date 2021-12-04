@@ -1,4 +1,4 @@
-{ config, lib, username, inputs, pkgs, files, ... }:
+{ config, lib, inputs, pkgs, files, ... }:
 let
   enable = (builtins.elem "discord" config.apps.list);
 in
@@ -12,7 +12,7 @@ in
       discord
     ];
 
-    home-manager.users."${username}".home =
+    user.home.home =
     {
       # Plugins
       file.".config/BetterDiscord/plugins" =

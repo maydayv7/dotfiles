@@ -1,6 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 let
-  enable = config.scripts.install;
+  path = config.path;
 
   # NixOS Install Script
   script = with pkgs; writeScriptBin "install"
@@ -30,15 +30,23 @@ let
     fi
 
     read -p "Enter Path to GPG Keys: " KEY
+    LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
     if [ -z "$KEY" ]
     then
       error "Path to GPG Keys cannot be empty"
+    elif [[ $KEY =~ $LINK ]]
+    then
+      echo "Cloning Keys..."
+      git clone $KEY keys --progress
+      KEY=./keys
     fi
 
     echo "Importing Keys..."
-    sudo mkdir -p /etc/gpg
-    sudo gpg --homedir /etc/gpg --import $KEY/public.gpg
-    sudo gpg --homedir /etc/gpg --import $KEY/private.gpg
+    sudo mkdir -p ${path.keys}
+    for key in $KEY/*.gpg
+    do
+      sudo gpg --homedir ${path.keys} --import $key
+    done
     printf "\n"
 
     echo "Creating Partitions..."
@@ -92,11 +100,4 @@ let
       esac
   '';
 in rec
-{
-  options.scripts.install = lib.mkEnableOption "Script for Installing NixOS";
-
-  config = lib.mkIf enable
-  {
-    environment.systemPackages = [ script ];
-  };
-}
+{ environment.systemPackages = [ script ]; }

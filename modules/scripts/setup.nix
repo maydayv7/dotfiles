@@ -1,7 +1,6 @@
-{ config, lib, pkgs, files, ... }:
+{ config, pkgs, files, ... }:
 let
-  enable = config.scripts.setup;
-  path.system = "/etc/nixos";
+  path = config.path;
 
   # System Setup Script
   script = with pkgs; writeScriptBin "setup"
@@ -35,17 +34,23 @@ let
     printf "\n"
 
     read -p "Enter Path to GPG Keys: " KEY
+    LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
     if [ -z "$KEY" ]
     then
       error "Path to GPG Keys cannot be empty"
+    elif [[ $KEY =~ $LINK ]]
+    then
+      echo "Cloning Keys..."
+      git clone $KEY keys --progress
+      KEY=./keys
     fi
 
     echo "Importing Keys..."
-    gpg --import $KEY/public.gpg
-    gpg --import $KEY/private.gpg
-    sudo mkdir -p /etc/gpg
-    sudo gpg --homedir /etc/gpg --import $KEY/public.gpg
-    sudo gpg --homedir /etc/gpg --import $KEY/private.gpg
+    for key in $KEY/*.gpg
+    do
+      gpg --import $key
+    done
+    pushd $DIR > /dev/null; git-crypt unlock; popd > /dev/null
     printf "\n"
 
     if [ "$DIR" == "/persist${path.system}" ]
@@ -57,10 +62,4 @@ let
     sudo nixos-rebuild switch --flake ${path.system}
   '';
 in rec
-{
-  options.scripts.setup = lib.mkEnableOption "Script for setting up NixOS";
-  config = lib.mkIf enable
-  {
-    environment.systemPackages = [ script ];
-  };
-}
+{ environment.systemPackages = [ script ]; }

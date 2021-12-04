@@ -17,7 +17,7 @@ in rec
         in
         if type == "directory" && pathExists "${path}/default.nix"
           then nameValuePair name (func path)
-        else if type == "regular" && name != "default.nix" && hasSuffix ".nix" name
+        else if type == "regular" && name != "default.nix" && name != "repl.nix" && hasSuffix ".nix" name
           then nameValuePair (removeSuffix ".nix" name) (func path)
         else nameValuePair "" null)
       (readDir dir);
@@ -33,4 +33,13 @@ in rec
       allowUnfree = true;
     };
   };
+
+  # Secrets Mapping Function
+  secrets = dir: choice:
+    mapAttrs' (name: type: (nameValuePair name
+    {
+      sopsFile =  dir + "/${name}";
+      format = "binary";
+      neededForUsers = choice;
+    })) (readDir dir);
 }

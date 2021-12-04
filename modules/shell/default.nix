@@ -1,11 +1,22 @@
-{ username, pkgs, files, ... }:
-rec
+{ config, lib, pkgs, files, ... }:
+let
+  shell = config.user.shell;
+in rec
 {
   imports = [ ./zsh.nix ];
+
+  options.user.shell = lib.mkOption
+  {
+    description = "User Shell Choice";
+    type = lib.types.str;
+    default = "bash";
+  };
 
   ## Shell Configuration ##
   config =
   {
+    user.settings.shell = pkgs."${shell}";
+
     # Environment Variables
     environment.variables =
     {
@@ -25,7 +36,7 @@ rec
     ];
 
     # Neofetch Config
-    home-manager.users."${username}".home.file.".config/neofetch/config.conf".text = files.fetch;
+    user.home.home.file.".config/neofetch/config.conf".text = files.fetch;
 
     programs =
     {

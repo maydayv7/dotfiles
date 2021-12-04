@@ -1,4 +1,4 @@
-{ config, lib, username, pkgs, files, ... }:
+{ config, lib, pkgs, files, ... }:
 let
   enable = (builtins.elem "office" config.apps.list);
 in rec
@@ -27,7 +27,7 @@ in rec
       lollypop
     ];
 
-    home-manager.users."${username}".home.file =
+    user.home.home.file =
     {
       # Document Templates
       "Templates" =

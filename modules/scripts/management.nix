@@ -1,14 +1,6 @@
-{ config, lib, inputs, pkgs, ... }:
+{ config, pkgs, ... }:
 let
-  enable = config.scripts.management;
-
-  # Module Path
-  path =
-  {
-    system = "/etc/nixos";
-    repl = "${path.system}/repl.nix";
-    secrets = "${path.system}/modules/secrets";
-  };
+  path = config.path;
 
   # Usage Description
   usage =
@@ -40,10 +32,9 @@ let
     secret =
     ''
       # Usage #
-        edit 'path' - Edit desired Secret
-        list        - List system Secrets
-        show 'path' - Show desired Secret
-        update      - Update Secrets to defined keys
+        edit 'path'   - Edit desired Secret
+        show 'path'   - Show desired Secret
+        update 'path' - Update Secrets to defined keys
     '';
   };
 
@@ -61,7 +52,7 @@ let
       "--boot") sudo nixos-rebuild boot --flake ${path.system}#;;
       "--check") nixos-rebuild dry-activate --flake ${path.system}#;;
       "--rollback") sudo nixos-rebuild switch --rollback;;
-      "--test") sudo nixos-rebuild test --flake ${path.system}s#;;
+      "--test") sudo nixos-rebuild test --flake ${path.system}#;;
       *) error "Unknown option $2\n${usage.apply}";;
       esac
     ;;
@@ -106,17 +97,16 @@ let
         "") error "Expected a path to Secret following edit command";;
         *)
           echo "Editing Secret $3..."
-          sops --config ${path.secrets}/.sops.yaml -i ${path.secrets}/encrypted/$3
+          sops --config ${path.system}/.sops.yaml -i $3
         ;;
         esac
       ;;
-      "list") tree -C --noreport -I '*.nix' ${path.secrets};;
-      "show") sops --config ${path.secrets}/.sops.yaml -d ${path.secrets}/encrypted/$3;;
+      "show") sops --config ${path.system}/.sops.yaml -d $3;;
       "update")
         echo "Updating Secrets..."
-        for secret in /etc/nixos/modules/secrets/encrypted/*
+        for secret in $3
         do
-          sops --config /etc/nixos/modules/secrets/.sops.yaml updatekeys $secret
+          sops --config ${path.system}/.sops.yaml updatekeys $secret
         done
       ;;
       *)
@@ -150,11 +140,4 @@ let
     esac
   '';
 in rec
-{
-  options.scripts.management = lib.mkEnableOption "Script for NixOS System Management";
-
-  config = lib.mkIf enable
-  {
-    environment.systemPackages = with pkgs; [ script tree ];
-  };
-}
+{ environment.systemPackages = with pkgs; [ script tree ]; }

@@ -1,9 +1,10 @@
-{ config, lib, username, inputs, pkgs, files, ... }:
+{ config, lib, inputs, pkgs, files, ... }:
 let
   inherit (builtins) elem;
   inherit (lib) mkIf mkForce mkMerge;
   desktop = config.gui.desktop;
   apps = config.environment.systemPackages;
+  username = config.user.settings.name;
 in rec
 {
   ## GNOME Desktop Configuration ##
@@ -11,7 +12,6 @@ in rec
   (mkMerge
   [
     {
-      gui.enableXorg = true;
       services.xserver =
       {   
         # Touchpad
@@ -60,7 +60,7 @@ in rec
       };
 
       # User Configuration
-      home-manager.users."${username}" =
+      user.home =
       {
         # Dconf Keys
         imports = [ files.dconf ];

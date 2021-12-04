@@ -1,12 +1,8 @@
-{ config, lib, ... }:
-let
-  enable = config.gui.enableXorg;
-in rec
+{ ... }:
+rec
 {
-  options.gui.enableXorg = lib.mkEnableOption "Enable XORG Configuration";
-
   ## XORG Configuration ##
-  config = lib.mkIf enable
+  config =
   {
     services.xserver =
     {

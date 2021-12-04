@@ -12,7 +12,7 @@ let
   inherit (inputs.nixpkgs) lib;
 
   # Custom Functions
-  util = import ./lib { inherit system version files lib inputs pkgs; };
+  util = import ./lib { inherit system version files lib util inputs pkgs; };
   inherit (util) build map;
 
   # Package Configuration
@@ -20,7 +20,7 @@ let
   pkgs = map.packages inputs.nixpkgs [ self.overlay inputs.nur.overlay ];
 
   # Dotfiles and Program Configuration
-  files = import ./files { };
+  files = import ./files;
 in
 {
   ## Developer Shells ##
@@ -38,7 +38,7 @@ in
   overlays = map.modules ./packages/overlays import;
 
   # Custom Packages
-  packages."${system}" = map.modules ./packages (name: pkgs.callPackage name { inherit files; });
+  packages."${system}" = map.modules ./packages (name: pkgs.callPackage name { inherit pkgs; });
 
   ## Custom Configuration Modules ##
   nixosModules = map.modules ./modules import;
@@ -89,13 +89,13 @@ in
 
       # User V7
       user =
-      [{
-          username = "v7";
-          description = "V 7";
-          groups = [ "wheel" ];
-          uid = 1000;
-          shell = "zsh";
-      }];
+      {
+        name = "v7";
+        description = "V 7";
+        groups = [ "wheel" ];
+        uid = 1000;
+        shell = "zsh";
+      };
     };
 
     # PC - Dell Inspiron 11 3000
@@ -118,11 +118,11 @@ in
 
       # User Navya
       user =
-      [{
-          username = "navya";
-          description = "Navya";
-          shell = "zsh";
-      }];
+      {
+        name = "navya";
+        description = "Navya";
+        shell = "zsh";
+      };
     };
   };
 }
