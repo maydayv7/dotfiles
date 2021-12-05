@@ -1,5 +1,6 @@
-{ config, lib, inputs, pkgs, files, ... }:
+{ config, lib, util, inputs, pkgs, files, ... }:
 let
+  inherit (util) map;
   inherit (builtins) elem;
   inherit (lib) mkIf mkForce mkMerge;
   desktop = config.gui.desktop;
@@ -40,8 +41,13 @@ in rec
     (mkIf (desktop == "gnome")
     {
       # Desktop Integration
-      programs.dconf.enable = true;
-      programs.gnupg.agent.pinentryFlavor = "gnome3";
+      programs =
+      {
+        dconf.enable = true;
+        xwayland.enable = true;
+        gnupg.agent.pinentryFlavor = "gnome3";
+      };
+
       services =
       {
         dbus.packages = [ pkgs.gnome.dconf ];
@@ -63,7 +69,7 @@ in rec
       user.home =
       {
         # Dconf Keys
-        imports = [ files.dconf ];
+        imports = [ files.gnome.dconf ];
 
         # GTK+ Theming
         gtk =
@@ -87,32 +93,19 @@ in rec
         xresources.extraConfig = files.xorg;
 
         # Default Applications
-        xdg.mimeApps.defaultApplications =
+        xdg.mimeApps.defaultApplications = map.mime
         {
-          # Browser
-          "text/html" = "google-chrome.desktop";
-          "x-scheme-handler/http" = "google-chrome.desktop";
-          "x-scheme-handler/https" = "google-chrome.desktop";
-
-          # Video Player
-          "video/mp4" = "io.github.celluloid_player.Celluloid.desktop";
-          "video/mpeg" = "io.github.celluloid_player.Celluloid.desktop";
-          "video/ogg" = "io.github.celluloid_player.Celluloid.desktop";
-          "video/webm" = "io.github.celluloid_player.Celluloid.desktop";
-
-          # Image Viewer
-          "image/jpeg" = "org.gnome.eog.desktop";
-          "image/bmp" = "org.gnome.eog.desktop";
-          "image/gif" = "org.gnome.eog.desktop";
-          "image/jpg" = "org.gnome.eog.desktop";
-          "image/png" = "org.gnome.eog.desktop";
-          "image/heif" = "org.gnome.eog.desktop";
-
-          # Text Editor
-          "application/xml" = "org.gnome.gedit.desktop";
-          "text/plain" = "org.gnome.gedit.desktop";
-          "text/markdown" = "org.gnome.gitlab.somas.Apostrophe.desktop";
-          "application/pdf" = "org.gnome.Evince.desktop";
+          audio = [ "org.gnome.Lollypop.desktop" ];
+          browser = [ "google-chrome.desktop" ];
+          calendar = [ "org.gnome.Calendar.desktop" ];
+          directory = [ "org.gnome.Nautilus.desktop" ];
+          image = [ "org.gnome.eog.desktop" ];
+          magnet = [ "transmission-gtk.desktop" ];
+          mail = [ "org.gnome.Geary.desktop" ];
+          markdown = [ "org.gnome.gitlab.somas.Apostrophe.desktop" ];
+          pdf = [ "org.gnome.Evince.desktop" ];
+          text = [ "org.gnome.gedit.desktop" ];
+          video = [ "io.github.celluloid_player.Celluloid.desktop" ];
         };
 
         home.file =
@@ -195,6 +188,7 @@ in rec
         dconf2nix
         google-chrome
         gnuchess
+        transmission-gtk
       ];
     })
 

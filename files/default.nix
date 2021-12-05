@@ -3,9 +3,6 @@ let
 in
 {
   ## Dotfiles ##
-  # Dconf Settings
-  dconf = ./dconf;
-
   # Discord Chat
   discord =
   {
@@ -31,6 +28,7 @@ in
   {
     accounts = readFile ./gnome/accounts.conf;
     bookmarks = readFile ./gnome/bookmarks;
+    dconf = ./gnome/dconf.nix;
     shell = readFile ./gnome/gnome-shell.css;
     syntax = readFile ./gnome/nix.lang;
     theme = readFile ./gnome/tango-dark.xml;
@@ -41,6 +39,9 @@ in
 
   # Wallpapers
   wallpapers = ./wallpapers;
+
+  # XDG Settings
+  xdg.mime = ./xdg/mime.nix;
 
   # XORG Display Server
   xorg = readFile ./xorg/Xresources;

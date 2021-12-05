@@ -1,53 +1,63 @@
 { config, lib, pkgs, files, ... }:
 let
-  shell = config.user.shell;
+  inherit (lib) mkIf types mkOption mkEnableOption mkMerge;
+  cfg = config.user.shell;
 in rec
 {
   imports = [ ./zsh.nix ];
 
-  options.user.shell = lib.mkOption
+  options.user.shell =
   {
-    description = "User Shell Choice";
-    type = lib.types.str;
-    default = "bash";
+    utilities = mkEnableOption "Additional Shell Utilities";
+    choice = mkOption
+    {
+      description = "User Shell Choice";
+      type = types.str;
+      default = "bash";
+    };
   };
 
   ## Shell Configuration ##
-  config =
-  {
-    user.settings.shell = pkgs."${shell}";
-
-    # Environment Variables
-    environment.variables =
+  config = mkMerge
+  [
     {
-      EDITOR = "nano -Ll";
-    };
+      user.settings.shell = pkgs."${cfg.choice}";
 
-    # Utilities
-    environment.systemPackages = with pkgs;
-    [
-      etcher
-      exa
-      fd
-      file
-      lolcat
-      nano
-      neofetch
-    ];
+      # Environment Variables
+      environment.variables =
+      {
+        EDITOR = "nano -Ll";
+      };
+    }
 
-    # Neofetch Config
-    user.home.home.file.".config/neofetch/config.conf".text = files.fetch;
-
-    programs =
+    (mkIf cfg.utilities
     {
-      # Command Not Found Helper
-      command-not-found.enable = true;
+      # Utilities
+      environment.systemPackages = with pkgs;
+      [
+        etcher
+        exa
+        fd
+        file
+        lolcat
+        nano
+        neofetch
+      ];
 
-      # GPG Key Signing
-      gnupg.agent.enable = true;
+      # Neofetch Config
+      user.home.home.file.".config/neofetch/config.conf".text = files.fetch;
 
-      # X11 SSH Password Auth
-      ssh.askPassword = "";
-    };
-  };
+      programs =
+      {
+        # Command Not Found Helper
+        command-not-found.enable = true;
+
+        # GPG Key Signing
+        gnupg.agent.enable = true;
+
+        # X11 SSH Password Auth
+        ssh.askPassword = "";
+      };
+    })
+  ];
 }

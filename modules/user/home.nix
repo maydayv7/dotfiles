@@ -20,6 +20,7 @@ in rec
         enable = true;
         mime.enable = true;
         mimeApps.enable = true;
+        configFile."mimeapps.list".force = true;
 
         # Default Home Folders
         cacheHome = "${homeDir}/.cache";

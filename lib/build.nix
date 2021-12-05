@@ -3,36 +3,17 @@ with inputs;
 let
   inherit (self) nixosModules;
   specialArgs = { inherit util inputs files; };
-
-  # Shared Configuration Modules
-  common =
-  [
-    nixosModules.base
-    nixosModules.gui
-    nixosModules.nix
-    nixosModules.scripts
-    nixosModules.user
-    nixosModules.secrets
-  ];
 in
 {
   ## Device Configuration Function ##
   device = { name, timezone, locale, kernel, kernelModules, hardware, desktop, apps, user }:
-  let
-    # Device Configuration Modules
-    modules =
-    [
-      nixosModules.apps
-      nixosModules.hardware
-      nixosModules.shell
-    ];
-  in lib.nixosSystem
+  lib.nixosSystem
   {
     inherit system specialArgs;
     modules =
     [{
       # Modulated Configuration Imports
-      imports = common ++ modules;
+      imports = with nixosModules; [ base ];
       inherit apps hardware user;
 
       # Device Hostname
@@ -43,34 +24,41 @@ in
       i18n.defaultLocale = locale;
 
       # Hardware Configuration
-      boot.kernelPackages = kernel;
-      boot.initrd.availableKernelModules = kernelModules;
+      boot =
+      {
+        kernelPackages = kernel;
+        initrd.availableKernelModules = kernelModules;
+      };
 
       # Package Configuration
-      system.stateVersion = version;
-      system.configurationRevision = lib.mkIf (self ? rev) self.rev;
       nixpkgs.pkgs = pkgs;
       nix.maxJobs = lib.mkDefault hardware.cores;
+      system =
+      {
+        stateVersion = version;
+        configurationRevision = lib.mkIf (self ? rev) self.rev;
+      };
 
       # GUI Configuration
-      gui.desktop = desktop;
-      gui.fonts.enable = true;
+      gui =
+      {
+        desktop = desktop;
+        fonts.enable = true;
+      };
     }];
   };
 
   ## Install Media Configuration Function ##
   iso = { name, timezone, locale, kernel, desktop }:
   let
-    # Install Media Build Module
-    module = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
+    iso = "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix";
   in lib.nixosSystem
   {
     inherit system specialArgs;
     modules =
     [{
       # Modulated Configuration Imports
-      imports = common ++ module;
-      user = { name = "nixos"; autologin = true; };
+      imports = with nixosModules; [ base iso ];
 
       # Hostname
       networking.hostName = "${name}";
@@ -80,18 +68,31 @@ in
       i18n.defaultLocale = locale;
 
       # Boot Configuration
-      boot.kernelPackages = kernel;
-      boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ];
+      boot =
+      {
+        kernelPackages = kernel;
+        initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ];
+      };
+
+      # User Configuration
+      user =
+      {
+        name = "nixos";
+        autologin = true;
+      };
 
       # ISO Creation Settings
-      isoImage.makeEfiBootable = true;
-      isoImage.makeUsbBootable = true;
       environment.pathsToLink = [ "/libexec" ];
+      isoImage =
+      {
+        makeEfiBootable = true;
+        makeUsbBootable = true;
+      };
 
       # Package Configuration
-      system.stateVersion = version;
       nixpkgs.pkgs = pkgs;
       nix.maxJobs = lib.mkDefault 4;
+      system.stateVersion = version;
 
       # GUI Configuration
       gui.desktop = (desktop + "-minimal");

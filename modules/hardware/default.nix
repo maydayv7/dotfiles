@@ -1,5 +1,7 @@
 { lib, ... }:
-rec
+let
+  inherit (lib) types mkOption;
+in rec
 {
   imports =
   [
@@ -12,17 +14,24 @@ rec
 
   options.hardware =
   {
-    cores = lib.mkOption
+    boot = mkOption
+    {
+      description = "Supported Boot Firmware";
+      type = types.enum [ "mbr" "efi" ];
+      default = "mbr";
+    };
+
+    cores = mkOption
     {
       description = "Number of CPU Cores";
-      type = lib.types.int;
+      type = types.int;
       default = 4;
     };
 
-    support = lib.mkOption
+    support = mkOption
     {
       description = "List of Additional Supported Hardware";
-      type = lib.types.listOf lib.types.str;
+      type = types.listOf types.str;
       default = [ ];
     };
   };

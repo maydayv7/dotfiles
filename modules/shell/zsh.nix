@@ -1,6 +1,6 @@
 { config, lib, inputs, pkgs, files, ... }:
 let
-  shell = config.user.shell;
+  shell = config.user.shell.choice;
   path = config.path;
 in rec
 {
@@ -44,7 +44,7 @@ in rec
         # Command History
         history =
         {
-          size = 1000000000;
+          extended = true;
           ignoreDups = true;
           expireDuplicatesFirst = true;
           ignorePatterns = [ "rm *" "pkill *" ];

@@ -1,8 +1,10 @@
-{ ... }:
-rec
+{ config, lib, ... }:
+let
+  boot = config.hardware.boot;
+in rec
 {
   ## Boot Configuration ##
-  config =
+  config = lib.mkIf (boot == "efi")
   {
     boot =
     {

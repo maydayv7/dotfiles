@@ -71,6 +71,7 @@ in
 
       hardware =
       {
+        boot = "efi";
         cores = 8;
         filesystem = "advanced";
         support = [ "mobile" "printer" "ssd" "virtualisation" ];
@@ -94,7 +95,11 @@ in
         description = "V 7";
         groups = [ "wheel" "keys" ];
         uid = 1000;
-        shell = "zsh";
+        shell =
+        {
+          choice = "zsh";
+          utilities = true;
+        };
       };
     };
 
@@ -109,6 +114,7 @@ in
 
       hardware =
       {
+        boot = "efi";
         cores = 4;
         filesystem = "simple";
       };
@@ -121,7 +127,7 @@ in
       {
         name = "navya";
         description = "Navya";
-        shell = "zsh";
+        shell.choice = "zsh";
       };
     };
   };
