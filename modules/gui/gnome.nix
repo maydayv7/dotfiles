@@ -185,7 +185,7 @@ in rec
         # gnomeExtensions.fly-pie
         gnomeExtensions.just-perfection
         gnomeExtensions.lock-keys
-        gnomeExtensions.pop-shell
+        unstable.gnomeExtensions.pop-shell
         gnomeExtensions.screenshot-locations
         gnomeExtensions.sound-output-device-chooser
         gnomeExtensions.vitals
@@ -209,8 +209,8 @@ in rec
       [
         epiphany
         gedit
-        gnome-screenshot
         gnome-system-monitor
+        gnome-terminal
         nautilus
       ];
 

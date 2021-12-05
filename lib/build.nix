@@ -12,6 +12,7 @@ let
     nixosModules.nix
     nixosModules.scripts
     nixosModules.user
+    nixosModules.secrets
   ];
 in
 {
@@ -23,7 +24,6 @@ in
     [
       nixosModules.apps
       nixosModules.hardware
-      nixosModules.secrets
       nixosModules.shell
     ];
   in lib.nixosSystem

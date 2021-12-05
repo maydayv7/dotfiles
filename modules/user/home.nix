@@ -1,8 +1,7 @@
 { config, lib, files, ... }:
 let
   enable = !config.user.autologin;
-  username = config.user.name;
-  homeDirectory = "/home/${username}";
+  homeDir = "/home/${config.user.name}";
   version = config.system.stateVersion;
 in rec
 {
@@ -13,11 +12,7 @@ in rec
     {
       programs.home-manager.enable = true;
       systemd.user.startServices = true;
-      home =
-      {
-        inherit username homeDirectory;
-        stateVersion = version;
-      };
+      home.stateVersion = version;
 
       # XDG Configuration
       xdg =
@@ -27,10 +22,10 @@ in rec
         mimeApps.enable = true;
 
         # Default Home Folders
-        cacheHome = "${homeDirectory}/.cache";
-        configHome = "${homeDirectory}/.config";
-        dataHome = "${homeDirectory}/.local/share";
-        stateHome = "${homeDirectory}/.local/state";
+        cacheHome = "${homeDir}/.cache";
+        configHome = "${homeDir}/.config";
+        dataHome = "${homeDir}/.local/share";
+        stateHome = "${homeDir}/.local/state";
 
         # User Home Folders
         userDirs =

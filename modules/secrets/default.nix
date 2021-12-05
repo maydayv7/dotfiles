@@ -12,8 +12,6 @@ in
   config =
   {
     environment.systemPackages = with pkgs; [ sops ];
-    user.settings.extraGroups = [ keys ];
-
     sops =
     {
       # Encrypted Secrets

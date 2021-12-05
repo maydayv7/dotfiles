@@ -17,8 +17,7 @@ let
 
   # Package Configuration
   unstable = map.packages inputs.unstable [ ] [ ];
-  pkgs = map.packages inputs.nixpkgs [ self.overlay inputs.nur.overlay ] patches;
-  patches = map.patches ./packages/patches;
+  pkgs = map.packages inputs.nixpkgs [ self.overlay inputs.nur.overlay ] ./packages/patches;
 
   # Dotfiles and Program Configuration
   files = import ./files;
@@ -39,7 +38,7 @@ in
   overlays = map.modules ./packages/overlays import;
 
   # Custom Packages
-  packages."${system}" = map.modules ./packages (name: pkgs.callPackage name { inherit pkgs; });
+  packages."${system}" = map.modules ./packages (name: pkgs.callPackage name { inherit pkgs files; });
 
   ## Custom Configuration Modules ##
   nixosModules = map.modules ./modules import;
@@ -53,7 +52,7 @@ in
       name = "nixos";
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
-      kernel = pkgs.linuxPackages_latest;
+      kernel = pkgs.linuxKernel.packages.linux_5_15;
       desktop = "gnome";
     };
   };
@@ -67,7 +66,7 @@ in
       name = "Vortex";
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
-      kernel = pkgs.linuxPackages_lqx;
+      kernel = pkgs.linuxKernel.packages.linux_lqx;
       kernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
 
       hardware =
@@ -93,7 +92,7 @@ in
       {
         name = "v7";
         description = "V 7";
-        groups = [ "wheel" ];
+        groups = [ "wheel" "keys" ];
         uid = 1000;
         shell = "zsh";
       };
@@ -105,7 +104,7 @@ in
       name = "Futura";
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
-      kernel = pkgs.linuxPackages_5_4;
+      kernel = pkgs.linuxKernel.packages.linux_5_4;
       kernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
 
       hardware =

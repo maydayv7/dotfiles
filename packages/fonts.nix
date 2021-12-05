@@ -1,4 +1,4 @@
-{ pkgs, files ? import ../files }:
+{ pkgs, files, ... }:
 with pkgs;
 stdenv.mkDerivation rec
 {

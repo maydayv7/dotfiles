@@ -10,6 +10,7 @@
 + Merge Device and User Configuration (#24)
 * Move all program configuration and dotfiles to `files`
 + Use `sops-nix` at `secrets` for managing authentication credentials
++ Automatically map `modules`, `packages`, `overlays`, `shells` and `inputs`
 
 ### v2.3
 + Add `docs` directory
