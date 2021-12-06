@@ -1,9 +1,10 @@
-{ build, system, version, lib, util, inputs, pkgs, files, ... }:
+{ args, ... }:
+with args;
 with inputs;
 let
   inherit (util) map;
-  inherit (self) nixosModules;
-  specialArgs = { inherit util inputs files; };
+  inherit (builtins) attrValues;
+  specialArgs = { inherit util inputs path files; };
 in
 {
   ## Device Configuration Function ##
@@ -14,7 +15,7 @@ in
     modules =
     [{
       # Modulated Configuration Imports
-      imports = with nixosModules; [ base ];
+      imports = attrValues self.nixosModules;
       inherit apps hardware user;
 
       # Device Hostname
@@ -34,6 +35,7 @@ in
       # Package Configuration
       nixpkgs.pkgs = pkgs;
       nix.maxJobs = lib.mkDefault hardware.cores;
+      environment.systemPackages = with pkgs.custom; [ nixos setup ];
       system =
       {
         configurationRevision = self.rev or null;
@@ -53,14 +55,15 @@ in
   ## Install Media Configuration Function ##
   iso = { name, timezone, locale, kernel, desktop }:
   let
-    iso = "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix";
+    # Install Media Build Module
+    iso = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
   in lib.nixosSystem
   {
     inherit system specialArgs;
     modules =
     [{
       # Modulated Configuration Imports
-      imports = with nixosModules; [ base iso ];
+      imports = attrValues self.nixosModules ++ iso;
 
       # Hostname
       networking.hostName = "${name}";
@@ -95,6 +98,7 @@ in
       nixpkgs.pkgs = pkgs;
       nix.maxJobs = lib.mkDefault 4;
       system.stateVersion = version;
+      environment.systemPackages = with pkgs.custom; [ install ];
 
       # GUI Configuration
       gui.desktop = (desktop + "-minimal");

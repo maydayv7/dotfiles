@@ -5,20 +5,23 @@ let
   system = "x86_64-linux";
 
   # NixOS Version
-  version = (builtins.readFile ./version);
+  version = import ./version.nix;
 
   # System Libraries
   inherit (builtins) head attrValues;
   inherit (inputs.nixpkgs) lib;
 
   # Custom Functions
-  util = import ./lib { inherit system version lib util inputs pkgs files; };
+  args = { inherit args system version lib util inputs pkgs path files; };
+  util = import ./lib args;
   inherit (util) build map;
 
   # Package Configuration
-  filterHosts = pkgs: cfgs: (pkgs.lib.filterAttrs (n: v: pkgs.system == v.config.nixpkgs.system) cfgs);
-  unstable = map.packages inputs.unstable [ ] [ ];
-  pkgs = map.packages inputs.nixpkgs [ self.overlay inputs.nur.overlay ] ./packages/patches;
+  unstable = map.input inputs.unstable [ ] [ ];
+  pkgs = map.input inputs.nixpkgs [ self.overlay inputs.nur.overlay ] ./packages/patches;
+
+  # Absolute Paths
+  path = import ./path.nix;
 
   # Dotfiles and Program Configuration
   files = import ./files;
@@ -26,10 +29,10 @@ in
 {
   ## Developer Shells ##
   # Default Developer Shell
-  devShell."${system}" = import ./shells { inherit pkgs; };
+  devShell."${system}" = import ./shells args;
 
   # Tailored Developer Shells
-  devShells."${system}" = map.modules ./shells (name: import name { inherit pkgs; });
+  devShells."${system}" = map.modules ./shells (name: import name args);
 
   ## Package Configuration ##
   legacyPackages."${system}" = (head (attrValues self.nixosConfigurations)).pkgs;
@@ -39,10 +42,11 @@ in
   overlays = map.modules ./packages/overlays import;
 
   # Custom Packages
-  packages."${system}" = map.modules ./packages (name: pkgs.callPackage name { inherit pkgs files; });
+  defaultPackage."${system}" = self.packages."${system}".nixos;
+  packages."${system}" = map.merge (map.packages ./packages) (map.packages ./scripts);
 
   ## Custom Configuration Modules ##
-  nixosModules = map.modules ./modules import;
+  nixosModules = map.merge (map.modules ./modules import) (map.modules ./secrets import);
 
   ## Install Media Configuration ##
   checks."${system}" = map.checks.system self.installMedia;

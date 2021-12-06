@@ -1,8 +1,6 @@
-{ config, lib, util, inputs, pkgs, ... }:
+{ config, lib, util, inputs, pkgs, path, ... }:
 let
   inherit (util) map;
-  keys = config.users.groups.keys.name;
-  path = config.path.keys;
   persist = if (builtins.hasAttr "/persist" config.fileSystems) then "/persist" else "";
 in
 {
@@ -20,7 +18,7 @@ in
       # GPG Key Import
       gnupg =
       {
-        home = "${persist}${path}";
+        home = "${persist}${path.keys}";
         sshKeyPaths = [ ];
       };
     };

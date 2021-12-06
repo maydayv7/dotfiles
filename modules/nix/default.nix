@@ -9,7 +9,7 @@ in rec
   config =
   {
     # Nix Path
-    environment.etc = map.nix.etc;
+    environment.etc = map.nix.inputs;
     nix.nixPath = map.nix.path;
     nix.registry = map.nix.registry;
 

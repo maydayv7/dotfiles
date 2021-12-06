@@ -1,7 +1,6 @@
-{ config, lib, inputs, pkgs, files, ... }:
+{ config, lib, inputs, pkgs, path, files, ... }:
 let
   shell = config.user.shell.choice;
-  path = config.path;
 in rec
 {
   ## Z Shell Configuration ##

@@ -42,6 +42,7 @@ in rec
         lolcat
         nano
         neofetch
+        tree
       ];
 
       # Neofetch Config

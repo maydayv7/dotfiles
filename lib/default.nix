@@ -1,6 +1,6 @@
-{ system, version, lib, util, inputs, pkgs, files, ... }:
+{ args, ... }:
 rec
 {
-  build = import ./build.nix { inherit build system version lib util inputs pkgs files; };
-  map = import ./map.nix { inherit system lib inputs files; };
+  build = import ./build.nix args;
+  map = import ./map.nix args;
 }

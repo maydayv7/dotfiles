@@ -32,10 +32,13 @@ Here is an overview of the file hierarchy:
 ┌── configuration.nix
 ├── flake.nix
 ├── flake.lock
-├── version
+├── version.nix
+├── path.nix
 ├── files
+├── scripts
+├── secrets
 ├── shells
-│   └── repl
+├── repl.nix
 ├── packages
 │   └── overlays
 ├── lib
@@ -47,8 +50,6 @@ Here is an overview of the file hierarchy:
     ├── gui
     ├── hardware
     ├── nix
-    ├── scripts
-    ├── secrets
     ├── shell
     └── user
 ```
@@ -57,14 +58,14 @@ Here is an overview of the file hierarchy:
 + `flake.nix`: repository version control using `inputs`
 + `version`: system state version
 + `files`: dotfiles and program configuration
++ `scripts`: useful system management scripts
++ `secrets`: authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 + `shells`: sandboxed shells for development purposes
-+ `repl`: interactive shell to explore syntax and configuration
++ `repl.nix`: interactive shell to explore syntax and configuration
 + `packages`: locally built custom packages
 + `overlays`: overrides for pre-built packages
 + `lib`: custom functions designed for conveniently defining configuration
 + `modules`: custom configuration modules for additional functionality
-+ `scripts`: useful system management scripts
-+ `secrets`: authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 
 ## Installation
 Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the Install Media:  

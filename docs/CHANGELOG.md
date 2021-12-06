@@ -1,4 +1,10 @@
 ## Changelog
+### v3.1
++ Improve Module Imports
++ Improve Mime Types Handling
++ Handle `scripts` as packages
++ Improve configuration `checks`
+
 ### v3.0
 + Upgrade to NixOS v21.11 (Porcupine)! (#27)
 + Improve Package Declaration
