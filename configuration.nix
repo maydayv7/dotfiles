@@ -16,6 +16,7 @@ let
   inherit (util) build map;
 
   # Package Configuration
+  filterHosts = pkgs: cfgs: (pkgs.lib.filterAttrs (n: v: pkgs.system == v.config.nixpkgs.system) cfgs);
   unstable = map.packages inputs.unstable [ ] [ ];
   pkgs = map.packages inputs.nixpkgs [ self.overlay inputs.nur.overlay ] ./packages/patches;
 
@@ -44,6 +45,7 @@ in
   nixosModules = map.modules ./modules import;
 
   ## Install Media Configuration ##
+  checks."${system}" = map.checks.system self.installMedia;
   installMedia =
   {
     # Install Media - GNOME

@@ -18,6 +18,6 @@ jobs:
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Check Syntax
-      run: nix flake check github:maydayv7/dotfiles
+      run: nix flake check github:maydayv7/dotfiles --keep-going
     - name: Check Shells
       run: nix develop github:maydayv7/dotfiles

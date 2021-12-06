@@ -10,6 +10,7 @@ let
       ## Tool for NixOS System Management ##
       # Usage #
         apply [ --'option' ]            - Applies Device and User Configuration
+        check                           - Checks System Configuration
         clean                           - Garbage Collects and Hard-Links Nix Store
         explore                         - Opens interactive shell to explore syntax and configuration
         iso 'variant' [ --burn 'path' ] - Builds Install Media
@@ -56,6 +57,7 @@ let
       *) error "Unknown option $2\n${usage.apply}";;
       esac
     ;;
+    "check") nix flake check /etc/nixos --no-build --keep-going;;
     "clean")
       echo "Running Garbage Collection..."
       nix store gc

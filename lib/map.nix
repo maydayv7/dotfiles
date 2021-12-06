@@ -7,6 +7,9 @@ in rec
   ## Map Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
 
+  # Configuration Checks Mapping Function
+  checks.system = func: mapAttrs (name: value: value.config.system.build.toplevel) func;
+
   # Mime Types Mapping Function
   mime = value:
   listToAttrs (flatten (mapAttrsToList (name: types:
@@ -33,7 +36,10 @@ in rec
   # Nix Input Mapping Functions
   nix =
   {
+    # Flakes Registry
     registry = mapAttrs (name: value: { flake = value; }) (filterAttrs (name: value: value ? outputs) inputs);
+
+    # Nix Path
     etc = mapAttrs' (name: value: { name = "nix/inputs/${name}"; value = { source = value.outPath; }; }) inputs;
     path = mapAttrsToList (name: value: "${name}=/etc/nix/inputs/${name}") (filterAttrs (name: value: value.outputs ? legacyPackages || value.outputs ? packages) (filterAttrs (name: value: value ? outputs) inputs));
   };
