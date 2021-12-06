@@ -57,7 +57,7 @@ let
       *) error "Unknown option $2\n${usage.apply}";;
       esac
     ;;
-    "check") nix flake check /etc/nixos --no-build --keep-going;;
+    "check") nix flake check /etc/nixos --keep-going;;
     "clean")
       echo "Running Garbage Collection..."
       nix store gc

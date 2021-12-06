@@ -1,24 +1,16 @@
-name: "Build Configuration"
+name: "Check Shells"
 on:
-  workflow_dispatch:
-  workflow_call:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    paths-ignore:
-      - '**.md'
-      - '**.yml'
-      - 'docs/**'
-      - 'files/**'
+  push:
+    paths:
       - 'shells/**'
 env:
   NIX_SHOW_STATS: 1
 jobs:
-  build:
-    if: github.event.pull_request.draft == false
+  shell:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        device: [Vortex, Futura]
+        shell: [java, video]
     steps:
     - name: Install Nix
       uses: cachix/install-nix-action@v16
@@ -31,5 +23,5 @@ jobs:
       with:
         name: maydayv7-dotfiles
         authToken: '${{ secrets.CACHIX_TOKEN }}'
-    - name: Build Configuration
-      run: nix build github:maydayv7/dotfiles#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel
+    - name: Check Shells
+      run: nix develop github:maydayv7/dotfiles#${{ matrix.shell }}

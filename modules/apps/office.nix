@@ -12,6 +12,7 @@ in rec
       # Productivity
       bluej
       gscan2pdf
+      handbrake
       libreoffice
       onlyoffice-bin
 
@@ -20,11 +21,6 @@ in rec
       teams
       whatsapp-for-linux
       zoom-us
-
-      # Entertainment
-      celluloid
-      handbrake
-      lollypop
     ];
 
     user.home.home.file =

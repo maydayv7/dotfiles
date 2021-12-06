@@ -162,6 +162,7 @@ in rec
         gnome-passwordsafe
         gthumb
         kooha
+        lollypop
         markets
         shortwave
         wike
@@ -185,6 +186,7 @@ in rec
         gnomeExtensions.x11-gestures
 
         # Utilities
+        celluloid
         dconf2nix
         google-chrome
         gnuchess

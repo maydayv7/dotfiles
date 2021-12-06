@@ -1,24 +1,31 @@
 { system, lib, inputs, files, ... }:
 let
-  inherit (builtins) map hasAttr attrValues mapAttrs listToAttrs readDir typeOf toString hashString pathExists;
+  inherit (inputs) self;
   inherit (lib) flatten mapAttrs' mapAttrsToList filterAttrs hasPrefix hasSuffix nameValuePair removeSuffix;
+  inherit (builtins) map hasAttr attrValues mapAttrs listToAttrs readDir typeOf substring toString hashString pathExists;
 in rec
 {
-  ## Map Functions ##
+  ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
 
-  # Configuration Checks Mapping Function
+  # Configuration Checks
   checks.system = func: mapAttrs (name: value: value.config.system.build.toplevel) func;
 
-  # Mime Types Mapping Function
-  mime = value:
-  listToAttrs (flatten (mapAttrsToList (name: types:
-    if hasAttr name value
-      then map (type: nameValuePair (type) (value."${name}")) types
-    else [ ])
-  (import files.xdg.mime)));
+  # NixOS Label
+  label =
+    if self.sourceInfo ? lastModifiedDate && self.sourceInfo ? shortRev
+      then "${substring 0 8 self.sourceInfo.lastModifiedDate}.${self.sourceInfo.shortRev}"
+    else "dirty";
 
-  # Module Mapping Function
+  # Mime Types
+  mime = value:
+    listToAttrs (flatten (mapAttrsToList (name: types:
+      if hasAttr name value
+        then map (type: nameValuePair (type) (value."${name}")) types
+      else [ ])
+    (import files.xdg.mime)));
+
+  # Module Imports
   modules = dir: func:
     filter
       (name: type: type != null && !(hasPrefix "_" name))
@@ -33,7 +40,7 @@ in rec
         else nameValuePair "" null)
       (readDir dir);
 
-  # Nix Input Mapping Functions
+  # Nix Inputs
   nix =
   {
     # Flakes Registry
@@ -44,7 +51,7 @@ in rec
     path = mapAttrsToList (name: value: "${name}=/etc/nix/inputs/${name}") (filterAttrs (name: value: value.outputs ? legacyPackages || value.outputs ? packages) (filterAttrs (name: value: value ? outputs) inputs));
   };
 
-  # Package Set Mapping Function
+  # Package Sets
   packages = pkgs: overlays: patches: import (pkgs.legacyPackages."${system}".applyPatches
   {
     name = "patched-input-${hashString "md5" (toString pkgs)}";
@@ -66,7 +73,7 @@ in rec
     };
   };
 
-  # Secrets Mapping Function
+  # Secrets
   secrets = dir: choice:
     filter
       (name: type: type != null && !(hasPrefix "_" name))

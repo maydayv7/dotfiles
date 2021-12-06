@@ -1,6 +1,7 @@
 { build, system, version, lib, util, inputs, pkgs, files, ... }:
 with inputs;
 let
+  inherit (util) map;
   inherit (self) nixosModules;
   specialArgs = { inherit util inputs files; };
 in
@@ -35,8 +36,9 @@ in
       nix.maxJobs = lib.mkDefault hardware.cores;
       system =
       {
+        configurationRevision = self.rev or null;
+        nixos.label = map.label;
         stateVersion = version;
-        configurationRevision = lib.mkIf (self ? rev) self.rev;
       };
 
       # GUI Configuration
