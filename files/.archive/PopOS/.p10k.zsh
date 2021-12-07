@@ -820,8 +820,6 @@
   #
   # These variables correspond to the last line of the output of `todo.sh -p ls`:
   #
-  #   TODO: 24 of 42 tasks shown
-  #
   # Here 24 is P9K_TODO_FILTERED_TASK_COUNT and 42 is P9K_TODO_TOTAL_TASK_COUNT.
   #
   # typeset -g POWERLEVEL9K_TODO_CONTENT_EXPANSION='$P9K_TODO_FILTERED_TASK_COUNT'

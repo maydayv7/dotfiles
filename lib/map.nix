@@ -1,5 +1,4 @@
-{ args, ... }:
-with args;
+{ system, lib, inputs, pkgs, files, ... }:
 let
   inherit (inputs) self;
   inherit (builtins) map hasAttr attrValues mapAttrs listToAttrs readDir typeOf substring toString hashString pathExists;
@@ -8,7 +7,7 @@ in rec
 {
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
-  merge = recursiveUpdate;
+  merge = name: dir1: dir2: func: recursiveUpdate (name dir1 func) (name dir2 func);
 
   # Configuration Checks
   checks.system = func: mapAttrs (name: value: value.config.system.build.toplevel) func;
@@ -74,9 +73,6 @@ in rec
     inputs = mapAttrs' (name: value: { name = "nix/inputs/${name}"; value = { source = value.outPath; }; }) inputs;
     path = mapAttrsToList (name: value: "${name}=/etc/nix/inputs/${name}") (filterAttrs (name: value: value.outputs ? legacyPackages || value.outputs ? packages) (filterAttrs (name: value: value ? outputs) inputs));
   };
-
-  # Custom Packages
-  packages = dir: modules dir (name: pkgs.callPackage name args);
 
   # Secrets
   secrets = dir: choice:

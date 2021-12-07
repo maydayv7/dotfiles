@@ -1,8 +1,7 @@
-{ args, ... }:
-with args;
-with inputs;
+{ system, version, lib, util, inputs, pkgs, path, files, ... }:
 let
   inherit (util) map;
+  inherit (inputs) self;
   inherit (builtins) attrValues;
   specialArgs = { inherit util inputs path files; };
 in
@@ -56,7 +55,7 @@ in
   iso = { name, timezone, locale, kernel, desktop }:
   let
     # Install Media Build Module
-    iso = [ "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
+    iso = [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
   in lib.nixosSystem
   {
     inherit system specialArgs;

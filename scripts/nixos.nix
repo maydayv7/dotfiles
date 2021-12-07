@@ -33,13 +33,17 @@ let
     ''
       # Usage #
         edit 'path'   - Edit desired Secret
+        list        - List system Secrets
         show 'path'   - Show desired Secret
         update 'path' - Update Secrets to defined keys
     '';
   };
 in
 lib.recursiveUpdate
-{ meta.description = "System Management Script"; }
+{
+  meta.description = "System Management Script";
+  buildInputs = [ coreutils dd git gnused sops tree ];
+}
 (writeShellScriptBin "nixos"
 ''
   #!${runtimeShell}
@@ -103,6 +107,7 @@ lib.recursiveUpdate
       ;;
       esac
     ;;
+    "list") cat ${path.system}/.sops.yaml | grep / | sed 's/  - path_regex: //' | sed 's/\/\.\*\$//' | xargs tree -C --noreport -I '*.nix';;
     "show") sops --config ${path.system}/.sops.yaml -d $3;;
     "update")
       echo "Updating Secrets..."

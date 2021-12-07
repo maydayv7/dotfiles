@@ -1,7 +1,10 @@
 { lib, pkgs, path, ... }:
 with pkgs;
 lib.recursiveUpdate
-{ meta.description = "NixOS Install Script"; }
+{
+  meta.description = "NixOS Install Script";
+  buildInputs = [ coreutils git gnupg ];
+}
 (writeShellScriptBin "install"
 ''
   #!${runtimeShell}

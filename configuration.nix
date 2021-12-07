@@ -2,7 +2,9 @@
 let
   ## Variable Declaration ##
   # System Architecture
+  # TODO: System Independence
   system = "x86_64-linux";
+  systems = [ "${system}" ];
 
   # NixOS Version
   version = import ./version.nix;
@@ -26,30 +28,35 @@ let
   # Dotfiles and Program Configuration
   files = import ./files;
 in
+inputs.utils.lib.eachSystem systems (system:
 {
+  ## Configuration Checks ##
+  checks = map.checks.system self.installMedia;
+
   ## Developer Shells ##
   # Default Developer Shell
-  devShell."${system}" = import ./shells args;
+  devShell = import ./shells args;
 
   # Tailored Developer Shells
-  devShells."${system}" = map.modules ./shells (name: import name args);
+  devShells = map.modules ./shells (name: import name args);
 
   ## Package Configuration ##
-  legacyPackages."${system}" = (head (attrValues self.nixosConfigurations)).pkgs;
+  legacyPackages = (head (attrValues self.nixosConfigurations)).pkgs;
 
+  # Custom Packages
+  defaultPackage = self.packages."${system}".nixos;
+  packages = map.merge map.modules ./packages ./scripts (name: pkgs.callPackage name args);
+})
+//
+{
   # Overrides
   overlay = final: prev: { inherit unstable; custom = self.packages."${system}"; };
   overlays = map.modules ./packages/overlays import;
 
-  # Custom Packages
-  defaultPackage."${system}" = self.packages."${system}".nixos;
-  packages."${system}" = map.merge (map.packages ./packages) (map.packages ./scripts);
-
   ## Custom Configuration Modules ##
-  nixosModules = map.merge (map.modules ./modules import) (map.modules ./secrets import);
+  nixosModules = map.merge map.modules ./modules ./secrets import;
 
   ## Install Media Configuration ##
-  checks."${system}" = map.checks.system self.installMedia;
   installMedia =
   {
     # Install Media - GNOME
@@ -86,7 +93,7 @@ in
       desktop = "gnome";
       apps =
       {
-        list = [ "discord" "firefox" "git" "office" ];
+        list = [ "discord" "firefox" "git" "office" "wine" ];
         git =
         {
           name = "maydayv7";

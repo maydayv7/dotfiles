@@ -1,7 +1,10 @@
 { lib, pkgs, path, files, ... }:
 with pkgs;
 lib.recursiveUpdate
-{ meta.description = "System Setup Script"; }
+{
+  meta.description = "System Setup Script";
+  buildInputs = [ coreutils git gnupg ];
+}
 (writeShellScriptBin "setup"
 ''
   #!${runtimeShell}

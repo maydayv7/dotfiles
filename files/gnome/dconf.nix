@@ -127,6 +127,15 @@ with lib.hm.gvariant;
       always-show-universal-access-status = true;
     };
 
+    "org/gnome/settings-daemon/plugins/color" =
+    {
+      night-light-enabled = true;
+      night-light-schedule-automatic = false;
+      night-light-schedule-from = 19.0;
+      night-light-schedule-to = 7.0;
+      night-light-temperature = "uint32 3700";
+    };
+
     "org/gnome/desktop/a11y/applications" =
     {
       screen-magnifier-enabled = false;

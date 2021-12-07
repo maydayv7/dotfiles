@@ -22,6 +22,9 @@
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
 
+    # Flake Utility Functions
+    utils.url = "github:numtide/flake-utils";
+
     # Home Manager
     home =
     {

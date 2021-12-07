@@ -7,6 +7,7 @@ rec
     ./firefox.nix
     ./git.nix
     ./office.nix
+    ./wine.nix
   ];
 
   options.apps.list = lib.mkOption
