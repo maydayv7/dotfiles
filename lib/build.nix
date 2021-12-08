@@ -1,24 +1,27 @@
-{ system, version, lib, util, inputs, pkgs, path, files, ... }:
+{ systems, version, lib, util, inputs, channels, path, files }:
 let
   inherit (util) map;
   inherit (inputs) self;
-  inherit (builtins) attrValues;
-  specialArgs = { inherit util inputs path files; };
 in
 {
-  ## Device Configuration Function ##
-  device = { name, timezone, locale, kernel, kernelModules, hardware, desktop, apps, user }:
-  lib.nixosSystem
+  system = { system ? "x86_64-linux", iso ? false, name, repo ? "stable", timezone, locale, kernel, kernelModules ? [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ], desktop, apps ? { }, hardware ? { }, user ? { name = "nixos"; autologin = true; } }:
+  let
+    pkgs = if (repo == "unstable") then channels.unstable."${system}" else channels.nixpkgs."${system}";
+  in lib.nixosSystem
   {
-    inherit system specialArgs;
+    inherit system;
+    specialArgs = { inherit system util inputs path files; };
     modules =
     [{
       # Modulated Configuration Imports
-      imports = attrValues self.nixosModules;
-      inherit apps hardware user;
+      imports = builtins.attrValues self.nixosModules;
+      inherit apps hardware iso user;
 
       # Device Hostname
       networking.hostName = "${name}";
+
+      # GUI Configuration
+      gui.desktop = desktop;
 
       # Localization
       time.timeZone = timezone;
@@ -27,80 +30,19 @@ in
       # Hardware Configuration
       boot =
       {
-        kernelPackages = kernel;
+        kernelPackages = pkgs.linuxKernel.packages."${kernel}";
         initrd.availableKernelModules = kernelModules;
       };
 
       # Package Configuration
       nixpkgs.pkgs = pkgs;
-      nix.maxJobs = lib.mkDefault hardware.cores;
-      environment.systemPackages = with pkgs.custom; [ nixos setup ];
+      environment.systemPackages = with pkgs.custom."${system}"; [ install nixos setup ];
       system =
       {
         configurationRevision = self.rev or null;
         nixos.label = map.label;
         stateVersion = version;
       };
-
-      # GUI Configuration
-      gui =
-      {
-        desktop = desktop;
-        fonts.enable = true;
-      };
-    }];
-  };
-
-  ## Install Media Configuration Function ##
-  iso = { name, timezone, locale, kernel, desktop }:
-  let
-    # Install Media Build Module
-    iso = [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix" ];
-  in lib.nixosSystem
-  {
-    inherit system specialArgs;
-    modules =
-    [{
-      # Modulated Configuration Imports
-      imports = attrValues self.nixosModules ++ iso;
-
-      # Hostname
-      networking.hostName = "${name}";
-
-      # Localization
-      time.timeZone = timezone;
-      i18n.defaultLocale = locale;
-
-      # Boot Configuration
-      boot =
-      {
-        kernelPackages = kernel;
-        initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ];
-      };
-
-      # User Configuration
-      user =
-      {
-        name = "nixos";
-        autologin = true;
-      };
-
-      # ISO Creation Settings
-      environment.pathsToLink = [ "/libexec" ];
-      isoImage =
-      {
-        makeEfiBootable = true;
-        makeUsbBootable = true;
-      };
-
-      # Package Configuration
-      nixpkgs.pkgs = pkgs;
-      nix.maxJobs = lib.mkDefault 4;
-      system.stateVersion = version;
-      environment.systemPackages = with pkgs.custom; [ install ];
-
-      # GUI Configuration
-      gui.desktop = (desktop + "-minimal");
     }];
   };
 }

@@ -4,6 +4,7 @@
 + Improve Mime Types Handling
 + Handle `scripts` as packages
 + Improve configuration `checks`
++ Achieve `system` Independence
 
 ### v3.0
 + Upgrade to NixOS v21.11 (Porcupine)! (#27)

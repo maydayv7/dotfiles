@@ -1,11 +1,11 @@
-{ config, lib, util, inputs, pkgs, files, ... }:
+{ config, system, lib, util, inputs, pkgs, files, ... }:
 let
   inherit (util) map;
   inherit (builtins) elem;
   inherit (lib) mkIf mkForce mkMerge;
   desktop = config.gui.desktop;
   apps = config.environment.systemPackages;
-  username = config.user.settings.name;
+  username = config.user.name;
 in rec
 {
   ## GNOME Desktop Configuration ##
@@ -41,6 +41,7 @@ in rec
     (mkIf (desktop == "gnome")
     {
       # Desktop Integration
+      gui.fonts.enable = true;
       programs =
       {
         dconf.enable = true;
@@ -179,7 +180,7 @@ in rec
         # gnomeExtensions.fly-pie
         gnomeExtensions.just-perfection
         gnomeExtensions.lock-keys
-        unstable.gnomeExtensions.pop-shell
+        unstable."${system}".gnomeExtensions.pop-shell
         gnomeExtensions.screenshot-locations
         gnomeExtensions.sound-output-device-chooser
         gnomeExtensions.vitals

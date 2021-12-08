@@ -1,4 +1,4 @@
-{ config, lib, pkgs, files, ... }:
+{ config, system, lib, pkgs, files, ... }:
 let
   enable = config.gui.fonts.enable;
 in rec
@@ -59,7 +59,7 @@ in rec
       })
 
       # Custom Fonts
-      custom.fonts
+      custom."${system}".fonts
     ];
   };
 }

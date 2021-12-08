@@ -1,10 +1,8 @@
 { self, ... } @ inputs:
 let
   ## Variable Declaration ##
-  # System Architecture
-  # TODO: System Independence
-  system = "x86_64-linux";
-  systems = [ "${system}" ];
+  # Supported system Architectures
+  systems = [ "x86_64-linux" ];
 
   # NixOS Version
   version = import ./version.nix;
@@ -12,15 +10,18 @@ let
   # System Libraries
   inherit (builtins) head attrValues;
   inherit (inputs.nixpkgs) lib;
+  inherit (inputs.utils.lib) eachSystem;
 
   # Custom Functions
-  args = { inherit args system version lib util inputs pkgs path files; };
-  util = import ./lib args;
+  util = import ./lib { inherit systems version lib util inputs channels path files; };
   inherit (util) build map;
 
-  # Package Configuration
-  unstable = map.input inputs.unstable [ ] [ ];
-  pkgs = map.input inputs.nixpkgs [ self.overlay inputs.nur.overlay ] ./packages/patches;
+  # Package Channels
+  channels =
+  {
+    unstable = map.input inputs.unstable [ (final: prev: { stable = channels.nixpkgs; }) ] [ ];
+    nixpkgs = map.input inputs.nixpkgs [ self.overlay inputs.nur.overlay (final: prev: { unstable = channels.unstable; }) ] ./packages/patches;
+  };
 
   # Absolute Paths
   path = import ./path.nix;
@@ -28,29 +29,29 @@ let
   # Dotfiles and Program Configuration
   files = import ./files;
 in
-inputs.utils.lib.eachSystem systems (system:
+eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
 {
   ## Configuration Checks ##
   checks = map.checks.system self.installMedia;
 
   ## Developer Shells ##
   # Default Developer Shell
-  devShell = import ./shells args;
+  devShell = import ./shells { inherit pkgs; };
 
   # Tailored Developer Shells
-  devShells = map.modules ./shells (name: import name args);
+  devShells = map.modules ./shells (name: import name { inherit pkgs; });
 
   ## Package Configuration ##
   legacyPackages = (head (attrValues self.nixosConfigurations)).pkgs;
 
   # Custom Packages
   defaultPackage = self.packages."${system}".nixos;
-  packages = map.merge map.modules ./packages ./scripts (name: pkgs.callPackage name args);
+  packages = map.merge map.modules ./packages ./scripts (name: pkgs.callPackage name { inherit pkgs path files; });
 })
 //
 {
   # Overrides
-  overlay = final: prev: { inherit unstable; custom = self.packages."${system}"; };
+  overlay = final: prev: { custom = self.packages; };
   overlays = map.modules ./packages/overlays import;
 
   ## Custom Configuration Modules ##
@@ -60,13 +61,14 @@ inputs.utils.lib.eachSystem systems (system:
   installMedia =
   {
     # Install Media - GNOME
-    gnome = build.iso
+    gnome = build.system
     {
+      iso = true;
       name = "nixos";
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
-      kernel = pkgs.linuxKernel.packages.linux_5_15;
-      desktop = "gnome";
+      kernel = "linux_5_15";
+      desktop = "gnome-minimal";
     };
   };
 
@@ -74,12 +76,13 @@ inputs.utils.lib.eachSystem systems (system:
   nixosConfigurations =
   {
     # PC - Dell Inspiron 15 5000
-    Vortex = build.device
+    Vortex = build.system
     {
+      system = "x86_64-linux";
       name = "Vortex";
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
-      kernel = pkgs.linuxKernel.packages.linux_lqx;
+      kernel = "linux_lqx";
       kernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
 
       hardware =
@@ -117,12 +120,13 @@ inputs.utils.lib.eachSystem systems (system:
     };
 
     # PC - Dell Inspiron 11 3000
-    Futura = build.device
+    Futura = build.system
     {
+      system = "x86_64-linux";
       name = "Futura";
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
-      kernel = pkgs.linuxKernel.packages.linux_5_4;
+      kernel = "linux_5_4";
       kernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
 
       hardware =

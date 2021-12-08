@@ -1,4 +1,4 @@
-{ system, lib, inputs, pkgs, files, ... }:
+{ systems, lib, inputs, files }:
 let
   inherit (inputs) self;
   inherit (builtins) map hasAttr attrValues mapAttrs listToAttrs readDir typeOf substring toString hashString pathExists;
@@ -8,15 +8,20 @@ in rec
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
   merge = name: dir1: dir2: func: recursiveUpdate (name dir1 func) (name dir2 func);
+  eachSystem = func: listToAttrs (map (name: nameValuePair name (func name)) systems);
 
   # Configuration Checks
-  checks.system = func: mapAttrs (name: value: value.config.system.build.toplevel) func;
-
-  # Inputs Package Sets
-  input = pkgs: overlays: patches: import (pkgs.legacyPackages."${system}".applyPatches
+  checks =
   {
-    name = "patched-input-${hashString "md5" (toString pkgs)}";
-    src = pkgs;
+    system = func: mapAttrs (name: value: value.config.system.build.toplevel) func;
+    iso = func: mapAttrs (name: value: "${value}" + ".iso".config.system.build.isoImage) func;
+  };
+
+  # Inputs Package Channels
+  input = channel: overlays: patches: eachSystem (system: import (channel.legacyPackages."${system}".applyPatches
+  {
+    name = "patched-input-${hashString "md5" (toString channel)}";
+    src = channel;
     patches = if typeOf patches == "list" then patches
     else flatten (mapAttrsToList (name: type:
       if hasSuffix ".diff" name || hasSuffix ".patch" name
@@ -32,7 +37,7 @@ in rec
       allowAliases = true;
       allowUnfree = true;
     };
-  };
+  });
 
   # NixOS Label
   label =

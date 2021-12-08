@@ -49,6 +49,7 @@ Here is an overview of the file hierarchy:
     ├── base
     ├── gui
     ├── hardware
+    ├── iso
     ├── nix
     ├── shell
     └── user
