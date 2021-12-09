@@ -1,7 +1,7 @@
-{ systems, lib, inputs, files }:
+{ systems, version, lib, inputs, channels }:
 let
   inherit (inputs) self;
-  inherit (builtins) map hasAttr attrValues mapAttrs listToAttrs readDir typeOf substring toString hashString pathExists;
+  inherit (builtins) map readFile hasAttr attrValues mapAttrs listToAttrs readDir typeOf substring toString hashString pathExists;
   inherit (lib) flatten mapAttrs' mapAttrsToList filterAttrs hasPrefix hasSuffix nameValuePair removeSuffix recursiveUpdate;
 in rec
 {
@@ -10,15 +10,8 @@ in rec
   merge = name: dir1: dir2: func: recursiveUpdate (name dir1 func) (name dir2 func);
   eachSystem = func: listToAttrs (map (name: nameValuePair name (func name)) systems);
 
-  # Configuration Checks
-  checks =
-  {
-    system = func: mapAttrs (name: value: value.config.system.build.toplevel) func;
-    iso = func: mapAttrs (name: value: "${value}" + ".iso".config.system.build.isoImage) func;
-  };
-
-  # Inputs Package Channels
-  input = channel: overlays: patches: eachSystem (system: import (channel.legacyPackages."${system}".applyPatches
+  # Package Channels
+  channel = channel: overlays: patches: eachSystem (system: import (channel.legacyPackages."${system}".applyPatches
   {
     name = "patched-input-${hashString "md5" (toString channel)}";
     src = channel;
@@ -31,13 +24,20 @@ in rec
   })
   {
     inherit system;
-    overlays = overlays ++ (attrValues self.overlays);
+    overlays = overlays ++ (attrValues self.overlays) ++ [ (final: prev: { custom = self.packages."${system}"; }) (final: prev: if (readFile "${channel}/.version" == version) then { unstable = channels.unstable."${system}"; } else { stable = channels.nixpkgs."${system}"; }) ];
     config =
     {
       allowAliases = true;
       allowUnfree = true;
     };
   });
+
+  # Configuration Checks
+  checks =
+  {
+    system = func: mapAttrs (name: value: value.config.system.build.toplevel) func;
+    iso = func: mapAttrs (name: value: "${value}" + ".iso".config.system.build.isoImage) func;
+  };
 
   # NixOS Label
   label =
@@ -46,12 +46,12 @@ in rec
     else "dirty";
 
   # Mime Types
-  mime = value:
+  mime = values: option:
     listToAttrs (flatten (mapAttrsToList (name: types:
-      if hasAttr name value
-        then map (type: nameValuePair (type) (value."${name}")) types
+      if hasAttr name option
+        then map (type: nameValuePair (type) (option."${name}")) types
       else [ ])
-    (import files.xdg.mime)));
+    values));
 
   # Module Imports
   modules = dir: func:
@@ -82,7 +82,7 @@ in rec
   # Secrets
   secrets = dir: choice:
     filter
-      (name: type: type != null && !(hasPrefix "_" name))
+      (name: type: type != null && !(hasPrefix "_" name) && !(hasSuffix "git-keep" name))
       (name: type:
         (nameValuePair name
         {

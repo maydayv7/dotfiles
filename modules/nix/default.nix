@@ -33,6 +33,7 @@ in rec
 
       # Additional Features
       maxJobs = if (builtins.hasAttr "cores" hardware) then hardware.cores else 4;
+      useSandbox = true;
       extraOptions = "experimental-features = nix-command flakes recursive-nix";
       systemFeatures = [ "kvm" "recursive-nix" ];
     };

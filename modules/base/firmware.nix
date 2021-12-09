@@ -12,6 +12,11 @@ rec
       opengl.enable = true;
       enableRedistributableFirmware = true;
     };
+    services =
+    {
+      fwupd.enable = true;
+      logind.extraConfig = "HandleLidSwitch=ignore";
+    };
 
     # Filesystem Support
     boot.supportedFilesystems = [ "ntfs" "btrfs" "vfat" ];

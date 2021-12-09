@@ -32,7 +32,7 @@ Here is an overview of the file hierarchy:
 ┌── configuration.nix
 ├── flake.nix
 ├── flake.lock
-├── version.nix
+├── version
 ├── path.nix
 ├── files
 ├── scripts

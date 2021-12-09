@@ -4,8 +4,10 @@ let
   inherit (inputs) self;
 in
 {
+  ## System Configuration Function ##
   system = { system ? "x86_64-linux", iso ? false, name, repo ? "stable", timezone, locale, kernel, kernelModules ? [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ], desktop, apps ? { }, hardware ? { }, user ? { name = "nixos"; autologin = true; } }:
   let
+    # Default Package Channel
     pkgs = if (repo == "unstable") then channels.unstable."${system}" else channels.nixpkgs."${system}";
   in lib.nixosSystem
   {
@@ -27,7 +29,7 @@ in
       time.timeZone = timezone;
       i18n.defaultLocale = locale;
 
-      # Hardware Configuration
+      # Kernel Configuration
       boot =
       {
         kernelPackages = pkgs.linuxKernel.packages."${kernel}";
@@ -36,7 +38,7 @@ in
 
       # Package Configuration
       nixpkgs.pkgs = pkgs;
-      environment.systemPackages = with pkgs.custom."${system}"; [ install nixos setup ];
+      environment.systemPackages = with pkgs.custom; [ install nixos setup ];
       system =
       {
         configurationRevision = self.rev or null;

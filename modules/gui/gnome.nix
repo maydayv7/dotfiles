@@ -1,4 +1,4 @@
-{ config, system, lib, util, inputs, pkgs, files, ... }:
+{ config, lib, util, inputs, pkgs, files, ... }:
 let
   inherit (util) map;
   inherit (builtins) elem;
@@ -94,7 +94,7 @@ in rec
         xresources.extraConfig = files.xorg;
 
         # Default Applications
-        xdg.mimeApps.defaultApplications = map.mime
+        xdg.mimeApps.defaultApplications = map.mime (import files.xdg.mime)
         {
           audio = [ "org.gnome.Lollypop.desktop" ];
           browser = [ "google-chrome.desktop" ];
@@ -180,7 +180,7 @@ in rec
         # gnomeExtensions.fly-pie
         gnomeExtensions.just-perfection
         gnomeExtensions.lock-keys
-        unstable."${system}".gnomeExtensions.pop-shell
+        unstable.gnomeExtensions.pop-shell
         gnomeExtensions.screenshot-locations
         gnomeExtensions.sound-output-device-chooser
         gnomeExtensions.vitals

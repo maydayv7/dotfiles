@@ -1,4 +1,4 @@
-{ config, system, lib, pkgs, files, ... }:
+{ config, lib, pkgs, files, ... }:
 let
   enable = config.gui.fonts.enable;
 in rec
@@ -40,6 +40,7 @@ in rec
       noto-fonts
       noto-fonts-emoji
       roboto
+      roboto-slab
       source-code-pro
       ttf_bitstream_vera
       ubuntu_font_family
@@ -59,7 +60,7 @@ in rec
       })
 
       # Custom Fonts
-      custom."${system}".fonts
+      custom.fonts
     ];
   };
 }

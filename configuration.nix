@@ -1,11 +1,11 @@
 { self, ... } @ inputs:
 let
   ## Variable Declaration ##
-  # Supported system Architectures
+  # Supported Architectures
   systems = [ "x86_64-linux" ];
 
   # NixOS Version
-  version = import ./version.nix;
+  version = (builtins.readFile ./version);
 
   # System Libraries
   inherit (builtins) head attrValues;
@@ -19,8 +19,8 @@ let
   # Package Channels
   channels =
   {
-    unstable = map.input inputs.unstable [ (final: prev: { stable = channels.nixpkgs; }) ] [ ];
-    nixpkgs = map.input inputs.nixpkgs [ self.overlay inputs.nur.overlay (final: prev: { unstable = channels.unstable; }) ] ./packages/patches;
+    unstable = map.channel inputs.unstable [ ] [ ];
+    nixpkgs = map.channel inputs.nixpkgs [ inputs.nur.overlay ] ./packages/patches;
   };
 
   # Absolute Paths
@@ -51,7 +51,6 @@ eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
 //
 {
   # Overrides
-  overlay = final: prev: { custom = self.packages; };
   overlays = map.modules ./packages/overlays import;
 
   ## Custom Configuration Modules ##
@@ -65,8 +64,10 @@ eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
     {
       iso = true;
       name = "nixos";
+
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
+
       kernel = "linux_5_15";
       desktop = "gnome-minimal";
     };
@@ -80,8 +81,10 @@ eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
     {
       system = "x86_64-linux";
       name = "Vortex";
+
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
+
       kernel = "linux_lqx";
       kernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
 
@@ -124,8 +127,10 @@ eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
     {
       system = "x86_64-linux";
       name = "Futura";
+
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
+
       kernel = "linux_5_4";
       kernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
 
