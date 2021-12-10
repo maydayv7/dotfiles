@@ -1,6 +1,8 @@
-{ lib, pkgs, path, ... }:
+{ util, lib, inputs, pkgs, path, ... }:
 with pkgs;
 let
+  inherit (util) map;
+
   # Usage Description
   usage =
   {
@@ -8,16 +10,16 @@ let
     ''
       ## Tool for NixOS System Management ##
       # Usage #
-        apply [ --'option' ]            - Applies Device and User Configuration
-        check                           - Checks System Configuration
-        clean                           - Garbage Collects and Hard-Links Nix Store
-        explore                         - Opens interactive shell to explore syntax and configuration
-        iso 'variant' [ --burn 'path' ] - Builds Install Media
-        list                            - Lists all Installed Packages
-        save                            - Saves Configuration State to Repository
-        secret 'choice' [ 'path' ]      - Manages system Secrets
-        shell [ 'name' ]                - Opens desired Nix Developer Shell
-        update [ --'option' ]           - Updates Nix Flake Inputs
+        apply [ --'option' ]        - Applies Device and User Configuration
+        check                       - Checks System Configuration
+        clean                       - Garbage Collects and Hard-Links Nix Store
+        explore                     - Opens interactive shell to explore syntax and configuration
+        iso 'choice' [ --'option' ] - Builds Install Media and optionally burns .iso to USB
+        list                        - Lists all Installed Packages
+        save                        - Saves Configuration State to Repository
+        secret 'choice' [ 'path' ]  - Manages system Secrets
+        shell [ 'name' ]            - Opens desired Nix Developer Shell
+        update [ --'option' ]       - Updates Nix Flake Inputs
     '';
 
     apply =
@@ -28,6 +30,22 @@ let
         --rollback - Revert to last Build Generation
         --test     - Test Configuration Build
     '';
+
+    iso =
+    {
+      build =
+      ''
+        # Usage #
+          'variant' - Build 'variant' .iso
+          list      - List all Install Media Variants
+      '';
+
+      burn =
+      ''
+        # Usage #
+          --burn 'path' - Burn .iso to USB at 'path'
+      '';
+    };
 
     secret =
     ''
@@ -71,22 +89,26 @@ lib.recursiveUpdate
   ;;
   "explore") nix repl ${path.system}/repl.nix;;
   "iso")
-    echo "Building $2 ISO file..."
-    nix build ${path.system}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso"
+    case $2 in
+    "") error "Expected a variant of install media following 'iso' command\n${usage.iso.build}";;
+    "list") echo ${map.listAttrs inputs.self.installMedia};;
+    *)
+      echo "Building $2 .iso file..."
+      nix build ${path.system}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso"
+    ;;
+    esac
     case $3 in
-    "") echo "The --burn option can be used to burn the Image to a USB";;
+    "");;
     "--burn")
       case $4 in
       "") error "Expected a path to USB Drive following --burn command";;
       *) sudo dd if=./result/iso/nixos.iso of=$4 status=progress bs=1M;;
       esac
     ;;
-    *) error "Unknown option $3";;
+    *) error "Unknown option $3\n${usage.iso.burn}";;
     esac
   ;;
-  "list")
-    nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq
-  ;;
+  "list") nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq;;
   "save")
     echo "Saving Changes..."
     pushd ${path.system} > /dev/null
@@ -100,14 +122,14 @@ lib.recursiveUpdate
     case $2 in
     "edit")
       case $3 in
-      "") error "Expected a path to Secret following edit command";;
+      "") error "Expected a path to Secret following 'edit' command";;
       *)
         echo "Editing Secret $3..."
         sops --config ${path.system}/.sops.yaml -i $3
       ;;
       esac
     ;;
-    "list") cat ${path.system}/.sops.yaml | grep / | sed 's/  - path_regex: //' | sed 's/\/\.\*\$//' | xargs tree -C --noreport -I '*.nix';;
+    "list") cat ${path.system}/.sops.yaml | grep / | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path.system}/|' | xargs tree -C --noreport -I '*.nix';;
     "show") sops --config ${path.system}/.sops.yaml -d $3;;
     "update")
       echo "Updating Secrets..."

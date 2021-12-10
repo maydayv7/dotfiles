@@ -15,6 +15,7 @@ in rec
   {
     description = "GUI Desktop Choice";
     type = lib.types.str;
+    default = "";
   };
 
   config.assertions =

@@ -39,14 +39,9 @@ in rec
         exa
         fd
         file
-        lolcat
         nano
-        neofetch
         tree
       ];
-
-      # Neofetch Config
-      user.home.home.file.".config/neofetch/config.conf".text = files.fetch;
 
       programs =
       {
@@ -56,7 +51,7 @@ in rec
         # GPG Key Signing
         gnupg.agent.enable = true;
 
-        # X11 SSH Password Auth
+        # X11 SSH Password Authentication
         ssh.askPassword = "";
       };
     })

@@ -17,7 +17,7 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Build Default Install Media
       run: nix build github:maydayv7/dotfiles#installMedia.gnome.config.system.build.isoImage
-    - name: Publish Release
+    - name: Draft Release
       uses: ncipollo/release-action@v1.9.0
       with:
         allowUpdates: true

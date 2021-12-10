@@ -5,6 +5,7 @@ The functions present in [`lib`](../lib) are custom-made pure Flakes-compatible 
 
 * [`lib/map.nix`](../lib/map.nix)
   + `filter`: Filters out unneeded `attrs` and maps required ones to specified function
+  + `listAttrs`: Lists all toplevel `attrs` of `attrset` and returns it as a multi-line string
   + `merge`: Merges two `attrsets` acted upon by the same function
   + `eachSystem`: Maps parameter for each `system` as contained in `systems`
   + `channel`: Maps `inputs` and specified `overlays` for each `system` to build package `channels`, and optionally patches the `input` if specified

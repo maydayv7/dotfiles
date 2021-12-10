@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   enable = config.iso;
+  hostname = config.networking.hostName;
 in rec
 {
   # Install Media Build Module
@@ -15,6 +16,7 @@ in rec
     environment.pathsToLink = [ "/libexec" ];
     isoImage =
     {
+      isoBaseName = hostname;
       makeEfiBootable = true;
       makeUsbBootable = true;
     };

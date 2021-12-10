@@ -3,9 +3,8 @@ let
   inherit (util) map;
   inherit (builtins) elem;
   inherit (lib) mkIf mkForce mkMerge;
+  cfg = config;
   desktop = config.gui.desktop;
-  apps = config.environment.systemPackages;
-  username = config.user.name;
 in rec
 {
   ## GNOME Desktop Configuration ##
@@ -46,7 +45,7 @@ in rec
       {
         dconf.enable = true;
         xwayland.enable = true;
-        gnupg.agent.pinentryFlavor = "gnome3";
+        gnupg.agent.pinentryFlavor = lib.mkIf cfg.programs.gnupg.agent.enable "gnome3";
       };
 
       services =
@@ -128,10 +127,10 @@ in rec
           ".local/share/gtksourceview-4/language-specs/nix.lang".text = files.gnome.syntax;
 
           # Discord DNOME Theme
-          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
+          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (elem pkgs.discord cfg.environment.systemPackages) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/${username}/chrome/userChrome.css" = lib.mkIf (elem pkgs.firefox apps) { text = ''@import "${inputs.firefox}/userChrome.css";''; };
+          ".mozilla/firefox/${cfg.user.name}/chrome/userChrome.css" = lib.mkIf (elem pkgs.firefox cfg.environment.systemPackages) { text = ''@import "${inputs.firefox}/userChrome.css";''; };
         };
       };
 

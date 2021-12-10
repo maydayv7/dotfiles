@@ -8,6 +8,7 @@ lib.recursiveUpdate
 (writeShellScriptBin "install"
 ''
   #!${runtimeShell}
+  # This script must be executed as 'root'
   set +x
   error() { echo -e "\033[0;31merror:\033[0m $1"; exit 125; }
 
@@ -63,14 +64,12 @@ lib.recursiveUpdate
   mkdir -p /mnt
   printf "\n"
 
+  echo "Mounting $SCHEME Partitions..."
   if [ "$SCHEME" == "ext4" ]
   then
-    echo "Mounting EXT4 Partitions..."
     mkfs.ext4 /dev/disk/by-partlabel/System
     mount /dev/disk/by-partlabel/System /mnt
-    printf "\n"
   else
-    echo "Mounting BTRFS Partitions..."
     mkfs.btrfs -f /dev/disk/by-partlabel/System
     mount /dev/disk/by-partlabel/System /mnt
     btrfs subvolume create /mnt/home
@@ -82,8 +81,8 @@ lib.recursiveUpdate
     mount -o subvol=home,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/home
     mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/nix
     mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/persist
-    printf "\n"
   fi
+  printf "\n"
 
   echo "Mounting Other Partitions..."
   mkdir -p /mnt/boot

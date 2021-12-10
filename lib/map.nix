@@ -1,12 +1,13 @@
 { systems, version, lib, inputs, channels }:
 let
   inherit (inputs) self;
-  inherit (builtins) map readFile hasAttr attrValues mapAttrs listToAttrs readDir typeOf substring toString hashString pathExists;
+  inherit (builtins) map readFile hasAttr attrNames attrValues mapAttrs listToAttrs foldl' readDir typeOf substring toString hashString pathExists;
   inherit (lib) flatten mapAttrs' mapAttrsToList filterAttrs hasPrefix hasSuffix nameValuePair removeSuffix recursiveUpdate;
 in rec
 {
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
+  listAttrs = func: foldl' (x: y: x + y + "\n") "" (attrNames func);
   merge = name: dir1: dir2: func: recursiveUpdate (name dir1 func) (name dir2 func);
   eachSystem = func: listToAttrs (map (name: nameValuePair name (func name)) systems);
 

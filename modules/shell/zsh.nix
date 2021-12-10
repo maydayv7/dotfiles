@@ -32,8 +32,7 @@ in rec
         shellAliases =
         {
           sike = "neofetch";
-          do = "sudo";
-          edit = "sudo nano";
+          edit = "sudo $EDITOR";
           hi = "echo 'Hi there. How are you?'";
           bye = "exit";
           lol = "echo \"${files.zsh.message}\"";
@@ -65,8 +64,14 @@ in rec
         ];
       };
 
-      # Z Shell Prompt
-      home.file.".p10k.zsh".text = files.zsh.prompt;
+      home.file =
+      {
+        # Z Shell Prompt
+        ".p10k.zsh".text = files.zsh.prompt;
+
+        # Neofetch Configuration
+        ".config/neofetch/config.conf".text = files.fetch;
+      };
 
       # Command Not Found Helper
       programs.nix-index =
@@ -88,6 +93,8 @@ in rec
       [
         fzf
         fzf-zsh
+        neofetch
+        lolcat
       ];
     };
   };

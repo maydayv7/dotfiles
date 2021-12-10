@@ -10,21 +10,21 @@ lib.recursiveUpdate
   #!${runtimeShell}
   set +x
 
+  echo "Preparing Directory..."
+  pushd $HOME > /dev/null
   if mount | grep ext4 > /dev/null
   then
     DIR=${path.system}
   else
     DIR=/persist${path.system}
   fi
-
-  echo "Preparing Directory..."
   sudo rm -rf $DIR
   sudo mkdir $DIR
   sudo chown $USER $DIR
   sudo chmod ugo+rw $DIR
   printf "\n"
 
-  echo "Cloning Repo..."
+  echo "Cloning Repository..."
   git clone https://github.com/maydayv7/dotfiles.git $DIR
   printf "\n"
 
@@ -52,14 +52,16 @@ lib.recursiveUpdate
   do
     gpg --import $key
   done
+  rm -rf $KEY
   pushd $DIR > /dev/null; git-crypt unlock; popd > /dev/null
   printf "\n"
 
+  echo "Applying Configuration..."
   if [ "$DIR" == "/persist${path.system}" ]
   then
     sudo umount -l ${path.system}
     sudo mount $DIR
   fi
-
   sudo nixos-rebuild switch --flake ${path.system}
+  popd > /dev/null
 '')

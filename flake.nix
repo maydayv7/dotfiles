@@ -9,10 +9,10 @@
 {
   description = "My Purely Reproducible, Hermetic, Declarative, Atomic, Immutable, Multi-PC NixOS Dotfiles";
 
-  ## Package Repositories ##
+  ## System Repositories ##
   inputs =
   {
-    ## Main Repositories ##
+    ## Package Repositories ##
     # NixOS Stable Release
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-21.11";
 
@@ -22,10 +22,11 @@
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
 
+    ## Configuration Modules ##
     # Flake Utility Functions
     utils.url = "github:numtide/flake-utils";
 
-    # Home Manager
+    # User Home Manager
     home =
     {
       url = "github:nix-community/home-manager?ref=release-21.11";
@@ -39,7 +40,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Persistent State Handler
+    # File System Persistent State Handler
     impermanence.url = "github:nix-community/impermanence";
 
     ## Additional Repositories ##
@@ -58,6 +59,6 @@
     };
   };
 
-  ## Output Configuration ##
+  ## System Configuration ##
   outputs = args: import ./configuration.nix args;
 }

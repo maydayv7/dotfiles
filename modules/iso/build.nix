@@ -1,26 +1,30 @@
 { config, lib, inputs, pkgs, ... }:
 with lib;
 let
-  # This module creates a bootable ISO image containing the given NixOS configuration
-  # The derivation for the ISO image is placed in `config.system.build.isoImage`
-  enable = config.iso;
+  # This module creates a bootable .iso image containing the given NixOS configuration
+  # The derivation for the .iso image is placed in `config.system.build.isoImage`
   inherit (inputs) nixpkgs;
+  enable = config.iso;
+  iso = config.isoImage;
+  sys = config.system;
+  boot = config.boot;
+  nix = config.nix.package.out;
 
   # Configuration file for `syslinux`
   # Notes on `syslinux` configuration and UNetbootin compatiblity:
   #   * Do not use '/syslinux/syslinux.cfg' as the path for this
   #     configuration. UNetbootin will not parse the file and use it as-is.
   #     This results in a broken configuration if the partition label does
-  #     not match the specified config.isoImage.volumeID
+  #     not match the specified `config.isoImage.volumeID`
   #   * Use APPEND instead of adding command-line arguments directly after
   #     the LINUX entries
   #   * COM32 entries (chainload, reboot, poweroff) are not recognized. They
   #     result in incorrect boot entries
 
   # Timeout in `syslinux` is in units of 1/10 of a second
-  syslinuxTimeout = if config.boot.loader.timeout == null
+  syslinuxTimeout = if boot.loader.timeout == null
     then 0
-    else (x: y: if x > y then x else y) (config.boot.loader.timeout * 10) 1;
+    else (x: y: if x > y then x else y) (boot.loader.timeout * 10) 1;
 
   baseIsolinuxCfg =
   ''
@@ -54,38 +58,38 @@ let
     DEFAULT boot
 
     LABEL boot
-    MENU LABEL NixOS ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}
-    LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}
-    INITRD /boot/${config.system.boot.loader.initrdFile}
+    MENU LABEL NixOS ${sys.nixos.label}${iso.appendToMenuLabel}
+    LINUX /boot/${sys.boot.loader.kernelFile}
+    APPEND init=${sys.build.toplevel}/init ${toString boot.kernelParams}
+    INITRD /boot/${sys.boot.loader.initrdFile}
 
     # A variant to boot with 'nomodeset'
     LABEL boot-nomodeset
-    MENU LABEL NixOS ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (nomodeset)
-    LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} nomodeset
-    INITRD /boot/${config.system.boot.loader.initrdFile}
+    MENU LABEL NixOS ${sys.nixos.label}${iso.appendToMenuLabel} (nomodeset)
+    LINUX /boot/${sys.boot.loader.kernelFile}
+    APPEND init=${sys.build.toplevel}/init ${toString boot.kernelParams} nomodeset
+    INITRD /boot/${sys.boot.loader.initrdFile}
 
     # A variant to boot with 'copytoram'
     LABEL boot-copytoram
-    MENU LABEL NixOS ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (copytoram)
-    LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} copytoram
-    INITRD /boot/${config.system.boot.loader.initrdFile}
+    MENU LABEL NixOS ${sys.nixos.label}${iso.appendToMenuLabel} (copytoram)
+    LINUX /boot/${sys.boot.loader.kernelFile}
+    APPEND init=${sys.build.toplevel}/init ${toString boot.kernelParams} copytoram
+    INITRD /boot/${sys.boot.loader.initrdFile}
 
     # A variant to boot with verbose logging to the console
     LABEL boot-debug
-    MENU LABEL NixOS ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (debug)
-    LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} loglevel=7
-    INITRD /boot/${config.system.boot.loader.initrdFile}
+    MENU LABEL NixOS ${sys.nixos.label}${iso.appendToMenuLabel} (debug)
+    LINUX /boot/${sys.boot.loader.kernelFile}
+    APPEND init=${sys.build.toplevel}/init ${toString boot.kernelParams} loglevel=7
+    INITRD /boot/${sys.boot.loader.initrdFile}
 
     # A variant to boot with a serial console enabled
     LABEL boot-serial
-    MENU LABEL NixOS ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (serial console=ttyS0,115200n8)
-    LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} console=ttyS0,115200n8
-    INITRD /boot/${config.system.boot.loader.initrdFile}
+    MENU LABEL NixOS ${sys.nixos.label}${iso.appendToMenuLabel} (serial console=ttyS0,115200n8)
+    LINUX /boot/${sys.boot.loader.kernelFile}
+    APPEND init=${sys.build.toplevel}/init ${toString boot.kernelParams} console=ttyS0,115200n8
+    INITRD /boot/${sys.boot.loader.initrdFile}
   '';
 
   isolinuxMemtest86Entry =
@@ -93,18 +97,67 @@ let
     LABEL memtest
     MENU LABEL Memtest86+
     LINUX /boot/memtest.bin
-    APPEND ${toString config.boot.loader.grub.memtest86.params}
+    APPEND ${toString boot.loader.grub.memtest86.params}
   '';
 
   isolinuxCfg = concatStringsSep "\n" ([ baseIsolinuxCfg ] ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry);
 
-  grubPkgs = if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
+  # `syslinux` and `isolinux` only support x86-based architectures
+  canx86BiosBoot = pkgs.stdenv.hostPlatform.isx86;
+
+  # The EFI boot image
+  # Notes about GRUB:
+  #  * The grubMenuCfg has to be repeated in all submenus. Otherwise you
+  #    will get white-on-black console-like text
+
+  grubPkgs = if boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
+
+  # Given a list of `options`, concats the result of mapping each options to a menuentry for use in GRUB
+  #
+  #  * defaults: {name, image, params, initrd}
+  #  * options: [ option... ]
+  #  * option: {name, params, class}
+  menuBuilderGrub2 = defaults: options: lib.concatStrings
+  (map (option:
+   ''
+     menuentry '${defaults.name}
+      # Name appended to menuentry defaults to 'params'
+     ${option.name or (if option ? params then "(${option.params})" else "")}'
+     ${if option ? class then " --class ${option.class}" else ""}
+     {
+       linux ${defaults.image} \''${isoboot} ${defaults.params} ${option.params or ""}
+       initrd ${defaults.initrd}
+     }
+   '') options);
+
+  # Given a `config`, builds the default options
+  buildMenuGrub2 = config: buildMenuAdditionalParamsGrub2 config "";
+
+  # Given `config` and `params`, build a set of default options for creating variants
+  buildMenuAdditionalParamsGrub2 = config: additional:
+  let
+    finalCfg =
+    {
+      name = "NixOS ${sys.nixos.label}${iso.appendToMenuLabel}";
+      params = "init=${sys.build.toplevel}/init ${additional} ${toString boot.kernelParams}";
+      image = "/boot/${sys.boot.loader.kernelFile}";
+      initrd = "/boot/initrd";
+    };
+  in
+  menuBuilderGrub2
+  finalCfg
+  [
+    { class = "installer"; }
+    { class = "nomodeset"; params = "nomodeset"; }
+    { class = "copytoram"; params = "copytoram"; }
+    { class = "debug"; params = "debug"; }
+  ];
 
   grubMenuCfg =
   ''
     ## Menu configuration ##
 
-    # Search using a "marker file"
+    # Search using a 'marker file'
     search --set=root --file /EFI/nixos-installer-image
 
     insmod gfxterm
@@ -148,12 +201,12 @@ let
     fi
 
     ${ # When there is a theme configured, use it, otherwise use the background image
-    if config.isoImage.grubTheme != null then
+    if iso.grubTheme != null then
     ''
       # Sets theme.
       set theme=(\$root)/EFI/boot/grub-theme/theme.txt
       # Load theme fonts
-      $(find ${config.isoImage.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
+      $(find ${iso.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
     ''
     else
     ''
@@ -170,60 +223,6 @@ let
     ''}
   '';
 
-  # `syslinux` and `isolinux` only support x86-based architectures
-  canx86BiosBoot = pkgs.stdenv.hostPlatform.isx86;
-
-  # The EFI boot image
-  # Notes about GRUB:
-  #  * The grubMenuCfg has to be repeated in all submenus. Otherwise you
-  #    will get white-on-black console-like text on sub-menus
-
-  # Given a list of `options`, concats the result of mapping each options to a menuentry for use in GRUB
-  #
-  #  * defaults: {name, image, params, initrd}
-  #  * options: [ option... ]
-  #  * option: {name, params, class}
-  menuBuilderGrub2 =
-  defaults: options: lib.concatStrings
-  (
-    map (option:
-    ''
-      menuentry '${defaults.name} ${
-      # Name appended to menuentry defaults to params if no specific name given
-      option.name or (if option ? params then "(${option.params})" else "")
-      }' ${if option ? class then " --class ${option.class}" else ""} {
-        linux ${defaults.image} \''${isoboot} ${defaults.params} ${
-          option.params or ""
-        }
-        initrd ${defaults.initrd}
-      }
-    '')
-    options
-  );
-
-  # Given a `config`, builds the default options
-  buildMenuGrub2 = config: buildMenuAdditionalParamsGrub2 config "";
-
-  # Given `config` and `params`, build a set of default options for creating variants
-  buildMenuAdditionalParamsGrub2 = config: additional:
-  let
-    finalCfg =
-    {
-      name = "NixOS ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}";
-      params = "init=${config.system.build.toplevel}/init ${additional} ${toString config.boot.kernelParams}";
-      image = "/boot/${config.system.boot.loader.kernelFile}";
-      initrd = "/boot/initrd";
-    };
-  in
-  menuBuilderGrub2
-  finalCfg
-  [
-    { class = "installer"; }
-    { class = "nomodeset"; params = "nomodeset"; }
-    { class = "copytoram"; params = "copytoram"; }
-    { class = "debug";     params = "debug"; }
-  ];
-
   efiDir = pkgs.runCommand "efi-directory"
   {
     nativeBuildInputs = [ pkgs.buildPackages.grub2_efi ];
@@ -232,7 +231,7 @@ let
   ''
     mkdir -p $out/EFI/boot/
 
-    # Add a marker so GRUB can find the filesystem
+    # Add a marker so that GRUB can find the File System
     touch $out/EFI/nixos-installer-image
 
     # ALWAYS required modules
@@ -260,7 +259,7 @@ let
       fi
     done
 
-    # Make own `efi` program, as "grub-install" isn't reliable since it seems to probe for devices, even with --skip-fs-probe
+    # Make own `efi` program, as 'grub-install' isn't reliable as it probes for devices, even with --skip-fs-probe
     grub-mkimage --directory=${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget} -o $out/EFI/boot/boot${targetArch}.efi -p /EFI/boot -O ${grubPkgs.grub2_efi.grubTarget} \
       $MODULES
     cp ${grubPkgs.grub2_efi}/share/grub/unicode.pf2 $out/EFI/boot/
@@ -269,7 +268,7 @@ let
 
     set with_fonts=false
     set textmode=false
-    # If you want to use serial for "terminal_*" commands, you need to set one up:
+    # If you want to use serial for "terminal_*" commands, you need to set one up
     #   Example manual configuration:
     #    → serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
     # This uses the defaults, and makes the serial terminal available
@@ -279,7 +278,7 @@ let
     clear
     set timeout=10
 
-    # This message will only be viewable when "gfxterm" is not used
+    # This message will only be viewable when 'gfxterm' is not used
     echo ""
     echo "Loading graphical boot menu..."
     echo ""
@@ -296,7 +295,7 @@ let
     }
     hiddenentry 'GUI mode' --hotkey 'g'
     {
-      $(find ${config.isoImage.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
+      $(find ${iso.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
       set textmode=false
       terminal_output gfxterm
     }
@@ -361,20 +360,21 @@ let
     EOF
   '';
 
+  # Be careful about 'determinism'
+  # du --apparent-size, dates (cp -p, touch, mcopy -m, faketime for label), IDs (mkfs.vfat -i)
   efiImg = pkgs.runCommand "efi-image_eltorito"
   {
     nativeBuildInputs = [ pkgs.buildPackages.mtools pkgs.buildPackages.libfaketime pkgs.buildPackages.dosfstools ];
     strictDeps = true;
   }
-  # Be careful about determinism: du --apparent-size, dates (cp -p, touch, mcopy -m, faketime for label), IDs (mkfs.vfat -i)
   ''
     mkdir ./contents && cd ./contents
     cp -rp "${efiDir}"/EFI .
     mkdir ./boot
-    cp -p "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}" \
-      "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}" ./boot/
+    cp -p "${boot.kernelPackages.kernel}/${sys.boot.loader.kernelFile}" \
+      "${sys.build.initialRamdisk}/${sys.boot.loader.initrdFile}" ./boot/
 
-    # Rewrite dates for everything in the FS
+    # Rewrite dates for everything in the File System
     find . -exec touch --date=2000-01-01 {} +
 
     # Round up to the nearest multiple of 1MB, for more deterministic du output
@@ -389,7 +389,7 @@ let
     truncate --size=$image_size "$out"
     faketime "2000-01-01 00:00:00" mkfs.vfat -i 12345678 -n EFIBOOT "$out"
 
-    # Force a fixed order in mcopy for better determinism, and avoid file globbing
+    # Force a fixed order in mcopy for better determinism and avoid file globbing
     for d in $(find EFI boot -type d | sort); do
       faketime "2000-01-01 00:00:00" mmd -i "$out" "::/$d"
     done
@@ -398,49 +398,43 @@ let
       mcopy -pvm -i "$out" "$f" "::/$f"
     done
 
-    # Verify the FAT partition.
+    # Verify the `FAT` partition
     fsck.vfat -vn "$out"
   '';
 
   # Name used by UEFI for architectures
   targetArch =
-    if pkgs.stdenv.isi686 || config.boot.loader.grub.forcei686 then
-      "ia32"
-    else if pkgs.stdenv.isx86_64 then
-      "x64"
-    else if pkgs.stdenv.isAarch32 then
-      "arm"
-    else if pkgs.stdenv.isAarch64 then
-      "aa64"
-    else
-      throw "Unsupported architecture";
+    if pkgs.stdenv.isi686 || boot.loader.grub.forcei686 then "ia32"
+    else if pkgs.stdenv.isx86_64 then "x64"
+    else if pkgs.stdenv.isAarch32 then "arm"
+    else if pkgs.stdenv.isAarch64 then "aa64"
+    else throw "Unsupported architecture";
 in
 {
   options.isoImage =
   {
     isoName = mkOption
     {
-      default = "${config.isoImage.isoBaseName}.iso";
-      description = "Name of the generated ISO image file";
+      default = "${iso.isoBaseName}.iso";
+      description = "Name of the generated .iso image file";
     };
 
     isoBaseName = mkOption
     {
       default = "nixos";
-      description = "Prefix of the name of the generated ISO image file";
+      description = "Prefix of the name of the generated .iso image file";
     };
 
     compressImage = mkOption
     {
       default = false;
-      description = "Whether the ISO image should be compressed using `zstd`";
+      description = "Whether the .iso image should be compressed using `zstd`";
     };
 
     squashfsCompression = mkOption
     {
       default = with pkgs.stdenv.targetPlatform; "xz -Xdict-size 100% "
                 + lib.optionalString (isx86_32 || isx86_64) "-Xbcj x86"
-                # Untested but should also reduce size for these platforms
                 + lib.optionalString (isAarch32 || isAarch64) "-Xbcj arm"
                 + lib.optionalString (isPowerPC) "-Xbcj powerpc"
                 + lib.optionalString (isSparc) "-Xbcj sparc";
@@ -454,18 +448,18 @@ in
       description =
       ''
         Specifies which edition string to use in the volume ID of the generated
-        ISO image.
+        .iso image
       '';
     };
 
     volumeID = mkOption
     {
       # nixos-$EDITION-$RELEASE-$ARCH
-      default = "nixos${optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"}-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
+      default = "nixos${optionalString (iso.edition != "") "-${iso.edition}"}-${sys.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
       description =
       ''
-        Specifies the label or volume ID of the generated ISO image.
-        Note that the label is used by stage 1 of the boot process to
+        Specifies the label or volume ID of the generated .iso image.
+        Note that the label is used by Stage 1 of the boot process to
         mount the CD, so it should be reasonably distinctive
       '';
     };
@@ -474,16 +468,15 @@ in
     {
       example = literalExpression
       ''
-        [
-          { source = pkgs.memtest86 + "/memtest.bin";
+        [{
+            source = pkgs.memtest86 + "/memtest.bin";
             target = "boot/memtest.bin";
-          }
-        ]
+        }]
       '';
       description =
       ''
         This option lists files to be copied to fixed locations in the
-        generated ISO image
+        generated .iso image
       '';
     };
 
@@ -493,7 +486,7 @@ in
       description =
       ''
         This option lists additional derivations to be included in the
-        Nix Store in the generated ISO image
+        Nix Store in the generated .iso image
       '';
     };
 
@@ -506,20 +499,20 @@ in
         image. It significantly increases image size. Use that when
         you want to be able to keep all the sources needed to build your
         system or when you are going to install the system on a computer
-        with slow or non-existent network connection
+        with a slow or non-existent network connection
       '';
     };
 
     makeEfiBootable = mkOption
     {
       default = false;
-      description = "Whether the ISO image should be an efi-bootable volume";
+      description = "Whether the .iso image should be an EFI-bootable volume";
     };
 
     makeUsbBootable = mkOption
     {
       default = false;
-      description = "Whether the ISO image should be bootable from CD as well as USB";
+      description = "Whether the .iso image should be bootable from CD as well as USB";
     };
 
     efiSplashImage = mkOption
@@ -549,7 +542,7 @@ in
       description = "The GRUB2 theme used for UEFI boot";
     };
 
-    isoImage.appendToMenuLabel = mkOption
+    appendToMenuLabel = mkOption
     {
       default = " Installer";
       example = " Live System";
@@ -564,19 +557,17 @@ in
 
   config = lib.mkIf enable
   {
+    # Volume Identifier can only be 32 bytes
     assertions =
-    [
-      {
-        # Volume Identifier can only be 32 bytes
-        assertion = !(stringLength config.isoImage.volumeID > 32);
-        message =
-        let
-          length = stringLength config.isoImage.volumeID;
-          howmany = toString length;
-          toomany = toString (length - 32);
-        in "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32.";
-      }
-    ];
+    [{
+      assertion = !(stringLength iso.volumeID > 32);
+      message =
+      let
+        length = stringLength iso.volumeID;
+        howmany = toString length;
+        toomany = toString (length - 32);
+      in "`isoImage.volumeID` ${iso.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32";
+    }];
 
     # Store filesystems in `lib` so we can `mkImageMediaOverride` entire file system layout in installation media
     fileSystems = config.lib.isoFileSystems;
@@ -596,7 +587,7 @@ in
         noCheck = true;
       };
 
-      # In stage 1, mount a `tmpfs` on top of /nix/store to make this a live CD
+      # In Stage 1, mount a `tmpfs` on top of /nix/store to make this a live CD
       "/nix/.ro-store" = mkImageMediaOverride
       {
         fsType = "squashfs";
@@ -622,6 +613,7 @@ in
           "upperdir=/nix/.rw-store/store"
           "workdir=/nix/.rw-store/work"
         ];
+
         depends =
         [
           "/nix/.ro-store"
@@ -631,138 +623,147 @@ in
       };
     };
 
-    # Don't build the GRUB menu builder script
-    boot.loader =
+    boot =
     {
-      grub.version = 2;
-      grub.enable = false;
-      timeout = 10;
+      # Add `vfat` support to the initrd to enable copying contents of the CD to a bootable USB
+      initrd.supportedFilesystems = [ "vfat" ];
+
+      # In Stage 1 of the boot, mount the CD as the `root` File System Label is passed on the 
+      # kernel CLI rather than in `fileSystems' which allows CD-to-USB converters such as
+      # UNetbootin to rewrite the kernel CLI to pass the label or UUID of the USB stick
+      kernelParams =
+      [
+        "root=LABEL=${iso.volumeID}"
+        "boot.shell_on_fail"
+      ];
+
+      initrd =
+      {
+        availableKernelModules = [ "squashfs" "iso9660" "uas" "overlay" ];
+        kernelModules = [ "loop" "overlay" ];
+      };
+
+      # Don't build the GRUB menu builder script
+      loader =
+      {
+        grub.version = 2;
+        grub.enable = false;
+        timeout = 10;
+      };
+
+      postBootCommands =
+      ''
+        # After booting, register the contents of the Nix Store on the CD in the Nix database in the `tmpfs`
+        ${nix}/bin/nix-store --load-db < /nix/store/nix-path-registration
+
+        # nixos-rebuild also requires a "system" profile and an `/etc/NIXOS` tag
+        touch /etc/NIXOS
+        ${nix}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
+      '';
     };
+
     environment.systemPackages = [ grubPkgs.grub2 grubPkgs.grub2_efi ] ++ optional canx86BiosBoot pkgs.syslinux;
 
-    # In stage 1 of the boot, mount the CD as the Root FS Label is passed on the kernel command line
-    # rather than in `fileSystems' which allows CD-to-USB converters such as UNetbootin
-    # to rewrite the kernel command line to pass the label or UUID of the USB stick
-    boot.kernelParams =
-    [
-      "root=LABEL=${config.isoImage.volumeID}"
-      "boot.shell_on_fail"
-    ];
-    boot.initrd =
+    isoImage =
     {
-      availableKernelModules = [ "squashfs" "iso9660" "uas" "overlay" ];
-      kernelModules = [ "loop" "overlay" ];
-    };
+      # Closures to be copied to the Nix Store on the CD
+      # (Init script and the top-level system configuration directory)
+      storeContents = [ sys.build.toplevel ] ++ optional iso.includeSystemBuildDependencies sys.build.toplevel.drvPath;
 
-    # Closures to be copied to the Nix Store on the CD
-    # (init script and the top-level system configuration directory)
-    isoImage.storeContents = [ config.system.build.toplevel ] ++ optional config.isoImage.includeSystemBuildDependencies config.system.build.toplevel.drvPath;
-
-    # Create the `squashfs` image that contains the Nix Store
-    system.build.squashfsStore = pkgs.callPackage "${nixpkgs}/nixos/lib/make-squashfs.nix"
-    {
-      storeContents = config.isoImage.storeContents;
-      comp = config.isoImage.squashfsCompression;
-    };
-
-    # Individual files to be included on the CD, outside of the Nix Store
-    isoImage.contents =
-    [
-      {
-        source = config.boot.kernelPackages.kernel + "/" + config.system.boot.loader.kernelFile;
-        target = "/boot/" + config.system.boot.loader.kernelFile;
-      }
-      {
-        source = config.system.build.initialRamdisk + "/" + config.system.boot.loader.initrdFile;
-        target = "/boot/" + config.system.boot.loader.initrdFile;
-      }
-      {
-        source = config.system.build.squashfsStore;
-        target = "/nix-store.squashfs";
-      }
-      {
-        source = config.isoImage.splashImage;
-        target = "/isolinux/background.png";
-      }
-      {
-        source = pkgs.writeText "version" config.system.nixos.label;
-        target = "/version.txt";
-      }
-    ] ++ optionals canx86BiosBoot
-    [
-      {
-        source = pkgs.substituteAll
+      # Individual files to be included on the CD, outside of the Nix Store
+      contents =
+      [
         {
-          name = "isolinux.cfg";
-          src = pkgs.writeText "isolinux.cfg-in" isolinuxCfg;
-          bootRoot = "/boot";
-        };
-        target = "/isolinux/isolinux.cfg";
-      }
-      {
-        source = "${pkgs.syslinux}/share/syslinux";
-        target = "/isolinux";
-      }
-    ] ++ optionals config.isoImage.makeEfiBootable
-    [
-      {
-        source = efiImg;
-        target = "/boot/efi.img";
-      }
-      {
-        source = "${efiDir}/EFI";
-        target = "/EFI";
-      }
-      {
-        source = (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg") + "/grub";
-        target = "/boot/grub";
-      }
-    ] ++ optionals (config.boot.loader.grub.memtest86.enable && canx86BiosBoot)
-    [
-      {
-        source = "${pkgs.memtest86plus}/memtest.bin";
-        target = "/boot/memtest.bin";
-      }
-    ] ++ optionals (config.isoImage.grubTheme != null)
-    [
-      {
-        source = config.isoImage.grubTheme;
-        target = "/EFI/boot/grub-theme";
-      }
-    ] ++
-    [
-      {
-        source = config.isoImage.efiSplashImage;
-        target = "/EFI/boot/efi-background.png";
-      }
-    ];
+          source = boot.kernelPackages.kernel + "/" + sys.boot.loader.kernelFile;
+          target = "/boot/" + sys.boot.loader.kernelFile;
+        }
+        {
+          source = sys.build.initialRamdisk + "/" + sys.boot.loader.initrdFile;
+          target = "/boot/" + sys.boot.loader.initrdFile;
+        }
+        {
+          source = sys.build.squashfsStore;
+          target = "/nix-store.squashfs";
+        }
+        {
+          source = iso.splashImage;
+          target = "/isolinux/background.png";
+        }
+        {
+          source = pkgs.writeText "version" sys.nixos.label;
+          target = "/version.txt";
+        }
+      ] ++ optionals canx86BiosBoot
+      [
+        {
+          source = pkgs.substituteAll
+          {
+            name = "isolinux.cfg";
+            src = pkgs.writeText "isolinux.cfg-in" isolinuxCfg;
+            bootRoot = "/boot";
+          };
+          target = "/isolinux/isolinux.cfg";
+        }
+        {
+          source = "${pkgs.syslinux}/share/syslinux";
+          target = "/isolinux";
+        }
+      ] ++ optionals iso.makeEfiBootable
+      [
+        {
+          source = efiImg;
+          target = "/boot/efi.img";
+        }
+        {
+          source = "${efiDir}/EFI";
+          target = "/EFI";
+        }
+        {
+          source = (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg") + "/grub";
+          target = "/boot/grub";
+        }
+      ] ++ optionals (boot.loader.grub.memtest86.enable && canx86BiosBoot)
+      [{
+          source = "${pkgs.memtest86plus}/memtest.bin";
+          target = "/boot/memtest.bin";
+      }] ++ optionals (iso.grubTheme != null)
+      [{
+          source = iso.grubTheme;
+          target = "/EFI/boot/grub-theme";
+      }] ++
+      [{
+          source = iso.efiSplashImage;
+          target = "/EFI/boot/efi-background.png";
+      }];
+    };
 
-    # Create the ISO image
-    system.build.isoImage = pkgs.callPackage "${nixpkgs}/nixos/lib/make-iso9660-image.nix"
-    ({
-      inherit (config.isoImage) isoName compressImage volumeID contents;
-      bootable = canx86BiosBoot;
-      bootImage = "/isolinux/isolinux.bin";
-      syslinux = if canx86BiosBoot then pkgs.syslinux else null;
-    } // optionalAttrs (config.isoImage.makeUsbBootable && canx86BiosBoot) {
-      usbBootable = true;
-      isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
-    } // optionalAttrs config.isoImage.makeEfiBootable {
-      efiBootable = true;
-      efiBootImage = "boot/efi.img";
-    });
+    system.build =
+    {
+      # Create the `squashfs` image that contains the Nix Store
+      squashfsStore = pkgs.callPackage "${nixpkgs}/nixos/lib/make-squashfs.nix"
+      {
+        storeContents = iso.storeContents;
+        comp = iso.squashfsCompression;
+      };
 
-    boot.postBootCommands =
-    ''
-      # After booting, register the contents of the Nix Store on the CD in the Nix database in the `tmpfs`
-      ${config.nix.package.out}/bin/nix-store --load-db < /nix/store/nix-path-registration
-
-      # nixos-rebuild also requires a "system" profile and an /etc/NIXOS tag
-      touch /etc/NIXOS
-      ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
-    '';
-
-    # Add vfat support to the initrd to enable copying contents of the CD to a bootable USB
-    boot.initrd.supportedFilesystems = [ "vfat" ];
+      # Create the .iso image
+      isoImage = pkgs.callPackage "${nixpkgs}/nixos/lib/make-iso9660-image.nix"
+      ({
+        inherit (iso) isoName compressImage volumeID contents;
+        bootable = canx86BiosBoot;
+        bootImage = "/isolinux/isolinux.bin";
+        syslinux = if canx86BiosBoot then pkgs.syslinux else null;
+      }
+      // optionalAttrs (iso.makeUsbBootable && canx86BiosBoot)
+      {
+        usbBootable = true;
+        isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
+      }
+      // optionalAttrs iso.makeEfiBootable
+      {
+        efiBootable = true;
+        efiBootImage = "boot/efi.img";
+      });
+    };
   };
 }

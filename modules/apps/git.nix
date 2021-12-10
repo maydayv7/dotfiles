@@ -77,8 +77,11 @@ in rec
         lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
         ll = "log -p --graph --decorate --abbrev-commit";
         mod = "submodule";
+        p = "push";
+        pf = "push --force";
         record = "!sh -c '(git add -p -- $@ && git commit) || git reset' --";
-        res = "reset HEAD^";
+        rb = "rebase";
+        rs = "reset HEAD^";
         s = "!git --no-pager status";
         sm = "submodule";
         st = "stash";

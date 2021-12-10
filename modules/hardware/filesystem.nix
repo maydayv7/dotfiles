@@ -9,12 +9,12 @@ in rec
   options.hardware.filesystem = mkOption
   {
     description = "Disk File System Configuration";
-    type = types.enum [ "simple" "advanced" ];
-    default = "simple";
+    type = types.enum [ "" "simple" "advanced" ];
+    default = "";
   };
 
   ## File System Configuration ##
-  config = mkIf (filesystem == "simple" || filesystem == "advanced")
+  config = mkIf (filesystem != "")
   (mkMerge
   [
     {

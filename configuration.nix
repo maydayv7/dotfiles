@@ -1,4 +1,5 @@
 { self, ... } @ inputs:
+with inputs;
 let
   ## Variable Declaration ##
   # Supported Architectures
@@ -9,8 +10,7 @@ let
 
   # System Libraries
   inherit (builtins) head attrValues;
-  inherit (inputs.nixpkgs) lib;
-  inherit (inputs.utils.lib) eachSystem;
+  inherit (nixpkgs) lib;
 
   # Custom Functions
   util = import ./lib { inherit systems version lib util inputs channels path files; };
@@ -19,8 +19,8 @@ let
   # Package Channels
   channels =
   {
-    unstable = map.channel inputs.unstable [ ] [ ];
-    nixpkgs = map.channel inputs.nixpkgs [ inputs.nur.overlay ] ./packages/patches;
+    unstable = map.channel unstable [ ] [ ];
+    nixpkgs = map.channel nixpkgs [ nur.overlay ] ./packages/patches;
   };
 
   # Absolute Paths
@@ -29,7 +29,7 @@ let
   # Dotfiles and Program Configuration
   files = import ./files;
 in
-eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
+utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
 {
   ## Configuration Checks ##
   checks = map.checks.system self.installMedia;
@@ -46,7 +46,7 @@ eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
 
   # Custom Packages
   defaultPackage = self.packages."${system}".nixos;
-  packages = map.merge map.modules ./packages ./scripts (name: pkgs.callPackage name { inherit pkgs path files; });
+  packages = map.merge map.modules ./packages ./scripts (name: pkgs.callPackage name { inherit util inputs pkgs path files; });
 })
 //
 {
