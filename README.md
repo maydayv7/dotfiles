@@ -104,6 +104,6 @@ The files and scripts in this repository are licensed under the very permissive 
 ***Caution:*** This repo may contain proprietary [fonts](./files/fonts) and [wallpapers](./files/wallpapers) which do not come under the above-mentioned license, hence it is advisable not to use them other than for personal use
 
 #### Branches
-There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been extensively tested
+There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after it has been extensively tested. Also keep in mind that this repository follows the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 See the [docs](./docs/README.md) for additional information

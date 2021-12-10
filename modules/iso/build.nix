@@ -4,11 +4,13 @@ let
   # This module creates a bootable .iso image containing the given NixOS configuration
   # The derivation for the .iso image is placed in `config.system.build.isoImage`
   inherit (inputs) nixpkgs;
+  inherit (builtins) toString;
+
   enable = config.iso;
-  iso = config.isoImage;
-  sys = config.system;
   boot = config.boot;
+  iso = config.isoImage;
   nix = config.nix.package.out;
+  sys = config.system;
 
   # Configuration file for `syslinux`
   # Notes on `syslinux` configuration and UNetbootin compatiblity:
@@ -29,7 +31,7 @@ let
   baseIsolinuxCfg =
   ''
     SERIAL 0 115200
-    TIMEOUT ${builtins.toString syslinuxTimeout}
+    TIMEOUT ${toString syslinuxTimeout}
     UI vesamenu.c32
     MENU TITLE NixOS
     MENU BACKGROUND /isolinux/background.png

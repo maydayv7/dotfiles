@@ -1,6 +1,8 @@
-{ systems, version, lib, util, inputs, channels, path, files }:
-rec
+{ systems, version, lib, util, inputs, channels, path, files } @ args:
+let
+  inherit (inputs) self;
+in rec
 {
-  build = import ./build.nix { inherit systems version lib util inputs channels path files; };
-  map = import ./map.nix { inherit systems version lib inputs channels; };
+  map = import ./map.nix args;
+  build = import ./build.nix args;
 }

@@ -10,7 +10,7 @@ lib.recursiveUpdate
   #!${runtimeShell}
   # This script must be executed as 'root'
   set +x
-  error() { echo -e "\033[0;31merror:\033[0m $1"; exit 125; }
+  error() { echo -e "\033[0;31merror:\033[0m $1"; exit 7; }
 
   read -p "Select Device to Install (Vortex/Futura): " choice
     case $choice in

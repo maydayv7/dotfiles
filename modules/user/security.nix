@@ -2,8 +2,8 @@
 let
   inherit (util) map;
   enable = !config.user.autologin;
-  username = config.user.name;
   secrets = config.sops.secrets;
+  username = config.user.name;
 in rec
 {
   config = lib.mkIf enable

@@ -1,8 +1,8 @@
-{ systems, version, lib, inputs, channels }:
+{ systems, version, lib, inputs, channels, ... }:
 let
   inherit (inputs) self;
-  inherit (builtins) map readFile hasAttr attrNames attrValues mapAttrs listToAttrs foldl' readDir typeOf substring toString hashString pathExists;
-  inherit (lib) flatten mapAttrs' mapAttrsToList filterAttrs hasPrefix hasSuffix nameValuePair removeSuffix recursiveUpdate;
+  inherit (builtins) attrNames attrValues foldl' hasAttr hashString listToAttrs map mapAttrs pathExists readDir readFile substring toString typeOf;
+  inherit (lib) filterAttrs flatten hasPrefix hasSuffix mapAttrs' mapAttrsToList nameValuePair recursiveUpdate removeSuffix;
 in rec
 {
   ## Mapping Functions ##

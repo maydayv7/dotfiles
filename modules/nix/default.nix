@@ -1,7 +1,7 @@
 { config, lib, util, pkgs, ... }:
 let
   inherit (util) map;
-  hardware = config.hardware;
+  cores = config.hardware.cores;
 in rec
 {
   imports = [ ./cachix.nix ];
@@ -32,7 +32,7 @@ in rec
       trustedUsers = [ "root" "@wheel" ];
 
       # Additional Features
-      maxJobs = if (builtins.hasAttr "cores" hardware) then hardware.cores else 4;
+      maxJobs = cores;
       useSandbox = true;
       extraOptions = "experimental-features = nix-command flakes recursive-nix";
       systemFeatures = [ "kvm" "recursive-nix" ];

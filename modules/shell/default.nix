@@ -1,6 +1,6 @@
 { config, lib, pkgs, files, ... }:
 let
-  inherit (lib) mkIf types mkOption mkEnableOption mkMerge;
+  inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
   cfg = config.user.shell;
 in rec
 {

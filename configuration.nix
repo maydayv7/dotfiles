@@ -60,7 +60,7 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
   installMedia =
   {
     # Install Media - GNOME
-    gnome = build.system
+    gnome = build
     {
       iso = true;
       name = "nixos";
@@ -77,7 +77,7 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
   nixosConfigurations =
   {
     # PC - Dell Inspiron 15 5000
-    Vortex = build.system
+    Vortex = build
     {
       system = "x86_64-linux";
       name = "Vortex";
@@ -123,7 +123,7 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
     };
 
     # PC - Dell Inspiron 11 3000
-    Futura = build.system
+    Futura = build
     {
       system = "x86_64-linux";
       name = "Futura";

@@ -79,13 +79,14 @@ in rec
         mod = "submodule";
         p = "push";
         pf = "push --force";
+        pt = "push --tag";
         record = "!sh -c '(git add -p -- $@ && git commit) || git reset' --";
         rb = "rebase";
         rs = "reset HEAD^";
         s = "!git --no-pager status";
         sm = "submodule";
         st = "stash";
-        t = "tag -m";
+        t = "tag";
         tl = "tag -l";
       };
 
@@ -103,9 +104,10 @@ in rec
       extraConfig =
       {
         color.ui = "auto";
-        pull.rebase = "true";
-        init.defaultBranch = "master";
+        core.hooksPath = ".git-hooks";
         credential.helper = "store";
+        init.defaultBranch = "master";
+        pull.rebase = "true";
       };
 
       # User Credentials

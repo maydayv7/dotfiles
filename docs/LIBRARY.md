@@ -1,9 +1,9 @@
 ### Custom Functions
-The functions present in [`lib`](../lib) are custom-made pure Flakes-compatible utility functions, created in order to simplify the configuration and conveniently define and support multiple use-cases, imported as `util`. The following is a summary of all the functions:
-* [`lib/build.nix`](../lib/build.nix)
-  + `system`: Main system configuration function, used to build the entire configuration for both devices (`nixosConfigurations`) and install media (`installMedia`) as per provided parameters
+The [`lib`](../lib) directory contains custom-made pure Flakes-compatible utility functions, created in order to simplify the configuration and conveniently define and support multiple use-cases, and are imported as `util`. The following is a summary of all the present functions:
 
-* [`lib/map.nix`](../lib/map.nix)
+* [`util.build`](../lib/default.nix): Main system configuration building function, used to build the entire configuration for both devices (`nixosConfigurations`) and install media (`installMedia`) as per provided parameters
+
+* [`util.map`](../lib/map.nix): Mapping functions primarily aimed at shortening code complexity -
   + `filter`: Filters out unneeded `attrs` and maps required ones to specified function
   + `listAttrs`: Lists all toplevel `attrs` of `attrset` and returns it as a multi-line string
   + `merge`: Merges two `attrsets` acted upon by the same function

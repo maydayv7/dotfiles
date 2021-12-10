@@ -1,6 +1,6 @@
 { config, options, lib, inputs, pkgs, ... }:
 let
-  inherit (lib) types mkOption mkAliasDefinitions;
+  inherit (lib) mkOption mkAliasDefinitions types;
   cfg = config.user;
   opt = options.user;
 in rec

@@ -65,7 +65,7 @@ lib.recursiveUpdate
 (writeShellScriptBin "nixos"
 ''
   #!${runtimeShell}
-  error() { echo -e "\033[0;31merror:\033[0m $1"; exit 125; }
+  error() { echo -e "\033[0;31merror:\033[0m $1"; exit 7; }
 
   case $1 in
   "apply")

@@ -10,9 +10,8 @@ in rec
   {
     user.home =
     {
-      programs.home-manager.enable = true;
-      systemd.user.startServices = true;
       home.stateVersion = version;
+      systemd.user.startServices = true;
 
       # XDG Configuration
       xdg =
