@@ -42,8 +42,8 @@ in rec
 
   # NixOS Label
   label =
-    if self.sourceInfo ? lastModifiedDate && self.sourceInfo ? shortRev
-      then "${substring 0 8 self.sourceInfo.lastModifiedDate}.${self.sourceInfo.shortRev}"
+    if self ? lastModifiedDate && self ? shortRev
+      then "${substring 0 8 self.lastModifiedDate}.${self.shortRev}"
     else "dirty";
 
   # Mime Types
