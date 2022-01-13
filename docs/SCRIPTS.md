@@ -1,2 +1,0 @@
-### Scripts
-A system management script, invoked with the command `nixos`, has been included, which can be used to apply user and device configuration changes, painlessly install the OS and setup the device using a single command, and perform various other useful functions (If you have a working NixOS install, you can check it out using `nix run gitlab:maydayv7/dotfiles`)

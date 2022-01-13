@@ -50,8 +50,8 @@ with ({ inherit (builtins) readFile; }); {
 
   # Pictures
   images = {
-    wallpapers = ./wallpapers;
-    profile = ./wallpapers/Profile.png;
+    profile = ./images/Profile.png;
+    wallpapers = ./images/wallpapers;
   };
 
   # Nano Text Editor

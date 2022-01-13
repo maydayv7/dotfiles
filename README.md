@@ -1,11 +1,11 @@
 # Dotfiles
-![[Logo]](./docs/resources/logo.png)
+![[Logo]](./files/images/logo.png)
 
 ![Version](https://img.shields.io/gitlab/v/release/maydayv7/dotfiles?include_prereleases&label=version&color=red&style=flat-square&logo=gitlab) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 This [repository](https://gitlab.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/))
 
-![](./docs/resources/desktop.png)
+![](./files/images/desktop.png)
 
 ## Features
 [![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
@@ -63,14 +63,14 @@ Here is an overview of the file hierarchy:
 + `.templates`: custom Flakes configuration templates
 + `files`: `dotfiles` and program configuration
 + `devices`: system configuration for various devices
-+ [`scripts`](./docs/SCRIPTS.md): useful system management scripts
-+ `secrets`: authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
++ [`scripts`](./scripts/README.md): useful system management scripts
++ [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 + `shells`: sandboxed shells for development purposes
 + `repl.nix`: interactive shell to explore syntax and configuration
-+ [`packages`](./docs/PACKAGES.md): locally built custom packages
++ [`packages`](./packages/README.md): locally built custom packages
 + `overlays`: overrides for pre-built packages
-+ [`lib`](./docs/LIBRARY.md): custom functions designed for conveniently defining configuration
-+ [`modules`](./docs/MODULES.md): custom configuration modules for additional functionality
++ [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
++ [`modules`](./modules/README.md): custom configuration modules for additional functionality
 
 ## Installation
 <details>
@@ -153,17 +153,93 @@ If you really want to get dirty with Nix and decide to invest oodles of your tim
 #### Caution
 I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.4). If you have any doubts or suggestions, feel free to open an [issue](https://gitlab.com/maydayv7/dotfiles/-/issues/new)
 
-#### Requirements
+### Requirements
 *May change according to available hardware*  
 + UEFI Compatible System
 + Intel CPU + iGPU
 
-#### License
+### License
 The files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
 
 ***Caution:*** This repository may contain proprietary [fonts](./files/fonts) and [wallpapers](./files/wallpapers) which do not come under the above-mentioned license
 
-#### Branches
+### Branches
 There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
 
-See the [docs](./docs/README.md) for additional information
+### Build
+While rebuilding system with Flakes, make sure that any file with unstaged changes will not be included. Use `git add .` in cases where the `git` tree is dirty
+
+#### Cache
+The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
+
+#### Continuous Integration
+This repository makes use of [`GitLab CI/CD`](./.gitlab/.gitlab-ci.yml) in order to automatically check the configuration syntax on every commit, update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag. A `git` [hook](../.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
+
+###### Variables
++ [`ACCESS_TOKEN`](./modules/apps/git/secrets/gitlab.token): GitLab Personal Access Token (To create one, see [this]((https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)))
++ [`CACHIX_TOKEN`](./secrets/encrypted/cachix.token): Cachix Authentication Token
+
+### File System
+The system may be set up using either a `simple` or `advanced` filesystem layout. The advanced ZFS opt-in state filesystem configuration allows for a vastly improved experience, preventing formation of cruft and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
+
+#### Data Storage
+User files are stored on an NTFS partition mounted to `/data`
+
+## Links
+### Theming
++ [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
++ [Powerlevel10K](https://github.com/romkatv/powerlevel10k) Theme: ZSH Theme for the fancy-looking prompt with immense customization capabilities
++ [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel): GNOME Shell Extension providing a highly customizable icon taskbar for maximized productivity (personal [fork](https://github.com/maydayv7/dash-to-panel))
++ [DNOME](https://github.com/GeopJr/DNOME) Discord Theme: Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
++ [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration
+
+### Important Links
++ Official [Documentation](https://nixos.org/learn.html)
++ NixOS [Manual](https://nixos.org/manual/nixpkgs/stable)
++ NixOS [Discourse](https://discourse.nixos.org/)
++ NixOS [Package Search](https://search.nixos.org/)
++ [`nixpkgs`](https://github.com/NixOS/nixpkgs) Package Repository
++ [Nix User Repository](https://github.com/nix-community/NUR)
++ NixOS [Hardware Modules](https://github.com/nixos/hardware)
++ Home Manager [Options](https://nix-community.github.io/home-manager/options.html)
++ `sops` [Module](https://github.com/Mic92/sops-nix)
++ [Impermanence Module](https://github.com/nix-community/impermanence)
+
+#### Other Sources
++ [Tweag Article](https://www.tweag.io/blog/2020-05-25-flakes/) introducing Flakes
++ [Serokell's Blog](https://serokell.io/blog/practical-nix-flakes) on Flakes
++ [Jordan Isaac's Blog](https://jdisaacs.com/series/nixos-desktop/) for porting configuration to Flakes
++ [Jon Ringer's Videos](https://www.youtube.com/channel/UC-cY3DcYladGdFQWIKL90SQ) on General NixOS Tooling and Hackery
++ [Justin's Notes](https://github.com/justinwoo/nix-shorts) on using Nix
++ [Christine's Blog Posts](https://christine.website/blog/series/nixos) addressing NixOS Security
++ [Graham](https://grahamc.com/blog/erase-your-darlings) and [Elis'](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/) Blog Posts on Ephemeral Partition Schemes
+
+#### Other Configurations
+Here are some repositories that I may have shamelessly rummaged through for building my `dotfiles`:  
+*Thanks a lot! ;)*
++ Over-Engineered [Configuration](https://github.com/divnix/devos) to scare off Beginners
++ Minimalistic [Configuration](https://github.com/colemickens/nixos-flake-example) for Scared Beginners
++ User Configurations -
+  * [balsoft](https://code.balsoft.ru/balsoft/nixos-config)
+  * [bbigras](https://github.com/bbigras/nix-config)
+  * [cole-h](https://github.com/cole-h/nixos-config/)
+  * [colemickens](https://github.com/cole-mickens/nixcfg)
+  * [davidtwco](https://github.com/davidtwco/veritas)
+  * [gvolpe](https://github.com/gvolpe/nix-config)
+  * [hlissner](https://github.com/hlissner/dotfiles)
+  * [jordanisaacs](https://github.com/jordanisaacs/dotfiles)
+  * [kclejeune](https://github.com/kclejeune/system)
+  * [lovesegfault](https://github.com/lovesegfault/nix-config)
+  * [lucasew](https://github.com/lucasew/nixcfg)
+  * [nobbz](https://github.com/NobbZ/nixos-config)
+  * [rasendubi](https://github.com/rasendubi/dotfiles)
+  * [wiltaylor](https://github.com/wiltaylor/dotfiles)
+
+------------------------------------------------------------------
+[**Changelog**](./CHANGELOG.md)  
+[**Known Issues**](./LIMITATIONS.md)  
+
+You can navigate to the README present in the various directories to know more about them
+
+**V 7**  
+<maydayv7@gmail.com>

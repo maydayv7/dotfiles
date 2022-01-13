@@ -1,0 +1,2 @@
+### Credentials
+The authentication credentials are managed using [`sops-nix`](https://github.com/Mic92/sops-nix) at `secrets`. The [`sops`](https://github.com/mozilla/sops) encrypted secrets (using GPG authentication) are stored at multiple places, like in this directory, as well as [`modules/user/passwords`](../modules/user/passwords), and other keys are managed using `git-crypt` (such as [`files/gpg`](../files/gpg)). User passwords are made using the command `mkpasswd -m sha-512` and specified using the `passwordFile` option
