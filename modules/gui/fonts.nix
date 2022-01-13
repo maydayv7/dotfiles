@@ -1,24 +1,18 @@
 { config, lib, pkgs, files, ... }:
-let
-  enable = config.gui.fonts.enable;
-in rec
-{
+let enable = config.gui.fonts.enable;
+in rec {
   options.gui.fonts.enable = lib.mkEnableOption "Enable Fonts Configuration";
 
   ## Font Configuration ##
-  config = lib.mkIf enable
-  {
-    fonts =
-    {
+  config = lib.mkIf enable {
+    fonts = {
       enableDefaultFonts = true;
       fontDir.enable = true;
       enableGhostscriptFonts = true;
-      fontconfig =
-      {
+      fontconfig = {
         enable = true;
         localConf = files.fonts.config;
-        defaultFonts =
-        {
+        defaultFonts = {
           monospace = [ "MesloLGS NF" ];
           sansSerif = [ "Product Sans" ];
           serif = [ "Noto Serif" ];
@@ -28,8 +22,7 @@ in rec
     };
 
     # Font Packages
-    fonts.fonts = with pkgs;
-    [
+    fonts.fonts = with pkgs; [
       corefonts
       dejavu_fonts
       fira
@@ -46,10 +39,8 @@ in rec
       ubuntu_font_family
 
       # Patched Nerd Fonts
-      (nerdfonts.override
-      {
-        fonts =
-        [
+      (nerdfonts.override {
+        fonts = [
           "FiraCode"
           "FiraMono"
           "Hack"

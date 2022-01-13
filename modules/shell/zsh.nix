@@ -1,23 +1,17 @@
 { config, lib, inputs, pkgs, files, ... }:
-let
-  shell = config.user.shell.choice;
-in rec
-{
+let shell = config.user.shell.choice;
+in rec {
   ## Z Shell Configuration ##
-  config = lib.mkIf (shell == "zsh")
-  {
+  config = lib.mkIf (shell == "zsh") {
     # Shell Environment
-    environment =
-    {
+    environment = {
       shells = with pkgs; [ zsh ];
       pathsToLink = [ "/share/zsh" ];
     };
 
     # Settings
-    user.home =
-    {
-      programs.zsh =
-      {
+    user.home = {
+      programs.zsh = {
         enable = true;
 
         # Features
@@ -25,27 +19,24 @@ in rec
         enableCompletion = true;
         enableVteIntegration = true;
         autocd = true;
-        initExtraBeforeCompInit =
-        ''
+        initExtraBeforeCompInit = ''
           bindkey "\e[3~" delete-char
           source ~/.p10k.zsh
           eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
         '';
 
         # Command Aliases
-        shellAliases =
-        {
+        shellAliases = {
           hi = "echo 'Hi there. How are you?'";
           bye = "exit";
-          lol = "echo \"${files.zsh.lol}\"";
+          lol = ''echo "${files.zsh.lol}"'';
           sike = "neofetch";
           dotfiles = "cd ${files.path}";
           edit = "sudo $EDITOR";
         };
 
         # Command History
-        history =
-        {
+        history = {
           extended = true;
           ignoreDups = true;
           expireDuplicatesFirst = true;
@@ -53,8 +44,7 @@ in rec
         };
 
         # Extra Shell Plugins
-        plugins =
-        [
+        plugins = [
           {
             name = "zsh-syntax-highlighting";
             src = inputs.zsh-syntax;
@@ -68,8 +58,7 @@ in rec
         ];
       };
 
-      home.file =
-      {
+      home.file = {
         # Z Shell Prompt
         ".p10k.zsh".text = files.zsh.prompt;
 
@@ -78,28 +67,20 @@ in rec
       };
 
       # Command Not Found Helper
-      programs.nix-index =
-      {
+      programs.nix-index = {
         enable = true;
         enableZshIntegration = true;
       };
 
       # DirENV Integration
-      programs.direnv =
-      {
+      programs.direnv = {
         enable = true;
         enableZshIntegration = true;
         nix-direnv.enable = true;
       };
 
       # Utilities
-      home.packages = with pkgs;
-      [
-        fzf
-        fzf-zsh
-        neofetch
-        lolcat
-      ];
+      home.packages = with pkgs; [ fzf fzf-zsh neofetch lolcat ];
     };
   };
 }

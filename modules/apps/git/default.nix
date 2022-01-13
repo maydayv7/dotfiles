@@ -4,28 +4,23 @@ let
   enable = (builtins.elem "git" config.apps.list);
   opt = options.apps.git;
   cfg = config.apps.git;
-in rec
-{
+in rec {
   imports = [ ./runner.nix ];
 
-  options.apps.git =
-  {
-    name = mkOption
-    {
+  options.apps.git = {
+    name = mkOption {
       description = "Name for git";
       type = types.str;
       default = "";
     };
 
-    mail = mkOption
-    {
+    mail = mkOption {
       description = "Mail ID for git";
       type = types.str;
       default = "";
     };
 
-    key = mkOption
-    {
+    key = mkOption {
       description = "GPG Key for git";
       type = types.str;
       default = "CF616EB19C2765E4";
@@ -35,11 +30,9 @@ in rec
   };
 
   ## git Configuration ##
-  config = mkIf enable
-  {
+  config = mkIf enable {
     # Warnings
-    assertions =
-    [
+    assertions = [
       {
         assertion = cfg.name != "";
         message = (opt.name.description + " must be set");
@@ -51,8 +44,7 @@ in rec
     ];
 
     # Packages
-    programs =
-    {
+    programs = {
       # GPG Key Signing
       gnupg.agent.enable = true;
 
@@ -60,40 +52,29 @@ in rec
       ssh.askPassword = "";
     };
 
-    environment.systemPackages = with pkgs.gitAndTools;
-    [
+    environment.systemPackages = with pkgs.gitAndTools; [
       diff-so-fancy
       gitFull
     ];
 
     # Settings
-    user.home.programs.git =
-    {
+    user.home.programs.git = {
       enable = true;
       delta.enable = true;
 
       # User Credentials
       userName = cfg.name;
       userEmail = cfg.mail;
-      signing =
-      {
+      signing = {
         key = cfg.key;
         signByDefault = true;
       };
 
       # Globally Ignored Files
-      ignores =
-      [
-        "*~*"
-        "*.bak"
-        ".direnv"
-        "result"
-        "result-*"
-      ];
+      ignores = [ "*~*" "*.bak" ".direnv" "result" "result-*" ];
 
       # Additional Parameters
-      extraConfig =
-      {
+      extraConfig = {
         color.ui = "auto";
         core.hooksPath = ".git-hooks";
         credential.helper = "libsecret";
@@ -102,20 +83,21 @@ in rec
       };
 
       # Command Aliases
-      aliases =
-      {
+      aliases = {
         a = "add";
         ai = "add -i";
         ap = "add -p";
         b = "branch";
-        backup = "!sh -c 'CURRENT=$(git symbolic-ref --short HEAD) && git stash save -a && git checkout -B backup && git stash apply && git add -A . && git commit -m \"backup\" && git push -f $1 && git checkout $CURRENT && git stash pop && git branch -D backup' -";
+        backup = ''
+          !sh -c 'CURRENT=$(git symbolic-ref --short HEAD) && git stash save -a && git checkout -B backup && git stash apply && git add -A . && git commit -m "backup" && git push -f $1 && git checkout $CURRENT && git stash pop && git branch -D backup' -'';
         cam = "commit -a -m";
         cf = "config";
         ci = "commit -v";
         cia = "commit -v -a";
         co = "checkout";
         cp = "cherry-pick";
-        cpp = "!sh -c 'CURRENT=$(git symbolic-ref --short HEAD) && git stash && git checkout -B $2 $3 && git cherry-pick $1 && git push -f $4 && git checkout $CURRENT && git stash pop' -";
+        cpp =
+          "!sh -c 'CURRENT=$(git symbolic-ref --short HEAD) && git stash && git checkout -B $2 $3 && git cherry-pick $1 && git push -f $4 && git checkout $CURRENT && git stash pop' -";
         d = "diff";
         df = "diff HEAD";
         dx = "diff --color-words";
@@ -124,7 +106,8 @@ in rec
         l = "log --graph --decorate --abbrev-commit";
         l1 = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
         lf = "log -p --follow";
-        lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
+        lg =
+          "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
         ll = "log -p --graph --decorate --abbrev-commit";
         p = "push";
         pf = "push --force";

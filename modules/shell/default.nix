@@ -2,15 +2,12 @@
 let
   inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
   cfg = config.user.shell;
-in rec
-{
+in rec {
   imports = [ ./zsh.nix ];
 
-  options.user.shell =
-  {
+  options.user.shell = {
     utilities = mkEnableOption "Additional Shell Utilities";
-    choice = mkOption
-    {
+    choice = mkOption {
       description = "User Shell Choice";
       type = types.str;
       default = "bash";
@@ -18,24 +15,20 @@ in rec
   };
 
   ## Shell Configuration ##
-  config = mkMerge
-  [
+  config = mkMerge [
     {
       user.settings.shell = pkgs."${cfg.choice}";
 
       # Environment Settings
-      environment =
-      {
+      environment = {
         shells = with pkgs; [ bashInteractive ];
         variables.EDITOR = "nano -Ll";
       };
     }
 
-    (mkIf cfg.utilities
-    {
+    (mkIf cfg.utilities {
       # Utilities
-      environment.systemPackages = with pkgs;
-      [
+      environment.systemPackages = with pkgs; [
         etcher
         exa
         fd
@@ -45,14 +38,12 @@ in rec
         tree
       ];
 
-      programs =
-      {
+      programs = {
         # Command Not Found Helper
         command-not-found.enable = true;
 
         # Command Correction Helper
-        thefuck =
-        {
+        thefuck = {
           enable = true;
           alias = "fix";
         };

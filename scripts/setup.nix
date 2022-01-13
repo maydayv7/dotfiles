@@ -1,15 +1,10 @@
 { lib, pkgs, files, ... }:
 with pkgs;
-let
-  path = files.path;
-in
-lib.recursiveUpdate
-{
+let path = files.path;
+in lib.recursiveUpdate {
   meta.description = "System Setup Script";
-  buildInputs = [ coreutils git gnupg ];
-}
-(writeShellScriptBin "setup"
-''
+  buildInputs = [ coreutils git git-crypt gnupg ];
+} (writeShellScriptBin "setup" ''
   #!${runtimeShell}
   set +x
 

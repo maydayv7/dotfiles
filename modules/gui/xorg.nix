@@ -1,11 +1,7 @@
-{ ... }:
-rec
-{
+{ ... }: rec {
   ## XORG Configuration ##
-  config =
-  {
-    services.xserver =
-    {
+  config = {
+    services.xserver = {
       enable = true;
       autorun = true;
       layout = "us";

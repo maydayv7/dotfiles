@@ -1,17 +1,17 @@
-#############################################################
+# ######################################################### #
 ##  Author  = V 7      <maydayv7@gmail.com>                ##
 ##  URL     = https://github.com/maydayv7/dotfiles         ##
 ##  License = MIT                                          ##
 ##                                                         ##
 ##  Welcome to Ground Zero! The very heart of my dotfiles  ##
-#############################################################
+# ######################################################### #
 
 {
-  description = "My Purely Reproducible, Hermetic, Declarative, Atomic, Immutable, Multi-PC NixOS Dotfiles";
+  description =
+    "My Purely Reproducible, Hermetic, Declarative, Atomic, Immutable, Multi-PC NixOS Dotfiles";
 
   ## System Repositories ##
-  inputs =
-  {
+  inputs = {
     ## Package Repositories ##
     # NixOS Stable Release
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-21.11";
@@ -30,15 +30,13 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     # User Home Manager
-    home =
-    {
+    home = {
       url = "github:nix-community/home-manager?ref=release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Authentication Credentials Manager
-    sops =
-    {
+    sops = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -47,8 +45,7 @@
     impermanence.url = "github:nix-community/impermanence";
 
     # Pre-Commit Hooks
-    hooks =
-    {
+    hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "utils/flake-utils";
@@ -56,15 +53,13 @@
 
     ## Additional Repositories ##
     # Firefox GNOME Theme
-    firefox-theme =
-    {
+    firefox-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
 
     # Z Shell Syntax Highlighting
-    zsh-syntax =
-    {
+    zsh-syntax = {
       url = "github:zsh-users/zsh-syntax-highlighting";
       flake = false;
     };

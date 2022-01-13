@@ -113,7 +113,7 @@ sudo chown $USER /etc/nixos
 sudo chmod ugo+rw /etc/nixos
 git clone https://gitlab.com/maydayv7/dotfiles /etc/nixos
 cd /etc/nixos && git remote rm origin
-rm -r .git-crypt secrets/unencrypted/gpg/{pubring.kbx,private-keys-v1.d}
+rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
 </code></pre>
 
 2. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](../secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
@@ -128,7 +128,7 @@ COMMENT</i></b>
 O
 </code></pre>
 
-3. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `secrets/unencrypted/gpg`
+3. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg`
 
 4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command:  
 *Replace* ***PATH*** *with the path to the `secret`* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>

@@ -3,36 +3,32 @@ let
   inherit (lib) mkIf mkMerge mkOption types;
   filesystem = config.hardware.filesystem;
   opt = options.hardware.filesystem;
-in rec
-{
+in rec {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.hardware.filesystem = mkOption
-  {
+  options.hardware.filesystem = mkOption {
     description = "Disk File System Choice";
     type = types.enum [ null "simple" "advanced" ];
     default = null;
   };
 
   ## File System Configuration ##
-  config = { warnings = if (filesystem == null) then [ (opt.description + " is unset") ] else [ ]; } // mkIf (filesystem != null)
-  (mkMerge
-  [
+  config = {
+    warnings =
+      if (filesystem == null) then [ (opt.description + " is unset") ] else [ ];
+  } // mkIf (filesystem != null) (mkMerge [
     {
       ## Partitions ##
       # Common Partitions
-      fileSystems =
-      {
+      fileSystems = {
         # EFI System Partition
-        "/boot" =
-        {
+        "/boot" = {
           device = "/dev/disk/by-partlabel/ESP";
           fsType = "vfat";
         };
 
         # DATA Partition
-        "/data" =
-        {
+        "/data" = {
           device = "/dev/disk/by-partlabel/Files";
           fsType = "ntfs";
           options = [ "rw" "uid=1000" ];
@@ -40,18 +36,15 @@ in rec
       };
 
       # SWAP Partition
-      swapDevices = [ { device = "/dev/disk/by-partlabel/swap"; } ];
+      swapDevices = [{ device = "/dev/disk/by-partlabel/swap"; }];
       boot.kernel.sysctl."vm.swappiness" = 1;
     }
 
     ## Simple File System Configuration using EXT4 ##
-    (mkIf (filesystem == "simple")
-    {
-      fileSystems =
-      {
+    (mkIf (filesystem == "simple") {
+      fileSystems = {
         # ROOT Partition
-        "/" =
-        {
+        "/" = {
           device = "/dev/disk/by-partlabel/System";
           fsType = "ext4";
         };
@@ -59,30 +52,25 @@ in rec
     })
 
     ## Advanced File System Configuration using BTRFS ##
-    (mkIf (filesystem == "advanced")
-    {
-      fileSystems =
-      {
+    (mkIf (filesystem == "advanced") {
+      fileSystems = {
         # ROOT Partition
         # Opt-in State with TMPFS
-        "/" =
-        {
+        "/" = {
           device = "tmpfs";
           fsType = "tmpfs";
           options = [ "defaults" "size=2G" "mode=755" ];
         };
 
         # BTRFS Partition
-        "/mnt/btrfs" =
-        {
+        "/mnt/btrfs" = {
           device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvolid=5" "compress=zstd" "autodefrag" "noatime" ];
         };
 
         # HOME Subvolume
-        "/home" =
-        {
+        "/home" = {
           device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvol=home" ];
@@ -90,16 +78,14 @@ in rec
         };
 
         # NIX Subvolume
-        "/nix" =
-        {
+        "/nix" = {
           device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvol=nix" ];
         };
 
         # PERSISTENT Subvolume
-        "/persist" =
-        {
+        "/persist" = {
           device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvol=persist" ];
@@ -108,11 +94,9 @@ in rec
       };
 
       # Persisted Files
-      environment.persistence."/persist" =
-      {
+      environment.persistence."/persist" = {
         files = [ "/etc/machine-id" ];
-        directories =
-        [
+        directories = [
           "/etc/nixos"
           "/etc/NetworkManager/system-connections"
           "/var/log"
@@ -123,20 +107,15 @@ in rec
       };
 
       # Snapshots
-      services.btrbk =
-      {
-        instances =
-        {
-          home =
-          {
+      services.btrbk = {
+        instances = {
+          home = {
             onCalendar = "hourly";
-            settings =
-            {
+            settings = {
               timestamp_format = "long";
               snapshot_preserve = "31d";
               snapshot_preserve_min = "7d";
-              volume."/mnt/btrfs".subvolume =
-              {
+              volume."/mnt/btrfs".subvolume = {
                 home.snapshot_create = "always";
               };
             };

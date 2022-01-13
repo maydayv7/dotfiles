@@ -3,11 +3,9 @@ let
   inherit (lib) map mkIf;
   enable = config.apps.git.runner;
   secrets = config.sops.secrets;
-in
-{
+in {
   ## Runner Configuration ##
-  config = mkIf enable
-  {
+  config = mkIf enable {
     # Secrets
     sops.secrets = map.secrets ./secrets false;
 
@@ -17,11 +15,9 @@ in
 
     # Local Runner
     environment.systemPackages = with pkgs; [ act ];
-    services.gitlab-runner =
-    {
+    services.gitlab-runner = {
       enable = true;
-      services.default =
-      {
+      services.default = {
         dockerImage = "alpine";
         registrationConfigFile = secrets."gitlab.runner".path;
         tagList = [ "self" ];

@@ -1,35 +1,37 @@
 { config, lib, ... }:
-let
-  boot = config.hardware.boot;
-in rec
-{
-  options.hardware.boot = lib.mkOption
-  {
+let boot = config.hardware.boot;
+in rec {
+  options.hardware.boot = lib.mkOption {
     description = "Supported Boot Firmware";
     type = lib.types.enum [ "mbr" "efi" ];
     default = "mbr";
   };
 
   ## Boot Configuration ##
-  config = lib.mkIf (boot == "efi")
-  {
-    boot =
-    {
+  config = lib.mkIf (boot == "efi") {
+    boot = {
       cleanTmpDir = true;
 
       # Plymouth
       consoleLogLevel = 0;
       initrd.verbose = false;
       plymouth.enable = true;
-      kernelParams = [ "quiet" "splash" "boot.shell_on_fail" "i915.fastboot=1" "loglevel=3" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3" ];
+      kernelParams = [
+        "quiet"
+        "splash"
+        "boot.shell_on_fail"
+        "i915.fastboot=1"
+        "loglevel=3"
+        "rd.systemd.show_status=false"
+        "rd.udev.log_level=3"
+        "udev.log_priority=3"
+      ];
 
       # Boot Loader
-      loader =
-      {
+      loader = {
         timeout = 0;
         efi.canTouchEfiVariables = true;
-        systemd-boot =
-        {
+        systemd-boot = {
           enable = true;
           configurationLimit = 100;
         };

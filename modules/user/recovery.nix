@@ -1,12 +1,8 @@
-{ ... }:
-rec
-{
+{ ... }: rec {
   ## Recovery Settings ##
-  config =
-  {
+  config = {
     # Recovery Account
-    users.users.recovery =
-    {
+    users.users.recovery = {
       name = "recovery";
       description = "Recovery Account";
       isNormalUser = true;

@@ -1,19 +1,15 @@
 { system, lib, pkgs }:
 with ({ inherit (lib) hooks pack; });
 # Install Media Checks
-(pack.installMedia.system)
-//
-{
+(pack.installMedia.system) // {
   # Pre-Commit Hooks
-  commit = hooks."${system}".run
-  {
+  commit = hooks."${system}".run {
     src = ./.;
-    hooks =
-    {
+    hooks = {
+      nixfmt.enable = true;
       nix-linter.enable = true;
       shellcheck.enable = true;
-      stylua =
-      {
+      stylua = {
         enable = true;
         name = "stylua";
         entry = "${pkgs.stylua}/bin/stylua";
@@ -21,8 +17,7 @@ with ({ inherit (lib) hooks pack; });
       };
     };
 
-    settings.nix-linter.checks =
-    [
+    settings.nix-linter.checks = [
       "BetaReduction"
       "DIYInherit"
       "EmptyInherit"

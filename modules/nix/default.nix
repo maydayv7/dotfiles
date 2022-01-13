@@ -1,28 +1,19 @@
-{ inputs, pkgs, ... }:
-rec
-{
-  imports =
-  [
-    ./cachix.nix
-    inputs.utils.nixosModules.autoGenFromInputs
-  ];
+{ inputs, pkgs, ... }: rec {
+  imports = [ ./cachix.nix inputs.utils.nixosModules.autoGenFromInputs ];
 
   ## Nix Settings ##
-  config =
-  {
-    environment.systemPackages = with pkgs; [ manix ];
-    nix =
-    {
+  config = {
+    environment.systemPackages = with pkgs; [ nixfmt nix-linter manix ];
+    nix = {
       # Version
       package = pkgs.unstable.nixStable;
 
       # Garbage Collection
       autoOptimiseStore = true;
-      gc =
-      {
+      gc = {
         automatic = true;
-        dates     = "weekly";
-        options   = "--delete-older-than 7d";
+        dates = "weekly";
+        options = "--delete-older-than 7d";
       };
 
       # User Permissions

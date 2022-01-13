@@ -1,15 +1,10 @@
 { lib, pkgs, files, ... }:
 with pkgs;
-let
-  path = files.gpg;
-in
-lib.recursiveUpdate
-{
+let path = files.gpg;
+in lib.recursiveUpdate {
   meta.description = "NixOS Install Script";
   buildInputs = [ coreutils git gnupg ];
-}
-(writeShellScriptBin "install"
-''
+} (writeShellScriptBin "install" ''
   #!${runtimeShell}
   # This script must be executed as 'root'
   set +x

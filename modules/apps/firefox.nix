@@ -2,19 +2,15 @@
 let
   enable = (builtins.elem "firefox" config.apps.list);
   username = config.user.name;
-in rec
-{
+in rec {
   ## Firefox Browser Configuration ##
-  config = lib.mkIf enable
-  {
+  config = lib.mkIf enable {
     environment.systemPackages = with pkgs; [ firefox ];
 
     # Profile
-    user.home.programs.firefox =
-    {
+    user.home.programs.firefox = {
       enable = true;
-      profiles."${username}".settings = 
-      {
+      profiles."${username}".settings = {
         ## Flags
         # Features
         "browser.search.openintab" = true;

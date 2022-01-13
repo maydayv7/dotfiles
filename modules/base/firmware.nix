@@ -1,27 +1,21 @@
-{ pkgs, ... }:
-rec
-{
+{ pkgs, ... }: rec {
   ## Device Firmware ##
-  config =
-  {
+  config = {
     # Drivers
-    hardware =
-    {
+    hardware = {
       cpu.intel.updateMicrocode = true;
       bluetooth.enable = true;
       opengl.enable = true;
       enableRedistributableFirmware = true;
     };
 
-    services =
-    {
+    services = {
       fwupd.enable = true;
       logind.extraConfig = "HandleLidSwitch=ignore";
     };
 
     # Touchpad
-    services.xserver.libinput.touchpad =
-    {
+    services.xserver.libinput.touchpad = {
       tapping = true;
       tappingDragLock = true;
       middleEmulation = true;
@@ -34,8 +28,7 @@ rec
     boot.supportedFilesystems = [ "ntfs" "btrfs" "vfat" ];
 
     # Driver Packages
-    hardware.opengl.extraPackages = with pkgs; 
-    [
+    hardware.opengl.extraPackages = with pkgs; [
       intel-media-driver
       libvdpau-va-gl
       vaapiIntel
@@ -45,30 +38,26 @@ rec
     # Audio
     sound.enable = true;
     nixpkgs.config.pulseaudio = true;
-    hardware.pulseaudio =
-    {
+    hardware.pulseaudio = {
       enable = true;
       support32Bit = true;
     };
 
     # Network Settings
     user.settings.extraGroups = [ "networkmanager" ];
-    networking =
-    {
+    networking = {
       networkmanager.enable = true;
       firewall.enable = false;
     };
 
     # Power Management
     services.thermald.enable = true;
-    powerManagement =
-    {
+    powerManagement = {
       enable = true;
       cpuFreqGovernor = "powersave";
     };
 
-    services.earlyoom =
-    {
+    services.earlyoom = {
       enable = true;
       enableNotifications = true;
       freeMemThreshold = 5;

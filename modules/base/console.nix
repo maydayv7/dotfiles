@@ -1,12 +1,8 @@
-{ pkgs, ... }:
-rec
-{
+{ pkgs, ... }: rec {
   ## Console Configuration ##
-  config =
-  {
+  config = {
     # Setup
-    console =
-    {
+    console = {
       font = "ter-132n";
       packages = [ pkgs.terminus_font ];
       useXkbConfig = true;
@@ -14,20 +10,17 @@ rec
 
     # TTY
     fonts.fonts = [ pkgs.meslo-lgs-nf ];
-    services.kmscon =
-    {
+    services.kmscon = {
       enable = true;
       hwRender = true;
-      extraConfig =
-      ''
+      extraConfig = ''
         font-name=MesloLGS NF
         font-size=14
       '';
     };
 
     # Essential Utilities
-    environment.systemPackages = with pkgs;
-    [
+    environment.systemPackages = with pkgs; [
       git
       git-crypt
       gparted

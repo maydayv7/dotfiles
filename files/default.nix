@@ -1,5 +1,4 @@
-with ({ inherit (builtins) readFile; });
-{
+with ({ inherit (builtins) readFile; }); {
   ## Dotfiles ##
   # Files Path
   toplevel = ./.;
@@ -8,8 +7,7 @@ with ({ inherit (builtins) readFile; });
   path = "/etc/nixos";
 
   # Discord Chat
-  discord =
-  {
+  discord = {
     plugins = ./discord/plugins;
     theme = readFile ./discord/theme.css;
   };
@@ -18,8 +16,7 @@ with ({ inherit (builtins) readFile; });
   fetch = readFile ./neofetch/config.conf;
 
   # Custom Fonts
-  fonts =
-  {
+  fonts = {
     path = ./fonts;
     config = readFile ./fonts/fontconfig;
   };
@@ -28,8 +25,7 @@ with ({ inherit (builtins) readFile; });
   gestures = readFile ./touchegg/touchegg.conf;
 
   # GNOME Desktop
-  gnome =
-  {
+  gnome = {
     accounts = readFile ./gnome/accounts.conf;
     bookmarks = readFile ./gnome/bookmarks;
     dconf = ./gnome/dconf.nix;
@@ -60,8 +56,7 @@ with ({ inherit (builtins) readFile; });
   xorg = readFile ./xorg/Xresources;
 
   # Z Shell
-  zsh =
-  {
+  zsh = {
     lol = readFile ./zsh/lol;
     prompt = readFile ./zsh/p10k.zsh;
   };

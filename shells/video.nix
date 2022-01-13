@@ -1,10 +1,8 @@
 { pkgs }:
-pkgs.mkShell
-{
+pkgs.mkShell {
   name = "Video";
-  shellHook = '' echo "## Video Editing Shell ##" '';
-  nativeBuildInputs = with pkgs;
-  [
+  shellHook = ''echo "## Video Editing Shell ##" '';
+  nativeBuildInputs = with pkgs; [
     audacity
     blender
     ffmpeg

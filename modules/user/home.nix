@@ -3,20 +3,16 @@ let
   enable = config.user.password == "";
   homeDir = "/home/${config.user.name}";
   version = config.system.stateVersion;
-in rec
-{
+in rec {
   ## User Home Configuration ##
-  config = lib.mkIf enable
-  {
-    user.home =
-    {
+  config = lib.mkIf enable {
+    user.home = {
       home.stateVersion = version;
       home.packages = with pkgs; [ home-manager ];
       systemd.user.startServices = true;
 
       # XDG Configuration
-      xdg =
-      {
+      xdg = {
         enable = true;
         mime.enable = true;
         mimeApps.enable = true;
@@ -29,8 +25,7 @@ in rec
         stateHome = "${homeDir}/.local/state";
 
         # User Home Folders
-        userDirs =
-        {
+        userDirs = {
           enable = true;
           createDirectories = true;
           desktop = "$HOME/Desktop";

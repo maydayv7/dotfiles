@@ -3,10 +3,8 @@ let
   inherit (lib) mkIf mkOption mkAliasDefinitions types;
   cfg = config.user;
   opt = options.user;
-in rec
-{
-  imports =
-  [
+in rec {
+  imports = [
     ./home.nix
     ./recovery.nix
     ./security.nix
@@ -15,61 +13,52 @@ in rec
     inputs.home.nixosModules.home-manager
   ];
 
-  options.user =
-  {
+  options.user = {
     # User Creation
-    name = mkOption
-    {
+    name = mkOption {
       description = "Name of User";
       type = types.str;
       readOnly = true;
     };
 
-    description = mkOption
-    {
+    description = mkOption {
       description = "User Description";
       type = types.str;
       default = "";
     };
 
-    groups = mkOption
-    {
+    groups = mkOption {
       description = "User Description";
       type = types.listOf types.str;
       default = [ "wheel" ];
     };
 
-    uid = mkOption
-    {
+    uid = mkOption {
       description = "User ID";
       type = types.int;
       default = 1000;
     };
 
-    password = mkOption
-    {
+    password = mkOption {
       description = "Hashed User Password";
       type = types.str;
       default = "";
     };
 
-    autologin = mkOption
-    {
+    autologin = mkOption {
       description = "Enable User Auto-Login";
       type = types.bool;
       default = false;
     };
 
     # Configuration Options
-    settings = mkOption
-    {
+    settings = mkOption {
       description = "Alias for users.users.$username";
       type = types.attrs;
       default = { };
     };
 
-    home = mkOption
-    {
+    home = mkOption {
       description = "Alias for home-manager.users.$username";
       type = types.attrs;
       default = { };
@@ -77,8 +66,7 @@ in rec
   };
 
   ## User Configuration ##
-  config =
-  {
+  config = {
     users.mutableUsers = mkIf (cfg.password == "") false;
 
     # Configuration Options
@@ -86,16 +74,14 @@ in rec
     home-manager.users."${cfg.name}" = mkAliasDefinitions opt.home;
 
     # Home Manager Settings
-    home-manager =
-    {
+    home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "bak";
     };
 
     # User Creation
-    user.settings =
-    {
+    user.settings = {
       # Profile
       name = cfg.name;
       description = cfg.description;
@@ -108,12 +94,11 @@ in rec
       extraGroups = cfg.groups;
 
       # Shell
-      useDefaultShell = if opt?shell then false else true;
+      useDefaultShell = if opt ? shell then false else true;
     };
 
     # User Login
-    services.xserver.displayManager.autoLogin =
-    {
+    services.xserver.displayManager.autoLogin = {
       enable = cfg.autologin;
       user = cfg.name;
     };

@@ -1,6 +1,5 @@
 {
-  audio =
-  [
+  audio = [
     "audio/aac"
     "audio/mpeg"
     "audio/ogg"
@@ -10,8 +9,7 @@
     "audio/x-matroska"
   ];
 
-  browser =
-  [
+  browser = [
     "text/html"
     "x-scheme-handler/about"
     "x-scheme-handler/http"
@@ -19,16 +17,11 @@
     "x-scheme-handler/unknown"
   ];
 
-  calendar =
-  [
-    "text/calendar"
-    "x-scheme-handler/webcal"
-  ];
+  calendar = [ "text/calendar" "x-scheme-handler/webcal" ];
 
   directory = [ "inode/directory" ];
 
-  image =
-  [
+  image = [
     "image/bmp"
     "image/gif"
     "image/jpeg"
@@ -46,8 +39,7 @@
 
   markdown = [ "text/markdown" ];
 
-  office =
-  [
+  office = [
     "application/vnd.oasis.opendocument.text"
     "application/vnd.oasis.opendocument.spreadsheet"
     "application/vnd.oasis.opendocument.presentation"
@@ -63,8 +55,7 @@
 
   text = [ "text/plain" ];
 
-  video =
-  [
+  video = [
     "video/mp2t"
     "video/mp4"
     "video/mpeg"
