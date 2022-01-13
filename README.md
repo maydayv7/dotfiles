@@ -238,7 +238,8 @@ Here are some repositories that I may have shamelessly rummaged through for buil
   * [wiltaylor](https://github.com/wiltaylor/dotfiles)
 
 ------------------------------------------------------------------
-[**Known Issues**](./LIMITATIONS.md)  
+[**Changelog**](./CHANGELOG.md)  
+[**Known Issues**](./LIMITATIONS.md)
 
 You can navigate to the `README`'s present in the various directories to know more about them
 
