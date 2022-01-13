@@ -46,7 +46,7 @@
       [ "/etc/NetworkManager/system-connections" "/var/lib/bluetooth" ];
     networking = {
       networkmanager.enable = true;
-      firewall.enable = false;
+      firewall.enable = true;
     };
 
     # Power Management

@@ -138,7 +138,7 @@ in lib.recursiveUpdate {
   ;;
   explore)
     case $2 in
-    "") nix repl --arg path ${path.system} ${repl};;
+    "") nix repl --arg host true --arg path ${path.system} ${repl};;
     *) nix repl --arg path $(readlink -f $2 | sed 's|/flake.nix||') ${repl};;
     esac
   ;;

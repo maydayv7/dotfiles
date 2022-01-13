@@ -76,7 +76,7 @@ Here is an overview of the file hierarchy:
 <details>
 <summary><b>From Scratch</b></summary>
 
-Download the latest NixOS `.iso` from the [Releases](../../Releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
+Download the latest NixOS `.iso` from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
 If Nix is already installed on your system, you may run the following command to build the Install Media:  
 *Replace* ***VARIANT*** *with the name of install media to create*
 <pre><code>nix build github:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
@@ -151,7 +151,7 @@ If you really want to get dirty with Nix and decide to invest oodles of your tim
 
 ## Notes
 #### Caution
-I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.4). If you have any doubts or suggestions, feel free to open an [issue](../../issues/new)
+I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.4). If you have any doubts or suggestions, feel free to open an [issue](../../issues/new/choose)
 
 ### Requirements
 *May change according to available hardware*  
@@ -173,11 +173,11 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 #### Continuous Integration
-This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag. A `git` [hook](../.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
+This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag. A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ###### Variables
-+ [`ACCESS_TOKEN`](./modules/apps/git/secrets/github.token): GitHub Personal Access Token (To create one, see [this](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token))
-+ [`CACHIX_TOKEN`](./secrets/encrypted/cachix.token): Cachix Authentication Token
++ [`ACCESS_TOKEN`](./modules/apps/git/secrets/github-token.secret): GitHub Personal Access Token (To create one, see [this](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token))
++ [`CACHIX_TOKEN`](./secrets/cachix-token.secret): Cachix Authentication Token
 
 ### File System
 The system may be set up using either a `simple` or `advanced` filesystem layout. The advanced ZFS opt-in state filesystem configuration allows for a vastly improved experience, preventing formation of cruft and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
@@ -189,13 +189,14 @@ User files are stored on an NTFS partition mounted to `/data`
 ### Theming
 + [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
 + [Powerlevel10K](https://github.com/romkatv/powerlevel10k) Theme: ZSH Theme for the fancy-looking prompt with immense customization capabilities
-+ [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel): GNOME Shell Extension providing a highly customizable icon taskbar for maximized productivity (personal [fork](https://github.com/maydayv7/dash-to-panel))
++ [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel): GNOME Shell Extension providing a highly customizable icon taskbar for maximized productivity
 + [DNOME](https://github.com/GeopJr/DNOME) Discord Theme: Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
 + [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration
 
 ### Important Links
 + Official [Documentation](https://nixos.org/learn.html)
 + NixOS [Manual](https://nixos.org/manual/nixpkgs/stable)
++ Nix [Pills](https://nixos.org/guides/nix-pills/)
 + NixOS [Discourse](https://discourse.nixos.org/)
 + NixOS [Package Search](https://search.nixos.org/)
 + [`nixpkgs`](https://github.com/NixOS/nixpkgs) Package Repository
@@ -203,7 +204,7 @@ User files are stored on an NTFS partition mounted to `/data`
 + NixOS [Hardware Modules](https://github.com/nixos/hardware)
 + Home Manager [Options](https://nix-community.github.io/home-manager/options.html)
 + `sops` [Module](https://github.com/Mic92/sops-nix)
-+ [Impermanence Module](https://github.com/nix-community/impermanence)
++ `impermanence` [Module](https://github.com/nix-community/impermanence)
 
 #### Other Sources
 + [Tweag Article](https://www.tweag.io/blog/2020-05-25-flakes/) introducing Flakes
@@ -218,7 +219,7 @@ User files are stored on an NTFS partition mounted to `/data`
 Here are some repositories that I may have shamelessly rummaged through for building my `dotfiles`:  
 *Thanks a lot! ;)*
 + Over-Engineered [Configuration](https://github.com/divnix/devos) to scare off Beginners
-+ Minimalistic [Configuration](https://github.com/colemickens/nixos-flake-example) for Scared Beginners
++ Minimalistic [Configuration](https://github.com/colemickens/nixos-flake-example) for scared Beginners
 + User Configurations -
   * [balsoft](https://code.balsoft.ru/balsoft/nixos-config)
   * [bbigras](https://github.com/bbigras/nix-config)
@@ -238,7 +239,7 @@ Here are some repositories that I may have shamelessly rummaged through for buil
 ------------------------------------------------------------------
 [**Known Issues**](./LIMITATIONS.md)  
 
-You can navigate to the `README.md`'s present in the various directories to know more about them
+You can navigate to the `README`'s present in the various directories to know more about them
 
 **V 7**  
 <maydayv7@gmail.com>

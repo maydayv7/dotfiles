@@ -11,7 +11,7 @@ in {
     environment.systemPackages = with pkgs; [
       lutris
       playonlinux
-      wine
+      gaming.wine-tkg
       winetricks
     ];
   };

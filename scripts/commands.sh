@@ -56,10 +56,7 @@ keys() {
     cp -r $KEY/. ./keys
   fi
   echo "Importing Keys..."
-  for key in ./keys/*.gpg
-  do
-    gpg --homedir "$2" --import $key
-  done
+  find ./keys -name '*.gpg' | xargs gpg --import
   rm -rf ./keys
   popd > /dev/null
 }

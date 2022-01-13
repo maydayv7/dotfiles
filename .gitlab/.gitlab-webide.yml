@@ -1,3 +1,4 @@
 terminal:
-  image: nixpkgs/nix-flakes:latest
-  before_script:  nix profile install nixpkgs#{git,cachix}
+  image: nixpkgs/cachix-flakes:latest
+  before_script:
+    - nix profile install nixpkgs#git

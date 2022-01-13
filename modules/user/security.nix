@@ -12,9 +12,12 @@ in rec {
     users.extraUsers.root.passwordFile = secrets."root.secret".path;
 
     # Security Settings
-    security.sudo.extraConfig = ''
-      Defaults pwfeedback
-      Defaults lecture = never
-    '';
+    security.sudo = {
+      execWheelOnly = true;
+      extraConfig = ''
+        Defaults pwfeedback
+        Defaults lecture = never
+      '';
+    };
   };
 }

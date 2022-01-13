@@ -23,8 +23,9 @@ let
 in lib.eachSystem systems (system:
   let
     # Package Channels
-    pkgs = (build.channel nixpkgs [ nur.overlay ] ./packages/patches).${system};
-    pkgs' = (build.channel unstable [ nur.overlay ] [ ]).${system};
+    overlays = [ nur.overlay wayland.overlay ];
+    pkgs = (build.channel nixpkgs overlays ./packages/patches).${system};
+    pkgs' = (build.channel unstable overlays [ ]).${system};
   in {
     ## Configuration Checks ##
     checks = import ./modules/nix/checks.nix { inherit system lib pkgs; };
@@ -41,6 +42,7 @@ in lib.eachSystem systems (system:
     channels = {
       stable = pkgs;
       unstable = pkgs';
+      gaming = gaming.packages.${system};
     };
 
     # Custom Packages

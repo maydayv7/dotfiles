@@ -1,4 +1,4 @@
-{ path }:
+{ path, host ? false }:
 let
   inherit (builtins) getFlake head match pathExists readFile removeAttrs;
   flake = if pathExists "${path}/flake.nix" then
@@ -15,4 +15,4 @@ let
 in {
   inherit flake;
 } // builtins // outputs // flake // flake.nixosConfigurations
-// flake.nixosConfigurations.${hostname}
+// (if host then flake.nixosConfigurations.${hostname} else { })

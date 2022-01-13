@@ -16,7 +16,7 @@
   outputs = { ... }@inputs:
     with inputs;
     with ({ lib = nixpkgs.lib // dotfiles.lib; }); {
-      nixosConfigurations.host = lib.build.system {
+      nixosConfigurations.host = lib.build.device {
         name = "HOST_NAME";
         system = "x86_64-linux";
         repo = "stable";
@@ -40,7 +40,6 @@
         user = {
           name = "nixos";
           description = "Default User";
-          autologin = true;
           password = "HASHED_PASSWORD"; # Generate using 'mkpasswd -m sha-512'
         };
       };

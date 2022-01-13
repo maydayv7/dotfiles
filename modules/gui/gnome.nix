@@ -146,7 +146,6 @@ in rec {
           # GNOME Games
           gnome-chess
           gnome-mines
-          gnome-sudoku
           quadrapassel
         ] ++ (with pkgs; [
           # GNOME Circle
@@ -162,16 +161,13 @@ in rec {
           gthumb
           kooha
           lollypop
-          markets
           pitivi
-          shortwave
           wike
 
           # Utilities
           celluloid
           dconf2nix
           gnuchess
-          transmission-gtk
         ]) ++ (with pkgs;
           with gnomeExtensions;
           with unstable.gnomeExtensions; [

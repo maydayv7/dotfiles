@@ -1,7 +1,7 @@
 final: prev: {
   # Patch and Update Nix to latest version with unmerged PRs
   nixFlakes = prev.nixFlakes.overrideAttrs (old: {
-    version = "2.5";
+    version = "2.5+";
 
     src = prev.fetchFromGitHub {
       owner = "NixOS";

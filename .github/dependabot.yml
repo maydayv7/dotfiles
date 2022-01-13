@@ -6,4 +6,5 @@ updates:
     interval: daily
   open-pull-requests-limit: 5
   commit-message:
-      prefix: "Update CI"
+      prefix: "ci: Update"
+      include: "scope"

@@ -34,6 +34,29 @@
     NixOS Configuration and Dotfiles
   '';
 
+  ## Nix Configuration ##
+  nixConfig = {
+    # Binary Caches
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+      "https://nixpkgs-wayland.cachix.org"
+      "https://nix-gaming.cachix.org"
+      "https://pre-commit-hooks.cachix.org"
+      "https://maydayv7-dotfiles.cachix.org"
+    ];
+
+    # Public Keys
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
+      "maydayv7-dotfiles.cachix.org-1:dpECO0Z2ZMttY6JgWHuAR5M7cqeyfFjUsvHdnMz+j6U="
+    ];
+  };
+
   ## System Repositories ##
   inputs = {
     ## Package Repositories ##
@@ -45,6 +68,18 @@
 
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
+
+    # Wayland Optimized Packages
+    wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Packaged Games
+    gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.utils.follows = "utils";
+    };
 
     ## Configuration Modules ##
     # Flake Compatibility Library

@@ -1,9 +1,9 @@
 { inputs, pkgs, ... }: rec {
-  imports = [ ./cachix.nix inputs.utils.nixosModules.autoGenFromInputs ];
+  imports = [ inputs.utils.nixosModules.autoGenFromInputs ];
 
   ## Nix Settings ##
   config = {
-    environment.systemPackages = with pkgs; [ nixfmt nix-linter manix ];
+    environment.systemPackages = with pkgs; [ cachix nixfmt nix-linter manix ];
     nix = {
       # Version
       package = pkgs.nixFlakes;
@@ -17,6 +17,7 @@
       };
 
       # User Permissions
+      allowedUsers = [ "root" "@wheel" ];
       trustedUsers = [ "root" "@wheel" ];
 
       # Nix Path

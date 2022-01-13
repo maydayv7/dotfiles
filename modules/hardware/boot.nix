@@ -10,7 +10,6 @@ in rec {
   ## Boot Configuration ##
   config = lib.mkIf (boot == "efi") {
     boot = {
-      cleanTmpDir = true;
       tmpOnTmpfs = true;
 
       # Plymouth
