@@ -1,0 +1,222 @@
+diff --git a/pkgs/applications/backup/timeshift/default.nix b/pkgs/applications/backup/timeshift/default.nix
+new file mode 100644
+index 0000000000000..0a6a9bf38865d
+--- /dev/null
++++ b/pkgs/applications/backup/timeshift/default.nix
+@@ -0,0 +1,33 @@
++{ callPackage
++, timeshift-unwrapped
++, lib
++, rsync
++, coreutils
++, mount
++, umount
++, psmisc
++, cron
++, btrfs-progs
++, grubPackage
++}:
++let
++  timeshift-wrapper = callPackage ./wrapper.nix { };
++in
++(timeshift-wrapper timeshift-unwrapped ([
++  rsync
++  coreutils
++  mount
++  umount
++  psmisc
++  cron
++  btrfs-progs
++  grubPackage
++])).overrideAttrs (oldAttrs: {
++  meta = oldAttrs.meta // {
++    description = oldAttrs.meta.description;
++    longDescription = oldAttrs.meta.longDescription + ''
++      This package comes with runtime dependencies of command utilities provided by rsync, coreutils, mount, umount, psmisc, cron and (optionally) btrfs.
++      If you want to use the commands provided by the system, override the propagatedBuildInputs or use timeshift-minimal instead
++    '';
++  };
++})
+diff --git a/pkgs/applications/backup/timeshift/timeshift-launcher.patch b/pkgs/applications/backup/timeshift/timeshift-launcher.patch
+new file mode 100644
+index 0000000000000..765c101e1629b
+--- /dev/null
++++ b/pkgs/applications/backup/timeshift/timeshift-launcher.patch
+@@ -0,0 +1,26 @@
++diff --git a/src/timeshift-launcher b/src/timeshift-launcher
++index 29b8fc4..5f6cb17 100755
++--- a/src/timeshift-launcher
+++++ b/src/timeshift-launcher
++@@ -1,6 +1,6 @@
++ #!/bin/bash
++ 
++-app_command='timeshift-gtk'
+++app_command=''"$(realpath "$(dirname "$0")")"'/timeshift-gtk'
++ 
++ if [ "$(id -u)" -eq 0 ]; then
++ 	# user is admin
++@@ -14,11 +14,11 @@ else
++ 		# script is running in non-interactive mode
++ 		if [ "$XDG_SESSION_TYPE" = "wayland" ] ; then
++ 			xhost +SI:localuser:root
++-			pkexec ${app_command}
+++			pkexec env DISPLAY="$DISPLAY" XAUTHORITY="$XAUTHORITY" "${app_command}"
++ 			xhost -SI:localuser:root
++ 			xhost
++ 		elif command -v pkexec >/dev/null 2>&1; then
++-			pkexec ${app_command}
+++			pkexec env DISPLAY="$DISPLAY" XAUTHORITY="$XAUTHORITY" "${app_command}"
++ 		elif command -v sudo >/dev/null 2>&1; then
++ 			x-terminal-emulator -e "sudo ${app_command}"
++ 		elif command -v su >/dev/null 2>&1; then
+diff --git a/pkgs/applications/backup/timeshift/unwrapped.nix b/pkgs/applications/backup/timeshift/unwrapped.nix
+new file mode 100644
+index 0000000000000..a84044f58ed22
+--- /dev/null
++++ b/pkgs/applications/backup/timeshift/unwrapped.nix
+@@ -0,0 +1,79 @@
++{ lib
++, stdenv
++, fetchFromGitHub
++, gettext
++, pkg-config
++, which
++, vala
++, gtk3
++, json-glib
++, libgee
++, vte
++, xapps
++, bash
++}:
++
++stdenv.mkDerivation rec {
++  pname = "timeshift";
++  version = "21.09.1";
++
++  src = fetchFromGitHub {
++    owner = "teejee2008";
++    repo = "timeshift";
++    rev = "v${version}";
++    sha256 = "sha256-x7KbKA7/ZzazhmnIx4r2Ml5wGj916DpVopGJpgdvpfw==";
++  };
++
++  patches = [
++    ./timeshift-launcher.patch
++  ];
++
++  postPatch = ''
++    find ./src -mindepth 1 -name "*.vala" -type f -exec sed -i 's/"\/sbin\/blkid"/"blkid"/g' {} \;
++    substituteInPlace ./src/makefile \
++        --replace "SHELL=/bin/bash" "SHELL=${bash}" \
++        --replace "prefix=/usr" "prefix=$out" \
++        --replace "sysconfdir=/etc" "sysconfdir=$out/etc"
++    substituteInPlace ./src/Utility/IconManager.vala \
++        --replace "/usr/share" "$out/share"
++    substituteInPlace ./src/Core/Main.vala \
++        --replace "/etc/timeshift/default.json" "$out/etc/timeshift/default.json" \
++        --replace "file_copy(app_conf_path_default, app_conf_path);" "if (!dir_exists(\"/etc/timeshift\")){dir_create(\"/etc/timeshift\");};file_copy(app_conf_path_default, app_conf_path);"
++  '';
++
++  nativeBuildInputs = [
++    gettext
++    vala
++    pkg-config
++    which
++  ];
++
++  buildInputs = [
++    gtk3
++    json-glib
++    libgee
++    vte
++    xapps
++  ];
++
++  doCheck = true;
++
++  meta = with lib; {
++    description = "A system restore tool for Linux";
++    longDescription = ''
++      TimeShift creates filesystem snapshots using rsync+hardlinks or BTRFS snapshots.
++      Snapshots can be restored using TimeShift installed on the system or from Live CD or USB.
++      The main purpose of this package is to
++      restore the TimeShift images of distros other than NixOS.
++      NixOS comes with sophisticated ways to rollback and switch generations,
++      and its own way to manage bootloaders and system cron jobs.
++      To use this package to restore broken distros,
++      this package can be installed on a working NixOS on USB stick or another partition,
++      or on the target system or other distros through Nix package manager.
++    '';
++    homepage = "https://github.com/teejee2008/timeshift";
++    license = licenses.gpl3;
++    platforms = platforms.linux;
++    maintainers = with maintainers; [ ShamrockLee ];
++  };
++}
+diff --git a/pkgs/applications/backup/timeshift/wrapper.nix b/pkgs/applications/backup/timeshift/wrapper.nix
+new file mode 100644
+index 0000000000000..2c2ae321c2529
+--- /dev/null
++++ b/pkgs/applications/backup/timeshift/wrapper.nix
+@@ -0,0 +1,45 @@
++{ stdenvNoCC
++, lib
++, wrapGAppsHook
++, gdk-pixbuf
++, librsvg
++, xorg
++, shared-mime-info
++}:
++
++timeshift-unwrapped:
++runtimeDeps:
++stdenvNoCC.mkDerivation {
++  inherit (timeshift-unwrapped) pname version;
++
++  dontUnpack = true;
++
++  nativeBuildInputs = [
++    xorg.lndir
++    wrapGAppsHook
++  ];
++
++  installPhase = ''
++    runHook preInstall
++    mkdir -p "$out"
++    lndir "${timeshift-unwrapped}" "$out"
++    runHook postInstall
++  '';
++
++  dontWrapGApps = true;
++
++  preFixup = ''
++    declare -a makeWrapperArgs=(
++      --prefix PATH : "${lib.makeBinPath runtimeDeps}"
++    )
++    gappsWrapperArgs+=(
++      # Thumbnailers
++      --prefix XDG_DATA_DIRS : "${ lib.makeSearchPath "share" [ gdk-pixbuf librsvg shared-mime-info ] }"
++      ''${makeWrapperArgs[@]}
++    )
++    wrapProgram "$out/bin/timeshift" "''${makeWrapperArgs[@]}"
++    wrapProgram "$out/bin/timeshift-gtk" "''${gappsWrapperArgs[@]}"
++  '';
++
++  inherit (timeshift-unwrapped) meta;
++}
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index 6016444b239ea..76e9bb636707c 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -28326,6 +28326,10 @@ with pkgs;
+ 
+   timelimit = callPackage ../tools/misc/timelimit { };
+ 
++  timeshift-unwrapped = callPackage ../applications/backup/timeshift/unwrapped.nix { inherit (cinnamon) xapps; };
++
++  timeshift = callPackage ../applications/backup/timeshift { grubPackage = grub2_full; };
++
+   timewarrior = callPackage ../applications/misc/timewarrior { };
+ 
+   timew-sync-server = callPackage ../applications/misc/timew-sync-server { };

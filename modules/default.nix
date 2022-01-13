@@ -14,7 +14,7 @@ with ({ inherit (builtins) attrValues readFile replaceStrings substring; }); {
     ], desktop ? null, apps ? { }, hardware ? { }, user ? {
       name = "nixos";
       autologin = true;
-      password = readFile ./user/passwords/_nixos;
+      password = readFile ./user/passwords/default;
     } }:
     let
       # Default Package Channel

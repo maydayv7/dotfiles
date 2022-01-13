@@ -306,6 +306,7 @@ in {
     "org/gnome/gedit/preferences/editor" = {
       scheme = "tango-dark";
       wrap-last-split-mode = "word";
+      ensure-trailing-newline = false;
     };
 
     "org/gnome/gnome-screenshot" = {

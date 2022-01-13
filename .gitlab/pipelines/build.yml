@@ -12,9 +12,6 @@ device:
   parallel:
     matrix:
       - DEVICE: [Vortex, Futura]
-  before_script:
-    - nix profile install nixpkgs#cachix
-    - cachix use $CACHIX_CACHE_NAME
   script: cachix watch-exec $CACHIX_CACHE_NAME nix build .#nixosConfigurations.$DEVICE.config.system.build.toplevel -- -L --show-trace
 
 # Build and Upload Install Media Image

@@ -5,7 +5,7 @@ let
 in rec {
   ## Firefox Browser Configuration ##
   config = lib.mkIf enable {
-    environment.systemPackages = with pkgs; [ firefox ];
+    environment.systemPackages = [ pkgs.firefox ];
 
     # Profile
     user.home.programs.firefox = {

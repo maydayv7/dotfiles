@@ -57,12 +57,6 @@
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
-
-    # Z Shell Syntax Highlighting
-    zsh-syntax = {
-      url = "github:zsh-users/zsh-syntax-highlighting";
-      flake = false;
-    };
   };
 
   ## System Configuration ##

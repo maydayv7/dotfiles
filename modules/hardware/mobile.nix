@@ -11,6 +11,6 @@ in rec {
     ## iOS Compatibilty Configuration ##
     # File Transfer
     services.usbmuxd.enable = true;
-    environment.systemPackages = with pkgs; [ libimobiledevice ];
+    environment.systemPackages = [ pkgs.libimobiledevice ];
   };
 }

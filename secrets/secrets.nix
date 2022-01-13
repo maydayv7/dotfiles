@@ -8,7 +8,7 @@ let
 in {
   ## Authentication Credentials Management ##
   config = {
-    environment.systemPackages = with pkgs; [ sops ];
+    environment.systemPackages = [ pkgs.sops ];
     sops = {
       # Encrypted Secrets
       secrets = map.secrets ./. false;

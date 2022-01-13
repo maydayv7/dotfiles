@@ -21,7 +21,7 @@ in rec {
 
       # Environment Settings
       environment = {
-        shells = with pkgs; [ bashInteractive ];
+        shells = [ pkgs.bashInteractive ];
         variables.EDITOR = "nano -Ll";
       };
     }

@@ -1,6 +1,6 @@
 # Default Image for latest Nix
 default:
-  image: nixpkgs/nix-flakes:latest
+  image: nixpkgs/cachix-flakes:latest
 
 # CI Variables
 variables:

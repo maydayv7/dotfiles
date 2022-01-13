@@ -12,11 +12,16 @@ in rec {
 
     # VM Utilities
     virtualisation = {
-      libvirtd.enable = true;
       spiceUSBRedirection.enable = true;
+      libvirtd = {
+        enable = true;
+        onBoot = "ignore";
+        onShutdown = "shutdown";
+        qemu.runAsRoot = false;
+      };
     };
 
     # VM Packages
-    environment.systemPackages = with pkgs; [ virt-manager ];
+    environment.systemPackages = [ pkgs.virt-manager ];
   };
 }

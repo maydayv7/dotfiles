@@ -1,7 +1,7 @@
 { pkgs, ... }: rec {
   ## Binary Cache using Cachix ##
   config = {
-    environment.systemPackages = with pkgs; [ cachix ];
+    environment.systemPackages = [ pkgs.cachix ];
     nix = {
       binaryCaches = [
         "https://cache.nixos.org"

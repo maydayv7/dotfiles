@@ -7,7 +7,7 @@
       description = "Recovery Account";
       isNormalUser = true;
       uid = 1100;
-      initialHashedPassword = builtins.readFile ./passwords/_recovery;
+      initialHashedPassword = builtins.readFile ./passwords/default;
       group = "users";
       extraGroups = [ "wheel" ];
       useDefaultShell = true;

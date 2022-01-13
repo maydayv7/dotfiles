@@ -38,7 +38,7 @@ with ({ inherit (builtins) readFile; }); {
   gpg = "/etc/nixos/files/gpg";
 
   # Interactive Nix Shell
-  repl = ../shells/repl/repl.nix;
+  repl = ../shells/repl;
 
   # Script Snippets
   scripts.error = readFile ./scripts/error;

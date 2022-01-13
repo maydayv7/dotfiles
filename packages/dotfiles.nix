@@ -11,6 +11,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "My PC Dotfiles";
     license = licenses.mit;
-    maintainers = with maintainers; [ maydayv7 ];
+    maintainers = [ maydayv7 ];
   };
 }

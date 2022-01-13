@@ -8,7 +8,7 @@ in rec {
   config = lib.mkIf enable {
     user.home = {
       home.stateVersion = version;
-      home.packages = with pkgs; [ home-manager ];
+      home.packages = [ pkgs.home-manager ];
       systemd.user.startServices = true;
 
       # XDG Configuration

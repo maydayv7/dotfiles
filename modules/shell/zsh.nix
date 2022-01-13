@@ -1,11 +1,11 @@
-{ config, lib, inputs, pkgs, files, ... }:
+{ config, lib, pkgs, files, ... }:
 let shell = config.user.shell.choice;
 in rec {
   ## Z Shell Configuration ##
   config = lib.mkIf (shell == "zsh") {
     # Shell Environment
     environment = {
-      shells = with pkgs; [ zsh ];
+      shells = [ pkgs.zsh ];
       pathsToLink = [ "/share/zsh" ];
     };
 
@@ -30,6 +30,7 @@ in rec {
           hi = "echo 'Hi there. How are you?'";
           bye = "exit";
           lol = ''echo "${files.zsh.lol}"'';
+          ls = "ls --color --group-directories-first";
           sike = "neofetch";
           dotfiles = "cd ${files.path}";
           edit = "sudo $EDITOR";
@@ -46,14 +47,14 @@ in rec {
         # Extra Shell Plugins
         plugins = [
           {
-            name = "zsh-syntax-highlighting";
-            src = inputs.zsh-syntax;
-            file = "zsh-syntax-highlighting.zsh";
-          }
-          {
             name = "powerlevel10k";
             src = pkgs.zsh-powerlevel10k;
             file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          }
+          {
+            name = "zsh-syntax-highlighting";
+            src = pkgs.zsh-syntax-highlighting;
+            file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
           }
         ];
       };
