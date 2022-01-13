@@ -15,11 +15,12 @@ let
       # Usage #
         apply [ --'option' ]       - Applies Device and User Configuration
         check                      - Checks System Configuration
-        clean                      - Garbage Collects and Optimises Nix Store
+        clean [ --all ]            - Garbage Collects and Optimises Nix Store
         explore                    - Opens Interactive Shell to explore Syntax and Configuration
-        iso 'variant' [ --burn ]   - Builds Install Media and optionally burns .iso to USB
-        list                       - Lists all Installed Packages
+        iso 'variant' [ --burn ]   - Builds Install Media and optionally burns '.iso' to USB
+        list [ 'package' ]         - Lists all Installed Packages and optionally Locates one
         save                       - Saves Configuration State to Repository
+        search 'package'           - Searches for Packages in 'nixpkgs' Repository
         secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
         shell [ 'name' ]           - Opens desired Nix Developer Shell
         update [ --'option' ]      - Updates System Repositories
@@ -46,6 +47,7 @@ in lib.recursiveUpdate {
   buildInputs = [ coreutils dd git gnused nixfmt nix-linter sops tree ];
 } (writeShellScriptBin "nixos" ''
   #!${runtimeShell}
+  set -o pipefail
   ${commands}
 
   case $1 in
@@ -53,43 +55,49 @@ in lib.recursiveUpdate {
   "apply")
     echo "Applying Configuration..."
     case $2 in
-    "") sudo nixos-rebuild switch --flake ${path}#;;
-    "--boot") sudo nixos-rebuild boot --flake ${path}#;;
-    "--check") nixos-rebuild dry-activate --flake ${path}#;;
+    "") sudo nixos-rebuild switch --flake ${path.system}#;;
+    "--boot") sudo nixos-rebuild boot --flake ${path.system}#;;
+    "--check") nixos-rebuild dry-activate --flake ${path.system}#;;
     "--rollback") sudo nixos-rebuild switch --rollback;;
-    "--test") sudo nixos-rebuild test --flake ${path}#;;
-    *) error "Unknown option $2" "${usage.apply}";;
+    "--test") sudo nixos-rebuild test --no-build-nix --show-trace --flake ${path.system}#;;
+    *) error "Unknown option '$2'" "${usage.apply}";;
     esac
   ;;
   "check")
     echo "Formatting Code..."
-    find ${path} -type f -name "*.nix" | xargs nixfmt
+    find ${path.system} -type f -name "*.nix" | xargs nixfmt
     echo "Checking Syntax..."
-    nix flake check ${path} --keep-going
-    nix-linter -r ${path} || true
+    nix flake check ${path.system} --keep-going
+    nix-linter -r ${path.system} || true
   ;;
   "clean")
     echo "Running Garbage Collection..."
-    nix store gc
-    nix-collect-garbage -d
-    printf "\n"
+    if [ "$EUID" -ne 0 ] && [ "$2" != "--all" ]
+    then
+      nix-collect-garbage -d
+      warn "Run as 'root' or use option '--all' to Clean System Generations"
+    else
+      sudo nix-collect-garbage -d
+      sudo rm -rf /run/secrets/*
+      sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system
+      sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+    fi
+    newline
     echo "Running De-Duplication..."
     nix store optimise
   ;;
   "explore")
-    if [ -z "$2" ]
-    then
-      nix repl --arg path ${path} ${repl}
-    else
-      nix repl --arg path $(readlink -f $2 | sed 's|/flake.nix||') ${repl}
-    fi
+    case $2 in
+    "") nix repl --arg path ${path.system} ${repl};;
+    *) nix repl --arg path $(readlink -f $2 | sed 's|/flake.nix||') ${repl};;
+    esac
   ;;
   "iso")
     case $2 in
     "") error "Expected a Variant of Install Media";;
     *)
-      echo "Building $2 .iso file..."
-      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso" || error "Unknown Variant $2" "# Available Variants #\n  ${installMedia}"
+      echo "Building '$2' Install Media Image..."
+      nix build ${path.system}#installMedia.$2.config.system.build.isoImage && echo "The Image is located at './result/iso/nixos.iso'" || error "Unknown Variant '$2'" "# Available Variants #\n  ${installMedia}"
     ;;
     esac
     case $3 in
@@ -100,13 +108,33 @@ in lib.recursiveUpdate {
       *) sudo dd if=./result/iso/nixos.iso of=$4 status=progress bs=1M;;
       esac
     ;;
-    *) error "Unknown option $3";;
+    *) error "Unknown option '$3'";;
     esac
   ;;
-  "list") nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq;;
+  "list")
+    case $2 in
+    "") nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq;;
+    *)
+      package=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep $2)
+      if [ -z "$package" ]
+      then
+        nix search nixpkgs#$2 &> /dev/null && error "Package '$2' is not installed" || error "Package '$2' is not valid"
+      else
+        echo "Package $package found"
+        nix search nixpkgs#$2 &> /dev/null && location=$(nix eval nixpkgs#$2.outPath | sed 's/"//g') || location=$(find /nix/store -type d -name "*$package")
+        if ! (( $(grep -c . <<<"$MULTILINE") > 1 ))
+        then
+          echo "Location: $location"
+        else
+          echo -e "Locations:\n$location"
+        fi
+      fi
+    ;;
+    esac
+  ;;
   "save")
     echo "Saving Changes..."
-    pushd ${path} > /dev/null
+    pushd ${path.system} > /dev/null
     git stash
     git pull --rebase
     git stash pop
@@ -116,6 +144,10 @@ in lib.recursiveUpdate {
     git push --force --mirror mirror
     popd > /dev/null
   ;;
+  "search")
+    echo "Searching for Package '$2'..."
+    nix search nixpkgs#$2
+  ;;
   "secret")
     case $2 in
     "help"|"--help"|"-h") echo "${usage.secret}";;
@@ -124,21 +156,21 @@ in lib.recursiveUpdate {
       "") error "Expected 'name' of Secret";;
       *)
         echo "Editing Secret $3..."
-        find ${path} -name $3.secret | xargs sops --config ${sops} -i || error "Unknown Secret $3"
+        find ${path.system} -name $3.secret | xargs sops --config ${sops} -i || error "Unknown Secret '$3'"
       ;;
       esac
     ;;
     "list")
-      echo "## Secrets in ${path} ##"
-      cat ${sops} | grep / | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path}/|' | xargs tree -C --noreport -P '*.secret' -I '_*' | sed 's/\.secret//'
+      echo "## Secrets in ${path.system} ##"
+      cat ${sops} | grep / | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path.system}/|' | xargs tree -C --noreport -P '*.secret' -I '_*' | sed 's/\.secret//'
     ;;
     "show")
-      echo "Showing Secret $3..."
-      find ${path} -name $3.secret | xargs sops --config ${sops} -d || error "Unknown Secret $3"
+      echo "Showing Secret '$3'..."
+      find ${path.system} -name $3.secret | xargs sops --config ${sops} -d || error "Unknown Secret '$3'"
     ;;
     "update")
       echo "Updating Secrets..."
-      for secret in `find ${path} -name '*.secret' ! -name '_*'`
+      for secret in `find ${path.system} -name '*.secret' ! -name '_*'`
       do
         sops --config ${sops} updatekeys $secret
       done
@@ -148,27 +180,27 @@ in lib.recursiveUpdate {
       then
         error "Expected an option" "${usage.secret}"
       else
-        error "Unknown option $2" "${usage.secret}"
+        error "Unknown option '$2'" "${usage.secret}"
       fi
     ;;
     esac
   ;;
   "shell")
     case $2 in
-    "") nix develop ${path} --command $SHELL;;
-    *) nix develop ${path}#$2 --command $SHELL || error "Unknown Shell $2" "# Available Shells #\n  ${devShells}";;
+    "") nix develop ${path.system} --command $SHELL;;
+    *) nix develop ${path.system}#$2 --command $SHELL || error "Unknown Shell '$2'" "# Available Shells #\n  ${devShells}";;
     esac
   ;;
   "update")
     echo "Updating Flake Inputs..."
-    nix flake update ${path} $2
+    nix flake update ${path.system} $2
   ;;
   *)
     if [ -z "$1" ]
     then
       error "Expected an option" "${usage.script}"
     else
-      error "Unknown option $1" "${usage.script}"
+      error "Unknown option '$1'" "${usage.script}"
     fi
   ;;
   esac

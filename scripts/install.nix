@@ -6,22 +6,20 @@ lib.recursiveUpdate {
   buildInputs = [ coreutils git gnupg ];
 } (writeShellScriptBin "install" ''
   #!${runtimeShell}
-  # This script must be executed as 'root'
   set +x
   ${commands}
 
-  read -p "Select Device to Install (Vortex/Futura): " choice
-    case $choice in
-      1) HOST=Vortex;;
-      2) HOST=Futura;;
-      *) error "Choose (1)Vortex or (2)Futura";;
-    esac
+  if [ "$EUID" -ne 0 ]
+  then
+    error "This Script must be Executed as 'root'"
+  fi
 
-  read -p "Select Filesystem to use for Disk (ext4/btrfs): " choice
+  read -p "Enter name of Device to Install: " HOST
+  read -p "Select Filesystem to use for Disk (simple/advanced): " choice
     case $choice in
       1) SCHEME=ext4;;
       2) SCHEME=btrfs;;
-      *) error "Choose (1)ext4 or (2)btrfs";;
+      *) error "Choose (1)simple or (2)advanced";;
     esac
 
   read -p "Enter Path to Disk: /dev/" DISK
@@ -30,7 +28,7 @@ lib.recursiveUpdate {
     error "Path to Disk cannot be empty. If unsure, use the command 'fdisk -l'"
   fi
 
-  read -p "Enter Path to GPG Keys: " KEY
+  read -p "Enter Path to GPG Keys (path/.git): " KEY
   getKeys $KEY
   echo "Importing Keys..."
   sudo mkdir -p ${gpg}
@@ -38,7 +36,7 @@ lib.recursiveUpdate {
   do
     sudo gpg --homedir ${gpg} --import $key
   done
-  printf "\n"
+  newline
 
   echo "Creating Partitions..."
   parted /dev/$DISK -- mkpart ESP fat32 1MiB 1024MiB
@@ -50,9 +48,9 @@ lib.recursiveUpdate {
   parted /dev/$DISK -- name 3 swap
   mkswap /dev/disk/by-partlabel/swap
   mkdir -p /mnt
-  printf "\n"
+  newline
 
-  echo "Mounting $SCHEME Partitions..."
+  echo "Mounting '$SCHEME' Partitions..."
   if [ "$SCHEME" == "ext4" ]
   then
     mkfs.ext4 /dev/disk/by-partlabel/System
@@ -70,19 +68,24 @@ lib.recursiveUpdate {
     mount -o subvol=nix,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/nix
     mount -o subvol=persist,compress=zstd,autodefrag,noatime /dev/disk/by-partlabel/System /mnt/persist
   fi
-  printf "\n"
+  newline
 
   echo "Mounting Other Partitions..."
   mkdir -p /mnt/boot
   mount /dev/disk/by-partlabel/ESP /mnt/boot
   swapon /dev/disk/by-partlabel/swap
-  printf "\n"
+  newline
 
-  echo "Installing System..."
-  nixos-install --no-root-passwd --root /mnt --flake gitlab:maydayv7/dotfiles#$HOST --impure
-  printf "\n"
+  read -p "Enter Path to Repository (path/URL): " URL
+  if [ -z "$URL" ]
+  then
+    URL="gitlab:maydayv7/dotfiles"
+  fi
+  echo "Installing System from '$URL'..."
+  nixos-install --no-root-passwd --root /mnt --flake $URL#$HOST --impure
+  newline
 
-  read -p "Do you want to reboot the system? (Y/N): " choice
+  read -p "Do you want to Reboot the System? (Y/N): " choice
     case $choice in
       [Yy]*) reboot;;
       *) exit;;

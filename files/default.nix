@@ -1,14 +1,12 @@
 with ({ inherit (builtins) readFile; }); {
   ## Dotfiles ##
-  # Files Path
-  toplevel = ./.;
-
-  # 'git' Repository
-  repo = "https://gitlab.com/maydayv7/dotfiles";
-  mirror = "https://github.com/maydayv7/dotfiles";
-
-  # Configuration Directory
-  path = "/etc/nixos";
+  # File Paths
+  path = {
+    toplevel = ./.;
+    system = "/etc/nixos";
+    repo = "https://gitlab.com/maydayv7/dotfiles";
+    mirror = "https://github.com/maydayv7/dotfiles";
+  };
 
   # Useful Commands
   commands = readFile ../scripts/commands.sh;

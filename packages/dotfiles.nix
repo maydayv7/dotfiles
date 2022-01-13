@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   pname = "Dotfiles";
   version = "v1.0";
 
-  src = files.toplevel;
+  src = files.path.toplevel;
   dontBuild = true;
   installPhase = "mkdir -p $out/ && cp -r * $out/";
 

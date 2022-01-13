@@ -13,17 +13,17 @@ lib.recursiveUpdate {
   pushd $HOME > /dev/null
   if mount | grep ext4 > /dev/null
   then
-    DIR=${path}
+    DIR=${path.system}
   else
-    DIR=/persist${path}
+    DIR=/persist${path.system}
   fi
   sudo rm -rf $DIR
   sudo mkdir $DIR
   sudo chown $USER $DIR
   sudo chmod ugo+rw $DIR
-  printf "\n"
+  newline
 
-  read -p "Enter Path to GPG Keys: " KEY
+  read -p "Enter Path to GPG Keys (path/.git): " KEY
   getKeys $KEY
   echo "Importing Keys..."
   for key in $KEY/*.gpg
@@ -31,29 +31,29 @@ lib.recursiveUpdate {
     gpg --import $key
   done
   rm -rf $KEY
-  printf "\n"
+  newline
 
   echo "Cloning Repository..."
-  git clone ${repo} $DIR
+  git clone ${path.repo} $DIR
   pushd $DIR > /dev/null
   git-crypt unlock
-  git remote add mirror ${mirror}
+  git remote add mirror ${path.mirror}
   popd > /dev/null
-  printf "\n"
+  newline
 
   echo "Setting up User..."
   sudo mkdir -p /var/lib/AccountsService/{icons,users}
   echo "[User]" | sudo tee /var/lib/AccountsService/users/$USER &> /dev/null
   echo "Icon=/var/lib/AccountsService/icons/$USER" | sudo tee -a /var/lib/AccountsService/users/$USER &> /dev/null
   sudo cp -av $VERBOSE_ARG ${wallpapers}/Profile.png /var/lib/AccountsService/icons/$USER
-  printf "\n"
+  newline
 
   echo "Applying Configuration..."
-  if [ "$DIR" == "/persist${path}" ]
+  if [ "$DIR" == "/persist${path.system}" ]
   then
-    sudo umount -l ${path}
+    sudo umount -l ${path.system}
     sudo mount $DIR
   fi
-  sudo nixos-rebuild switch --flake ${path}
+  sudo nixos-rebuild switch --flake ${path.system}
   popd > /dev/null
 '')

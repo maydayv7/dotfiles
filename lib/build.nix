@@ -2,8 +2,7 @@
 let
   inherit (inputs) self nixpkgs;
   inherit (lib) flatten hasSuffix mapAttrsToList nameValuePair;
-  inherit (builtins)
-    attrValues isPath listToAttrs map readDir readFile toString;
+  inherit (builtins) attrValues isPath listToAttrs map readDir readFile;
 in rec {
   ## Builder Functions ##
   eachSystem = func:
@@ -39,22 +38,23 @@ in rec {
     });
 
   # Package Channels Builder
-  channel = src: overlays: patches:
-    eachSystem (system:
+  channel = src: overlays: patches':
+    let
+      patches = if isPath patches' then
+        flatten (mapAttrsToList (name: type:
+          if type == "regular" && hasSuffix ".diff" name then
+            patches' + "/${name}"
+          else
+            null) (readDir patches'))
+      else
+        patches';
+    in eachSystem (system:
       (if patches == [ ] then
         import src
       else
         import (src.legacyPackages.${system}.applyPatches {
-          inherit src;
+          inherit src patches;
           name = "patched-input-${src.shortRev}";
-          patches = if isPath patches then
-            flatten (mapAttrsToList (name: type:
-              if type == "regular" && hasSuffix ".diff" name then
-                patches + "/${name}"
-              else
-                null) (readDir patches))
-          else
-            patches;
         })) {
           inherit system;
           overlays = overlays ++ (attrValues self.overlays or { }) ++ [

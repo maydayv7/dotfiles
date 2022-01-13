@@ -1,7 +1,7 @@
 { path }:
 let
-  inherit (builtins) getFlake head match readFile removeAttrs;
-  flake = if pathExists path then
+  inherit (builtins) getFlake head match pathExists readFile removeAttrs;
+  flake = if pathExists "${path}/flake.nix" then
     getFlake "${toString path}"
   else
     getFlake "/etc/nixos";

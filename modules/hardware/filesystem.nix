@@ -1,4 +1,4 @@
-{ config, options, lib, inputs, pkgs, ... }:
+{ config, options, lib, inputs, ... }:
 let
   inherit (lib) mkIf mkMerge mkOption types;
   filesystem = config.hardware.filesystem;
@@ -107,7 +107,6 @@ in rec {
       };
 
       # Snapshots
-      environment.systemPackages = [ pkgs.timeshift ];
       services.btrbk = {
         instances = {
           home = {
