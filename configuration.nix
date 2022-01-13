@@ -81,8 +81,8 @@ in utils.lib.eachSystem systems (system:
     };
 
     ## Device Configuration ##
-    nixosConfigurations = map.modules ./devices
-      (name: build.device (import name hardware.nixosModules));
+    nixosConfigurations =
+      map.modules ./devices (name: build.device (import name));
 
     ## Install Media Configuration ##
     installMedia = {

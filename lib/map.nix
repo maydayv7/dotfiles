@@ -36,7 +36,7 @@ in rec {
       else
         nameValuePair "" null) (readDir dir);
 
-  # `sops` Encrypted Secrets
+  # 'sops' Encrypted Secrets
   secrets = dir: neededForUsers:
     filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
       if type == "regular" && hasSuffix ".secret" name then

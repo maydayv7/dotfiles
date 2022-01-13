@@ -17,9 +17,9 @@ in rec {
     };
 
     modules = mkOption {
-      description = "Additional Hardware Configuration Modules";
-      type = types.attrs;
-      default = { };
+      description = "Hardware Configuration Modules from 'inputs.hardware'";
+      type = types.listOf types.str;
+      default = [ ];
     };
 
     support = mkOption {

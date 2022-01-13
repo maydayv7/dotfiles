@@ -1,4 +1,4 @@
-hardware: {
+{
   system = "x86_64-linux";
   name = "Futura";
   description = "PC - Dell Inspiron 11 3000";
@@ -13,7 +13,7 @@ hardware: {
     boot = "efi";
     cores = 4;
     filesystem = "simple";
-    modules = with hardware; [ common-cpu-intel common-pc common-pc-laptop ];
+    modules = [ "common-cpu-intel" "common-pc" "common-pc-laptop" ];
   };
 
   desktop = "gnome";

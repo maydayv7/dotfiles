@@ -1,6 +1,6 @@
 { systems, lib, inputs, ... }:
 let
-  inherit (inputs) self;
+  inherit (inputs) self nixpkgs;
   inherit (builtins) attrValues isPath listToAttrs map readDir toString;
   inherit (lib) flatten hasSuffix mapAttrsToList nameValuePair;
 in rec {
@@ -12,8 +12,20 @@ in rec {
   device = self.nixosModule.config;
   iso = config:
     self.nixosModule.config (config // {
-      iso = true;
       description = "Install Media";
+      imports = [
+        # Build Module
+        "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
+
+        ({
+          # `.iso` Creation Settings
+          environment.pathsToLink = [ "/libexec" ];
+          isoImage = {
+            makeEfiBootable = true;
+            makeUsbBootable = true;
+          };
+        })
+      ];
     });
 
   # Package Channels Builder

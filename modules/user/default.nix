@@ -61,6 +61,7 @@ in rec {
   ## User Configuration ##
   config = {
     users.mutableUsers = mkIf (cfg.password == "") false;
+    security.sudo.wheelNeedsPassword = mkIf (cfg.password == "") false;
 
     # Configuration Options
     users.users."${cfg.name}" = mkAliasDefinitions opt.settings;

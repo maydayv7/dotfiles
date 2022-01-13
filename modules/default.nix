@@ -1,9 +1,12 @@
 { version, lib, inputs, files }:
-with inputs;
-with ({ inherit (builtins) attrValues readFile replaceStrings substring; }); {
+let
+  inherit (inputs) self;
+  inherit (lib) forEach getAttrFromPath remove;
+  inherit (builtins) attrValues readFile replaceStrings substring;
+in {
   ## Configuration Build Function ##
-  config = { system ? "x86_64-linux", iso ? false, name ? "nixos"
-    , description ? "", repo ? "stable", timezone, locale, kernel
+  config = { system ? "x86_64-linux", name ? "nixos", description ? ""
+    , repo ? "stable", imports ? [ ], timezone, locale, kernel
     , kernelModules ? [
       "xhci_pci"
       "ahci"
@@ -24,8 +27,10 @@ with ({ inherit (builtins) attrValues readFile replaceStrings substring; }); {
       specialArgs = { inherit system lib inputs files; };
       modules = [{
         # Modulated Configuration Imports
-        imports = attrValues self.nixosModules ++ hardware.modules or [ ];
-        inherit apps hardware iso user;
+        imports = imports ++ (attrValues self.nixosModules)
+          ++ forEach hardware.modules or [ ]
+          (name: getAttrFromPath [ name ] inputs.hardware.nixosModules);
+        inherit apps hardware user;
 
         # Device Hostname
         networking.hostName = "${name}";

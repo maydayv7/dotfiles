@@ -71,7 +71,7 @@ in rec {
       };
 
       # Globally Ignored Files
-      ignores = [ "*~*" "*.bak" ".direnv" "result" "result-*" ];
+      ignores = [ "*~*" "*.bak" ".direnv" "result" "result-*" "tags.*" ];
 
       # Additional Parameters
       extraConfig = {

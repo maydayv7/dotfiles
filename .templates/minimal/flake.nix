@@ -21,6 +21,9 @@
         system = "x86_64-linux";
         repo = "stable";
 
+        # Generate these files using 'nixos-generate-config'
+        imports = [ ./configuration.nix ./hardware-configuration.nix ];
+
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
 
@@ -31,11 +34,6 @@
           boot = "efi";
           cores = 4;
           filesystem = "simple";
-          modules = [
-            # Generate these files using the command `nixos-generate-config`
-            ./configuration.nix
-            ./hardware-configuration.nix
-          ];
         };
 
         # Default User
@@ -43,8 +41,7 @@
           name = "nixos";
           description = "Default User";
           autologin = true;
-          password =
-            "HASHED_PASSWORD"; # Use the command `mkpasswd -m sha-512` to generate the hashed password
+          password = "HASHED_PASSWORD"; # Generate using 'mkpasswd -m sha-512'
         };
       };
     };

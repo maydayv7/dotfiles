@@ -1,4 +1,4 @@
-hardware: {
+{
   system = "x86_64-linux";
   name = "Vortex";
   description = "PC - Dell Inspiron 15 5000";
@@ -15,7 +15,7 @@ hardware: {
     cores = 8;
     filesystem = "advanced";
     support = [ "mobile" "printer" "ssd" "virtualisation" ];
-    modules = [ hardware.dell-inspiron-5509 ];
+    modules = [ "dell-inspiron-5509" ];
   };
 
   desktop = "gnome";
