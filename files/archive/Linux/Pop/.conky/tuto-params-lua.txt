@@ -186,17 +186,3 @@ ring3
 
     hand_fg_alpha=0.0
     graduation_thickness=0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
