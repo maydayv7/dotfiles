@@ -19,7 +19,8 @@ The [`modules`](../modules) directory contains custom-made pure Flakes-compatibl
 * [`hardware`](../modules/hardware): Module that configures device and additional hardware -
   + `boot`: Supported Boot Firmware - `"mbr" / "efi"`
   + `cores`: Number of CPU Cores - Ex. `4`
-  + `filesystem`: Disk File System Choice - `"simple" / "advanced"`
+  + `filesystem`: Disk File System Choice - `"simple" / "advanced"` -
+    * `persist`: Files to Preserve across Reboots (while using `advanced` File System Layout)
   + `modules`: List of Hardware Configuration Modules imported from [`inputs.hardware`](https://github.com/nixos/nixos-hardware) - Ex. `[ "common-pc" ]`
   + `support`: List of Additional Supported Hardware - `[ "mobile" "printer" "ssd" "virtualisation" ]`
 

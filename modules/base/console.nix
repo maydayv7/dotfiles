@@ -23,6 +23,7 @@
     environment.systemPackages = with pkgs; [
       git
       git-crypt
+      gnupg
       gparted
       killall
       parted

@@ -24,9 +24,6 @@
       scrollMethod = "twofinger";
     };
 
-    # Filesystem Support
-    boot.supportedFilesystems = [ "ntfs" "btrfs" "vfat" ];
-
     # Driver Packages
     hardware.opengl.extraPackages = with pkgs; [
       intel-media-driver
@@ -45,6 +42,8 @@
 
     # Network Settings
     user.settings.extraGroups = [ "networkmanager" ];
+    filesystem.persist.directories =
+      [ "/etc/NetworkManager/system-connections" "/var/lib/bluetooth" ];
     networking = {
       networkmanager.enable = true;
       firewall.enable = false;

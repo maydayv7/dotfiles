@@ -1,21 +1,37 @@
-{ config, options, lib, inputs, ... }:
+{ config, options, lib, inputs, files, ... }:
 let
-  inherit (lib) mkIf mkMerge mkOption types;
+  inherit (lib) mkAfter mkForce mkIf mkMerge mkOption types;
+  opt = options.hardware.filesystem.description;
   filesystem = config.hardware.filesystem;
-  opt = options.hardware.filesystem;
+  persist = config.filesystem.persist;
 in rec {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.hardware.filesystem = mkOption {
-    description = "Disk File System Choice";
-    type = types.enum [ null "simple" "advanced" ];
-    default = null;
+  options = {
+    hardware.filesystem = mkOption {
+      description = "Disk File System Choice";
+      type = types.nullOr (types.enum [ "simple" "advanced" ]);
+      default = null;
+    };
+
+    filesystem.persist = {
+      files = mkOption {
+        description = "Additional System Files to Preserve";
+        type = types.listOf types.str;
+        default = [ ];
+      };
+
+      directories = mkOption {
+        description = "Additional System Directories to Preserve";
+        type = types.listOf types.str;
+        default = [ ];
+      };
+    };
   };
 
   ## File System Configuration ##
   config = {
-    warnings =
-      if (filesystem == null) then [ (opt.description + " is unset") ] else [ ];
+    warnings = if (filesystem == null) then [ (opt + " is unset") ] else [ ];
   } // mkIf (filesystem != null) (mkMerge [
     {
       ## Partitions ##
@@ -55,71 +71,63 @@ in rec {
     (mkIf (filesystem == "advanced") {
       fileSystems = {
         # ROOT Partition
-        # Opt-in State with TMPFS
         "/" = {
-          device = "tmpfs";
-          fsType = "tmpfs";
-          options = [ "defaults" "size=2G" "mode=755" ];
+          device = "fspool/system/root";
+          fsType = "zfs";
         };
 
-        # BTRFS Partition
-        "/mnt/btrfs" = {
-          device = "/dev/disk/by-partlabel/System";
-          fsType = "btrfs";
-          options = [ "subvolid=5" "compress=zstd" "autodefrag" "noatime" ];
-        };
-
-        # HOME Subvolume
-        "/home" = {
-          device = "/dev/disk/by-partlabel/System";
-          fsType = "btrfs";
-          options = [ "subvol=home" ];
-          neededForBoot = true;
-        };
-
-        # NIX Subvolume
+        # NIX Partition
         "/nix" = {
-          device = "/dev/disk/by-partlabel/System";
-          fsType = "btrfs";
-          options = [ "subvol=nix" ];
+          device = "fspool/system/nix";
+          fsType = "zfs";
         };
 
-        # PERSISTENT Subvolume
+        # HOME Partition
+        "/home" = {
+          device = "fspool/data/home";
+          fsType = "zfs";
+        };
+
+        # PERSISTENT Partition
         "/persist" = {
-          device = "/dev/disk/by-partlabel/System";
-          fsType = "btrfs";
-          options = [ "subvol=persist" ];
+          device = "fspool/data/persist";
+          fsType = "zfs";
           neededForBoot = true;
         };
+      };
+
+      # Boot Settings
+      boot = {
+        kernelParams = [ "elevator=none" ];
+        zfs = {
+          forceImportRoot = false; # Need to 'zfs_force=1' on first boot
+          devNodes = "/dev/disk/by-partlabel/System";
+        };
+
+        # Opt-In State
+        initrd.postDeviceCommands = mkAfter ''
+          zfs rollback -r fspool/system/root@blank
+        '';
       };
 
       # Persisted Files
+      sops.gnupg.home = mkForce "/persist${files.gpg}";
       environment.persistence."/persist" = {
-        files = [ "/etc/machine-id" ];
-        directories = [
-          "/etc/nixos"
-          "/etc/NetworkManager/system-connections"
-          "/var/log"
-          "/var/lib/AccountsService"
-          "/var/lib/bluetooth"
-          "/var/lib/libvirt"
-        ];
+        files = [ "/etc/machine-id" ] ++ persist.files;
+        directories = [ "/etc/nixos" "/var/log" "/var/lib/AccountsService" ]
+          ++ persist.directories;
       };
 
-      # Snapshots
-      services.btrbk = {
-        instances = {
-          home = {
-            onCalendar = "hourly";
-            settings = {
-              timestamp_format = "long";
-              snapshot_preserve = "31d";
-              snapshot_preserve_min = "7d";
-              volume."/mnt/btrfs".subvolume = {
-                home.snapshot_create = "always";
-              };
-            };
-          };
+      # File System Maintainence
+      services.zfs = {
+        trim.enable = true;
+        autoScrub.enable = true;
+        autoSnapshot = {
+          enable = true;
+          hourly = 12;
+          daily = 7;
+          weekly = 3;
+          monthly = 1;
         };
       };
     })

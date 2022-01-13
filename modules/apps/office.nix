@@ -9,6 +9,7 @@ in rec {
       bluej
       gscan2pdf
       handbrake
+      libpst
       libreoffice
       onlyoffice-bin
 
@@ -16,6 +17,7 @@ in rec {
       google-chrome
       megasync
       teams
+      thunderbird
       whatsapp-for-linux
       zoom-us
     ];

@@ -28,7 +28,8 @@ in rec {
         "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
 
         ({
-          # `.iso` Creation Settings
+          # '.iso' Creation Settings
+          boot.supportedFilesystems = [ "ntfs" "vfat" "zfs" ];
           isoImage = {
             makeEfiBootable = true;
             makeUsbBootable = true;

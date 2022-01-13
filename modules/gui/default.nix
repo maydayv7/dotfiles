@@ -1,13 +1,14 @@
 { config, options, lib, ... }:
 let
+  inherit (lib) mkOption types;
   desktop = config.gui.desktop;
   opt = options.gui.desktop;
 in rec {
   imports = [ ./fonts.nix ./gnome.nix ./xorg.nix ];
 
-  options.gui.desktop = lib.mkOption {
+  options.gui.desktop = mkOption {
     description = "GUI Desktop Choice";
-    type = lib.types.enum [ null "gnome" "gnome-minimal" ];
+    type = types.nullOr (types.enum [ "gnome" "gnome-minimal" ]);
     default = null;
   };
 

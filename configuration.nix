@@ -3,7 +3,7 @@ with inputs;
 let
   ## Variable Declaration ##
   # Supported Architectures
-  systems = splitString "\n" (readFile ./.systems);
+  systems = [ "x86_64-linux" ];
 
   # NixOS Version
   version = readFile ./.version;

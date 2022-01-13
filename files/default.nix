@@ -43,6 +43,12 @@ with ({ inherit (builtins) readFile; }); {
   # GPG Keys Directory
   gpg = "/etc/nixos/files/gpg";
 
+  # Pictures
+  images = {
+    wallpapers = ./wallpapers;
+    profile = ./wallpapers/Profile.png;
+  };
+
   # Interactive Nix Shell
   repl = ../repl.nix;
 
@@ -51,9 +57,6 @@ with ({ inherit (builtins) readFile; }); {
 
   # Document Templates
   templates = ./templates;
-
-  # Wallpapers
-  wallpapers = ./wallpapers;
 
   # XDG Settings
   xdg.mime = ./xdg/mime.nix;

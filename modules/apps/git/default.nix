@@ -89,7 +89,7 @@ in rec {
         ap = "add -p";
         b = "branch";
         backup = ''
-          !sh -c 'CURRENT=$(git symbolic-ref --short HEAD) && git stash save -a && git checkout -B backup && git stash apply && git add -A . && git commit -m "backup" && git push -f $1 && git checkout $CURRENT && git stash pop && git branch -D backup' -'';
+          !sh -c 'CURRENT=$(git branch --show-current) && git stash save -a && git checkout -B backup && git stash apply && git add -A . && git commit -m "backup" && git push -f $1 && git checkout $CURRENT && git stash pop && git branch -D backup' -'';
         cam = "commit -a -m";
         cfg = "config";
         ci = "commit -v";
@@ -97,7 +97,7 @@ in rec {
         co = "checkout";
         cp = "cherry-pick";
         cpp =
-          "!sh -c 'CURRENT=$(git symbolic-ref --short HEAD) && git stash && git checkout -B $2 $3 && git cherry-pick $1 && git push -f $4 && git checkout $CURRENT && git stash pop' -";
+          "!sh -c 'CURRENT=$(git branch --show-current) && git stash && git checkout -B $2 $3 && git cherry-pick $1 && git push -f $4 && git checkout $CURRENT && git stash pop' -";
         d = "diff";
         df = "diff HEAD";
         dx = "diff --color-words";
@@ -109,6 +109,8 @@ in rec {
         lg =
           "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
         ll = "log -p --graph --decorate --abbrev-commit";
+        m = "merge";
+        ms = "merge --squash";
         p = "push";
         pf = "push --force";
         pt = "push --tag";

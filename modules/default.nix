@@ -2,7 +2,7 @@
 let
   inherit (inputs) self;
   inherit (lib) forEach getAttrFromPath remove;
-  inherit (builtins) attrValues replaceStrings substring;
+  inherit (builtins) attrValues hashString replaceStrings substring;
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
@@ -20,12 +20,13 @@ in {
           ++ forEach hardware.modules or [ ]
           (name: getAttrFromPath [ name ] inputs.hardware.nixosModules);
         inherit apps hardware user;
-
-        # Device Hostname
-        networking.hostName = "${name}";
-
-        # GUI Configuration
         gui.desktop = desktop;
+
+        # Device Name
+        networking = {
+          hostName = name;
+          hostId = substring 0 8 (hashString "md5" name);
+        };
 
         # Localization
         time.timeZone = timezone;

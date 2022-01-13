@@ -40,8 +40,13 @@ in rec {
         };
       };
 
-      # Wallpapers
-      home.file.".local/share/backgrounds".source = files.wallpapers;
+      home.file = {
+        # Profile Picture
+        ".face".source = files.images.profile;
+
+        # Wallpapers
+        ".local/share/backgrounds".source = files.images.wallpapers;
+      };
     };
   };
 }

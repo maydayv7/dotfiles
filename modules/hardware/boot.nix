@@ -11,6 +11,7 @@ in rec {
   config = lib.mkIf (boot == "efi") {
     boot = {
       cleanTmpDir = true;
+      tmpOnTmpfs = true;
 
       # Plymouth
       consoleLogLevel = 0;
@@ -33,6 +34,7 @@ in rec {
         efi.canTouchEfiVariables = true;
         systemd-boot = {
           enable = true;
+          editor = true;
           configurationLimit = 100;
         };
       };

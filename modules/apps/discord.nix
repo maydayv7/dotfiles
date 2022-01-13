@@ -14,14 +14,8 @@ in {
 
       # Discord Activation  
       activation.discordSetup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        FILE=~/.config/BetterDiscord
-        if [ -e "$FILE" ];
-        then
-          echo "Discord setup already over"
-        else
-          echo "Setting up Discord..."
-          $DRY_RUN_CMD /usr/bin/env betterdiscordctl install
-        fi
+        echo "Setting up Discord..."
+        $DRY_RUN_CMD /usr/bin/env betterdiscordctl $VERBOSE_ARG install || true
       '';
     };
   };

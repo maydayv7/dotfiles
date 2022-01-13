@@ -33,7 +33,6 @@ Here is an overview of the file hierarchy:
 ├── flake.nix
 ├── flake.lock
 ├── .version
-├── .systems
 ├── .templates
 ├── files
 ├── devices
@@ -61,7 +60,6 @@ Here is an overview of the file hierarchy:
 + `configuration.nix`: main system configuration file
 + `flake.nix`: repository version control using `inputs`
 + `.version`: system state version
-+ `.systems`: list of supported system architectures
 + `.templates`: custom Flakes configuration templates
 + `files`: `dotfiles` and program configuration
 + `devices`: system configuration for various devices
@@ -84,7 +82,7 @@ If Nix is already installed on your system, you may run the following command to
 <pre><code>nix build gitlab:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
 
 #### Partition Scheme
-*Note that the `install` script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
+*Note that the `nixos-install-device` script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
 
 | Name           | Label  | Format     | Size (minimum) |
 | :------------- | :----: | :--------: | :------------: |
@@ -94,16 +92,17 @@ If Nix is already installed on your system, you may run the following command to
 | DATA Partition | Files  | NTFS       | 10G            |
 
 #### Procedure
-To install the OS, just boot the Live USB and run `sudo install`  
+To install the OS, just boot the Live USB and run `sudo nixos-install-device`  
 In case you have downloaded the NixOS `.iso` from [here](https://nixos.org/download.html), then you can use the following commands:
 
 ```
 nix build gitlab:maydayv7/dotfiles#packages.x86_64-linux.install
-sudo ./result/bin/install
+sudo ./result/bin/nixos-install-device
 ```
 
 *If the image doesn't boot, try disabling the `secure boot` and `RAID` options from `BIOS`*  
-After the reboot, run `setup` in the newly installed system to finish setup
+After the reboot, run `nixos-setup` in the newly installed system to finish setup
+*In case you are using the `advanced` filesystem scheme, you may need to set the boot flag `zfs_force=1` on first boot*
 </details>
 
 <details>

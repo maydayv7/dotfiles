@@ -34,6 +34,7 @@ Here are some repositories that I may have shamelessly rummaged through for buil
 + User Configurations:
   * [balsoft](https://code.balsoft.ru/balsoft/nixos-config)
   * [bbigras](https://github.com/bbigras/nix-config)
+  * [cole-h](https://github.com/cole-h/nixos-config/)
   * [colemickens](https://github.com/cole-mickens/nixcfg)
   * [davidtwco](https://github.com/davidtwco/veritas)
   * [gvolpe](https://github.com/gvolpe/nix-config)

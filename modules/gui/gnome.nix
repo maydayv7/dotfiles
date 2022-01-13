@@ -35,7 +35,8 @@ in rec {
     (mkIf (desktop == "gnome") {
       # Desktop Integration
       gui.fonts.enable = true;
-      nixpkgs.config.firefox.enableGnomeExtensions = true;
+      nixpkgs.config.firefox.enableGnomeExtensions =
+        mkIf (elem pkgs.discord apps) true;
       programs = {
         dconf.enable = true;
         xwayland.enable = true;
@@ -84,7 +85,6 @@ in rec {
         xdg.mimeApps.defaultApplications =
           util.xdg.mime (import files.xdg.mime) {
             audio = [ "org.gnome.Lollypop.desktop" ];
-            browser = [ "firefox.desktop" ];
             calendar = [ "org.gnome.Calendar.desktop" ];
             directory = [ "org.gnome.Nautilus.desktop" ];
             image = [ "org.gnome.eog.desktop" ];
@@ -97,6 +97,9 @@ in rec {
           };
 
         home.file = {
+          # Initial Setup
+          ".config/gnome-initial-setup-done".text = "yes";
+
           # GTK+ Bookmarks
           ".config/gtk-3.0/bookmarks".text = files.gnome.bookmarks;
 
@@ -122,8 +125,10 @@ in rec {
 
           # Firefox GNOME Theme
           ".mozilla/firefox/${username}/chrome/userChrome.css".text =
+            mkIf (elem pkgs.firefox apps)
             ''@import "${inputs.firefox-theme}/userChrome.css";'';
           ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
+            mkIf (elem pkgs.firefox apps)
             "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
         };
       };
@@ -165,7 +170,6 @@ in rec {
           # Utilities
           celluloid
           dconf2nix
-          firefox
           gnuchess
           transmission-gtk
         ]) ++ (with pkgs;
