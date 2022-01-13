@@ -1,7 +1,7 @@
 { config, lib, pkgs, files, ... }:
 let
   enable = !config.user.minimal;
-  homeDir = "/home/${config.user.name}";
+  homeDir = config.user.directory;
   version = config.system.stateVersion;
 in rec {
   ## User Home Configuration ##

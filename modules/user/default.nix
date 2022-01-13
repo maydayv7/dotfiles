@@ -1,10 +1,15 @@
-{ config, options, lib, ... }:
+{ config, options, lib, inputs, ... }:
 let
   inherit (lib) mkIf mkOption mkAliasDefinitions types;
   cfg = config.user;
   opt = options.user;
 in rec {
-  imports = [ ./home.nix ./recovery.nix ./security.nix ];
+  imports = [
+    ./home.nix
+    ./recovery.nix
+    ./security.nix
+    inputs.home.nixosModules.home-manager
+  ];
 
   options.user = {
     # User Creation
@@ -18,6 +23,12 @@ in rec {
       description = "User Description";
       type = types.str;
       default = "";
+    };
+
+    directory = mkOption {
+      description = "User Home Directory";
+      type = types.str;
+      default = "/home/${cfg.name}";
     };
 
     groups = mkOption {

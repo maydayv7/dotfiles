@@ -29,6 +29,7 @@ The [`modules`](../modules) directory contains custom-made pure Flakes-compatibl
   + `user` -
     * `name`: Name of User - Ex. `"nixos"`
     * `description`: User Description - Ex. `"Default User"`
+    * `directory`: User Home Directory - Ex. `"/home/USER"`
     * `groups`: User Groups Participation - Ex. `[ "wheel" ]`
     * `uid`: User ID - Ex. `1000`
     * `password`: Hashed User Password (leave disabled to use `sops-nix` and passwords from [`modules/user/passwords`](../modules/user/passwords))

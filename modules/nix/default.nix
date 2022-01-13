@@ -1,5 +1,5 @@
-{ pkgs, ... }: rec {
-  imports = [ ./cachix.nix ];
+{ inputs, pkgs, ... }: rec {
+  imports = [ ./cachix.nix inputs.utils.nixosModules.autoGenFromInputs ];
 
   ## Nix Settings ##
   config = {

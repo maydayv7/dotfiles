@@ -64,8 +64,7 @@ in eachSystem systems (system:
 
     ## Custom Configuration Modules ##
     nixosModule = import ./modules { inherit version lib inputs files; };
-    nixosModules = map.merge map.modules ./modules ./secrets import
-      // home.nixosModules // sops.nixosModules // utils.nixosModules;
+    nixosModules = map.merge map.modules ./modules ./secrets import;
 
     ## Configuration Templates ##
     defaultTemplate = self.templates.minimal;
