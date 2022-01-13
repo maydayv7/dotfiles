@@ -1,4 +1,4 @@
-{ system, lib, pkgs, ... }:
+{ system, lib, pkgs }:
 with ({ inherit (lib) hooks pack; });
 # Install Media Checks
 (pack.installMedia.system) // {

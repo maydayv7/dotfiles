@@ -13,7 +13,7 @@ final: prev: {
     patches = old.patches ++ [
       # Features
       (prev.fetchpatch {
-        name = "dirtyRev.patch";
+        name = "dirty-rev.patch";
         sha256 = "sha256-50qV1srrwbCICgY9XRvX7EHpU1ZtdXE8jkCgy5QeMh0=";
         url =
           "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/5385.patch";
@@ -26,12 +26,6 @@ final: prev: {
       })
 
       # Performance
-      (prev.fetchpatch {
-        name = "ltpo.patch";
-        sha256 = "sha256-HW/NFk2bvn4v21DERd28Kj+O2OufV8n3e4SxWbQrs5Q=";
-        url =
-          "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/5813.patch";
-      })
       (prev.fetchpatch {
         name = "parser.patch";
         sha256 = "sha256-x60kV4DKR1W9k5qyK+peSQ1eWNSxhJDuBm6eePbshBI=";

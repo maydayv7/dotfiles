@@ -12,27 +12,24 @@ let
   files = self.files;
   inherit (builtins) readFile;
   inherit (lib) build map pack;
-  args = { inherit args systems version lib inputs files; };
   lib = nixpkgs.lib // home.lib // utils.lib // self.lib // {
     hooks = hooks.lib;
   };
 in utils.lib.eachSystem systems (system:
   let
-    args' = args // { inherit system pkgs; };
-
     # Package Channels
     pkgs = (build.channel nixpkgs [ nur.overlay ] ./packages/patches).${system};
     pkgs' = (build.channel unstable [ nur.overlay ] [ ]).${system};
   in {
     ## Configuration Checks ##
-    checks = import ./modules/nix/checks.nix args';
+    checks = import ./modules/nix/checks.nix { inherit system lib pkgs; };
 
     ## Developer Shells ##
     # Default Shell
-    devShell = import ./shells args';
+    devShell = import ./shells { inherit pkgs; };
 
     # Tailored Shells
-    devShells = map.modules ./shells (name: pkgs.mkShell (import name pkgs));
+    devShells = map.modules' ./shells (name: pkgs.mkShell (import name pkgs));
 
     ## Package Configuration ##
     legacyPackages = self.channels.${system}.stable;
@@ -44,10 +41,11 @@ in utils.lib.eachSystem systems (system:
     # Custom Packages
     defaultApp = self.apps.${system}.nixos;
     defaultPackage = self.packages.${system}.dotfiles;
-    apps = map.modules ./scripts (name: pkgs.callPackage name args');
+    apps = map.modules ./scripts
+      (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
     packages = self.apps.${system} // pack.nixosConfigurations
-      // pack.installMedia.iso
-      // map.modules ./packages (name: pkgs.callPackage name args');
+      // pack.installMedia.iso // map.modules ./packages
+      (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
   }) // {
     # Overrides
     overlays = map.modules ./packages/overlays import;
@@ -56,10 +54,15 @@ in utils.lib.eachSystem systems (system:
     files = import ./files;
 
     ## Custom Library Functions ##
-    lib = import ./lib args // { lib = nixpkgs.lib; };
+    #lib = import ./lib args // { lib = nixpkgs.lib; };
+    lib = (import ./lib/map.nix { lib = nixpkgs.lib; }).modules' ./lib (name:
+      import name {
+        inherit systems inputs;
+        lib = nixpkgs.lib;
+      });
 
     ## Custom Configuration Modules ##
-    nixosModule = import ./modules args;
+    nixosModule = import ./modules { inherit version lib inputs files; };
     nixosModules = map.merge map.modules ./modules ./secrets import
       // home.nixosModules // sops.nixosModules // utils.nixosModules;
 

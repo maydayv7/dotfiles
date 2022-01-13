@@ -1,4 +1,4 @@
-{ version, lib, inputs, files, ... }:
+{ version, lib, inputs, files }:
 let
   inherit (inputs) self;
   inherit (lib) forEach getAttrFromPath remove;

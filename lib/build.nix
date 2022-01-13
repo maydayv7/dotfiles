@@ -1,8 +1,8 @@
 { systems, lib, inputs, ... }:
 let
   inherit (inputs) self nixpkgs;
-  inherit (lib) flatten hasSuffix mapAttrsToList nameValuePair;
-  inherit (builtins) attrValues isPath listToAttrs map readDir readFile;
+  inherit (lib) nameValuePair;
+  inherit (builtins) any attrValues isPath listToAttrs map readFile;
 in rec {
   ## Builder Functions ##
   eachSystem = func:
@@ -38,18 +38,10 @@ in rec {
     });
 
   # Package Channels Builder
-  channel = src: overlays: patches':
-    let
-      patches = if isPath patches' then
-        flatten (mapAttrsToList (name: type:
-          if type == "regular" && hasSuffix ".diff" name then
-            patches' + "/${name}"
-          else
-            null) (readDir patches'))
-      else
-        patches';
+  channel = src: overlays: patch:
+    let patches = (import ./map.nix { inherit lib; }).patches patch;
     in eachSystem (system:
-      (if patches == [ ] then
+      (if !(any isPath patches) then
         import src
       else
         import (src.legacyPackages.${system}.applyPatches {

@@ -18,8 +18,9 @@ let
         check                      - Checks System Configuration
         clean [ --all ]            - Garbage Collects and Optimises Nix Store
         explore                    - Opens Interactive Shell to explore Syntax and Configuration
-        iso 'variant' [ --burn ]   - Builds Install Media and optionally burns '.iso' to USB
-        list [ 'package' ]         - Lists all Installed Packages and optionally Locates one
+        iso 'variant' [ --burn ]   - Builds Install Media [ Burns '.iso' to USB ]
+        list [ 'pattern' ]         - Lists all Installed Packages [ Returns Matching ones ]
+        locate 'package'           - Locates Installed Package
         save                       - Saves Configuration State to Repository
         search 'package'           - Searches for Packages in 'nixpkgs' Repository
         secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
@@ -126,14 +127,20 @@ in lib.recursiveUpdate {
   "list")
     case $2 in
     "") nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq;;
+    *) nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep $2;;
+    esac
+  ;;
+  "locate")
+    case $2 in
+    "") error "Expected Package Name";;
     *)
-      package=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep $2)
+      package=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep -m 1 $2)
       if [ -z "$package" ]
       then
-        nix search nixpkgs#$2 &> /dev/null && error "Package '$2' is not installed" || error "Package '$2' is not valid"
+        nix search nixpkgs#$2 &> /dev/null && error "Package '$2' is not installed" || error "Package '$2' isn't Valid"
       else
         echo "Package $package found"
-        nix search nixpkgs#$2 &> /dev/null && location=$(nix eval nixpkgs#$2.outPath | sed 's/"//g') || location=$(find /nix/store -type d -name "*$package")
+        nix search nixpkgs#$2 &> /dev/null && location=$(nix eval nixpkgs#$2.outPath 2> /dev/null | sed 's/"//g') || location=$(find /nix/store -type d -name "*$package")
         if ! (( $(grep -c . <<<"$MULTILINE") > 1 ))
         then
           echo "Location: $location"

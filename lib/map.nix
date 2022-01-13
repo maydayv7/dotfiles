@@ -1,15 +1,27 @@
 { lib, ... }:
 let
-  inherit (builtins) attrNames foldl' pathExists readDir toString;
+  inherit (builtins) attrNames foldl' isPath pathExists readDir toString;
   inherit (lib)
-    filterAttrs hasPrefix hasSuffix mapAttrs' nameValuePair recursiveUpdate
-    removeSuffix;
+    flatten filterAttrs hasPrefix hasSuffix mapAttrs' mapAttrsToList
+    nameValuePair recursiveUpdate removeSuffix;
 in rec {
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
   list = func: foldl' (x: y: x + y + "\n  ") "" (attrNames func);
   merge = name: dir1: dir2: func:
     recursiveUpdate (name dir1 func) (name dir2 func);
+
+  # File Patches
+  patches = patch:
+    if isPath patch then
+      flatten (mapAttrsToList (name: type:
+        if type == "regular"
+        && (hasSuffix ".diff" name || hasSuffix ".patch" name) then
+          patch + "/${name}"
+        else
+          null) (readDir patch))
+    else
+      patch;
 
   ## Module Imports
   # Top Level
