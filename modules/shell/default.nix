@@ -23,10 +23,11 @@ in rec
     {
       user.settings.shell = pkgs."${cfg.choice}";
 
-      # Environment Variables
-      environment.variables =
+      # Environment Settings
+      environment =
       {
-        EDITOR = "nano -Ll";
+        shells = with pkgs; [ bashInteractive ];
+        variables.EDITOR = "nano -Ll";
       };
     }
 

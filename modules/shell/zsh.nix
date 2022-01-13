@@ -9,7 +9,7 @@ in rec
     # Shell Environment
     environment =
     {
-      shells = with pkgs; [ bashInteractive zsh ];
+      shells = with pkgs; [ zsh ];
       pathsToLink = [ "/share/zsh" ];
     };
 

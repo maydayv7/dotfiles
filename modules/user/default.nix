@@ -1,6 +1,6 @@
 { config, options, lib, inputs, pkgs, ... }:
 let
-  inherit (lib) mkOption mkAliasDefinitions types;
+  inherit (lib) mkIf mkOption mkAliasDefinitions types;
   cfg = config.user;
   opt = options.user;
 in rec
@@ -46,6 +46,13 @@ in rec
       default = 1000;
     };
 
+    password = mkOption
+    {
+      description = "Hashed User Password";
+      type = types.str;
+      default = "";
+    };
+
     autologin = mkOption
     {
       description = "Enable User Auto-Login";
@@ -72,7 +79,7 @@ in rec
   ## User Configuration ##
   config =
   {
-    users.mutableUsers = false;
+    users.mutableUsers = mkIf (cfg.password == "") false;
 
     # Configuration Options
     users.users."${cfg.name}" = mkAliasDefinitions opt.settings;
@@ -94,7 +101,7 @@ in rec
       description = cfg.description;
       isNormalUser = true;
       uid = cfg.uid;
-      password = "password";
+      initialHashedPassword = cfg.password;
 
       # Groups
       group = "users";

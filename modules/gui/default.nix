@@ -14,13 +14,9 @@ in rec
   options.gui.desktop = lib.mkOption
   {
     description = "GUI Desktop Choice";
-    type = lib.types.str;
-    default = "";
+    type = lib.types.enum [ null "gnome" "gnome-minimal" ];
+    default = null;
   };
 
-  config.assertions =
-  [{
-    assertion = desktop != "";
-    message = (opt.description + " must be set");
-  }];
+  config.warnings = if (desktop == null) then [ (opt.description + " is unset") ] else [ ];
 }

@@ -57,6 +57,14 @@ utils.lib.eachSystem systems
   nixosModule = import ./modules { inherit systems version lib inputs files; };
   nixosModules = map.merge map.modules ./modules ./secrets import;
 
+  ## Configuration Templates ##
+  defaultTemplate = self.templates.minimal;
+  templates =
+  {
+    extensive = { path = ./.; description = "My Complete, Extensive NixOS Configuration"; };
+    minimal = { path = ./.templates/minimal; description = "Simple, Minimal NixOS Configuration"; };
+  };
+
   ## Install Media Configuration ##
   installMedia =
   {

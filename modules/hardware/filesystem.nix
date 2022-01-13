@@ -1,20 +1,21 @@
-{ config, lib, inputs, ... }:
+{ config, options, lib, inputs, ... }:
 let
   inherit (lib) mkIf mkMerge mkOption types;
   filesystem = config.hardware.filesystem;
+  opt = options.hardware.filesystem;
 in rec
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
   options.hardware.filesystem = mkOption
   {
-    description = "Disk File System Configuration";
+    description = "Disk File System Choice";
     type = types.enum [ null "simple" "advanced" ];
     default = null;
   };
 
   ## File System Configuration ##
-  config = mkIf (filesystem != null)
+  config = { warnings = if (filesystem == null) then [ (opt.description + " is unset") ] else [ ]; } // mkIf (filesystem != null)
   (mkMerge
   [
     {

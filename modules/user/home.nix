@@ -1,6 +1,6 @@
 { config, lib, pkgs, files, ... }:
 let
-  enable = !config.user.autologin;
+  enable = config.user.password == "";
   homeDir = "/home/${config.user.name}";
   version = config.system.stateVersion;
 in rec

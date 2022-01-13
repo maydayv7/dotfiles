@@ -81,7 +81,7 @@ lib.recursiveUpdate
     "") error "Expected a Variant of Install Media following 'iso' command";;
     *)
       echo "Building $2 .iso file..."
-      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso" || echo -e "\nAvailable Variants: \n${list inputs.self.installMedia}"
+      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso" || echo -e "\n# Available Variants #\n  ${list inputs.self.installMedia}" && exit 7
     ;;
     esac
     case $3 in
@@ -141,7 +141,7 @@ lib.recursiveUpdate
   "shell")
     case $2 in
     "") nix develop ${path} --command $SHELL;;
-    *) nix develop ${path}#$2 --command $SHELL || echo -e "\nAvailable Shells:\n${list inputs.self.devShells."${system}"}";;
+    *) nix develop ${path}#$2 --command $SHELL || echo -e "\n# Available Shells #\n  ${list inputs.self.devShells."${system}"}" && exit 7;;
     esac
   ;;
   "update")

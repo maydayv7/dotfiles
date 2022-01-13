@@ -1,11 +1,7 @@
 # Check Nix Syntax
 check:
   stage: check
-  rules:
+  only:
     - changes:
-      - '*.md'
-      - '*.yml'
-      - 'files/*'
-      when: never
-    - when: always
+      - '*.nix'
   script: nix flake check --keep-going
