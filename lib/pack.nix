@@ -1,6 +1,5 @@
-{ lib, inputs, ... }:
+{ self, lib, ... }:
 let
-  inherit (inputs) self;
   inherit (lib) genAttrs mapAttrs';
   attrNames = attrs: genAttrs (builtins.attrNames attrs) (name: "${name}");
 in rec {

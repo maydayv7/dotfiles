@@ -16,7 +16,7 @@ let
     {
       hooks = hooks.lib;
       util = import ./lib {
-        inherit systems inputs;
+        inherit self systems;
         lib = final;
       };
     } // home.lib // utils.lib);
@@ -58,7 +58,7 @@ in lib.eachSystem systems (system:
     overlays = map.modules ./packages/overlays import;
 
     ## Program Configuration and `dotfiles` ##
-    files = import ./files;
+    files = import ./files { inherit lib; };
 
     ## Custom Library Functions ##
     lib = lib.util;

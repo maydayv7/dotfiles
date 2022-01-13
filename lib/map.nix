@@ -2,14 +2,44 @@
 let
   inherit (builtins) attrNames foldl' isPath pathExists readDir toString;
   inherit (lib)
-    flatten filterAttrs hasPrefix hasSuffix mapAttrs' mapAttrsToList
+    flatten filterAttrs hasPrefix hasSuffix mapAttrs' mapAttrsToList mkIf
     nameValuePair removeSuffix;
 in rec {
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
   list = func: foldl' (x: y: x + y + "\n  ") "" (attrNames func);
 
-  # File Patches
+  ## Files Map
+  # Top Level
+  files = dir: func: extension:
+    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
+      let path = "${toString dir}/${name}";
+      in if type == "directory" && (if (extension == ".nix") then
+        pathExists "${path}/default.nix"
+      else
+        true) then
+        nameValuePair name (func path)
+      else if type == "regular"
+      && (if (extension == ".nix") then name != "default.nix" else true)
+      && hasSuffix extension name then
+        nameValuePair (removeSuffix extension name) (func path)
+      else
+        nameValuePair "" null) (readDir dir);
+
+  # Recursive
+  files' = dir: func: extension:
+    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
+      let path = "${toString dir}/${name}";
+      in if type == "directory" then
+        nameValuePair name (files' path func)
+      else if type == "regular"
+      && (if (extension == ".nix") then name != "default.nix" else true)
+      && hasSuffix extension name then
+        nameValuePair (removeSuffix extension name) (func path)
+      else
+        nameValuePair "" null) (readDir dir);
+
+  # Package Patches
   patches = patch:
     if isPath patch then
       flatten (mapAttrsToList (name: type:
@@ -21,30 +51,9 @@ in rec {
     else
       patch;
 
-  ## Module Imports
-  # Top Level
-  modules = dir: func:
-    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
-      let path = "${toString dir}/${name}";
-      in if type == "directory" && pathExists "${path}/default.nix" then
-        nameValuePair name (func path)
-      else if type == "regular" && name != "default.nix"
-      && hasSuffix ".nix" name then
-        nameValuePair (removeSuffix ".nix" name) (func path)
-      else
-        nameValuePair "" null) (readDir dir);
-
-  # Recursive
-  modules' = dir: func:
-    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
-      let path = "${toString dir}/${name}";
-      in if type == "directory" then
-        nameValuePair name (modules' path func)
-      else if type == "regular" && name != "default.nix"
-      && hasSuffix ".nix" name then
-        nameValuePair (removeSuffix ".nix" name) (func path)
-      else
-        nameValuePair "" null) (readDir dir);
+  # Module Imports
+  modules = dir: func: files dir func ".nix";
+  modules' = dir: func: files' dir func ".nix";
 
   # 'sops' Encrypted Secrets
   secrets = dir: neededForUsers:

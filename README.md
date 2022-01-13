@@ -36,10 +36,11 @@ Here is an overview of the file hierarchy:
 ├── .templates
 ├── files
 ├── devices
-├── scripts
 ├── secrets
 ├── shells
 ├── repl.nix
+├── scripts
+│   └── nixos.nix
 ├── packages
 │   └── overlays
 ├── lib
@@ -63,10 +64,10 @@ Here is an overview of the file hierarchy:
 + `.templates`: custom Flakes configuration templates
 + `files`: `dotfiles` and program configuration
 + `devices`: system configuration for various devices
-+ [`scripts`](./scripts/README.md): useful system management scripts
 + [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 + `shells`: sandboxed shells for development purposes
 + `repl.nix`: interactive shell to explore syntax and configuration
++ [`scripts`](./scripts/README.md): useful system management scripts
 + [`packages`](./packages/README.md): locally built custom packages
 + `overlays`: overrides for pre-built packages
 + [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
@@ -143,7 +144,7 @@ O
 <details>
 <summary><b>Build It Yourself</b></summary>
 
-If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. For starters, you can run `nix flake init -t github:maydayv7/dotfiles#minimal` in `/etc/nixos` for a basic Flakes-compatible system configuration. If you have any doubts, feel free to open an issue. You can check out the list of links below to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
+If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. For starters, you can run `nix flake init -t github:maydayv7/dotfiles` in `/etc/nixos` for a basic Flakes-compatible system configuration. If you have any doubts, feel free to open an issue. You can check out the list of links below to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
 
 **Welcome** to the Nix Community! ;)
 
@@ -161,7 +162,7 @@ I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes
 ### License
 The files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
 
-***Caution:*** This repository may contain proprietary [fonts](./files/fonts) and [wallpapers](./files/wallpapers) which do not come under the above-mentioned license
+***Caution:*** This repository may contain proprietary [fonts](./files/fonts) and [wallpapers](./files/images/wallpapers) which do not come under the above-mentioned license
 
 ### Branches
 There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing

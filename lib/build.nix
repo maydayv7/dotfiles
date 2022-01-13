@@ -1,6 +1,5 @@
-{ systems, lib, inputs, ... }:
+{ self, systems, lib, ... }:
 let
-  inherit (inputs) self nixpkgs;
   inherit (lib) nameValuePair util;
   inherit (builtins) any attrValues isPath listToAttrs map readFile;
 in rec {
@@ -24,10 +23,10 @@ in rec {
       };
 
       imports = [
-        # Build Module
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
+        ({ modulesPath, ... }: {
+          # Build Module
+          imports = [ "${modulesPath}/installer/cd-dvd/iso-image.nix" ];
 
-        ({
           # '.iso' Creation Settings
           isoImage = {
             makeEfiBootable = true;

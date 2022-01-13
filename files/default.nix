@@ -1,4 +1,9 @@
-with ({ inherit (builtins) readFile; }); {
+{ lib }:
+let
+  none = lib.id;
+  inherit (lib.util) map;
+  inherit (builtins) readFile;
+in {
   ## Dotfiles ##
   # File Paths
   path = {
@@ -10,11 +15,7 @@ with ({ inherit (builtins) readFile; }); {
   };
 
   # ASCII Art
-  ascii = {
-    lol = readFile ./ascii/lol;
-    pacman = readFile ./ascii/pacman;
-    tux = readFile ./ascii/tux;
-  };
+  ascii = map.files' ./ascii none "";
 
   # Discord Chat
   discord = {
@@ -60,12 +61,7 @@ with ({ inherit (builtins) readFile; }); {
   repl = ../repl.nix;
 
   # Bash Scripts
-  scripts = {
-    colors = readFile ../scripts/colors.sh;
-    commands = readFile ../scripts/commands.sh;
-    mail = readFile ../scripts/mail.sh;
-    partitions = readFile ../scripts/partitions.sh;
-  };
+  scripts = map.files ../scripts readFile ".sh";
 
   # 'sops' Encrypted Secrets
   sops = ../secrets/.sops.yaml;
