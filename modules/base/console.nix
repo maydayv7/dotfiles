@@ -9,7 +9,7 @@ rec
     {
       font = "ter-132n";
       packages = [ pkgs.terminus_font ];
-      keyMap = "us";
+      useXkbConfig = true;
     };
 
     # TTY

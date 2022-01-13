@@ -50,11 +50,12 @@ in rec
         # Command Not Found Helper
         command-not-found.enable = true;
 
-        # GPG Key Signing
-        gnupg.agent.enable = true;
-
-        # X11 SSH Password Authentication
-        ssh.askPassword = "";
+        # Command Correction Helper
+        thefuck =
+        {
+          enable = true;
+          alias = "fix";
+        };
       };
     })
   ];

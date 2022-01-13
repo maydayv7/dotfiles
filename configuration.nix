@@ -11,7 +11,7 @@ let
   # System Libraries
   files = self.files;
   inherit (lib) build map pack;
-  lib = nixpkgs.lib // home.lib // utils.lib // self.lib;
+  lib = nixpkgs.lib // home.lib // utils.lib // { hooks = hooks.lib; } // self.lib;
 in
 utils.lib.eachSystem systems
 (system:
@@ -22,13 +22,13 @@ utils.lib.eachSystem systems
   in
   {
     ## Configuration Checks ##
-    checks = import ./modules/nix/checks.nix { inherit system inputs pkgs; };
+    checks = import ./modules/nix/checks.nix { inherit system lib pkgs; };
 
     ## Developer Shells ##
-    # Default Developer Shell
+    # Default Shell
     devShell = import ./shells { inherit pkgs; };
 
-    # Tailored Developer Shells
+    # Tailored Shells
     devShells = map.modules ./shells (name: import name { inherit pkgs; });
 
     ## Package Configuration ##
@@ -39,7 +39,7 @@ utils.lib.eachSystem systems
     defaultApp = self.apps."${system}".nixos;
     defaultPackage = self.packages."${system}".dotfiles;
     apps = map.modules ./scripts (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    packages = self.apps."${system}" // pack.nixosConfigurations // pack.installMedia // map.modules ./packages (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
+    packages = self.apps."${system}" // pack.nixosConfigurations // pack.installMedia.iso // map.modules ./packages (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
   }
 )
 //
@@ -69,11 +69,9 @@ utils.lib.eachSystem systems
   ## Install Media Configuration ##
   installMedia =
   {
-    # Install Media - GNOME
-    gnome = build.system
+    # GNOME Desktop
+    gnome = build.iso
     {
-      iso = true;
-
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
 
@@ -83,92 +81,5 @@ utils.lib.eachSystem systems
   };
 
   ## Device Configuration ##
-  nixosConfigurations =
-  {
-    # PC - Dell Inspiron 15 5000
-    Vortex = build.system
-    {
-      system = "x86_64-linux";
-      name = "Vortex";
-      repo = "stable";
-
-      timezone = "Asia/Kolkata";
-      locale = "en_IN.UTF-8";
-
-      kernel = "linux_lqx";
-      kernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
-
-      hardware =
-      {
-        boot = "efi";
-        cores = 8;
-        filesystem = "advanced";
-        support = [ "mobile" "printer" "ssd" "virtualisation" ];
-        modules = [ hardware.nixosModules.dell-inspiron-5509 ];
-      };
-
-      desktop = "gnome";
-      apps =
-      {
-        list = [ "discord" "firefox" "git" "office" "wine" ];
-        git =
-        {
-          name = "maydayv7";
-          mail = "maydayv7@gmail.com";
-          runner = true;
-        };
-      };
-
-      # User V7
-      user =
-      {
-        name = "v7";
-        description = "V 7";
-        groups = [ "wheel" "keys" ];
-        uid = 1000;
-        shell =
-        {
-          choice = "zsh";
-          utilities = true;
-        };
-      };
-    };
-
-    # PC - Dell Inspiron 11 3000
-    Futura = build.system
-    {
-      system = "x86_64-linux";
-      name = "Futura";
-
-      timezone = "Asia/Kolkata";
-      locale = "en_IN.UTF-8";
-
-      kernel = "linux_5_4";
-      kernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
-
-      hardware =
-      {
-        boot = "efi";
-        cores = 4;
-        filesystem = "simple";
-        modules = with hardware.nixosModules;
-        [
-          common-cpu-intel
-          common-pc
-          common-pc-laptop
-        ];
-      };
-
-      desktop = "gnome";
-      apps.list = [ "firefox" "office" ];
-
-      # User Navya
-      user =
-      {
-        name = "navya";
-        description = "Navya";
-        shell.choice = "zsh";
-      };
-    };
-  };
+  nixosConfigurations = map.modules ./devices (name: build.device (import name hardware.nixosModules));
 }

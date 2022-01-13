@@ -1,10 +1,9 @@
 { system ? "x86_64-linux", lib, inputs, pkgs, files, ... }:
 with pkgs;
+with files;
 let
   inherit (lib.map) list;
-  path = files.path;
-  repl = "${path}/shells/repl/repl.nix";
-  sops = "${path}/secrets/.sops.yaml";
+  inherit (inputs) self;
 
   # Usage Description
   usage =
@@ -16,7 +15,7 @@ let
         apply [ --'option' ]       - Applies Device and User Configuration
         check                      - Checks System Configuration
         clean                      - Garbage Collects and Hard-Links Nix Store
-        explore                    - Opens interactive shell to explore syntax and configuration
+        explore                    - Opens Interactive Shell to explore Syntax and Configuration
         iso 'variant' [ --burn ]   - Builds Install Media and optionally burns .iso to USB
         list                       - Lists all Installed Packages
         save                       - Saves Configuration State to Repository
@@ -30,7 +29,7 @@ let
       # Usage #
         --boot                     - Apply Configuration on boot
         --check                    - Check Configuration Build
-        --rollback                 - Revert to last Build Generation
+        --rollback                 - Revert to Last Build Generation
         --test                     - Test Configuration Build
     '';
 
@@ -40,7 +39,7 @@ let
         edit 'path'                - Edit desired Secret
         list                       - List system Secrets
         show 'path'                - Show desired Secret
-        update 'path'              - Update Secrets to defined keys
+        update 'path'              - Update Secrets to defined Keys
     '';
   };
 in
@@ -81,7 +80,7 @@ lib.recursiveUpdate
     "") error "Expected a Variant of Install Media following 'iso' command";;
     *)
       echo "Building $2 .iso file..."
-      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso" || echo -e "\n# Available Variants #\n  ${list inputs.self.installMedia}" && exit 7
+      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso" || echo -e "\n# Available Variants #\n  ${list self.installMedia}" && exit 7
     ;;
     esac
     case $3 in
@@ -141,7 +140,7 @@ lib.recursiveUpdate
   "shell")
     case $2 in
     "") nix develop ${path} --command $SHELL;;
-    *) nix develop ${path}#$2 --command $SHELL || echo -e "\n# Available Shells #\n  ${list inputs.self.devShells."${system}"}" && exit 7;;
+    *) nix develop ${path}#$2 --command $SHELL || echo -e "\n# Available Shells #\n  ${list self.devShells."${system}"}" && exit 7;;
     esac
   ;;
   "update")

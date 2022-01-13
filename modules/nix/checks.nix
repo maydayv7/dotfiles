@@ -1,16 +1,17 @@
-{ system, inputs, pkgs }:
-with inputs;
+{ system, lib, pkgs }:
+with ({ inherit (lib) hooks pack; });
 # Install Media Checks
-(builtins.mapAttrs (_: name: name.config.system.build.toplevel) self.installMedia)
+(pack.installMedia.system)
 //
 {
   # Pre-Commit Hooks
-  commit = hooks.lib."${system}".run
+  commit = hooks."${system}".run
   {
     src = ./.;
     hooks =
     {
       nix-linter.enable = true;
+      shellcheck.enable = true;
       stylua =
       {
         enable = true;

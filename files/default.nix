@@ -39,7 +39,13 @@ with ({ inherit (builtins) readFile; });
   };
 
   # GPG Keys Directory
-  gpg = "/etc/nixos/secrets/unencrypted/gpg";
+  gpg = "/etc/nixos/files/gpg";
+
+  # Interactive Nix Shell
+  repl = ../shells/repl/repl.nix;
+
+  # `sops` Encrypted Secrets
+  sops = ../secrets/.sops.yaml;
 
   # Document Templates
   templates = ./templates;

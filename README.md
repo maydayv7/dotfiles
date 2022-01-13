@@ -34,6 +34,7 @@ Here is an overview of the file hierarchy:
 ├── flake.lock
 ├── .version
 ├── files
+├── devices
 ├── scripts
 ├── secrets
 ├── shells
@@ -60,6 +61,7 @@ Here is an overview of the file hierarchy:
 + `flake.nix`: repository version control using `inputs`
 + `.version`: system state version
 + `files`: `dotfiles` and program configuration
++ `devices`: system configuration for various devices
 + `scripts`: useful system management scripts
 + `secrets`: authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 + `shells`: sandboxed shells for development purposes
@@ -131,9 +133,9 @@ O
 4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command:  
 *Replace* ***PATH*** *with the path to the `secret`* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
 
-5. Edit `configuration.nix` (particularly the `nixosConfigurations` section) and add your device (and if required, custom hardware configuration using the `hardware.module` option)
+5. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, custom hardware configuration using the `hardware.modules` option
 
-6. Finally, run `nixos-rebuild switch --flake /etc/nixos` (as `root`) to switch to the configuration!
+6. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
 </details>
 
 <details>

@@ -12,7 +12,7 @@ This repository makes use of [`GitLab CI/CD`](../.gitlab/.gitlab-ci.yml) in orde
 + [`CACHIX_TOKEN`](../secrets/encrypted/cachix.token): Cachix Authentication Token
 
 ### Credentials
-The authentication credentials are managed using [`sops-nix`](https://github.com/Mic92/sops-nix) at [`secrets`](../secrets). The encrypted keys (using GPG authentication) are stored at [`secrets/encrypted`](../secrets/encrypted), and keys unencrypted by [`sops`](https://github.com/mozilla/sops) (but managed using `git-crypt`) are located at [`secrets/unencrypted`](../secrets/unencrypted). User passwords are made using the command `mkpasswd -m sha-512` and specified using the `passwordFile` option
+The authentication credentials are managed using [`sops-nix`](https://github.com/Mic92/sops-nix) at [`secrets`](../secrets/secrets.nix). The [`sops`](https://github.com/mozilla/sops) encrypted secrets (using GPG authentication) are stored at multiple places, like [`secrets`](../secrets) and [`modules/user/passwords`](../modules/user/passwords), and other keys are managed using `git-crypt` (such as [`files/gpg`](../files/gpg)). User passwords are made using the command `mkpasswd -m sha-512` and specified using the `passwordFile` option
 
 ### File System
 The system may be set up using either a `simple` or `advanced` filesystem layout. The advanced BTRFS opt-in state filesystem configuration (using TMPFS for `/`) allows for a vastly improved experience, preventing formation of cruft and exerting total control over the device state, by erasing the system at every boot, keeping only what's required

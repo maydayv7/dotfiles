@@ -1,9 +1,9 @@
 { version, lib, inputs, files }:
 with inputs;
-with ({ inherit (builtins) attrValues readFile substring; });
+with ({ inherit (builtins) attrValues readFile replaceStrings substring; });
 {
   ## Configuration Build Function ##
-  config = { system ? "x86_64-linux", iso ? false, name ? "nixos", repo ? "stable", timezone, locale, kernel, kernelModules ? [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ], desktop ? null, apps ? { }, hardware ? { }, user ? { name = "nixos"; autologin = true; password = readFile ./user/passwords/_nixos; } }:
+  config = { system ? "x86_64-linux", iso ? false, name ? "nixos", description ? "",repo ? "stable", timezone, locale, kernel, kernelModules ? [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ], desktop ? null, apps ? { }, hardware ? { }, user ? { name = "nixos"; autologin = true; password = readFile ./user/passwords/_nixos; } }:
   let
     # Default Package Channel
     pkgs = self.channels."${system}"."${repo}";
@@ -42,7 +42,8 @@ with ({ inherit (builtins) attrValues readFile substring; });
       {
         stateVersion = version;
         configurationRevision = self.rev or null;
-        nixos.label = if self ? shortRev then "${substring 0 8 self.lastModifiedDate}.${self.shortRev}" else "dirty";
+        name = "${name}-${replaceStrings [" "] ["_"] description}";
+        nixos.label = if self ? rev then "${substring 0 8 self.lastModifiedDate}.${self.shortRev}" else "dirty";
       };
     }];
   };

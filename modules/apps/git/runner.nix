@@ -1,11 +1,11 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) map mkIf;
   enable = config.apps.git.runner;
   secrets = config.sops.secrets;
 in
 {
-  ## GitLab Configuration ##
+  ## Runner Configuration ##
   config = mkIf enable
   {
     # Secrets
@@ -15,7 +15,8 @@ in
     boot.kernel.sysctl."net.ipv4.ip_forward" = true;
     virtualisation.docker.enable = true;
 
-    # Runner
+    # Local Runner
+    environment.systemPackages = with pkgs; [ act ];
     services.gitlab-runner =
     {
       enable = true;

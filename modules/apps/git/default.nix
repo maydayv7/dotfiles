@@ -1,4 +1,4 @@
-{ config, options, lib, ... }:
+{ config, options, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkOption types;
   enable = (builtins.elem "git" config.apps.list);
@@ -6,7 +6,7 @@ let
   cfg = config.apps.git;
 in rec
 {
-  imports = [ ./gitlab.nix ];
+  imports = [ ./runner.nix ];
 
   options.apps.git =
   {
@@ -50,10 +50,56 @@ in rec
       }
     ];
 
+    # Packages
+    programs =
+    {
+      # GPG Key Signing
+      gnupg.agent.enable = true;
+
+      # X11 SSH Password Authentication
+      ssh.askPassword = "";
+    };
+
+    environment.systemPackages = with pkgs.gitAndTools;
+    [
+      diff-so-fancy
+      gitFull
+    ];
+
+    # Settings
     user.home.programs.git =
     {
       enable = true;
       delta.enable = true;
+
+      # User Credentials
+      userName = cfg.name;
+      userEmail = cfg.mail;
+      signing =
+      {
+        key = cfg.key;
+        signByDefault = true;
+      };
+
+      # Globally Ignored Files
+      ignores =
+      [
+        "*~*"
+        "*.bak"
+        ".direnv"
+        "result"
+        "result-*"
+      ];
+
+      # Additional Parameters
+      extraConfig =
+      {
+        color.ui = "auto";
+        core.hooksPath = ".git-hooks";
+        credential.helper = "libsecret";
+        init.defaultBranch = "main";
+        pull.rebase = "true";
+      };
 
       # Command Aliases
       aliases =
@@ -96,35 +142,6 @@ in rec
         t = "tag";
         td = "!sh -c 'git tag -d $1 && git push origin :$1' -";
         tl = "tag -l";
-      };
-
-      # Globally Ignored Files
-      ignores =
-      [
-        "*~*"
-        "*.bak"
-        ".direnv"
-        "result"
-        "result-*"
-      ];
-
-      # Additional Parameters
-      extraConfig =
-      {
-        color.ui = "auto";
-        core.hooksPath = ".git-hooks";
-        credential.helper = "store";
-        init.defaultBranch = "main";
-        pull.rebase = "true";
-      };
-
-      # User Credentials
-      userName = cfg.name;
-      userEmail = cfg.mail;
-      signing =
-      {
-        key = cfg.key;
-        signByDefault = true;
       };
     };
   };

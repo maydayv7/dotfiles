@@ -13,7 +13,7 @@ in rec
       pathsToLink = [ "/share/zsh" ];
     };
 
-    # User Configuration
+    # Settings
     user.home =
     {
       programs.zsh =
@@ -25,8 +25,12 @@ in rec
         enableCompletion = true;
         enableVteIntegration = true;
         autocd = true;
-        initExtra ='' bindkey "\e[3~" delete-char '';
-        initExtraBeforeCompInit = "source ~/.p10k.zsh";
+        initExtraBeforeCompInit =
+        ''
+          bindkey "\e[3~" delete-char
+          source ~/.p10k.zsh
+          eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
+        '';
 
         # Command Aliases
         shellAliases =

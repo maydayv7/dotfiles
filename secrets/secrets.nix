@@ -13,7 +13,7 @@ in
     sops =
     {
       # Encrypted Secrets
-      secrets = map.secrets ./encrypted false;
+      secrets = map.secrets ./. false;
 
       # GPG Key Import
       gnupg =

@@ -6,8 +6,11 @@ let
 in rec
 {
   ## Builder Functions ##
-  system = self.nixosModule.config;
   eachSystem = func: listToAttrs (map (name: nameValuePair name (func name)) systems);
+
+  # Configuration Builders
+  device = self.nixosModule.config;
+  iso = config: self.nixosModule.config (config // { iso = true; description = '' Install Media '';});
 
   # Package Channels Builder
   channel = src: overlays: patches: eachSystem (system: import (src.legacyPackages."${system}".applyPatches
@@ -16,7 +19,7 @@ in rec
     name = "patched-input-${hashString "md5" (toString src)}";
     patches = if typeOf patches == "list" then patches
     else flatten (mapAttrsToList (name: type:
-      if hasSuffix ".diff" name
+      if type == "regular" && hasSuffix ".diff" name
         then patches + "/${name}"
       else null)
     (readDir patches));
