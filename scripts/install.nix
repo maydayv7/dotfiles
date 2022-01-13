@@ -7,7 +7,7 @@ lib.recursiveUpdate {
 } (writeShellScriptBin "nixos-install-device" ''
   #!${runtimeShell}
   set +x
-  ${commands}
+  ${scripts.commands}
 
   if [ "$EUID" -ne 0 ]
   then

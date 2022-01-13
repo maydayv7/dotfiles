@@ -60,7 +60,7 @@
       enable = true;
       enableNotifications = true;
       freeMemThreshold = 5;
-      freeSwapThreshold = 90;
+      freeSwapThreshold = 15;
     };
   };
 }

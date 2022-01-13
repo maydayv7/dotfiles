@@ -58,7 +58,7 @@ in rec {
           ];
           config = {
             allowAliases = true;
-            allowBroken = true;
+            allowBroken = false;
             allowUnfree = true;
           };
         });

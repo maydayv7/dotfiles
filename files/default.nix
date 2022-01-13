@@ -9,8 +9,12 @@ with ({ inherit (builtins) readFile; }); {
     mirror = "https://github.com/maydayv7/dotfiles";
   };
 
-  # Useful Commands
-  commands = readFile ../scripts/commands.sh;
+  # ASCII Art
+  ascii = {
+    lol = readFile ./ascii/lol;
+    pacman = readFile ./ascii/pacman;
+    tux = readFile ./ascii/tux;
+  };
 
   # Discord Chat
   discord = {
@@ -55,6 +59,13 @@ with ({ inherit (builtins) readFile; }); {
   # Interactive Nix Shell
   repl = ../repl.nix;
 
+  # Bash Scripts
+  scripts = {
+    colors = readFile ../scripts/colors.sh;
+    commands = readFile ../scripts/commands.sh;
+    mail = readFile ../scripts/mail.sh;
+  };
+
   # 'sops' Encrypted Secrets
   sops = ../secrets/.sops.yaml;
 
@@ -68,9 +79,5 @@ with ({ inherit (builtins) readFile; }); {
   xorg = readFile ./xorg/Xresources;
 
   # Z Shell
-  zsh = {
-    colors = readFile ./zsh/colors.sh;
-    lol = readFile ./zsh/lol;
-    prompt = readFile ./zsh/p10k.zsh;
-  };
+  zsh.prompt = readFile ./zsh/p10k.zsh;
 }

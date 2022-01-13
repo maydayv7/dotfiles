@@ -30,11 +30,10 @@ in rec {
         shellAliases = {
           hi = "echo 'Hi there. How are you?'";
           bye = "exit";
-          lol = ''echo "${zsh.lol}"'';
           dotfiles = "cd ${path.system}";
 
           # Programs
-          colors = "${zsh.colors}";
+          colors = "${scripts.colors}";
           edit = "sudo $EDITOR";
           ls = "ls --color --group-directories-first";
           sike = "neofetch";

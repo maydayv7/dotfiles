@@ -50,7 +50,7 @@ in lib.recursiveUpdate {
 } (writeShellScriptBin "nixos" ''
   #!${runtimeShell}
   set -o pipefail
-  ${commands}
+  ${scripts.commands}
 
   case $1 in
   "help"|"--help"|"-h") echo "${usage.script}";;
@@ -137,7 +137,7 @@ in lib.recursiveUpdate {
       package=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep -m 1 $2)
       if [ -z "$package" ]
       then
-        nix search nixpkgs#$2 &> /dev/null && error "Package '$2' is not installed" || error "Package '$2' isn't Valid"
+        nix search nixpkgs#$2 &> /dev/null && error "Package '$2' is not installed" || error "Package '$2' is invalid"
       else
         echo "Package $package found"
         nix search nixpkgs#$2 &> /dev/null && location=$(nix eval nixpkgs#$2.outPath 2> /dev/null | sed 's/"//g') || location=$(find /nix/store -type d -name "*$package")

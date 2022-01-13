@@ -7,7 +7,7 @@ lib.recursiveUpdate {
 } (writeShellScriptBin "nixos-setup" ''
   #!${runtimeShell}
   set +x
-  ${commands}
+  ${scripts.commands}
 
   read -p "Enter Path to GPG Keys (path/.git): " KEY
   LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'

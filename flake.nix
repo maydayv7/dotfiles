@@ -47,6 +47,12 @@
     nur.url = "github:nix-community/NUR";
 
     ## Configuration Modules ##
+    # Flake Compatibility Library
+    compatibility = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
+
     # Flake Utility Functions
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 

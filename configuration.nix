@@ -12,7 +12,6 @@ let
   files = self.files;
   inherit (builtins) readFile;
   inherit (lib.util) build map pack;
-  inherit (lib) eachSystem splitString;
   lib = nixpkgs.lib.extend (final: prev:
     {
       hooks = hooks.lib;
@@ -21,7 +20,7 @@ let
         lib = final;
       };
     } // home.lib // utils.lib);
-in eachSystem systems (system:
+in lib.eachSystem systems (system:
   let
     # Package Channels
     pkgs = (build.channel nixpkgs [ nur.overlay ] ./packages/patches).${system};
