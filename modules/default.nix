@@ -48,6 +48,8 @@ in {
           name = "${name}-${replaceStrings [ " " ] [ "_" ] description}";
           nixos.label = if self ? rev then
             "${substring 0 8 self.lastModifiedDate}.${self.shortRev}"
+          else if self ? dirtyRev then
+            self.dirtyShortRev
           else
             "dirty";
         };

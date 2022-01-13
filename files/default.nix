@@ -4,6 +4,7 @@ with ({ inherit (builtins) readFile; }); {
   path = {
     toplevel = ./.;
     system = "/etc/nixos";
+    cache = "maydayv7-dotfiles";
     repo = "https://gitlab.com/maydayv7/dotfiles";
     mirror = "https://github.com/maydayv7/dotfiles";
   };

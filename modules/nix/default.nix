@@ -6,7 +6,7 @@
     environment.systemPackages = with pkgs; [ nixfmt nix-linter manix ];
     nix = {
       # Version
-      package = pkgs.unstable.nixStable;
+      package = pkgs.nixFlakes;
 
       # Garbage Collection
       autoOptimiseStore = true;

@@ -14,6 +14,7 @@ let
       ## Tool for NixOS System Management ##
       # Usage #
         apply [ --'option' ]       - Applies Device and User Configuration
+        cache 'command'            - Pushes Binary Cache Output to Cachix
         check                      - Checks System Configuration
         clean [ --all ]            - Garbage Collects and Optimises Nix Store
         explore                    - Opens Interactive Shell to explore Syntax and Configuration
@@ -44,7 +45,7 @@ let
   };
 in lib.recursiveUpdate {
   meta.description = "System Management Script";
-  buildInputs = [ coreutils dd git gnused nixfmt nix-linter sops tree ];
+  buildInputs = [ cachix coreutils dd git gnused nixfmt nix-linter sops tree ];
 } (writeShellScriptBin "nixos" ''
   #!${runtimeShell}
   set -o pipefail
@@ -62,6 +63,17 @@ in lib.recursiveUpdate {
     "--test") sudo nixos-rebuild test --no-build-nix --show-trace --flake ${path.system}#;;
     *) error "Unknown option '$2'" "${usage.apply}";;
     esac
+  ;;
+  "cache")
+  command=$(echo "''${@:2}")
+    if [ -z "$2" ]
+      then
+        error "Expected a Build Command"
+      else
+        echo "Executing Command '$command'..."
+        cachix authtoken $(find ${path.system} -name cachix-token.secret | xargs sops --config ${sops} -d)
+        cachix watch-exec ${path.cache} $command
+    fi
   ;;
   "check")
     echo "Formatting Code..."

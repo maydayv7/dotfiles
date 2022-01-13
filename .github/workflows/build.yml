@@ -39,4 +39,4 @@ jobs:
         name: maydayv7-dotfiles
         authToken: '${{ secrets.CACHIX_TOKEN }}'
     - name: Build Configuration
-      run: nix build github:maydayv7/dotfiles#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel
+      run: nix build github:maydayv7/dotfiles#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel -L --show-trace
