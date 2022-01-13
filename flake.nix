@@ -46,16 +46,24 @@
     # File System Persistent State Handler
     impermanence.url = "github:nix-community/impermanence";
 
+    # Pre-Commit Hooks
+    hooks =
+    {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "utils/flake-utils";
+    };
+
     ## Additional Repositories ##
     # Firefox GNOME Theme
-    firefox =
+    firefox-theme =
     {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
 
     # Z Shell Syntax Highlighting
-    zsh =
+    zsh-syntax =
     {
       url = "github:zsh-users/zsh-syntax-highlighting";
       flake = false;

@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, files, ... }:
+{ config, lib, pkgs, files, ... }:
 let
   enable = (builtins.elem "discord" config.apps.list);
 in
@@ -22,7 +22,7 @@ in
       };
 
       # Discord Activation  
-      activation.discordSetup = inputs.home.lib.hm.dag.entryAfter ["writeBoundary"]
+      activation.discordSetup = lib.hm.dag.entryAfter ["writeBoundary"]
       ''
         FILE=~/.config/BetterDiscord
         if [ -e "$FILE" ];

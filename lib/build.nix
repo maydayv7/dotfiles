@@ -10,10 +10,10 @@ in rec
   eachSystem = func: listToAttrs (map (name: nameValuePair name (func name)) systems);
 
   # Package Channels Builder
-  channel = channel: overlays: patches: eachSystem (system: import (channel.legacyPackages."${system}".applyPatches
+  channel = src: overlays: patches: eachSystem (system: import (src.legacyPackages."${system}".applyPatches
   {
-    name = "patched-input-${hashString "md5" (toString channel)}";
-    src = channel;
+    inherit src;
+    name = "patched-input-${hashString "md5" (toString src)}";
     patches = if typeOf patches == "list" then patches
     else flatten (mapAttrsToList (name: type:
       if hasSuffix ".diff" name

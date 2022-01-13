@@ -1,4 +1,4 @@
-{ lib, inputs, pkgs, ... }:
+{ inputs, pkgs, ... }:
 rec
 {
   imports =

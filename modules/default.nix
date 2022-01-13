@@ -1,4 +1,4 @@
-{ systems, version, lib, inputs, files }:
+{ version, lib, inputs, files }:
 with inputs;
 with ({ inherit (builtins) attrValues readFile substring; });
 {

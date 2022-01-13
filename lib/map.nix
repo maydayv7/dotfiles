@@ -9,7 +9,8 @@ in rec
   list = func: foldl' (x: y: x + y + "\n  ") "" (attrNames func);
   merge = name: dir1: dir2: func: recursiveUpdate (name dir1 func) (name dir2 func);
 
-  # Module Imports
+  ## Module Imports
+  # Top Level
   modules = dir: func:
     filter
       (name: type: type != null && !(hasPrefix "_" name))
@@ -24,6 +25,7 @@ in rec
         else nameValuePair "" null)
       (readDir dir);
 
+  # Recursive
   modules' = dir: func:
     filter
       (name: type: type != null && !(hasPrefix "_" name))
@@ -38,8 +40,8 @@ in rec
         else nameValuePair "" null)
       (readDir dir);
 
-  # Sops Encrypted Secrets
-  secrets = dir: choice:
+  # `sops` Encrypted Secrets
+  secrets = dir: neededForUsers:
     filter
       (name: type: type != null && !(hasPrefix "_" name) && !(hasSuffix "keep" name))
       (name: type:
@@ -47,7 +49,7 @@ in rec
         {
           sopsFile =  dir + "/${name}";
           format = "binary";
-          neededForUsers = choice;
+          inherit neededForUsers;
         }))
       (readDir dir);
 }

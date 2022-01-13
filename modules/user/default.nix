@@ -1,4 +1,4 @@
-{ config, options, lib, inputs, pkgs, ... }:
+{ config, options, lib, inputs, ... }:
 let
   inherit (lib) mkIf mkOption mkAliasDefinitions types;
   cfg = config.user;

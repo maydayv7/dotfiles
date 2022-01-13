@@ -14,7 +14,7 @@
   };
 
   ## System Configuration ##
-  outputs = { self, ... } @ inputs:
+  outputs = { ... } @ inputs:
   with inputs;
   with ({ lib = nixpkgs.lib // dotfiles.lib; });
   {

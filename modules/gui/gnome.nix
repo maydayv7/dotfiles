@@ -132,7 +132,7 @@ in rec
           ".config/BetterDiscord/data/stable/custom.css" = mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/${username}/chrome/userChrome.css".text = ''@import "${inputs.firefox}/userChrome.css";'';
+          ".mozilla/firefox/${username}/chrome/userChrome.css".text = ''@import "${inputs.firefox-theme}/userChrome.css";'';
           ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
         };
       };
@@ -214,7 +214,7 @@ in rec
         epiphany
         gedit
         gnome-system-monitor
-        gnome-terminal
+        pkgs.kgx
         nautilus
       ];
 

@@ -1,8 +1,9 @@
-let
-  inherit (builtins) readFile;
-in
+with ({ inherit (builtins) readFile; });
 {
   ## Dotfiles ##
+  # Files Path
+  toplevel = ./.;
+
   # Configuration Directory
   path = "/etc/nixos";
 

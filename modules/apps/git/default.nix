@@ -1,4 +1,4 @@
-{ config, options, lib, inputs, ... }:
+{ config, options, lib, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkOption types;
   enable = (builtins.elem "git" config.apps.list);
@@ -90,6 +90,8 @@ in rec
         s = "!git --no-pager status";
         sm = "submodule";
         st = "stash";
+        std = "stash drop";
+        stp = "stash pop";
         sync = "push --force --mirror";
         t = "tag";
         td = "!sh -c 'git tag -d $1 && git push origin :$1' -";

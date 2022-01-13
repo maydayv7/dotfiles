@@ -31,12 +31,12 @@ in rec
         # Command Aliases
         shellAliases =
         {
-          sike = "neofetch";
-          edit = "sudo $EDITOR";
           hi = "echo 'Hi there. How are you?'";
           bye = "exit";
           lol = "echo \"${files.zsh.lol}\"";
+          sike = "neofetch";
           dotfiles = "cd ${files.path}";
+          edit = "sudo $EDITOR";
         };
 
         # Command History
@@ -53,7 +53,7 @@ in rec
         [
           {
             name = "zsh-syntax-highlighting";
-            src = inputs.zsh;
+            src = inputs.zsh-syntax;
             file = "zsh-syntax-highlighting.zsh";
           }
           {

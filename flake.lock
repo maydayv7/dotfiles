@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "firefox": {
+    "firefox-theme": {
       "flake": false,
       "locked": {
         "lastModified": 1639956466,
@@ -67,6 +67,30 @@
         "type": "github"
       }
     },
+    "hooks": {
+      "inputs": {
+        "flake-utils": [
+          "utils",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1639823344,
+        "narHash": "sha256-jlsQb2y6A5dB1R0wVPLOfDGM0wLyfYqEJNzMtXuzCXw=",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "ff9c0b459ddc4b79c06e19d44251daa8e9cd1746",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "type": "github"
+      }
+    },
     "impermanence": {
       "locked": {
         "lastModified": 1638981861,
@@ -115,16 +139,17 @@
     },
     "root": {
       "inputs": {
-        "firefox": "firefox",
+        "firefox-theme": "firefox-theme",
         "hardware": "hardware",
         "home": "home",
+        "hooks": "hooks",
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "sops": "sops",
         "unstable": "unstable",
         "utils": "utils",
-        "zsh": "zsh"
+        "zsh-syntax": "zsh-syntax"
       }
     },
     "sops": {
@@ -181,7 +206,7 @@
         "type": "github"
       }
     },
-    "zsh": {
+    "zsh-syntax": {
       "flake": false,
       "locked": {
         "lastModified": 1636857900,

@@ -3,7 +3,7 @@
 
 ![Version](https://img.shields.io/gitlab/v/release/maydayv7/dotfiles?include_prereleases&label=version&color=red&style=flat-square&logo=gitlab) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-This [repository](https://gitlab.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup
+This [repository](https://gitlab.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/))
 
 ![](./docs/resources/desktop.png)
 
@@ -136,9 +136,18 @@ O
 6. Finally, run `nixos-rebuild switch --flake /etc/nixos` (as `root`) to switch to the configuration!
 </details>
 
+<details>
+<summary><b>Build It Yourself</b></summary>
+
+If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. For starters, you can run `nix flake init -t gitlab:maydayv7/dotfiles#minimal` in `/etc/nixos` for a basic Flakes-compatible system configuration. If you have any doubts, feel free to open an issue. You can check out [this](./docs/LINKS.md) document which contains a list of links to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
+
+**Welcome** to the Nix Community! ;)
+
+</details>
+
 ## Notes
 #### Caution
-I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature. If you have any doubts or suggestions, feel free to open an issue
+I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.4). If you have any doubts or suggestions, feel free to open an issue
 
 #### Requirements
 *May change according to available hardware*  
@@ -151,6 +160,6 @@ The files and scripts in this repository are licensed under the very permissive 
 ***Caution:*** This repository may contain proprietary [fonts](./files/fonts) and [wallpapers](./files/wallpapers) which do not come under the above-mentioned license
 
 #### Branches
-There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop)(when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
+There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
 
 See the [docs](./docs/README.md) for additional information

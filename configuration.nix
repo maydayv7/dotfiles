@@ -6,15 +6,12 @@ let
   systems = [ "x86_64-linux" ];
 
   # NixOS Version
-  version = readFile ./.version;
+  version = builtins.readFile ./.version;
 
   # System Libraries
+  files = self.files;
   inherit (lib) build map pack;
-  lib = nixpkgs.lib // self.lib;
-  inherit (builtins) mapAttrs readFile;
-
-  # Program Configuration and `dotfiles`
-  files = import ./files;
+  lib = nixpkgs.lib // home.lib // utils.lib // self.lib;
 in
 utils.lib.eachSystem systems
 (system:
@@ -25,7 +22,7 @@ utils.lib.eachSystem systems
   in
   {
     ## Configuration Checks ##
-    checks = mapAttrs (_: name: name.config.system.build.toplevel) self.installMedia;
+    checks = import ./modules/nix/checks.nix { inherit system inputs pkgs; };
 
     ## Developer Shells ##
     # Default Developer Shell
@@ -39,9 +36,10 @@ utils.lib.eachSystem systems
     legacyPackages = self.channels."${system}".stable;
 
     # Custom Packages
-    defaultPackage = self.apps."${system}".nixos;
+    defaultApp = self.apps."${system}".nixos;
+    defaultPackage = self.packages."${system}".dotfiles;
     apps = map.modules ./scripts (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    packages = self.apps."${system}" // pack.nixosConfigurations // pack.installMedia // map.modules ./packages (name: pkgs.callPackage name { inherit lib pkgs files; });
+    packages = self.apps."${system}" // pack.nixosConfigurations // pack.installMedia // map.modules ./packages (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
   }
 )
 //
@@ -50,11 +48,14 @@ utils.lib.eachSystem systems
   overlay = final: prev: { home-manager = prev.callPackage "${inputs.home}/home-manager" { }; };
   overlays = map.modules ./packages/overlays import;
 
+  ## Program Configuration and `dotfiles` ##
+  files = import ./files;
+
   ## Custom Library Functions ##
   lib = import ./lib { inherit systems inputs; lib = nixpkgs.lib; };
 
   ## Custom Configuration Modules ##
-  nixosModule = import ./modules { inherit systems version lib inputs files; };
+  nixosModule = import ./modules { inherit version lib inputs files; };
   nixosModules = map.merge map.modules ./modules ./secrets import;
 
   ## Configuration Templates ##
