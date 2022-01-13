@@ -1,4 +1,5 @@
 { config, lib, pkgs, files, ... }:
+with files.zsh;
 let shell = config.user.shell.choice;
 in rec {
   ## Z Shell Configuration ##
@@ -29,11 +30,14 @@ in rec {
         shellAliases = {
           hi = "echo 'Hi there. How are you?'";
           bye = "exit";
-          lol = ''echo "${files.zsh.lol}"'';
-          ls = "ls --color --group-directories-first";
-          sike = "neofetch";
+          lol = ''echo "${lol}"'';
           dotfiles = "cd ${files.path}";
+
+          # Programs
+          sike = "neofetch";
           edit = "sudo $EDITOR";
+          ls = "ls --color --group-directories-first";
+          colors = "${colors}";
         };
 
         # Command History

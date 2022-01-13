@@ -64,6 +64,7 @@ with ({ inherit (builtins) readFile; }); {
 
   # Z Shell
   zsh = {
+    colors = readFile ./zsh/colors.sh;
     lol = readFile ./zsh/lol;
     prompt = readFile ./zsh/p10k.zsh;
   };

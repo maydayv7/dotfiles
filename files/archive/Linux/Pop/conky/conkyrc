@@ -1,3 +1,5 @@
+## PopOS Conky Config
+
 conky.config = {
     background = true,
     update_interval = 0.5,
@@ -34,7 +36,7 @@ conky.config = {
     color2 = 'AAAAAA', 
     color3 = '888888', 
     color4 = '666666',
-    lua_load = '~/.conky/conky_pop/conky_pop.lua',
+    lua_load = '~/.conky/conky_pop/conky.lua',
     lua_draw_hook_post = 'main'
 }
  
