@@ -38,7 +38,7 @@ Here is an overview of the file hierarchy:
 ├── scripts
 ├── secrets
 ├── shells
-│   └── repl
+├── repl.nix
 ├── packages
 │   └── overlays
 ├── lib
@@ -65,7 +65,7 @@ Here is an overview of the file hierarchy:
 + `scripts`: useful system management scripts
 + `secrets`: authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 + `shells`: sandboxed shells for development purposes
-+ `repl`: interactive shell to explore syntax and configuration
++ `repl.nix`: interactive shell to explore syntax and configuration
 + [`packages`](./docs/PACKAGES.md): locally built custom packages
 + `overlays`: overrides for pre-built packages
 + [`lib`](./docs/LIBRARY.md): custom functions designed for conveniently defining configuration
@@ -75,7 +75,7 @@ Here is an overview of the file hierarchy:
 <details>
 <summary><b>From Scratch</b></summary>
 
-Download the latest NixOS `.iso` from the [Releases](../../releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
+Download the latest NixOS `.iso` from the [Releases](https://gitlab.com/maydayv7/dotfiles/-/releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
 If Nix is already installed on your system, you may run the following command to build the Install Media:  
 *Replace* ***VARIANT*** *with the name of install media to create*
 <pre><code>nix build gitlab:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>

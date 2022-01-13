@@ -22,18 +22,6 @@ lib.recursiveUpdate {
   sudo chmod ugo+rw $DIR
   printf "\n"
 
-  echo "Cloning Repository..."
-  git clone https://gitlab.com/maydayv7/dotfiles.git $DIR
-  pushd $DIR > /dev/null; git remote add mirror https://github.com/maydayv7/dotfiles; popd > /dev/null
-  printf "\n"
-
-  echo "Setting up User..."
-  sudo mkdir -p /var/lib/AccountsService/{icons,users}
-  echo "[User]" | sudo tee /var/lib/AccountsService/users/$USER &> /dev/null
-  echo "Icon=/var/lib/AccountsService/icons/$USER" | sudo tee -a /var/lib/AccountsService/users/$USER &> /dev/null
-  sudo cp -av $VERBOSE_ARG ${wallpapers}/Profile.png /var/lib/AccountsService/icons/$USER
-  printf "\n"
-
   read -p "Enter Path to GPG Keys: " KEY
   LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
   if [ -z "$KEY" ]
@@ -45,14 +33,27 @@ lib.recursiveUpdate {
     git clone $KEY keys --progress
     KEY=./keys
   fi
-
   echo "Importing Keys..."
   for key in $KEY/*.gpg
   do
     gpg --import $key
   done
   rm -rf $KEY
-  pushd $DIR > /dev/null; git-crypt unlock; popd > /dev/null
+  printf "\n"
+
+  echo "Cloning Repository..."
+  git clone https://gitlab.com/maydayv7/dotfiles.git $DIR
+  pushd $DIR > /dev/null
+  git-crypt unlock
+  git remote add mirror https://github.com/maydayv7/dotfiles
+  popd > /dev/null
+  printf "\n"
+
+  echo "Setting up User..."
+  sudo mkdir -p /var/lib/AccountsService/{icons,users}
+  echo "[User]" | sudo tee /var/lib/AccountsService/users/$USER &> /dev/null
+  echo "Icon=/var/lib/AccountsService/icons/$USER" | sudo tee -a /var/lib/AccountsService/users/$USER &> /dev/null
+  sudo cp -av $VERBOSE_ARG ${wallpapers}/Profile.png /var/lib/AccountsService/icons/$USER
   printf "\n"
 
   echo "Applying Configuration..."

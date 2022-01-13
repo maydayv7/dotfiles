@@ -38,10 +38,10 @@ with ({ inherit (builtins) readFile; }); {
   gpg = "/etc/nixos/files/gpg";
 
   # Interactive Nix Shell
-  repl = ../shells/repl;
+  repl = ../repl.nix;
 
-  # Script Snippets
-  scripts.error = readFile ./scripts/error;
+  # Bash Scripts
+  scripts.commands = readFile ./scripts/commands.sh; # Useful Commands
 
   # `sops` Encrypted Secrets
   sops = ../secrets/.sops.yaml;

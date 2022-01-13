@@ -8,7 +8,7 @@ in lib.recursiveUpdate {
   #!${runtimeShell}
   # This script must be executed as 'root'
   set +x
-  ${files.scripts.error}
+  ${files.scripts.commands}
 
   read -p "Select Device to Install (Vortex/Futura): " choice
     case $choice in

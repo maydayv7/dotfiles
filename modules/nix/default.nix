@@ -28,6 +28,7 @@
       useSandbox = true;
       systemFeatures = [ "kvm" "recursive-nix" ];
       extraOptions = ''
+        warn-dirty = false
         experimental-features = nix-command flakes recursive-nix
         min-free = ${toString (1024 * 1024 * 1024)}
         max-free = ${toString (10 * 1024 * 1024 * 1024)}

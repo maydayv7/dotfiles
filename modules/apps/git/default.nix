@@ -118,6 +118,7 @@ in rec {
         ro = "restore";
         r = "reset";
         rs = "reset --soft";
+        rsh = "reset --soft HEAD^";
         s = "!git --no-pager status";
         sm = "submodule";
         std = "stash drop";

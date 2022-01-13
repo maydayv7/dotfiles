@@ -29,7 +29,7 @@ in utils.lib.eachSystem systems (system:
     devShell = import ./shells { inherit pkgs; };
 
     # Tailored Shells
-    devShells = map.modules ./shells (name: import name { inherit pkgs; });
+    devShells = map.modules ./shells (name: pkgs.mkShell (import name pkgs));
 
     ## Package Configuration ##
     legacyPackages = self.channels."${system}".stable;

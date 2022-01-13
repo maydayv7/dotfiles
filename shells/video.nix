@@ -1,5 +1,4 @@
-{ pkgs }:
-pkgs.mkShell {
+pkgs: {
   name = "Video";
   shellHook = ''echo "## Video Editing Shell ##"'';
   nativeBuildInputs = with pkgs; [

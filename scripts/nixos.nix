@@ -46,7 +46,7 @@ in lib.recursiveUpdate {
   buildInputs = [ coreutils dd git gnused nixfmt nix-linter sops tree ];
 } (writeShellScriptBin "nixos" ''
   #!${runtimeShell}
-  ${scripts.error}
+  ${scripts.commands}
 
   case $1 in
   "help"|"--help"|"-h") echo "${usage.script}";;
@@ -66,7 +66,7 @@ in lib.recursiveUpdate {
     find ${path} -type f -name "*.nix" | xargs nixfmt
     echo "Checking Syntax..."
     nix flake check ${path} --keep-going
-    nix-linter -r ${path}
+    nix-linter -r ${path} || true
   ;;
   "clean")
     echo "Running Garbage Collection..."
