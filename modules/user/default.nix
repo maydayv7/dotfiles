@@ -21,7 +21,7 @@ in rec {
     };
 
     groups = mkOption {
-      description = "User Description";
+      description = "User Groups Participation";
       type = types.listOf types.str;
       default = [ "wheel" ];
     };
@@ -39,7 +39,13 @@ in rec {
     };
 
     autologin = mkOption {
-      description = "Enable User Auto-Login";
+      description = "Enable Automatic User Login";
+      type = types.bool;
+      default = false;
+    };
+
+    minimal = mkOption {
+      description = "Enable Minimal User Configuration";
       type = types.bool;
       default = false;
     };

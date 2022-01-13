@@ -17,7 +17,7 @@ in rec {
     };
 
     modules = mkOption {
-      description = "Hardware Configuration Modules from 'inputs.hardware'";
+      description = "List of Modules imported from 'inputs.hardware'";
       type = types.listOf types.str;
       default = [ ];
     };

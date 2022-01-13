@@ -1,14 +1,38 @@
-# ######################################################### #
-##  Author  = V 7      <maydayv7@gmail.com>                ##
-##  URL     = https://github.com/maydayv7/dotfiles         ##
-##  License = MIT                                          ##
-##                                                         ##
-##  Welcome to Ground Zero! The very heart of my dotfiles  ##
-# ######################################################### #
+# ########################################### #
+#           ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖          #
+#           ▜███▙       ▜███▙  ▟███▛          #
+#            ▜███▙       ▜███▙▟███▛           #
+#             ▜███▙       ▜██████▛            #
+#      ▟█████████████████▙ ▜████▛     ▟▙      #
+#     ▟███████████████████▙ ▜███▙    ▟██▙     #
+#            ▄▄▄▄▖           ▜███▙  ▟███▛     #
+#           ▟███▛             ▜██▛ ▟███▛      #
+#          ▟███▛               ▜▛ ▟███▛       #
+# ▟███████████▛                  ▟██████████▙ #
+# ▜██████████▛                  ▟███████████▛ #
+#       ▟███▛ ▟▙               ▟███▛          #
+#      ▟███▛ ▟██▙             ▟███▛           #
+#     ▟███▛  ▜███▙           ▝▀▀▀▀            #
+#     ▜██▛    ▜███▙ ▜██████████████████▛      #
+#      ▜▛     ▟████▙ ▜████████████████▛       #
+#            ▟██████▙       ▜███▙             #
+#           ▟███▛▜███▙       ▜███▙            #
+#          ▟███▛  ▜███▙       ▜███▙           #
+#          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘           #
+#   ---------------------------------------   #
+#     Author  -> V 7 <maydayv7@gmail.com>     #
+#     License -> MIT                          #
+#     URL     -> gitlab:maydayv7/dotfiles     #
+#   ---------------------------------------   #
+#           Welcome to Ground Zero!           #
+#       The very heart of my 'dotfiles'       #
+# ########################################### #
 
 {
-  description =
-    "My Purely Reproducible, Hermetic, Declarative, Atomic, Immutable, Multi-PC NixOS Dotfiles";
+  description = ''
+    My Purely Reproducible, Hermetic, Declarative, Atomic, Immutable, Multi-PC
+    NixOS Configuration and Dotfiles
+  '';
 
   ## System Repositories ##
   inputs = {

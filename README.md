@@ -17,13 +17,13 @@ This [repository](https://gitlab.com/maydayv7/dotfiles) contains the configurati
 + Atomic, Generational and Immutable
 
 ## Programs
-| Type                | Program                     |
-| :------------------ | :-------------------------: |
-| Editor              | [gEdit](https://wiki.gnome.org/Apps/Gedit) |
-| Shell               | [ZSH](https://www.zsh.org) |
+| Type                | Program                                                         |
+| :------------------ | :-------------------------------------------------------------: |
+| Editor              | [gEdit](https://wiki.gnome.org/Apps/Gedit)                      |
+| Shell               | [ZSH](https://www.zsh.org)                                      |
 | Terminal            | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal) |
-| Browser             | [Firefox](https://www.mozilla.org/en-US/firefox/) |
-| Desktop Environment | [GNOME](https://www.gnome.org) |
+| Browser             | [Firefox](https://www.mozilla.org/en-US/firefox/)               |
+| Desktop Environment | [GNOME](https://www.gnome.org)                                  |
 
 ## Structure
 Here is an overview of the file hierarchy:
@@ -33,6 +33,8 @@ Here is an overview of the file hierarchy:
 ├── flake.nix
 ├── flake.lock
 ├── .version
+├── .systems
+├── .templates
 ├── files
 ├── devices
 ├── scripts
@@ -59,6 +61,8 @@ Here is an overview of the file hierarchy:
 + `configuration.nix`: main system configuration file
 + `flake.nix`: repository version control using `inputs`
 + `.version`: system state version
++ `.systems`: list of supported system architectures
++ `.templates`: custom Flakes configuration templates
 + `files`: `dotfiles` and program configuration
 + `devices`: system configuration for various devices
 + `scripts`: useful system management scripts
@@ -68,7 +72,7 @@ Here is an overview of the file hierarchy:
 + [`packages`](./docs/PACKAGES.md): locally built custom packages
 + `overlays`: overrides for pre-built packages
 + [`lib`](./docs/LIBRARY.md): custom functions designed for conveniently defining configuration
-+ `modules`: custom configuration modules for additional functionality
++ [`modules`](./docs/MODULES.md): custom configuration modules for additional functionality
 
 ## Installation
 <details>
@@ -132,7 +136,7 @@ O
 4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command:  
 *Replace* ***PATH*** *with the path to the `secret`* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
 
-5. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, custom hardware configuration using the `hardware.modules` option
+5. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
 
 6. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
 </details>

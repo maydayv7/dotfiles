@@ -1,4 +1,4 @@
-{ system ? "x86_64-linux", lib, inputs, pkgs, files, ... }:
+{ system ? builtins.currentSystem, lib, inputs, pkgs, files, ... }:
 with pkgs;
 with files;
 let
@@ -46,7 +46,7 @@ in lib.recursiveUpdate {
   buildInputs = [ coreutils dd git gnused nixfmt nix-linter sops tree ];
 } (writeShellScriptBin "nixos" ''
   #!${runtimeShell}
-  ${scripts.commands}
+  ${commands}
 
   case $1 in
   "help"|"--help"|"-h") echo "${usage.script}";;

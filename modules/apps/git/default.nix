@@ -9,24 +9,24 @@ in rec {
 
   options.apps.git = {
     name = mkOption {
-      description = "Name for git";
+      description = "Name for 'git'";
       type = types.str;
       default = "";
     };
 
     mail = mkOption {
-      description = "Mail ID for git";
+      description = "Mail ID for 'git'";
       type = types.str;
       default = "";
     };
 
     key = mkOption {
-      description = "GPG Key for git";
+      description = "GPG Key for 'git'";
       type = types.str;
       default = "CF616EB19C2765E4";
     };
 
-    runner = mkEnableOption "Enable GitLab Runner Support";
+    runner = mkEnableOption "Enable Support for 'git' Runners";
   };
 
   ## 'git' Configuration ##

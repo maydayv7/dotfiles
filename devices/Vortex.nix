@@ -8,7 +8,7 @@
   locale = "en_IN.UTF-8";
 
   kernel = "linux_lqx";
-  kernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+  kernelModules = [ "nvme" "thunderbolt" ];
 
   hardware = {
     boot = "efi";

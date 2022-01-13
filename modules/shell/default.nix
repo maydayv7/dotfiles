@@ -6,10 +6,10 @@ in rec {
   imports = [ ./zsh.nix ];
 
   options.user.shell = {
-    utilities = mkEnableOption "Additional Shell Utilities";
+    utilities = mkEnableOption "Enable Additional Shell Utilities";
     choice = mkOption {
       description = "User Shell Choice";
-      type = types.str;
+      type = types.enum [ "bash" "zsh" ];
       default = "bash";
     };
   };

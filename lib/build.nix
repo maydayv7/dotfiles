@@ -1,8 +1,9 @@
 { systems, lib, inputs, ... }:
 let
   inherit (inputs) self nixpkgs;
-  inherit (builtins) attrValues isPath listToAttrs map readDir toString;
   inherit (lib) flatten hasSuffix mapAttrsToList nameValuePair;
+  inherit (builtins)
+    attrValues isPath listToAttrs map readDir readFile toString;
 in rec {
   ## Builder Functions ##
   eachSystem = func:
@@ -13,13 +14,22 @@ in rec {
   iso = config:
     self.nixosModule.config (config // {
       description = "Install Media";
+      kernelModules = [ "nvme" ];
+
+      # Default User
+      user = {
+        name = "nixos";
+        description = "Default User";
+        autologin = true;
+        password = readFile ../modules/user/passwords/default;
+      };
+
       imports = [
         # Build Module
         "${nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"
 
         ({
           # `.iso` Creation Settings
-          environment.pathsToLink = [ "/libexec" ];
           isoImage = {
             makeEfiBootable = true;
             makeUsbBootable = true;
@@ -55,6 +65,7 @@ in rec {
           ];
           config = {
             allowAliases = true;
+            allowBroken = true;
             allowUnfree = true;
           };
         });

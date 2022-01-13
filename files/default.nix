@@ -10,6 +10,9 @@ with ({ inherit (builtins) readFile; }); {
   # Configuration Directory
   path = "/etc/nixos";
 
+  # Useful Commands
+  commands = readFile ../scripts/commands.sh;
+
   # Discord Chat
   discord = {
     plugins = ./discord/plugins;
@@ -44,10 +47,7 @@ with ({ inherit (builtins) readFile; }); {
   # Interactive Nix Shell
   repl = ../repl.nix;
 
-  # Bash Scripts
-  scripts.commands = readFile ../scripts/commands.sh; # Useful Commands
-
-  # `sops` Encrypted Secrets
+  # 'sops' Encrypted Secrets
   sops = ../secrets/.sops.yaml;
 
   # Document Templates

@@ -7,8 +7,6 @@
   locale = "en_IN.UTF-8";
 
   kernel = "linux_5_4";
-  kernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
-
   hardware = {
     boot = "efi";
     cores = 4;

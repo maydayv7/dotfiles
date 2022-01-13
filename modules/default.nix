@@ -2,23 +2,12 @@
 let
   inherit (inputs) self;
   inherit (lib) forEach getAttrFromPath remove;
-  inherit (builtins) attrValues readFile replaceStrings substring;
+  inherit (builtins) attrValues replaceStrings substring;
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
     , repo ? "stable", imports ? [ ], timezone, locale, kernel
-    , kernelModules ? [
-      "xhci_pci"
-      "ahci"
-      "usb_storage"
-      "sd_mod"
-      "nvme"
-      "usbhid"
-    ], desktop ? null, apps ? { }, hardware ? { }, user ? {
-      name = "nixos";
-      autologin = true;
-      password = readFile ./user/passwords/default;
-    } }:
+    , kernelModules ? [ ], desktop ? null, apps ? { }, hardware ? { }, user }:
     let
       # Default Package Channel
       pkgs = self.channels.${system}.${repo};
@@ -45,7 +34,8 @@ in {
         # Kernel Configuration
         boot = {
           kernelPackages = pkgs.linuxKernel.packages.${kernel};
-          initrd.availableKernelModules = kernelModules;
+          initrd.availableKernelModules = kernelModules
+            ++ [ "ahci" "sd_mod" "usbhid" "usb_storage" "xhci_pci" ];
         };
 
         # Package Configuration

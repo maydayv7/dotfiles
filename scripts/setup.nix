@@ -7,7 +7,7 @@ lib.recursiveUpdate {
 } (writeShellScriptBin "setup" ''
   #!${runtimeShell}
   set +x
-  ${scripts.commands}
+  ${commands}
 
   echo "Preparing Directory..."
   pushd $HOME > /dev/null

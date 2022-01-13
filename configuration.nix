@@ -3,13 +3,14 @@ with inputs;
 let
   ## Variable Declaration ##
   # Supported Architectures
-  systems = [ "x86_64-linux" ];
+  systems = nixpkgs.lib.splitString "\n" (readFile ./.systems);
 
   # NixOS Version
-  version = builtins.readFile ./.version;
+  version = readFile ./.version;
 
   # System Libraries
   files = self.files;
+  inherit (builtins) readFile;
   inherit (lib) build map pack;
   args = { inherit args systems version lib inputs files; };
   lib = nixpkgs.lib // home.lib // utils.lib // self.lib // {

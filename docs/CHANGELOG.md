@@ -1,4 +1,18 @@
 ## Changelog
+### v2.0
++ Bifurcate `devices`
+  * Refactor `lib.build.system` into `build.iso` and `build.device`
++ Add `.editorconfig`
++ Improve `lib` Handling
++ Refactor `sops` Encrypted Secrets
++ Stabilise and document `templates`
++ Fix `devshells`, `repl` and `scripts`
++ Fix Module Imports and `inputs` Patching
++ Improve Code Consistency, reduce Complexity and fix Syntactic and Semantic Errors
+  * Use [`pre-commit-hooks`](https://github.com/cachix/pre-commit-hooks.nix) to improve configuration `checks`
+  * Use [`nixfmt`](https://github.com/serokell/nixfmt) for formatting code
+  * Use [`nix-linter`](https://github.com/Synthetica9/nix-linter) to check stylistic errors
+
 ### v1.0
 + Add MIT License
 + Use NixOS 21.11 (Porcupine)!
