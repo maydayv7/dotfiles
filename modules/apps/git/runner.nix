@@ -1,27 +1,47 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, files, ... }:
 let
-  inherit (lib) map mkIf;
-  enable = config.apps.git.runner;
+  inherit (lib) mkIf mkMerge mkOption types util;
+  runner = config.apps.git.runner;
   secrets = config.sops.secrets;
 in {
-  ## Runner Configuration ##
-  config = mkIf enable {
-    # Secrets
-    sops.secrets = map.secrets ./secrets false;
-
-    # Docker Support
-    boot.kernel.sysctl."net.ipv4.ip_forward" = true;
-    virtualisation.docker.enable = true;
-
-    # Local Runner
-    environment.systemPackages = [ pkgs.act ];
-    services.gitlab-runner = {
-      enable = true;
-      services.default = {
-        dockerImage = "alpine";
-        registrationConfigFile = secrets."gitlab-runner.secret".path;
-        tagList = [ "self" ];
-      };
-    };
+  options.apps.git.runner = mkOption {
+    description = "Support for 'git' Runners";
+    type = types.nullOr (types.enum [ "github" "gitlab" ]);
+    default = null;
   };
+
+  ## Runner Configuration ##
+  config = mkIf (runner != null) (mkMerge [
+    {
+      # Secrets
+      sops.secrets = util.map.secrets ./secrets false;
+    }
+
+    (mkIf (runner == "github") {
+      # GitHub Runner
+      environment.systemPackages = [ pkgs.act ];
+      services.github-runner = {
+        enable = true;
+        url = files.path.repo;
+        extraLabels = [ "self" ];
+        tokenFile = secrets."github-runner.secret".path;
+      };
+    })
+
+    (mkIf (runner == "gitlab") {
+      # Docker Support
+      boot.kernel.sysctl."net.ipv4.ip_forward" = true;
+      virtualisation.docker.enable = true;
+
+      # GitLab Runner
+      services.gitlab-runner = {
+        enable = true;
+        services.default = {
+          dockerImage = "alpine";
+          tagList = [ "self" ];
+          registrationConfigFile = secrets."gitlab-runner.secret".path;
+        };
+      };
+    })
+  ]);
 }

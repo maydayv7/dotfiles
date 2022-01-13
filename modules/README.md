@@ -1,5 +1,5 @@
 ### Custom Configuration Modules
-The `modules` directory contains custom-made pure Flakes-compatible configuration modules, which form the very core of my configuration for multiple PCs and various use-cases (If you have a working NixOS install, you can check it out using `gitlab:maydayv7/dotfiles#nixosModules`). The following is a summary of all the present configuration options exposed by the particular module:
+The `modules` directory contains custom-made pure Flakes-compatible configuration modules, which form the very core of my configuration for multiple PCs and various use-cases (If you have a working NixOS install, you can check it out using `github:maydayv7/dotfiles#nixosModules`). The following is a summary of all the present configuration options exposed by the particular module:
 
 [`nixosModules`](./default.nix) -
 * [`apps`](./apps): Module that configures various apps and/or environments -
@@ -8,7 +8,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
     * `name`: User Name for `git`
     * `mail`: Mail ID for `git`
     * `key`: GPG Key for `git` - Ex. `CF616EB19C2765E4`
-    * `runner`: Enable Support for `git` Runners - `true / false`
+    * `runner`: Enable Support for `git` Runners - `"github" / "gitlab"`
 
 * [`base`](./base): Module that contains the base common/shared configuration
 

@@ -51,10 +51,11 @@ let
 
     secret = ''
       # Usage #
-        edit 'path'                - Edits desired Secret
+        create 'path'              - Creates desired Secret
+        edit 'name'                - Edits desired Secret
         list                       - Lists all 'sops' Encrypted Secrets
-        show 'path'                - Shows desired Secret
-        update 'path'              - Updates Secrets to defined Keys
+        show 'name'                - Shows desired Secret
+        update                     - Updates Secrets to defined Keys
     '';
   };
 in lib.recursiveUpdate {
@@ -116,8 +117,8 @@ in lib.recursiveUpdate {
     echo "Formatting Code..."
     find ${path.system} -type f -name "*.nix" | xargs nixfmt
     echo "Checking Syntax..."
-    nix flake check ${path.system} --keep-going $flags
     nix-linter -r ${path.system} || true
+    nix flake check ${path.system} --keep-going $flags
   ;;
   clean)
     echo "Running Garbage Collection..."
@@ -247,7 +248,6 @@ in lib.recursiveUpdate {
     git add .
     git commit
     git push --force
-    git push --force --mirror mirror
     popd > /dev/null
   ;;
   search)
@@ -278,6 +278,15 @@ in lib.recursiveUpdate {
     case $2 in
     "") error "Expected an option" "${usage.secret}";;
     help|--help|-h) echo "${usage.secret}";;
+    create)
+      case $3 in
+      "") error "Expected 'name' of Secret";;
+      *)
+        echo "Creating Secret $3..."
+        sops --config ${sops} -i ${path.system}/$3.secret
+      ;;
+      esac
+    ;;
     edit)
       case $3 in
       "") error "Expected 'name' of Secret";;
@@ -322,7 +331,6 @@ in lib.recursiveUpdate {
     git clone ${path.repo} $DIR
     cd $DIR
     git-crypt unlock
-    git remote add mirror ${path.mirror}
     newline
     echo "Applying Configuration..."
     if [ -d /persist ]

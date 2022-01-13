@@ -25,8 +25,6 @@ in rec {
       type = types.str;
       default = "CF616EB19C2765E4";
     };
-
-    runner = mkEnableOption "Enable Support for 'git' Runners";
   };
 
   ## 'git' Configuration ##

@@ -1,5 +1,5 @@
 ### Packages
-The `packages` directory contains custom-built packages (can be accessed by `gitlab:maydayv7/dotfiles#packages.${system}`)
+The `packages` directory contains custom-built packages (can be accessed by `github:maydayv7/dotfiles#packages.${system}`)
 
 ### Overlays
 The `overlays` directory contains overlays for pre-built packages  
