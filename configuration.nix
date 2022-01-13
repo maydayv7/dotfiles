@@ -41,7 +41,7 @@ utils.lib.eachSystem systems
     # Custom Packages
     defaultPackage = self.apps."${system}".nixos;
     apps = map.modules ./scripts (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    packages = self.apps."${system}" // map.modules ./packages (name: pkgs.callPackage name { inherit lib pkgs files; }) // pack.nixosConfigurations // pack.installMedia;
+    packages = self.apps."${system}" // pack.nixosConfigurations // pack.installMedia // map.modules ./packages (name: pkgs.callPackage name { inherit lib pkgs files; });
   }
 )
 //

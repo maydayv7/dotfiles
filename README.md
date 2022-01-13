@@ -1,9 +1,9 @@
 # Dotfiles
 ![[Logo]](./docs/resources/logo.png)
 
-![Version](https://img.shields.io/gitlab/v/release/maydayv7/dotfiles?include_prereleases&label=version&color=red&style=flat-square&logo=gitlab) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
+![Version](https://img.shields.io/gitlab/v/release/maydayv7/dotfiles?include_prereleases&label=version&color=red&style=flat-square&logo=gitlab) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-This repo contains the configuration files for my continuously evolving multi-PC setup
+This [repository](https://gitlab.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup
 
 ![](./docs/resources/desktop.png)
 
@@ -41,8 +41,9 @@ Here is an overview of the file hierarchy:
 ├── packages
 │   └── overlays
 ├── lib
+│   ├── build.nix
 │   ├── map.nix
-│   ├── package.nix
+│   ├── pack.nix
 │   └── xdg.nix
 └── modules
     ├── apps
@@ -109,10 +110,8 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
 sudo chown $USER /etc/nixos
 sudo chmod ugo+rw /etc/nixos
 git clone https://gitlab.com/maydayv7/dotfiles /etc/nixos
-cd /etc/nixos
-rm .git-crypt
-rm secrets/unencrypted/gpg/{pubring.kbx,private-keys-v1.d}
-git remote rm origin
+cd /etc/nixos && git remote rm origin
+rm -r .git-crypt secrets/unencrypted/gpg/{pubring.kbx,private-keys-v1.d}
 </code></pre>
 
 2. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](../secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
@@ -152,6 +151,6 @@ The files and scripts in this repository are licensed under the very permissive 
 ***Caution:*** This repository may contain proprietary [fonts](./files/fonts) and [wallpapers](./files/wallpapers) which do not come under the above-mentioned license
 
 #### Branches
-There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
+There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop)(when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
 
 See the [docs](./docs/README.md) for additional information

@@ -17,7 +17,7 @@
 + [Impermanence Module](https://github.com/nix-community/impermanence)
 
 #### Other Configurations
-Here are some repos that I may have shamelessly rummaged through for building my `dotfiles`:
+Here are some repositories that I may have shamelessly rummaged through for building my `dotfiles`:
 *Thanks a lot! ;)*
 + [balsoft](https://code.balsoft.ru/balsoft/nixos-config)
 + [bbigras](https://github.com/bbigras/nix-config)
@@ -27,6 +27,7 @@ Here are some repos that I may have shamelessly rummaged through for building my
 + [hlissner](https://github.com/hlissner/dotfiles)
 + [jordanisaacs](https://github.com/jordanisaacs/dotfiles)
 + [kclejeune](https://github.com/kclejeune/system)
++ [lovesegfault](https://github.com/lovesegfault/nix-config)
 + [lucasew](https://github.com/lucasew/nixcfg)
 + [nobbz](https://github.com/NobbZ/nixos-config)
 + [rasendubi](https://github.com/rasendubi/dotfiles)

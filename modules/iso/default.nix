@@ -11,6 +11,8 @@ in rec
   ## Install Media Configuration ##
   config = lib.mkIf enable
   {
+    security.sudo.wheelNeedsPassword = false;
+
     # ISO Creation Settings
     environment.pathsToLink = [ "/libexec" ];
     isoImage =

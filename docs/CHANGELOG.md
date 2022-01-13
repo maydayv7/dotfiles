@@ -36,6 +36,6 @@
   * Add `direnv` support at `shells`
   * Add Support for Instant Nix `repl`
 + Add Program Configuration and archived `dotfiles`
-+ Add Custom Libraries for device and user management at `lib`
++ Add Custom Libraries for system management at `lib`
 + Use `sops-nix` at `secrets` for managing authentication credentials
 + Added `home-manager` support, tightly integrated into configuration as a `nixosModule`
