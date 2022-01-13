@@ -40,6 +40,7 @@ in rec
         fd
         file
         nano
+        shellcheck
         tree
       ];
 

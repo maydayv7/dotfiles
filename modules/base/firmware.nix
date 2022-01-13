@@ -12,10 +12,22 @@ rec
       opengl.enable = true;
       enableRedistributableFirmware = true;
     };
+
     services =
     {
       fwupd.enable = true;
       logind.extraConfig = "HandleLidSwitch=ignore";
+    };
+
+    # Touchpad
+    services.xserver.libinput.touchpad =
+    {
+      tapping = true;
+      tappingDragLock = true;
+      middleEmulation = true;
+      naturalScrolling = false;
+      disableWhileTyping = true;
+      scrollMethod = "twofinger";
     };
 
     # Filesystem Support
@@ -48,17 +60,19 @@ rec
     };
 
     # Power Management
-    services.earlyoom =
-    {
-      enable = true;
-      freeMemThreshold = 5;
-      freeSwapThreshold = 90;
-    };
     services.thermald.enable = true;
     powerManagement =
     {
       enable = true;
       cpuFreqGovernor = "powersave";
+    };
+
+    services.earlyoom =
+    {
+      enable = true;
+      enableNotifications = true;
+      freeMemThreshold = 5;
+      freeSwapThreshold = 90;
     };
   };
 }

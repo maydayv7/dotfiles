@@ -1,8 +1,7 @@
-{ config, lib, util, inputs, pkgs, files, ... }:
+{ config, lib, inputs, pkgs, files, ... }:
 let
-  inherit (util) map;
   inherit (builtins) elem;
-  inherit (lib) mkIf mkForce mkMerge;
+  inherit (lib) mkIf mkForce mkMerge xdg;
   apps = config.environment.systemPackages;
   desktop = config.gui.desktop;
   programs = config.programs;
@@ -43,6 +42,7 @@ in rec
     {
       # Desktop Integration
       gui.fonts.enable = true;
+      nixpkgs.config.firefox.enableGnomeExtensions = true;
       programs =
       {
         dconf.enable = true;
@@ -95,10 +95,10 @@ in rec
         xresources.extraConfig = files.xorg;
 
         # Default Applications
-        xdg.mimeApps.defaultApplications = map.mime (import files.xdg.mime)
+        xdg.mimeApps.defaultApplications = xdg.mime (import files.xdg.mime)
         {
           audio = [ "org.gnome.Lollypop.desktop" ];
-          browser = [ "google-chrome.desktop" ];
+          browser = [ "firefox.desktop" ];
           calendar = [ "org.gnome.Calendar.desktop" ];
           directory = [ "org.gnome.Nautilus.desktop" ];
           image = [ "org.gnome.eog.desktop" ];
@@ -132,26 +132,28 @@ in rec
           ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/${username}/chrome/userChrome.css" = lib.mkIf (elem pkgs.firefox apps) { text = ''@import "${inputs.firefox}/userChrome.css";''; };
+          ".mozilla/firefox/${username}/chrome/userChrome.css".text = ''@import "${inputs.firefox}/userChrome.css";'';
+          ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
         };
       };
 
-      environment.systemPackages = with pkgs;
+      environment.systemPackages = with pkgs.gnome;
       [
         # GNOME Apps
-        gnome.gnome-boxes
-        gnome.gnome-dictionary
-        gnome.gnome-notes
-        gnome.gnome-sound-recorder
-        gnome.gnome-tweaks
-        gnome.polari
+        gnome-boxes
+        gnome-dictionary
+        gnome-notes
+        gnome-sound-recorder
+        gnome-tweaks
+        polari
 
         # GNOME Games
-        gnome.gnome-chess
-        gnome.gnome-mines
-        gnome.gnome-sudoku
-        gnome.quadrapassel
-
+        gnome-chess
+        gnome-mines
+        gnome-sudoku
+        quadrapassel
+      ] ++ (with pkgs;
+      [
         # GNOME Circle
         apostrophe
         drawing
@@ -166,34 +168,38 @@ in rec
         kooha
         lollypop
         markets
+        pitivi
         shortwave
         wike
-
-        # GNOME Shell Extensions
-        gnomeExtensions.appindicator
-        gnomeExtensions.caffeine
-        gnomeExtensions.clipboard-indicator
-        gnomeExtensions.color-picker
-        gnomeExtensions.compiz-windows-effect
-        gnomeExtensions.compiz-alike-magic-lamp-effect
-        gnomeExtensions.custom-hot-corners-extended
-        gnomeExtensions.dash-to-panel
-        # gnomeExtensions.fly-pie
-        gnomeExtensions.just-perfection
-        gnomeExtensions.lock-keys
-        unstable.gnomeExtensions.pop-shell
-        gnomeExtensions.screenshot-locations
-        gnomeExtensions.sound-output-device-chooser
-        gnomeExtensions.vitals
-        gnomeExtensions.x11-gestures
 
         # Utilities
         celluloid
         dconf2nix
-        google-chrome
+        firefox
         gnuchess
         transmission-gtk
-      ];
+      ]) ++ (with pkgs; with gnomeExtensions; with unstable.gnomeExtensions;
+      [
+        # GNOME Shell Extensions
+        appindicator
+        caffeine
+        clipboard-indicator
+        color-picker
+        compiz-windows-effect
+        compiz-alike-magic-lamp-effect
+        custom-hot-corners-extended
+        dash-to-panel
+        # fly-pie
+        just-perfection
+        lock-keys
+        # pop-launcher
+        pop-shell
+        pop-shell-shortcuts
+        screenshot-locations
+        sound-output-device-chooser
+        vitals
+        x11-gestures
+      ]);
     })
 
     # Minimal GNOME Desktop Configuration

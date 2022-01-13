@@ -1,4 +1,4 @@
-name: "Check Syntax"
+name: "ci: Check Syntax"
 on:
   push:
     paths-ignore:

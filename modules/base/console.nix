@@ -33,6 +33,7 @@ rec
       gparted
       killall
       parted
+      pciutils
       unrar
       unzip
       wget

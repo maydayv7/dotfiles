@@ -1,19 +1,16 @@
-{ config, lib, util, pkgs, ... }:
-let
-  inherit (util) map;
-  cores = config.hardware.cores;
-in rec
+{ lib, inputs, pkgs, ... }:
+rec
 {
-  imports = [ ./cachix.nix ];
+  imports =
+  [
+    ./cachix.nix
+    inputs.utils.nixosModules.autoGenFromInputs
+  ];
 
   ## Nix Settings ##
   config =
   {
-    # Nix Path
-    environment.etc = map.nix.inputs;
-    nix.nixPath = map.nix.path;
-    nix.registry = map.nix.registry;
-
+    environment.systemPackages = with pkgs; [ manix ];
     nix =
     {
       # Version
@@ -31,8 +28,12 @@ in rec
       # User Permissions
       trustedUsers = [ "root" "@wheel" ];
 
+      # Nix Path
+      linkInputs = true;
+      generateNixPathFromInputs = true;
+      generateRegistryFromInputs = true;
+
       # Additional Features
-      maxJobs = cores;
       useSandbox = true;
       extraOptions = "experimental-features = nix-command flakes recursive-nix";
       systemFeatures = [ "kvm" "recursive-nix" ];

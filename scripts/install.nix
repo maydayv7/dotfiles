@@ -1,5 +1,8 @@
-{ lib, pkgs, path, ... }:
+{ lib, pkgs, files, ... }:
 with pkgs;
+let
+  path = files.gpg;
+in
 lib.recursiveUpdate
 {
   meta.description = "NixOS Install Script";
@@ -45,10 +48,10 @@ lib.recursiveUpdate
   fi
 
   echo "Importing Keys..."
-  sudo mkdir -p ${path.keys}
+  sudo mkdir -p ${path}
   for key in $KEY/*.gpg
   do
-    sudo gpg --homedir ${path.keys} --import $key
+    sudo gpg --homedir ${path} --import $key
   done
   printf "\n"
 
@@ -91,7 +94,7 @@ lib.recursiveUpdate
   printf "\n"
 
   echo "Installing System..."
-  nixos-install --no-root-passwd --root /mnt --flake github:maydayv7/dotfiles#$HOST
+  nixos-install --no-root-passwd --root /mnt --flake github:maydayv7/dotfiles#$HOST --impure
   printf "\n"
 
   read -p "Do you want to reboot the system? (Y/N): " choice

@@ -8,6 +8,7 @@ in rec
   imports =
   [
     ./home.nix
+    ./recovery.nix
     ./security.nix
 
     # Home Manager Module

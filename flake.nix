@@ -24,7 +24,10 @@
 
     ## Configuration Modules ##
     # Flake Utility Functions
-    utils.url = "github:numtide/flake-utils";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+
+    # PC Hardware Module
+    hardware.url = "github:maydayv7/nixos-hardware";
 
     # User Home Manager
     home =

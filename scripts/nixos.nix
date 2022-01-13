@@ -1,7 +1,10 @@
-{ util, lib, inputs, pkgs, path, ... }:
+{ lib, inputs, pkgs, files, ... }:
 with pkgs;
 let
-  inherit (util) map;
+  inherit (lib.map) list;
+  path = files.path;
+  repl = "${path}/repl.nix";
+  sops = "${path}/secrets/.sops.yaml";
 
   # Usage Description
   usage =
@@ -71,11 +74,11 @@ lib.recursiveUpdate
   "apply")
     echo "Applying Configuration..."
     case $2 in
-    "") sudo nixos-rebuild switch --flake ${path.system}#;;
-    "--boot") sudo nixos-rebuild boot --flake ${path.system}#;;
-    "--check") nixos-rebuild dry-activate --flake ${path.system}#;;
+    "") sudo nixos-rebuild switch --flake ${path}#;;
+    "--boot") sudo nixos-rebuild boot --flake ${path}#;;
+    "--check") nixos-rebuild dry-activate --flake ${path}#;;
     "--rollback") sudo nixos-rebuild switch --rollback;;
-    "--test") sudo nixos-rebuild test --flake ${path.system}#;;
+    "--test") sudo nixos-rebuild test --flake ${path}#;;
     *) error "Unknown option $2\n${usage.apply}";;
     esac
   ;;
@@ -87,14 +90,14 @@ lib.recursiveUpdate
     echo "Running De-Duplication..."
     nix store optimise
   ;;
-  "explore") nix repl ${path.system}/repl.nix;;
+  "explore") nix repl ${repl};;
   "iso")
     case $2 in
     "") error "Expected a variant of install media following 'iso' command\n${usage.iso.build}";;
-    "list") echo ${map.listAttrs inputs.self.installMedia};;
+    "list") echo ${list inputs.self.installMedia};;
     *)
       echo "Building $2 .iso file..."
-      nix build ${path.system}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso"
+      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso"
     ;;
     esac
     case $3 in
@@ -111,7 +114,7 @@ lib.recursiveUpdate
   "list") nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq;;
   "save")
     echo "Saving Changes..."
-    pushd ${path.system} > /dev/null
+    pushd ${path} > /dev/null
     git add .
     git commit
     git pull --rebase
@@ -125,17 +128,17 @@ lib.recursiveUpdate
       "") error "Expected a path to Secret following 'edit' command";;
       *)
         echo "Editing Secret $3..."
-        sops --config ${path.system}/.sops.yaml -i $3
+        sops --config ${sops} -i $3
       ;;
       esac
     ;;
-    "list") cat ${path.system}/.sops.yaml | grep / | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path.system}/|' | xargs tree -C --noreport -I '*.nix';;
-    "show") sops --config ${path.system}/.sops.yaml -d $3;;
+    "list") cat ${sops} | grep / | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path}/|' | xargs tree -C --noreport -I '*.nix' -I '_*';;
+    "show") sops --config ${sops} -d $3;;
     "update")
       echo "Updating Secrets..."
       for secret in $3
       do
-        sops --config ${path.system}/.sops.yaml updatekeys $secret
+        sops --config ${sops} updatekeys $secret
       done
     ;;
     *)
@@ -150,13 +153,13 @@ lib.recursiveUpdate
   ;;
   "shell")
     case $2 in
-    "") nix develop ${path.system} --command $SHELL;;
-    *) nix develop ${path.system}#$2 --command $SHELL;;
+    "") nix develop ${path} --command $SHELL;;
+    *) nix develop ${path}#$2 --command $SHELL;;
     esac
   ;;
   "update")
     echo "Updating Flake Inputs..."
-    nix flake update ${path.system} $2
+    nix flake update ${path} $2
   ;;
   *)
     if [ -z "$1" ]

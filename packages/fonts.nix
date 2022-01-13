@@ -1,4 +1,4 @@
-{ pkgs, files, ... }:
+{ lib, pkgs, files, ... }:
 with pkgs;
 stdenv.mkDerivation rec
 {
@@ -14,4 +14,11 @@ stdenv.mkDerivation rec
     mkdir -p $out/share/fonts/
     cp -r * $out/share/fonts/
   '';
+
+  meta = with lib;
+  {
+    description = "Custom Proprietary Fonts";
+    license = licenses.unfree;
+    maintainers = with maintainers; [ maydayv7 ];
+  };
 }

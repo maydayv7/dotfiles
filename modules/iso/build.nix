@@ -202,27 +202,29 @@ let
       set menu_color_highlight=white/blue
     fi
 
-    ${ # When there is a theme configured, use it, otherwise use the background image
-    if iso.grubTheme != null then
-    ''
-      # Sets theme.
-      set theme=(\$root)/EFI/boot/grub-theme/theme.txt
-      # Load theme fonts
-      $(find ${iso.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
-    ''
-    else
-    ''
-      if background_image (\$root)/EFI/boot/efi-background.png; then
-        # Black background means transparent background when there
-        # is a background image set... This seems undocumented :(
-        set color_normal=black/black
-        set color_highlight=white/blue
+    ${
+      # When there is a theme configured, use it, otherwise use the background image
+      if iso.grubTheme != null then
+      ''
+        # Sets theme.
+        set theme=(\$root)/EFI/boot/grub-theme/theme.txt
+        # Load theme fonts
+        $(find ${iso.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
+      ''
       else
-        # Falls back again to proper colors.
-        set menu_color_normal=cyan/blue
-        set menu_color_highlight=white/blue
-      fi
-    ''}
+      ''
+        if background_image (\$root)/EFI/boot/efi-background.png; then
+          # Black background means transparent background when there
+          # is a background image set... This seems undocumented :(
+          set color_normal=black/black
+          set color_highlight=white/blue
+        else
+          # Falls back again to proper colors.
+          set menu_color_normal=cyan/blue
+          set menu_color_highlight=white/blue
+        fi
+      ''
+    }
   '';
 
   efiDir = pkgs.runCommand "efi-directory"
@@ -534,7 +536,7 @@ in
         url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/isolinux/bios-boot.png";
         sha256 = "1wp822zrhbg4fgfbwkr7cbkr4labx477209agzc0hr6k62fr6rxd";
       };
-      description = "The splash image to use in the legacy-boot bootloader";
+      description = "The splash image to use in the legacy bootloader";
     };
 
     grubTheme = mkOption

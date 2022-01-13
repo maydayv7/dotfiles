@@ -1,4 +1,4 @@
-name: "Check Shells"
+name: "ci: Check `devShells`"
 on:
   push:
     paths:

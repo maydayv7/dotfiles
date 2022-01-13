@@ -6,9 +6,14 @@ in
   ## Discord Configuration ##
   config = lib.mkIf enable
   {
+    # Firmware
+    services.samba.enable = true;
+    hardware.opengl.driSupport32Bit = true;
+
     # Utilities
     environment.systemPackages = with pkgs;
     [
+      playonlinux
       wine
       winetricks
     ];

@@ -1,29 +1,42 @@
 { config, lib, ... }:
 with lib.hm.gvariant;
+let
+  homeDir = config.home.homeDirectory;
+in
 {
   ## Dconf Keys ##
-  # Generated via dconf2nix
+  # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
   dconf.settings =
   {
+    # Keyboard Shortcuts
     "org/gnome/desktop/wm/keybindings" =
     {
       begin-move = [ ];
       begin-resize = [ ];
+      close = [ "<Super>q" "<Alt>F4" ];
       cycle-group = [ ];
       cycle-group-backward = [ ];
-      maximize = [ ];
+      maximize = [ "<Super>Up" ];
       minimize = [ "<Super>Down" ];
+      move-to-monitor-down = [ ];
+      move-to-monitor-left = [ "<Shift><Super>Left" ];
+      move-to-monitor-right = [ "<Shift><Super>Right" ];
+      move-to-monitor-up = [ ];
       move-to-workspace-1 = [ ];
+      move-to-workspace-down = [ ];
       move-to-workspace-last = [ ];
       move-to-workspace-left = [ "<Primary><Super>Left" ];
       move-to-workspace-right = [ "<Primary><Super>Right" ];
+      move-to-workspace-up = [ ];
       panel-main-menu = [ ];
       panel-run-dialog = [ "<Super>F2" ];
       switch-group = [ ];
       switch-group-backward = [ ];
+      switch-to-workspace-down = [ "<Primary><Super>Down" "<Primary><Super>j" ];
       switch-to-workspace-left = [ "<Super>Left" ];
       switch-to-workspace-right = [ "<Super>Right" ];
-      toggle-maximized = [ "<Super>Up" ];
+      switch-to-workspace-up = [ "<Primary><Super>Up" "<Primary><Super>k" ];
+      toggle-maximized = [ "<Super>m" ];
       unmaximize = [ ];
     };
 
@@ -38,6 +51,7 @@ with lib.hm.gvariant;
       focus-active-notification = [ ];
       open-application-menu = [ ];
       toggle-message-tray = [ ];
+      toggle-overview= [ ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" =
@@ -51,10 +65,15 @@ with lib.hm.gvariant;
       magnifier = [ "<Super>x" ];
       magnifier-zoom-in = [ "<Super>equal" ];
       magnifier-zoom-out = [ "<Super>minus" ];
+      rotate-video-lock-static= [ ];
       screencast = [ "<Alt>Print" ];
       screenreader = [ ];
       screenshot = [ "<Shift>Print" ];
       screenshot-clip = [ ];
+      screensaver = [ "<Super>l" ];
+      terminal = [ "<Super>t" ];
+      volume-down=[ "AudioLowerVolume" ];
+      volume-up=[ "AudioRaiseVolume" ];
       window-screenshot = [ "<Primary>Print" ];
       window-screenshot-clip = [ ];
       www = [ "<Super>w" ];
@@ -80,6 +99,10 @@ with lib.hm.gvariant;
       titlebar-font = "Product Sans Bold 11";
       visual-bell = false;
     };
+
+    # Core Settings
+    "org/gnome/desktop/a11y".always-show-universal-access-status = true;
+    "org/gnome/desktop/a11y/applications".screen-magnifier-enabled = false;
 
     "org/gnome/mutter" =
     {
@@ -122,11 +145,6 @@ with lib.hm.gvariant;
       sleep-inactive-battery-timeout = 1800;
     };
 
-    "org/gnome/desktop/a11y" =
-    {
-      always-show-universal-access-status = true;
-    };
-
     "org/gnome/settings-daemon/plugins/color" =
     {
       night-light-enabled = true;
@@ -134,11 +152,6 @@ with lib.hm.gvariant;
       night-light-schedule-from = 19.0;
       night-light-schedule-to = 7.0;
       night-light-temperature = "uint32 3700";
-    };
-
-    "org/gnome/desktop/a11y/applications" =
-    {
-      screen-magnifier-enabled = false;
     };
 
     "org/gnome/desktop/a11y/magnifier" =
@@ -149,11 +162,6 @@ with lib.hm.gvariant;
       cross-hairs-opacity = 1.0;
       mouse-tracking = "proportional";
       show-cross-hairs = true;
-    };
-
-    "org/gnome/desktop/calendar" =
-    {
-      show-weekdate = true;
     };
 
     "org/gnome/desktop/privacy" =
@@ -168,12 +176,33 @@ with lib.hm.gvariant;
     "org/gnome/desktop/sound" =
     {
       allow-volume-above-100-percent = true;
+      event-sounds = true;
+      theme-name = "freedesktop";
     };
 
-    "ca/desrt/dconf-editor" =
+    "org/gnome/desktop/background" =
     {
-      show-warning = false;
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      primary-color = "#000000000000";
+      secondary-color = "#000000000000";
     };
+
+    "org/gnome/desktop/screensaver" =
+    {
+      color-shading-type = "solid";
+      lock-delay = "uint32 0";
+      lock-enabled = false;
+      picture-options = "zoom";
+      primary-color = "#000000000000";
+      secondary-color = "#000000000000";
+    };
+
+    # GTK+ Apps
+    "org/gnome/desktop/calendar".show-weekdate = true;
+    "ca/desrt/dconf-editor".show-warning = false;
+    "io/github/seadve/Kooha".video-format = "mp4";
+    "org/gnome/boxes".shared-folders = "[<{'uuid': <'5b825243-4232-4426-9d82-3df05e684e42'>, 'path': <'${homeDir}'>, 'name': <'v7'>}>]";
 
     "org/gnome/Geary" =
     {
@@ -209,6 +238,38 @@ with lib.hm.gvariant;
       search-view = "list-view";
       show-create-link = true;
       show-delete-permanently = true;
+    };
+
+    "com/github/hugolabe/Wike" =
+    {
+      custom-font = true;
+      dark-mode = true;
+      font-family = "Product Sans";
+    };
+
+    "org/gnome/builder/editor" =
+    {
+      auto-hide-map = true;
+      auto-save-timeout = 60;
+      completion-n-rows = 7;
+      draw-spaces = [ "tab" ];
+      highlight-current-line = true;
+      highlight-matching-brackets = true;
+      overscroll = 7;
+      show-map = false;
+      style-scheme-name = "builder-dark";
+    };
+
+    "org/gnome/builder/terminal" =
+    {
+      limit-scrollback = false;
+      scrollback-lines = "uint32 10000";
+    };
+
+    "org/gnome/gitlab/somas/Apostrophe" =
+    {
+      color-scheme = "dark";
+      input-format = "gfm";
     };
 
     "org/gnome/terminal/legacy" =
@@ -248,44 +309,24 @@ with lib.hm.gvariant;
       visible-name = "Terminal";
     };
 
+    "org/gnome/gedit/preferences/ui".show-tabs-mode = "auto";
     "org/gnome/gedit/preferences/editor" =
     {
       scheme = "tango-dark";
       wrap-last-split-mode = "word";
     };
 
-    "org/gnome/gedit/preferences/ui" =
-    {
-      show-tabs-mode = "auto";
-    };
-
     "org/gnome/gnome-screenshot" =
     {
       delay = 0;
       include-pointer = true;
+      last-save-directory = "file://${homeDir}/Pictures/Screenshots";
     };
 
-    "org/gnome/desktop/background" =
-    {
-      color-shading-type = "solid";
-      picture-options = "zoom";
-      primary-color = "#000000000000";
-      secondary-color = "#000000000000";
-    };
-
-    "org/gnome/desktop/screensaver" =
-    {
-      color-shading-type = "solid";
-      lock-delay = "uint32 0";
-      lock-enabled = false;
-      picture-options = "zoom";
-      primary-color = "#000000000000";
-      secondary-color = "#000000000000";
-    };
-
+    # App Grid
     "org/gnome/shell" =
     {
-      app-picker-layout = "[{'firefox.desktop': <{'position': <0>}>, 'teams.desktop': <{'position': <1>}>, 'bluej.desktop': <{'position': <2>}>, 'Zoom.desktop': <{'position': <3>}>, 'a136187d-1d93-4d35-8423-082f15957be9': <{'position': <4>}>, 'org.gnome.Calculator.desktop': <{'position': <5>}>, 'org.gnome.Lollypop.desktop': <{'position': <6>}>, 'io.github.celluloid_player.Celluloid.desktop': <{'position': <7>}>, 'org.gnome.clocks.desktop': <{'position': <8>}>, 'org.gnome.Boxes.desktop': <{'position': <9>}>, 'org.gnome.Connections.desktop': <{'position': <10>}>, 'gnome-system-monitor.desktop': <{'position': <11>}>, 'org.gnome.Extensions.desktop': <{'position': <12>}>, 'org.gnome.tweaks.desktop': <{'position': <13>}>, 'org.gnome.DiskUtility.desktop': <{'position': <14>}>}, {'org.gnome.FileRoller.desktop': <{'position': <0>}>, 'org.gnome.DejaDup.desktop': <{'position': <1>}>, 'org.gnome.Calendar.desktop': <{'position': <2>}>, 'org.gnome.Characters.desktop': <{'position': <3>}>, 'org.gnome.Cheese.desktop': <{'position': <4>}>, 'org.gnome.Contacts.desktop': <{'position': <5>}>, 'ca.desrt.dconf-editor.desktop': <{'position': <6>}>, 'org.gnome.Dictionary.desktop': <{'position': <7>}>, 'org.gnome.Evince.desktop': <{'position': <8>}>, 'simple-scan.desktop': <{'position': <9>}>, 'com.github.maoschanz.drawing.desktop': <{'position': <10>}>, 'org.gnome.font-viewer.desktop': <{'position': <11>}>, '4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff': <{'position': <12>}>, 'org.gnome.eog.desktop': <{'position': <13>}>, 'org.gnome.Maps.desktop': <{'position': <14>}>, 'org.gnome.Notes.desktop': <{'position': <15>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <16>}>, 'org.gnome.Photos.desktop': <{'position': <17>}>, 'org.gnome.Screenshot.desktop': <{'position': <18>}>, 'org.gnome.SoundRecorder.desktop': <{'position': <19>}>, 'b79e9b82-2127-459b-9e82-11bd3be09d04': <{'position': <20>}>, 'org.gnome.Weather.desktop': <{'position': <21>}>}, {'org.gnome.gitlab.somas.Apostrophe.desktop': <{'position': <0>}>, 'balena-etcher-electron.desktop': <{'position': <1>}>, 'org.gnome.Builder.desktop': <{'position': <2>}>, 'discord.desktop': <{'position': <3>}>, 'org.gnome.Fractal.desktop': <{'position': <4>}>, 'de.haeckerfelix.Fragments.desktop': <{'position': <5>}>, 'org.gabmus.giara.desktop': <{'position': <6>}>, 'gimp.desktop': <{'position': <7>}>, 'gparted.desktop': <{'position': <8>}>, 'org.gnome.gThumb.desktop': <{'position': <9>}>, 'fr.handbrake.ghb.desktop': <{'position': <10>}>, 'io.github.seadve.Kooha.desktop': <{'position': <11>}>, 'com.bitstower.Markets.desktop': <{'position': <12>}>, 'megasync.desktop': <{'position': <13>}>, 'org.gnome.PasswordSafe.desktop': <{'position': <14>}>, 'org.gnome.Podcasts.desktop': <{'position': <15>}>, 'org.gnome.Polari.desktop': <{'position': <16>}>, 'de.haeckerfelix.Shortwave.desktop': <{'position': <17>}>, 'org.gnome.Sysprof3.desktop': <{'position': <18>}>, 'org.gnome.Epiphany.desktop': <{'position': <19>}>, 'whatsapp-for-linux.desktop': <{'position': <20>}>, 'com.github.hugolabe.Wike.desktop': <{'position': <21>}> 'winetricks.desktop': <{'position': <22>}>}]";
+      app-picker-layout = "[{'org.gnome.Contacts.desktop': <{'position': <0>}>, 'org.gnome.Weather.desktop': <{'position': <1>}>, 'org.gnome.clocks.desktop': <{'position': <2>}>, 'org.gnome.gitlab.somas.Apostrophe.desktop': <{'position': <3>}>, 'org.gnome.Maps.desktop': <{'position': <4>}>, 'org.gnome.FileRoller.desktop': <{'position': <5>}>, 'org.gnome.Photos.desktop': <{'position': <6>}>, 'org.gnome.DejaDup.desktop': <{'position': <7>}>, 'org.gnome.Calculator.desktop': <{'position': <8>}>, 'balena-etcher-electron.desktop': <{'position': <9>}>, 'simple-scan.desktop': <{'position': <10>}>, 'bluej.desktop': <{'position': <11>}>, 'gnome-system-monitor.desktop': <{'position': <12>}>, 'org.gnome.Boxes.desktop': <{'position': <13>}>, 'org.gnome.Builder.desktop': <{'position': <14>}>, 'org.gnome.Calendar.desktop': <{'position': <15>}>, 'org.gnome.Characters.desktop': <{'position': <16>}>, 'io.github.celluloid_player.Celluloid.desktop': <{'position': <17>}>, 'org.gnome.Screenshot.desktop': <{'position': <18>}>, 'org.gnome.Cheese.desktop': <{'position': <19>}>, 'org.gnome.font-viewer.desktop': <{'position': <20>}>, 'org.gnome.Connections.desktop': <{'position': <21>}>, 'ca.desrt.dconf-editor.desktop': <{'position': <22>}>, 'org.gnome.Dictionary.desktop': <{'position': <23>}>}, {'discord.desktop': <{'position': <0>}>, 'org.gnome.DiskUtility.desktop': <{'position': <1>}>, 'org.gnome.Evince.desktop': <{'position': <2>}>, 'com.github.maoschanz.drawing.desktop': <{'position': <3>}>, 'org.gnome.Extensions.desktop': <{'position': <4>}>, 'firefox.desktop': <{'position': <5>}>, 'org.gnome.Fractal.desktop': <{'position': <6>}>, 'de.haeckerfelix.Fragments.desktop': <{'position': <7>}>, '4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff': <{'position': <8>}>, 'org.gabmus.giara.desktop': <{'position': <9>}>, 'gimp.desktop': <{'position': <10>}>, 'gparted.desktop': <{'position': <11>}>, 'org.gnome.gThumb.desktop': <{'position': <12>}>, 'fr.handbrake.ghb.desktop': <{'position': <13>}>, 'org.gnome.eog.desktop': <{'position': <14>}>, 'io.github.seadve.Kooha.desktop': <{'position': <15>}>, 'org.gnome.Lollypop.desktop': <{'position': <16>}>, 'com.bitstower.Markets.desktop': <{'position': <17>}>, 'megasync.desktop': <{'position': <18>}>, 'teams.desktop': <{'position': <19>}>}, {'org.gnome.Notes.desktop': <{'position': <0>}>, 'a136187d-1d93-4d35-8423-082f15957be9': <{'position': <1>}>, 'org.gnome.PasswordSafe.desktop': <{'position': <2>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <3>}>, 'org.pitivi.Pitivi.desktop': <{'position': <4>}>, 'playonlinux.desktop': <{'position': <5>}>, 'org.gnome.Podcasts.desktop': <{'position': <6>}>, 'org.gnome.Polari.desktop': <{'position': <7>}>, 'de.haeckerfelix.Shortwave.desktop': <{'position': <8>}>, 'org.gnome.SoundRecorder.desktop': <{'position': <9>}>, 'org.gnome.Sysprof3.desktop': <{'position': <10>}>, 'transmission-gtk.desktop': <{'position': <11>}>, 'org.gnome.tweaks.desktop': <{'position': <12>}>, 'b79e9b82-2127-459b-9e82-11bd3be09d04': <{'position': <13>}>, 'org.gnome.Epiphany.desktop': <{'position': <14>}>, 'whatsapp-for-linux.desktop': <{'position': <15>}>, 'com.github.hugolabe.Wike.desktop': <{'position': <16>}>, 'winetricks.desktop': <{'position': <17>}>, 'Zoom.desktop': <{'position': <18>}>}]";
       command-history = [ "rt" "r" ];
       disable-user-extensions = false;
       disable-extension-version-validation = true;
@@ -318,6 +359,8 @@ with lib.hm.gvariant;
       translate = false;
     };
 
+    # Shell Extensions
+    "org/gnome/shell/extensions/user-theme".name = "Adwaita";
     "org/gnome/shell/extensions/caffeine" =
     {
       inhibit-apps = [ "teams.desktop" "startcenter.desktop" ];
@@ -356,20 +399,13 @@ with lib.hm.gvariant;
       ws-switch-indicator-mode = 1;
     };
 
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-left-0" =
-    {
-      action = "show-applications";
-    };
+    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0".action = "toggle-overview";
+    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-left-0".action = "show-applications";
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-right-0" =
     {
       action = "show-desktop";
       ctrl = true;
-    };
-
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0" =
-    {
-      action = "toggle-overview";
     };
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-right-0" =
@@ -392,15 +428,8 @@ with lib.hm.gvariant;
       workspace-switcher-size = 7;
     };
 
-    "org/gnome/shell/extensions/lockkeys" =
-    {
-      style = "show-hide";
-    };
-
-    "org/gnome/shell/extensions/screenshotlocations" =
-    {
-      save-directory = "/home/${config.home.username}/Pictures/Screenshots";
-    };
+    "org/gnome/shell/extensions/lockkeys".style = "show-hide";
+    "org/gnome/shell/extensions/screenshotlocations".save-directory = "${homeDir}/Pictures/Screenshots";
 
     "org/gnome/shell/extensions/sound-output-device-chooser" =
     {
@@ -590,11 +619,7 @@ with lib.hm.gvariant;
       smart-gaps = true;
       snap-to-grid = false;
       tile-by-default = false;
-    };
-
-    "org/gnome/shell/extensions/user-theme" =
-    {
-      name = "Adwaita";
+      hint-color-rgba = "#1b6acb";
     };
   };
 }

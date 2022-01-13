@@ -6,33 +6,28 @@ let
   systems = [ "x86_64-linux" ];
 
   # NixOS Version
-  version = (builtins.readFile ./version);
+  version = readFile ./.version;
 
   # System Libraries
-  inherit (builtins) head attrValues;
-  inherit (nixpkgs) lib;
-
-  # Custom Functions
-  util = import ./lib { inherit systems version lib util inputs channels path files; };
-  inherit (util) build map;
+  inherit (lib) map package;
+  lib = nixpkgs.lib // self.lib;
+  build = self.nixosModule.config;
+  inherit (builtins) attrValues head mapAttrs readFile;
 
   # Package Channels
   channels =
   {
-    unstable = map.channel unstable [ ] [ ];
-    nixpkgs = map.channel nixpkgs [ nur.overlay ] ./packages/patches;
+    unstable = package.channel unstable [ self.overlay ] [ ];
+    nixpkgs = package.channel nixpkgs [ self.overlay nur.overlay ] ./packages/patches;
   };
 
-  # Absolute Paths
-  path = import ./path.nix;
-
-  # Dotfiles and Program Configuration
+  # Program Configuration and dotfiles
   files = import ./files;
 in
 utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
 {
   ## Configuration Checks ##
-  checks = map.checks.system self.installMedia;
+  checks = mapAttrs (_: name: name.config.system.build.toplevel) self.installMedia;
 
   ## Developer Shells ##
   # Default Developer Shell
@@ -42,18 +37,24 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
   devShells = map.modules ./shells (name: import name { inherit pkgs; });
 
   ## Package Configuration ##
+  channels = { stable = pkgs; unstable = channels.unstable."${system}"; };
   legacyPackages = (head (attrValues self.nixosConfigurations)).pkgs;
 
   # Custom Packages
   defaultPackage = self.packages."${system}".nixos;
-  packages = map.merge map.modules ./packages ./scripts (name: pkgs.callPackage name { inherit util inputs pkgs path files; });
+  packages = map.merge map.modules ./packages ./scripts (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
 })
 //
 {
   # Overrides
+  overlay = final: prev: { home-manager = prev.callPackage "${inputs.home}/home-manager" { }; };
   overlays = map.modules ./packages/overlays import;
 
+  ## Custom Library Functions ##
+  lib = import ./lib { inherit systems inputs; lib = nixpkgs.lib; };
+
   ## Custom Configuration Modules ##
+  nixosModule = import ./modules { inherit systems version lib inputs files; };
   nixosModules = map.merge map.modules ./modules ./secrets import;
 
   ## Install Media Configuration ##
@@ -64,6 +65,7 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
     {
       iso = true;
       name = "nixos";
+      repo = channels.nixpkgs;
 
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
@@ -81,6 +83,7 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
     {
       system = "x86_64-linux";
       name = "Vortex";
+      repo = channels.nixpkgs;
 
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
@@ -93,6 +96,7 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
         boot = "efi";
         cores = 8;
         filesystem = "advanced";
+        modules = [ hardware.nixosModules.dell-inspiron-5509 ];
         support = [ "mobile" "printer" "ssd" "virtualisation" ];
       };
 
@@ -127,6 +131,7 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
     {
       system = "x86_64-linux";
       name = "Futura";
+      repo = channels.nixpkgs;
 
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";

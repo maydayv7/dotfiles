@@ -1,8 +1,6 @@
-{ systems, version, lib, util, inputs, channels, path, files } @ args:
-let
-  inherit (inputs) self;
-in rec
+{ systems, lib, inputs } @ args:
 {
   map = import ./map.nix args;
-  build = import ./build.nix args;
+  package = import ./package.nix args;
+  xdg = import ./xdg.nix args;
 }

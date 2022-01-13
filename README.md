@@ -32,8 +32,7 @@ Here is an overview of the file hierarchy:
 ┌── configuration.nix
 ├── flake.nix
 ├── flake.lock
-├── version
-├── path.nix
+├── .version
 ├── files
 ├── scripts
 ├── secrets
@@ -42,8 +41,9 @@ Here is an overview of the file hierarchy:
 ├── packages
 │   └── overlays
 ├── lib
-│   ├── build.nix
-│   └── map.nix
+│   ├── map.nix
+│   ├── package.nix
+│   └── xdg.nix
 └── modules
     ├── apps
     ├── base
@@ -57,22 +57,24 @@ Here is an overview of the file hierarchy:
 
 + `configuration.nix`: main system configuration file
 + `flake.nix`: repository version control using `inputs`
-+ `version`: system state version
++ `.version`: system state version
 + `files`: dotfiles and program configuration
 + `scripts`: useful system management scripts
 + `secrets`: authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 + `shells`: sandboxed shells for development purposes
 + `repl.nix`: interactive shell to explore syntax and configuration
-+ `packages`: locally built custom packages
++ [`packages`](./docs/PACKAGES.md): locally built custom packages
 + `overlays`: overrides for pre-built packages
-+ `lib`: custom functions designed for conveniently defining configuration
++ [`lib`](./docs/LIBRARY.md): custom functions designed for conveniently defining configuration
 + `modules`: custom configuration modules for additional functionality
 
 ## Installation
+<details>
+<summary><b>From Scratch</b></summary>
+
 Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfiles/releases/latest) page, then burn it to a USB using [Etcher](https://www.balena.io/etcher/). If Nix is already installed on your system, you may run the following command to build the Install Media:  
 *Replace* ***VARIANT*** *with the name of install media to create*
-<pre><code>nix build github:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage
-</code></pre>
+<pre><code>nix build github:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
 
 #### Partition Scheme
 *Note that the `install` script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
@@ -88,6 +90,43 @@ Download the NixOS `.iso` from the [Releases](https://github.com/maydayv7/dotfil
 To install the OS, just boot the Live USB and run `sudo install`  
 *In case it doesn't boot, try disabling the `secure boot` and `RAID` options from `BIOS`*  
 After the reboot, run `setup` in the newly installed system to finish setup
+</details>
+
+<details>
+<summary><b>Already Installed</b></summary>
+
+In case you want to use my configuration as-is for a fresh NixOS install, you can try the following steps:
+
+1. Clone this repository (`git` and `git-crypt` must be installed) to `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
+sudo chown $USER /etc/nixos
+sudo chmod ugo+rw /etc/nixos
+git clone https://github.com/maydayv7/dotfiles /etc/nixos
+cd /etc/nixos
+rm .git-crypt
+rm secrets/unencrypted/gpg/{pubring.kbx,private-keys-v1.d}
+git remote rm origin
+</code></pre>
+
+2. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](../secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
+*Replace* ***USER*** *,* ***EMAIL*** *and* ***COMMENT*** <pre><code>gpg --full-generate-key
+1
+4096
+0
+y
+<b><i>USER
+EMAIL
+COMMENT</i></b>
+O
+</code></pre>
+
+3. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `secrets/unencrypted/gpg`
+
+4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command: <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <i>/path/to/secret</i></code></pre>
+
+5. Edit `configuration.nix` (particularly the `nixosConfigurations` section) and add your device (and if required, custom hardware configuration using the `hardware.module` option)
+
+6. Finally, run `nixos-rebuild switch --flake /etc/nixos` to switch to the configuration!
+</details>
 
 ## Notes
 #### Caution

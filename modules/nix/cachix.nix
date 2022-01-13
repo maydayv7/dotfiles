@@ -5,7 +5,6 @@ rec
   config =
   {
     environment.systemPackages = with pkgs; [ cachix ];
-
     nix =
     {
       binaryCaches =

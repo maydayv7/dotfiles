@@ -1,5 +1,8 @@
-{ lib, pkgs, path, files, ... }:
+{ lib, pkgs, files, ... }:
 with pkgs;
+let
+  path = files.path;
+in
 lib.recursiveUpdate
 {
   meta.description = "System Setup Script";
@@ -14,9 +17,9 @@ lib.recursiveUpdate
   pushd $HOME > /dev/null
   if mount | grep ext4 > /dev/null
   then
-    DIR=${path.system}
+    DIR=${path}
   else
-    DIR=/persist${path.system}
+    DIR=/persist${path}
   fi
   sudo rm -rf $DIR
   sudo mkdir $DIR
@@ -57,11 +60,11 @@ lib.recursiveUpdate
   printf "\n"
 
   echo "Applying Configuration..."
-  if [ "$DIR" == "/persist${path.system}" ]
+  if [ "$DIR" == "/persist${path}" ]
   then
-    sudo umount -l ${path.system}
+    sudo umount -l ${path}
     sudo mount $DIR
   fi
-  sudo nixos-rebuild switch --flake ${path.system}
+  sudo nixos-rebuild switch --flake ${path}
   popd > /dev/null
 '')

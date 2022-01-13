@@ -1,6 +1,6 @@
-{ config, lib, util, ... }:
+{ config, lib, ... }:
 let
-  inherit (util) map;
+  inherit (lib) map;
   enable = !config.user.autologin;
   secrets = config.sops.secrets;
   username = config.user.name;
@@ -10,8 +10,8 @@ in rec
   {
     # Passwords
     sops.secrets = map.secrets ./passwords true;
-    users.extraUsers.root.passwordFile = secrets."root".path;
     user.settings.passwordFile = secrets."${username}".path;
+    users.extraUsers.root.passwordFile = secrets."root".path;
 
     # Security Settings
     security.sudo.extraConfig =

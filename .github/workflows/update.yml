@@ -1,4 +1,4 @@
-name: Update Flake Inputs
+name: "chore: Update `flake.lock`"
 on:
   workflow_dispatch:
   schedule:

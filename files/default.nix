@@ -2,7 +2,10 @@ let
   inherit (builtins) readFile;
 in
 {
-  ## Dotfiles ##
+  ## dotfiles ##
+  # Configuration Directory
+  path = "/etc/nixos";
+
   # Discord Chat
   discord =
   {
@@ -34,6 +37,9 @@ in
     theme = readFile ./gnome/tango-dark.xml;
   };
 
+  # GPG Keys Directory
+  gpg = "/etc/nixos/secrets/unencrypted/gpg";
+
   # Document Templates
   templates = ./templates;
 
@@ -49,7 +55,7 @@ in
   # Z Shell
   zsh =
   {
-    message = readFile ./zsh/message;
+    lol = readFile ./zsh/lol;
     prompt = readFile ./zsh/p10k.zsh;
   };
 }

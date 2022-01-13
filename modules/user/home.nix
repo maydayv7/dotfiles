@@ -1,4 +1,4 @@
-{ config, lib, files, ... }:
+{ config, lib, pkgs, files, ... }:
 let
   enable = !config.user.autologin;
   homeDir = "/home/${config.user.name}";
@@ -11,6 +11,7 @@ in rec
     user.home =
     {
       home.stateVersion = version;
+      home.packages = with pkgs; [ home-manager ];
       systemd.user.startServices = true;
 
       # XDG Configuration

@@ -3,6 +3,13 @@ let
   boot = config.hardware.boot;
 in rec
 {
+  options.hardware.boot = lib.mkOption
+  {
+    description = "Supported Boot Firmware";
+    type = lib.types.enum [ "mbr" "efi" ];
+    default = "mbr";
+  };
+
   ## Boot Configuration ##
   config = lib.mkIf (boot == "efi")
   {

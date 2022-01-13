@@ -85,6 +85,7 @@ in rec
           device = "/dev/disk/by-partlabel/System";
           fsType = "btrfs";
           options = [ "subvol=home" ];
+          neededForBoot = true;
         };
 
         # NIX Subvolume

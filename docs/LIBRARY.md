@@ -1,22 +1,16 @@
-### Custom Functions
-The [`lib`](../lib) directory contains custom-made pure Flakes-compatible utility functions, created in order to simplify the configuration and conveniently define and support multiple use-cases, and are imported as `util`. The following is a summary of all the present functions:
+### Custom Library Functions
+The [`lib`](../lib) directory contains custom-made pure Flakes-compatible utility functions, created in order to simplify the configuration and conveniently define and support multiple use-cases (If you have a working NixOS install, you can check it out using `github:maydayv7/dotfiles#lib`). The following is a summary of all the present functions:
 
-* [`util.build`](../lib/default.nix): Main system configuration building function, used to build the entire configuration for both devices (`nixosConfigurations`) and install media (`installMedia`) as per provided parameters
-
-* [`util.map`](../lib/map.nix): Mapping functions primarily aimed at shortening code complexity -
+* [`lib.map`](../lib/map.nix): Mapping functions primarily aimed at shortening code complexity -
   + `filter`: Filters out unneeded `attrs` and maps required ones to specified function
-  + `listAttrs`: Lists all toplevel `attrs` of `attrset` and returns it as a multi-line string
+  + `list`: Lists all toplevel `attrs` of `attrset` and returns it as a multi-line string
   + `merge`: Merges two `attrsets` acted upon by the same function
-  + `eachSystem`: Maps parameter for each `system` as contained in `systems`
-  + `channel`: Maps `inputs` and specified `overlays` for each `system` to build package `channels`, and optionally patches the `input` if specified
-  + `checks`
-    * `system`: Maps checks for `config.system.build.toplevel` of specified configuration `attrset`
-    * `iso`: Maps checks for `config.system.build.isoImage` of specified configuration `attrset`
-  + `label`: Sets NixOS System Label
-  + `mime`: Maps `mimetype` values to specified application
-  + `modules`: Maps all configuration modules stored in a directory
-  + `nix`
-    * `registry`: Maps Nix Registry to available `inputs`
-    * `inputs`: Symlinks `inputs` to `/etc/nix/inputs`
-    * `path`: Sets `NIX_PATH` to `/etc/nix/inputs`
+  + `modules`: Maps all configuration modules stored in a directory. Use `modules'` in order to recursively search inside directories
   + `secrets`: Maps binary `sops` encrypted secrets stored in a directory
+
+* [`lib.package`](../lib/package.nix): Functions related to packages and `inputs` configuration for efficient system management -
+  + `eachSystem`: Maps parameter for each supported `system` as contained in `systems`
+  + `channel`: Builds package `channels` for desired `inputs` with specified `overlays` for each `system`, and optionally patches the `input`
+
+* [`lib.xdg`](../lib/xdg.nix): XDG Helper Functions in order to simplify menial desktop-related tasks -
+  + `mime`: Sets `mimetype` values according to specified application and types

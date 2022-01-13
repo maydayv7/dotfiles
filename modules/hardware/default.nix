@@ -14,18 +14,18 @@ in rec
 
   options.hardware =
   {
-    boot = mkOption
-    {
-      description = "Supported Boot Firmware";
-      type = types.enum [ "mbr" "efi" ];
-      default = "mbr";
-    };
-
     cores = mkOption
     {
       description = "Number of CPU Cores";
       type = types.int;
       default = 4;
+    };
+
+    modules = mkOption
+    {
+      description = "Additional Hardware Configuration Modules";
+      type = types.attrs;
+      default = { };
     };
 
     support = mkOption

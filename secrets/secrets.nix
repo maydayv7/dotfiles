@@ -1,7 +1,7 @@
-{ config, lib, util, inputs, pkgs, path, ... }:
+{ config, lib, inputs, pkgs, files, ... }:
 let
-  inherit (util) map;
-  persist = if (builtins.hasAttr "/persist" config.fileSystems) then "/persist" else "";
+  inherit (lib) map;
+  path = if (builtins.hasAttr "/persist" config.fileSystems) then "/persist${files.gpg}" else "${files.gpg}";
 in
 {
   imports = [ inputs.sops.nixosModules.sops ];
@@ -18,7 +18,7 @@ in
       # GPG Key Import
       gnupg =
       {
-        home = "${persist}${path.keys}";
+        home = "${path}";
         sshKeyPaths = [ ];
       };
     };

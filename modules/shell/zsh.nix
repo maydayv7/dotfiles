@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, path, files, ... }:
+{ config, lib, inputs, pkgs, files, ... }:
 let
   shell = config.user.shell.choice;
 in rec
@@ -35,8 +35,8 @@ in rec
           edit = "sudo $EDITOR";
           hi = "echo 'Hi there. How are you?'";
           bye = "exit";
-          lol = "echo \"${files.zsh.message}\"";
-          dotfiles = "cd ${path.system}";
+          lol = "echo \"${files.zsh.lol}\"";
+          dotfiles = "cd ${files.path}";
         };
 
         # Command History
