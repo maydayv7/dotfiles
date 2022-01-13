@@ -1,7 +1,7 @@
 { config, lib, inputs, pkgs, files, ... }:
 let
   inherit (builtins) elem;
-  inherit (lib) mkIf mkForce mkMerge xdg;
+  inherit (lib) mkIf mkForce mkMerge util;
   apps = config.environment.systemPackages;
   desktop = config.gui.desktop;
   programs = config.programs;
@@ -81,19 +81,20 @@ in rec {
         xresources.extraConfig = files.xorg;
 
         # Default Applications
-        xdg.mimeApps.defaultApplications = xdg.mime (import files.xdg.mime) {
-          audio = [ "org.gnome.Lollypop.desktop" ];
-          browser = [ "firefox.desktop" ];
-          calendar = [ "org.gnome.Calendar.desktop" ];
-          directory = [ "org.gnome.Nautilus.desktop" ];
-          image = [ "org.gnome.eog.desktop" ];
-          magnet = [ "transmission-gtk.desktop" ];
-          mail = [ "org.gnome.Geary.desktop" ];
-          markdown = [ "org.gnome.gitlab.somas.Apostrophe.desktop" ];
-          pdf = [ "org.gnome.Evince.desktop" ];
-          text = [ "org.gnome.gedit.desktop" ];
-          video = [ "io.github.celluloid_player.Celluloid.desktop" ];
-        };
+        xdg.mimeApps.defaultApplications =
+          util.xdg.mime (import files.xdg.mime) {
+            audio = [ "org.gnome.Lollypop.desktop" ];
+            browser = [ "firefox.desktop" ];
+            calendar = [ "org.gnome.Calendar.desktop" ];
+            directory = [ "org.gnome.Nautilus.desktop" ];
+            image = [ "org.gnome.eog.desktop" ];
+            magnet = [ "transmission-gtk.desktop" ];
+            mail = [ "org.gnome.Geary.desktop" ];
+            markdown = [ "org.gnome.gitlab.somas.Apostrophe.desktop" ];
+            pdf = [ "org.gnome.Evince.desktop" ];
+            text = [ "org.gnome.gedit.desktop" ];
+            video = [ "io.github.celluloid_player.Celluloid.desktop" ];
+          };
 
         home.file = {
           # GTK+ Bookmarks

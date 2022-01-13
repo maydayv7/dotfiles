@@ -3,7 +3,7 @@ with inputs;
 let
   ## Variable Declaration ##
   # Supported Architectures
-  systems = nixpkgs.lib.splitString "\n" (readFile ./.systems);
+  systems = splitString "\n" (readFile ./.systems);
 
   # NixOS Version
   version = readFile ./.version;
@@ -11,11 +11,17 @@ let
   # System Libraries
   files = self.files;
   inherit (builtins) readFile;
-  inherit (lib) build map pack;
-  lib = nixpkgs.lib // home.lib // utils.lib // self.lib // {
-    hooks = hooks.lib;
-  };
-in utils.lib.eachSystem systems (system:
+  inherit (lib.util) build map pack;
+  inherit (lib) eachSystem splitString;
+  lib = nixpkgs.lib.extend (final: prev:
+    {
+      hooks = hooks.lib;
+      util = import ./lib {
+        inherit systems inputs;
+        lib = final;
+      };
+    } // home.lib // utils.lib);
+in eachSystem systems (system:
   let
     # Package Channels
     pkgs = (build.channel nixpkgs [ nur.overlay ] ./packages/patches).${system};
@@ -29,7 +35,7 @@ in utils.lib.eachSystem systems (system:
     devShell = import ./shells { inherit pkgs; };
 
     # Tailored Shells
-    devShells = map.modules' ./shells (name: pkgs.mkShell (import name pkgs));
+    devShells = map.modules' ./shells (file: pkgs.mkShell (import file pkgs));
 
     ## Package Configuration ##
     legacyPackages = self.channels.${system}.stable;
@@ -54,12 +60,7 @@ in utils.lib.eachSystem systems (system:
     files = import ./files;
 
     ## Custom Library Functions ##
-    #lib = import ./lib args // { lib = nixpkgs.lib; };
-    lib = (import ./lib/map.nix { lib = nixpkgs.lib; }).modules' ./lib (name:
-      import name {
-        inherit systems inputs;
-        lib = nixpkgs.lib;
-      });
+    lib = lib.util;
 
     ## Custom Configuration Modules ##
     nixosModule = import ./modules { inherit version lib inputs files; };

@@ -1,7 +1,7 @@
 { systems, lib, inputs, ... }:
 let
   inherit (inputs) self nixpkgs;
-  inherit (lib) nameValuePair;
+  inherit (lib) nameValuePair util;
   inherit (builtins) any attrValues isPath listToAttrs map readFile;
 in rec {
   ## Builder Functions ##
@@ -39,7 +39,7 @@ in rec {
 
   # Package Channels Builder
   channel = src: overlays: patch:
-    let patches = (import ./map.nix { inherit lib; }).patches patch;
+    let patches = util.map.patches patch;
     in eachSystem (system:
       (if !(any isPath patches) then
         import src

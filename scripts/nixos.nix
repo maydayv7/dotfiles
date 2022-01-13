@@ -2,7 +2,7 @@
 with pkgs;
 with files;
 let
-  inherit (lib.map) list;
+  inherit (lib.util.map) list;
   inherit (inputs) self;
 
   installMedia = list self.installMedia;

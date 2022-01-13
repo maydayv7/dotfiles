@@ -1,6 +1,6 @@
 { config, lib, pkgs, files, ... }:
 let
-  inherit (lib) map;
+  inherit (lib.util) map;
   path = if (builtins.hasAttr "/persist" config.fileSystems) then
     "/persist${files.gpg}"
   else

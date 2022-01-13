@@ -1,7 +1,7 @@
 { system, lib, pkgs }:
-with ({ inherit (lib) hooks pack; });
+with ({ inherit (lib) hooks util; });
 # Install Media Checks
-(pack.installMedia.system) // {
+(util.pack.installMedia.system) // {
   # Pre-Commit Hooks
   commit = hooks.${system}.run {
     src = ./.;
