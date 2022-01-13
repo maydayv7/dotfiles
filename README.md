@@ -129,7 +129,8 @@ O
 
 3. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `secrets/unencrypted/gpg`
 
-4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command: *Replace* ***PATH*** *with the path to the secret* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
+4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command:  
+*Replace* ***PATH*** *with the path to the `secret`* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
 
 5. Edit `configuration.nix` (particularly the `nixosConfigurations` section) and add your device (and if required, custom hardware configuration using the `hardware.module` option)
 

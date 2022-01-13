@@ -4,6 +4,7 @@ shell:
   only:
     changes:
       - 'shells/*'
+  allow_failure: true
   variables:
     CACHIX_AUTH_TOKEN: $CACHIX_TOKEN
     CACHIX_CACHE_NAME: maydayv7-dotfiles
