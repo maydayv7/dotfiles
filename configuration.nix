@@ -11,9 +11,9 @@ let
   # System Libraries
   files = self.files;
   inherit (lib) build map pack;
-  lib = nixpkgs.lib // home.lib // utils.lib // {
+  lib = nixpkgs.lib // home.lib // utils.lib // self.lib // {
     hooks = hooks.lib;
-  } // self.lib;
+  };
 in utils.lib.eachSystem systems (system:
   let
     # Package Channels

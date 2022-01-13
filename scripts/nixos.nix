@@ -76,7 +76,14 @@ in lib.recursiveUpdate {
     echo "Running De-Duplication..."
     nix store optimise
   ;;
-  "explore") nix repl ${repl};;
+  "explore")
+    if [ -z "$2" ]
+    then
+      nix repl --arg path ${path} ${repl}
+    else
+      nix repl --arg path $(readlink -f $2 | sed 's|/flake.nix||') ${repl}
+    fi
+  ;;
   "iso")
     case $2 in
     "") error "Expected a Variant of Install Media";;

@@ -7,6 +7,7 @@ lib.recursiveUpdate {
 } (writeShellScriptBin "setup" ''
   #!${runtimeShell}
   set +x
+  ${scripts.commands}
 
   echo "Preparing Directory..."
   pushd $HOME > /dev/null
@@ -23,16 +24,7 @@ lib.recursiveUpdate {
   printf "\n"
 
   read -p "Enter Path to GPG Keys: " KEY
-  LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-  if [ -z "$KEY" ]
-  then
-    error "Path to GPG Keys cannot be empty"
-  elif [[ $KEY =~ $LINK ]]
-  then
-    echo "Cloning Keys..."
-    git clone $KEY keys --progress
-    KEY=./keys
-  fi
+  getKeys $KEY
   echo "Importing Keys..."
   for key in $KEY/*.gpg
   do
@@ -42,10 +34,10 @@ lib.recursiveUpdate {
   printf "\n"
 
   echo "Cloning Repository..."
-  git clone https://gitlab.com/maydayv7/dotfiles.git $DIR
+  git clone ${repo} $DIR
   pushd $DIR > /dev/null
   git-crypt unlock
-  git remote add mirror https://github.com/maydayv7/dotfiles
+  git remote add mirror ${mirror}
   popd > /dev/null
   printf "\n"
 

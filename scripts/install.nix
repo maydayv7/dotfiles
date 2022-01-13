@@ -1,14 +1,14 @@
 { lib, pkgs, files, ... }:
 with pkgs;
-let path = files.gpg;
-in lib.recursiveUpdate {
+with files;
+lib.recursiveUpdate {
   meta.description = "NixOS Install Script";
   buildInputs = [ coreutils git gnupg ];
 } (writeShellScriptBin "install" ''
   #!${runtimeShell}
   # This script must be executed as 'root'
   set +x
-  ${files.scripts.commands}
+  ${scripts.commands}
 
   read -p "Select Device to Install (Vortex/Futura): " choice
     case $choice in
@@ -31,22 +31,12 @@ in lib.recursiveUpdate {
   fi
 
   read -p "Enter Path to GPG Keys: " KEY
-  LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-  if [ -z "$KEY" ]
-  then
-    error "Path to GPG Keys cannot be empty"
-  elif [[ $KEY =~ $LINK ]]
-  then
-    echo "Cloning Keys..."
-    git clone $KEY keys --progress
-    KEY=./keys
-  fi
-
+  getKeys $KEY
   echo "Importing Keys..."
-  sudo mkdir -p ${path}
+  sudo mkdir -p ${gpg}
   for key in $KEY/*.gpg
   do
-    sudo gpg --homedir ${path} --import $key
+    sudo gpg --homedir ${gpg} --import $key
   done
   printf "\n"
 

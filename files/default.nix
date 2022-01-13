@@ -3,6 +3,10 @@ with ({ inherit (builtins) readFile; }); {
   # Files Path
   toplevel = ./.;
 
+  # 'git' Repository
+  repo = "https://gitlab.com/maydayv7/dotfiles";
+  mirror = "https://github.com/maydayv7/dotfiles";
+
   # Configuration Directory
   path = "/etc/nixos";
 
@@ -41,7 +45,7 @@ with ({ inherit (builtins) readFile; }); {
   repl = ../repl.nix;
 
   # Bash Scripts
-  scripts.commands = readFile ./scripts/commands.sh; # Useful Commands
+  scripts.commands = readFile ../scripts/commands.sh; # Useful Commands
 
   # `sops` Encrypted Secrets
   sops = ../secrets/.sops.yaml;

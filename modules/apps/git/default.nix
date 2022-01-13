@@ -29,7 +29,7 @@ in rec {
     runner = mkEnableOption "Enable GitLab Runner Support";
   };
 
-  ## git Configuration ##
+  ## 'git' Configuration ##
   config = mkIf enable {
     # Warnings
     assertions = [
