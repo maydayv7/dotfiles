@@ -9,41 +9,41 @@ let
   version = readFile ./.version;
 
   # System Libraries
-  inherit (lib) map package;
+  inherit (lib) build map;
   lib = nixpkgs.lib // self.lib;
-  build = self.nixosModule.config;
-  inherit (builtins) attrValues head mapAttrs readFile;
+  inherit (builtins) mapAttrs readFile;
 
-  # Package Channels
-  channels =
-  {
-    unstable = package.channel unstable [ nur.overlay ] [ ];
-    nixpkgs = package.channel nixpkgs [ nur.overlay ] ./packages/patches;
-  };
-
-  # Program Configuration and dotfiles
+  # Program Configuration and `dotfiles`
   files = import ./files;
 in
-utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; in
-{
-  ## Configuration Checks ##
-  checks = mapAttrs (_: name: name.config.system.build.toplevel) self.installMedia;
+utils.lib.eachSystem systems
+(system:
+  let
+    # Package Channels
+    pkgs = (build.channel nixpkgs [ nur.overlay ] ./packages/patches)."${system}";
+    pkgs' = (build.channel unstable [ nur.overlay ] [ ])."${system}";
+  in
+  {
+    ## Configuration Checks ##
+    checks = mapAttrs (_: name: name.config.system.build.toplevel) self.installMedia;
 
-  ## Developer Shells ##
-  # Default Developer Shell
-  devShell = import ./shells { inherit pkgs; };
+    ## Developer Shells ##
+    # Default Developer Shell
+    devShell = import ./shells { inherit pkgs; };
 
-  # Tailored Developer Shells
-  devShells = map.modules ./shells (name: import name { inherit pkgs; });
+    # Tailored Developer Shells
+    devShells = map.modules ./shells (name: import name { inherit pkgs; });
 
-  ## Package Configuration ##
-  channels = { stable = pkgs; unstable = channels.unstable."${system}"; };
-  legacyPackages = (head (attrValues self.nixosConfigurations)).pkgs;
+    ## Package Configuration ##
+    channels = { stable = pkgs; unstable = pkgs'; };
+    legacyPackages = self.channels."${system}".stable;
 
-  # Custom Packages
-  defaultPackage = self.packages."${system}".nixos;
-  packages = map.merge map.modules ./packages ./scripts (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-})
+    # Custom Packages
+    defaultPackage = self.apps."${system}".nixos;
+    apps = map.modules ./scripts (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
+    packages = self.apps."${system}" // map.modules ./packages (name: pkgs.callPackage name { inherit lib pkgs files; });
+  }
+)
 //
 {
   # Overrides
@@ -61,11 +61,9 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
   installMedia =
   {
     # Install Media - GNOME
-    gnome = build
+    gnome = build.system
     {
       iso = true;
-      name = "nixos";
-      repo = channels.nixpkgs;
 
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
@@ -79,11 +77,11 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
   nixosConfigurations =
   {
     # PC - Dell Inspiron 15 5000
-    Vortex = build
+    Vortex = build.system
     {
       system = "x86_64-linux";
       name = "Vortex";
-      repo = channels.nixpkgs;
+      repo = "stable";
 
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";
@@ -128,11 +126,10 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
     };
 
     # PC - Dell Inspiron 11 3000
-    Futura = build
+    Futura = build.system
     {
       system = "x86_64-linux";
       name = "Futura";
-      repo = channels.nixpkgs;
 
       timezone = "Asia/Kolkata";
       locale = "en_IN.UTF-8";

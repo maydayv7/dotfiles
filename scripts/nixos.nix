@@ -1,4 +1,4 @@
-{ system, lib, inputs, pkgs, files, ... }:
+{ system ? "x86_64-linux", lib, inputs, pkgs, files, ... }:
 with pkgs;
 let
   inherit (lib.map) list;
@@ -70,6 +70,7 @@ lib.recursiveUpdate
   "clean")
     echo "Running Garbage Collection..."
     nix store gc
+    nix-collect-garbage -d
     printf "\n"
     echo "Running De-Duplication..."
     nix store optimise

@@ -2,7 +2,7 @@ let
   inherit (builtins) readFile;
 in
 {
-  ## dotfiles ##
+  ## Dotfiles ##
   # Configuration Directory
   path = "/etc/nixos";
 

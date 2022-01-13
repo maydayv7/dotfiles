@@ -3,10 +3,10 @@ with inputs;
 with ({ inherit (builtins) attrValues substring; });
 {
   ## Configuration Build Function ##
-  config = { system ? "x86_64-linux", iso ? false, name, repo ? "stable", timezone, locale, kernel, kernelModules ? [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ], desktop, apps ? { }, hardware ? { }, user ? { name = "nixos"; autologin = true; } }:
+  config = { system ? "x86_64-linux", iso ? false, name ? "nixos", repo ? "stable", timezone, locale, kernel, kernelModules ? [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "nvme" "usbhid" ], desktop, apps ? { }, hardware ? { }, user ? { name = "nixos"; autologin = true; } }:
   let
     # Default Package Channel
-    pkgs = repo."${system}";
+    pkgs = self.channels."${system}"."${repo}";
   in lib.nixosSystem
   {
     inherit system;

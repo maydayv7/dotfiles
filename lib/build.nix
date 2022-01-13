@@ -1,11 +1,12 @@
 { systems, lib, inputs, ... }:
 let
-  inherit (inputs) self utils;
+  inherit (inputs) self;
   inherit (builtins) attrValues hashString listToAttrs map readDir toString typeOf;
   inherit (lib) flatten hasSuffix mapAttrsToList nameValuePair;
 in rec
 {
-  ## Packager Functions ##
+  ## Builder Functions ##
+  system = self.nixosModule.config;
   eachSystem = func: listToAttrs (map (name: nameValuePair name (func name)) systems);
 
   # Package Channels Builder

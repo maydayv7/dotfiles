@@ -645,13 +645,5 @@ in
       wedge-separator-width = 1.0;
       wedge-width = 300.0;
     };
-
-    "org/gnome/shell/extensions/pop-shell" =
-    {
-      smart-gaps = true;
-      snap-to-grid = false;
-      tile-by-default = false;
-      hint-color-rgba = "#1b6acb";
-    };
   };
 }
