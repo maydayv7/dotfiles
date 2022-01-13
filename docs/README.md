@@ -6,4 +6,5 @@ This directory contains the following additional information about my `dotfiles`
 + Configuration [Modules](./MODULES.md)
 + [Library](./LIBRARY.md) Functions
 + [Package](./PACKAGES.md) Configuration
++ Bash [Scripts](./SCRIPTS.md)
 + Additional [Links](./LINKS.md)

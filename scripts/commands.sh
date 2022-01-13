@@ -32,8 +32,48 @@ extract () {
   fi
 }
 
+
+internet() {
+  echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1
+  if ! [ $? -eq 0 ]
+  then
+    error "You are Offline, Please Connect to the Internet"
+  fi
+}
+
+keys() {
+  read -p "Enter Path to GPG Keys (path/.git): " KEY
+  pushd $HOME > /dev/null
+  LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+  if [ -z "$KEY" ]
+  then
+    error "Path to GPG Keys cannot be empty"
+  elif [[ $KEY =~ $LINK ]]
+  then
+    echo "Cloning Keys..."
+    git clone $KEY keys --progress
+  else
+    cp -r $KEY/. ./keys
+  fi
+  echo "Importing Keys..."
+  for key in ./keys/*.gpg
+  do
+    gpg --homedir "$2" --import $key
+  done
+  rm -rf ./keys
+  popd > /dev/null
+}
+
 newline() {
   echo -e "\n";
+}
+
+restart() {
+  read -p "Do you want to Reboot the System? (Y/N): " choice
+    case $choice in
+      [Yy]*) reboot;;
+      *) exit;;
+    esac
 }
 
 up () {

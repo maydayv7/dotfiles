@@ -11,7 +11,6 @@ The [`lib`](../lib) directory contains custom-made pure Flakes-compatible utilit
 * [`map`](../lib/map.nix): Mapping functions primarily aimed at shortening code complexity -
   + `filter`: Filters out unneeded `attrs` and maps required ones to specified function
   + `list`: Lists all toplevel `attrs` of `attrset` and returns it as a multi-line string
-  + `merge`: Merges two `attrsets` acted upon by the same function
   + `patches`: Maps all file patches stored in a directory, if available
   + `modules`: Maps all configuration modules stored in a directory. Use `modules'` in order to recursively search inside directories
   + `secrets`: Maps binary `sops` encrypted secrets stored in a directory

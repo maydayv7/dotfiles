@@ -3,13 +3,11 @@ let
   inherit (builtins) attrNames foldl' isPath pathExists readDir toString;
   inherit (lib)
     flatten filterAttrs hasPrefix hasSuffix mapAttrs' mapAttrsToList
-    nameValuePair recursiveUpdate removeSuffix;
+    nameValuePair removeSuffix;
 in rec {
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
   list = func: foldl' (x: y: x + y + "\n  ") "" (attrNames func);
-  merge = name: dir1: dir2: func:
-    recursiveUpdate (name dir1 func) (name dir2 func);
 
   # File Patches
   patches = patch:

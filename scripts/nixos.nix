@@ -1,5 +1,4 @@
 { system ? builtins.currentSystem, lib, inputs, pkgs, files, ... }:
-with pkgs;
 with files;
 let
   inherit (lib.util.map) list;
@@ -11,21 +10,28 @@ let
   # Usage Description
   usage = {
     script = ''
-      ## Tool for NixOS System Management ##
-      # Usage #
-        apply [ --'option' ]       - Applies Device and User Configuration
-        cache 'command'            - Pushes Binary Cache Output to Cachix
-        check                      - Checks System Configuration
-        clean [ --all ]            - Garbage Collects and Optimises Nix Store
-        explore                    - Opens Interactive Shell to explore Syntax and Configuration
-        iso 'variant' [ --burn ]   - Builds Install Media [ Burns '.iso' to USB ]
-        list [ 'pattern' ]         - Lists all Installed Packages [ Returns Matching ones ]
-        locate 'package'           - Locates Installed Package
-        save                       - Saves Configuration State to Repository
-        search 'package'           - Searches for Packages in 'nixpkgs' Repository
-        secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
-        shell [ 'name' ]           - Opens desired Nix Developer Shell
-        update [ --'option' ]      - Updates System Repositories
+      # Legend #
+               xxx - Command
+               [ ] - Optional        -       Command Description
+               ' ' - Variable
+
+        # Usage #
+          apply [ --'option' ]       - Applies Device and User Configuration
+          cache 'command'            - Pushes Binary Cache Output to Cachix
+          check [ --trace ]          - Checks System Configuration [ Displays Error to Trace ]
+          clean [ --all ]            - Garbage Collects and Optimises Nix Store
+          explore                    - Opens Interactive Shell to explore Syntax and Configuration
+          install                    - Installs NixOS onto System
+          index                      - Updates Package Repository Index
+          iso 'variant' [ --burn ]   - Builds Install Media [ Burns '.iso' to USB ]
+          list [ 'pattern' ]         - Lists all Installed Packages [ Returns Matches ]
+          locate 'package'           - Locates Installed Package
+          save                       - Saves Configuration State to Repository
+          search 'term' [ 'source' ] - Searches for Packages [ Providing 'term' ] or Configuration Options
+          secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
+          setup                      - Sets up System after Install
+          shell [ 'name' ]           - Opens desired Nix Developer Shell
+          update [ 'repository' ]    - Updates System Repositories
     '';
 
     apply = ''
@@ -34,6 +40,13 @@ let
         --check                    - Checks Configuration Build
         --rollback                 - Reverts to Last Build Generation
         --test                     - Tests Configuration Build
+    '';
+
+    search = ''
+      # Usage #
+        cmd.'command'              - Searches for Package providing 'command'
+        pkgs.'package'             - Searches for Package 'package'
+        'term'                     - Searches for Packages and Configuration Options and matching 'term'
     '';
 
     secret = ''
@@ -46,15 +59,34 @@ let
   };
 in lib.recursiveUpdate {
   meta.description = "System Management Script";
-  buildInputs = [ cachix coreutils dd git gnused nixfmt nix-linter sops tree ];
-} (writeShellScriptBin "nixos" ''
-  #!${runtimeShell}
+  buildInputs = with pkgs; [
+    cachix
+    coreutils
+    dd
+    git
+    git-crypt
+    gparted
+    gnused
+    manix
+    nixfmt
+    nix-index
+    nix-linter
+    parted
+    sops
+    tree
+    zfs
+  ];
+} (pkgs.writeShellScriptBin "nixos" ''
+  #!${pkgs.runtimeShell}
   set -o pipefail
+
   ${scripts.commands}
+  ${scripts.partitions}
 
   case $1 in
-  "help"|"--help"|"-h") echo "${usage.script}";;
-  "apply")
+  "") error "Expected an option" "${usage.script}";;
+  help|--help|-h) echo -e "## Tool for NixOS System Management ##\n${usage.script}";;
+  apply)
     echo "Applying Configuration..."
     case $2 in
     "") sudo nixos-rebuild switch --flake ${path.system}#;;
@@ -65,8 +97,8 @@ in lib.recursiveUpdate {
     *) error "Unknown option '$2'" "${usage.apply}";;
     esac
   ;;
-  "cache")
-  command=$(echo "''${@:2}")
+  cache)
+    command=$(echo "''${@:2}")
     if [ -z "$2" ]
       then
         error "Expected a Build Command"
@@ -76,14 +108,18 @@ in lib.recursiveUpdate {
         cachix watch-exec ${path.cache} $command
     fi
   ;;
-  "check")
+  check)
+    if [ "$2" == "--trace" ]
+    then
+      flags="--show-trace"
+    fi
     echo "Formatting Code..."
     find ${path.system} -type f -name "*.nix" | xargs nixfmt
     echo "Checking Syntax..."
-    nix flake check ${path.system} --keep-going
+    nix flake check ${path.system} --keep-going $flags
     nix-linter -r ${path.system} || true
   ;;
-  "clean")
+  clean)
     echo "Running Garbage Collection..."
     if [ "$EUID" -ne 0 ] && [ "$2" != "--all" ]
     then
@@ -99,13 +135,63 @@ in lib.recursiveUpdate {
     echo "Running De-Duplication..."
     nix store optimise
   ;;
-  "explore")
+  explore)
     case $2 in
     "") nix repl --arg path ${path.system} ${repl};;
     *) nix repl --arg path $(readlink -f $2 | sed 's|/flake.nix||') ${repl};;
     esac
   ;;
-  "iso")
+  index)
+    echo "Updating Package Index..."
+    nix-index
+  ;;
+  install)
+    internet
+    if [ "$EUID" -ne 0 ]
+    then
+      error "This Command must be Executed as 'root'"
+    fi
+    read -p "Enter Name of Device to Install: " HOST
+    read -p "Do you want to Automatically Create the Partitions? (Y/N): " choice
+      case $choice in
+        [Yy]*) warn "Assuming Disk is Completely Empty"; partition_disk;;
+        *) warn "You must Create, Format and Label the Partitions on your own"; gparted > /dev/null;;
+      esac
+    newline
+    read -p "Select Filesystem to use for Disk (simple/advanced): " choice
+      case $choice in
+        1|[Ss]*)
+          read -p "Do you want to Create ZFS Pool and Datasets? (Y/N): " choice
+            case $choice in
+              [Yy]*) create_ext4; mount_ext4;;
+              *) warn "Assuming that Required EXT4 Partition has already been Created"; mount_ext4;;
+            esac
+        ;;
+        2|[Aa]*)
+          read -p "Do you want to Create ZFS Pool and Datasets? (Y/N): " choice
+            case $choice in
+              [Yy]*) create_zfs; mount_zfs;;
+              *) warn "Assuming that Required ZFS Pool and Datasets have already been Created"; mount_zfs;;
+            esac
+        ;;
+        *) error "Choose (1)simple or (2)advanced";;
+      esac
+    newline
+    mount_other
+    newline
+    read -p "Enter Path to Repository (path/URL): " URL
+    if [ -z "$URL" ]
+    then
+      URL=${path.flake}
+    fi
+    echo "Installing System from '$URL'..."
+    nixos-install --no-root-passwd --root /mnt --flake $URL#$HOST --impure
+    warn "Run 'nixos setup' in the Newly Installed System to Finish Setup"
+    unmount_all
+    newline
+    restart
+  ;;
+  iso)
     case $2 in
     "") error "Expected a Variant of Install Media";;
     *)
@@ -114,7 +200,7 @@ in lib.recursiveUpdate {
     ;;
     esac
     case $3 in
-    "");;
+    "") echo "The '--burn' Option can be used to Flash the Image onto a USB";;
     "--burn")
       case $4 in
       "") error "Expected a 'path' to USB Drive";;
@@ -134,24 +220,25 @@ in lib.recursiveUpdate {
     case $2 in
     "") error "Expected Package Name";;
     *)
-      package=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep -m 1 $2)
+      package=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep $2)
       if [ -z "$package" ]
       then
         nix search nixpkgs#$2 &> /dev/null && error "Package '$2' is not installed" || error "Package '$2' is invalid"
       else
-        echo "Package $package found"
-        nix search nixpkgs#$2 &> /dev/null && location=$(nix eval nixpkgs#$2.outPath 2> /dev/null | sed 's/"//g') || location=$(find /nix/store -type d -name "*$package")
-        if ! (( $(grep -c . <<<"$MULTILINE") > 1 ))
+        if (( $(grep -c . <<<"$package") > 1 ))
         then
-          echo "Location: $location"
+          locations=$(find /nix/store -maxdepth 1 -type d -name "*$2*")
+          echo -e "Locations:\n$locations"
         else
-          echo -e "Locations:\n$location"
+          echo "Package $package found"
+          nix search nixpkgs#$2 &> /dev/null && location=$(nix eval nixpkgs#$2.outPath 2> /dev/null | sed 's/"//g') || location=$(find /nix/store -maxdepth 1 -type d -name "*$package")
+          echo "Location: $location"
         fi
       fi
     ;;
     esac
   ;;
-  "save")
+  save)
     echo "Saving Changes..."
     pushd ${path.system} > /dev/null
     git stash
@@ -163,14 +250,35 @@ in lib.recursiveUpdate {
     git push --force --mirror mirror
     popd > /dev/null
   ;;
-  "search")
-    echo "Searching for Package '$2'..."
-    nix search nixpkgs#$2
-  ;;
-  "secret")
+  search)
     case $2 in
-    "help"|"--help"|"-h") echo "${usage.secret}";;
-    "edit")
+    "") error "Expected an option" "${usage.search}";;
+    help|--help|-h) echo "${usage.search}";;
+    cmd.*)
+      command=$(echo $2 | sed 's/cmd\.//')
+      echo "Searching for Package providing Command '$command'..."
+      nix-locate --whole-name --type x --type s --no-group --type x --type s --top-level --at-root "/bin/$command"
+    ;;
+    pkgs.*)
+      package=$(echo $2 | sed 's/pkgs\.//')
+      echo "Searching for Package '$package'..."
+      if [ -z "$3" ]
+      then
+        nix search nixpkgs#$package
+      else
+        nix search $3#$package
+      fi
+    ;;
+    *)
+      echo "Searching for Term '$2'..."
+      manix $2;;
+    esac
+  ;;
+  secret)
+    case $2 in
+    "") error "Expected an option" "${usage.secret}";;
+    help|--help|-h) echo "${usage.secret}";;
+    edit)
       case $3 in
       "") error "Expected 'name' of Secret";;
       *)
@@ -179,48 +287,69 @@ in lib.recursiveUpdate {
       ;;
       esac
     ;;
-    "list")
+    list)
       echo "## Secrets in ${path.system} ##"
       cat ${sops} | grep / | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path.system}/|' | xargs tree -C --noreport -P '*.secret' -I '_*' | sed 's/\.secret//'
     ;;
-    "show")
+    show)
       echo "Showing Secret '$3'..."
       find ${path.system} -name $3.secret | xargs sops --config ${sops} -d || error "Unknown Secret '$3'"
     ;;
-    "update")
+    update)
       echo "Updating Secrets..."
       for secret in `find ${path.system} -name '*.secret' ! -name '_*'`
       do
         sops --config ${sops} updatekeys $secret
       done
     ;;
-    *)
-      if [ -z "$2" ]
-      then
-        error "Expected an option" "${usage.secret}"
-      else
-        error "Unknown option '$2'" "${usage.secret}"
-      fi
-    ;;
+    *) error "Unknown option '$2'" "${usage.secret}";;
     esac
   ;;
-  "shell")
+  setup)
+    internet
+    keys
+    newline
+    echo "Preparing Directory..."
+    if ! [ -d /persist ]
+    then
+      DIR=${path.system}
+    else
+      DIR=/persist${path.system}
+    fi
+    su recovery -c 'if ! [ -d /persist ]; then DIR=${path.system}; else DIR=/persist${path.system}; fi; sudo -S rm -rf $DIR && sudo mkdir $DIR && sudo chmod ugo+rw $DIR'
+    newline
+    echo "Cloning Repository..."
+    git clone ${path.repo} $DIR
+    cd $DIR
+    git-crypt unlock
+    git remote add mirror ${path.mirror}
+    newline
+    echo "Applying Configuration..."
+    if [ -d /persist ]
+    then
+      su recovery -c 'sudo -S umount -l ${path.system} && sudo -S mount ${path.system}'
+    fi
+    su recovery -c 'sudo -S nixos-rebuild switch --flake ${path.system}'
+    restart
+  ;;
+  shell)
     case $2 in
     "") nix develop ${path.system} --command $SHELL;;
     *) nix develop ${path.system}#$2 --command $SHELL || error "Unknown Shell '$2'" "# Available Shells #\n  ${devShells}";;
     esac
   ;;
-  "update")
-    echo "Updating Flake Inputs..."
-    nix flake update ${path.system} $2
+  update)
+    case $2 in
+    "")
+      echo "Updating Flake Inputs..."
+      nix flake update ${path.system}
+    ;;
+    *)
+      echo "Updating Flake Input $2..."
+      nix flake lock ${path.system} --update-input $2
+    ;;
+    esac
   ;;
-  *)
-    if [ -z "$1" ]
-    then
-      error "Expected an option" "${usage.script}"
-    else
-      error "Unknown option '$1'" "${usage.script}"
-    fi
-  ;;
+  *) error "Unknown option '$1'" "${usage.script}";;
   esac
 '')

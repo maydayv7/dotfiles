@@ -63,7 +63,9 @@ in lib.eachSystem systems (system:
 
     ## Custom Configuration Modules ##
     nixosModule = import ./modules { inherit version lib inputs files; };
-    nixosModules = map.merge map.modules ./modules ./secrets import;
+    nixosModules = map.modules ./modules import // {
+      secrets = import ./secrets;
+    };
 
     ## Configuration Templates ##
     defaultTemplate = self.templates.minimal;

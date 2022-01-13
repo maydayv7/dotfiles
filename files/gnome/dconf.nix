@@ -188,7 +188,9 @@ in {
     "ca/desrt/dconf-editor".show-warning = false;
     "io/github/seadve/Kooha".video-format = "mp4";
     "org/gnome/boxes".shared-folders =
-      "[<{'uuid': <'5b825243-4232-4426-9d82-3df05e684e42'>, 'path': <'${homeDir}'>, 'name': <'v7'>}>]";
+      "[<{'uuid': <'5b825243-4232-4426-9d82-3df05e684e42'>, 'path': <'${homeDir}'>, 'name': <'Home'>}>]";
+    "org/gnome/shell/world-clocks".locations =
+      "[<(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>]";
 
     "org/gnome/Geary" = {
       ask-open-attachment = true;
@@ -502,8 +504,10 @@ in {
       hot-corner = false;
       notification-banner-position = 2;
       show-prefs-intro = false;
+      workspace-switcher-should-show = true;
       workspace-background-corner-size = 58;
       workspace-switcher-size = 7;
+      workspace-wrap-around = true;
     };
 
     "org/gnome/shell/extensions/lockkeys".style = "show-hide";

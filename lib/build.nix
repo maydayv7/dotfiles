@@ -29,7 +29,6 @@ in rec {
 
         ({
           # '.iso' Creation Settings
-          boot.supportedFilesystems = [ "ntfs" "vfat" "zfs" ];
           isoImage = {
             makeEfiBootable = true;
             makeUsbBootable = true;

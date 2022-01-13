@@ -36,6 +36,7 @@ in rec {
     {
       ## Partitions ##
       # Common Partitions
+      boot.supportedFilesystems = [ "ntfs" "vfat" ];
       fileSystems = {
         # EFI System Partition
         "/boot" = {
@@ -98,9 +99,11 @@ in rec {
 
       # Boot Settings
       boot = {
-        kernelParams = [ "elevator=none" ];
+        supportedFilesystems = [ "zfs" ];
+        kernelParams = [ "elevator=none" "nohibernate" ];
         zfs = {
           forceImportRoot = false;
+          forceImportAll = false;
           devNodes = "/dev/disk/by-partlabel/System";
         };
 

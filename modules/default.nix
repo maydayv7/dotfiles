@@ -42,7 +42,7 @@ in {
         # Package Configuration
         nix.maxJobs = hardware.cores or 4;
         nixpkgs.pkgs = pkgs;
-        environment.systemPackages = with pkgs.custom; [ install nixos setup ];
+        environment.systemPackages = [ pkgs.custom.nixos ];
         system = {
           stateVersion = version;
           configurationRevision = self.rev or null;
