@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, files, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
   cfg = config.user.shell;
@@ -22,7 +22,10 @@ in rec {
       # Environment Settings
       environment = {
         shells = [ pkgs.bashInteractive ];
-        variables.EDITOR = "nano -Ll";
+
+        # Default Editor
+        variables.EDITOR = "nano";
+        etc.nanorc.text = files.nano;
       };
     }
 

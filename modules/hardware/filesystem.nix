@@ -100,7 +100,7 @@ in rec {
       boot = {
         kernelParams = [ "elevator=none" ];
         zfs = {
-          forceImportRoot = false; # Need to 'zfs_force=1' on first boot
+          forceImportRoot = false;
           devNodes = "/dev/disk/by-partlabel/System";
         };
 

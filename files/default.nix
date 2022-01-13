@@ -49,6 +49,9 @@ with ({ inherit (builtins) readFile; }); {
     profile = ./wallpapers/Profile.png;
   };
 
+  # Nano Text Editor
+  nano = readFile ./nano/nanorc;
+
   # Interactive Nix Shell
   repl = ../repl.nix;
 
