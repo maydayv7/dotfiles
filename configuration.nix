@@ -11,59 +11,54 @@ let
   # System Libraries
   files = self.files;
   inherit (lib) build map pack;
+  args = { inherit args systems version lib inputs files; };
   lib = nixpkgs.lib // home.lib // utils.lib // self.lib // {
     hooks = hooks.lib;
   };
 in utils.lib.eachSystem systems (system:
   let
+    args' = args // { inherit system pkgs; };
+
     # Package Channels
-    pkgs =
-      (build.channel nixpkgs [ nur.overlay ] ./packages/patches)."${system}";
-    pkgs' = (build.channel unstable [ nur.overlay ] [ ])."${system}";
+    pkgs = (build.channel nixpkgs [ nur.overlay ] ./packages/patches).${system};
+    pkgs' = (build.channel unstable [ nur.overlay ] [ ]).${system};
   in {
     ## Configuration Checks ##
-    checks = import ./modules/nix/checks.nix { inherit system lib pkgs; };
+    checks = import ./modules/nix/checks.nix args';
 
     ## Developer Shells ##
     # Default Shell
-    devShell = import ./shells { inherit pkgs; };
+    devShell = import ./shells args';
 
     # Tailored Shells
     devShells = map.modules ./shells (name: pkgs.mkShell (import name pkgs));
 
     ## Package Configuration ##
-    legacyPackages = self.channels."${system}".stable;
+    legacyPackages = self.channels.${system}.stable;
     channels = {
       stable = pkgs;
       unstable = pkgs';
     };
 
     # Custom Packages
-    defaultApp = self.apps."${system}".nixos;
-    defaultPackage = self.packages."${system}".dotfiles;
-    apps = map.modules ./scripts
-      (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    packages = self.apps."${system}" // pack.nixosConfigurations
-      // pack.installMedia.iso // map.modules ./packages
-      (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
+    defaultApp = self.apps.${system}.nixos;
+    defaultPackage = self.packages.${system}.dotfiles;
+    apps = map.modules ./scripts (name: pkgs.callPackage name args');
+    packages = self.apps.${system} // pack.nixosConfigurations
+      // pack.installMedia.iso
+      // map.modules ./packages (name: pkgs.callPackage name args');
   }) // {
     # Overrides
-    overlay = final: prev: {
-      home-manager = prev.callPackage "${inputs.home}/home-manager" { };
-    };
     overlays = map.modules ./packages/overlays import;
 
     ## Program Configuration and `dotfiles` ##
     files = import ./files;
 
     ## Custom Library Functions ##
-    lib = import ./lib {
-      inherit systems inputs;
-      lib = nixpkgs.lib;
-    };
+    lib = import ./lib args // { lib = nixpkgs.lib; };
 
     ## Custom Configuration Modules ##
-    nixosModule = import ./modules { inherit version lib inputs files; };
+    nixosModule = import ./modules args;
     nixosModules = map.merge map.modules ./modules ./secrets import
       // home.nixosModules // sops.nixosModules // utils.nixosModules;
 

@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }, ... }:
 pkgs.mkShell {
   name = "devShell";
   shellHook = ''echo "## Default Developer Shell ##"'';

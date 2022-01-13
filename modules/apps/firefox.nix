@@ -10,7 +10,7 @@ in rec {
     # Profile
     user.home.programs.firefox = {
       enable = true;
-      profiles."${username}".settings = {
+      profiles.${username}.settings = {
         ## Flags
         # Features
         "browser.search.openintab" = true;

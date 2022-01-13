@@ -34,7 +34,7 @@ in rec {
       (if patches == [ ] then
         import src
       else
-        import (src.legacyPackages."${system}".applyPatches {
+        import (src.legacyPackages.${system}.applyPatches {
           inherit src;
           name = "patched-input-${src.shortRev}";
           patches = if isPath patches then
@@ -47,12 +47,11 @@ in rec {
             patches;
         })) {
           inherit system;
-          overlays = overlays ++ (attrValues self.overlays) ++ [
-            self.overlay
+          overlays = overlays ++ (attrValues self.overlays or { }) ++ [
             (final: prev:
               {
-                custom = self.packages."${system}";
-              } // self.channels."${system}")
+                custom = self.packages.${system};
+              } // self.channels.${system})
           ];
           config = {
             allowAliases = true;

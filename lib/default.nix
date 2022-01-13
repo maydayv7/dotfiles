@@ -1,4 +1,4 @@
-{ systems, lib, inputs }@args: {
+{ args, ... }: {
   build = import ./build.nix args;
   map = import ./map.nix args;
   pack = import ./pack.nix args;

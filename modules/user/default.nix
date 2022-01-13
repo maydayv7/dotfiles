@@ -64,8 +64,8 @@ in rec {
     security.sudo.wheelNeedsPassword = mkIf (cfg.password == "") false;
 
     # Configuration Options
-    users.users."${cfg.name}" = mkAliasDefinitions opt.settings;
-    home-manager.users."${cfg.name}" = mkAliasDefinitions opt.home;
+    users.users.${cfg.name} = mkAliasDefinitions opt.settings;
+    home-manager.users.${cfg.name} = mkAliasDefinitions opt.home;
 
     # Home Manager Settings
     home-manager = {

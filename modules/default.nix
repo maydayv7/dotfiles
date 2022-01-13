@@ -1,4 +1,4 @@
-{ version, lib, inputs, files }:
+{ version, lib, inputs, files, ... }:
 let
   inherit (inputs) self;
   inherit (lib) forEach getAttrFromPath remove;
@@ -21,7 +21,7 @@ in {
     } }:
     let
       # Default Package Channel
-      pkgs = self.channels."${system}"."${repo}";
+      pkgs = self.channels.${system}.${repo};
     in lib.nixosSystem {
       inherit system;
       specialArgs = { inherit system lib inputs files; };
@@ -44,7 +44,7 @@ in {
 
         # Kernel Configuration
         boot = {
-          kernelPackages = pkgs.linuxKernel.packages."${kernel}";
+          kernelPackages = pkgs.linuxKernel.packages.${kernel};
           initrd.availableKernelModules = kernelModules;
         };
 

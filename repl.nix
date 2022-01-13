@@ -15,4 +15,4 @@ let
 in {
   inherit flake;
 } // builtins // outputs // flake // flake.nixosConfigurations
-// flake.nixosConfigurations."${hostname}"
+// flake.nixosConfigurations.${hostname}

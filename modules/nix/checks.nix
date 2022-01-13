@@ -1,9 +1,9 @@
-{ system, lib, pkgs }:
+{ system, lib, pkgs, ... }:
 with ({ inherit (lib) hooks pack; });
 # Install Media Checks
 (pack.installMedia.system) // {
   # Pre-Commit Hooks
-  commit = hooks."${system}".run {
+  commit = hooks.${system}.run {
     src = ./.;
     hooks = {
       nixfmt.enable = true;
