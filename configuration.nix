@@ -9,7 +9,7 @@ let
   version = readFile ./.version;
 
   # System Libraries
-  inherit (lib) build map;
+  inherit (lib) build map pack;
   lib = nixpkgs.lib // self.lib;
   inherit (builtins) mapAttrs readFile;
 
@@ -41,7 +41,7 @@ utils.lib.eachSystem systems
     # Custom Packages
     defaultPackage = self.apps."${system}".nixos;
     apps = map.modules ./scripts (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    packages = self.apps."${system}" // map.modules ./packages (name: pkgs.callPackage name { inherit lib pkgs files; });
+    packages = self.apps."${system}" // map.modules ./packages (name: pkgs.callPackage name { inherit lib pkgs files; }) // pack.nixosConfigurations // pack.installMedia;
   }
 )
 //

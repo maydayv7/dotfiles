@@ -1,4 +1,4 @@
-# Publish Install Media Image
+# Release Install Media Image
 release:
   stage: publish
   image: registry.gitlab.com/gitlab-org/release-cli:latest
@@ -8,7 +8,6 @@ release:
     - /^(?!stable).+@/
   needs:
     - job: iso
-      artifacts: true
   script: echo "Creating Release..."
   release:
     name: $CI_COMMIT_TAG
@@ -18,4 +17,4 @@ release:
     assets:
       links:
         - name: NixOS.iso
-          url: 'https://gitlab.com/maydayv7/dotfiles/-/jobs/${JOB_ID}/artifacts/file/archive/iso/nixos.iso'
+          url: '${PACKAGE_REGISTRY}/installMedia/${CI_COMMIT_TAG}/NixOS.iso'

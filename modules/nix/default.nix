@@ -14,7 +14,7 @@ rec
     nix =
     {
       # Version
-      package = pkgs.nix_2_4;
+      package = pkgs.unstable.nixStable;
 
       # Garbage Collection
       autoOptimiseStore = true;

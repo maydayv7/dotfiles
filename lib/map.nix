@@ -41,7 +41,7 @@ in rec
   # Sops Encrypted Secrets
   secrets = dir: choice:
     filter
-      (name: type: type != null && !(hasPrefix "_" name) && !(hasSuffix "git-keep" name))
+      (name: type: type != null && !(hasPrefix "_" name) && !(hasSuffix "keep" name))
       (name: type:
         (nameValuePair name
         {

@@ -13,5 +13,9 @@ The [`lib`](../lib) directory contains custom-made pure Flakes-compatible utilit
   + `modules`: Maps all configuration modules stored in a directory. Use `modules'` in order to recursively search inside directories
   + `secrets`: Maps binary `sops` encrypted secrets stored in a directory
 
+* [`lib.pack`](../lib/map.nix): Utility packager functions used to conveniently perform package management functions -
+  + `installMedia`: Pack `self.installMedia` derivations into individual packages
+  + `nixosConfigurations`: Pack `self.nixosConfigurations` derivations into individual packages
+
 * [`lib.xdg`](../lib/xdg.nix): XDG Helper Functions to simplify menial desktop-related tasks -
   + `mime`: Sets `mimetype` values according to specified application and types

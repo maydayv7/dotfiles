@@ -28,5 +28,6 @@ Here are some repos that I may have shamelessly rummaged through for building my
 + [jordanisaacs](https://github.com/jordanisaacs/dotfiles)
 + [kclejeune](https://github.com/kclejeune/system)
 + [lucasew](https://github.com/lucasew/nixcfg)
++ [nobbz](https://github.com/NobbZ/nixos-config)
 + [rasendubi](https://github.com/rasendubi/dotfiles)
 + [wiltaylor](https://github.com/wiltaylor/dotfiles)

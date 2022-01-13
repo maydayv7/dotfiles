@@ -17,7 +17,7 @@ device:
     - cachix use $CACHIX_CACHE_NAME
   script: cachix watch-exec $CACHIX_CACHE_NAME nix build .#nixosConfigurations.$DEVICE.config.system.build.toplevel -- -L --show-trace
 
-# Build Install Media Image
+# Build and Upload Install Media Image
 iso:
   stage: build
   only:
@@ -26,15 +26,7 @@ iso:
     - /^(?!stable).+@/
   variables:
     ISO: gnome # Default Variant
-  before_script:
-    - echo "Job ID - $CI_JOB_ID"
-    - echo JOB_ID=$CI_JOB_ID >> build_iso.env
   script: nix build .#installMedia.$ISO.config.system.build.isoImage -L --show-trace
   after_script:
-    - mkdir -p archive
-    - cp -r ./result/* archive
-  artifacts:
-    paths:
-      - 'archive/*'
-    reports:
-      dotenv: build_iso.env
+    - nix profile install nixpkgs#curl
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./result/iso/nixos.iso ${PACKAGE_REGISTRY}/installMedia/${CI_COMMIT_TAG}/NixOS.iso'

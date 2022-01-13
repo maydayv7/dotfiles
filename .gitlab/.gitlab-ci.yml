@@ -2,6 +2,10 @@
 default:
   image: nixpkgs/nix-flakes:latest
 
+# CI Variables
+variables:
+  PACKAGE_REGISTRY: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic"
+
 # CI Job Priority
 stages:
   - check

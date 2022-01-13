@@ -2,6 +2,9 @@
 check:
   stage: check
   only:
-    - changes:
+    changes:
       - '*.nix'
+  except:
+    - tags
+    - schedules
   script: nix flake check --keep-going

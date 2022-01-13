@@ -123,6 +123,7 @@
       <keyword>getContext</keyword>
       <keyword>getEnv</keyword>
       <keyword>getFlake</keyword>
+      <keyword>groupBy</keyword>
       <keyword>hasAttr</keyword>
       <keyword>hasContext</keyword>
       <keyword>hashFile</keyword>
