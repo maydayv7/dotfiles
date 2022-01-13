@@ -1,12 +1,12 @@
 { config, lib, ... }:
 let
-  inherit (lib) map;
+  inherit (lib) map mkIf;
   enable = !config.user.autologin;
   secrets = config.sops.secrets;
   username = config.user.name;
 in rec
 {
-  config = lib.mkIf enable
+  config = mkIf enable
   {
     # Passwords
     sops.secrets = map.secrets ./passwords true;

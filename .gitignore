@@ -1,4 +1,6 @@
 *~*
 *.bak
-result
+*.wiki
 .direnv
+builds
+result

@@ -17,8 +17,8 @@ let
   # Package Channels
   channels =
   {
-    unstable = package.channel unstable [ self.overlay ] [ ];
-    nixpkgs = package.channel nixpkgs [ self.overlay nur.overlay ] ./packages/patches;
+    unstable = package.channel unstable [ nur.overlay ] [ ];
+    nixpkgs = package.channel nixpkgs [ nur.overlay ] ./packages/patches;
   };
 
   # Program Configuration and dotfiles
@@ -96,8 +96,8 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
         boot = "efi";
         cores = 8;
         filesystem = "advanced";
-        modules = [ hardware.nixosModules.dell-inspiron-5509 ];
         support = [ "mobile" "printer" "ssd" "virtualisation" ];
+        modules = [ hardware.nixosModules.dell-inspiron-5509 ];
       };
 
       desktop = "gnome";
@@ -108,6 +108,7 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
         {
           name = "maydayv7";
           mail = "maydayv7@gmail.com";
+          runner = true;
         };
       };
 
@@ -144,6 +145,12 @@ utils.lib.eachSystem systems (system: let pkgs = channels.nixpkgs."${system}"; i
         boot = "efi";
         cores = 4;
         filesystem = "simple";
+        modules = with hardware.nixosModules;
+        [
+          common-cpu-intel
+          common-pc
+          common-pc-laptop
+        ];
       };
 
       desktop = "gnome";

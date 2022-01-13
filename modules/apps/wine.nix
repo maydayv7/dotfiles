@@ -13,6 +13,7 @@ in
     # Utilities
     environment.systemPackages = with pkgs;
     [
+      lutris
       playonlinux
       wine
       winetricks

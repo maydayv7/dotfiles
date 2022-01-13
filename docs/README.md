@@ -1,5 +1,5 @@
 # Index
-This directory contains the following additional information about my dotfiles:
+This directory contains the following additional information about my `dotfiles`:
 + [Changelog](./CHANGELOG.md)
 + Known [Issues](./LIMITATIONS.md)
 + Device [Management](./MANAGEMENT.md)

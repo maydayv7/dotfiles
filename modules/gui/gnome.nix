@@ -129,7 +129,7 @@ in rec
           ".local/share/gtksourceview-4/language-specs/nix.lang".text = files.gnome.syntax;
 
           # Discord DNOME Theme
-          ".config/BetterDiscord/data/stable/custom.css" = lib.mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
+          ".config/BetterDiscord/data/stable/custom.css" = mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
           ".mozilla/firefox/${username}/chrome/userChrome.css".text = ''@import "${inputs.firefox}/userChrome.css";'';
@@ -182,6 +182,7 @@ in rec
       [
         # GNOME Shell Extensions
         appindicator
+        burn-my-windows
         caffeine
         clipboard-indicator
         color-picker
@@ -189,12 +190,11 @@ in rec
         compiz-alike-magic-lamp-effect
         custom-hot-corners-extended
         dash-to-panel
-        # fly-pie
+        desktop-cube
+        #fly-pie
+        gtile
         just-perfection
         lock-keys
-        # pop-launcher
-        pop-shell
-        pop-shell-shortcuts
         screenshot-locations
         sound-output-device-chooser
         vitals

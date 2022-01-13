@@ -1,5 +1,5 @@
 ### Custom Library Functions
-The [`lib`](../lib) directory contains custom-made pure Flakes-compatible utility functions, created in order to simplify the configuration and conveniently define and support multiple use-cases (If you have a working NixOS install, you can check it out using `github:maydayv7/dotfiles#lib`). The following is a summary of all the present functions:
+The [`lib`](../lib) directory contains custom-made pure Flakes-compatible utility functions, created in order to simplify the configuration and conveniently define and support multiple use-cases (If you have a working NixOS install, you can check it out using `gitlab:maydayv7/dotfiles#lib`). The following is a summary of all the present functions:
 
 * [`lib.map`](../lib/map.nix): Mapping functions primarily aimed at shortening code complexity -
   + `filter`: Filters out unneeded `attrs` and maps required ones to specified function

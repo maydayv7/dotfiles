@@ -1,0 +1,11 @@
+# Check Nix Syntax
+check:
+  stage: check
+  rules:
+    - changes:
+      - '*.md'
+      - '*.yml'
+      - 'files/*'
+      when: never
+    - when: always
+  script: nix flake check --keep-going

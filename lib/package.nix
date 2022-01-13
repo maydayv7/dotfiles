@@ -22,7 +22,7 @@ in rec
   })
   {
     inherit system;
-    overlays = overlays ++ (attrValues self.overlays) ++ [(final: prev: { custom = self.packages."${system}"; } // self.channels."${system}")];
+    overlays = overlays ++ (attrValues self.overlays) ++ [ self.overlay (final: prev: { custom = self.packages."${system}"; } // self.channels."${system}") ];
     config =
     {
       allowAliases = true;

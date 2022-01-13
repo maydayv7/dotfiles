@@ -11,6 +11,22 @@
 + [NixOS Package Search](https://search.nixos.org/)
 + [Nixpkgs Repository](https://github.com/NixOS/nixpkgs)
 + [Nix User Repository](https://github.com/nix-community/NUR)
++ [NixOS Hardware Modules](https://github.com/nixos/hardware)
 + [Home Manager Options](https://nix-community.github.io/home-manager/options.html)
 + [Sops Module](https://github.com/Mic92/sops-nix)
 + [Impermanence Module](https://github.com/nix-community/impermanence)
+
+#### Other Configurations
+Here are some repos that I may have shamelessly rummaged through for building my `dotfiles`:
+*Thanks a lot! ;)*
++ [balsoft](https://code.balsoft.ru/balsoft/nixos-config)
++ [bbigras](https://github.com/bbigras/nix-config)
++ [colemickens](https://github.com/cole-mickens/nixcfg)
++ [davidtwco](https://github.com/davidtwco/veritas)
++ [gvolpe](https://github.com/gvolpe/nix-config)
++ [hlissner](https://github.com/hlissner/dotfiles)
++ [jordanisaacs](https://github.com/jordanisaacs/dotfiles)
++ [kclejeune](https://github.com/kclejeune/system)
++ [lucasew](https://github.com/lucasew/nixcfg)
++ [rasendubi](https://github.com/rasendubi/dotfiles)
++ [wiltaylor](https://github.com/wiltaylor/dotfiles)

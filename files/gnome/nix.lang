@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
- Author: Luca Bruno <lucabru@src.gnome.org
- Copyright (C) 2014 Luca Bruno <lucabru@src.gnome.org>
+ Author: V 7 <maydayv7@gmail.com>
+ Copyright (C) 2021 V 7 <maydayv7@gmail.com>
 
  GtkSourceView is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -60,56 +60,110 @@
     </context>
 
     <context id="keywords" style-ref="keyword">
-      <keyword>builtins</keyword>
       <keyword>assert</keyword>
-      <keyword>if</keyword>
-      <keyword>then</keyword>
+      <keyword>builtins</keyword>
       <keyword>else</keyword>
-      <keyword>let</keyword>
-      <keyword>in</keyword>
-      <keyword>with</keyword>
+      <keyword>if</keyword>
       <keyword>import</keyword>
-	  <keyword>rec</keyword>
-	  <keyword>inherit</keyword>
+      <keyword>in</keyword>
+      <keyword>inherit</keyword>
+      <keyword>inputs</keyword>
+      <keyword>let</keyword>
+      <keyword>lib</keyword>
+      <keyword>outputs</keyword>
+      <keyword>rec</keyword>
+      <keyword>then</keyword>
+      <keyword>with</keyword>
     </context>
 
     <context id="functions" style-ref="function">
       <keyword>abort</keyword>
       <keyword>add</keyword>
+      <keyword>addErrorContext</keyword>
+      <keyword>all</keyword>
+      <keyword>any</keyword>
+      <keyword>appendContext</keyword>
       <keyword>attrNames</keyword>
+      <keyword>attrValues</keyword>
       <keyword>baseNameOf</keyword>
+      <keyword>bitAnd</keyword>
+      <keyword>bitOr</keyword>
+      <keyword>bitXor</keyword>
+      <keyword>catAttrs</keyword>
+      <keyword>ceil</keyword>
       <keyword>compareVersions</keyword>
       <keyword>concatLists</keyword>
+      <keyword>concatMap</keyword>
+      <keyword>concatStringsSep</keyword>
       <keyword>currentSystem</keyword>
+      <keyword>currentTime</keyword>
+      <keyword>deepSeq</keyword>
       <keyword>derivation</keyword>
+      <keyword>derivationStrict</keyword>
       <keyword>dirOf</keyword>
       <keyword>div</keyword>
       <keyword>elem</keyword>
       <keyword>elemAt</keyword>
+      <keyword>fetchGit</keyword>
+      <keyword>fetchMercurial</keyword>
+      <keyword>fetchTarball</keyword>
+      <keyword>fetchTree</keyword>
+      <keyword>fetchurl</keyword>
       <keyword>filter</keyword>
       <keyword>filterSource</keyword>
+      <keyword>findFile</keyword>
+      <keyword>floor</keyword>
+      <keyword>foldl</keyword>
+      <keyword>fromJSON</keyword>
+      <keyword>fromTOML</keyword>
+      <keyword>functionArgs</keyword>
+      <keyword>genList</keyword>
+      <keyword>genericClosure</keyword>
       <keyword>getAttr</keyword>
+      <keyword>getContext</keyword>
       <keyword>getEnv</keyword>
+      <keyword>getFlake</keyword>
       <keyword>hasAttr</keyword>
+      <keyword>hasContext</keyword>
+      <keyword>hashFile</keyword>
       <keyword>hashString</keyword>
       <keyword>head</keyword>
       <keyword>intersectAttrs</keyword>
       <keyword>isAttrs</keyword>
-      <keyword>isList</keyword>
-      <keyword>isFunction</keyword>
-      <keyword>isString</keyword>
-      <keyword>isInt</keyword>
       <keyword>isBool</keyword>
+      <keyword>isFloat</keyword>
+      <keyword>isFunction</keyword>
+      <keyword>isInt</keyword>
+      <keyword>isList</keyword>
       <keyword>isNull</keyword>
+      <keyword>isPath</keyword>
+      <keyword>isString</keyword>
+      <keyword>langVersion</keyword>
       <keyword>length</keyword>
       <keyword>lessThan</keyword>
       <keyword>listToAttrs</keyword>
       <keyword>map</keyword>
+      <keyword>mapAttrs</keyword>
+      <keyword>match</keyword>
       <keyword>mul</keyword>
+      <keyword>nixPath</keyword>
+      <keyword>nixVersion</keyword>
       <keyword>parseDrvName</keyword>
+      <keyword>partition</keyword>
+      <keyword>path</keyword>
       <keyword>pathExists</keyword>
+      <keyword>placeholder</keyword>
+      <keyword>readDir</keyword>
       <keyword>readFile</keyword>
       <keyword>removeAttrs</keyword>
+      <keyword>replaceStrings</keyword>
+      <keyword>scopedImport</keyword>
+      <keyword>seq</keyword>
+      <keyword>sort</keyword>
+      <keyword>split</keyword>
+      <keyword>splitVersion</keyword>
+      <keyword>storeDir</keyword>
+      <keyword>storePath</keyword>
       <keyword>stringLength</keyword>
       <keyword>sub</keyword>
       <keyword>substring</keyword>
@@ -121,7 +175,11 @@
       <keyword>toString</keyword>
       <keyword>toXML</keyword>
       <keyword>trace</keyword>
+      <keyword>tryEval</keyword>
       <keyword>typeOf</keyword>
+      <keyword>unsafeDiscardOutputDependency</keyword>
+      <keyword>unsafeDiscardStringContext</keyword>
+      <keyword>unsafeGetAttrPos</keyword>
     </context>
 
 	<context id="indented-string" style-ref="indented-string" class="string" class-disabled="no-spell-check">

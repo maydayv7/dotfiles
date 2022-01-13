@@ -28,7 +28,8 @@ lib.recursiveUpdate
   printf "\n"
 
   echo "Cloning Repository..."
-  git clone https://github.com/maydayv7/dotfiles.git $DIR
+  git clone https://gitlab.com/maydayv7/dotfiles.git $DIR
+  pushd $DIR > /dev/null; git remote add mirror https://github.com/maydayv7/dotfiles; popd > /dev/null
   printf "\n"
 
   echo "Setting up User..."

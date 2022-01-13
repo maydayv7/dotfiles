@@ -1,0 +1,15 @@
+# Update Repositories in `flake.lock`
+update:
+  stage: publish
+  only:
+    - schedules
+  except:
+    - /^(?!stable).+@/
+  before_script:
+    - export GIT_SSL_CAINFO="$CI_SERVER_TLS_CA_FILE"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GITLAB_USER_NAME}"
+  script:
+    - nix flake update
+    - 'git commit -am "chore(flake.lock): Update \`inputs\`"'
+    - git push "https://maydayv7:${ACCESS_TOKEN}@gitlab.com/maydayv7/dotfiles.git" "HEAD:stable"

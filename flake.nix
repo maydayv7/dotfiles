@@ -27,7 +27,7 @@
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     # PC Hardware Module
-    hardware.url = "github:maydayv7/nixos-hardware";
+    hardware.url = "github:nixos/nixos-hardware";
 
     # User Home Manager
     home =

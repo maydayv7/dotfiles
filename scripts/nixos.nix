@@ -1,9 +1,9 @@
-{ lib, inputs, pkgs, files, ... }:
+{ system, lib, inputs, pkgs, files, ... }:
 with pkgs;
 let
   inherit (lib.map) list;
   path = files.path;
-  repl = "${path}/repl.nix";
+  repl = "${path}/shells/repl/repl.nix";
   sops = "${path}/secrets/.sops.yaml";
 
   # Usage Description
@@ -13,50 +13,34 @@ let
     ''
       ## Tool for NixOS System Management ##
       # Usage #
-        apply [ --'option' ]        - Applies Device and User Configuration
-        check                       - Checks System Configuration
-        clean                       - Garbage Collects and Hard-Links Nix Store
-        explore                     - Opens interactive shell to explore syntax and configuration
-        iso 'choice' [ --'option' ] - Builds Install Media and optionally burns .iso to USB
-        list                        - Lists all Installed Packages
-        save                        - Saves Configuration State to Repository
-        secret 'choice' [ 'path' ]  - Manages system Secrets
-        shell [ 'name' ]            - Opens desired Nix Developer Shell
-        update [ --'option' ]       - Updates Nix Flake Inputs
+        apply [ --'option' ]       - Applies Device and User Configuration
+        check                      - Checks System Configuration
+        clean                      - Garbage Collects and Hard-Links Nix Store
+        explore                    - Opens interactive shell to explore syntax and configuration
+        iso 'variant' [ --burn ]   - Builds Install Media and optionally burns .iso to USB
+        list                       - Lists all Installed Packages
+        save                       - Saves Configuration State to Repository
+        secret 'choice' [ 'path' ] - Manages system Secrets
+        shell [ 'name' ]           - Opens desired Nix Developer Shell
+        update [ --'option' ]      - Updates Nix Flake Inputs
     '';
 
     apply =
     ''
       # Usage #
-        --boot     - Apply Configuration on boot
-        --check    - Check Configuration Build
-        --rollback - Revert to last Build Generation
-        --test     - Test Configuration Build
+        --boot                     - Apply Configuration on boot
+        --check                    - Check Configuration Build
+        --rollback                 - Revert to last Build Generation
+        --test                     - Test Configuration Build
     '';
-
-    iso =
-    {
-      build =
-      ''
-        # Usage #
-          'variant' - Build 'variant' .iso
-          list      - List all Install Media Variants
-      '';
-
-      burn =
-      ''
-        # Usage #
-          --burn 'path' - Burn .iso to USB at 'path'
-      '';
-    };
 
     secret =
     ''
       # Usage #
-        edit 'path'   - Edit desired Secret
-        list        - List system Secrets
-        show 'path'   - Show desired Secret
-        update 'path' - Update Secrets to defined keys
+        edit 'path'                - Edit desired Secret
+        list                       - List system Secrets
+        show 'path'                - Show desired Secret
+        update 'path'              - Update Secrets to defined keys
     '';
   };
 in
@@ -93,11 +77,10 @@ lib.recursiveUpdate
   "explore") nix repl ${repl};;
   "iso")
     case $2 in
-    "") error "Expected a variant of install media following 'iso' command\n${usage.iso.build}";;
-    "list") echo ${list inputs.self.installMedia};;
+    "") error "Expected a Variant of Install Media following 'iso' command";;
     *)
       echo "Building $2 .iso file..."
-      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso"
+      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso" || echo -e "\nAvailable Variants: \n${list inputs.self.installMedia}"
     ;;
     esac
     case $3 in
@@ -108,17 +91,20 @@ lib.recursiveUpdate
       *) sudo dd if=./result/iso/nixos.iso of=$4 status=progress bs=1M;;
       esac
     ;;
-    *) error "Unknown option $3\n${usage.iso.burn}";;
+    *) error "Unknown option $3";;
     esac
   ;;
   "list") nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq;;
   "save")
     echo "Saving Changes..."
     pushd ${path} > /dev/null
+    git stash
+    git pull --rebase
+    git stash pop
     git add .
     git commit
-    git pull --rebase
-    git push
+    git push --force
+    git push --force --mirror mirror
     popd > /dev/null
   ;;
   "secret")
@@ -154,7 +140,7 @@ lib.recursiveUpdate
   "shell")
     case $2 in
     "") nix develop ${path} --command $SHELL;;
-    *) nix develop ${path}#$2 --command $SHELL;;
+    *) nix develop ${path}#$2 --command $SHELL || echo -e "\nAvailable Shells:\n${list inputs.self.devShells."${system}"}";;
     esac
   ;;
   "update")

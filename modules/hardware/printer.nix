@@ -8,7 +8,7 @@ in rec
   {
     # Scanning
     user.settings.extraGroups = [ "scanner" ];
-    # hardware.sane.enable = true;
+    #hardware.sane.enable = true;
 
     # Printing
     services.printing =

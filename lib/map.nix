@@ -10,7 +10,6 @@ in rec
   merge = name: dir1: dir2: func: recursiveUpdate (name dir1 func) (name dir2 func);
 
   # Module Imports
-  # Normal
   modules = dir: func:
     filter
       (name: type: type != null && !(hasPrefix "_" name))
@@ -25,7 +24,6 @@ in rec
         else nameValuePair "" null)
       (readDir dir);
 
-  # Recursive
   modules' = dir: func:
     filter
       (name: type: type != null && !(hasPrefix "_" name))

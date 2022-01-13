@@ -94,7 +94,7 @@ lib.recursiveUpdate
   printf "\n"
 
   echo "Installing System..."
-  nixos-install --no-root-passwd --root /mnt --flake github:maydayv7/dotfiles#$HOST --impure
+  nixos-install --no-root-passwd --root /mnt --flake gitlab:maydayv7/dotfiles#$HOST --impure
   printf "\n"
 
   read -p "Do you want to reboot the system? (Y/N): " choice

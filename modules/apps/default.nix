@@ -5,7 +5,7 @@ rec
   [
     ./discord.nix
     ./firefox.nix
-    ./git.nix
+    ./git
     ./office.nix
     ./wine.nix
   ];

@@ -5,7 +5,7 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 #### Continuous Integration
-This repository makes use of `Github Actions` (placed in [`.github/workflows`](../.github/workflows)) in order to automatically check the syntax on every push, update the `inputs` every 10 days, build the configuration and upload the build cache to Cachix, and build the `.iso` and upload it to a draft release upon creation of a tag
+This repository makes use of [`GitLab CI/CD`](../.gitlab/.gitlab-ci.yml) in order to automatically check the configuration syntax on every commit, update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag. A `git` [hook](../.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ### Credentials
 The authentication credentials are managed using [`sops-nix`](https://github.com/Mic92/sops-nix) at [`secrets`](../secrets). The encrypted keys (using GPG authentication) are stored at [`secrets/encrypted`](../secrets/encrypted), and keys unencrypted by [`sops`](https://github.com/mozilla/sops) (but managed using `git-crypt`) are located at [`secrets/unencrypted`](../secrets/unencrypted). User passwords are made using the command `mkpasswd -m sha-512` and specified using the `passwordFile` option

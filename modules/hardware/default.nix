@@ -8,7 +8,7 @@ in rec
     ./boot.nix
     ./filesystem.nix
     ./mobile.nix
-    ./ssd.nix
+    ./printer.nix
     ./virtualisation.nix
   ];
 

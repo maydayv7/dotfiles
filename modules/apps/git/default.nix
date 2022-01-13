@@ -1,11 +1,13 @@
 { config, options, lib, inputs, ... }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkEnableOption mkIf mkOption types;
   enable = (builtins.elem "git" config.apps.list);
   opt = options.apps.git;
   cfg = config.apps.git;
 in rec
 {
+  imports = [ ./gitlab.nix ];
+
   options.apps.git =
   {
     name = mkOption
@@ -28,10 +30,12 @@ in rec
       type = types.str;
       default = "CF616EB19C2765E4";
     };
+
+    runner = mkEnableOption "Enable GitLab Runner Support";
   };
 
   ## git Configuration ##
-  config = lib.mkIf enable
+  config = mkIf enable
   {
     # Warnings
     assertions =
@@ -76,17 +80,19 @@ in rec
         lf = "log -p --follow";
         lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
         ll = "log -p --graph --decorate --abbrev-commit";
-        mod = "submodule";
         p = "push";
         pf = "push --force";
         pt = "push --tag";
-        record = "!sh -c '(git add -p -- $@ && git commit) || git reset' --";
+        r = "reset";
         rb = "rebase";
+        record = "!sh -c '(git add -p -- $@ && git commit) || git reset' --";
         rs = "reset HEAD^";
         s = "!git --no-pager status";
         sm = "submodule";
         st = "stash";
+        sync = "push --force --mirror";
         t = "tag";
+        td = "!sh -c 'git tag -d $1 && git push origin :$1' -";
         tl = "tag -l";
       };
 
@@ -106,7 +112,7 @@ in rec
         color.ui = "auto";
         core.hooksPath = ".git-hooks";
         credential.helper = "store";
-        init.defaultBranch = "master";
+        init.defaultBranch = "main";
         pull.rebase = "true";
       };
 

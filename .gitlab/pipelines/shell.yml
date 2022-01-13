@@ -1,0 +1,16 @@
+# Check Nix Developer Shells
+shell:
+  stage: check
+  only:
+    changes:
+      - 'shells/*'
+  variables:
+    CACHIX_AUTH_TOKEN: $CACHIX_TOKEN
+    CACHIX_CACHE_NAME: maydayv7-dotfiles
+  parallel:
+    matrix:
+      - DEVSHELL: [java, video]
+  before_script:
+    - nix profile install nixpkgs#cachix
+    - cachix use $CACHIX_CACHE_NAME
+  script: cachix watch-exec $CACHIX_CACHE_NAME nix develop .#$DEVSHELL
