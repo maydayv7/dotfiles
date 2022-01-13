@@ -1,7 +1,7 @@
 hardware: {
   system = "x86_64-linux";
   name = "Futura";
-  description = "PC - Dell Inspiron 11 3000 ";
+  description = "PC - Dell Inspiron 11 3000";
 
   timezone = "Asia/Kolkata";
   locale = "en_IN.UTF-8";

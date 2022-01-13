@@ -14,12 +14,12 @@ in {
     virtualisation.docker.enable = true;
 
     # Local Runner
-    environment.systemPackages = with pkgs; [ act ];
+    environment.systemPackages = [ pkgs.act ];
     services.gitlab-runner = {
       enable = true;
       services.default = {
         dockerImage = "alpine";
-        registrationConfigFile = secrets."gitlab.runner".path;
+        registrationConfigFile = secrets."gitlab-runner.secret".path;
         tagList = [ "self" ];
       };
     };

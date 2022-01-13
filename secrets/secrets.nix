@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, files, ... }:
+{ config, lib, pkgs, files, ... }:
 let
   inherit (lib) map;
   path = if (builtins.hasAttr "/persist" config.fileSystems) then
@@ -6,8 +6,6 @@ let
   else
     "${files.gpg}";
 in {
-  imports = [ inputs.sops.nixosModules.sops ];
-
   ## Authentication Credentials Management ##
   config = {
     environment.systemPackages = with pkgs; [ sops ];

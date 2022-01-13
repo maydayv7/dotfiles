@@ -1,17 +1,10 @@
-{ config, options, lib, inputs, ... }:
+{ config, options, lib, ... }:
 let
   inherit (lib) mkIf mkOption mkAliasDefinitions types;
   cfg = config.user;
   opt = options.user;
 in rec {
-  imports = [
-    ./home.nix
-    ./recovery.nix
-    ./security.nix
-
-    # Home Manager Module
-    inputs.home.nixosModules.home-manager
-  ];
+  imports = [ ./home.nix ./recovery.nix ./security.nix ];
 
   options.user = {
     # User Creation

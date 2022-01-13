@@ -1,7 +1,7 @@
 hardware: {
   system = "x86_64-linux";
   name = "Vortex";
-  description = "PC - Dell Inspiron 15 5000 ";
+  description = "PC - Dell Inspiron 15 5000";
   repo = "stable";
 
   timezone = "Asia/Kolkata";

@@ -5,6 +5,9 @@ let
   inherit (lib.map) list;
   inherit (inputs) self;
 
+  installMedia = list self.installMedia;
+  devShells = list self.devShells."${system}";
+
   # Usage Description
   usage = {
     script = ''
@@ -12,40 +15,41 @@ let
       # Usage #
         apply [ --'option' ]       - Applies Device and User Configuration
         check                      - Checks System Configuration
-        clean                      - Garbage Collects and Hard-Links Nix Store
+        clean                      - Garbage Collects and Optimises Nix Store
         explore                    - Opens Interactive Shell to explore Syntax and Configuration
         iso 'variant' [ --burn ]   - Builds Install Media and optionally burns .iso to USB
         list                       - Lists all Installed Packages
         save                       - Saves Configuration State to Repository
-        secret 'choice' [ 'path' ] - Manages system Secrets
+        secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
         shell [ 'name' ]           - Opens desired Nix Developer Shell
-        update [ --'option' ]      - Updates Nix Flake Inputs
+        update [ --'option' ]      - Updates System Repositories
     '';
 
     apply = ''
       # Usage #
-        --boot                     - Apply Configuration on boot
-        --check                    - Check Configuration Build
-        --rollback                 - Revert to Last Build Generation
-        --test                     - Test Configuration Build
+        --boot                     - Applies Configuration on boot
+        --check                    - Checks Configuration Build
+        --rollback                 - Reverts to Last Build Generation
+        --test                     - Tests Configuration Build
     '';
 
     secret = ''
       # Usage #
-        edit 'path'                - Edit desired Secret
-        list                       - List system Secrets
-        show 'path'                - Show desired Secret
-        update 'path'              - Update Secrets to defined Keys
+        edit 'path'                - Edits desired Secret
+        list                       - Lists all 'sops' Encrypted Secrets
+        show 'path'                - Shows desired Secret
+        update 'path'              - Updates Secrets to defined Keys
     '';
   };
 in lib.recursiveUpdate {
   meta.description = "System Management Script";
-  buildInputs = [ coreutils dd git gnused sops tree ];
+  buildInputs = [ coreutils dd git gnused nixfmt nix-linter sops tree ];
 } (writeShellScriptBin "nixos" ''
   #!${runtimeShell}
-  error() { echo -e "\033[0;31merror:\033[0m $1"; exit 7; }
+  ${scripts.error}
 
   case $1 in
+  "help"|"--help"|"-h") echo "${usage.script}";;
   "apply")
     echo "Applying Configuration..."
     case $2 in
@@ -54,10 +58,16 @@ in lib.recursiveUpdate {
     "--check") nixos-rebuild dry-activate --flake ${path}#;;
     "--rollback") sudo nixos-rebuild switch --rollback;;
     "--test") sudo nixos-rebuild test --flake ${path}#;;
-    *) error "Unknown option $2\n${usage.apply}";;
+    *) error "Unknown option $2" "${usage.apply}";;
     esac
   ;;
-  "check") nix flake check ${path} --keep-going && find ${path} -type f -name "*.nix" | xargs nixfmt && nix-linter -r ${path};;
+  "check")
+    echo "Formatting Code..."
+    find ${path} -type f -name "*.nix" | xargs nixfmt
+    echo "Checking Syntax..."
+    nix flake check ${path} --keep-going
+    nix-linter -r ${path}
+  ;;
   "clean")
     echo "Running Garbage Collection..."
     nix store gc
@@ -69,19 +79,17 @@ in lib.recursiveUpdate {
   "explore") nix repl ${repl};;
   "iso")
     case $2 in
-    "") error "Expected a Variant of Install Media following 'iso' command";;
+    "") error "Expected a Variant of Install Media";;
     *)
       echo "Building $2 .iso file..."
-      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso" || echo -e "\n# Available Variants #\n  ${
-        list self.installMedia
-      }" && exit 7
+      nix build ${path}#installMedia.$2.config.system.build.isoImage && echo "The image is located at ./result/iso/nixos.iso" || error "Unknown Variant $2" "# Available Variants #\n  ${installMedia}"
     ;;
     esac
     case $3 in
     "");;
     "--burn")
       case $4 in
-      "") error "Expected a path to USB Drive following --burn command";;
+      "") error "Expected a 'path' to USB Drive";;
       *) sudo dd if=./result/iso/nixos.iso of=$4 status=progress bs=1M;;
       esac
     ;;
@@ -103,20 +111,27 @@ in lib.recursiveUpdate {
   ;;
   "secret")
     case $2 in
+    "help"|"--help"|"-h") echo "${usage.secret}";;
     "edit")
       case $3 in
-      "") error "Expected a path to Secret following 'edit' command";;
+      "") error "Expected 'name' of Secret";;
       *)
         echo "Editing Secret $3..."
-        sops --config ${sops} -i $3
+        find ${path} -name $3.secret | xargs sops --config ${sops} -i || error "Unknown Secret $3"
       ;;
       esac
     ;;
-    "list") cat ${sops} | grep / | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path}/|' | xargs tree -C --noreport -I '*.nix' -I '_*';;
-    "show") sops --config ${sops} -d $3;;
+    "list")
+      echo "## Secrets in ${path} ##"
+      cat ${sops} | grep / | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path}/|' | xargs tree -C --noreport -P '*.secret' -I '_*' | sed 's/\.secret//'
+    ;;
+    "show")
+      echo "Showing Secret $3..."
+      find ${path} -name $3.secret | xargs sops --config ${sops} -d || error "Unknown Secret $3"
+    ;;
     "update")
       echo "Updating Secrets..."
-      for secret in $3
+      for secret in `find ${path} -name '*.secret' ! -name '_*'`
       do
         sops --config ${sops} updatekeys $secret
       done
@@ -124,9 +139,9 @@ in lib.recursiveUpdate {
     *)
       if [ -z "$2" ]
       then
-        echo "${usage.secret}"
+        error "Expected an option" "${usage.secret}"
       else
-        error "Unknown option $2\n${usage.secret}"
+        error "Unknown option $2" "${usage.secret}"
       fi
     ;;
     esac
@@ -134,9 +149,7 @@ in lib.recursiveUpdate {
   "shell")
     case $2 in
     "") nix develop ${path} --command $SHELL;;
-    *) nix develop ${path}#$2 --command $SHELL || echo -e "\n# Available Shells #\n  ${
-      list self.devShells."${system}"
-    }" && exit 7;;
+    *) nix develop ${path}#$2 --command $SHELL || error "Unknown Shell $2" "# Available Shells #\n  ${devShells}";;
     esac
   ;;
   "update")
@@ -146,9 +159,9 @@ in lib.recursiveUpdate {
   *)
     if [ -z "$1" ]
     then
-      echo "${usage.script}"
+      error "Expected an option" "${usage.script}"
     else
-      error "Unknown option $1\n${usage.script}"
+      error "Unknown option $1" "${usage.script}"
     fi
   ;;
   esac

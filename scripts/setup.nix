@@ -1,7 +1,7 @@
 { lib, pkgs, files, ... }:
 with pkgs;
-let path = files.path;
-in lib.recursiveUpdate {
+with files;
+lib.recursiveUpdate {
   meta.description = "System Setup Script";
   buildInputs = [ coreutils git git-crypt gnupg ];
 } (writeShellScriptBin "setup" ''
@@ -31,7 +31,7 @@ in lib.recursiveUpdate {
   sudo mkdir -p /var/lib/AccountsService/{icons,users}
   echo "[User]" | sudo tee /var/lib/AccountsService/users/$USER &> /dev/null
   echo "Icon=/var/lib/AccountsService/icons/$USER" | sudo tee -a /var/lib/AccountsService/users/$USER &> /dev/null
-  sudo cp -av $VERBOSE_ARG ${files.wallpapers}/Profile.png /var/lib/AccountsService/icons/$USER
+  sudo cp -av $VERBOSE_ARG ${wallpapers}/Profile.png /var/lib/AccountsService/icons/$USER
   printf "\n"
 
   read -p "Enter Path to GPG Keys: " KEY

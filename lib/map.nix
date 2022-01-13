@@ -38,11 +38,8 @@ in rec {
 
   # `sops` Encrypted Secrets
   secrets = dir: neededForUsers:
-    filter (name: type:
-      type != null && !(hasPrefix "_" name) && !(hasSuffix "keep" name))
-    (name: type:
-      if type == "regular" && !(hasSuffix ".nix" name)
-      && !(hasSuffix ".yaml" name) then
+    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
+      if type == "regular" && hasSuffix ".secret" name then
         nameValuePair name {
           sopsFile = dir + "/${name}";
           format = "binary";

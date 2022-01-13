@@ -32,11 +32,11 @@ in utils.lib.eachSystem systems (system:
     devShells = map.modules ./shells (name: import name { inherit pkgs; });
 
     ## Package Configuration ##
+    legacyPackages = self.channels."${system}".stable;
     channels = {
       stable = pkgs;
       unstable = pkgs';
     };
-    legacyPackages = self.channels."${system}".stable;
 
     # Custom Packages
     defaultApp = self.apps."${system}".nixos;
@@ -64,7 +64,8 @@ in utils.lib.eachSystem systems (system:
 
     ## Custom Configuration Modules ##
     nixosModule = import ./modules { inherit version lib inputs files; };
-    nixosModules = map.merge map.modules ./modules ./secrets import;
+    nixosModules = map.merge map.modules ./modules ./secrets import
+      // home.nixosModules // sops.nixosModules // utils.nixosModules;
 
     ## Configuration Templates ##
     defaultTemplate = self.templates.minimal;

@@ -40,6 +40,9 @@ with ({ inherit (builtins) readFile; }); {
   # Interactive Nix Shell
   repl = ../shells/repl/repl.nix;
 
+  # Script Snippets
+  scripts.error = readFile ./scripts/error;
+
   # `sops` Encrypted Secrets
   sops = ../secrets/.sops.yaml;
 

@@ -1,5 +1,5 @@
-{ inputs, pkgs, ... }: rec {
-  imports = [ ./cachix.nix inputs.utils.nixosModules.autoGenFromInputs ];
+{ pkgs, ... }: rec {
+  imports = [ ./cachix.nix ];
 
   ## Nix Settings ##
   config = {
@@ -26,8 +26,12 @@
 
       # Additional Features
       useSandbox = true;
-      extraOptions = "experimental-features = nix-command flakes recursive-nix";
       systemFeatures = [ "kvm" "recursive-nix" ];
+      extraOptions = ''
+        experimental-features = nix-command flakes recursive-nix
+        min-free = ${toString (1024 * 1024 * 1024)}
+        max-free = ${toString (10 * 1024 * 1024 * 1024)}
+      '';
     };
   };
 }

@@ -44,7 +44,7 @@
           description = "Default User";
           autologin = true;
           password =
-            "HASHED_PASSWORD"; # Use `mkpasswd -m sha-512` to generate the password
+            "HASHED_PASSWORD"; # Use the command `mkpasswd -m sha-512` to generate the hashed password
         };
       };
     };

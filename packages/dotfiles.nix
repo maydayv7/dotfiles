@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = files.toplevel;
   dontBuild = true;
-  installPhase = "mkdir -p $out/ && cp -r * $out/ ";
+  installPhase = "mkdir -p $out/ && cp -r * $out/";
 
   meta = with lib; {
     description = "My PC Dotfiles";

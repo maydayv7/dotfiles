@@ -14,7 +14,7 @@ in rec {
   iso = config:
     self.nixosModule.config (config // {
       iso = true;
-      description = "Install Media ";
+      description = "Install Media";
     });
 
   # Package Channels Builder

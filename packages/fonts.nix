@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = files.fonts.path;
   dontBuild = true;
-  installPhase = "mkdir -p $out/share/fonts/ && cp -r * $out/share/fonts/ ";
+  installPhase = "mkdir -p $out/share/fonts/ && cp -r * $out/share/fonts/";
 
   meta = with lib; {
     description = "Custom Proprietary Fonts";
