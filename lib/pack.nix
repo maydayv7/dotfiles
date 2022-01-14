@@ -5,10 +5,10 @@ let
 in rec {
   ## Packager Functions ##
   # Device Configurations
-  device = attrs:
+  device = attrs: check:
     mapAttrs' (_: name: {
       name = "Device-${name}";
-      value = attrs.${name}.config.system.build.toplevel;
+      value = attrs.${name}.config.system.build.${check};
     }) (genAttrs (attrNames attrs) (name: "${name}"));
 
   # User Home Configurations

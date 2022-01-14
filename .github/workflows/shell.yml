@@ -17,6 +17,7 @@ jobs:
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
+          accept-flake-config = true
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Setup Cachix
       uses: cachix/cachix-action@v10

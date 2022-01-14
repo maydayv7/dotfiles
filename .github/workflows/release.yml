@@ -14,6 +14,7 @@ jobs:
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
+          accept-flake-config = true
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Build Default Install Media
       run: nix build github:maydayv7/dotfiles#installMedia.gnome.config.system.build.isoImage -L --show-trace
