@@ -1,10 +1,13 @@
-{ pkgs, ... }: rec {
+{ lib, inputs, pkgs, ... }: rec {
+  imports = [ inputs.gaming.nixosModules.pipewireLowLatency ];
+
   ## Device Firmware ##
   config = {
     # Drivers
     hardware = {
       cpu.intel.updateMicrocode = true;
       bluetooth.enable = true;
+      pulseaudio.enable = lib.mkForce false;
       opengl.enable = true;
       enableRedistributableFirmware = true;
     };
@@ -35,9 +38,17 @@
     # Audio
     sound.enable = true;
     nixpkgs.config.pulseaudio = true;
-    hardware.pulseaudio = {
+    security.rtkit.enable = true;
+    services.pipewire = {
       enable = true;
-      support32Bit = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      lowLatency = {
+        enable = true;
+        quantum = 64;
+        rate = 48000;
+      };
     };
 
     # Network Settings

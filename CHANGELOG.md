@@ -1,4 +1,8 @@
 ## Changelog
+### vNEXT
++ Use PipeWire (with low-latency) for audio
++ Use [`nixos-generators`](https://github.com/nix-community/nixos-generators) for Image Generation
+
 ### v4.0
 + Use `nixConfig`
 + Bifurcate `devices`
