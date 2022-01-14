@@ -1,6 +1,6 @@
-{ config, lib, pkgs, files, ... }:
+{ config, system, lib, pkgs, files, ... }:
 let
-  inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
+  inherit (lib) hm mkEnableOption mkIf mkMerge mkOption types;
   cfg = config.user.shell;
 in rec {
   imports = [ ./zsh.nix ];
@@ -42,7 +42,7 @@ in rec {
       ];
 
       programs = {
-        # Command Not Found Helper
+        # Command Not Found Search
         command-not-found.enable = true;
 
         # Command Correction Helper
@@ -50,6 +50,18 @@ in rec {
           enable = true;
           alias = "fix";
         };
+      };
+
+      # Command Not Found Helper
+      user.home = {
+        programs.nix-index.enable = true;
+        home.activation.nixIndex = hm.dag.entryAfter [ "writeBoundary" ] ''
+          echo "Setting up Nix Index..."
+          $DRY_RUN_CMD mkdir -p ~/.cache/nix-index $VERBOSE_ARG
+          $DRY_RUN_CMD cd ~/.cache/nix-index
+          $DRY_RUN_CMD wget -q -N https://github.com/Mic92/nix-index-database/releases/latest/download/index-${system} $VERBOSE_ARG
+          $DRY_RUN_CMD ln -f index-${system} files $VERBOSE_ARG
+        '';
       };
     })
   ];

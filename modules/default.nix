@@ -1,23 +1,26 @@
 { version, lib, inputs, files }:
 let
-  inherit (inputs) self;
-  inherit (lib) forEach getAttrFromPath remove;
-  inherit (builtins) attrValues hashString replaceStrings substring;
+  inherit (inputs) self generators;
+  inherit (lib) forEach getAttrFromPath nixosSystem makeOverridable;
+  inherit (builtins) attrValues getAttr hashString replaceStrings substring;
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
-    , repo ? "stable", imports ? [ ], timezone, locale, kernel
+    , repo ? "stable", format ? null, imports ? [ ], timezone, locale, kernel
     , kernelModules ? [ ], desktop ? null, apps ? { }, hardware ? { }, user }:
     let
       # Default Package Channel
       pkgs = self.channels.${system}.${repo};
-    in lib.nixosSystem {
+    in (makeOverridable nixosSystem) {
       inherit system;
       specialArgs = { inherit system lib inputs files; };
       modules = [{
         # Modulated Configuration Imports
         imports = imports ++ (attrValues self.nixosModules)
-          ++ forEach hardware.modules or [ ]
+          ++ (if (format != null) then
+            [ (getAttr format generators.nixosModules) ]
+          else
+            [ ]) ++ forEach hardware.modules or [ ]
           (name: getAttrFromPath [ name ] inputs.hardware.nixosModules);
         inherit apps hardware user;
         gui.desktop = desktop;

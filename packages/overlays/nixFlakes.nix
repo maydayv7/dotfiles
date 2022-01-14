@@ -11,7 +11,12 @@ final: prev: {
     };
 
     patches = old.patches ++ [
-      # Features
+      (prev.fetchpatch {
+        name = "commit-message.patch";
+        sha256 = "sha256-ei5TZ8mhI5yNyzIiDZ314uK1BpBaMdDwDRAVZaAP9Aw=";
+        url =
+          "https://patch-diff.githubusercontent.com/raw/maydayv7/nix/pull/1.patch";
+      })
       (prev.fetchpatch {
         name = "dirty-rev.patch";
         sha256 = "sha256-50qV1srrwbCICgY9XRvX7EHpU1ZtdXE8jkCgy5QeMh0=";
@@ -24,16 +29,6 @@ final: prev: {
         url =
           "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/5437.patch";
       })
-
-      # Performance
-      (prev.fetchpatch {
-        name = "parser.patch";
-        sha256 = "sha256-x60kV4DKR1W9k5qyK+peSQ1eWNSxhJDuBm6eePbshBI=";
-        url =
-          "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/5812.patch";
-      })
-
-      # UI/UX
       (prev.fetchpatch {
         name = "worktree-paths.patch";
         sha256 = "sha256-H8kk6AFbNQA5Zod69ujbRPDZjczzANQYL85G3CUNRVY=";

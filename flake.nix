@@ -36,6 +36,8 @@
 
   ## Nix Configuration ##
   nixConfig = {
+    commit-lockfile-summary = "chore(flake.lock): Update `inputs`";
+
     # Binary Caches
     substituters = [
       "https://cache.nixos.org"
@@ -108,6 +110,12 @@
 
     # File System Persistent State Handler
     impermanence.url = "github:nix-community/impermanence";
+
+    # System Image Generators
+    generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Pre-Commit Hooks
     hooks = {

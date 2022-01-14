@@ -29,10 +29,10 @@
 + Add Support for patching `inputs`
 + Improve usage of Developer Shells
 + Import Modules using `nixosModules`
-+ Use `home-manager` as a Module
++ Use [`home-manager`](https://github.com/nix-community/home-manager) as a Module
 + Merge Device and User Configuration
 * Move all program configuration and dotfiles to `files`
-+ Use `sops-nix` at `secrets` for managing authentication credentials
++ Use [`sops-nix`](https://github.com/Mic92/sops-nix) at `secrets` for managing authentication credentials
 + Automatically map `modules`, `packages`, `overlays`, `shells` and `inputs`
 
 ### v2.3

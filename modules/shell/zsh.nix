@@ -62,6 +62,12 @@ in rec {
         ];
       };
 
+      # Utilities
+      home.packages = with pkgs; [ fzf fzf-zsh neofetch lolcat ];
+
+      # Command Not Found Integration
+      programs.nix-index.enableZshIntegration = true;
+
       home.file = {
         # Z Shell Prompt
         ".p10k.zsh".text = files.zsh.prompt;
@@ -70,21 +76,12 @@ in rec {
         ".config/neofetch/config.conf".text = files.fetch;
       };
 
-      # Command Not Found Helper
-      programs.nix-index = {
-        enable = true;
-        enableZshIntegration = true;
-      };
-
       # DirENV Integration
       programs.direnv = {
         enable = true;
         enableZshIntegration = true;
         nix-direnv.enable = true;
       };
-
-      # Utilities
-      home.packages = with pkgs; [ fzf fzf-zsh neofetch lolcat ];
     };
   };
 }

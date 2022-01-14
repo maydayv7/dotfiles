@@ -11,6 +11,7 @@ in rec {
   device = self.nixosModule.config;
   iso = config:
     self.nixosModule.config (config // {
+      format = "iso";
       description = "Install Media";
       kernelModules = [ "nvme" ];
 
@@ -21,19 +22,6 @@ in rec {
         autologin = true;
         password = readFile ../modules/user/passwords/default;
       };
-
-      imports = [
-        ({ modulesPath, ... }: {
-          # Build Module
-          imports = [ "${modulesPath}/installer/cd-dvd/iso-image.nix" ];
-
-          # '.iso' Creation Settings
-          isoImage = {
-            makeEfiBootable = true;
-            makeUsbBootable = true;
-          };
-        })
-      ];
     });
 
   # Package Channels Builder
@@ -45,7 +33,7 @@ in rec {
       else
         import (src.legacyPackages.${system}.applyPatches {
           inherit src patches;
-          name = "patched-input-${src.shortRev}";
+          name = "Patched-input-${src.shortRev}";
         })) {
           inherit system;
           overlays = overlays ++ (attrValues self.overlays or { }) ++ [

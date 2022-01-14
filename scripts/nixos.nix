@@ -22,7 +22,6 @@ let
           clean [ --all ]            - Garbage Collects and Optimises Nix Store
           explore                    - Opens Interactive Shell to explore Syntax and Configuration
           install                    - Installs NixOS onto System
-          index                      - Updates Package Repository Index
           iso 'variant' [ --burn ]   - Builds Install Media [ Burns '.iso' to USB ]
           list [ 'pattern' ]         - Lists all Installed Packages [ Returns Matches ]
           locate 'package'           - Locates Installed Package
@@ -70,7 +69,6 @@ in lib.recursiveUpdate {
     gnused
     manix
     nixfmt
-    nix-index
     nix-linter
     parted
     sops
@@ -141,10 +139,6 @@ in lib.recursiveUpdate {
     "") nix repl --arg host true --arg path ${path.system} ${repl};;
     *) nix repl --arg path $(readlink -f $2 | sed 's|/flake.nix||') ${repl};;
     esac
-  ;;
-  index)
-    echo "Updating Package Index..."
-    nix-index
   ;;
   install)
     internet

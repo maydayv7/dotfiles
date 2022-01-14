@@ -15,6 +15,7 @@ let
   lib = nixpkgs.lib.extend (final: prev:
     {
       hooks = hooks.lib;
+      image = generators.nixosGenerate;
       util = import ./lib {
         inherit self systems;
         lib = final;
@@ -28,7 +29,7 @@ in lib.eachSystem systems (system:
     pkgs' = (build.channel unstable overlays [ ]).${system};
   in {
     ## Configuration Checks ##
-    checks = import ./modules/nix/checks.nix { inherit system lib pkgs; };
+    checks = import ./modules/nix/checks.nix { inherit self system lib pkgs; };
 
     ## Developer Shells ##
     # Default Shell
@@ -50,8 +51,7 @@ in lib.eachSystem systems (system:
     defaultPackage = self.packages.${system}.dotfiles;
     apps = map.modules ./scripts
       (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    packages = self.apps.${system} // pack.nixosConfigurations
-      // pack.installMedia.iso // map.modules ./packages
+    packages = self.apps.${system} // map.modules ./packages
       (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
   }) // {
     # Overrides
@@ -92,7 +92,6 @@ in lib.eachSystem systems (system:
       gnome = build.iso {
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
-
         kernel = "linux_5_15";
         desktop = "gnome-minimal";
       };

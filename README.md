@@ -112,11 +112,9 @@ After the reboot, run `nixos setup` in the newly installed system to finish setu
 In case you want to use my configuration as-is for a fresh NixOS install, you can try the following steps:
 
 1. Clone this repository (`git` and `git-crypt` must be installed) to `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
-sudo chown $USER /etc/nixos
-sudo chmod ugo+rw /etc/nixos
-git clone https://github.com/maydayv7/dotfiles /etc/nixos
-cd /etc/nixos && git remote rm origin
-rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
+sudo chown $USER /etc/nixos && sudo chmod ugo+rw /etc/nixos
+cd /etc/nixos && nix flake init -t github:maydayv7/dotfiles#extensive
+git remote rm origin && rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
 </code></pre>
 
 2. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](./secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
