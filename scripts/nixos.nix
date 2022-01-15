@@ -11,26 +11,26 @@ let
   usage = {
     script = ''
       # Legend #
-               xxx - Command
-               [ ] - Optional        -       Command Description
-               ' ' - Variable
+        xxx - Command
+        [ ] - Optional             - Command Description
+        ' ' - Variable
 
-        # Usage #
-          apply [ --'option' ]       - Applies Device and User Configuration
-          cache 'command'            - Pushes Binary Cache Output to Cachix
-          check [ --trace ]          - Checks System Configuration [ Displays Error to Trace ]
-          clean [ --all ]            - Garbage Collects and Optimises Nix Store
-          explore                    - Opens Interactive Shell to explore Syntax and Configuration
-          install                    - Installs NixOS onto System
-          iso 'variant' [ --burn ]   - Builds Install Media [ Burns '.iso' to USB ]
-          list [ 'pattern' ]         - Lists all Installed Packages [ Returns Matches ]
-          locate 'package'           - Locates Installed Package
-          save                       - Saves Configuration State to Repository
-          search 'term' [ 'source' ] - Searches for Packages [ Providing 'term' ] or Configuration Options
-          secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
-          setup                      - Sets up System after Install
-          shell [ 'name' ]           - Opens desired Nix Developer Shell
-          update [ 'repository' ]    - Updates System Repositories
+      # Usage #
+        apply [ --'option' ]       - Applies Device and User Configuration
+        cache 'command'            - Pushes Binary Cache Output to Cachix
+        check [ --trace ]          - Checks System Configuration [ Displays Error to Trace ]
+        clean [ --all ]            - Garbage Collects and Optimises Nix Store
+        explore                    - Opens Interactive Shell to explore Syntax and Configuration
+        install                    - Installs NixOS onto System
+        iso 'variant' [ --burn ]   - Builds Install Media [ Burns '.iso' to USB ]
+        list [ 'pattern' ]         - Lists all Installed Packages [ Returns Matches ]
+        locate 'package'           - Locates Installed Package
+        save                       - Saves Configuration State to Repository
+        search 'term' [ 'source' ] - Searches for Packages [ Providing 'term' ] or Configuration Options
+        secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
+        setup                      - Sets up System after Install
+        shell [ 'name' ]           - Opens desired Nix Developer Shell
+        update [ 'repository' ]    - Updates System Repositories
     '';
 
     apply = ''

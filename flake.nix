@@ -22,7 +22,7 @@
 #   ---------------------------------------   #
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
-#     URL     -> github:maydayv7/dotfiles     #
+#     URL     -> gitlab:maydayv7/dotfiles     #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The very heart of my 'dotfiles'       #

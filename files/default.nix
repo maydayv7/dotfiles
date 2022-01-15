@@ -10,8 +10,8 @@ in {
     toplevel = ./.;
     system = "/etc/nixos";
     cache = "maydayv7-dotfiles";
-    flake = "github:maydayv7/dotfiles";
-    repo = "https://github.com/maydayv7/dotfiles";
+    flake = "gitlab:maydayv7/dotfiles";
+    repo = "https://gitlab.com/maydayv7/dotfiles";
   };
 
   # ASCII Art

@@ -9,7 +9,7 @@
 
     ## Configuration Modules ##
     # My PC Dotfiles
-    dotfiles.url = "github:maydayv7/dotfiles";
+    dotfiles.url = "gitlab:maydayv7/dotfiles";
   };
 
   ## System Configuration ##

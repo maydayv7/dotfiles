@@ -1,9 +1,9 @@
 # Dotfiles
-![[Logo]](https://socialify.git.ci/maydayv7/dotfiles/image?description=1&font=Source%20Code%20Pro&logo=https%3A%2F%2Fraw.githubusercontent.com%2FNixOS%2Fnixos-artwork%2F9bd73014f75c2ce97d104c78314d78eb2493e24d%2Flogo%2Fwhite.svg&name=1&owner=1&pattern=Circuit%20Board&theme=Dark)
+![[Logo]](./files/images/logo.png)
 
-![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+![Version](https://img.shields.io/gitlab/v/release/maydayv7/dotfiles?include_prereleases&label=version&color=red&style=flat-square&logo=gitlab) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
 
-This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/))
+This [repository](https://gitlab.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/))
 
 ![](./files/images/desktop.png)
 
@@ -77,10 +77,10 @@ Here is an overview of the file hierarchy:
 <details>
 <summary><b>From Scratch</b></summary>
 
-Download the latest NixOS `.iso` from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
+Download the latest NixOS `.iso` from the [Releases](../../releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
 If Nix is already installed on your system, you may run the following command to build the Install Media:  
 *Replace* ***VARIANT*** *with the name of install media to create*
-<pre><code>nix build github:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
+<pre><code>nix build gitlab:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
 
 #### Partition Scheme
 *Note that the `nixos install` script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
@@ -97,7 +97,7 @@ To install the OS, just boot the Live USB and run `sudo nixos install`
 In case you have downloaded the NixOS `.iso` from [here](https://nixos.org/download.html), then you can use the following commands:
 
 ```
-nix build github:maydayv7/dotfiles#packages.x86_64-linux.install
+nix build gitlab:maydayv7/dotfiles#packages.x86_64-linux.install
 sudo ./result/bin/nixos-install-device
 ```
 
@@ -113,7 +113,7 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
 
 1. Clone this repository (`git` and `git-crypt` must be installed) to `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
 sudo chown $USER /etc/nixos && sudo chmod ugo+rw /etc/nixos
-cd /etc/nixos && nix flake init -t github:maydayv7/dotfiles#extensive
+cd /etc/nixos && nix flake init -t gitlab:maydayv7/dotfiles#extensive
 git remote rm origin && rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
 </code></pre>
 
@@ -150,7 +150,7 @@ If you really want to get dirty with Nix and decide to invest oodles of your tim
 
 ## Notes
 #### Caution
-I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.4). If you have any doubts or suggestions, feel free to open an [issue](../../issues/new/choose)
+I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.4). If you have any doubts or suggestions, feel free to open an [issue](https://gitlab.com/maydayv7/dotfiles/-/issues/new)
 
 ### Requirements
 *May change according to available hardware*  
@@ -172,10 +172,10 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 #### Continuous Integration
-This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag. A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
+This repository makes use of [`GitLab CI/CD`](./.gitlab/.gitlab-ci.yml) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `Github Actions` configuration in [`.github`](./.github/workflows)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ###### Variables
-+ [`ACCESS_TOKEN`](./modules/apps/git/secrets/github-token.secret): GitHub Personal Access Token (To create one, see [this](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token))
++ [`ACCESS_TOKEN`](./modules/apps/git/secrets/gitlab-token.secret): Personal Access Token (To create one - [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html), [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token))
 + [`CACHIX_TOKEN`](./secrets/cachix-token.secret): Cachix Authentication Token
 
 ### File System

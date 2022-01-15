@@ -24,7 +24,6 @@
     git = {
       name = "maydayv7";
       mail = "maydayv7@gmail.com";
-      runner = null;
     };
   };
 
