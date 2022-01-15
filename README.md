@@ -77,7 +77,7 @@ Here is an overview of the file hierarchy:
 <details>
 <summary><b>From Scratch</b></summary>
 
-Download the latest NixOS `.iso` from the [Releases](../../releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
+Download the latest NixOS `.iso` from the [Releases](https://gitlab.com/maydayv7/dotfiles/-/releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
 If Nix is already installed on your system, you may run the following command to build the Install Media:  
 *Replace* ***VARIANT*** *with the name of install media to create*
 <pre><code>nix build gitlab:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
