@@ -14,7 +14,4 @@ shell:
   parallel:
     matrix:
       - DEVSHELL: [java, video]
-  before_script:
-    - nix profile install nixpkgs#cachix
-    - cachix use $CACHIX_CACHE_NAME
   script: cachix watch-exec $CACHIX_CACHE_NAME nix develop .#$DEVSHELL

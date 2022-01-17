@@ -4,6 +4,7 @@ check:
   only:
     changes:
       - '*.nix'
+      - "**/*.nix"
   except:
     - tags
     - schedules
