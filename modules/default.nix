@@ -1,13 +1,14 @@
 { version, lib, inputs, files }:
 let
   inherit (inputs) self generators;
-  inherit (lib) forEach getAttrFromPath nixosSystem makeOverridable;
+  inherit (lib) forEach getAttrFromPath nixosSystem makeOverridable mkIf;
   inherit (builtins) attrValues getAttr hashString replaceStrings substring;
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
-    , repo ? "stable", format ? null, imports ? [ ], timezone, locale, kernel
-    , kernelModules ? [ ], desktop ? null, apps ? { }, hardware ? { }, user }:
+    , repo ? "stable", format ? null, imports ? [ ], timezone, locale
+    , update ? "", kernel, kernelModules ? [ ], desktop ? null, apps ? { }
+    , hardware ? { }, user }:
     let
       # Default Package Channel
       pkgs = self.channels.${system}.${repo};
@@ -48,6 +49,15 @@ in {
         environment.systemPackages = [ pkgs.custom.nixos ];
         system = {
           stateVersion = version;
+
+          # Updates
+          autoUpgrade = {
+            enable = mkIf (update != "") true;
+            dates = mkIf (update != "") update;
+            flake = files.path.flake;
+          };
+
+          # Version
           configurationRevision = self.rev or null;
           name = "${name}-${replaceStrings [ " " ] [ "_" ] description}";
           nixos.label = if self ? rev then

@@ -5,6 +5,7 @@
 
   timezone = "Asia/Kolkata";
   locale = "en_IN.UTF-8";
+  update = "weekly";
 
   kernel = "linux_5_4";
   hardware = {

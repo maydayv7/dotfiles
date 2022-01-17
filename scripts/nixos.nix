@@ -44,7 +44,7 @@ let
     search = ''
       # Usage #
         cmd.'command'              - Searches for Package providing 'command'
-        pkgs.'package'             - Searches for Package 'package'
+        pkgs.'package' [ 'repo' ]  - Searches for Package 'package' [ In Repository ]
         'term'                     - Searches for Packages and Configuration Options and matching 'term'
     '';
 
@@ -113,7 +113,7 @@ in lib.recursiveUpdate {
       flags="--show-trace"
     fi
     echo "Formatting Code..."
-    find ${path.system} -type f -name "*.nix" | xargs nixfmt
+    find ${path.system} -type f -name "*.nix" -exec nixfmt {} \+
     echo "Checking Syntax..."
     nix-linter -r ${path.system} || true
     nix flake check ${path.system} --keep-going $flags

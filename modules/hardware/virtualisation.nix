@@ -7,7 +7,8 @@ in rec {
     user.settings.extraGroups = [ "kvm" "libvirtd" ];
     filesystem.persist.directories = [ "/var/lib/libvirt" ];
     boot = {
-      kernelModules = [ "kvm-intel" ];
+      kernelParams = [ "intel_iommu=on" ];
+      kernelModules = [ "kvm-intel" "vfio-pci" ];
       extraModprobeConfig = "options kvm_intel nested=1";
     };
 

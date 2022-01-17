@@ -1,4 +1,4 @@
-{ lib, inputs, pkgs, ... }: rec {
+{ lib, inputs, pkgs, files, ... }: rec {
   imports = [ inputs.gaming.nixosModules.pipewireLowLatency ];
 
   ## Device Firmware ##
