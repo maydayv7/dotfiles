@@ -1,5 +1,5 @@
 { systems, self, lib }:
-with ({ inherit (lib) makeExtensible attrValues foldr; });
+with { inherit (lib) makeExtensible attrValues foldr; };
 (makeExtensible (final:
   with final;
   (import ./map.nix { inherit lib; }).modules' ./.

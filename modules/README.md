@@ -24,7 +24,8 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   + `modules`: List of Hardware Configuration Modules imported from [`inputs.hardware`](https://github.com/nixos/nixos-hardware) - Ex. `[ "common-pc" ]`
   + `support`: List of Additional Supported Hardware - `[ "mobile" "printer" "ssd" "virtualisation" ]`
 
-* [`nix`](./nix): Module that configures the Nix Package Manager
+* [`nix`](./nix): Module that configures the Nix Package Manager -
+  + `index`: Enable Package Indexer - `"true" / "false"`
 
 * [`user`](./user): Module that controls User Creation and Security Settings -
   + `user` -

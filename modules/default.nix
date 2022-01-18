@@ -11,7 +11,7 @@ in {
     , hardware ? { }, user }:
     let
       # Default Package Channel
-      pkgs = self.channels.${system}.${repo};
+      pkgs = self.channels."${system}"."${repo}";
     in (makeOverridable nixosSystem) {
       inherit system;
       specialArgs = { inherit system lib inputs files; };
@@ -38,26 +38,29 @@ in {
 
         # Kernel Configuration
         boot = {
-          kernelPackages = pkgs.linuxKernel.packages.${kernel};
+          kernelPackages = pkgs.linuxKernel.packages."${kernel}";
           initrd.availableKernelModules = kernelModules
             ++ [ "ahci" "sd_mod" "usbhid" "usb_storage" "xhci_pci" ];
         };
 
         # Package Configuration
-        nix.maxJobs = hardware.cores or 4;
         nixpkgs.pkgs = pkgs;
         environment.systemPackages = [ pkgs.custom.nixos ];
-        system = {
-          stateVersion = version;
+        nix = {
+          maxJobs = hardware.cores or 4;
+          index = mkIf (update == "") true;
+        };
 
+        system = {
           # Updates
           autoUpgrade = {
             enable = mkIf (update != "") true;
             dates = mkIf (update != "") update;
-            flake = files.path.flake;
+            inherit (files.path) flake;
           };
 
           # Version
+          stateVersion = version;
           configurationRevision = self.rev or null;
           name = "${name}-${replaceStrings [ " " ] [ "_" ] description}";
           nixos.label = if self ? rev then

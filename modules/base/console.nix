@@ -1,4 +1,6 @@
-{ pkgs, ... }: rec {
+{ config, pkgs, ... }:
+let font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
+in rec {
   ## Console Configuration ##
   config = {
     # Setup
@@ -9,12 +11,11 @@
     };
 
     # TTY
-    fonts.fonts = [ pkgs.meslo-lgs-nf ];
     services.kmscon = {
       enable = true;
       hwRender = true;
       extraConfig = ''
-        font-name=MesloLGS NF
+        font-name=${font}
         font-size=14
       '';
     };
@@ -23,7 +24,6 @@
     environment.systemPackages = with pkgs; [
       git
       git-crypt
-      gnupg
       gparted
       killall
       parted

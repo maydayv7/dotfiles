@@ -1,5 +1,5 @@
 { config, lib, pkgs, files, ... }:
-let enable = (builtins.elem "office" config.apps.list);
+let enable = builtins.elem "office" config.apps.list;
 in rec {
   ## Office Environment Configuration ##
   config = lib.mkIf enable {

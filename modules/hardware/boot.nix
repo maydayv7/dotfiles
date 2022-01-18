@@ -1,5 +1,5 @@
 { config, lib, ... }:
-let boot = config.hardware.boot;
+let inherit (config.hardware) boot;
 in rec {
   options.hardware.boot = lib.mkOption {
     description = "Supported Boot Firmware";

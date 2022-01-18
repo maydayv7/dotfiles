@@ -36,12 +36,11 @@ create_zfs() {
   zfs create -o mountpoint=legacy -o atime=off fspool/system/nix
   zfs create -p -o mountpoint=legacy fspool/data/persist
   zfs create -o mountpoint=legacy -o com.sun:auto-snapshot=true fspool/data/home
-  zfs create -o canmount=off -o refreservation=1G fspool/reserve # Use `zfs set refreservation=none fspool/reserve` to free space
+  zfs create -o canmount=off -o refreservation=1G fspool/reserve # Use 'zfs set refreservation=none fspool/reserve' to free space
 }
 
 mount_zfs() {
   echo "Mounting 'ZFS' Volumes..."
-  zpool export -a
   zpool import -f fspool
   mount -t zfs fspool/system/root /mnt
   mkdir -p /mnt/{nix,persist,home}

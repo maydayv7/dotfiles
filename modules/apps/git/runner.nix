@@ -1,8 +1,8 @@
 { config, lib, pkgs, files, ... }:
 let
   inherit (lib) mkIf mkMerge mkOption types util;
-  runner = config.apps.git.runner;
-  secrets = config.sops.secrets;
+  inherit (config.apps.git) runner;
+  inherit (config.sops) secrets;
 in {
   options.apps.git.runner = mkOption {
     description = "Support for 'git' Runners";

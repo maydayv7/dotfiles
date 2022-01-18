@@ -13,9 +13,8 @@
   };
 
   ## System Configuration ##
-  outputs = { ... }@inputs:
-    with inputs;
-    with ({ lib = nixpkgs.lib // dotfiles.lib; }); {
+  outputs = inputs:
+    with { lib = with inputs; nixpkgs.lib // dotfiles.lib; }; {
       nixosConfigurations.host = lib.build.device {
         name = "HOST_NAME";
         system = "x86_64-linux";

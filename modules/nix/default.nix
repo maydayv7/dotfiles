@@ -1,5 +1,5 @@
 { inputs, pkgs, ... }: rec {
-  imports = [ inputs.utils.nixosModules.autoGenFromInputs ];
+  imports = [ ./index.nix inputs.utils.nixosModules.autoGenFromInputs ];
 
   ## Nix Settings ##
   config = {

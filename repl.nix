@@ -11,8 +11,8 @@ let
   '' (readFile "/etc/hostname"));
 
   nixpkgs = import flake.inputs.nixpkgs.outPath { };
-  outputs = (removeAttrs (nixpkgs // nixpkgs.lib) [ "options" "config" ]);
+  outputs = removeAttrs (nixpkgs // nixpkgs.lib) [ "options" "config" ];
 in {
   inherit flake;
 } // builtins // outputs // flake // flake.nixosConfigurations
-// (if host then flake.nixosConfigurations.${hostname} else { })
+// (if host then flake.nixosConfigurations."${hostname}" else { })

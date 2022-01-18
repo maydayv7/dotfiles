@@ -2,7 +2,7 @@
 let
   inherit (lib) mkIf util;
   enable = config.user.password == "";
-  secrets = config.sops.secrets;
+  inherit (config.sops) secrets;
   username = config.user.name;
 in rec {
   config = mkIf enable {

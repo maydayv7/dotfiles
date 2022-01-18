@@ -24,7 +24,7 @@ in rec {
         dataHome = "${homeDir}/.local/share";
         stateHome = "${homeDir}/.local/state";
 
-        # User Home Folders
+        # User Home Directories
         userDirs = {
           enable = true;
           createDirectories = true;
@@ -36,7 +36,13 @@ in rec {
           publicShare = "$HOME/Public";
           templates = "$HOME/Templates";
           videos = "$HOME/Videos";
-          extraConfig = { XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots"; };
+
+          # Custom Directories
+          extraConfig = {
+            XDG_PROJECTS_DIR = "$HOME/Projects";
+            XDG_TBD_DIR = "$HOME/Documents/TBD";
+            XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
+          };
         };
       };
 

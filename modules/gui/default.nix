@@ -1,7 +1,7 @@
 { config, options, lib, ... }:
 let
   inherit (lib) mkOption types;
-  desktop = config.gui.desktop;
+  inherit (config.gui) desktop;
   opt = options.gui.desktop;
 in rec {
   imports = [ ./fonts.nix ./gnome.nix ./xorg.nix ];

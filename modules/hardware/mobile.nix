@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let enable = (builtins.elem "mobile" config.hardware.support);
+let enable = builtins.elem "mobile" config.hardware.support;
 in rec {
   ## Device Firmware ##
   config = lib.mkIf enable {

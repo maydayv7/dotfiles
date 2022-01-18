@@ -1,5 +1,5 @@
 { config, lib, pkgs, files, ... }:
-let enable = config.gui.fonts.enable;
+let inherit (config.gui.fonts) enable;
 in rec {
   options.gui.fonts.enable = lib.mkEnableOption "Enable Fonts Configuration";
 

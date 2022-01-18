@@ -3,7 +3,7 @@
 
   ## Authentication Credentials Management ##
   config = {
-    environment.systemPackages = [ pkgs.sops ];
+    environment.systemPackages = with pkgs; [ gnupg sops ];
     sops = {
       # Encrypted Secrets
       secrets = lib.util.map.secrets ./. false;

@@ -93,6 +93,8 @@ in {
       button-layout = "appmenu:minimize,close";
       titlebar-font = "Product Sans Bold 11";
       visual-bell = false;
+      num-workspaces = 4;
+      workspace-names = [ "Desktop" "School" "Work" "Play" ];
     };
 
     # Core Settings
@@ -101,7 +103,7 @@ in {
 
     "org/gnome/mutter" = {
       attach-modal-dialogs = true;
-      dynamic-workspaces = true;
+      dynamic-workspaces = false;
       edge-tiling = true;
       focus-change-on-pointer-rest = true;
       workspaces-only-on-primary = true;
@@ -350,6 +352,8 @@ in {
         "burn-my-windows@schneegans.github.com"
         "gTile@vibou"
         "desktop-cube@schneegans.github.com"
+        "timepp@zagortenay333"
+        "add-username-toppanel@brendaw.com"
       ];
       favorite-apps = [
         "google-chrome.desktop"
@@ -517,6 +521,19 @@ in {
     "org/gnome/shell/extensions/sound-output-device-chooser" = {
       expand-volume-menu = false;
       hide-on-single-device = true;
+    };
+
+    "org/gnome/shell/extensions/timepp" = {
+      alarms-separate-menu = false;
+      panel-item-position = "Left";
+      pomodoro-panel-mode = "Dynamic";
+      pomodoro-show-seconds = true;
+      stopwatch-panel-mode = "Dynamic";
+      timer-panel-mode = "Dynamic";
+      timer-show-seconds = true;
+      todo-panel-mode = "Icon";
+      todo-separate-menu = true;
+      unicon-mode = true;
     };
 
     "org/gnome/shell/extensions/vitals" = {

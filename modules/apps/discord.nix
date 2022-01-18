@@ -1,5 +1,5 @@
 { config, lib, pkgs, files, ... }:
-let enable = (builtins.elem "discord" config.apps.list);
+let enable = builtins.elem "discord" config.apps.list;
 in {
   ## Discord Configuration ##
   config = lib.mkIf enable {

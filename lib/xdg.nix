@@ -8,7 +8,7 @@ in rec {
   mime = values: option:
     listToAttrs (flatten (mapAttrsToList (name: types:
       if hasAttr name option then
-        map (type: nameValuePair (type) (option.${name})) types
+        map (type: nameValuePair type option."${name}") types
       else
         [ ]) values));
 }

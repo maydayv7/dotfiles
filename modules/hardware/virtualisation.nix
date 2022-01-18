@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let enable = (builtins.elem "virtualisation" config.hardware.support);
+let enable = builtins.elem "virtualisation" config.hardware.support;
 in rec {
   ## Virtualisation Settings ##
   config = lib.mkIf enable {

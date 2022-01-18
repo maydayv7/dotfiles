@@ -1,7 +1,7 @@
 { config, lib, pkgs, files, ... }:
 let
   inherit (lib) mkIf util;
-  enable = (builtins.elem "firefox" config.apps.list);
+  enable = builtins.elem "firefox" config.apps.list;
   username = config.user.name;
 in rec {
   ## Firefox Browser Configuration ##
@@ -17,7 +17,7 @@ in rec {
       # Profile
       programs.firefox = {
         enable = true;
-        profiles.${username}.settings = {
+        profiles."${username}".settings = {
           ## Flags
           # Features
           "browser.search.openintab" = true;

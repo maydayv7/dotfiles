@@ -1,9 +1,9 @@
 { self, system, lib, pkgs }:
-with ({ inherit (lib) hooks util; });
+with { inherit (lib) hooks util; };
 # Install Media Checks
 (util.pack.device self.installMedia "nixos-rebuild") // {
   # Pre-Commit Hooks
-  commit = hooks.${system}.run {
+  commit = hooks."${system}".run {
     src = ./.;
     hooks = {
       nixfmt.enable = true;

@@ -1,7 +1,7 @@
 { config, options, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkOption types;
-  enable = (builtins.elem "git" config.apps.list);
+  enable = builtins.elem "git" config.apps.list;
   opt = options.apps.git;
   cfg = config.apps.git;
 in rec {
@@ -33,11 +33,11 @@ in rec {
     assertions = [
       {
         assertion = cfg.name != "";
-        message = (opt.name.description + " must be set");
+        message = opt.name.description + " must be set";
       }
       {
         assertion = cfg.mail != "";
-        message = (opt.mail.description + " must be set");
+        message = opt.mail.description + " must be set";
       }
     ];
 
@@ -64,7 +64,7 @@ in rec {
       userName = cfg.name;
       userEmail = cfg.mail;
       signing = {
-        key = cfg.key;
+        inherit (cfg) key;
         signByDefault = true;
       };
 

@@ -1,11 +1,11 @@
 { config, lib, inputs, pkgs, files, ... }:
+with files.gnome;
 let
   inherit (builtins) elem;
   inherit (lib) mkIf mkForce mkMerge util;
+  inherit (config.gui) desktop;
+  inherit (config) programs user;
   apps = config.environment.systemPackages;
-  desktop = config.gui.desktop;
-  programs = config.programs;
-  username = config.user.name;
 in rec {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
@@ -36,7 +36,7 @@ in rec {
       # Desktop Integration
       gui.fonts.enable = true;
       nixpkgs.config.firefox.enableGnomeExtensions =
-        mkIf (elem pkgs.discord apps) true;
+        mkIf (elem pkgs.firefox apps) true;
       programs = {
         dconf.enable = true;
         xwayland.enable = true;
@@ -61,7 +61,7 @@ in rec {
       # User Configuration
       user.home = {
         # Dconf Keys
-        imports = [ files.gnome.dconf ];
+        imports = [ dconf ];
 
         # GTK+ Theming
         gtk = {
@@ -100,31 +100,30 @@ in rec {
           # Initial Setup
           ".config/gnome-initial-setup-done".text = "yes";
 
-          # GTK+ Bookmarks
-          ".config/gtk-3.0/bookmarks".text = files.gnome.bookmarks;
-
           # X11 Gestures
           ".config/touchegg/touchegg.conf".text = files.gestures;
 
           # Online Accounts
-          ".config/goa-1.0/accounts.conf".text = files.gnome.accounts;
+          ".config/goa-1.0/accounts.conf".text = accounts;
 
           # Custome GNOME Shell Theme
-          ".themes/Adwaita/gnome-shell/gnome-shell.css".text =
-            files.gnome.shell;
+          ".themes/Adwaita/gnome-shell/gnome-shell.css".text = shell;
+
+          # GTK+ Bookmarks
+          ".config/gtk-3.0/bookmarks".text = ''
+            file:///home/${user.name}/Documents/TBD TBD
+          '' + bookmarks;
 
           # gEdit Color Scheme
-          ".local/share/gtksourceview-4/styles/tango-dark.xml".text =
-            files.gnome.theme;
-          ".local/share/gtksourceview-4/language-specs/nix.lang".text =
-            files.gnome.syntax;
+          ".local/share/gtksourceview-4/styles/tango-dark.xml".text = theme;
+          ".local/share/gtksourceview-4/language-specs/nix.lang".text = syntax;
 
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" =
             mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/${username}/chrome/userChrome.css".text =
+          ".mozilla/firefox/${user.name}/chrome/userChrome.css".text =
             mkIf (elem pkgs.firefox apps)
             ''@import "${inputs.firefox-theme}/userChrome.css";'';
           ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
@@ -172,6 +171,7 @@ in rec {
           with gnomeExtensions;
           with unstable.gnomeExtensions; [
             # GNOME Shell Extensions
+            add-username-to-top-panel
             appindicator
             burn-my-windows
             caffeine
@@ -188,6 +188,7 @@ in rec {
             lock-keys
             screenshot-locations
             sound-output-device-chooser
+            timepp
             vitals
             x11-gestures
           ]);

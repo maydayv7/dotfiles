@@ -9,7 +9,7 @@ let
   version = readFile ./.version;
 
   # System Libraries
-  files = self.files;
+  inherit (self) files;
   inherit (builtins) readFile;
   inherit (lib.util) build map pack;
   lib = nixpkgs.lib.extend (final: prev:
@@ -25,8 +25,8 @@ in lib.eachSystem systems (system:
   let
     # Package Channels
     overlays = [ nur.overlay wayland.overlay ];
-    pkgs = (build.channel nixpkgs overlays ./packages/patches).${system};
-    pkgs' = (build.channel unstable overlays [ ]).${system};
+    pkgs = (build.channel nixpkgs overlays ./packages/patches)."${system}";
+    pkgs' = (build.channel unstable overlays [ ])."${system}";
   in {
     ## Configuration Checks ##
     checks = import ./modules/nix/checks.nix { inherit self system lib pkgs; };
@@ -39,19 +39,19 @@ in lib.eachSystem systems (system:
     devShells = map.modules' ./shells (file: pkgs.mkShell (import file pkgs));
 
     ## Package Configuration ##
-    legacyPackages = self.channels.${system}.stable;
+    legacyPackages = self.channels."${system}".stable;
     channels = {
       stable = pkgs;
       unstable = pkgs';
-      gaming = gaming.packages.${system};
+      gaming = gaming.packages."${system}";
     };
 
     # Custom Packages
-    defaultApp = self.apps.${system}.nixos;
-    defaultPackage = self.packages.${system}.dotfiles;
+    defaultApp = self.apps."${system}".nixos;
+    defaultPackage = self.packages."${system}".dotfiles;
     apps = map.modules ./scripts
       (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    packages = self.apps.${system} // map.modules ./packages
+    packages = self.apps."${system}" // map.modules ./packages
       (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
   }) // {
     # Overrides

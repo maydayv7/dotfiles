@@ -81,8 +81,8 @@ in rec {
     security.sudo.wheelNeedsPassword = mkIf (cfg.password != "") false;
 
     # Configuration Options
-    users.users.${cfg.name} = mkAliasDefinitions opt.settings;
-    home-manager.users.${cfg.name} = mkAliasDefinitions opt.home;
+    users.users."${cfg.name}" = mkAliasDefinitions opt.settings;
+    home-manager.users."${cfg.name}" = mkAliasDefinitions opt.home;
 
     # Home Manager Settings
     home-manager = {
@@ -94,10 +94,8 @@ in rec {
     # User Creation
     user.settings = {
       # Profile
-      name = cfg.name;
-      description = cfg.description;
+      inherit (cfg) name description uid;
       isNormalUser = true;
-      uid = cfg.uid;
       initialHashedPassword = cfg.password;
 
       # Groups

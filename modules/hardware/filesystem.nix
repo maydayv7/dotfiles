@@ -2,8 +2,8 @@
 let
   inherit (lib) mkAfter mkForce mkIf mkMerge mkOption types;
   opt = options.hardware.filesystem.description;
-  filesystem = config.hardware.filesystem;
-  persist = config.filesystem.persist;
+  inherit (config.hardware) filesystem;
+  inherit (config.filesystem) persist;
 in rec {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 

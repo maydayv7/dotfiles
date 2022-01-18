@@ -8,13 +8,13 @@ in rec {
   device = attrs: check:
     mapAttrs' (_: name: {
       name = "Device-${name}";
-      value = attrs.${name}.config.system.build.${check};
+      value = attrs."${name}".config.system.build."${check}";
     }) (genAttrs (attrNames attrs) (name: "${name}"));
 
   # User Home Configurations
   user = user:
     mapAttrs' (_: name: {
       name = "User-${name}";
-      value = self.homeConfigurations.${user}.activationPackage;
+      value = self.homeConfigurations."${user}".activationPackage;
     }) (genAttrs (attrNames self.homeConfigurations) (name: "${name}"));
 }
