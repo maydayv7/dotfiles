@@ -23,6 +23,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
     * `persist`: Files to Preserve across Reboots (while using `advanced` File System Layout)
   + `modules`: List of Hardware Configuration Modules imported from [`inputs.hardware`](https://github.com/nixos/nixos-hardware) - Ex. `[ "common-pc" ]`
   + `support`: List of Additional Supported Hardware - `[ "mobile" "printer" "ssd" "virtualisation" ]`
+  + `passthrough`: PCI Device IDs for VM Passthrough using VFI/O (Use [`scripts/pci.sh`](../scripts/pci.sh)) - Ex. `"00:02.0,00:1c.0"`
 
 * [`nix`](./nix): Module that configures the Nix Package Manager -
   + `index`: Enable Package Indexer - `"true" / "false"`
