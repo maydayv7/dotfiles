@@ -10,7 +10,8 @@ in {
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
     , repo ? "stable", format ? null, imports ? [ ], timezone, locale
     , update ? "", kernel, kernelModules ? [ ], desktop ? null, apps ? { }
-    , hardware ? { }, shell ? { }, user ? null, users ? [ ] }:
+    , hardware ? { }, shell ? { }, user ? null, users ? null }:
+    assert (user != null) || (users != null);
     let
       # User Build Function
       users' = map user' (if (user != null) then [ user ] else users);
@@ -20,7 +21,7 @@ in {
           # Creation
           shell.support = [ shell ];
           user.settings."${name}" = {
-            inherit name description uid;
+            inherit name description uid minimal;
             isNormalUser = true;
             initialHashedPassword = password;
             group = "users";
@@ -34,18 +35,10 @@ in {
               home;
           };
 
-          # Password
-          imports = [
-            ({ config, ... }: {
-              user.settings."${name}".passwordFile =
-                mkIf (!minimal) config.sops.secrets."${name}.secret".path;
-            })
-          ];
-
           # Login
           services.xserver.displayManager.autoLogin = {
             enable = autologin;
-            user = mkIf autologin name;
+            user = mkIf (autologin || minimal) name;
           };
         };
 
@@ -77,9 +70,12 @@ in {
 
         # Kernel Configuration
         boot = {
-          kernelPackages = pkgs.linuxKernel.packages."${kernel}";
           initrd.availableKernelModules = kernelModules
             ++ [ "ahci" "sd_mod" "usbhid" "usb_storage" "xhci_pci" ];
+          kernelPackages = if (kernel == "linux_zfs") then
+            pkgs.zfs.latestCompatibleLinuxPackages
+          else
+            pkgs.linuxKernel.packages."${kernel}";
         };
 
         # Package Configuration

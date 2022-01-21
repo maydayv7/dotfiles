@@ -1,4 +1,4 @@
-{ path, host ? false }:
+{ path ? /etc/nixos, host ? false }:
 let
   inherit (builtins) getFlake head match pathExists readFile removeAttrs;
   flake = if pathExists "${path}/flake.nix" then

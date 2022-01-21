@@ -28,6 +28,60 @@ This [repository](https://gitlab.com/maydayv7/dotfiles) contains the configurati
 ## Structure
 Here is an overview of the file hierarchy:
 
+<details>
+<summary><b>Outputs</b></summary>
+
+```shellsession
+$ nix flake show
+gitlab:maydayv7/dotfiles
+├───apps
+│   └───x86_64-linux
+│       └───nixos: app
+├───channels: unknown
+├───checks
+│   └───x86_64-linux
+│       └───commit: derivation 'pre-commit-run'
+├───defaultApp
+│   └───x86_64-linux: app
+├───defaultPackage
+│   └───x86_64-linux: package 'Dotfiles-v1.0'
+├───defaultTemplate: template: Simple, Minimal NixOS Configuration
+├───devShell
+│   └───x86_64-linux: development environment 'devShell'
+├───devShells
+│   └───x86_64-linux
+│       ├───java: development environment 'Java'
+│       └───video: development environment 'Video'
+├───files: unknown
+├───installMedia: unknown
+├───legacyPackages
+│   └───x86_64-linux: omitted (use '--legacy' to show)
+├───lib: unknown
+├───nixosConfigurations
+│   ├───Futura: NixOS configuration
+│   └───Vortex: NixOS configuration
+├───nixosModule: NixOS module
+├───nixosModules
+│   ├───apps: NixOS module
+│   ├───base: NixOS module
+│   ├───gui: NixOS module
+│   ├───hardware: NixOS module
+│   ├───nix: NixOS module
+│   ├───secrets: NixOS module
+│   ├───shell: NixOS module
+│   └───user: NixOS module
+├───overlays
+│   └───nixFlakes: Nixpkgs overlay
+├───packages
+│   └───x86_64-linux
+│       └───dotfiles: package 'Dotfiles-v4.0'
+└───templates
+    ├───extensive: template: My Complete, Extensive NixOS Configuration
+    └───minimal: template: Simple, Minimal NixOS Configuration
+```
+
+</details>
+
 ```
 ┌── configuration.nix
 ├── flake.nix

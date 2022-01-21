@@ -1,6 +1,5 @@
 ## Known Limitations and/or Workarounds
 + It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
-+ `nix flake show` fails due to unconventional `outputs.apps` declaration
 + Due to [#118612](https://github.com/NixOS/nixpkgs/issues/118612), the GNOME Extension `Fly Pie` has been disabled for the time-being
 
 ### Patches

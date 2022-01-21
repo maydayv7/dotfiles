@@ -1,10 +1,12 @@
-{ config, pkgs, files, ... }:
-let version = config.system.stateVersion;
+{ config, ... }:
+let
+  version = config.system.stateVersion;
+  nixConf = config.environment.etc."nix/nix.conf".source;
 in rec {
   config = {
     user.home = {
       home.stateVersion = version;
-      home.packages = [ pkgs.home-manager ];
+      home.file.".config/nix/nix.conf".source = nixConf;
       systemd.user.startServices = true;
 
       # XDG Configuration
@@ -26,22 +28,7 @@ in rec {
           publicShare = "$HOME/Public";
           templates = "$HOME/Templates";
           videos = "$HOME/Videos";
-
-          # Custom Directories
-          extraConfig = {
-            XDG_PROJECTS_DIR = "$HOME/Projects";
-            XDG_TBD_DIR = "$HOME/Documents/TBD";
-            XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
-          };
         };
-      };
-
-      home.file = {
-        # Profile Picture
-        ".face".source = files.images.profile;
-
-        # Wallpapers
-        ".local/share/backgrounds".source = files.images.wallpapers;
       };
     };
   };

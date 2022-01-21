@@ -187,6 +187,7 @@ in rec {
             screenshot-locations
             sound-output-device-chooser
             timepp
+            custom.top-bar-organizer
             vitals
             x11-gestures
           ]);

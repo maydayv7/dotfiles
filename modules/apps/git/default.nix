@@ -86,6 +86,7 @@ in rec {
         ai = "add -i";
         ap = "add -p";
         b = "branch";
+        bd = "branch -D";
         backup = ''
           !sh -c 'CURRENT=$(git branch --show-current) && git stash save -a && git checkout -B backup && git stash apply && git add -A . && git commit -m "backup" && git push -f $1 && git checkout $CURRENT && git stash pop && git branch -D backup' -'';
         cam = "commit -a -m";
@@ -111,6 +112,7 @@ in rec {
         ms = "merge --squash";
         p = "push";
         pf = "push --force";
+        pl = "!sh -c 'git pull && git fetch -p' -";
         pt = "push --tag";
         pu = "push --set-upstream";
         rb = "rebase";

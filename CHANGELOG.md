@@ -1,5 +1,7 @@
 ## Changelog
 ### vNEXT
++ Use `nixConfig`
++ Support Auto-Upgrade
 + Support Multiple Users per Device
 + Use PipeWire (with low-latency) for audio
 + Use [`nixos-generators`](https://github.com/nix-community/nixos-generators) for Image Generation

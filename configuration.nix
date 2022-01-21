@@ -49,10 +49,12 @@ in lib.eachSystem systems (system:
     # Custom Packages
     defaultApp = self.apps."${system}".nixos;
     defaultPackage = self.packages."${system}".dotfiles;
-    apps = map.modules ./scripts
+    packages = map.merge map.modules ./scripts ./packages
       (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    packages = self.apps."${system}" // map.modules ./packages
-      (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
+    apps = map.modules ./scripts (name:
+      lib.mkApp {
+        drv = pkgs.callPackage name { inherit lib inputs pkgs files; };
+      });
   }) // {
     # Overrides
     overlays = map.modules ./packages/overlays import;
@@ -92,7 +94,7 @@ in lib.eachSystem systems (system:
       gnome = build.iso {
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
-        kernel = "linux_5_15";
+        kernel = "linux_zfs";
         desktop = "gnome-minimal";
       };
     };

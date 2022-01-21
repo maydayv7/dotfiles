@@ -353,7 +353,6 @@ in {
         "dash-to-panel@jderose9.github.com"
         "flypie@schneegans.github.com"
         "color-picker@tuberry"
-        "pop-shell@system76.com"
         "burn-my-windows@schneegans.github.com"
         "gTile@vibou"
         "desktop-cube@schneegans.github.com"
@@ -539,6 +538,23 @@ in {
       todo-panel-mode = "Icon";
       todo-separate-menu = true;
       unicon-mode = true;
+    };
+
+    "org/gnome/shell/extensions/top-bar-organizer" = {
+      center-box-order = [ "dateMenu" ];
+      left-box-order = [ "timepp" "appMenu" "activities" ];
+      right-box-order = [
+        "aggregateMenu"
+        "drive-menu"
+        "color-picker@tuberry"
+        "Caffeine"
+        "vitalsMenu"
+        "dwellClick"
+        "lockkeys"
+        "clipboardIndicator"
+        "a11y"
+        "keyboard"
+      ];
     };
 
     "org/gnome/shell/extensions/vitals" = {

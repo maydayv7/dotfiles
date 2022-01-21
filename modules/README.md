@@ -32,7 +32,9 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   + `groups`: Additional User Groups
   + `home`: Alias for `home-manager.users.${username}`
   + `settings`: Alias for `users.users.${username}` -
-    + `homeConfig`: User Specific `home-manager` Configuration
+    * `autologin`: Enable User Autologin
+    * `minimal`: Enable Minimal User Configuration
+    * `homeConfig`: User Specific `home-manager` Configuration
 
 * [`shell`](./shell): Module that contains User Shell Environment Configuration -
   + `utilities`: Enable Additional Shell Utilities - `true / false`
