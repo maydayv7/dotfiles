@@ -5,7 +5,7 @@ in rec {
   config = lib.mkIf enable {
     ## Android Compatibilty Configuration ##
     # Android Device Bridge
-    user.settings.extraGroups = [ "adbusers" ];
+    user.groups = [ "adbusers" ];
     programs.adb.enable = true;
 
     ## iOS Compatibilty Configuration ##

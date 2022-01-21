@@ -1,14 +1,11 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf util;
-  enable = config.user.password == "";
+  inherit (lib.util) map;
   inherit (config.sops) secrets;
-  username = config.user.name;
 in rec {
-  config = mkIf enable {
+  config = {
     # Passwords
-    sops.secrets = util.map.secrets ./passwords true;
-    user.settings.passwordFile = secrets."${username}.secret".path;
+    sops.secrets = map.secrets ./passwords true;
     users.extraUsers.root.passwordFile = secrets."root.secret".path;
 
     # Security Settings

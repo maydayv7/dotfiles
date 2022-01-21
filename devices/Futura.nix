@@ -21,7 +21,8 @@
   # User Navya
   user = {
     name = "navya";
+    groups = [ "wheel" ];
     description = "Navya";
-    shell.choice = "zsh";
+    shell = "zsh";
   };
 }

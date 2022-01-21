@@ -112,6 +112,7 @@ in rec {
         p = "push";
         pf = "push --force";
         pt = "push --tag";
+        pu = "push --set-upstream";
         rb = "rebase";
         record = "!sh -c '(git add -p -- $@ && git commit) || git reset' --";
         rh = "reset --hard";

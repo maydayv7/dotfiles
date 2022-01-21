@@ -1,9 +1,9 @@
 { config, lib, pkgs, files, ... }:
 with files;
-let shell = config.user.shell.choice;
+let enable = builtins.elem "zsh" config.shell.support;
 in rec {
   ## Z Shell Configuration ##
-  config = lib.mkIf (shell == "zsh") {
+  config = lib.mkIf enable {
     # Shell Environment
     environment = {
       shells = [ pkgs.zsh ];

@@ -30,7 +30,6 @@
       systemFeatures = [ "kvm" "recursive-nix" ];
       extraOptions = ''
         accept-flake-config = true
-        allow-import-from-derivation = true
         warn-dirty = false
         experimental-features = nix-command flakes recursive-nix
         min-free = ${toString (1024 * 1024 * 1024)}

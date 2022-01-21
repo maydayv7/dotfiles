@@ -1,115 +1,79 @@
-{ config, options, lib, inputs, ... }:
+{ config, lib, inputs, ... }:
 let
-  inherit (lib) mkIf mkOption mkAliasDefinitions types;
-  cfg = config.user;
-  opt = options.user;
+  inherit (config) user;
+  inherit (inputs.home.nixosModules) home-manager;
+  inherit (builtins) attrNames attrValues concatStringsSep mapAttrs;
+  inherit (lib)
+    filterAttrs genAttrs intersectLists mkDefault mkIf mkOption types util;
 in rec {
-  imports = [
-    ./home.nix
-    ./recovery.nix
-    ./security.nix
-    inputs.home.nixosModules.home-manager
-  ];
+  imports = [ home-manager ./home ./recovery.nix ./security.nix ];
 
-  options.user = {
-    # User Creation
-    name = mkOption {
-      description = "Name of User";
-      type = types.str;
-      readOnly = true;
+  # Configuration Options
+  options = {
+    home-manager.users = mkOption {
+      type = types.attrsOf (types.submoduleWith { modules = user.home; });
     };
 
-    description = mkOption {
-      description = "User Description";
-      type = types.str;
-      default = "";
-    };
+    user = {
+      home = mkOption {
+        description = "Alias for 'home-manager.users.$username'";
+        type = util.types.mergedAttrs;
+        default = { };
+      };
 
-    directory = mkOption {
-      description = "User Home Directory";
-      type = types.str;
-      default = "/home/${cfg.name}";
-    };
+      groups = mkOption {
+        description = "Additional User Groups";
+        type = types.listOf types.str;
+        default = [ ];
+      };
 
-    groups = mkOption {
-      description = "User Groups Participation";
-      type = types.listOf types.str;
-      default = [ "wheel" ];
-    };
+      settings = mkOption {
+        description = "Alias for 'users.users.$username'";
+        default = { };
+        type = with types;
+          attrsOf (submodule ({ options, config, ... }: {
+            freeformType = attrsOf anything;
+            options = {
+              forwarded = mkOption { };
+              extraGroups = mkOption {
+                apply = groups:
+                  if config.isNormalUser then user.groups ++ groups else groups;
+              };
+              homeConfig = mkOption {
+                description = "User Specific 'home-manager' Configuration";
+                type = util.types.mergedAttrs;
+                default = { };
+              };
+            };
 
-    uid = mkOption {
-      description = "User ID";
-      type = types.int;
-      default = 1000;
-    };
-
-    password = mkOption {
-      description = "Hashed User Password";
-      type = types.str;
-      default = "";
-    };
-
-    autologin = mkOption {
-      description = "Enable Automatic User Login";
-      type = types.bool;
-      default = false;
-    };
-
-    minimal = mkOption {
-      description = "Enable Minimal User Configuration";
-      type = types.bool;
-      default = false;
-    };
-
-    # Configuration Options
-    settings = mkOption {
-      description = "Alias for users.users.$username";
-      type = types.attrs;
-      default = { };
-    };
-
-    home = mkOption {
-      description = "Alias for home-manager.users.$username";
-      type = types.attrs;
-      default = { };
+            config = {
+              forwarded = filterAttrs
+                (name: _: !(options ? "${name}") || name == "extraGroups")
+                config;
+            };
+          }));
+      };
     };
   };
 
   ## User Configuration ##
   config = {
-    users.mutableUsers = mkIf (cfg.password == "") false;
-    security.sudo.wheelNeedsPassword = mkIf (cfg.password != "") false;
-
-    # Configuration Options
-    users.users."${cfg.name}" = mkAliasDefinitions opt.settings;
-    home-manager.users."${cfg.name}" = mkAliasDefinitions opt.home;
+    # User Settings
+    users = {
+      mutableUsers = false;
+      users = mapAttrs (_: name: name.forwarded) user.settings;
+      extraUsers.root = {
+        isNormalUser = false;
+        extraGroups = [ "wheel" ];
+      };
+    };
 
     # Home Manager Settings
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "bak";
-    };
-
-    # User Creation
-    user.settings = {
-      # Profile
-      inherit (cfg) name description uid;
-      isNormalUser = true;
-      initialHashedPassword = cfg.password;
-
-      # Groups
-      group = "users";
-      extraGroups = cfg.groups;
-
-      # Shell
-      useDefaultShell = if opt ? shell then false else true;
-    };
-
-    # User Login
-    services.xserver.displayManager.autoLogin = {
-      enable = cfg.autologin;
-      user = cfg.name;
+      users = mapAttrs (_: name: { imports = name.homeConfig; }) user.settings;
     };
   };
 }

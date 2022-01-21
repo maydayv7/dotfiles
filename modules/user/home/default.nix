@@ -1,11 +1,7 @@
-{ config, lib, pkgs, files, ... }:
-let
-  enable = !config.user.minimal;
-  homeDir = config.user.directory;
-  version = config.system.stateVersion;
+{ config, pkgs, files, ... }:
+let version = config.system.stateVersion;
 in rec {
-  ## User Home Configuration ##
-  config = lib.mkIf enable {
+  config = {
     user.home = {
       home.stateVersion = version;
       home.packages = [ pkgs.home-manager ];
@@ -17,12 +13,6 @@ in rec {
         mime.enable = true;
         mimeApps.enable = true;
         configFile."mimeapps.list".force = true;
-
-        # Default Home Folders
-        cacheHome = "${homeDir}/.cache";
-        configHome = "${homeDir}/.config";
-        dataHome = "${homeDir}/.local/share";
-        stateHome = "${homeDir}/.local/state";
 
         # User Home Directories
         userDirs = {

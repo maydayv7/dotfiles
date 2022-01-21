@@ -19,6 +19,7 @@ in rec {
       user = {
         name = "nixos";
         description = "Default User";
+        minimal = true;
         autologin = true;
         password = readFile ../modules/user/passwords/default;
       };

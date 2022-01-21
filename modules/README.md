@@ -29,19 +29,10 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   + `index`: Enable Package Indexer - `"true" / "false"`
 
 * [`user`](./user): Module that controls User Creation and Security Settings -
-  + `user` -
-    * `name`: Name of User - Ex. `"nixos"`
-    * `description`: User Description - Ex. `"Default User"`
-    * `directory`: User Home Directory - Ex. `"/home/USER"`
-    * `groups`: User Groups Participation - Ex. `[ "wheel" ]`
-    * `uid`: User ID - Ex. `1000`
-    * `password`: Hashed User Password (leave disabled to use `sops-nix` and passwords from [`modules/user/passwords`](../modules/user/passwords))
-    * `autologin`: Enable Automatic User Login - `true / false`
-    * `minimal`: Enable Minimal User Configuration - `true / false`
-    * `settings`: Alias for users.users.`username`
-    * `home`: Alias for home-manager.users.`username`
+  + `groups`: Additional User Groups
+  + `home`: Alias for `home-manager.users.${username}`
+  + `settings`: Alias for `users.users.${username}` -
+    + `homeConfig`: User Specific `home-manager` Configuration
 
 * [`shell`](./shell): Module that contains User Shell Environment Configuration -
-  + `user.shell` -
-    * `choice`: User Shell Choice - `[ "bash" "zsh" ]`
-    * `utilities`: Enable Additional Shell Utilities - `true / false`
+  + `utilities`: Enable Additional Shell Utilities - `true / false`

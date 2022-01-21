@@ -2,6 +2,11 @@
 with lib.hm.gvariant;
 let homeDir = config.home.homeDirectory;
 in {
+  # GTK+ Bookmarks
+  home.file.".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+    file://${homeDir}/Documents/TBD TBD
+  '';
+
   ## Dconf Keys ##
   # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
   dconf.settings = {

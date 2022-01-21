@@ -1,7 +1,7 @@
 { self, lib, ... }:
 let
   inherit (builtins) attrNames;
-  inherit (lib) genAttrs mapAttrs';
+  inherit (lib) genAttrs id mapAttrs';
 in rec {
   ## Packager Functions ##
   # Device Configurations
@@ -9,12 +9,12 @@ in rec {
     mapAttrs' (_: name: {
       name = "Device-${name}";
       value = attrs."${name}".config.system.build."${check}";
-    }) (genAttrs (attrNames attrs) (name: "${name}"));
+    }) (genAttrs (attrNames attrs) id);
 
   # User Home Configurations
   user = user:
     mapAttrs' (_: name: {
       name = "User-${name}";
       value = self.homeConfigurations."${user}".activationPackage;
-    }) (genAttrs (attrNames self.homeConfigurations) (name: "${name}"));
+    }) (genAttrs (attrNames self.homeConfigurations) id);
 }

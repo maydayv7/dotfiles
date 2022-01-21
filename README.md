@@ -47,6 +47,7 @@ Here is an overview of the file hierarchy:
 │   ├── build.nix
 │   ├── map.nix
 │   ├── pack.nix
+│   ├── types.nix
 │   └── xdg.nix
 └── modules
     ├── apps
@@ -56,6 +57,8 @@ Here is an overview of the file hierarchy:
     ├── nix
     ├── shell
     └── user
+        ├── passwords
+        └── home
 ```
 
 + `configuration.nix`: main system configuration file

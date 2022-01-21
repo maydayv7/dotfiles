@@ -1,15 +1,54 @@
 { version, lib, inputs, files }:
 let
-  inherit (inputs) self generators;
+  inherit (inputs) self generators home;
   inherit (lib) forEach getAttrFromPath nixosSystem makeOverridable mkIf;
-  inherit (builtins) attrValues getAttr hashString replaceStrings substring;
+  inherit (builtins)
+    attrValues getAttr hashString map pathExists replaceStrings substring
+    toPath;
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
     , repo ? "stable", format ? null, imports ? [ ], timezone, locale
     , update ? "", kernel, kernelModules ? [ ], desktop ? null, apps ? { }
-    , hardware ? { }, user }:
+    , hardware ? { }, shell ? { }, user ? null, users ? [ ] }:
     let
+      # User Build Function
+      users' = map user' (if (user != null) then [ user ] else users);
+      user' = { name, description, uid ? 1000, groups ? [ "wheel" ]
+        , password ? "", autologin ? false, shell ? "bash", home ? { }
+        , minimal ? false }: {
+          # Creation
+          shell.support = [ shell ];
+          user.settings."${name}" = {
+            inherit name description uid;
+            isNormalUser = true;
+            initialHashedPassword = password;
+            group = "users";
+            extraGroups = groups;
+            useDefaultShell = false;
+            shell = pkgs."${shell}";
+            homeConfig = let path = toPath "${./.}" + "/user/home/${name}";
+            in if (pathExists "${path}/default.nix") then
+              { ... }: { imports = [ "${path}" ]; } // home
+            else
+              home;
+          };
+
+          # Password
+          imports = [
+            ({ config, ... }: {
+              user.settings."${name}".passwordFile =
+                mkIf (!minimal) config.sops.secrets."${name}.secret".path;
+            })
+          ];
+
+          # Login
+          services.xserver.displayManager.autoLogin = {
+            enable = autologin;
+            user = mkIf autologin name;
+          };
+        };
+
       # Default Package Channel
       pkgs = self.channels."${system}"."${repo}";
     in (makeOverridable nixosSystem) {
@@ -17,14 +56,14 @@ in {
       specialArgs = { inherit system lib inputs files; };
       modules = [{
         # Modulated Configuration Imports
-        imports = imports ++ (attrValues self.nixosModules)
+        imports = imports ++ (attrValues self.nixosModules) ++ users'
           ++ (if (format != null) then
             [ (getAttr format generators.nixosModules) ]
           else
             [ ]) ++ forEach hardware.modules or [ ]
           (name: getAttrFromPath [ name ] inputs.hardware.nixosModules);
-        inherit apps hardware user;
-        gui.desktop = desktop;
+        inherit apps hardware shell;
+        gui = { inherit desktop; };
 
         # Device Name
         networking = {

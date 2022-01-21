@@ -20,5 +20,8 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
   + `device`: Pack desired system derivations into individual packages
   + `user`: Pack `self.homeConfigurations` derivations into individual packages
 
+* [`types`](./types.nix): Custom Module Option Types for advanced configuration -
+  + `mergedAttrs`: Type specifier for merged `attrsets`
+
 * [`xdg`](./xdg.nix): XDG Helper Functions to simplify menial desktop-related tasks -
   + `mime`: Sets `mimetype` values according to specified application and types

@@ -100,19 +100,17 @@ in rec {
           # Initial Setup
           ".config/gnome-initial-setup-done".text = "yes";
 
-          # X11 Gestures
-          ".config/touchegg/touchegg.conf".text = files.gestures;
-
           # Online Accounts
           ".config/goa-1.0/accounts.conf".text = accounts;
 
+          # GTK+ Bookmarks
+          ".config/gtk-3.0/bookmarks".text = bookmarks;
+
+          # X11 Gestures
+          ".config/touchegg/touchegg.conf".text = files.gestures;
+
           # Custome GNOME Shell Theme
           ".themes/Adwaita/gnome-shell/gnome-shell.css".text = shell;
-
-          # GTK+ Bookmarks
-          ".config/gtk-3.0/bookmarks".text = ''
-            file:///home/${user.name}/Documents/TBD TBD
-          '' + bookmarks;
 
           # gEdit Color Scheme
           ".local/share/gtksourceview-4/styles/tango-dark.xml".text = theme;
@@ -123,7 +121,7 @@ in rec {
             mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/${user.name}/chrome/userChrome.css".text =
+          ".mozilla/firefox/default/chrome/userChrome.css".text =
             mkIf (elem pkgs.firefox apps)
             ''@import "${inputs.firefox-theme}/userChrome.css";'';
           ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =

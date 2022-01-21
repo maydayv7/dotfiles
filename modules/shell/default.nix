@@ -1,24 +1,22 @@
 { config, lib, pkgs, files, ... }:
 let
-  inherit (lib) hm mkEnableOption mkIf mkMerge mkOption types;
-  cfg = config.user.shell;
+  inherit (lib) mkEnableOption mkOption mkIf mkMerge types;
+  enable = config.shell.utilities;
 in rec {
   imports = [ ./zsh.nix ];
 
-  options.user.shell = {
+  options.shell = {
     utilities = mkEnableOption "Enable Additional Shell Utilities";
-    choice = mkOption {
-      description = "User Shell Choice";
-      type = types.enum [ "bash" "zsh" ];
-      default = "bash";
+    support = mkOption {
+      description = "List of Supported Shells";
+      type = types.listOf (types.enum [ "bash" "zsh" ]);
+      default = [ "bash" ];
     };
   };
 
   ## Shell Configuration ##
   config = mkMerge [
     {
-      user.settings.shell = pkgs."${cfg.choice}";
-
       # Environment Settings
       environment = {
         shells = [ pkgs.bashInteractive ];
@@ -29,7 +27,7 @@ in rec {
       };
     }
 
-    (mkIf cfg.utilities {
+    (mkIf enable {
       # Utilities
       environment.systemPackages = with pkgs; [
         etcher

@@ -12,8 +12,8 @@ in rec {
   ## Virtualisation Settings ##
   config = lib.mkIf enable {
     # Enablement
-    user.settings.extraGroups = [ "kvm" "libvirtd" ];
-    filesystem.persist.directories = [ "/var/lib/libvirt" ];
+    user.groups = [ "kvm" "libvirtd" ];
+    filesystem.persist.dirs = [ "/var/lib/libvirt" ];
     boot = {
       kernelParams = [ "intel_iommu=on" "i915.enable_gvt=1" ];
       kernelModules =

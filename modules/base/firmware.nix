@@ -52,8 +52,8 @@
     };
 
     # Network Settings
-    user.settings.extraGroups = [ "networkmanager" ];
-    filesystem.persist.directories =
+    user.groups = [ "networkmanager" ];
+    filesystem.persist.dirs =
       [ "/etc/NetworkManager/system-connections" "/var/lib/bluetooth" ];
     networking = {
       networkmanager.enable = true;

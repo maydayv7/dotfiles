@@ -19,6 +19,7 @@
   };
 
   desktop = "gnome";
+  shell.utilities = true;
   apps = {
     list = [ "discord" "firefox" "git" "office" "wine" ];
     git = {
@@ -33,9 +34,6 @@
     description = "V 7";
     groups = [ "wheel" "keys" ];
     uid = 1000;
-    shell = {
-      choice = "zsh";
-      utilities = true;
-    };
+    shell = "zsh";
   };
 }

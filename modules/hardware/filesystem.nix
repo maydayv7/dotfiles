@@ -21,7 +21,7 @@ in rec {
         default = [ ];
       };
 
-      directories = mkOption {
+      dirs = mkOption {
         description = "Additional System Directories to Preserve";
         type = types.listOf types.str;
         default = [ ];
@@ -118,7 +118,7 @@ in rec {
       environment.persistence."/persist" = {
         files = [ "/etc/machine-id" ] ++ persist.files;
         directories = [ "/etc/nixos" "/var/log" "/var/lib/AccountsService" ]
-          ++ persist.directories;
+          ++ persist.dirs;
       };
 
       # File System Maintainence

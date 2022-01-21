@@ -4,8 +4,8 @@ in rec {
   ## Printer Firmware ##
   config = lib.mkIf enable {
     # Scanning
-    user.settings.extraGroups = [ "scanner" ];
-    #hardware.sane.enable = true;
+    user.groups = [ "scanner" ];
+    hardware.sane.enable = true;
 
     # Printing
     services.printing = {
