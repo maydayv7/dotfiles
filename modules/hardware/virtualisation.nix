@@ -14,6 +14,7 @@ in rec {
     # Enablement
     user.groups = [ "kvm" "libvirtd" ];
     filesystem.persist.dirs = [ "/var/lib/libvirt" ];
+    security.virtualisation.flushL1DataCache = "cond";
     boot = {
       kernelParams = [ "intel_iommu=on" "i915.enable_gvt=1" ];
       kernelModules =

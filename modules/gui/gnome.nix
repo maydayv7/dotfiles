@@ -180,7 +180,7 @@ in rec {
             custom-hot-corners-extended
             dash-to-panel
             desktop-cube
-            #fly-pie
+            custom.fly-pie
             gtile
             just-perfection
             lock-keys

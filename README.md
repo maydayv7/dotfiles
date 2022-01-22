@@ -135,12 +135,28 @@ gitlab:maydayv7/dotfiles
 <summary><b>From Scratch</b></summary>
 
 Download the latest NixOS `.iso` from the [Releases](https://gitlab.com/maydayv7/dotfiles/-/releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
+
+<details>
+<summary>Additional Install Media</summary>
+
 If Nix is already installed on your system, you may run the following command to build the Install Media:  
-*Replace* ***VARIANT*** *with the name of install media to create*
+*Replace* ***VARIANT*** *with the name of Install Media to create*
 <pre><code>nix build gitlab:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
 
+You can also download the NixOS `.iso` from [here](https://nixos.org/download.html), then you can use the following commands to run the install script:
+
+```
+nix build gitlab:maydayv7/dotfiles#packages.x86_64-linux.nixos
+sudo ./result/bin/nixos install
+```
+
+If you want to create an `.iso` image of the entire system, run the following command:  
+*Replace* ***DEVICE*** *with the name of Device to build*
+<pre><code>nix run github:nix-community/nixos-generators -- -f iso --flake gitlab:maydayv7/dotfiles#<b><i>DEVICE</i></b></code></pre>
+</details>
+
 #### Partition Scheme
-*Note that the `nixos install` script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
+*Note that the install script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
 
 | Name           | Label  | Format     | Size (minimum) |
 | :------------- | :----: | :--------: | :------------: |
@@ -151,13 +167,6 @@ If Nix is already installed on your system, you may run the following command to
 
 #### Procedure
 To install the OS, just boot the Live USB and run `sudo nixos install`  
-In case you have downloaded the NixOS `.iso` from [here](https://nixos.org/download.html), then you can use the following commands:
-
-```
-nix build gitlab:maydayv7/dotfiles#packages.x86_64-linux.install
-sudo ./result/bin/nixos-install-device
-```
-
 *If the image doesn't boot, try disabling the `secure boot` and `RAID` options from `BIOS`*  
 After the reboot, run `nixos setup` in the newly installed system to finish setup  
 *In case you are using the `advanced` filesystem scheme, you may need to set the boot flag `zfs_force=1` on first boot*
@@ -221,7 +230,7 @@ If you have any doubts or suggestions, feel free to open an [issue](https://gitl
 ### License
 The files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
 
-***Caution:*** This repository may contain proprietary [fonts](./files/fonts) and [wallpapers](./files/images/wallpapers) which do not come under the above-mentioned license
+***Caution:*** This repository may contain proprietary [fonts](./files/fonts), [wallpapers](./files/images/wallpapers) and [plugins](./files/discord/plugins) which do not come under the above-mentioned license
 
 ### Branches
 There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
@@ -301,6 +310,8 @@ Here are some repositories that I may have shamelessly rummaged through for buil
 [**Known Issues**](./LIMITATIONS.md)
 
 You can navigate to the `README`'s present in the various directories to know more about them
+
+> Last Updated: **January** 2022
 
 **V 7**  
 <maydayv7@gmail.com>

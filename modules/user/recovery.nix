@@ -1,4 +1,4 @@
-{ ... }: rec {
+rec {
   ## Recovery Settings ##
   config = {
     # Recovery Account

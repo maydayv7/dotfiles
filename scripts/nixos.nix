@@ -251,7 +251,13 @@ in lib.recursiveUpdate {
     cmd.*)
       command=$(echo $2 | sed 's/cmd\.//')
       echo "Searching for Package providing Command '$command'..."
-      nix-locate --whole-name --type x --type s --no-group --type x --type s --top-level --at-root "/bin/$command"
+      output=$(nix-locate --whole-name --type x --type s --no-group --top-level --at-root "/bin/$command")
+      if [ -z "$output" ]
+      then
+        error "Command '$command' not found"
+      else
+        echo "$output"
+      fi
     ;;
     pkgs.*)
       package=$(echo $2 | sed 's/pkgs\.//')

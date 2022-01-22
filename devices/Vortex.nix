@@ -14,6 +14,7 @@
     boot = "efi";
     cores = 8;
     filesystem = "advanced";
+    security = true;
     support = [ "mobile" "printer" "ssd" "virtualisation" ];
     modules = [ "dell-inspiron-5509" ];
   };

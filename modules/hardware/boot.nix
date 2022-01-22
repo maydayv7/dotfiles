@@ -29,11 +29,11 @@ in rec {
 
       # Boot Loader
       loader = {
-        timeout = 0;
+        timeout = lib.mkDefault 0;
         efi.canTouchEfiVariables = true;
         systemd-boot = {
           enable = true;
-          editor = true;
+          editor = false;
           configurationLimit = 100;
         };
       };

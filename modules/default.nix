@@ -28,11 +28,12 @@ in {
             extraGroups = groups;
             useDefaultShell = false;
             shell = pkgs."${shell}";
-            homeConfig = let path = toPath "${./.}" + "/user/home/${name}";
-            in if (pathExists "${path}/default.nix") then
-              { ... }: { imports = [ "${path}" ]; } // home
-            else
-              home;
+            homeConfig = home
+              // (let path = toPath "${./.}" + "/user/home/${name}";
+              in if (pathExists "${path}/default.nix") then {
+                imports = [ "${path}" ];
+              } else
+                { });
           };
 
           # Login
@@ -80,7 +81,6 @@ in {
 
         # Package Configuration
         nixpkgs.pkgs = pkgs;
-        environment.systemPackages = [ pkgs.custom.nixos ];
         nix = {
           maxJobs = hardware.cores or 4;
           index = mkIf (update == "") true;

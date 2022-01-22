@@ -49,7 +49,7 @@ in lib.eachSystem systems (system:
     # Custom Packages
     defaultApp = self.apps."${system}".nixos;
     defaultPackage = self.packages."${system}".dotfiles;
-    packages = map.merge map.modules ./scripts ./packages
+    packages = map.merge map.modules ./packages ./scripts
       (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
     apps = map.modules ./scripts (name:
       lib.mkApp {

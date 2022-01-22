@@ -22,14 +22,22 @@ in rec {
 
     # Essential Utilities
     environment.systemPackages = with pkgs; [
+      cryptsetup
       git
       git-crypt
       gparted
       killall
+      mkpasswd
+      custom.nixos
+      ntfsprogs
       parted
       pciutils
+      rsync
+      sdparm
+      smartmontools
       unrar
       unzip
+      usbutils
       wget
     ];
   };

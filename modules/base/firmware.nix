@@ -5,11 +5,11 @@
   config = {
     # Drivers
     hardware = {
-      cpu.intel.updateMicrocode = true;
-      bluetooth.enable = true;
-      pulseaudio.enable = lib.mkForce false;
       opengl.enable = true;
+      bluetooth.enable = true;
+      cpu.intel.updateMicrocode = true;
       enableRedistributableFirmware = true;
+      pulseaudio.enable = lib.mkForce false;
     };
 
     services = {

@@ -1,1 +1,1 @@
-{ ... }: rec { imports = [ ./console.nix ./firmware.nix ]; }
+{ imports = [ ./console.nix ./firmware.nix ]; }

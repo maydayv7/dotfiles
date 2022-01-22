@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Gnome Shell Extension for organizing your Top Bar";
+    longDescription = "Manually Packaged because v3 doesn't work";
     homepage = "https://extensions.gnome.org/extension/4356/top-bar-organizer/";
     license = licenses.gpl3;
     platforms = platforms.linux;

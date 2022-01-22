@@ -3,7 +3,16 @@
 
   ## Nix Settings ##
   config = {
-    environment.systemPackages = with pkgs; [ cachix nixfmt nix-linter manix ];
+    # Utilities
+    environment.systemPackages = with pkgs; [
+      cachix
+      nixfmt
+      nix-linter
+      nixos-generators
+      manix
+    ];
+
+    # Settings
     nix = {
       # Version
       package = pkgs.nixFlakes;

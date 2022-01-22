@@ -1,4 +1,4 @@
-{ ... }: rec {
+rec {
   ## XORG Configuration ##
   config = {
     services.xserver = {

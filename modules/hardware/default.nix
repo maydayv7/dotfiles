@@ -6,6 +6,7 @@ in rec {
     ./filesystem.nix
     ./mobile.nix
     ./printer.nix
+    ./security.nix
     ./virtualisation.nix
   ];
 
