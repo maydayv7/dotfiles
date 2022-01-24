@@ -9,22 +9,15 @@ in rec {
   ## Security Settings ##
   config = lib.mkIf enable {
     warnings = [(''
-      Additional Security Settings are enabled
-      - These may cause instability issues or sacrifice performance
-      - Proceed with Caution
+      Additional Security Settings are Enabled
+      - These may cause Instability Issues or Sacrifice Performance
     '')];
 
     # Protocols
+    programs.firejail.enable = true;
     security = {
-      # Kernel
-      lockKernelModules = true;
       protectKernelImage = true;
-
-      # Apps
-      apparmor = {
-        enable = true;
-        killUnconfinedConfinables = true;
-      };
+      apparmor.enable = true;
     };
 
     boot = {

@@ -137,7 +137,7 @@ gitlab:maydayv7/dotfiles
 Download the latest NixOS `.iso` from the [Releases](https://gitlab.com/maydayv7/dotfiles/-/releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
 
 <details>
-<summary>Additional Install Media</summary>
+<summary><i>Additional Install Media</i></summary>
 
 If Nix is already installed on your system, you may run the following command to build the Install Media:  
 *Replace* ***VARIANT*** *with the name of Install Media to create*

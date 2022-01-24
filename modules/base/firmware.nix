@@ -6,7 +6,6 @@
     # Drivers
     hardware = {
       opengl.enable = true;
-      bluetooth.enable = true;
       cpu.intel.updateMicrocode = true;
       enableRedistributableFirmware = true;
       pulseaudio.enable = lib.mkForce false;
@@ -55,6 +54,12 @@
     user.groups = [ "networkmanager" ];
     filesystem.persist.dirs =
       [ "/etc/NetworkManager/system-connections" "/var/lib/bluetooth" ];
+
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+
     networking = {
       networkmanager.enable = true;
       firewall.enable = true;

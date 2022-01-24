@@ -352,6 +352,10 @@ in lib.recursiveUpdate {
       echo "Updating Flake Inputs..."
       nix flake update ${path.system}
     ;;
+    "--commit")
+      echo "Updating Flake Inputs..."
+      nix flake update ${path.system} --commit-lock-file
+    ;;
     *)
       echo "Updating Flake Input $2..."
       nix flake lock ${path.system} --update-input $2
