@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "cachix": {
-      "locked": {
-        "lastModified": 1642244250,
-        "narHash": "sha256-vWpUEqQdVP4srj+/YLJRTN9vjpTs4je0cdWKXPbDItc=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "0fd9ee1aa36ce865ad273f4f07fdc093adeb5c00",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-21.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "compatibility": {
       "flake": false,
       "locked": {
@@ -32,7 +16,23 @@
         "type": "github"
       }
     },
-    "firefox-theme": {
+    "discord": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1643083757,
+        "narHash": "sha256-vKdPOBew3R3Fui8hNxrC3QZ0aNq8OVg51sGJrmgrsjQ=",
+        "owner": "maydayv7",
+        "repo": "discord",
+        "rev": "e28577f64ca4b6470360d8bc3189141b9539ebfe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "maydayv7",
+        "repo": "discord",
+        "type": "github"
+      }
+    },
+    "firefox": {
       "flake": false,
       "locked": {
         "lastModified": 1640993576,
@@ -60,6 +60,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "fonts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1643082892,
+        "narHash": "sha256-I07FlLMrpp9cdvir866iYN8DF1vQSqwUgx6l/PVf5gg=",
+        "owner": "maydayv7",
+        "repo": "fonts",
+        "rev": "5d5bcd30b96e16e35f12e4eb0dd493463fa3efcc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "maydayv7",
+        "repo": "fonts",
         "type": "github"
       }
     },
@@ -244,7 +260,9 @@
     "root": {
       "inputs": {
         "compatibility": "compatibility",
-        "firefox-theme": "firefox-theme",
+        "discord": "discord",
+        "firefox": "firefox",
+        "fonts": "fonts",
         "gaming": "gaming",
         "generators": "generators",
         "hardware": "hardware",
@@ -255,8 +273,7 @@
         "nur": "nur",
         "sops": "sops",
         "unstable": "unstable",
-        "utils": "utils",
-        "wayland": "wayland"
+        "utils": "utils"
       }
     },
     "sops": {
@@ -310,27 +327,6 @@
       "original": {
         "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
-        "type": "github"
-      }
-    },
-    "wayland": {
-      "inputs": {
-        "cachix": "cachix",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1642973593,
-        "narHash": "sha256-VzDAgUQUPNR1W7i/+YPVDOj66EFiJ5ZJxSjo+wthT2I=",
-        "owner": "nix-community",
-        "repo": "nixpkgs-wayland",
-        "rev": "b85bebbc581a0f78f7d4ecc82081ce09675a10c3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs-wayland",
         "type": "github"
       }
     }

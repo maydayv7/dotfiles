@@ -22,7 +22,7 @@
 #   ---------------------------------------   #
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
-#     URL     -> gitlab:maydayv7/dotfiles     #
+#     URL     -> github:maydayv7/dotfiles     #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The very heart of my 'dotfiles'       #
@@ -42,7 +42,6 @@
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
-      "https://nixpkgs-wayland.cachix.org"
       "https://nix-gaming.cachix.org"
       "https://pre-commit-hooks.cachix.org"
       "https://maydayv7-dotfiles.cachix.org"
@@ -52,7 +51,6 @@
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
       "maydayv7-dotfiles.cachix.org-1:dpECO0Z2ZMttY6JgWHuAR5M7cqeyfFjUsvHdnMz+j6U="
@@ -70,12 +68,6 @@
 
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
-
-    # Wayland Optimized Packages
-    wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Packaged Games
     gaming = {
@@ -125,9 +117,21 @@
     };
 
     ## Additional Repositories ##
+    # Personal Discord Paraphernalia
+    discord = {
+      url = "github:maydayv7/discord";
+      flake = false;
+    };
+
     # Firefox GNOME Theme
-    firefox-theme = {
+    firefox = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    };
+
+    # Personal Fonts Collection
+    fonts = {
+      url = "github:maydayv7/fonts";
       flake = false;
     };
   };

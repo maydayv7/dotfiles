@@ -122,8 +122,7 @@ in rec {
 
           # Firefox GNOME Theme
           ".mozilla/firefox/default/chrome/userChrome.css".text =
-            mkIf (elem pkgs.firefox apps)
-            ''@import "${inputs.firefox-theme}/userChrome.css";'';
+            mkIf (elem pkgs.firefox apps) files.firefox.theme;
           ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
             mkIf (elem pkgs.firefox apps)
             "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";

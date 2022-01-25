@@ -1,5 +1,5 @@
 ### Custom Library Functions
-The `lib` directory contains custom-made pure Flakes-compatible utility functions (exposed as `lib.util`), created in order to simplify the configuration and conveniently define and support multiple use-cases (If you have a working NixOS install, you can check it out using `gitlab:maydayv7/dotfiles#lib`). The following is a summary of all the present functions:
+The `lib` directory contains custom-made pure Flakes-compatible utility functions (exposed as `lib.util`), created in order to simplify the configuration and conveniently define and support multiple use-cases (If you have a working NixOS install, you can check it out using `github:maydayv7/dotfiles#lib`). The following is a summary of all the present functions:
 
 [`lib.util`](./default.nix) -
 * [`build`](./build.nix): Configuration building functions for efficient system management and declaration -

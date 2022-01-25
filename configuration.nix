@@ -24,9 +24,8 @@ let
 in lib.eachSystem systems (system:
   let
     # Package Channels
-    overlays = [ nur.overlay wayland.overlay ];
-    pkgs = (build.channel nixpkgs overlays ./packages/patches)."${system}";
-    pkgs' = (build.channel unstable overlays [ ])."${system}";
+    pkgs = (build.channel nixpkgs [ ] ./packages/patches)."${system}";
+    pkgs' = (build.channel unstable [ nur.overlay ] [ ])."${system}";
   in {
     ## Configuration Checks ##
     checks = import ./modules/nix/checks.nix { inherit self system lib pkgs; };
@@ -60,7 +59,7 @@ in lib.eachSystem systems (system:
     overlays = map.modules ./packages/overlays import;
 
     ## Program Configuration and `dotfiles` ##
-    files = import ./files { inherit lib; };
+    files = import ./files { inherit lib inputs; };
 
     ## Custom Library Functions ##
     lib = lib.util;

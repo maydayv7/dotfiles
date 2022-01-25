@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, inputs }:
 let
   none = lib.id;
   inherit (lib.util) map;
@@ -10,8 +10,8 @@ in {
     toplevel = ./.;
     system = "/etc/nixos";
     cache = "maydayv7-dotfiles";
-    flake = "gitlab:maydayv7/dotfiles";
-    repo = "https://gitlab.com/maydayv7/dotfiles";
+    flake = "github:maydayv7/dotfiles";
+    repo = "https://github.com/maydayv7/dotfiles";
   };
 
   # ASCII Art
@@ -19,16 +19,19 @@ in {
 
   # Discord Chat
   discord = {
-    plugins = ./discord/plugins;
+    plugins = "${inputs.discord}/plugins";
     theme = readFile ./discord/theme.css;
   };
 
   # Neofetch
   fetch = readFile ./neofetch/config.conf;
 
+  # Firefox Web Browser
+  firefox.theme = ''@import "${inputs.firefox}/userChrome.css";'';
+
   # Custom Fonts
   fonts = {
-    path = ./fonts;
+    path = inputs.fonts;
     config = readFile ./fonts/fontconfig;
   };
 

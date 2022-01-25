@@ -1,9 +1,9 @@
 # Dotfiles
-![[Logo]](./files/images/logo.png)
+![[Logo]](https://socialify.git.ci/maydayv7/dotfiles/image?description=1&font=Source%20Code%20Pro&logo=https%3A%2F%2Fraw.githubusercontent.com%2FNixOS%2Fnixos-artwork%2F9bd73014f75c2ce97d104c78314d78eb2493e24d%2Flogo%2Fwhite.svg&name=1&owner=1&pattern=Circuit%20Board&theme=Dark)
 
-![Version](https://img.shields.io/gitlab/v/release/maydayv7/dotfiles?include_prereleases&label=version&color=red&style=flat-square&logo=gitlab) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
+![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
 
-This [repository](https://gitlab.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/))
+This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/))
 
 ![](./files/images/desktop.png)
 
@@ -33,7 +33,7 @@ Here is an overview of the file hierarchy:
 
 ```shellsession
 $ nix flake show
-gitlab:maydayv7/dotfiles
+github:maydayv7/dotfiles
 ├───apps
 │   └───x86_64-linux
 │       └───nixos: app
@@ -131,28 +131,65 @@ gitlab:maydayv7/dotfiles
 + [`modules`](./modules/README.md): custom configuration modules for additional functionality
 
 ## Installation
+
+<details>
+<summary><b>Already Installed</b></summary>
+
+In case you want to use my configuration as-is for a fresh NixOS install, you can try the following steps:
+
+1. Clone this repository (`git` and `git-crypt` must be installed) to `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
+sudo chown $USER /etc/nixos && sudo chmod ugo+rw /etc/nixos
+cd /etc/nixos && nix flake init -t github:maydayv7/dotfiles#extensive
+</code></pre>
+
+2. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](./secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
+*Replace* ***USER*** *,* ***EMAIL*** *and* ***COMMENT*** <pre><code>gpg --full-generate-key
+1
+4096
+0
+y
+<b><i>USER
+EMAIL
+COMMENT</i></b>
+O
+</code></pre>
+
+3. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg` after performing the following commands: <pre><code>git remote rm origin
+rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
+</code></pre>
+
+4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command:  
+*Replace* ***PATH*** *with the path to the `secret`* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
+
+5. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
+
+6. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
+</details>
+
 <details>
 <summary><b>From Scratch</b></summary>
 
-Download the latest NixOS `.iso` from the [Releases](https://gitlab.com/maydayv7/dotfiles/-/releases) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
+Download the latest NixOS `.iso` from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
+
+***Important:*** In order to use the configuration, you must first create a clone of this repository and follow steps 2 to 5 from the above section, and preferably upload it to a hosting platform
 
 <details>
 <summary><i>Additional Install Media</i></summary>
 
 If Nix is already installed on your system, you may run the following command to build the Install Media:  
 *Replace* ***VARIANT*** *with the name of Install Media to create*
-<pre><code>nix build gitlab:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
+<pre><code>nix build github:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
 
 You can also download the NixOS `.iso` from [here](https://nixos.org/download.html), then you can use the following commands to run the install script:
 
 ```
-nix build gitlab:maydayv7/dotfiles#packages.x86_64-linux.nixos
+nix build github:maydayv7/dotfiles#packages.x86_64-linux.nixos
 sudo ./result/bin/nixos install
 ```
 
 If you want to create an `.iso` image of the entire system, run the following command:  
 *Replace* ***DEVICE*** *with the name of Device to build*
-<pre><code>nix run github:nix-community/nixos-generators -- -f iso --flake gitlab:maydayv7/dotfiles#<b><i>DEVICE</i></b></code></pre>
+<pre><code>nix run github:nix-community/nixos-generators -- -f iso --flake github:maydayv7/dotfiles#<b><i>DEVICE</i></b></code></pre>
 </details>
 
 #### Partition Scheme
@@ -173,39 +210,6 @@ After the reboot, run `nixos setup` in the newly installed system to finish setu
 </details>
 
 <details>
-<summary><b>Already Installed</b></summary>
-
-In case you want to use my configuration as-is for a fresh NixOS install, you can try the following steps:
-
-1. Clone this repository (`git` and `git-crypt` must be installed) to `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
-sudo chown $USER /etc/nixos && sudo chmod ugo+rw /etc/nixos
-cd /etc/nixos && nix flake init -t gitlab:maydayv7/dotfiles#extensive
-git remote rm origin && rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
-</code></pre>
-
-2. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](./secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
-*Replace* ***USER*** *,* ***EMAIL*** *and* ***COMMENT*** <pre><code>gpg --full-generate-key
-1
-4096
-0
-y
-<b><i>USER
-EMAIL
-COMMENT</i></b>
-O
-</code></pre>
-
-3. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg`
-
-4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command:  
-*Replace* ***PATH*** *with the path to the `secret`* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
-
-5. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
-
-6. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
-</details>
-
-<details>
 <summary><b>Build It Yourself</b></summary>
 
 If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. For starters, you can run `nix flake init -t github:maydayv7/dotfiles` in `/etc/nixos` for a basic Flakes-compatible system configuration. If you have any doubts, feel free to open an issue. You can check out the list of links below to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
@@ -220,7 +224,7 @@ I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes
 
 It is not recommended to use NixOS if you are a beginner just starting out, without acquaintance with either the command-line or functional programming languages, since the learning curve is steep, debugging issues is difficult, documentation is shallow, and the effort required/time spent isn't worth the hassle for a novice/casual user
 
-If you have any doubts or suggestions, feel free to open an [issue](https://gitlab.com/maydayv7/dotfiles/-/issues/new)
+If you have any doubts or suggestions, feel free to open an [issue](../../issues/new/choose)
 
 ### Requirements
 *May change according to available hardware*  
@@ -229,8 +233,6 @@ If you have any doubts or suggestions, feel free to open an [issue](https://gitl
 
 ### License
 The files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
-
-***Caution:*** This repository may contain proprietary [fonts](./files/fonts), [wallpapers](./files/images/wallpapers) and [plugins](./files/discord/plugins) which do not come under the above-mentioned license
 
 ### Branches
 There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
@@ -242,10 +244,10 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 #### Continuous Integration
-This repository makes use of [`GitLab CI/CD`](./.gitlab/.gitlab-ci.yml) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `Github Actions` configuration in [`.github`](./.github/workflows)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
+This repository makes use of [`Github Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./.gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ###### Variables
-+ [`ACCESS_TOKEN`](./modules/apps/git/secrets/gitlab-token.secret): Personal Access Token (To create one - [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html), [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token))
++ [`ACCESS_TOKEN`](./modules/apps/git/secrets/gitlab-token.secret): Personal Access Token (To create one - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))
 + [`CACHIX_TOKEN`](./secrets/cachix-token.secret): Cachix Authentication Token
 
 ### File System
