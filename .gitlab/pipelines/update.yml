@@ -9,9 +9,8 @@ update:
     - export GIT_SSL_CAINFO="$CI_SERVER_TLS_CA_FILE"
     - git config --global user.email "${GITLAB_USER_EMAIL}"
     - git config --global user.name "${GITLAB_USER_NAME}"
-  script: nix flake update
-  after_script:
     - git branch update-inputs-$CI_JOB_ID
     - git checkout update-inputs-$CI_JOB_ID
-    - 'git commit -am "chore(flake.lock): Update \`inputs\`"'
+  script: nix flake update --commit-lock-file
+  after_script:
     - git push "https://${CI_PROJECT_NAMESPACE}:${ACCESS_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git" HEAD:update-inputs-$CI_JOB_ID -o merge_request.create -o merge_request.target=stable -o merge_request.remove_source_branch

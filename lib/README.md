@@ -5,7 +5,7 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
 * [`build`](./build.nix): Configuration building functions for efficient system management and declaration -
   + `device`: Main system configuration building function, used to build the entire configuration for devices (`nixosConfigurations`) as per provided parameters
   + `iso`: configuration building function used to build the entire configuration for install media (`installMedia`) as per provided parameters
-  + `eachSystem`: Maps parameter for each supported `system` as contained in `systems`
+  + `each`: Maps function for each `attr` as passed
   + `channel`: Builds package `channels` for desired `inputs` with specified `overlays` for each `system`, and optionally patches the `input`
 
 * [`map`](./map.nix): Mapping functions primarily aimed at shortening code complexity -

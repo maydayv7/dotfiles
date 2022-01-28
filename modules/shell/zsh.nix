@@ -23,6 +23,7 @@ in rec {
         initExtraBeforeCompInit = ''
           bindkey "\e[3~" delete-char
           source ~/.p10k.zsh
+          autoload -Uz compinit && compinit && source <(cod init $$ zsh)
           eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
         '';
 
@@ -55,6 +56,11 @@ in rec {
             file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
           }
           {
+            name = "zsh-autopair";
+            src = pkgs.zsh-autopair;
+            file = "share/zsh/zsh-autopair/autopair.zsh";
+          }
+          {
             name = "zsh-syntax-highlighting";
             src = pkgs.zsh-syntax-highlighting;
             file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
@@ -63,7 +69,7 @@ in rec {
       };
 
       # Utilities
-      home.packages = with pkgs; [ fzf fzf-zsh neofetch lolcat ];
+      home.packages = with pkgs; [ cod fzf fzf-zsh neofetch lolcat ];
 
       # Command Not Found Integration
       programs.nix-index.enableZshIntegration = true;

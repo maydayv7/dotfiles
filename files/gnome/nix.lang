@@ -182,6 +182,7 @@
       <keyword>unsafeDiscardOutputDependency</keyword>
       <keyword>unsafeDiscardStringContext</keyword>
       <keyword>unsafeGetAttrPos</keyword>
+      <keyword>zipAttrsWith</keyword>
     </context>
 
 	<context id="indented-string" style-ref="indented-string" class="string" class-disabled="no-spell-check">

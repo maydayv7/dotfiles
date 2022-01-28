@@ -3,7 +3,7 @@ with inputs;
 let
   ## Variable Declaration ##
   # Supported Architectures
-  systems = [ "x86_64-linux" ];
+  platforms = [ "x86_64-linux" ];
 
   # NixOS Version
   version = readFile ./.version;
@@ -17,11 +17,11 @@ let
       hooks = hooks.lib;
       image = generators.nixosGenerate;
       util = import ./lib {
-        inherit self systems;
+        inherit self platforms;
         lib = final;
       };
     } // home.lib // utils.lib);
-in lib.eachSystem systems (system:
+in lib.eachSystem platforms (system:
   let
     # Package Channels
     pkgs = (build.channel nixpkgs [ ] ./packages/patches)."${system}";

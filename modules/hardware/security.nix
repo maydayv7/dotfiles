@@ -8,10 +8,10 @@ in rec {
 
   ## Security Settings ##
   config = lib.mkIf enable {
-    warnings = [(''
+    warnings = [''
       Additional Security Settings are Enabled
       - These may cause Instability Issues or Sacrifice Performance
-    '')];
+    ''];
 
     # Protocols
     programs.firejail.enable = true;

@@ -121,7 +121,7 @@ in rec {
           ++ persist.dirs;
       };
 
-      # File System Maintainence
+      # Maintainence
       services.zfs = {
         trim.enable = true;
         autoScrub.enable = true;

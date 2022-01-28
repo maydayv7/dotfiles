@@ -1,4 +1,4 @@
-{ config, lib, inputs, pkgs, files, ... }:
+{ config, lib, pkgs, files, ... }:
 with files.gnome;
 let
   inherit (builtins) elem;

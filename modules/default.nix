@@ -1,7 +1,8 @@
 { version, lib, inputs, files }:
 let
-  inherit (inputs) self generators home;
-  inherit (lib) forEach getAttrFromPath nixosSystem makeOverridable mkIf;
+  inherit (inputs) self generators;
+  inherit (lib)
+    forEach getAttrFromPath nixosSystem makeOverridable mkForce mkIf;
   inherit (builtins)
     attrValues getAttr hashString map pathExists replaceStrings substring
     toPath;
@@ -37,6 +38,7 @@ in {
           };
 
           # Login
+          sops.secrets = mkIf minimal (mkForce { });
           services.xserver.displayManager.autoLogin = {
             enable = autologin;
             user = mkIf (autologin || minimal) name;

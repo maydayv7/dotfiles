@@ -1,11 +1,11 @@
-{ self, systems, lib, ... }:
+{ self, platforms, lib, ... }:
 let
   inherit (lib) nameValuePair util;
   inherit (builtins) any attrValues isPath listToAttrs map readFile;
 in rec {
   ## Builder Functions ##
-  eachSystem = func:
-    listToAttrs (map (name: nameValuePair name (func name)) systems);
+  each = attr: func:
+    listToAttrs (map (name: nameValuePair name (func name)) attr);
 
   # Configuration Builders
   device = self.nixosModule.config;
@@ -27,7 +27,7 @@ in rec {
   # Package Channels Builder
   channel = src: overlays: patch:
     let patches = util.map.patches patch;
-    in eachSystem (system:
+    in each platforms (system:
       (if !(any isPath patches) then
         import src
       else
