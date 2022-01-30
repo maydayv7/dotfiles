@@ -1,8 +1,10 @@
 ## Changelog
-### vNEXT
+### v4.5 - 20220130
++ Use Calendar Versioning
 + Use `nixConfig`
 + Support Auto-Upgrade
 + Support Multiple Users per Device
++ Improve Security and Harden System
 + Use PipeWire (with low-latency) for audio
 + Use [`nixos-generators`](https://github.com/nix-community/nixos-generators) for Image Generation
 

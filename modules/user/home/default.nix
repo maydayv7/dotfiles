@@ -35,6 +35,12 @@ in rec {
           publicShare = "$HOME/Public";
           templates = "$HOME/Templates";
           videos = "$HOME/Videos";
+
+          # Custom Directories
+          extraConfig = {
+            XDG_TBD_DIR = "$HOME/Documents/TBD";
+            XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
+          };
         };
       };
     };

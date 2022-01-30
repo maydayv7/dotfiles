@@ -1,4 +1,3 @@
-# Dotfiles
 ![[Logo]](https://socialify.git.ci/maydayv7/dotfiles/image?description=1&font=Source%20Code%20Pro&logo=https%3A%2F%2Fraw.githubusercontent.com%2FNixOS%2Fnixos-artwork%2F9bd73014f75c2ce97d104c78314d78eb2493e24d%2Flogo%2Fwhite.svg&name=1&owner=1&pattern=Circuit%20Board&theme=Dark)
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
@@ -40,11 +39,12 @@ github:maydayv7/dotfiles
 ├───channels: unknown
 ├───checks
 │   └───x86_64-linux
+│       ├───Device-gnome: derivation 'nixos-rebuild'
 │       └───commit: derivation 'pre-commit-run'
 ├───defaultApp
 │   └───x86_64-linux: app
 ├───defaultPackage
-│   └───x86_64-linux: package 'Dotfiles-v1.0'
+│   └───x86_64-linux: package 'Dotfiles-v4.5'
 ├───defaultTemplate: template: Simple, Minimal NixOS Configuration
 ├───devShell
 │   └───x86_64-linux: development environment 'devShell'
@@ -74,7 +74,9 @@ github:maydayv7/dotfiles
 │   └───nixFlakes: Nixpkgs overlay
 ├───packages
 │   └───x86_64-linux
-│       └───dotfiles: package 'Dotfiles-v4.0'
+│       ├───dotfiles: package 'Dotfiles-v4.5'
+│       ├───fonts: package 'fonts-7'
+│       └───nixos: package 'nixos'
 └───templates
     ├───extensive: template: My Complete, Extensive NixOS Configuration
     └───minimal: template: Simple, Minimal NixOS Configuration

@@ -66,10 +66,6 @@ in rec {
     users = {
       mutableUsers = false;
       users = mapAttrs (_: name: name.forwarded) user.settings;
-      extraUsers.root = {
-        isNormalUser = false;
-        extraGroups = [ "wheel" ];
-      };
     };
 
     # Home Manager Settings

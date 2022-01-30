@@ -21,20 +21,28 @@ in {
         , minimal ? false }: {
           # Creation
           shell.support = [ shell ];
-          user.settings."${name}" = {
-            inherit name description uid minimal;
-            isNormalUser = true;
-            initialHashedPassword = password;
-            group = "users";
-            extraGroups = groups;
-            useDefaultShell = false;
-            shell = pkgs."${shell}";
-            homeConfig = home
-              // (let path = toPath "${./.}" + "/user/home/${name}";
-              in if (pathExists "${path}/default.nix") then {
-                imports = [ "${path}" ];
-              } else
-                { });
+          user.settings = {
+            root = {
+              isNormalUser = false;
+              extraGroups = [ "wheel" ];
+              inherit minimal;
+            };
+
+            "${name}" = {
+              inherit name description uid minimal;
+              isNormalUser = true;
+              initialHashedPassword = password;
+              group = "users";
+              extraGroups = groups;
+              useDefaultShell = false;
+              shell = pkgs."${shell}";
+              homeConfig = home
+                // (let path = toPath "${./.}" + "/user/home/${name}";
+                in if (pathExists "${path}/default.nix") then {
+                  imports = [ "${path}" ];
+                } else
+                  { });
+            };
           };
 
           # Login

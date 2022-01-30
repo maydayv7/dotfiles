@@ -1,20 +1,20 @@
-{ pkgs, files, ... }: rec {
-  config = {
-    home.packages = [ pkgs.home-manager ];
+{ config, pkgs, files, ... }:
+with files; {
+  # Custom Directories
+  xdg.userDirs.extraConfig.XDG_PROJECTS_DIR = "$HOME/Projects";
 
-    # Custom Directories
-    xdg.userDirs.extraConfig = {
-      XDG_PROJECTS_DIR = "$HOME/Projects";
-      XDG_TBD_DIR = "$HOME/Documents/TBD";
-      XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
-    };
+  # User Home
+  home = {
+    packages = [ pkgs.home-manager ];
 
-    home.file = {
+    # Home Directory
+    file = {
       # Profile Picture
-      ".face".source = files.images.profile;
+      ".face".source = images.profile;
 
-      # Wallpapers
-      ".local/share/backgrounds".source = files.images.wallpapers;
+      # Dotfiles
+      "Projects/dotfiles".source =
+        config.lib.file.mkOutOfStoreSymlink path.system;
     };
   };
 }
