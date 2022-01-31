@@ -325,7 +325,7 @@ in lib.recursiveUpdate {
     else
       DIR=/persist${path.system}
     fi
-    su recovery -c 'if ! [ -d /persist ]; then DIR=${path.system}; else DIR=/persist${path.system}; fi; sudo -S rm -rf $DIR && sudo mkdir $DIR && sudo chmod ugo+rw $DIR'
+    su recovery -c 'if ! [ -d /persist ]; then DIR=${path.system}; else DIR=/persist${path.system}; fi; sudo -S rm -rf $DIR && sudo mkdir $DIR && sudo chgrp -R keys $DIR && sudo chmod g+rwx $DIR'
     newline
     echo "Cloning Repository..."
     git clone ${path.repo} $DIR
@@ -358,7 +358,12 @@ in lib.recursiveUpdate {
     ;;
     *)
       echo "Updating Flake Input $2..."
-      nix flake lock ${path.system} --update-input $2
+      if [ -z "$3" ]
+      then
+        nix flake lock ${path.system} --update-input $2
+      else
+        nix flake lock ${path.system} --override-input $2 $3
+      fi
     ;;
     esac
   ;;

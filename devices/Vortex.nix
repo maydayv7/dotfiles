@@ -2,7 +2,7 @@
   system = "x86_64-linux";
   name = "Vortex";
   description = "PC - Dell Inspiron 15 5000";
-  repo = "stable";
+  channel = "stable";
 
   timezone = "Asia/Kolkata";
   locale = "en_IN.UTF-8";
@@ -22,7 +22,7 @@
   desktop = "gnome";
   shell.utilities = true;
   apps = {
-    list = [ "discord" "firefox" "git" "office" "wine" ];
+    list = [ "discord" "firefox" "git" "office" ];
     git = {
       name = "maydayv7";
       mail = "maydayv7@gmail.com";

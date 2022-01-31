@@ -11,7 +11,7 @@
       # GPG Key Import
       gnupg = {
         home = "${files.gpg}";
-        sshKeyPaths = [ ];
+        sshKeyPaths = lib.mkForce [ ];
       };
     };
   };

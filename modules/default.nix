@@ -9,7 +9,7 @@ let
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
-    , repo ? "stable", format ? null, imports ? [ ], timezone, locale
+    , channel ? "stable", format ? null, imports ? [ ], timezone, locale
     , update ? "", kernel, kernelModules ? [ ], desktop ? null, apps ? { }
     , hardware ? { }, shell ? { }, user ? null, users ? null }:
     assert (user != null) || (users != null);
@@ -54,7 +54,7 @@ in {
         };
 
       # Default Package Channel
-      pkgs = self.channels."${system}"."${repo}";
+      pkgs = self.channels."${system}"."${channel}";
     in (makeOverridable nixosSystem) {
       inherit system;
       specialArgs = { inherit system lib inputs files; };
