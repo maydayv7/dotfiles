@@ -37,6 +37,7 @@ let
       # Usage #
         --boot                     - Applies Configuration on boot
         --check                    - Checks Configuration Build
+        --deploy [ 'device' ]      - Automatically Deploy via SSH
         --rollback                 - Reverts to Last Build Generation
         --test                     - Tests Configuration Build
     '';
@@ -74,6 +75,7 @@ in lib.recursiveUpdate {
     sops
     tree
     zfs
+    inputs.deploy.defaultPackage."${system}"
   ];
 } (pkgs.writeShellScriptBin "nixos" ''
   #!${pkgs.runtimeShell}
@@ -91,6 +93,7 @@ in lib.recursiveUpdate {
     "") sudo nixos-rebuild switch --flake ${path.system}#;;
     "--boot") sudo nixos-rebuild boot --flake ${path.system}#;;
     "--check") nixos-rebuild dry-activate --flake ${path.system}#;;
+    "--deploy") deploy -s ${path.system}#$3;;
     "--rollback") sudo nixos-rebuild switch --rollback;;
     "--test") sudo nixos-rebuild test --no-build-nix --show-trace --flake ${path.system}#;;
     *) error "Unknown option '$2'" "${usage.apply}";;

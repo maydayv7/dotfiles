@@ -52,8 +52,11 @@
 
     # Network Settings
     user.groups = [ "networkmanager" ];
-    filesystem.persist.dirs =
-      [ "/etc/NetworkManager/system-connections" "/var/lib/bluetooth" ];
+    filesystem.persist.dirs = [
+      "/etc/NetworkManager/system-connections"
+      "/etc/ssh"
+      "/var/lib/bluetooth"
+    ];
 
     hardware.bluetooth = {
       enable = true;
@@ -63,6 +66,13 @@
     networking = {
       networkmanager.enable = true;
       firewall.enable = true;
+    };
+
+    # SSH Connection
+    services.openssh = {
+      enable = true;
+      passwordAuthentication = true;
+      permitRootLogin = lib.mkDefault "no";
     };
 
     # Power Management

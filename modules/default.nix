@@ -18,30 +18,34 @@ in {
       users' = map user' (if (user != null) then [ user ] else users);
       user' = { name, description, uid ? 1000, groups ? [ "wheel" ]
         , password ? "", autologin ? false, shell ? "bash", home ? { }
-        , minimal ? false }: {
+        , minimal ? false, recovery ? true }: {
           # Creation
           shell.support = [ shell ];
-          user.settings = {
-            root = {
-              isNormalUser = false;
-              extraGroups = [ "wheel" ];
-              inherit minimal;
-            };
+          user = {
+            inherit recovery;
 
-            "${name}" = {
-              inherit name description uid minimal;
-              isNormalUser = true;
-              initialHashedPassword = password;
-              group = "users";
-              extraGroups = groups;
-              useDefaultShell = false;
-              shell = pkgs."${shell}";
-              homeConfig = home
-                // (let path = toPath "${./.}" + "/user/home/${name}";
-                in if (pathExists "${path}/default.nix") then {
-                  imports = [ "${path}" ];
-                } else
-                  { });
+            settings = {
+              root = {
+                isNormalUser = false;
+                extraGroups = [ "wheel" ];
+                inherit minimal;
+              };
+
+              "${name}" = {
+                inherit name description uid minimal;
+                isNormalUser = true;
+                initialHashedPassword = password;
+                group = "users";
+                extraGroups = groups;
+                useDefaultShell = false;
+                shell = pkgs."${shell}";
+                homeConfig = home
+                  // (let path = toPath "${./.}" + "/user/home/${name}";
+                  in if (pathExists "${path}/default.nix") then {
+                    imports = [ path ];
+                  } else
+                    { });
+              };
             };
           };
 

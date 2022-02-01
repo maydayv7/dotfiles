@@ -1,4 +1,9 @@
-rec {
+{ lib, ... }: rec {
+  options.user.recovery = lib.mkEnableOption "Enable User Recovery Settings"
+    // {
+      default = true;
+    };
+
   ## Recovery Settings ##
   config = {
     # Recovery Account
@@ -7,10 +12,10 @@ rec {
       description = "Recovery Account";
       isNormalUser = true;
       uid = 1100;
-      initialHashedPassword = builtins.readFile ./passwords/default;
       group = "users";
       extraGroups = [ "wheel" ];
       useDefaultShell = true;
+      initialHashedPassword = builtins.readFile ./passwords/default;
     };
   };
 }

@@ -14,6 +14,7 @@ let
   inherit (lib.util) build map pack;
   lib = nixpkgs.lib.extend (final: prev:
     {
+      deploy = deploy.lib;
       hooks = hooks.lib;
       image = generators.nixosGenerate;
       util = import ./lib {
@@ -84,6 +85,7 @@ in lib.eachSystem platforms (system:
     };
 
     ## Device Configuration ##
+    deploy = import ./modules/nix/deploy.nix { inherit self lib; };
     nixosConfigurations =
       map.modules ./devices (name: build.device (import name));
 

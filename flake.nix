@@ -98,7 +98,7 @@
 
     # Authentication Credentials Manager
     sops = {
-      url = "github:Mic92/sops-nix";
+      url = "github:maydayv7/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -116,6 +116,14 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "utils/flake-utils";
+    };
+
+    # Deploy tool
+    deploy = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "utils/flake-utils";
+      inputs.flake-compat.follows = "compatibility";
     };
 
     ## Additional Repositories ##

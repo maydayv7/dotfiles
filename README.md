@@ -166,6 +166,7 @@ rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
 5. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
 
 6. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
+
 </details>
 
 <details>
@@ -190,8 +191,9 @@ sudo ./result/bin/nixos install
 ```
 
 If you want to create an `.iso` image of the entire system, run the following command:  
-*Replace* ***DEVICE*** *with the name of Device to build*
+*Replace* ***DEVICE*** *with the name of Device to build*  
 <pre><code>nix run github:nix-community/nixos-generators -- -f iso --flake github:maydayv7/dotfiles#<b><i>DEVICE</i></b></code></pre>
+
 </details>
 
 #### Partition Scheme
@@ -209,6 +211,18 @@ To install the OS, just boot the Live USB and run `sudo nixos install`
 *If the image doesn't boot, try disabling the `secure boot` and `RAID` options from `BIOS`*  
 After the reboot, run `nixos setup` in the newly installed system to finish setup  
 *In case you are using the `advanced` filesystem scheme, you may need to set the boot flag `zfs_force=1` on first boot*
+
+</details>
+
+<details>
+<summary><b>Automatic Deploy</b></summary>
+
+The `nixosConfigurations` support automatic deployments using [deploy-rs](https://github.com/serokell/deploy-rs)
+
+To deploy a Device, simply run the following command:  
+*Replace* ***DEVICE*** *with the name of Device to deploy*
+<pre><code>nix run github:serokell/deploy -- github:maydayv7/dotfiles#<b><i>DEVICE</i></b></code></pre>
+
 </details>
 
 <details>
@@ -280,12 +294,13 @@ User files are stored on an NTFS partition mounted to `/data`
 + `impermanence` [Module](https://github.com/nix-community/impermanence)
 
 #### Other Sources
-+ [Tweag Article](https://www.tweag.io/blog/2020-05-25-flakes/) introducing Flakes
-+ [Serokell's Blog](https://serokell.io/blog/practical-nix-flakes) on Flakes
-+ [Jordan Isaac's Blog](https://jdisaacs.com/series/nixos-desktop/) for porting configuration to Flakes
-+ [Jon Ringer's Videos](https://www.youtube.com/channel/UC-cY3DcYladGdFQWIKL90SQ) on General NixOS Tooling and Hackery
-+ [Justin's Notes](https://github.com/justinwoo/nix-shorts) on using Nix
-+ [Christine's Blog Posts](https://christine.website/blog/series/nixos) addressing NixOS Security
++ Tweag [Article](https://www.tweag.io/blog/2020-05-25-flakes/) introducing Flakes
++ Serokell's [Blog](https://serokell.io/blog/practical-nix-flakes) on Flakes
++ Jordan Isaac's [Blog](https://jdisaacs.com/series/nixos-desktop/) for porting configuration to Flakes
++ Jon Ringer's [Videos](https://www.youtube.com/channel/UC-cY3DcYladGdFQWIKL90SQ) on General NixOS Tooling and Hackery
++ Justin's [Notes](https://github.com/justinwoo/nix-shorts) on using Nix
++ Lan Tian's Series of [Blog Posts](https://lantian.pub/en/article/modify-website/nixos-initial-config-flake-deploy.lantian/) on NixOS
++ Christine's [Blog Posts](https://christine.website/blog/series/nixos) addressing NixOS Security
 + [Graham](https://grahamc.com/blog/erase-your-darlings) and [Elis'](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/) Blog Posts on Ephemeral Partition Schemes
 
 #### Other Configurations

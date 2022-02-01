@@ -20,6 +20,7 @@ in rec {
         name = "nixos";
         description = "Default User";
         minimal = true;
+        recovery = false;
         password = readFile ../modules/user/passwords/default;
       };
     });

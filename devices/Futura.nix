@@ -24,5 +24,6 @@
     groups = [ "wheel" ];
     description = "Navya";
     shell = "zsh";
+    recovery = false;
   };
 }

@@ -19,7 +19,7 @@ in rec {
 
     user = {
       home = mkOption {
-        description = "Alias for 'home-manager.users.$username'";
+        description = "User Home Configuration";
         type = util.types.mergedAttrs;
         default = { };
       };
@@ -31,7 +31,7 @@ in rec {
       };
 
       settings = mkOption {
-        description = "Alias for 'users.users.$username'";
+        description = "User Settings";
         default = { };
         type = with types;
           attrsOf (submodule ({ options, config, ... }: {
@@ -44,7 +44,7 @@ in rec {
                   if config.isNormalUser then user.groups ++ groups else groups;
               };
               homeConfig = mkOption {
-                description = "User Specific 'home-manager' Configuration";
+                description = "User Specific Home Configuration";
                 type = util.types.mergedAttrs;
                 default = { };
               };

@@ -1,5 +1,5 @@
 ### Scripts
-The `scripts` directory contains a combination of custom Bash Scripts as well as ones written in conjunction with the Nix Syntax (which can be accessed by `github:maydayv7/dotfiles#apps.${system}`)  
+The `scripts` directory contains a combination of custom Bash Scripts (run using <code>sh <i>./path/to/script</i></code>) as well as ones written in conjunction with the Nix Syntax (which can be accessed by `github:maydayv7/dotfiles#apps.${system}`)  
 A system management script, invoked with the command [`nixos`](./nixos.nix), has been included, which can be used to apply user and device configuration changes, painlessly install the OS and setup the device using a single command, and perform various other useful functions (If you have a working NixOS install, you can check it out using `nix run github:maydayv7/dotfiles`)
 
 ```shellsession

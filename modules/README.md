@@ -30,12 +30,13 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   + `index`: Enable Package Indexer - `"true" / "false"`
 
 * [`user`](./user): Module that controls User Creation and Security Settings -
-  + `groups`: Additional User Groups
-  + `home`: Alias for `home-manager.users.${username}`
-  + `settings`: Alias for `users.users.${username}` -
-    * `autologin`: Enable User Autologin
-    * `minimal`: Enable Minimal User Configuration
-    * `homeConfig`: User Specific `home-manager` Configuration
+  + `groups`: Additional User Groups - Ex. `[ "wheel" ]`
+  + `home`: User Home Configuration (Alias for `home-manager.users.${username}`)
+  + `recovery`: Enable User Recovery Settings - `"true" / "false"`
+  + `settings`: User Settings (Alias for `users.users.${username}`) -
+    * `autologin`: Enable User Autologin - `"true" / "false"`
+    * `minimal`: Enable Minimal User Configuration - `"true" / "false"`
+    * `homeConfig`: User Specific Home Configuration
 
 * [`shell`](./shell): Module that contains User Shell Environment Configuration -
   + `utilities`: Enable Additional Shell Utilities - `true / false`

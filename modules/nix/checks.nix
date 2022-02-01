@@ -1,7 +1,8 @@
 { self, system, lib, pkgs }:
-with { inherit (lib) hooks util; };
+with { inherit (lib) deploy hooks util; };
 # Install Media Checks
-(util.pack.device self.installMedia "nixos-rebuild") // {
+(util.pack.device self.installMedia "nixos-rebuild")
+// (deploy."${system}".deployChecks self.deploy) // {
   # Pre-Commit Hooks
   commit = hooks."${system}".run {
     src = ./.;

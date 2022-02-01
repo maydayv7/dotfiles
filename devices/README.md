@@ -12,3 +12,8 @@ These are the options that can be used in addition to the ones exposed by the `n
 + `kernelModules`: Additional Kernel Modules (to add to `config.boot.initrd.availableKernelModules`) - Ex. `[ "nvme" ]`
 + `imports`: Additional Configuration Files to import - Ex. `[ ./hardware-configuration.nix ]`
 + `format`: Generates Output for Specified Target Format (See [this](https://github.com/nix-community/nixos-generators#supported-formats) for the list of supported formats)
++ `user` or `users`: Used to specify Device User/Multiple Users per Device - Ex. `users = [ { name "1"; } { name = "2"; } ]`
+
+##### Aliased Options
++ `desktop` ---> `config.gui.desktop`
++ `user` or `users` ---> `config.user.settings`
