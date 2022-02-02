@@ -1,4 +1,7 @@
 ## Changelog
+### v5.0
++ Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
+
 ### v4.5 - 20220130
 + Use Calendar Versioning
 + Use `nixConfig`

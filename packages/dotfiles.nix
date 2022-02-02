@@ -2,7 +2,7 @@
 with pkgs;
 stdenv.mkDerivation rec {
   pname = "Dotfiles";
-  version = "v4.5";
+  version = "v5.0";
   longVersion = "20220130";
 
   src = files.path.toplevel;

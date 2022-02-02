@@ -1,4 +1,5 @@
-{ lib, inputs, pkgs, ... }: rec {
+{ lib, inputs, pkgs, ... }:
+with { inherit (lib) mkAfter mkDefault mkForce; }; rec {
   imports = [ inputs.gaming.nixosModules.pipewireLowLatency ];
 
   ## Device Firmware ##
@@ -8,7 +9,7 @@
       opengl.enable = true;
       cpu.intel.updateMicrocode = true;
       enableRedistributableFirmware = true;
-      pulseaudio.enable = lib.mkForce false;
+      pulseaudio.enable = mkForce false;
     };
 
     services = {
@@ -69,10 +70,16 @@
     };
 
     # SSH Connection
+    systemd.services.sshd.preStart = mkAfter ''
+      if ! [ -s "/etc/ssh/ssh_host_rsa_key" ]; then
+      ssh-keygen -t "rsa" -b "4096" -f "/etc/ssh/ssh_host_rsa_key" -N ""; fi
+    '';
+
     services.openssh = {
       enable = true;
       passwordAuthentication = true;
-      permitRootLogin = lib.mkDefault "no";
+      permitRootLogin = mkDefault "no";
+      hostKeys = mkDefault [ ];
     };
 
     # Power Management

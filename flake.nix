@@ -98,7 +98,7 @@
 
     # Authentication Credentials Manager
     sops = {
-      url = "github:maydayv7/sops-nix";
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -118,7 +118,7 @@
       inputs.flake-utils.follows = "utils/flake-utils";
     };
 
-    # Deploy tool
+    # Automatic Deployment Tool
     deploy = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";

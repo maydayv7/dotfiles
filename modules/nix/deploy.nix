@@ -4,7 +4,6 @@ with { inherit (builtins) mapAttrs; }; {
   magicRollback = false;
   user = "root";
   sshUser = "recovery";
-  sshOpts = [ "-X" ];
   nodes = mapAttrs (hostname: config: {
     inherit hostname;
     profiles.system.path = lib.deploy."${config.pkgs.system}".activate.nixos

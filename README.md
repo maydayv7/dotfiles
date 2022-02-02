@@ -330,7 +330,7 @@ Here are some repositories that I may have shamelessly rummaged through for buil
 
 You can navigate to the `README`'s present in the various directories to know more about them
 
-> Last Updated: **January** 2022
+> Last Updated: **February** 2022
 
 **V 7**  
 <maydayv7@gmail.com>

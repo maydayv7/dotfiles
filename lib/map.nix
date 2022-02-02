@@ -7,7 +7,7 @@ let
 in rec {
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
-  list = func: foldl' (x: y: x + y + "\n  ") "" (attrNames func);
+  list = func: foldl' (x: y: x + y + " ") "" (attrNames func);
   merge = name: dir1: dir2: func:
     recursiveUpdate (name dir1 func) (name dir2 func);
 

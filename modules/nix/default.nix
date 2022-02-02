@@ -8,9 +8,9 @@
       cachix
       nixfmt
       nix-linter
-      nixos-generators
       manix
       inputs.deploy.defaultPackage."${system}"
+      inputs.generators.defaultPackage."${system}"
     ];
 
     # Settings

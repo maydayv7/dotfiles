@@ -4,8 +4,9 @@ let
   inherit (lib.util.map) list;
   inherit (inputs) self;
 
-  installMedia = list self.installMedia;
   devShells = list self.devShells."${system}";
+  installMedia = list self.installMedia;
+  nixosConfigurations = list self.nixosConfigurations;
 
   # Usage Description
   usage = {
@@ -22,9 +23,10 @@ let
         clean [ --all ]            - Garbage Collects and Optimises Nix Store
         explore                    - Opens Interactive Shell to explore Syntax and Configuration
         install                    - Installs NixOS onto System
-        iso 'variant' [ --burn ]   - Builds Install Media [ Burns '.iso' to USB ]
+        iso 'variant' [ --burn ]   - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
         list [ 'pattern' ]         - Lists all Installed Packages [ Returns Matches ]
         locate 'package'           - Locates Installed Package
+        run [ 'path' ] 'command'   - Runs Specified Command [ from 'path' ] (Wraps 'nix run')
         save                       - Saves Configuration State to Repository
         search 'term' [ 'source' ] - Searches for Packages [ Providing 'term' ] or Configuration Options
         secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
@@ -71,6 +73,7 @@ in lib.recursiveUpdate {
     manix
     nixfmt
     nix-linter
+    nixos-generators
     parted
     sops
     tree
@@ -191,10 +194,19 @@ in lib.recursiveUpdate {
   ;;
   iso)
     case $2 in
-    "") error "Expected a Variant of Install Media";;
+    "") error "Expected a Variant of Install Media or Device";;
     *)
-      echo "Building '$2' Install Media Image..."
-      nix build ${path.system}#installMedia.$2.config.system.build.isoImage && echo "The Image is located at './result/iso/nixos.iso'" || error "Unknown Variant '$2'" "# Available Variants #\n  ${installMedia}"
+      if grep -wq $2 <<<"${installMedia}"
+      then
+        echo "Building '$2' Install Media Image..."
+        nix build ${path.system}#installMedia.$2.config.system.build.isoImage && echo "The Image is located at './result/iso/nixos.iso'"
+      elif grep -wq $2 <<<"${nixosConfigurations}"
+      then
+        echo "Building '$2' Device Image..."
+        nix run github:nix-community/nixos-generators -- -f iso --flake ${path.system}#$2
+      else
+        error "Unknown Variant '$2'" "# Available Variants #\n  Install Media: ${installMedia}\n  Devices: ${nixosConfigurations}"
+      fi
     ;;
     esac
     case $3 in
@@ -235,6 +247,16 @@ in lib.recursiveUpdate {
       fi
     ;;
     esac
+  ;;
+  run)
+    if [[ "$2" == *[:/]* ]]
+    then
+      command=$(echo "''${@:4}")
+      nix run $2#$3 -- $command
+    else
+      command=$(echo "''${@:3}")
+      nix run ${path.system}#$2 -- $command
+    fi
   ;;
   save)
     echo "Saving Changes..."
