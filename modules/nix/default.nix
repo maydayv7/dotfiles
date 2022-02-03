@@ -1,4 +1,4 @@
-{ system, inputs, pkgs, ... }: rec {
+{ inputs, pkgs, ... }: rec {
   imports = [ ./index.nix inputs.utils.nixosModules.autoGenFromInputs ];
 
   ## Nix Settings ##
@@ -6,11 +6,11 @@
     # Utilities
     environment.systemPackages = with pkgs; [
       cachix
+      deploy
+      generators
+      manix
       nixfmt
       nix-linter
-      manix
-      inputs.deploy.defaultPackage."${system}"
-      inputs.generators.defaultPackage."${system}"
     ];
 
     # Settings

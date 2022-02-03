@@ -43,17 +43,20 @@ in lib.eachSystem platforms (system:
     channels = {
       stable = pkgs;
       unstable = pkgs';
+      deploy = deploy.defaultPackage."${system}";
       gaming = gaming.packages."${system}";
+      generators = generators.defaultPackage."${system}";
+      secrets = sops.packages."${system}";
     };
 
     # Custom Packages
     defaultApp = self.apps."${system}".nixos;
     defaultPackage = self.packages."${system}".dotfiles;
-    packages = map.merge map.modules ./packages ./scripts
+    packages = map.modules ./packages
       (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
     apps = map.modules ./scripts (name:
       lib.mkApp {
-        drv = pkgs.callPackage name { inherit lib inputs pkgs files; };
+        drv = pkgs.callPackage name { inherit self lib pkgs files; };
       });
   }) // {
     # Overrides

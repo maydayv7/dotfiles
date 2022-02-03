@@ -1,9 +1,7 @@
-{ system ? builtins.currentSystem, lib, inputs, pkgs, files, ... }:
+{ self, system ? builtins.currentSystem, lib, pkgs, files, ... }:
 with files;
 let
   inherit (lib.util.map) list;
-  inherit (inputs) self;
-
   devShells = list self.devShells."${system}";
   installMedia = list self.installMedia;
   nixosConfigurations = list self.nixosConfigurations;
@@ -66,6 +64,7 @@ in lib.recursiveUpdate {
     cachix
     coreutils
     dd
+    deploy
     git
     git-crypt
     gparted
@@ -78,7 +77,6 @@ in lib.recursiveUpdate {
     sops
     tree
     zfs
-    inputs.deploy.defaultPackage."${system}"
   ];
 } (pkgs.writeShellScriptBin "nixos" ''
   #!${pkgs.runtimeShell}
@@ -88,7 +86,7 @@ in lib.recursiveUpdate {
   ${scripts.partitions}
 
   case $1 in
-  "") error "Expected an option" "${usage.script}";;
+  "") error "Expected an Option" "${usage.script}";;
   help|--help|-h) echo -e "## Tool for NixOS System Management ##\n${usage.script}";;
   apply)
     echo "Applying Configuration..."
@@ -99,7 +97,7 @@ in lib.recursiveUpdate {
     "--deploy") deploy -s ${path.system}#$3;;
     "--rollback") sudo nixos-rebuild switch --rollback;;
     "--test") sudo nixos-rebuild test --no-build-nix --show-trace --flake ${path.system}#;;
-    *) error "Unknown option '$2'" "${usage.apply}";;
+    *) error "Unknown Option '$2'" "${usage.apply}";;
     esac
   ;;
   cache)
@@ -129,7 +127,7 @@ in lib.recursiveUpdate {
     if [ "$EUID" -ne 0 ] && [ "$2" != "--all" ]
     then
       nix-collect-garbage -d
-      warn "Run as 'root' or use option '--all' to Clean System Generations"
+      warn "Run as 'root' or use Option '--all' to Clean System Generations"
     else
       sudo nix-collect-garbage -d
       sudo rm -rf /run/secrets/*
@@ -217,7 +215,7 @@ in lib.recursiveUpdate {
       *) sudo dd if=./result/iso/nixos.iso of=$4 status=progress bs=1M;;
       esac
     ;;
-    *) error "Unknown option '$3'";;
+    *) error "Unknown Option '$3'";;
     esac
   ;;
   "list")
@@ -271,7 +269,7 @@ in lib.recursiveUpdate {
   ;;
   search)
     case $2 in
-    "") error "Expected an option" "${usage.search}";;
+    "") error "Expected an Option" "${usage.search}";;
     help|--help|-h) echo "${usage.search}";;
     cmd.*)
       command=$(echo $2 | sed 's/cmd\.//')
@@ -301,7 +299,7 @@ in lib.recursiveUpdate {
   ;;
   secret)
     case $2 in
-    "") error "Expected an option" "${usage.secret}";;
+    "") error "Expected an Option" "${usage.secret}";;
     help|--help|-h) echo "${usage.secret}";;
     create)
       case $3 in
@@ -336,7 +334,7 @@ in lib.recursiveUpdate {
         sops --config ${sops} updatekeys $secret
       done
     ;;
-    *) error "Unknown option '$2'" "${usage.secret}";;
+    *) error "Unknown Option '$2'" "${usage.secret}";;
     esac
   ;;
   setup)
@@ -392,6 +390,6 @@ in lib.recursiveUpdate {
     ;;
     esac
   ;;
-  *) error "Unknown option '$1'" "${usage.script}";;
+  *) error "Unknown Option '$1'" "${usage.script}";;
   esac
 '')

@@ -13,7 +13,6 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
   + `list`: Lists all toplevel `attrs` of `attrset` and returns a space-separated string
   + `files`: Maps all files with a particular extension stored in a directory. Use `files'` in order to recursively search inside directories
   + `patches`: Maps all file patches stored in a directory, if available
-  + `merge`: Merges two `attrsets` acted upon by the same function
   + `modules`: Maps all configuration modules stored in a directory. Use `modules'` in order to recursively search inside directories
   + `secrets`: Maps binary `sops` encrypted secrets stored in a directory
 

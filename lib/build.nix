@@ -1,7 +1,7 @@
 { self, platforms, lib, ... }:
 let
   inherit (lib) nameValuePair util;
-  inherit (builtins) any attrValues isPath listToAttrs map readFile;
+  inherit (builtins) any attrValues isPath listToAttrs map mapAttrs readFile;
 in rec {
   ## Builder Functions ##
   each = attr: func:
@@ -29,10 +29,11 @@ in rec {
   channel = src: overlays: patch:
     let patches = util.map.patches patch;
     in each platforms (system:
-      (if !(any isPath patches) then
+      let pkgs = src.legacyPackages."${system}";
+      in (if !(any isPath patches) then
         import src
       else
-        import (src.legacyPackages."${system}".applyPatches {
+        import (pkgs.applyPatches {
           inherit src patches;
           name = "Patched-input-${src.shortRev}";
         })) {
@@ -40,9 +41,13 @@ in rec {
           overlays = overlays ++ (attrValues self.overlays or { }) ++ [
             (final: prev:
               {
+                apps = mapAttrs (name: value:
+                  pkgs.writeShellScriptBin name (readFile value.program))
+                  self.apps."${system}";
                 custom = self.packages."${system}";
               } // self.channels."${system}")
           ];
+
           config = {
             allowAliases = true;
             allowBroken = false;

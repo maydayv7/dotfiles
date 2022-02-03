@@ -44,7 +44,7 @@ github:maydayv7/dotfiles
 ├───defaultApp
 │   └───x86_64-linux: app
 ├───defaultPackage
-│   └───x86_64-linux: package 'Dotfiles-v4.5'
+│   └───x86_64-linux: package 'Dotfiles-v5.0'
 ├───defaultTemplate: template: Simple, Minimal NixOS Configuration
 ├───devShell
 │   └───x86_64-linux: development environment 'devShell'
@@ -75,12 +75,14 @@ github:maydayv7/dotfiles
 ├───packages
 │   └───x86_64-linux
 │       ├───dotfiles: package 'Dotfiles-v5.0'
-│       ├───fonts: package 'fonts-7'
-│       └───nixos: package 'nixos'
+│       └───fonts: package 'fonts-7'
 └───templates
     ├───extensive: template: My Complete, Extensive NixOS Configuration
     └───minimal: template: Simple, Minimal NixOS Configuration
 ```
+
++ `checks`: custom configuration checks
++ `channels`: configured system package repositories
 
 </details>
 
@@ -188,11 +190,10 @@ If Nix is already installed on your system, you may run the following command to
 *Replace* ***VARIANT*** *with the name of Install Media to create*
 <pre><code>nix build github:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
 
-You can also download the NixOS `.iso` from [here](https://nixos.org/download.html), then you can use the following commands to run the install script:
+You can also download the NixOS `.iso` from [here](https://nixos.org/download.html) and run the install script using the following command (as `root`):
 
 ```
-nix build github:maydayv7/dotfiles#packages.x86_64-linux.nixos
-sudo ./result/bin/nixos install
+nix run github:maydayv7/dotfiles#nixos -- install
 ```
 
 If you want to create an `.iso` image of the entire system, run the following command:  
