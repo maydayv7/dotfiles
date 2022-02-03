@@ -21,13 +21,7 @@
 
   desktop = "gnome";
   shell.utilities = true;
-  apps = {
-    list = [ "discord" "firefox" "git" "office" ];
-    git = {
-      name = "maydayv7";
-      mail = "maydayv7@gmail.com";
-    };
-  };
+  apps.list = [ "discord" "firefox" "git" "office" ];
 
   # User V7
   user = {

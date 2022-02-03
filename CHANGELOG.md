@@ -1,5 +1,6 @@
 ## Changelog
 ### v5.0
++ Bifurcate `users` and Refine User Configuration
 + Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
 
 ### v4.5 - 20220130

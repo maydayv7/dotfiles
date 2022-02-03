@@ -31,7 +31,11 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 
 * [`user`](./user): Module that controls User Creation and Security Settings -
   + `groups`: Additional User Groups - Ex. `[ "wheel" ]`
-  + `home`: User Home Configuration (Alias for `home-manager.users.${username}`)
+  + `home`: User Home Configuration (Alias for `home-manager.users.${username}`) -
+    * `credentials`: Individual User Credentials -
+      + `name`: Alternative User Name
+      + `mail`: User Mail ID - Ex. `"nixos@localhost.org"`
+      + `key`: User GPG Key - Ex. `"CF616EB19C2765E4"`
   + `recovery`: Enable User Recovery Settings - `"true" / "false"`
   + `settings`: User Settings (Alias for `users.users.${username}`) -
     * `autologin`: Enable User Autologin - `"true" / "false"`

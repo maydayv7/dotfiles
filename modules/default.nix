@@ -23,29 +23,22 @@ in {
           shell.support = [ shell ];
           user = {
             inherit recovery;
-
-            settings = {
-              root = {
-                isNormalUser = false;
-                extraGroups = [ "wheel" ];
-                inherit minimal;
-              };
-
-              "${name}" = {
-                inherit name description uid minimal;
-                isNormalUser = true;
-                initialHashedPassword = password;
-                group = "users";
-                extraGroups = groups;
-                useDefaultShell = false;
-                shell = pkgs."${shell}";
-                homeConfig = home
-                  // (let path = toPath "${./.}" + "/user/home/${name}";
-                  in if (pathExists "${path}/default.nix") then {
-                    imports = [ path ];
-                  } else
-                    { });
-              };
+            settings."${name}" = {
+              inherit name description uid minimal;
+              isNormalUser = true;
+              initialHashedPassword = password;
+              group = "users";
+              extraGroups = groups;
+              useDefaultShell = false;
+              shell = pkgs."${shell}";
+              homeConfig = home
+                // (let path = toPath "${../.}" + "/users/${name}";
+                in if (pathExists "${path}/default.nix") then {
+                  imports = [ path ];
+                } else if (pathExists "${path}.nix") then {
+                  imports = [ "${path}.nix" ];
+                } else
+                  { });
             };
           };
 

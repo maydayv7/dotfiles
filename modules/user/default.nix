@@ -5,7 +5,7 @@ let
   inherit (config) user;
 in rec {
   imports = [
-    ./home
+    ./home.nix
     ./recovery.nix
     ./security.nix
     inputs.home.nixosModules.home-manager
@@ -66,6 +66,10 @@ in rec {
     users = {
       mutableUsers = false;
       users = mapAttrs (_: name: name.forwarded) user.settings;
+      extraUsers.root = {
+        isNormalUser = false;
+        extraGroups = [ "wheel" ];
+      };
     };
 
     # Home Manager Settings

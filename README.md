@@ -74,7 +74,7 @@ github:maydayv7/dotfiles
 │   └───nixFlakes: Nixpkgs overlay
 ├───packages
 │   └───x86_64-linux
-│       ├───dotfiles: package 'Dotfiles-v4.5'
+│       ├───dotfiles: package 'Dotfiles-v5.0'
 │       ├───fonts: package 'fonts-7'
 │       └───nixos: package 'nixos'
 └───templates
@@ -95,6 +95,7 @@ github:maydayv7/dotfiles
 ├── secrets
 ├── shells
 ├── repl.nix
+├── users
 ├── scripts
 │   └── nixos.nix
 ├── packages
@@ -120,12 +121,13 @@ github:maydayv7/dotfiles
 + `configuration.nix`: main system configuration file
 + `flake.nix`: repository version control using `inputs`
 + `.version`: system state version
-+ `.templates`: custom Flakes configuration templates
-+ `files`: `dotfiles` and program configuration
-+ `devices`: system configuration for various devices
++ [`.templates`](./templates/README.md): custom Flakes configuration templates
++ [`files`](./files/README.md): `dotfiles` and program configuration
++ [`devices`](./devices/README.md): system configuration for various devices
 + [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 + `shells`: sandboxed shells for development purposes
 + `repl.nix`: interactive shell to explore syntax and configuration
++ [`users`](./users/README.md): individual user-specific configuration
 + [`scripts`](./scripts/README.md): useful system management scripts
 + [`packages`](./packages/README.md): locally built custom packages
 + `overlays`: overrides for pre-built packages
@@ -154,7 +156,10 @@ y
 EMAIL
 COMMENT</i></b>
 O
+gpg --output public.pgp --armor --export <b><i>USER</i></b>@<b><i>EMAIL</i></b>
+gpg --output private.pgp --armor --export-secret-key <b><i>USER</i></b>@<b><i>EMAIL</i></b>
 </code></pre>
+*Save the keys `public.gpg` and `private.gpg` in a secure location*
 
 3. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg` after performing the following commands: <pre><code>git remote rm origin
 rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}

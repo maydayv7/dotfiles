@@ -16,7 +16,8 @@ in rec {
   files = dir: func: extension:
     filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
       let path = "${toString dir}/${name}";
-      in if type == "directory" && (if (extension == ".nix") then
+      in if (type == "directory" || type == "symlink")
+      && (if (extension == ".nix") then
         pathExists "${path}/default.nix"
       else
         true) then
@@ -32,7 +33,7 @@ in rec {
   files' = dir: func: extension:
     filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
       let path = "${toString dir}/${name}";
-      in if type == "directory" then
+      in if (type == "directory" || type == "symlink") then
         nameValuePair name (files' path func)
       else if type == "regular"
       && (if (extension == ".nix") then name != "default.nix" else true)

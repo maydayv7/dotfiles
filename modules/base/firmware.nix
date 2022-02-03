@@ -69,6 +69,9 @@ with { inherit (lib) mkAfter mkDefault mkForce; }; rec {
       firewall.enable = true;
     };
 
+    # GPG Signing
+    programs.gnupg.agent.enable = true;
+
     # SSH Connection
     systemd.services.sshd.preStart = mkAfter ''
       if ! [ -s "/etc/ssh/ssh_host_rsa_key" ]; then

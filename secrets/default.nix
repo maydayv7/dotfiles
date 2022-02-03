@@ -3,14 +3,14 @@
 
   ## Authentication Credentials Management ##
   config = {
-    environment.systemPackages = with pkgs; [ gnupg sops ];
+    environment.systemPackages = [ pkgs.sops ];
     sops = {
       # Encrypted Secrets
       secrets = lib.util.map.secrets ./. false;
 
       # GPG Key Import
       gnupg = {
-        home = "${files.gpg}";
+        home = files.gpg;
         sshKeyPaths = lib.mkForce [ ];
       };
     };
