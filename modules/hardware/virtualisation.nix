@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
-let
-  enable = builtins.elem "virtualisation" config.hardware.support;
-  inherit (config.hardware) passthrough;
-in rec {
+let enable = builtins.elem "virtualisation" config.hardware.support;
+in {
   options.hardware.passthrough = lib.mkOption {
     description = "PCI Device IDs for VM Passthrough";
     type = lib.types.str;
@@ -13,7 +11,8 @@ in rec {
   config = lib.mkIf enable {
     # Enablement
     user.groups = [ "kvm" "libvirtd" ];
-    filesystem.persist.dirs = [ "/var/lib/libvirt" ];
+    user.persist.dirs = [ ".config/libvirt" ".local/share/libvirt" ];
+    environment.persist.dirs = [ "/var/lib/libvirt" ];
     security.virtualisation.flushL1DataCache = "cond";
     boot = {
       kernelParams = [ "intel_iommu=on" "i915.enable_gvt=1" ];
@@ -21,7 +20,7 @@ in rec {
         [ "kvm-intel" "vfio" "vfio-pci" "vfio_virqfd" "vfio_iommu_type1" ];
       extraModprobeConfig = ''
         options kvm_intel nested=1
-        options vfio-pci ids=${passthrough}
+        options vfio-pci ids=${config.hardware.passthrough}
       '';
     };
 

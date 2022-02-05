@@ -1,5 +1,6 @@
 ## Changelog
 ### v5.0
++ Add Support for Ephemeral `/home`
 + Bifurcate `users` and Refine User Configuration
 + Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
 

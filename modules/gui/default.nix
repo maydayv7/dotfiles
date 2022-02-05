@@ -1,9 +1,6 @@
 { config, options, lib, ... }:
-let
-  inherit (lib) mkOption types;
-  inherit (config.gui) desktop;
-  opt = options.gui.desktop.description;
-in rec {
+let inherit (lib) mkOption optional types;
+in {
   imports = [ ./fonts.nix ./gnome.nix ./xorg.nix ];
 
   options.gui.desktop = mkOption {
@@ -12,5 +9,6 @@ in rec {
     default = null;
   };
 
-  config.warnings = if (desktop == null) then [ (opt + " is unset") ] else [ ];
+  config.warnings = optional (config.gui.desktop == null)
+    [ (options.gui.desktop.description + " is unset") ];
 }

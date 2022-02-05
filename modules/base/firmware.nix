@@ -1,5 +1,5 @@
 { lib, inputs, pkgs, ... }:
-with { inherit (lib) mkAfter mkDefault mkForce; }; rec {
+with { inherit (lib) mkAfter mkDefault mkForce; }; {
   imports = [ inputs.gaming.nixosModules.pipewireLowLatency ];
 
   ## Device Firmware ##
@@ -53,7 +53,7 @@ with { inherit (lib) mkAfter mkDefault mkForce; }; rec {
 
     # Network Settings
     user.groups = [ "networkmanager" ];
-    filesystem.persist.dirs = [
+    environment.persist.dirs = [
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
       "/var/lib/bluetooth"
@@ -71,6 +71,10 @@ with { inherit (lib) mkAfter mkDefault mkForce; }; rec {
 
     # GPG Signing
     programs.gnupg.agent.enable = true;
+    user.persist.dirs = [{
+      directory = ".gnupg";
+      mode = "0700";
+    }];
 
     # SSH Connection
     systemd.services.sshd.preStart = mkAfter ''

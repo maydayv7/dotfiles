@@ -20,7 +20,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   + `boot`: Supported Boot Firmware - `"mbr" / "efi"`
   + `cores`: Number of CPU Cores - Ex. `4`
   + `filesystem`: Disk File System Choice - `"simple" / "advanced"` -
-    * `persist`: Files to Preserve across Reboots (while using `advanced` File System Layout)
+    * `persist`: System Files to Preserve across Reboots (while using `advanced` File System Layout)
   + `modules`: List of Hardware Configuration Modules imported from [`inputs.hardware`](https://github.com/nixos/nixos-hardware) - Ex. `[ "common-pc" ]`
   + `security`: Enable Additional Security and Hardening Settings - `true / false`
   + `support`: List of Additional Supported Hardware - `[ "mobile" "printer" "ssd" "virtualisation" ]`
@@ -31,6 +31,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 
 * [`user`](./user): Module that controls User Creation and Security Settings -
   + `groups`: Additional User Groups - Ex. `[ "wheel" ]`
+  + `persist`: User Files to Preserve across Reboots (while using `advanced` File System Layout)
   + `home`: User Home Configuration (Alias for `home-manager.users.${username}`) -
     * `credentials`: Individual User Credentials -
       + `name`: Alternative User Name

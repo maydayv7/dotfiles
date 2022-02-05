@@ -5,18 +5,21 @@ in {
   config = lib.mkIf enable {
     environment.systemPackages = with pkgs; [ betterdiscordctl discord ];
 
-    user.home.home = {
-      # Plugins
-      file.".config/BetterDiscord/plugins" = {
-        source = files.discord.plugins;
-        recursive = true;
-      };
+    user = {
+      persist.dirs = [ ".config/BetterDiscord" ".config/discord" ];
+      home.home = {
+        # Plugins
+        file.".config/BetterDiscord/plugins" = {
+          source = files.discord.plugins;
+          recursive = true;
+        };
 
-      # Discord Activation  
-      activation.discordSetup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        echo "Setting up Discord..."
-        $DRY_RUN_CMD /usr/bin/env betterdiscordctl $VERBOSE_ARG install || true
-      '';
+        # Discord Activation  
+        activation.discordSetup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          echo "Setting up Discord..."
+          $DRY_RUN_CMD /usr/bin/env betterdiscordctl $VERBOSE_ARG install || true
+        '';
+      };
     };
   };
 }

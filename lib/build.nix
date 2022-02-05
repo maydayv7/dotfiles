@@ -1,7 +1,7 @@
 { self, platforms, lib, ... }:
 let
-  inherit (lib) nameValuePair util;
   inherit (builtins) any attrValues isPath listToAttrs map mapAttrs readFile;
+  inherit (lib) concatMapStrings nameValuePair remove splitString take util;
 in rec {
   ## Builder Functions ##
   each = attr: func:
@@ -41,10 +41,15 @@ in rec {
           overlays = overlays ++ (attrValues self.overlays or { }) ++ [
             (final: prev:
               {
-                apps = mapAttrs (name: value:
-                  pkgs.writeShellScriptBin name (readFile value.program))
-                  self.apps."${system}";
                 custom = self.packages."${system}";
+                apps = mapAttrs (name: value:
+                  pkgs.symlinkJoin {
+                    inherit name;
+                    paths = [
+                      (concatMapStrings (x: "/" + x)
+                        (take 3 (remove "" (splitString "/" value.program))))
+                    ];
+                  }) self.apps."${system}";
               } // self.channels."${system}")
           ];
 

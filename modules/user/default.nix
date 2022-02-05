@@ -3,7 +3,7 @@ let
   inherit (builtins) mapAttrs;
   inherit (lib) filterAttrs mkIf mkEnableOption mkOption types util;
   inherit (config) user;
-in rec {
+in {
   imports = [
     ./home.nix
     ./recovery.nix

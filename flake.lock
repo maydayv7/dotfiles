@@ -46,11 +46,11 @@
     "discord": {
       "flake": false,
       "locked": {
-        "lastModified": 1643083757,
-        "narHash": "sha256-vKdPOBew3R3Fui8hNxrC3QZ0aNq8OVg51sGJrmgrsjQ=",
+        "lastModified": 1644065220,
+        "narHash": "sha256-fmk7prYlMpCXYY+tYu2WS7gO6lDaKq/Zuz+qaI6oQeM=",
         "owner": "maydayv7",
         "repo": "discord",
-        "rev": "e28577f64ca4b6470360d8bc3189141b9539ebfe",
+        "rev": "648a0701dc623ccd23caf88c06f7fc7d4115428f",
         "type": "github"
       },
       "original": {
@@ -212,11 +212,11 @@
     },
     "impermanence": {
       "locked": {
-        "lastModified": 1642362310,
-        "narHash": "sha256-/ZkAKJpvAFG9Nd0kOUUmqLb1pKOa0cpU832khuxUAUo=",
+        "lastModified": 1644014516,
+        "narHash": "sha256-PkD35S6lduaU6mLcraFY0vj608RPv1kQp5uaFd/s26o=",
         "owner": "nix-community",
         "repo": "impermanence",
-        "rev": "ff2240b04ffb9322241b9f6374305cbf6a98a285",
+        "rev": "ff540dbe20556f6119d80f5c79796a0698a4ee38",
         "type": "github"
       },
       "original": {

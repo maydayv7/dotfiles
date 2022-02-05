@@ -1,13 +1,11 @@
 { config, lib, ... }:
-let
-  inherit (lib) mkIf mkOption types;
-  inherit (config) home;
-in rec {
+let inherit (lib) mkIf mkOption types;
+in {
   options.credentials = {
     name = mkOption {
       description = "Work User Name";
       type = types.str;
-      default = home.username;
+      default = config.home.username;
     };
 
     mail = mkOption {

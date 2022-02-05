@@ -2,10 +2,11 @@
 let
   inherit (lib) mkIf util;
   enable = builtins.elem "firefox" config.apps.list;
-in rec {
+in {
   ## Firefox Browser Configuration ##
   config = mkIf enable {
     environment.systemPackages = [ pkgs.firefox ];
+    user.persist.dirs = [ ".cache/mozilla/firefox" ".mozilla/firefox" ];
 
     user.home = {
       # File Associations
@@ -23,9 +24,10 @@ in rec {
           "layout.spellcheckDefault" = 2;
 
           # Theming
-          "devtools.theme" = "dark";
           "browser.shell.checkDefaultBrowser" = false;
           "browser.uidensity" = 0;
+          "devtools.theme" = "dark";
+          "layers.acceleration.force-enabled" = true;
           "mozilla.widget.use-argb-visuals" = true;
           "svg.context-properties.content.enabled" = true;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;

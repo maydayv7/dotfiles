@@ -32,7 +32,7 @@ in {
   # Custom Fonts
   fonts = {
     path = inputs.fonts;
-    config = readFile ./fonts/fontconfig;
+    config = readFile ./fonts/fontconfig.xml;
   };
 
   # X11 Gestures

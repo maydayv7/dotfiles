@@ -276,7 +276,7 @@ This repository makes use of [`Github Actions`](./.github/workflows) in order to
 The system may be set up using either a `simple` or `advanced` filesystem layout. The advanced ZFS opt-in state filesystem configuration allows for a vastly improved experience, preventing formation of cruft and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
 
 #### Data Storage
-User files are stored on an NTFS partition mounted to `/data`
+All important, persisted user files are stored at `/data`. Personal files and media are stored on an NTFS partition mounted to `/data/files`
 
 ## Links
 ### Theming

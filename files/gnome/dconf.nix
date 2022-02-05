@@ -63,10 +63,6 @@ in {
       area-screenshot = [ "Print" ];
       area-screenshot-clip = [ ];
       control-center = [ "<Super>i" ];
-      custom-keybindings = [
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-      ];
       email = [ "<Super>e" ];
       home = [ "<Super>f" ];
       magnifier = [ "<Super>x" ];
@@ -84,6 +80,10 @@ in {
       window-screenshot = [ "<Primary>Print" ];
       window-screenshot-clip = [ ];
       www = [ "<Super>w" ];
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+      ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
@@ -385,17 +385,18 @@ in {
 
     "org/gnome/desktop/app-folders/folders/4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff" =
       {
+        name = "Games";
         apps = [
           "org.gnome.Chess.desktop"
           "org.gnome.Sudoku.desktop"
           "org.gnome.Mines.desktop"
           "org.gnome.Quadrapassel.desktop"
         ];
-        name = "Games";
       };
 
     "org/gnome/desktop/app-folders/folders/a136187d-1d93-4d35-8423-082f15957be9" =
       {
+        name = "Office";
         apps = [
           "startcenter.desktop"
           "writer.desktop"
@@ -408,11 +409,11 @@ in {
           "net.sourceforge.gscan2pdf.desktop"
           "virt-manager.desktop"
         ];
-        name = "Office";
       };
 
     "org/gnome/desktop/app-folders/folders/b79e9b82-2127-459b-9e82-11bd3be09d04" =
       {
+        name = "Utilities";
         apps = [
           "org.gnome.Logs.desktop"
           "org.gnome.Devhelp.desktop"
@@ -423,8 +424,6 @@ in {
           "org.gnome.baobab.desktop"
           "xterm.desktop"
         ];
-        name = "Utilities";
-        translate = false;
       };
 
     # Shell Extensions

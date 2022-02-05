@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let enable = builtins.elem "mobile" config.hardware.support;
-in rec {
+in {
   ## Device Firmware ##
   config = lib.mkIf enable {
     ## Android Compatibilty Configuration ##

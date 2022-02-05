@@ -1,4 +1,4 @@
-{ lib, ... }: rec {
+{ lib, ... }: {
   imports = [ ./discord.nix ./firefox.nix ./git ./office.nix ./wine.nix ];
 
   options.apps.list = lib.mkOption {

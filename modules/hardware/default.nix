@@ -1,6 +1,6 @@
 { lib, ... }:
 let inherit (lib) mkOption types;
-in rec {
+in {
   imports = [
     ./boot.nix
     ./filesystem.nix

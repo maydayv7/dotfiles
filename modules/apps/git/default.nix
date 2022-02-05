@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let enable = builtins.elem "git" config.apps.list;
-in rec {
+in {
   imports = [ ./runner.nix ];
 
   ## 'git' Configuration ##
@@ -31,56 +31,58 @@ in rec {
         };
 
         # Command Aliases
-        aliases = {
+        aliases = rec {
           a = "add";
-          ai = "add -i";
-          ap = "add -p";
+          ad = "${a} -A .";
+          ai = "${a} -i";
+          ap = "${a} -p";
           b = "branch";
-          bd = "branch -D";
+          bc = "${b} --show-current";
+          bd = "${b} -D";
           backup = ''
-            !sh -c 'CURRENT=$(git branch --show-current) && git stash save -a && git checkout -B backup && git stash apply && git add -A . && git commit -m "backup" && git push -f $1 && git checkout $CURRENT && git stash pop && git branch -D backup' -'';
-          cam = "commit -a -m";
+            !sh -c 'CURRENT=$(git ${bc}) && git ${st} && git ${co} -B backup && git ${st} apply && git ${ad} && git ${cam} "backup" && git ${pf} $1 && git ${co} $CURRENT && git ${stp} && git ${bd} backup' -'';
           cfg = "config";
           ci = "commit -v";
-          cia = "commit -v -a";
+          cam = "${ci} -am";
+          cia = "${ci} -a";
           co = "checkout";
           cp = "cherry-pick";
           cpp =
-            "!sh -c 'CURRENT=$(git branch --show-current) && git stash && git checkout -B $2 $3 && git cherry-pick $1 && git push -f $4 && git checkout $CURRENT && git stash pop' -";
+            "!sh -c 'CURRENT=$(git ${bc}) && git ${st} && git ${co} -B $2 $3 && git ${cp} $1 && git ${pf} $4 && git ${co} $CURRENT && git ${stp}' -";
           d = "diff";
-          df = "diff HEAD";
-          dx = "diff --color-words";
-          dc = "diff --cached";
-          dcx = "diff --cached --color-words";
+          df = "${d} HEAD";
+          dx = "${d} --color-words";
+          dc = "${d} --cached";
+          dcx = "${dc} --color-words";
           l = "log --graph --decorate --abbrev-commit";
-          l1 = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
+          l1 = "${l} --pretty=oneline --all";
           lf = "log -p --follow";
           lg =
             "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
-          ll = "log -p --graph --decorate --abbrev-commit";
+          ll = "${l} -p";
           m = "merge";
-          ms = "merge --squash";
+          ms = "${m} --squash";
           p = "push";
-          pf = "push --force";
+          pf = "${p} --force";
           pl = "!sh -c 'git pull && git fetch -p' -";
-          pt = "push --tag";
-          pu = "push --set-upstream";
+          pt = "${p} --tag";
+          pu = "${p} --set-upstream";
           rb = "rebase";
-          record = "!sh -c '(git add -p -- $@ && git commit) || git reset' --";
-          rh = "reset --hard";
+          record = "!sh -c '(git ${a} -p -- $@ && git ${ci}) || git ${r}' --";
           ro = "restore";
           r = "reset";
-          rs = "reset --soft";
-          rsh = "reset --soft HEAD^";
+          rs = "${r} --soft";
+          rh = "${r} --hard";
+          rsh = "${rs} HEAD^";
           s = "!git --no-pager status";
           sm = "submodule";
-          std = "stash drop";
-          stp = "stash pop";
           st = "stash";
-          sync = "push --force --mirror";
+          std = "${st} drop";
+          stp = "${st} pop";
+          sync = "${pf} --mirror";
           t = "tag";
-          td = "!sh -c 'git tag -d $1 && git push origin :$1' -";
-          tl = "tag -l";
+          td = "!sh -c 'git ${t} -d $1 && git ${p} origin :$1' -";
+          tl = "${t} -l";
         };
       };
     };

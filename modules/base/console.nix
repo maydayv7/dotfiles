@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
-in rec {
+in {
   ## Console Configuration ##
   config = {
     # Setup

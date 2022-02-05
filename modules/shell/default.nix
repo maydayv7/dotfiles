@@ -2,7 +2,7 @@
 let
   inherit (lib) mkEnableOption mkOption mkIf mkMerge types;
   enable = config.shell.utilities;
-in rec {
+in {
   imports = [ ./zsh.nix ];
 
   options.shell = {
@@ -18,6 +18,11 @@ in rec {
   config = mkMerge [
     {
       # Environment Settings
+      user.persist = {
+        files = [ ".bash_history" ];
+        dirs = [ ".local/share/bash" ];
+      };
+
       environment = {
         shells = [ pkgs.bashInteractive ];
 
@@ -30,6 +35,7 @@ in rec {
     (mkIf enable {
       # Utilities
       environment.systemPackages = with pkgs; [
+        bat
         etcher
         exa
         fd
@@ -38,6 +44,15 @@ in rec {
         shellcheck
         tree
       ];
+
+      # DirENV Support
+      user = {
+        persist.dirs = [ ".local/share/direnv" ];
+        home.programs.direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+        };
+      };
 
       programs = {
         # Command Not Found Search

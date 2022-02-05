@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let enable = builtins.elem "printer" config.hardware.support;
-in rec {
+in {
   ## Printer Firmware ##
   config = lib.mkIf enable {
     # Scanning

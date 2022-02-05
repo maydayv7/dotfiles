@@ -1,4 +1,4 @@
-{ lib, ... }: rec {
+{ lib, ... }: {
   options.user.recovery = lib.mkEnableOption "Enable User Recovery Settings"
     // {
       default = true;

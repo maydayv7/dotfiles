@@ -2,7 +2,7 @@
 let
   inherit (lib) mkEnableOption mkOverride;
   enable = config.hardware.security;
-in rec {
+in {
   options.hardware.security =
     mkEnableOption "Enable Additional Security and Hardening Settings";
 

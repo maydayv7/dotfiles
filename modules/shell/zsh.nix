@@ -1,10 +1,15 @@
 { config, lib, pkgs, files, ... }:
 with files;
 let enable = builtins.elem "zsh" config.shell.support;
-in rec {
+in {
   ## Z Shell Configuration ##
   config = lib.mkIf enable {
     # Shell Environment
+    user.persist = {
+      files = [ ".zsh_history" ];
+      dirs = [ ".cache/zsh" ];
+    };
+
     environment = {
       shells = [ pkgs.zsh ];
       pathsToLink = [ "/share/zsh" ];
@@ -20,11 +25,18 @@ in rec {
         enableCompletion = true;
         enableVteIntegration = true;
         autocd = true;
+
+        # Initialization
         initExtraBeforeCompInit = ''
-          bindkey "\e[3~" delete-char
           source ~/.p10k.zsh
-          autoload -Uz compinit && compinit && source <(cod init $$ zsh)
           eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
+        '';
+
+        initExtra = ''
+          bindkey "\e[3~" delete-char
+          bindkey '^[[H' beginning-of-line
+          bindkey '^[[F' end-of-line
+          source <(cod init $$ zsh)
         '';
 
         # Command Aliases
@@ -34,9 +46,11 @@ in rec {
           dotfiles = "cd ${path.system}";
 
           # Programs
+          cat = "bat";
           colors = "${scripts.colors}";
           edit = "sudo $EDITOR";
-          ls = "ls --color --group-directories-first";
+          l = "ls --color --group-directories-first";
+          ls = "exa -b -h -l -F --octal-permissions --icons --time-style iso";
           sike = "neofetch";
         };
 
@@ -74,19 +88,15 @@ in rec {
       # Command Not Found Integration
       programs.nix-index.enableZshIntegration = true;
 
+      # DirENV Integration
+      programs.direnv.enableZshIntegration = true;
+
       home.file = {
         # Z Shell Prompt
         ".p10k.zsh".text = files.zsh.prompt;
 
         # Neofetch Configuration
         ".config/neofetch/config.conf".text = files.fetch;
-      };
-
-      # DirENV Integration
-      programs.direnv = {
-        enable = true;
-        enableZshIntegration = true;
-        nix-direnv.enable = true;
       };
     };
   };

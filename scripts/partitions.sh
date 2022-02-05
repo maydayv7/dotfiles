@@ -1,19 +1,19 @@
 # Script to automatically Create, Label, Format and Mount Partitions
 
 partition_disk() {
-  read -p "Enter Path to Disk: /dev/" DISK
+  read -rp "Enter Path to Disk: /dev/" DISK
   if [ -z "$DISK" ]
   then
     error "Path to Disk cannot be empty. If unsure, use the command 'fdisk -l'"
   fi
   echo "Creating Partitions..."
-  parted /dev/$DISK -- mkpart ESP fat32 1MiB 1024MiB
-  parted /dev/$DISK -- set 1 esp on
+  parted /dev/"$DISK" -- mkpart ESP fat32 1MiB 1024MiB
+  parted /dev/"$DISK" -- set 1 esp on
   mkfs.fat -F 32 /dev/disk/by-partlabel/ESP
-  parted /dev/$DISK -- mkpart primary 1025MiB -8GiB
-  parted /dev/$DISK -- name 2 System
-  parted /dev/$DISK -- mkpart primary linux-swap -8GiB 100%
-  parted /dev/$DISK -- name 3 swap
+  parted /dev/"$DISK" -- mkpart primary 1025MiB -8GiB
+  parted /dev/"$DISK" -- name 2 System
+  parted /dev/"$DISK" -- mkpart primary linux-swap -8GiB 100%
+  parted /dev/"$DISK" -- name 3 swap
   mkswap /dev/disk/by-partlabel/swap
   mkdir -p /mnt
 }
@@ -34,8 +34,7 @@ create_zfs() {
   zfs create -p -o mountpoint=legacy -o xattr=sa -o acltype=posixacl fspool/system/root
   zfs snapshot fspool/system/root@blank
   zfs create -o mountpoint=legacy -o atime=off fspool/system/nix
-  zfs create -p -o mountpoint=legacy fspool/data/persist
-  zfs create -o mountpoint=legacy -o com.sun:auto-snapshot=true fspool/data/home
+  zfs create -p -o mountpoint=legacy -o xattr=sa -o acltype=posixacl -o com.sun:auto-snapshot=true fspool/data
   zfs create -o canmount=off -o refreservation=1G fspool/reserve # Use 'zfs set refreservation=none fspool/reserve' to free space
 }
 
@@ -43,10 +42,9 @@ mount_zfs() {
   echo "Mounting 'ZFS' Volumes..."
   zpool import -f fspool
   mount -t zfs fspool/system/root /mnt
-  mkdir -p /mnt/{nix,persist,home}
+  mkdir -p /mnt/{nix,data}
   mount -t zfs fspool/system/nix /mnt/nix
-  mount -t zfs fspool/data/persist /mnt/persist
-  mount -t zfs fspool/data/home /mnt/home
+  mount -t zfs fspool/data /mnt/data
 }
 
 mount_other() {

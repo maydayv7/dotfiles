@@ -4,9 +4,8 @@ let
   inherit (builtins) elem;
   inherit (lib) mkIf mkForce mkMerge util;
   inherit (config.gui) desktop;
-  inherit (config) programs user;
   apps = config.environment.systemPackages;
-in rec {
+in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
     {
@@ -37,10 +36,12 @@ in rec {
       gui.fonts.enable = true;
       nixpkgs.config.firefox.enableGnomeExtensions =
         mkIf (elem pkgs.firefox apps) true;
+
       programs = {
         dconf.enable = true;
         xwayland.enable = true;
-        gnupg.agent.pinentryFlavor = mkIf programs.gnupg.agent.enable "gnome3";
+        gnupg.agent.pinentryFlavor =
+          mkIf config.programs.gnupg.agent.enable "gnome3";
       };
 
       services = {
@@ -190,6 +191,32 @@ in rec {
             vitals
             x11-gestures
           ]);
+
+      # Persisted Files
+      user.persist = {
+        files = [ ".config/org.gabmus.giara.json" ];
+        dirs = [
+          ".config/dconf"
+          ".config/gnome-boxes"
+          ".config/gnome-builder"
+          ".config/GIMP"
+          ".config/pitivi"
+          ".local/share/epiphany"
+          ".local/share/evolution"
+          ".local/share/flatpak"
+          ".local/share/geary"
+          ".local/share/gnome-boxes"
+          ".local/share/gnome-builder"
+          ".local/share/lollypop"
+          ".local/share/nautilus"
+          ".local/share/polari"
+          ".local/share/telepathy"
+          ".local/share/webkitgtk"
+          ".cache/clipboard-indicator@tudmotu.com"
+          ".cache/fractal"
+          ".cache/gnome-builder"
+        ];
+      };
     })
 
     # Minimal GNOME Desktop Configuration

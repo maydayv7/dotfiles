@@ -1,29 +1,42 @@
 { config, options, lib, inputs, files, ... }:
 let
-  inherit (lib) mkAfter mkForce mkIf mkMerge mkOption types;
-  opt = options.hardware.filesystem.description;
+  inherit (builtins) mapAttrs;
+  inherit (lib) mkAfter mkForce mkIf mkMerge mkOption optional types;
   inherit (config.hardware) filesystem;
-  inherit (config.filesystem) persist;
-in rec {
+in {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options = {
+  options = with types; {
     hardware.filesystem = mkOption {
       description = "Disk File System Choice";
-      type = types.nullOr (types.enum [ "simple" "advanced" ]);
+      type = nullOr (enum [ "simple" "advanced" ]);
       default = null;
     };
 
-    filesystem.persist = {
+    environment.persist = {
       files = mkOption {
         description = "Additional System Files to Preserve";
-        type = types.listOf types.str;
+        type = listOf str;
         default = [ ];
       };
 
       dirs = mkOption {
         description = "Additional System Directories to Preserve";
-        type = types.listOf types.str;
+        type = listOf str;
+        default = [ ];
+      };
+    };
+
+    user.persist = {
+      files = mkOption {
+        description = "Additional User Files to Preserve";
+        type = listOf str;
+        default = [ ];
+      };
+
+      dirs = mkOption {
+        description = "Additional User Directories to Preserve";
+        type = listOf (either str attrs);
         default = [ ];
       };
     };
@@ -31,7 +44,8 @@ in rec {
 
   ## File System Configuration ##
   config = {
-    warnings = if (filesystem == null) then [ (opt + " is unset") ] else [ ];
+    warnings = optional (filesystem == null)
+      [ (options.hardware.filesystem.description + " is unset") ];
   } // mkIf (filesystem != null) (mkMerge [
     {
       ## Partitions ##
@@ -45,7 +59,7 @@ in rec {
         };
 
         # DATA Partition
-        "/data" = {
+        "/data/files" = {
           device = "/dev/disk/by-partlabel/Files";
           fsType = "ntfs";
           options = [ "rw" "uid=1000" ];
@@ -83,15 +97,9 @@ in rec {
           fsType = "zfs";
         };
 
-        # HOME Partition
-        "/home" = {
-          device = "fspool/data/home";
-          fsType = "zfs";
-        };
-
         # PERSISTENT Partition
-        "/persist" = {
-          device = "fspool/data/persist";
+        "/data" = {
+          device = "fspool/data";
           fsType = "zfs";
           neededForBoot = true;
         };
@@ -114,11 +122,34 @@ in rec {
       };
 
       # Persisted Files
-      sops.gnupg.home = mkForce "/persist${files.gpg}";
-      environment.persistence."/persist" = {
-        files = [ "/etc/machine-id" ] ++ persist.files;
-        directories = [ "/etc/nixos" "/var/log" "/var/lib/AccountsService" ]
-          ++ persist.dirs;
+      sops.gnupg.home = mkForce "/nix/state${files.gpg}";
+      environment.persistence = {
+        "/nix/state" = {
+          files = [ "/etc/machine-id" ] ++ config.environment.persist.files;
+          directories = [ "/etc/nixos" "/var/log" "/var/lib/AccountsService" ]
+            ++ config.environment.persist.dirs;
+        };
+
+        "/data" = {
+          hideMounts = true;
+          users = mapAttrs (name: _: {
+            inherit (config.user.persist) files;
+            directories = [
+              "Desktop"
+              "Documents"
+              "Downloads"
+              "Music"
+              "Pictures"
+              "Public"
+              "Videos"
+              ".local/share/Trash"
+              {
+                directory = ".local/share/keyrings";
+                mode = "0700";
+              }
+            ] ++ config.user.persist.dirs;
+          }) config.user.settings;
+        };
       };
 
       # Maintainence

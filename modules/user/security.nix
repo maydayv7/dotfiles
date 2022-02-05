@@ -1,17 +1,17 @@
 { config, lib, ... }:
 let
-  inherit (lib) filterAttrs mkIf util;
+  inherit (lib) filterAttrs mkIf optional util;
   inherit (builtins) attrNames hasAttr mapAttrs;
-  inherit (config) sops user;
-in rec {
+  inherit (config.sops) secrets;
+in {
   config = {
     # Passwords
     sops.secrets = util.map.secrets ./passwords true;
     users.extraUsers.root.passwordFile =
-      mkIf (hasAttr "root.secret" sops.secrets) sops.secrets."root.secret".path;
+      mkIf (hasAttr "root.secret" secrets) secrets."root.secret".path;
     users.users = mapAttrs (name: value: {
-      passwordFile = mkIf (!value.minimal) sops.secrets."${name}.secret".path;
-    }) user.settings;
+      passwordFile = mkIf (!value.minimal) secrets."${name}.secret".path;
+    }) config.user.settings;
 
     # Security Settings
     security.sudo = {
@@ -23,8 +23,9 @@ in rec {
 
       # Passwordless 'sudo'
       extraRules = [{
-        users = attrNames (filterAttrs (_: name: name.minimal) user.settings)
-          ++ (if user.recovery then [ "recovery" ] else [ ]);
+        users =
+          attrNames (filterAttrs (_: name: name.minimal) config.user.settings)
+          ++ optional config.user.recovery "recovery";
         commands = [{
           command = "ALL";
           options = [ "NOPASSWD" "SETENV" ];

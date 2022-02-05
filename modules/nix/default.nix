@@ -1,9 +1,10 @@
-{ inputs, pkgs, ... }: rec {
+{ inputs, pkgs, ... }: {
   imports = [ ./index.nix inputs.utils.nixosModules.autoGenFromInputs ];
 
   ## Nix Settings ##
   config = {
     # Utilities
+    user.persist.dirs = [ ".cache/nix" ".cache/manix" ];
     environment.systemPackages = with pkgs; [
       cachix
       deploy

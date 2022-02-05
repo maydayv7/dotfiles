@@ -1,6 +1,6 @@
 { config, lib, pkgs, files, ... }:
 let enable = builtins.elem "office" config.apps.list;
-in rec {
+in {
   ## Office Environment Configuration ##
   config = lib.mkIf enable {
     # Applications
@@ -22,17 +22,36 @@ in rec {
       zoom-us
     ];
 
-    user.home.home.file = {
-      # Document Templates
-      "Templates" = {
-        source = files.templates;
-        recursive = true;
-      };
+    user = {
+      # Persisted Files
+      persist.files = [ ".config/gscan2pdfrc" ".config/zoomus.conf" ];
+      persist.dirs = [
+        ".bluej"
+        ".thunderbird"
+        ".zoom"
+        ".config/google-chrome"
+        ".config/libreoffice"
+        ".config/Microsoft"
+        ".config/onlyoffice"
+        ".local/share/data"
+        ".local/share/onlyoffice"
+        ".cache/thunderbird"
+        ".cache/google-chrome"
+        ".cache/zoom"
+      ];
 
-      # Font Rendering
-      ".local/share/fonts" = {
-        source = files.fonts.path;
-        recursive = true;
+      home.home.file = {
+        # Document Templates
+        "Templates" = {
+          source = files.templates;
+          recursive = true;
+        };
+
+        # Font Rendering
+        ".local/share/fonts" = {
+          source = files.fonts.path;
+          recursive = true;
+        };
       };
     };
   };

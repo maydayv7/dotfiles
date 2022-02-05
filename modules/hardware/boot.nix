@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let inherit (config.hardware) boot;
-in rec {
+in {
   options.hardware.boot = lib.mkOption {
     description = "Supported Boot Firmware";
     type = lib.types.enum [ "mbr" "efi" ];
@@ -11,6 +11,7 @@ in rec {
   config = lib.mkIf (boot == "efi") {
     boot = {
       tmpOnTmpfs = true;
+      cleanTmpDir = !config.boot.tmpOnTmpfs;
 
       # Plymouth
       consoleLogLevel = 0;
