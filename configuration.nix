@@ -43,10 +43,11 @@ in lib.eachSystem platforms (system:
     channels = {
       stable = pkgs;
       unstable = pkgs';
-      deploy = deploy.defaultPackage."${system}";
       gaming = gaming.packages."${system}";
-      generators = generators.defaultPackage."${system}";
-      secrets = sops.packages."${system}";
+      apps = {
+        deploy = deploy.defaultPackage."${system}";
+        generators = generators.defaultPackage."${system}";
+      };
     };
 
     # Custom Packages

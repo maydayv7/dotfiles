@@ -1,7 +1,8 @@
 { self, platforms, lib, ... }:
 let
   inherit (builtins) any attrValues isPath listToAttrs map mapAttrs readFile;
-  inherit (lib) concatMapStrings nameValuePair remove splitString take util;
+  inherit (lib)
+    concatMapStrings nameValuePair recursiveUpdate remove splitString take util;
 in rec {
   ## Builder Functions ##
   each = attr: func:
@@ -35,12 +36,12 @@ in rec {
       else
         import (pkgs.applyPatches {
           inherit src patches;
-          name = "Patched-input-${src.shortRev}";
+          name = "Patched-Input_${src.shortRev}";
         })) {
           inherit system;
           overlays = overlays ++ (attrValues self.overlays or { }) ++ [
             (final: prev:
-              {
+              recursiveUpdate {
                 custom = self.packages."${system}";
                 apps = mapAttrs (name: value:
                   pkgs.symlinkJoin {
@@ -50,7 +51,7 @@ in rec {
                         (take 3 (remove "" (splitString "/" value.program))))
                     ];
                   }) self.apps."${system}";
-              } // self.channels."${system}")
+              } self.channels."${system}")
           ];
 
           config = {

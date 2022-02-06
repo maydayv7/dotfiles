@@ -1,13 +1,10 @@
 { config, lib, ... }:
-let
-  inherit (lib) mkEnableOption mkOverride;
-  enable = config.hardware.security;
-in {
+with { inherit (lib) mkEnableOption mkOverride; }; {
   options.hardware.security =
     mkEnableOption "Enable Additional Security and Hardening Settings";
 
   ## Security Settings ##
-  config = lib.mkIf enable {
+  config = lib.mkIf config.hardware.security {
     warnings = [''
       Additional Security Settings are Enabled
       - These may cause Instability Issues or Sacrifice Performance

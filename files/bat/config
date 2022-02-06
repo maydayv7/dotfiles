@@ -1,9 +1,0 @@
-# My Bat Config
-
-# Styling
---theme="Monokai Extended Bright"
---style=full
---italic-text=always
-
-# Syntax mappings
---map-syntax ".ignore:Git Ignore"

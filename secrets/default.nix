@@ -1,4 +1,5 @@
-{ lib, inputs, pkgs, files, ... }: {
+{ lib, inputs, pkgs, files, ... }:
+with { inherit (lib) mkForce util; }; {
   imports = [ inputs.sops.nixosModules.sops ];
 
   ## Authentication Credentials Management ##
@@ -6,12 +7,12 @@
     environment.systemPackages = [ pkgs.sops ];
     sops = {
       # Encrypted Secrets
-      secrets = lib.util.map.secrets ./. false;
+      secrets = util.map.secrets ./. false;
 
       # GPG Key Import
       gnupg = {
         home = files.gpg;
-        sshKeyPaths = lib.mkForce [ ];
+        sshKeyPaths = mkForce [ ];
       };
     };
   };

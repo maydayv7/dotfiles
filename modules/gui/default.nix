@@ -1,7 +1,6 @@
 { config, options, lib, ... }:
-let inherit (lib) mkOption optional types;
-in {
-  imports = [ ./fonts.nix ./gnome.nix ./xorg.nix ];
+with { inherit (lib) mkOption optional types util; }; {
+  imports = util.map.module ./.;
 
   options.gui.desktop = mkOption {
     description = "GUI Desktop Choice";

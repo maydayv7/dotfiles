@@ -65,8 +65,8 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
   runtimeInputs = with pkgs; [
     cachix
     coreutils
-    deploy
-    generators
+    apps.deploy
+    apps.generators
     git
     git-crypt
     gnupg

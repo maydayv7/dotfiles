@@ -1,31 +1,23 @@
 { lib, ... }:
-let inherit (lib) mkOption types;
-in {
-  imports = [
-    ./boot.nix
-    ./filesystem.nix
-    ./mobile.nix
-    ./printer.nix
-    ./security.nix
-    ./virtualisation.nix
-  ];
+with { inherit (lib) mkOption types util; }; {
+  imports = util.map.module ./.;
 
-  options.hardware = {
+  options.hardware = with types; {
     cores = mkOption {
       description = "Number of CPU Cores";
-      type = types.int;
+      type = int;
       default = 4;
     };
 
     modules = mkOption {
       description = "List of Modules imported from 'inputs.hardware'";
-      type = types.listOf types.str;
+      type = listOf str;
       default = [ ];
     };
 
     support = mkOption {
       description = "List of Additional Supported Hardware";
-      type = types.listOf types.str;
+      type = listOf (enum (util.map.module' ./.));
       default = [ ];
     };
   };

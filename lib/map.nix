@@ -1,8 +1,9 @@
 { lib, ... }:
 let
-  inherit (builtins) attrNames foldl' isPath pathExists readDir toString;
+  inherit (builtins)
+    attrNames attrValues foldl' isPath pathExists readDir toString;
   inherit (lib)
-    flatten filterAttrs hasPrefix hasSuffix mapAttrs' mapAttrsToList mkIf
+    flatten filterAttrs hasPrefix hasSuffix id mapAttrs' mapAttrsToList mkIf
     nameValuePair recursiveUpdate removeSuffix;
 in rec {
   ## Mapping Functions ##
@@ -53,6 +54,8 @@ in rec {
       patch;
 
   # Module Imports
+  module = dir: attrValues (modules dir id);
+  module' = dir: attrNames (modules dir id);
   modules = dir: func: files dir func ".nix";
   modules' = dir: func: files' dir func ".nix";
 

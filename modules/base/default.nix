@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  imports = [ ./console.nix ./firmware.nix ];
+{ lib, pkgs, ... }: {
+  imports = lib.util.map.module ./.;
 
   ## Base Configuration ##
   config = {

@@ -1,5 +1,5 @@
 { lib, inputs, pkgs, ... }:
-with { inherit (lib) mkAfter mkDefault mkForce; }; {
+with { inherit (lib) mkAfter mkForce; }; {
   imports = [ inputs.gaming.nixosModules.pipewireLowLatency ];
 
   ## Device Firmware ##
@@ -85,8 +85,8 @@ with { inherit (lib) mkAfter mkDefault mkForce; }; {
     services.openssh = {
       enable = true;
       passwordAuthentication = true;
-      permitRootLogin = mkDefault "no";
-      hostKeys = mkDefault [ ];
+      permitRootLogin = mkForce "no";
+      hostKeys = mkForce [ ];
     };
 
     # Power Management

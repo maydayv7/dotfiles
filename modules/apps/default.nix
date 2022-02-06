@@ -1,9 +1,10 @@
-{ lib, ... }: {
-  imports = [ ./discord.nix ./firefox.nix ./git ./office.nix ./wine.nix ];
+{ lib, ... }:
+with { inherit (lib) mkOption types util; }; {
+  imports = util.map.module ./.;
 
-  options.apps.list = lib.mkOption {
+  options.apps.list = mkOption {
     description = "List of Enabled Applications";
-    type = lib.types.listOf lib.types.str;
+    type = types.listOf (types.enum (util.map.module' ./.));
     default = [ ];
   };
 }

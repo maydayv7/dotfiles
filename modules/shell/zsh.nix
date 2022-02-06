@@ -39,21 +39,6 @@ in {
           source <(cod init $$ zsh)
         '';
 
-        # Command Aliases
-        shellAliases = {
-          hi = "echo 'Hi there. How are you?'";
-          bye = "exit";
-          dotfiles = "cd ${path.system}";
-
-          # Programs
-          cat = "bat";
-          colors = "${scripts.colors}";
-          edit = "sudo $EDITOR";
-          l = "ls --color --group-directories-first";
-          ls = "exa -b -h -l -F --octal-permissions --icons --time-style iso";
-          sike = "neofetch";
-        };
-
         # Command History
         history = {
           extended = true;
@@ -62,7 +47,7 @@ in {
           ignorePatterns = [ "rm *" "pkill *" ];
         };
 
-        # Extra Shell Plugins
+        # Additional Plugins
         plugins = [
           {
             name = "powerlevel10k";
@@ -86,7 +71,7 @@ in {
       home.packages = with pkgs; [ cod fzf fzf-zsh ];
 
       # Z Shell Prompt
-      home.file.".p10k.zsh".text = files.zsh.prompt;
+      home.file.".p10k.zsh".text = zsh.prompt;
 
       # Command Not Found Integration
       programs.nix-index.enableZshIntegration = true;

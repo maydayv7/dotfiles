@@ -1,15 +1,13 @@
 { config, lib, pkgs, files, ... }:
-let
-  inherit (lib) mkEnableOption mkOption mkIf mkMerge types;
-  enable = config.shell.utilities;
-in {
-  imports = [ ./zsh.nix ];
+with files;
+with { inherit (lib) mkEnableOption mkOption mkIf mkMerge types util; }; {
+  imports = util.map.module ./.;
 
   options.shell = {
     utilities = mkEnableOption "Enable Additional Shell Utilities";
     support = mkOption {
       description = "List of Supported Shells";
-      type = types.listOf (types.enum [ "bash" "zsh" ]);
+      type = types.listOf (types.enum ([ "bash" ] ++ util.map.module' ./.));
       default = [ "bash" ];
     };
   };
@@ -32,7 +30,7 @@ in {
       };
     }
 
-    (mkIf enable {
+    (mkIf config.shell.utilities {
       # Utilities
       environment.systemPackages = with pkgs; [
         bat
@@ -48,6 +46,7 @@ in {
         tree
       ];
 
+      # Program Configuration
       programs = {
         # Command Not Found Search
         command-not-found.enable = true;
@@ -60,21 +59,43 @@ in {
       };
 
       user = {
-        # DirENV Support
         persist.dirs = [ ".local/share/direnv" ];
         home = {
-          programs.direnv = {
-            enable = true;
-            nix-direnv.enable = true;
+          programs = {
+            # DirENV Support
+            direnv = {
+              enable = true;
+              nix-direnv.enable = true;
+            };
+
+            # Bat Configuration
+            bat = {
+              enable = true;
+              config = {
+                style = "full";
+                italic-text = "always";
+                theme = "Monokai Extended Bright";
+                map-syntax = [ ".ignore:Git Ignore" ];
+              };
+            };
           };
 
-          # Program Configuration
-          home.file = {
-            # Bat
-            ".config/bat/config".text = files.bat;
+          # Neofetch
+          home.file.".config/neofetch/config.conf".text = fetch;
 
-            # Neofetch
-            ".config/neofetch/config.conf".text = files.fetch;
+          # Command Aliases
+          home.shellAliases = {
+            hi = "echo 'Hi there. How are you?'";
+            bye = "exit";
+            dotfiles = "cd ${path.system}";
+
+            # Programs
+            cat = "bat";
+            colors = "${scripts.colors}";
+            edit = "sudo $EDITOR";
+            l = "ls --color --group-directories-first";
+            ls = "exa -b -h -l -F --octal-permissions --icons --time-style iso";
+            sike = "neofetch";
           };
         };
       };

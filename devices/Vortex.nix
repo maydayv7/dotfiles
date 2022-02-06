@@ -15,7 +15,7 @@
     cores = 8;
     filesystem = "advanced";
     security = true;
-    support = [ "mobile" "printer" "ssd" "virtualisation" ];
+    support = [ "mobile" "printer" "virtualisation" ];
     modules = [ "dell-inspiron-5509" ];
   };
 

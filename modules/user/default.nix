@@ -4,12 +4,7 @@ let
   inherit (lib) filterAttrs mkIf mkEnableOption mkOption types util;
   inherit (config) user;
 in {
-  imports = [
-    ./home.nix
-    ./recovery.nix
-    ./security.nix
-    inputs.home.nixosModules.home-manager
-  ];
+  imports = util.map.module ./. ++ [ inputs.home.nixosModules.home-manager ];
 
   # Configuration Options
   options = {

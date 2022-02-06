@@ -7,8 +7,8 @@
     user.persist.dirs = [ ".cache/nix" ".cache/manix" ];
     environment.systemPackages = with pkgs; [
       cachix
-      deploy
-      generators
+      apps.deploy
+      apps.generators
       manix
       nixfmt
       nix-linter

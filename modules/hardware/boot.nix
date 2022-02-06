@@ -1,6 +1,4 @@
-{ config, lib, ... }:
-let inherit (config.hardware) boot;
-in {
+{ config, lib, ... }: {
   options.hardware.boot = lib.mkOption {
     description = "Supported Boot Firmware";
     type = lib.types.enum [ "mbr" "efi" ];
@@ -8,7 +6,7 @@ in {
   };
 
   ## Boot Configuration ##
-  config = lib.mkIf (boot == "efi") {
+  config = lib.mkIf (config.hardware.boot == "efi") {
     boot = {
       tmpOnTmpfs = true;
       cleanTmpDir = !config.boot.tmpOnTmpfs;
