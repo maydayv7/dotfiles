@@ -17,6 +17,9 @@ in {
   # ASCII Art
   ascii = map.files' ./ascii none "";
 
+  # Bat Text Editor
+  bat = readFile ./bat/config;
+
   # Discord Chat
   discord = {
     plugins = "${inputs.discord}/plugins";

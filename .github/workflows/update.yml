@@ -24,6 +24,6 @@ jobs:
     - name: Update Flake Lock File
       uses: DeterminateSystems/update-flake-lock@main
       with:
-      pr-labels: dependencies
-      pr-title: >
-        chore(flake.lock): Update `inputs`
+        pr-labels: dependencies
+        pr-title: >
+          chore(flake.lock): Update `inputs`

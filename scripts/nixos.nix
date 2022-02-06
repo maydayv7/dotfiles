@@ -82,7 +82,7 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
   ];
 
   text = ''
-    set +u
+    set +eu
     ${scripts.commands}
     ${scripts.partitions}
 

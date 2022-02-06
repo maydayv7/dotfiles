@@ -87,7 +87,7 @@ in {
         };
 
         # Package Configuration
-        nixpkgs.pkgs = pkgs;
+        nixpkgs = { inherit pkgs; };
         nix = {
           maxJobs = hardware.cores or 4;
           index = mkIf (update == "") true;

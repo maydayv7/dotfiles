@@ -1,5 +1,7 @@
 { config, lib, ... }:
-let inherit (lib) mkIf mkOption types;
+let
+  inherit (builtins) attrValues map;
+  inherit (lib) id mkIf mkOption types util;
 in {
   options.credentials = {
     name = mkOption {
@@ -23,6 +25,12 @@ in {
 
   ## Home Configuration ##
   config = {
+    # GPG Settings
+    programs.gpg.publicKeys = map (source: {
+      inherit source;
+      trust = "ultimate";
+    }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
+
     # XDG Configuration
     xdg = {
       enable = true;

@@ -83,21 +83,16 @@ in {
       };
 
       # Utilities
-      home.packages = with pkgs; [ cod fzf fzf-zsh neofetch lolcat ];
+      home.packages = with pkgs; [ cod fzf fzf-zsh ];
+
+      # Z Shell Prompt
+      home.file.".p10k.zsh".text = files.zsh.prompt;
 
       # Command Not Found Integration
       programs.nix-index.enableZshIntegration = true;
 
       # DirENV Integration
       programs.direnv.enableZshIntegration = true;
-
-      home.file = {
-        # Z Shell Prompt
-        ".p10k.zsh".text = files.zsh.prompt;
-
-        # Neofetch Configuration
-        ".config/neofetch/config.conf".text = files.fetch;
-      };
     };
   };
 }

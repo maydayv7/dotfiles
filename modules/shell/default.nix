@@ -40,19 +40,13 @@ in {
         exa
         fd
         file
+        lolcat
         nano
+        neofetch
         shellcheck
+        stylua
         tree
       ];
-
-      # DirENV Support
-      user = {
-        persist.dirs = [ ".local/share/direnv" ];
-        home.programs.direnv = {
-          enable = true;
-          nix-direnv.enable = true;
-        };
-      };
 
       programs = {
         # Command Not Found Search
@@ -62,6 +56,26 @@ in {
         thefuck = {
           enable = true;
           alias = "fix";
+        };
+      };
+
+      user = {
+        # DirENV Support
+        persist.dirs = [ ".local/share/direnv" ];
+        home = {
+          programs.direnv = {
+            enable = true;
+            nix-direnv.enable = true;
+          };
+
+          # Program Configuration
+          home.file = {
+            # Bat
+            ".config/bat/config".text = files.bat;
+
+            # Neofetch
+            ".config/neofetch/config.conf".text = files.fetch;
+          };
         };
       };
     })
