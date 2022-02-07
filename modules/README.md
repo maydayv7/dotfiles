@@ -37,11 +37,12 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
       + `name`: Alternative User Name
       + `mail`: User Mail ID - Ex. `"nixos@localhost.org"`
       + `key`: User GPG Key - Ex. `"CF616EB19C2765E4"`
-  + `recovery`: Enable User Recovery Settings - `"true" / "false"`
   + `settings`: User Settings (Alias for `users.users.${username}`) -
     * `autologin`: Enable User Autologin - `"true" / "false"`
     * `minimal`: Enable Minimal User Configuration - `"true" / "false"`
+    * `recovery`: Enable User Recovery Settings - `"true" / "false"`
     * `homeConfig`: User Specific Home Configuration
 
 * [`shell`](./shell): Module that contains User Shell Environment Configuration -
   + `utilities`: Enable Additional Shell Utilities - `true / false`
+  + `support`: List of Additional Supported Shells - Ex. `[ "bash" ]`

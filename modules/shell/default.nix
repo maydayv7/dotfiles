@@ -6,8 +6,8 @@ with { inherit (lib) mkEnableOption mkOption mkIf mkMerge types util; }; {
   options.shell = {
     utilities = mkEnableOption "Enable Additional Shell Utilities";
     support = mkOption {
-      description = "List of Supported Shells";
-      type = types.listOf (types.enum ([ "bash" ] ++ util.map.module' ./.));
+      description = "List of Additional Supported Shells";
+      type = types.listOf (types.enum (util.map.module' ./.));
       default = [ "bash" ];
     };
   };
@@ -16,13 +16,8 @@ with { inherit (lib) mkEnableOption mkOption mkIf mkMerge types util; }; {
   config = mkMerge [
     {
       # Environment Settings
-      user.persist = {
-        files = [ ".bash_history" ];
-        dirs = [ ".local/share/bash" ];
-      };
-
       environment = {
-        shells = [ pkgs.bashInteractive ];
+        systemPackages = with pkgs; [ nano neofetch ];
 
         # Default Editor
         variables.EDITOR = "nano";
@@ -39,8 +34,6 @@ with { inherit (lib) mkEnableOption mkOption mkIf mkMerge types util; }; {
         fd
         file
         lolcat
-        nano
-        neofetch
         shellcheck
         stylua
         tree

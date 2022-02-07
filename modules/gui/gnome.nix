@@ -215,6 +215,7 @@ in {
           ".cache/clipboard-indicator@tudmotu.com"
           ".cache/fractal"
           ".cache/gnome-builder"
+          ".cache/timepp_gnome_shell_extension"
         ];
       };
     })

@@ -1,6 +1,9 @@
 { config, lib, pkgs, files, ... }:
 with files;
-let enable = builtins.elem "zsh" config.shell.support;
+let
+  inherit (builtins) any attrValues elem;
+  enable = elem "zsh" config.shell.support
+    || any (value: value.shell == pkgs.zsh) (attrValues config.user.settings);
 in {
   ## Z Shell Configuration ##
   config = lib.mkIf enable {
@@ -21,10 +24,10 @@ in {
         enable = true;
 
         # Features
+        autocd = true;
         enableAutosuggestions = true;
         enableCompletion = true;
         enableVteIntegration = true;
-        autocd = true;
 
         # Initialization
         initExtraBeforeCompInit = ''
@@ -36,7 +39,7 @@ in {
           bindkey "\e[3~" delete-char
           bindkey '^[[H' beginning-of-line
           bindkey '^[[F' end-of-line
-          source <(cod init $$ zsh)
+          source <(${pkgs.cod}/bin/cod init $$ zsh)
         '';
 
         # Command History
@@ -68,9 +71,9 @@ in {
       };
 
       # Utilities
-      home.packages = with pkgs; [ cod fzf fzf-zsh ];
+      home.packages = with pkgs; [ fzf fzf-zsh ];
 
-      # Z Shell Prompt
+      # Prompt
       home.file.".p10k.zsh".text = zsh.prompt;
 
       # Command Not Found Integration

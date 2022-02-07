@@ -328,6 +328,7 @@ Here are some repositories that I may have shamelessly rummaged through for buil
   * [lucasew](https://github.com/lucasew/nixcfg)
   * [nobbz](https://github.com/NobbZ/nixos-config)
   * [rasendubi](https://github.com/rasendubi/dotfiles)
+  * [vlaci](https://github.com/vlaci/nixos-config)
   * [wiltaylor](https://github.com/wiltaylor/dotfiles)
 
 ------------------------------------------------------------------

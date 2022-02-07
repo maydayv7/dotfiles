@@ -20,26 +20,19 @@ in {
         , password ? "", autologin ? false, shell ? "bash", home ? { }
         , minimal ? false, recovery ? true }: {
           # Creation
-          shell.support = [ shell ];
-          user = {
-            inherit recovery;
-            settings."${name}" = {
-              inherit name description uid minimal;
-              isNormalUser = true;
-              initialHashedPassword = password;
-              group = "users";
-              extraGroups = groups;
-              useDefaultShell = false;
-              shell = pkgs."${shell}";
-              homeConfig = home
-                // (let path = toPath "${../.}" + "/users/${name}";
-                in if (pathExists "${path}/default.nix") then {
-                  imports = [ path ];
-                } else if (pathExists "${path}.nix") then {
-                  imports = [ "${path}.nix" ];
-                } else
-                  { });
-            };
+          user.settings."${name}" = {
+            inherit name description uid minimal recovery;
+            initialHashedPassword = password;
+            extraGroups = groups;
+            shell = pkgs."${shell}";
+            homeConfig = home
+              // (let path = toPath "${../.}" + "/users/${name}";
+              in if (pathExists "${path}/default.nix") then {
+                imports = [ path ];
+              } else if (pathExists "${path}.nix") then {
+                imports = [ "${path}.nix" ];
+              } else
+                { });
           };
 
           # Login

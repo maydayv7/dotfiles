@@ -38,6 +38,11 @@ in {
                 apply = groups:
                   if config.isNormalUser then user.groups ++ groups else groups;
               };
+              recovery = mkOption {
+                description = "Enable User Recovery Settings";
+                type = bool;
+                default = true;
+              };
               homeConfig = mkOption {
                 description = "User Specific Home Configuration";
                 type = util.types.mergedAttrs;
@@ -46,6 +51,9 @@ in {
             };
 
             config = {
+              isNormalUser = true;
+              group = "users";
+              useDefaultShell = false;
               forwarded = filterAttrs
                 (name: _: !(options ? "${name}") || name == "extraGroups")
                 config;
