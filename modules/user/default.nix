@@ -38,6 +38,11 @@ in {
                 apply = groups:
                   if config.isNormalUser then user.groups ++ groups else groups;
               };
+              shells = mkOption {
+                description = "List of Additional Supported Shells";
+                type = listOf (enum (util.map.module' ../shell));
+                default = [ "bash" ];
+              };
               recovery = mkOption {
                 description = "Enable User Recovery Settings";
                 type = bool;

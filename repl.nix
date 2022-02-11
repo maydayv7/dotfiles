@@ -10,8 +10,12 @@ let
     ([a-zA-Z0-9\-]+)
   '' (readFile "/etc/hostname"));
 
-  nixpkgs = import flake.inputs.nixpkgs.outPath { };
   outputs = removeAttrs (nixpkgs // nixpkgs.lib) [ "options" "config" ];
+  nixpkgs = if (flake.inputs ? nixpkgs) then
+    import flake.inputs.nixpkgs.outPath { }
+  else {
+    lib = { };
+  };
 in {
   inherit flake;
 } // builtins // outputs // flake

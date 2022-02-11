@@ -12,7 +12,7 @@ let
   inherit (self) files;
   inherit (builtins) readFile;
   inherit (lib.util) build map pack;
-  lib = nixpkgs.lib.extend (final: prev:
+  lib = library.lib.extend (final: prev:
     {
       deploy = deploy.lib;
       hooks = hooks.lib;
@@ -23,10 +23,7 @@ let
       };
     } // home.lib // utils.lib);
 in lib.eachSystem platforms (system:
-  let
-    # Package Channels
-    pkgs = (build.channel nixpkgs [ ] ./packages/patches)."${system}";
-    pkgs' = (build.channel unstable [ nur.overlay ] [ ])."${system}";
+  let pkgs = self.channels."${system}".stable;
   in {
     ## Configuration Checks ##
     checks = import ./modules/nix/checks.nix { inherit self system lib pkgs; };
@@ -40,9 +37,11 @@ in lib.eachSystem platforms (system:
 
     ## Package Configuration ##
     legacyPackages = self.channels."${system}".stable;
+
+    # Channels
     channels = {
-      stable = pkgs;
-      unstable = pkgs';
+      stable = (build.channel stable [ ] ./packages/patches)."${system}";
+      unstable = (build.channel unstable [ nur.overlay ] [ ])."${system}";
       gaming = gaming.packages."${system}";
       apps = {
         deploy = deploy.defaultPackage."${system}";

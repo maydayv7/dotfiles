@@ -62,7 +62,8 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Stable Release
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-21.11";
+    nixpkgs.url = "stable";
+    stable.url = "github:NixOS/nixpkgs?ref=nixos-21.11";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -78,6 +79,9 @@
     };
 
     ## Configuration Modules ##
+    # Nix Library Functions
+    library.url = "github:maydayv7/nixpkgs.lib?ref=patch-version";
+
     # Flake Compatibility Library
     compatibility = {
       url = "github:edolstra/flake-compat";
@@ -93,13 +97,13 @@
     # User Home Manager
     home = {
       url = "github:nix-community/home-manager?ref=release-21.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
 
     # Authentication Credentials Manager
     sops = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
 
     # File System Persistent State Handler
@@ -108,20 +112,21 @@
     # System Image Generators
     generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
+      inputs.nixlib.follows = "library";
     };
 
     # Pre-Commit Hooks
     hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
       inputs.flake-utils.follows = "utils/flake-utils";
     };
 
     # Automatic Deployment Tool
     deploy = {
       url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
       inputs.utils.follows = "utils/flake-utils";
       inputs.flake-compat.follows = "compatibility";
     };

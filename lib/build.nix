@@ -39,6 +39,7 @@ in rec {
           name = "Patched-Input_${src.shortRev}";
         })) {
           inherit system;
+          config = import ../modules/nix/config.nix;
           overlays = overlays ++ (attrValues self.overlays or { }) ++ [
             (final: prev:
               recursiveUpdate {
@@ -53,11 +54,5 @@ in rec {
                   }) self.apps."${system}";
               } self.channels."${system}")
           ];
-
-          config = {
-            allowAliases = true;
-            allowBroken = false;
-            allowUnfree = true;
-          };
         });
 }

@@ -1,7 +1,7 @@
 { config, ... }: {
   ## User Home Configuration ##
   config = {
-    # Environment
+    # Environment Settings
     user.persist.dirs = [ "Projects" ];
     environment.sessionVariables = {
       XDG_CACHE_HOME = "$HOME/.cache";
@@ -13,9 +13,14 @@
     user.home = {
       imports = [ ../../users ];
       systemd.user.startServices = true;
+
+      # Package Configuration
       home.stateVersion = config.system.stateVersion;
-      home.file.".config/nix/nix.conf".source =
-        config.environment.etc."nix/nix.conf".source;
+      home.file = {
+        ".config/nixpkgs/config.nix".source = ../nix/config.nix;
+        ".config/nix/nix.conf".source =
+          config.environment.etc."nix/nix.conf".source;
+      };
     };
   };
 }

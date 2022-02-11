@@ -22,7 +22,7 @@
           "compatibility"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "stable"
         ],
         "utils": [
           "utils",
@@ -131,9 +131,11 @@
     },
     "generators": {
       "inputs": {
-        "nixlib": "nixlib",
+        "nixlib": [
+          "library"
+        ],
         "nixpkgs": [
-          "nixpkgs"
+          "stable"
         ]
       },
       "locked": {
@@ -168,7 +170,7 @@
     "home": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "stable"
         ]
       },
       "locked": {
@@ -193,7 +195,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "stable"
         ]
       },
       "locked": {
@@ -225,17 +227,18 @@
         "type": "github"
       }
     },
-    "nixlib": {
+    "library": {
       "locked": {
-        "lastModified": 1636849918,
-        "narHash": "sha256-nzUK6dPcTmNVrgTAC1EOybSMsrcx+QrVPyqRdyKLkjA=",
-        "owner": "nix-community",
+        "lastModified": 1644241726,
+        "narHash": "sha256-/760BVFL2RSE0J2QUIE2vWFM6Zsw7IOBAnPUh3yp3Mg=",
+        "owner": "maydayv7",
         "repo": "nixpkgs.lib",
-        "rev": "28a5b0557f14124608db68d3ee1f77e9329e9dd5",
+        "rev": "a9d93750b3df3c9bff886ba8bba37e7cadc16c6c",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "maydayv7",
+        "ref": "patch-version",
         "repo": "nixpkgs.lib",
         "type": "github"
       }
@@ -244,16 +247,13 @@
       "locked": {
         "lastModified": 1644026202,
         "narHash": "sha256-EN9MoDXNcDu+kd1cxZg5PplEtZUllSYCHY5pBmxeoP4=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
+        "path": "/nix/store/xqi33n7pwsjw35h14rmv49gigsz4lgfd-source",
         "rev": "88dcc4ff3ba0a78b829ffd2c6d7c4499bf675419",
-        "type": "github"
+        "type": "path"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-21.11",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "stable",
+        "type": "indirect"
       }
     },
     "nur": {
@@ -284,9 +284,11 @@
         "home": "home",
         "hooks": "hooks",
         "impermanence": "impermanence",
+        "library": "library",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "sops": "sops",
+        "stable": "stable",
         "unstable": "unstable",
         "utils": "utils"
       }
@@ -294,7 +296,7 @@
     "sops": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "stable"
         ]
       },
       "locked": {
@@ -308,6 +310,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "stable": {
+      "locked": {
+        "lastModified": 1644026202,
+        "narHash": "sha256-EN9MoDXNcDu+kd1cxZg5PplEtZUllSYCHY5pBmxeoP4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "88dcc4ff3ba0a78b829ffd2c6d7c4499bf675419",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-21.11",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },

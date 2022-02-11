@@ -30,5 +30,6 @@
     groups = [ "wheel" "keys" ];
     uid = 1000;
     shell = "zsh";
+    shells = [ "bash" ];
   };
 }

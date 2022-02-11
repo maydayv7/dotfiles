@@ -1,16 +1,9 @@
 { config, lib, pkgs, files, ... }:
 with files;
-with { inherit (lib) mkEnableOption mkOption mkIf mkMerge types util; }; {
+with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
   imports = util.map.module ./.;
 
-  options.shell = {
-    utilities = mkEnableOption "Enable Additional Shell Utilities";
-    support = mkOption {
-      description = "List of Additional Supported Shells";
-      type = types.listOf (types.enum (util.map.module' ./.));
-      default = [ "bash" ];
-    };
-  };
+  options.shell.utilities = mkEnableOption "Enable Additional Shell Utilities";
 
   ## Shell Configuration ##
   config = mkMerge [

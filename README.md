@@ -25,7 +25,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 | Desktop Environment | [GNOME](https://www.gnome.org)                                  |
 
 ## Structure
-Here is an overview of the file hierarchy:
+***Overview of File Hierarchy***
 
 <details>
 <summary><b>Outputs</b></summary>

@@ -1,8 +1,7 @@
 { version, lib, inputs, files }:
 let
   inherit (inputs) self generators;
-  inherit (lib)
-    forEach getAttrFromPath nixosSystem makeOverridable mkForce mkIf;
+  inherit (lib) forEach getAttrFromPath makeOverridable mkForce mkIf;
   inherit (builtins)
     attrValues getAttr hashString map pathExists replaceStrings substring
     toPath;
@@ -12,19 +11,24 @@ in {
     , channel ? "stable", format ? null, imports ? [ ], timezone, locale
     , update ? "", kernel, kernelModules ? [ ], desktop ? null, apps ? { }
     , hardware ? { }, shell ? { }, user ? null, users ? null }:
-    assert (user != null) || (users != null);
+
+    # Assertions
+    assert (user == null) -> (users != null);
+    assert (channel == "stable") || (channel == "unstable");
+
     let
       # User Build Function
       users' = map user' (if (user != null) then [ user ] else users);
       user' = { name, description, uid ? 1000, groups ? [ "wheel" ]
-        , password ? "", autologin ? false, shell ? "bash", home ? { }
-        , minimal ? false, recovery ? true }: {
+        , password ? "", autologin ? false, shell ? "bash", shells ? [ ]
+        , home ? { }, minimal ? false, recovery ? true }: {
           # Creation
           user.settings."${name}" = {
             inherit name description uid minimal recovery;
             initialHashedPassword = password;
             extraGroups = groups;
             shell = pkgs."${shell}";
+            shells = shells ++ [ shell ];
             homeConfig = home
               // (let path = toPath "${../.}" + "/users/${name}";
               in if (pathExists "${path}/default.nix") then {
@@ -45,7 +49,7 @@ in {
 
       # Default Package Channel
       pkgs = self.channels."${system}"."${channel}";
-    in (makeOverridable nixosSystem) {
+    in (makeOverridable inputs."${channel}".lib.nixosSystem) {
       inherit system;
       specialArgs = { inherit system lib inputs files; };
       modules = [{
@@ -98,9 +102,9 @@ in {
           stateVersion = version;
           configurationRevision = self.rev or null;
           name = "${name}-${replaceStrings [ " " ] [ "_" ] description}";
-          nixos.label = if self ? rev then
+          nixos.label = if (self ? rev) then
             "${substring 0 8 self.lastModifiedDate}.${self.shortRev}"
-          else if self ? dirtyRev then
+          else if (self ? dirtyRev) then
             self.dirtyShortRev
           else
             "dirty";
