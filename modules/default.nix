@@ -1,10 +1,8 @@
 { version, lib, inputs, files }:
 let
   inherit (inputs) self generators;
-  inherit (lib) forEach getAttrFromPath makeOverridable mkForce mkIf;
-  inherit (builtins)
-    attrValues getAttr hashString map pathExists replaceStrings substring
-    toPath;
+  inherit (lib) forEach getAttrFromPath makeOverridable mkIf;
+  inherit (builtins) attrValues getAttr hashString map replaceStrings substring;
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
@@ -17,44 +15,29 @@ in {
     assert (channel == "stable") || (channel == "unstable");
 
     let
+      # Default Package Channel
+      pkgs = self.channels."${system}"."${channel}";
+
       # User Build Function
-      users' = map user' (if (user != null) then [ user ] else users);
       user' = { name, description, uid ? 1000, groups ? [ "wheel" ]
         , password ? "", autologin ? false, shell ? "bash", shells ? [ ]
         , home ? { }, minimal ? false, recovery ? true }: {
-          # Creation
           user.settings."${name}" = {
-            inherit name description uid minimal recovery;
-            initialHashedPassword = password;
+            inherit name description uid autologin minimal recovery;
+            homeConfig = home;
             extraGroups = groups;
+            initialHashedPassword = password;
             shell = pkgs."${shell}";
-            shells = shells ++ [ shell ];
-            homeConfig = home
-              // (let path = toPath "${../.}" + "/users/${name}";
-              in if (pathExists "${path}/default.nix") then {
-                imports = [ path ];
-              } else if (pathExists "${path}.nix") then {
-                imports = [ "${path}.nix" ];
-              } else
-                { });
-          };
-
-          # Login
-          sops.secrets = mkIf minimal (mkForce { });
-          services.xserver.displayManager.autoLogin = {
-            enable = autologin;
-            user = mkIf (autologin || minimal) name;
+            shells = if (shells == null) then [ ] else shells ++ [ shell ];
           };
         };
-
-      # Default Package Channel
-      pkgs = self.channels."${system}"."${channel}";
     in (makeOverridable inputs."${channel}".lib.nixosSystem) {
       inherit system;
       specialArgs = { inherit system lib inputs files; };
       modules = [{
         # Modulated Configuration Imports
-        imports = imports ++ (attrValues self.nixosModules) ++ users'
+        imports = imports ++ (attrValues self.nixosModules)
+          ++ map user' (if (user != null) then [ user ] else users)
           ++ (if (format != null) then
             [ (getAttr format generators.nixosModules) ]
           else

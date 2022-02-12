@@ -22,6 +22,7 @@ in rec {
         description = "Default User";
         minimal = true;
         recovery = false;
+        shells = null;
         password = readFile ../modules/user/passwords/default;
       };
     });

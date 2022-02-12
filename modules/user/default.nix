@@ -1,17 +1,24 @@
 { config, lib, inputs, files, ... }:
 let
-  inherit (builtins) mapAttrs;
-  inherit (lib) filterAttrs mkIf mkEnableOption mkOption types util;
-  inherit (config) user;
+  inherit (builtins) all attrNames attrValues mapAttrs pathExists toPath;
+  inherit (lib)
+    filterAttrs findFirst findSingle mkIf mkEnableOption mkOption types util;
+  inherit (config.user) groups home settings;
 in {
   imports = util.map.module ./. ++ [ inputs.home.nixosModules.home-manager ];
 
-  # Configuration Options
   options = {
+    # Global Home Manager Configuration
     home-manager.users = mkOption {
-      type = types.attrsOf (types.submoduleWith { modules = user.home; });
+      type = types.attrsOf (types.submoduleWith {
+        modules = if (all (value: value.minimal) (attrValues settings)) then
+          [ ]
+        else
+          home;
+      });
     };
 
+    # Configuration Options
     user = {
       home = mkOption {
         description = "User Home Configuration";
@@ -33,10 +40,11 @@ in {
             freeformType = attrsOf anything;
             options = {
               forwarded = mkOption { };
+              autologin = mkEnableOption "Enable Automatic User Login";
               minimal = mkEnableOption "Enable Minimal User Configuration";
               extraGroups = mkOption {
-                apply = groups:
-                  if config.isNormalUser then user.groups ++ groups else groups;
+                apply = group:
+                  if config.isNormalUser then groups ++ group else group;
               };
               shells = mkOption {
                 description = "List of Additional Supported Shells";
@@ -59,6 +67,15 @@ in {
               isNormalUser = true;
               group = "users";
               useDefaultShell = false;
+              homeConfig =
+                let path = toPath "${../../.}" + "/users/${config.name}";
+                in if (pathExists "${path}/default.nix") then {
+                  imports = [ path ];
+                } else if (pathExists "${path}.nix") then {
+                  imports = [ "${path}.nix" ];
+                } else
+                  { };
+
               forwarded = filterAttrs
                 (name: _: !(options ? "${name}") || name == "extraGroups")
                 config;
@@ -70,23 +87,39 @@ in {
 
   ## User Configuration ##
   config = {
-    # User Settings
+    # Settings
     users = {
       mutableUsers = false;
-      users = mapAttrs (_: name: name.forwarded) user.settings;
+      users = mapAttrs (_: name: name.forwarded) settings;
       extraUsers.root = {
         isNormalUser = false;
         extraGroups = [ "wheel" ];
       };
     };
 
-    # Home Manager Settings
+    # Login
+    services.xserver.displayManager.autoLogin = let
+      find = findSingle (value: value.autologin || value.minimal) "0" "1"
+        (attrValues settings);
+    in {
+      enable = if (find == "0") then
+        false
+      else if (find == "1") then
+        throw "Only one User can be Automatically Logged-In"
+      else
+        true;
+      user = mkIf config.services.xserver.displayManager.autoLogin.enable
+        (findFirst (name: with settings."${name}"; autologin || minimal) "nixos"
+          (attrNames settings));
+    };
+
+    # Home Management
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "bak";
       extraSpecialArgs = { inherit lib inputs files; };
-      users = mapAttrs (_: name: { imports = name.homeConfig; }) user.settings;
+      users = mapAttrs (_: value: { imports = value.homeConfig; }) settings;
     };
   };
 }

@@ -78,6 +78,7 @@ in {
           sm = "submodule";
           st = "stash";
           std = "${st} drop";
+          sti = "${st} --keep-index";
           stp = "${st} pop";
           sync = "${pf} --mirror";
           t = "tag";

@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
-  inherit (lib) filterAttrs mkIf optional util;
-  inherit (builtins) any attrNames attrValues hasAttr mapAttrs readFile;
+  inherit (lib) filterAttrs mkForce mkIf optional util;
+  inherit (builtins) all any attrNames attrValues hasAttr mapAttrs readFile;
   inherit (config.sops) secrets;
   inherit (config.user) settings;
   recovery = any (value: value.recovery) (attrValues settings);
@@ -9,7 +9,11 @@ in {
   ## Security Settings ##
   config = {
     # Passwords
-    sops.secrets = util.map.secrets ./passwords true;
+    sops.secrets = if all (value: value.minimal) (attrValues settings) then
+      (mkForce { })
+    else
+      util.map.secrets ./passwords true;
+
     users.extraUsers.root.passwordFile =
       mkIf (hasAttr "root.secret" secrets) secrets."root.secret".path;
     users.users = mapAttrs (name: value: {
@@ -38,7 +42,7 @@ in {
 
       # Passwordless Access
       extraRules = [{
-        users = attrNames (filterAttrs (_: name: name.minimal) settings)
+        users = attrNames (filterAttrs (_: value: value.minimal) settings)
           ++ optional recovery "recovery";
         commands = [{
           command = "ALL";
