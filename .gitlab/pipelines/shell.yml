@@ -13,5 +13,5 @@ shell:
     CACHIX_CACHE_NAME: maydayv7-dotfiles
   parallel:
     matrix:
-      - DEVSHELL: [java, video]
+      - DEVSHELL: [cc, go, java, lisp, lua, python, rust, video]
   script: cachix watch-exec $CACHIX_CACHE_NAME nix develop .#$DEVSHELL

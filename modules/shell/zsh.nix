@@ -37,11 +37,23 @@ in {
           '';
 
           initExtra = ''
-            bindkey "\e[3~" delete-char
-            bindkey '^[[H' beginning-of-line
-            bindkey '^[[F' end-of-line
             source <(${pkgs.cod}/bin/cod init $$ zsh)
-          '';
+          ''
+            # Keybindings
+            + ''
+              bindkey '^[[3~'   delete-char
+              bindkey '^[[H'    beginning-of-line
+              bindkey '^[[F'    end-of-line
+              bindkey '^[[1;5C' forward-word
+              bindkey '^[[1;5D' backward-word
+              bindkey '^H'      backward-kill-word
+              bindkey '^[[3;5~' kill-word
+              bindkey '^J'      backward-kill-line
+              bindkey '^[[D'    backward-char
+              bindkey '^[[C'    forward-char
+              bindkey '^[[A'    up-line-or-beginning-search
+              bindkey '^[[B'    down-line-or-beginning-search
+            '';
 
           # Command History
           history = {

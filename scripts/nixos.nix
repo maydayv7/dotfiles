@@ -86,6 +86,11 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
     ${scripts.commands}
     ${scripts.partitions}
 
+    if [[ -n $IN_NIX_SHELL ]]
+    then
+      warn "You are in a Nix Developer Shell" "'nixos' may not work here properly"
+    fi
+
     case $1 in
     "") error "Expected an Option" "${usage.script}";;
     help|--help|-h) echo -e "## Tool for NixOS System Management ##\n${usage.script}";;

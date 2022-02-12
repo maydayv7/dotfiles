@@ -1,7 +1,7 @@
 pkgs: {
   name = "Video";
   shellHook = ''echo "## Video Editing Shell ##"'';
-  nativeBuildInputs = with pkgs; [
+  packages = with pkgs; [
     audacity
     blender
     ffmpeg

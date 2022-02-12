@@ -3,6 +3,7 @@
 + Improve Channels Usage
 + Use System Independent Library
 + Add Support for Ephemeral `/home`
++ Add `shells` for multiple Languages
 + Bifurcate `users` and Refine User Configuration
 + Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
 
