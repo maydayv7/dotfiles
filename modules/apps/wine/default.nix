@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
-let enable = builtins.elem "wine" config.apps.list;
+let
+  enable = builtins.elem "wine" config.apps.list;
+  wrap = import ./wrapper.nix { inherit pkgs; };
 in {
   ## Discord Configuration ##
   config = lib.mkIf enable {

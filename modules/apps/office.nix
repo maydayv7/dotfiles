@@ -9,6 +9,9 @@ in {
       bluej
       gscan2pdf
       handbrake
+      hunspell
+      hunspellDicts.en_US-large
+      hyphen
       libpst
       libreoffice
       onlyoffice-bin
@@ -21,6 +24,13 @@ in {
       whatsapp-for-linux
       zoom-us
     ];
+
+    # Dictionaries
+    environment = {
+      pathsToLink = [ "/share/hunspell" "/share/myspell" "/share/hyphen" ];
+      variables.DICPATH =
+        "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
+    };
 
     user = {
       # Persisted Files

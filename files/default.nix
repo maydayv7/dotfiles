@@ -3,6 +3,7 @@ let
   none = lib.id;
   inherit (lib.util) map;
   inherit (builtins) readFile;
+  inherit (inputs.proprietary) files;
 in {
   ## Dotfiles ##
   # File Paths
@@ -19,7 +20,7 @@ in {
 
   # Discord Chat
   discord = {
-    plugins = "${inputs.discord}/plugins";
+    plugins = files.discord.plugins;
     theme = readFile ./discord/theme.css;
   };
 
@@ -31,7 +32,7 @@ in {
 
   # Custom Fonts
   fonts = {
-    path = inputs.fonts;
+    path = files.fonts;
     config = readFile ./fonts/fontconfig.xml;
   };
 

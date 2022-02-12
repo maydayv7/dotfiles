@@ -2,6 +2,7 @@
 ### v5.0
 + Improve Channels Usage
 + Use System Independent Library
++ Add `wine` Application Wrapper
 + Add Support for Ephemeral `/home`
 + Add `shells` for multiple Languages
 + Bifurcate `users` and Refine User Configuration

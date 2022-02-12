@@ -15,7 +15,7 @@
     modules = [ "common-cpu-intel" "common-pc" "common-pc-laptop" ];
   };
 
-  desktop = "gnome";
+  gui.desktop = "gnome";
   apps.list = [ "firefox" "office" ];
 
   # User Navya

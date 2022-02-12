@@ -132,21 +132,12 @@
     };
 
     ## Additional Repositories ##
-    # Personal Discord Paraphernalia
-    discord = {
-      url = "github:maydayv7/discord";
-      flake = false;
-    };
+    # Personal Proprietary Software Collection
+    proprietary.url = "github:maydayv7/proprietary";
 
     # Firefox GNOME Theme
     firefox = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
-      flake = false;
-    };
-
-    # Personal Fonts Collection
-    fonts = {
-      url = "github:maydayv7/fonts";
       flake = false;
     };
   };

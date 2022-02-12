@@ -19,7 +19,7 @@
     modules = [ "dell-inspiron-5509" ];
   };
 
-  desktop = "gnome";
+  gui.desktop = "gnome";
   shell.utilities = true;
   apps.list = [ "discord" "firefox" "git" "office" ];
 

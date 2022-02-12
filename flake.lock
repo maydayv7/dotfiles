@@ -43,22 +43,6 @@
         "type": "github"
       }
     },
-    "discord": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1644065220,
-        "narHash": "sha256-fmk7prYlMpCXYY+tYu2WS7gO6lDaKq/Zuz+qaI6oQeM=",
-        "owner": "maydayv7",
-        "repo": "discord",
-        "rev": "648a0701dc623ccd23caf88c06f7fc7d4115428f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "maydayv7",
-        "repo": "discord",
-        "type": "github"
-      }
-    },
     "firefox": {
       "flake": false,
       "locked": {
@@ -87,22 +71,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "fonts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1643082892,
-        "narHash": "sha256-I07FlLMrpp9cdvir866iYN8DF1vQSqwUgx6l/PVf5gg=",
-        "owner": "maydayv7",
-        "repo": "fonts",
-        "rev": "5d5bcd30b96e16e35f12e4eb0dd493463fa3efcc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "maydayv7",
-        "repo": "fonts",
         "type": "github"
       }
     },
@@ -271,13 +239,26 @@
         "type": "github"
       }
     },
+    "proprietary": {
+      "locked": {
+        "lastModified": 1644669405,
+        "narHash": "sha256-escrXN2pjBGG6vpBs2ziznMYjWzbp/wEx6LgCvXUENM=",
+        "owner": "maydayv7",
+        "repo": "proprietary",
+        "rev": "5c1783ebc2daf83efdd4006868dce9b60085baba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "maydayv7",
+        "repo": "proprietary",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "compatibility": "compatibility",
         "deploy": "deploy",
-        "discord": "discord",
         "firefox": "firefox",
-        "fonts": "fonts",
         "gaming": "gaming",
         "generators": "generators",
         "hardware": "hardware",
@@ -287,6 +268,7 @@
         "library": "library",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "proprietary": "proprietary",
         "sops": "sops",
         "stable": "stable",
         "unstable": "unstable",

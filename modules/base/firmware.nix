@@ -18,13 +18,17 @@ with { inherit (lib) mkAfter mkForce; }; {
     };
 
     # Touchpad
-    services.xserver.libinput.touchpad = {
-      tapping = true;
-      tappingDragLock = true;
-      middleEmulation = true;
-      naturalScrolling = false;
-      disableWhileTyping = true;
-      scrollMethod = "twofinger";
+    services.xserver.libinput = {
+      enable = true;
+      touchpad = {
+        tapping = true;
+        tappingDragLock = true;
+        middleEmulation = true;
+        naturalScrolling = false;
+        disableWhileTyping = true;
+        scrollMethod = "twofinger";
+        accelSpeed = "0.7";
+      };
     };
 
     # Driver Packages
@@ -36,7 +40,11 @@ with { inherit (lib) mkAfter mkForce; }; {
     ];
 
     # Audio
-    sound.enable = true;
+    sound = {
+      enable = true;
+      mediaKeys.enable = true;
+    };
+
     nixpkgs.config.pulseaudio = true;
     security.rtkit.enable = true;
     services.pipewire = {
@@ -70,7 +78,11 @@ with { inherit (lib) mkAfter mkForce; }; {
     };
 
     # GPG Signing
-    programs.gnupg.agent.enable = true;
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+
     user.persist.dirs = [{
       directory = ".gnupg";
       mode = "0700";

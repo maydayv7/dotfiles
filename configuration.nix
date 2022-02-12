@@ -97,7 +97,7 @@ in lib.eachSystem platforms (system:
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
         kernel = "linux_zfs";
-        desktop = "gnome-minimal";
+        gui.desktop = "gnome-minimal";
       };
     };
   }

@@ -7,7 +7,7 @@ in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
     , channel ? "stable", format ? null, imports ? [ ], timezone, locale
-    , update ? "", kernel, kernelModules ? [ ], desktop ? null, apps ? { }
+    , update ? "", kernel, kernelModules ? [ ], gui ? { }, apps ? { }
     , hardware ? { }, shell ? { }, user ? null, users ? null }:
 
     # Assertions
@@ -43,8 +43,7 @@ in {
           else
             [ ]) ++ forEach hardware.modules or [ ]
           (name: getAttrFromPath [ name ] inputs.hardware.nixosModules);
-        inherit apps hardware shell;
-        gui = { inherit desktop; };
+        inherit apps gui hardware shell;
 
         # Device Name
         networking = {

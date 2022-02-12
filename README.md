@@ -1,4 +1,4 @@
-![[Logo]](https://socialify.git.ci/maydayv7/dotfiles/image?description=1&font=Source%20Code%20Pro&logo=https%3A%2F%2Fraw.githubusercontent.com%2FNixOS%2Fnixos-artwork%2F9bd73014f75c2ce97d104c78314d78eb2493e24d%2Flogo%2Fwhite.svg&name=1&owner=1&pattern=Circuit%20Board&theme=Dark)
+![Logo](./files/images/logo.png)
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)  
 
@@ -293,11 +293,14 @@ All important, persisted user files are stored at `/data`. Personal files and me
 + NixOS [Discourse](https://discourse.nixos.org/)
 + NixOS [Package Search](https://search.nixos.org/)
 + [`nixpkgs`](https://github.com/NixOS/nixpkgs) Package Repository
-+ [Nix User Repository](https://github.com/nix-community/NUR)
++ [NUR](https://github.com/nix-community/NUR) Nix User Repository
 + NixOS [Hardware Modules](https://github.com/nixos/hardware)
 + Home Manager [Options](https://nix-community.github.io/home-manager/options.html)
-+ `sops` [Module](https://github.com/Mic92/sops-nix)
-+ `impermanence` [Module](https://github.com/nix-community/impermanence)
++ [`sops`](https://github.com/Mic92/sops-nix) Module
++ [`impermanence`](https://github.com/nix-community/impermanence) Module
++ [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) Helper Functions
++ [`nixos-generators`](https://github.com/nix-community/nixos-generators) Image Generation Modules
++ [`deploy-rs`](https://github.com/serokell/deploy-rs) Automatic Deployment Tool
 
 #### Other Sources
 + Tweag [Article](https://www.tweag.io/blog/2020-05-25-flakes/) introducing Flakes

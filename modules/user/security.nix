@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, files, ... }:
 let
   inherit (lib) filterAttrs mkForce mkIf optional util;
   inherit (builtins) all any attrNames attrValues hasAttr mapAttrs readFile;
@@ -37,7 +37,7 @@ in {
       execWheelOnly = true;
       extraConfig = ''
         Defaults pwfeedback
-        Defaults lecture = never
+        Defaults lecture = always, lecture_file = ${files.ascii.groot}
       '';
 
       # Passwordless Access
