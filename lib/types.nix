@@ -5,6 +5,6 @@ in rec {
   # Merged Attribute Sets
   mergedAttrs = mkOptionType {
     name = "mergedAttrs";
-    merge = loc: defs: (getValues defs);
+    merge = _: getValues;
   };
 }

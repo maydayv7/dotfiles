@@ -6,17 +6,24 @@ in {
   ## 'git' Configuration ##
   config = lib.mkIf enable {
     # Utilities
-    environment.systemPackages = with pkgs.gitAndTools; [
-      diff-so-fancy
-      gitFull
-    ];
+    environment.systemPackages = with pkgs; [ gitFull git-crypt git-lfs tig ];
 
     # Settings
     user.home = {
       imports = [ ./user.nix ];
       programs.git = {
         enable = true;
-        delta.enable = true;
+        lfs.enable = true;
+
+        # Pager
+        delta = {
+          enable = true;
+          options = {
+            line-numbers = true;
+            theme = "Monokai Extended";
+            conflictstyle = "diff3";
+          };
+        };
 
         # Globally Ignored Files
         ignores = [ "*~*" "*.bak" ".direnv" "result" "result-*" "tags.*" ];
@@ -26,6 +33,7 @@ in {
           color.ui = "auto";
           core.hooksPath = ".git-hooks";
           credential.helper = "libsecret";
+          diff.colorMoved = "default";
           init.defaultBranch = "main";
           pull.rebase = "true";
         };

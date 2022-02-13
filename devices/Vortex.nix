@@ -21,7 +21,7 @@
 
   gui.desktop = "gnome";
   shell.utilities = true;
-  apps.list = [ "discord" "firefox" "git" "office" ];
+  apps.list = [ "discord" "firefox" "git" "office" "wine" ];
 
   # User V7
   user = {
@@ -31,5 +31,6 @@
     uid = 1000;
     shell = "zsh";
     shells = [ "bash" ];
+    recovery = true;
   };
 }

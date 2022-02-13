@@ -9,6 +9,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
     * `mail`: Mail ID for `git`
     * `key`: GPG Key for `git` - Ex. `CF616EB19C2765E4`
     * `runner`: Enable Support for `git` Runners - `"github" / "gitlab"`
+  + `wine.package`: Package to use for `wine` - Ex. `pkgs.wine`
 
 * [`base`](./base): Module that contains the base common/shared configuration
 

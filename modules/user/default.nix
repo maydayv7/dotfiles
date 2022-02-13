@@ -54,7 +54,7 @@ in {
               recovery = mkOption {
                 description = "Enable User Recovery Settings";
                 type = bool;
-                default = true;
+                default = false;
               };
               homeConfig = mkOption {
                 description = "User Specific Home Configuration";

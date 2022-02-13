@@ -5,14 +5,24 @@ with { inherit (lib) deploy hooks util; };
 // (deploy."${system}".deployChecks self.deploy) // {
   # Pre-Commit Hooks
   commit = hooks."${system}".run {
-    src = ./.;
+    src = ../../.;
     hooks = {
       nixfmt.enable = true;
-      nix-linter.enable = true;
+      nix-linter.enable = false;
       shellcheck.enable = true;
+      statix = {
+        enable = true;
+        name = "statix";
+        description = "Lints and Suggestions for the Nix Programming Language";
+        files = "\\.nix$";
+        pass_filenames = false;
+        entry =
+          "${pkgs.unstable.statix}/bin/statix check -o errfmt -i flake.nix";
+      };
       stylua = {
         enable = true;
         name = "stylua";
+        description = "An Opinionated Lua Code Formatter";
         entry = "${pkgs.stylua}/bin/stylua";
         types = [ "file" "lua" ];
       };
@@ -29,12 +39,9 @@ with { inherit (lib) deploy hooks util; };
       "LetInInheritRecset"
       "ListLiteralConcat"
       "NegateAtom"
-      "no-AlphabeticalArgs"
-      "no-AlphabeticalBindings"
       "SequentialLet"
       "SetLiteralUpdate"
       "UnfortunateArgName"
-      "UnneededAntiquote"
       "UnneededRec"
       "UnusedArg"
       "UnusedLetBind"

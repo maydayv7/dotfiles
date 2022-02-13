@@ -332,8 +332,6 @@ in {
 
     # App Grid
     "org/gnome/shell" = {
-      app-picker-layout =
-        "[{'org.gnome.Contacts.desktop': <{'position': <0>}>, 'org.gnome.Weather.desktop': <{'position': <1>}>, 'org.gnome.clocks.desktop': <{'position': <2>}>, 'org.gnome.Maps.desktop': <{'position': <3>}>, 'org.gnome.Photos.desktop': <{'position': <4>}>, 'org.gnome.Calculator.desktop': <{'position': <5>}>, 'simple-scan.desktop': <{'position': <6>}>, 'gnome-system-monitor.desktop': <{'position': <7>}>, 'org.gnome.Boxes.desktop': <{'position': <8>}>, 'org.gnome.Characters.desktop': <{'position': <9>}>, 'org.gnome.Screenshot.desktop': <{'position': <10>}>, 'org.gnome.Cheese.desktop': <{'position': <11>}>, 'org.gnome.font-viewer.desktop': <{'position': <12>}>, 'org.gnome.gitlab.somas.Apostrophe.desktop': <{'position': <13>}>, 'org.gnome.FileRoller.desktop': <{'position': <14>}>, 'org.gnome.DejaDup.desktop': <{'position': <15>}>, 'balena-etcher-electron.desktop': <{'position': <16>}>, 'bluej.desktop': <{'position': <17>}>, 'org.gnome.Builder.desktop': <{'position': <18>}>, 'org.gnome.Calendar.desktop': <{'position': <19>}>, 'io.github.celluloid_player.Celluloid.desktop': <{'position': <20>}>, 'org.gnome.Connections.desktop': <{'position': <21>}>, 'ca.desrt.dconf-editor.desktop': <{'position': <22>}>, 'org.gnome.Dictionary.desktop': <{'position': <23>}>}, {'discord.desktop': <{'position': <0>}>, 'org.gnome.DiskUtility.desktop': <{'position': <1>}>, 'org.gnome.Evince.desktop': <{'position': <2>}>, 'com.github.maoschanz.drawing.desktop': <{'position': <3>}>, 'org.gnome.Extensions.desktop': <{'position': <4>}>, 'firefox.desktop': <{'position': <5>}>, 'org.gnome.Fractal.desktop': <{'position': <6>}>, 'de.haeckerfelix.Fragments.desktop': <{'position': <7>}>, '4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff': <{'position': <8>}>, 'org.gabmus.giara.desktop': <{'position': <9>}>, 'gimp.desktop': <{'position': <10>}>, 'gparted.desktop': <{'position': <11>}>, 'org.gnome.gThumb.desktop': <{'position': <12>}>, 'fr.handbrake.ghb.desktop': <{'position': <13>}>, 'org.gnome.eog.desktop': <{'position': <14>}>, 'io.github.seadve.Kooha.desktop': <{'position': <15>}>, 'org.gnome.Lollypop.desktop': <{'position': <16>}>, 'net.lutris.Lutris.desktop': <{'position': <17>}>, 'megasync.desktop': <{'position': <18>}>, 'teams.desktop': <{'position': <19>}>, 'org.gnome.Notes.desktop': <{'position': <20>}>, 'a136187d-1d93-4d35-8423-082f15957be9': <{'position': <21>}>, 'org.gnome.PasswordSafe.desktop': <{'position': <22>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <23>}>}, {'org.pitivi.Pitivi.desktop': <{'position': <0>}>, 'playonlinux.desktop': <{'position': <1>}>, 'org.gnome.Podcasts.desktop': <{'position': <2>}>, 'org.gnome.Polari.desktop': <{'position': <3>}>, 'org.gnome.SoundRecorder.desktop': <{'position': <4>}>, 'org.gnome.Sysprof3.desktop': <{'position': <5>}>, 'thunderbird.desktop': <{'position': <6>}>, 'org.gnome.tweaks.desktop': <{'position': <7>}>, 'b79e9b82-2127-459b-9e82-11bd3be09d04': <{'position': <8>}>, 'org.gnome.Epiphany.desktop': <{'position': <9>}>, 'whatsapp-for-linux.desktop': <{'position': <10>}>, 'com.github.hugolabe.Wike.desktop': <{'position': <11>}>, 'winetricks.desktop': <{'position': <12>}>, 'Zoom.desktop': <{'position': <13>}>}]";
       command-history = [ "rt" "r" ];
       disable-user-extensions = false;
       disable-extension-version-validation = true;
@@ -380,6 +378,7 @@ in {
         "a136187d-1d93-4d35-8423-082f15957be9"
         "b79e9b82-2127-459b-9e82-11bd3be09d04"
         "4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff"
+        "1c3e59e4-a571-4ada-af1d-ed1ced384cfb"
       ];
     };
 
@@ -424,6 +423,13 @@ in {
           "org.gnome.baobab.desktop"
           "xterm.desktop"
         ];
+      };
+
+    "org/gnome/desktop/app-folders/folders/1c3e59e4-a571-4ada-af1d-ed1ced384cfb" =
+      {
+        name = "Wine";
+        apps =
+          [ "7zip.desktop" "playonlinux.desktop" "net.lutris.Lutris.desktop" ];
       };
 
     # Shell Extensions

@@ -1,13 +1,11 @@
-{ pkgs }:
+{ version, pkgs }:
 let inherit (builtins) length concatStringsSep;
-in { arch ? ""
-, wine ? if (arch == "64") then pkgs.wineWowPackages.stable else pkgs.wine
-, flags ? "", executable, directory ? null, name, tricks ? [ ], setup ? ""
-, firstRun ? "", home ? "$HOME/.wine" }:
+in { arch ? "", executable, directory ? null, name, tricks ? [ ], setup ? ""
+, firstRun ? "", home ? "$HOME/.wine", wine ? version, flags ? "" }:
 ## Wine Application Wrapper ##
 (pkgs.writeShellApplication {
   inherit name;
-  runtimeInputs = [ wine pkgs.cabextract ];
+  runtimeInputs = [ wine pkgs.cabextract pkgs.winetricks ];
   text = ''
     # Variables
     export WINEARCH=${if (arch == "64") then "win64" else "win32"}
@@ -26,9 +24,7 @@ in { arch ? ""
       ${
         if (length tricks) > 0 then ''
           pushd $(mktemp -d)
-            wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
-            chmod +x winetricks
-            ./winetricks ${concatStringsSep " " tricks}
+            winetricks ${concatStringsSep " " tricks}
           popd
         '' else
           ""
@@ -39,7 +35,7 @@ in { arch ? ""
 
     # Execution
     ${if (directory != null) then ''cd "${directory}"'' else ""}
-    ${wine}/bin/wine${arch} ${flags} /unix "$EXECUTABLE" "$@"
+    ${wine}/bin/wine${arch} ${flags} "$EXECUTABLE" "$@"
     wineserver -w
   '';
 })
