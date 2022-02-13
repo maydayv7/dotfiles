@@ -1,6 +1,6 @@
 { config, lib, inputs, files, ... }:
 let
-  inherit (builtins) all attrNames attrValues mapAttrs pathExists toPath;
+  inherit (builtins) all attrNames attrValues mapAttrs pathExists;
   inherit (lib)
     filterAttrs findFirst findSingle mkIf mkEnableOption mkOption types util;
   inherit (config.user) groups home settings;
@@ -67,14 +67,13 @@ in {
               isNormalUser = true;
               group = "users";
               useDefaultShell = false;
-              homeConfig =
-                let path = toPath "${../../.}" + "/users/${config.name}";
-                in if (pathExists "${path}/default.nix") then {
-                  imports = [ path ];
-                } else if (pathExists "${path}.nix") then {
-                  imports = [ "${path}.nix" ];
-                } else
-                  { };
+              homeConfig = let path = ../../. + "/users/${config.name}";
+              in if (pathExists (path + "/default.nix")) then {
+                imports = [ path ];
+              } else if (pathExists (path + ".nix")) then {
+                imports = [ (path + ".nix") ];
+              } else
+                { };
 
               forwarded = filterAttrs
                 (name: _: !(options ? "${name}") || name == "extraGroups")

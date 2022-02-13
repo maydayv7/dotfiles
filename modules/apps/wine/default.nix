@@ -12,8 +12,8 @@ in {
   options.apps.wine.package = mkOption {
     description = "Package to use for 'wine'";
     type = types.package;
-    default = pkgs.gaming.wine-tkg;
-    example = pkgs.wineWowPackages.stable;
+    default = pkgs.wineWowPackages.stable;
+    example = pkgs.gaming.wine-tkg;
   };
 
   ## Wine Configuration ##

@@ -4,7 +4,7 @@ let
   inherit (lib) mkAfter mkForce mkIf mkMerge mkOption optional types;
   inherit (config.hardware) filesystem;
 in {
-  imports = [ inputs.impermanence.nixosModules.impermanence ];
+  imports = [ inputs.impermanence.nixosModule ];
 
   options = with types; {
     hardware.filesystem = mkOption {
