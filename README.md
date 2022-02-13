@@ -36,16 +36,19 @@ github:maydayv7/dotfiles
 ├───apps
 │   └───x86_64-linux
 │       └───nixos: app
-├───channels: unknown
+├───channels: package repositories
 ├───checks
 │   └───x86_64-linux
 │       ├───Device-gnome: derivation 'nixos-rebuild'
-│       └───commit: derivation 'pre-commit-run'
+│       ├───activate: derivation 'deploy-rs-check-activate'
+│       ├───commit: derivation 'pre-commit-run'
+│       └───schema: derivation 'jsonschema-deploy-system'
 ├───defaultApp
 │   └───x86_64-linux: app
 ├───defaultPackage
 │   └───x86_64-linux: package 'Dotfiles-v5.0'
 ├───defaultTemplate: template: Simple, Minimal NixOS Configuration
+├───deploy: automatc deployments
 ├───devShell
 │   └───x86_64-linux: development environment 'devShell'
 ├───devShells
@@ -53,10 +56,10 @@ github:maydayv7/dotfiles
 │       ├───java: development environment 'Java'
 │       └───video: development environment 'Video'
 ├───files: unknown
-├───installMedia: unknown
+├───installMedia: device install media
 ├───legacyPackages
 │   └───x86_64-linux: omitted (use '--legacy' to show)
-├───lib: unknown
+├───lib: utility library functions
 ├───nixosConfigurations
 │   ├───Futura: NixOS configuration
 │   └───Vortex: NixOS configuration
@@ -143,12 +146,16 @@ github:maydayv7/dotfiles
 
 In case you want to use my configuration as-is for a fresh NixOS install, you can try the following steps:
 
-1. Clone this repository (`git` and `git-crypt` must be installed) to `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
+1. Prepare `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
 sudo chown $USER /etc/nixos && sudo chmod ugo+rw /etc/nixos
-cd /etc/nixos && nix flake init -t github:maydayv7/dotfiles#extensive
+cd /etc/nixos
 </code></pre>
 
-2. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](./secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
+2. Clone this repository (`git` and `git-crypt` must be installed): <pre><code>nix flake init -t github:maydayv7/dotfiles#extensive
+git init && git-crypt init
+</code></pre>
+
+3. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](./secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
 *Replace* ***USER*** *,* ***EMAIL*** *and* ***COMMENT*** <pre><code>gpg --full-generate-key
 1
 4096
@@ -163,16 +170,14 @@ gpg --output private.pgp --armor --export-secret-key <b><i>USER</i></b>@<b><i>EM
 </code></pre>
 *Save the keys `public.gpg` and `private.gpg` in a secure location*
 
-3. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg` after performing the following commands: <pre><code>git remote rm origin
-rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
-</code></pre>
+4. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg`
 
-4. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command:  
+5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command (The `nixos` script can be used to simplify the process):  
 *Replace* ***PATH*** *with the path to the `secret`* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
 
-5. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
+6. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
 
-6. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
+7. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
 
 </details>
 
@@ -181,7 +186,7 @@ rm -r .git-crypt files/gpg/{pubring.kbx,private-keys-v1.d}
 
 Download the latest NixOS `.iso` from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
 
-***Important:*** In order to use the configuration, you must first create a clone of this repository and follow steps 2 to 5 from the above section, and preferably upload it to a hosting platform
+***Important:*** In order to use the configuration, you must first create a clone of this repository and follow steps 2 to 6 from the above section, and preferably upload it to a hosting platform like GitHub/GitLab
 
 <details>
 <summary><i>Additional Install Media</i></summary>
@@ -266,7 +271,7 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 The system build cache is publicly hosted using [Cachix](https://www.cachix.org) at [maydayv7-dotfiles](https://app.cachix.org/cache/maydayv7-dotfiles), and can be used while building the system to prevent rebuilding from scratch
 
 #### Continuous Integration
-This repository makes use of [`Github Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./.gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
+This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./.gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ###### Variables
 + [`ACCESS_TOKEN`](./modules/apps/git/secrets/gitlab-token.secret): Personal Access Token (To create one - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))

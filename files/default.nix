@@ -20,7 +20,7 @@ in {
 
   # Discord Chat
   discord = {
-    plugins = files.discord.plugins;
+    inherit (files.discord) plugins;
     theme = readFile ./discord/theme.css;
   };
 

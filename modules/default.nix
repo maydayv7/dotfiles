@@ -1,8 +1,9 @@
 { version, lib, inputs, files }:
 let
   inherit (inputs) self generators;
-  inherit (lib) forEach getAttrFromPath makeOverridable mkIf;
   inherit (builtins) attrValues getAttr hashString map replaceStrings substring;
+  inherit (lib)
+    forEach getAttrFromPath makeOverridable mkForce mkIf nixosSystem;
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
@@ -31,7 +32,7 @@ in {
             shells = if (shells == null) then [ ] else shells ++ [ shell ];
           };
         };
-    in (makeOverridable inputs."${channel}".lib.nixosSystem) {
+    in (makeOverridable nixosSystem) {
       inherit system;
       specialArgs = { inherit system lib inputs files; };
       modules = [{
@@ -70,6 +71,7 @@ in {
         nix = {
           maxJobs = hardware.cores or 4;
           index = mkIf (update == "") true;
+          registry.nixpkgs.flake = mkForce inputs."${channel}";
         };
 
         system = {

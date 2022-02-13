@@ -23,8 +23,6 @@ in {
     # Essential Utilities
     environment.systemPackages = with pkgs; [
       cryptsetup
-      git
-      git-crypt
       gparted
       killall
       mkpasswd

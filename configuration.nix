@@ -12,7 +12,7 @@ let
   inherit (self) files;
   inherit (builtins) readFile;
   inherit (lib.util) build map pack;
-  lib = library.lib.extend (final: prev:
+  lib = nixpkgs.lib.extend (final: prev:
     {
       deploy = deploy.lib;
       hooks = hooks.lib;
@@ -75,13 +75,16 @@ in lib.eachSystem platforms (system:
     ## Configuration Templates ##
     defaultTemplate = self.templates.minimal;
     templates = {
-      extensive = {
-        path = ./.;
-        description = "My Complete, Extensive NixOS Configuration";
-      };
       minimal = {
-        path = ./.templates/minimal;
         description = "Simple, Minimal NixOS Configuration";
+        path = ./.templates/minimal;
+      };
+      extensive = {
+        description = "My Complete, Extensive NixOS Configuration";
+        path = filter.lib {
+          root = ./.;
+          exclude = [ ./.git-crypt ./files/gpg (filter.lib.matchExt "secret") ];
+        };
       };
     };
 

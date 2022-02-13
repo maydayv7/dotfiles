@@ -9,13 +9,8 @@ in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
     {
+      # Session
       services.xserver = {
-        # Touchpad
-        libinput.enable = true;
-        libinput.touchpad.tapping = true;
-        libinput.touchpad.tappingDragLock = true;
-
-        # GNOME
         desktopManager.gnome.enable = true;
         displayManager = {
           gdm.enable = true;
@@ -23,7 +18,7 @@ in {
         };
       };
 
-      # Excluded GNOME Packages
+      # Excluded Packages
       environment.gnome.excludePackages = with pkgs; [
         gnome.totem
         gnome.gnome-music

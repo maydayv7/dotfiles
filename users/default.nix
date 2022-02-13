@@ -54,6 +54,7 @@ in {
         # Custom Directories
         extraConfig = {
           XDG_TBD_DIR = "$HOME/Documents/TBD";
+          XDG_PROJECTS_DIR = "$HOME/Projects";
           XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
         };
       };

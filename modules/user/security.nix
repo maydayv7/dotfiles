@@ -4,15 +4,15 @@ let
   inherit (builtins) all any attrNames attrValues hasAttr mapAttrs readFile;
   inherit (config.sops) secrets;
   inherit (config.user) settings;
+  enable = all (value: value.minimal) (attrValues settings);
   recovery = any (value: value.recovery) (attrValues settings);
 in {
   ## Security Settings ##
   config = {
     # Passwords
-    sops.secrets = if all (value: value.minimal) (attrValues settings) then
-      (mkForce { })
-    else
-      util.map.secrets ./passwords true;
+    services.openssh.enable = mkIf enable (mkForce false);
+    sops.secrets =
+      if enable then (mkForce { }) else util.map.secrets ./passwords true;
 
     users.extraUsers.root.passwordFile =
       mkIf (hasAttr "root.secret" secrets) secrets."root.secret".path;

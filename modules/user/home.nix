@@ -2,7 +2,6 @@
   ## User Home Configuration ##
   config = {
     # Environment Settings
-    user.persist.dirs = [ "Projects" ];
     environment.sessionVariables = {
       XDG_CACHE_HOME = "$HOME/.cache";
       XDG_CONFIG_HOME = "$HOME/.config";

@@ -43,6 +43,21 @@
         "type": "github"
       }
     },
+    "filter": {
+      "locked": {
+        "lastModified": 1642416301,
+        "narHash": "sha256-oDAx4I236QoOkEjihZaAbap0Gp0ibuvEK3NJ/UhohvI=",
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "rev": "26dd9843a9dd5ae67b605bfef731e4ef9df10370",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "type": "github"
+      }
+    },
     "firefox": {
       "flake": false,
       "locked": {
@@ -99,9 +114,7 @@
     },
     "generators": {
       "inputs": {
-        "nixlib": [
-          "library"
-        ],
+        "nixlib": "nixlib",
         "nixpkgs": [
           "stable"
         ]
@@ -195,18 +208,17 @@
         "type": "github"
       }
     },
-    "library": {
+    "nixlib": {
       "locked": {
-        "lastModified": 1644241726,
-        "narHash": "sha256-/760BVFL2RSE0J2QUIE2vWFM6Zsw7IOBAnPUh3yp3Mg=",
-        "owner": "maydayv7",
+        "lastModified": 1644712657,
+        "narHash": "sha256-bL1sdn3F+DjeIo2c4AKQmVsrk6KMNUfSVeER+72tRHk=",
+        "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "a9d93750b3df3c9bff886ba8bba37e7cadc16c6c",
+        "rev": "e9d39d954b6fa4fc5bd56c9f5007cc37f3dcad76",
         "type": "github"
       },
       "original": {
-        "owner": "maydayv7",
-        "ref": "patch-version",
+        "owner": "nix-community",
         "repo": "nixpkgs.lib",
         "type": "github"
       }
@@ -220,7 +232,7 @@
         "type": "path"
       },
       "original": {
-        "id": "stable",
+        "id": "nixpkgs",
         "type": "indirect"
       }
     },
@@ -258,6 +270,7 @@
       "inputs": {
         "compatibility": "compatibility",
         "deploy": "deploy",
+        "filter": "filter",
         "firefox": "firefox",
         "gaming": "gaming",
         "generators": "generators",
@@ -265,7 +278,6 @@
         "home": "home",
         "hooks": "hooks",
         "impermanence": "impermanence",
-        "library": "library",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "proprietary": "proprietary",

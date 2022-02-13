@@ -10,7 +10,7 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
     {
       # Environment Settings
       environment = {
-        systemPackages = with pkgs; [ nano neofetch ];
+        systemPackages = [ pkgs.nano ];
 
         # Default Editor
         variables.EDITOR = "nano";
@@ -27,6 +27,7 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
         fd
         file
         lolcat
+        neofetch
         shellcheck
         stylua
         tree

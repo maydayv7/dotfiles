@@ -88,7 +88,7 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
 
     if [[ -n $IN_NIX_SHELL ]]
     then
-      warn "You are in a Nix Developer Shell" "'nixos' may not work here properly"
+      warn "You are in a Nix Developer Shell" "'nixos' may not work here properly\n"
     fi
 
     case $1 in
@@ -226,7 +226,19 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
     "list")
       case $2 in
       "") nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq;;
-      *) nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep "$2";;
+      *) find=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep "$2")
+      if [ -z "$find" ]
+        then
+          if nix search nixpkgs#"$2" &> /dev/null
+          then
+            error "Package '$2' is not installed"
+          else
+            error "Package '$2' not found"
+          fi
+        else
+          echo "$find"
+        fi
+      ;;
       esac
     ;;
     "locate")
@@ -372,7 +384,14 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
     shell)
       case $2 in
       "") nix develop ${path.system} --command "$SHELL";;
-      *) nix develop ${path.system}#"$2" --command "$SHELL" || error "Unknown Shell '$2'" "# Available Shells #\n  ${devShells}";;
+      *)
+        if grep -wq "$2" <<<"${devShells}"
+        then
+          nix develop ${path.system}#"$2" --command "$SHELL"
+        else
+          error "Unknown Shell '$2'" "# Available Shells #\n  ${devShells}"
+        fi
+      ;;
       esac
     ;;
     update)

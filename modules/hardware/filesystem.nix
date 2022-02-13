@@ -140,6 +140,7 @@ in {
               "Downloads"
               "Music"
               "Pictures"
+              "Projects"
               "Public"
               "Videos"
               ".local/share/Trash"

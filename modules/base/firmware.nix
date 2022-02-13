@@ -77,7 +77,8 @@ with { inherit (lib) mkAfter mkForce; }; {
       firewall.enable = true;
     };
 
-    # GPG Signing
+    ## Encryption
+    # GPG
     programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
@@ -88,7 +89,7 @@ with { inherit (lib) mkAfter mkForce; }; {
       mode = "0700";
     }];
 
-    # SSH Connection
+    # SSH
     systemd.services.sshd.preStart = mkAfter ''
       if ! [ -s "/etc/ssh/ssh_host_rsa_key" ]; then
       ssh-keygen -t "rsa" -b "4096" -f "/etc/ssh/ssh_host_rsa_key" -N ""; fi

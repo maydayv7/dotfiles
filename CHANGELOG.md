@@ -1,8 +1,9 @@
 ## Changelog
 ### v5.0
-+ Improve Channels Usage
-+ Use System Independent Library
++ Improve `channels` Usage
++ Support `source` Filters
 + Add `wine` Application Wrapper
++ Use System Independent `library`
 + Add Support for Ephemeral `/home`
 + Add `shells` for multiple Languages
 + Bifurcate `users` and Refine User Configuration

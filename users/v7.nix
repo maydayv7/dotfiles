@@ -7,9 +7,6 @@ with files; {
     key = "8C240C0C11293EE56260601CCF616EB19C2765E4";
   };
 
-  # Custom Directories
-  xdg.userDirs.extraConfig.XDG_PROJECTS_DIR = "$HOME/Projects";
-
   # Home Configuration
   home = {
     packages = [ pkgs.home-manager ];
