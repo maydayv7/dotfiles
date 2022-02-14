@@ -4,7 +4,7 @@
 
 This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/))
 
-![](./files/images/desktop.png)
+[![Desktop](./files/images/desktop.png)](https://www.reddit.com/r/unixporn/comments/ssb7mf/gnome_my_dream/)
 
 ## Features
 [![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
@@ -119,8 +119,7 @@ github:maydayv7/dotfiles
     ├── nix
     ├── shell
     └── user
-        ├── passwords
-        └── home
+        └── passwords
 ```
 
 + `configuration.nix`: main system configuration file
