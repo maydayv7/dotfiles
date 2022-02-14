@@ -1,5 +1,5 @@
 { config, lib, pkgs, files, ... }:
-with files.gnome;
+with files;
 let
   inherit (builtins) elem;
   inherit (lib) mkIf mkForce mkMerge util;
@@ -57,7 +57,7 @@ in {
       # User Configuration
       user.home = {
         # Dconf Keys
-        imports = [ dconf ];
+        imports = [ gnome.dconf ];
 
         # GTK+ Theming
         gtk = {
@@ -97,28 +97,32 @@ in {
           ".config/gnome-initial-setup-done".text = "yes";
 
           # Online Accounts
-          ".config/goa-1.0/accounts.conf".text = accounts;
+          ".config/goa-1.0/accounts.conf".text = gnome.accounts;
 
           # GTK+ Bookmarks
-          ".config/gtk-3.0/bookmarks".text = bookmarks;
+          ".config/gtk-3.0/bookmarks".text = gnome.bookmarks;
 
           # X11 Gestures
-          ".config/touchegg/touchegg.conf".text = files.gestures;
+          ".config/touchegg/touchegg.conf".text = gestures;
 
           # Custome GNOME Shell Theme
-          ".themes/Adwaita/gnome-shell/gnome-shell.css".text = shell;
+          ".themes/Adwaita/gnome-shell/gnome-shell.css".text = gnome.shell;
 
           # gEdit Color Scheme
-          ".local/share/gtksourceview-4/styles/tango-dark.xml".text = theme;
-          ".local/share/gtksourceview-4/language-specs/nix.lang".text = syntax;
+          ".local/share/gtksourceview-4/styles/tango-dark.xml".text =
+            gnome.theme;
+          ".local/share/gtksourceview-4/language-specs/nix.lang".text =
+            gnome.syntax;
 
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" =
-            mkIf (elem pkgs.discord apps) { text = files.discord.theme; };
+            mkIf (elem pkgs.discord apps) { text = discord.theme; };
 
           # Firefox GNOME Theme
           ".mozilla/firefox/default/chrome/userChrome.css".text =
-            mkIf (elem pkgs.firefox apps) files.firefox.theme;
+            mkIf (elem pkgs.firefox apps) firefox.css;
+          ".mozilla/firefox/default/chrome/userContent.css".text =
+            mkIf (elem pkgs.firefox apps) firefox.content;
           ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
             mkIf (elem pkgs.firefox apps)
             "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";

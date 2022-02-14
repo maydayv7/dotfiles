@@ -12,42 +12,42 @@ let
     script = ''
       # Legend #
         xxx - Command
-        [ ] - Optional             - Command Description
+        [ ] - Optional              - Command Description
         ' ' - Variable
 
       # Usage #
-        apply [ --'option' ]       - Applies Device and User Configuration
-        cache 'command'            - Pushes Binary Cache Output to Cachix
-        check [ --trace ]          - Checks System Configuration [ Displays Error to Trace ]
-        clean [ --all ]            - Garbage Collects and Optimises Nix Store
-        explore                    - Opens Interactive Shell to explore Syntax and Configuration
-        install                    - Installs NixOS onto System
-        iso 'variant' [ --burn ]   - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
-        list [ 'pattern' ]         - Lists all Installed Packages [ Returns Matches ]
-        locate 'package'           - Locates Installed Package
-        run [ 'path' ] 'command'   - Runs Specified Command [ from 'path' ] (Wraps 'nix run')
-        save                       - Saves Configuration State to Repository
-        search 'term' [ 'source' ] - Searches for Packages [ Providing 'term' ] or Configuration Options
-        secret 'choice' [ 'path' ] - Manages 'sops' Encrypted Secrets
-        setup                      - Sets up System after Install
-        shell [ 'name' ]           - Opens desired Nix Developer Shell
-        update [ 'repository' ]    - Updates System Repositories
+        apply [ --'option' ]        - Applies Device and User Configuration
+        cache 'command'             - Pushes Binary Cache Output to Cachix
+        check [ --trace ]           - Checks System Configuration [ Displays Error to Trace ]
+        clean [ --all ]             - Garbage Collects and Optimises Nix Store
+        explore                     - Opens Interactive Shell to explore Syntax and Configuration
+        install                     - Installs NixOS onto System
+        iso 'variant' [ --burn ]    - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
+        list [ 'pattern' ]          - Lists all Installed Packages [ Returns Matches ]
+        locate 'package'            - Locates Installed Package
+        run [ 'path' ] 'command'    - Runs Specified Command [ from 'path' ] (Wraps 'nix run')
+        save                        - Saves Configuration State to Repository
+        search 'term' [ 'source' ]  - Searches for Packages [ Providing 'term' ] or Configuration Options
+        secret 'choice' [ 'path' ]  - Manages 'sops' Encrypted Secrets
+        setup                       - Sets up System after Install
+        shell [ 'name' ]            - Opens desired Nix Developer Shell
+        update [ 'repository' ]     - Updates System Repositories
     '';
 
     apply = ''
       # Usage #
-        --boot                     - Applies Configuration on boot
-        --check                    - Checks Configuration Build
-        --deploy [ 'device' ]      - Automatically Deploy via SSH
-        --rollback                 - Reverts to Last Build Generation
-        --test                     - Tests Configuration Build
+        --boot                      - Applies Configuration on boot
+        --check                     - Checks Configuration Build
+        --deploy [ 'device' ]       - Automatically Deploy via SSH
+        --rollback [ 'generation' ] - Reverts to Last Build Generation
+        --test                      - Tests Configuration Build
     '';
 
     search = ''
       # Usage #
-        cmd.'command'              - Searches for Package providing 'command'
-        pkgs.'package' [ 'repo' ]  - Searches for Package 'package' [ In Repository ]
-        'term'                     - Searches for Packages and Configuration Options and matching 'term'
+        cmd.'command'               - Searches for Package providing 'command'
+        pkgs.'package' [ 'repo' ]   - Searches for Package 'package' [ In Repository ]
+        'term'                      - Searches for Packages and Configuration Options and matching 'term'
     '';
 
     secret = ''
@@ -101,8 +101,16 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
       "--boot") sudo nixos-rebuild boot --flake ${path.system}#;;
       "--check") nixos-rebuild dry-activate --flake ${path.system}#;;
       "--deploy") deploy -s ${path.system}#"$3";;
-      "--rollback") sudo nixos-rebuild switch --rollback;;
       "--test") sudo nixos-rebuild test --no-build-nix --show-trace --flake ${path.system}#;;
+      "--rollback")
+        if [ -z "$2" ]
+        then
+          sudo nixos-rebuild switch --rollback
+        else
+          profile="/nix/var/nix/profiles/system"
+          sudo nix-env --switch-generation "$3" -p "$profile" && sudo $profile/bin/switch-to-configuration switch
+        fi
+      ;;
       *) error "Unknown Option '$2'" "${usage.apply}";;
       esac
     ;;
