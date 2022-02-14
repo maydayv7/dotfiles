@@ -11,10 +11,12 @@ let
   # System Libraries
   inherit (self) files;
   inherit (builtins) readFile;
+  inherit (lib) eachSystem filters;
   inherit (lib.util) build map pack;
-  lib = nixpkgs.lib.extend (final: prev:
+  lib = library.lib.extend (final: prev:
     {
       deploy = deploy.lib;
+      filters = ignore.lib // { inherit (filter.lib) filter matchExt; };
       hooks = hooks.lib;
       image = generators.nixosGenerate;
       util = import ./lib {
@@ -22,7 +24,7 @@ let
         lib = final;
       };
     } // home.lib // utils.lib);
-in lib.eachSystem platforms (system:
+in eachSystem platforms (system:
   let pkgs = self.channels."${system}".stable;
   in {
     ## Configuration Checks ##
@@ -33,7 +35,11 @@ in lib.eachSystem platforms (system:
     devShell = import ./shells { inherit pkgs; };
 
     # Tailored Shells
-    devShells = map.modules' ./shells (file: pkgs.mkShell (import file pkgs));
+    devShells = map.modules' ./shells (file: pkgs.mkShell (import file pkgs))
+      // {
+        commit =
+          pkgs.mkShell { inherit (self.checks."${system}".commit) shellHook; };
+      };
 
     ## Package Configuration ##
     legacyPackages = self.channels."${system}".stable;
@@ -81,9 +87,9 @@ in lib.eachSystem platforms (system:
       };
       extensive = {
         description = "My Complete, Extensive NixOS Configuration";
-        path = filter.lib {
+        path = filters.filter {
           root = ./.;
-          exclude = [ ./.git-crypt ./files/gpg (filter.lib.matchExt "secret") ];
+          exclude = [ ./.git-crypt ./files/gpg (filters.matchExt "secret") ];
         };
       };
     };

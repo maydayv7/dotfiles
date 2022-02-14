@@ -1,11 +1,11 @@
 { self, system, lib, pkgs }:
-with { inherit (lib) deploy hooks util; };
+with { inherit (lib) deploy filters hooks util; };
 # Install Media Checks
 (util.pack.device self.installMedia "nixos-rebuild")
 // (deploy."${system}".deployChecks self.deploy) // {
   # Pre-Commit Hooks
   commit = hooks."${system}".run {
-    src = ../../.;
+    src = filters.gitignoreSource ../../.;
     hooks = {
       nixfmt.enable = true;
       nix-linter.enable = false;

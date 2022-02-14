@@ -1,7 +1,7 @@
 { version, lib, inputs, files }:
 let
   inherit (inputs) self generators;
-  inherit (lib) forEach getAttrFromPath makeOverridable mkForce mkIf;
+  inherit (lib) extend forEach getAttrFromPath makeOverridable mkForce mkIf;
   inherit (builtins) attrValues getAttr hashString map replaceStrings substring;
 in {
   ## Configuration Build Function ##
@@ -18,6 +18,12 @@ in {
       # Default Package Channel
       pkgs = self.channels."${system}"."${channel}";
 
+      # System Libraries
+      lib' = extend (final: prev:
+        with inputs."${channel}".lib; {
+          inherit nixosSystem trivial;
+        });
+
       # User Build Function
       user' = { name, description, uid ? 1000, groups ? [ "wheel" ]
         , password ? "", autologin ? false, shell ? "bash", shells ? [ ]
@@ -31,9 +37,14 @@ in {
             shells = if (shells == null) then [ ] else shells ++ [ shell ];
           };
         };
-    in (makeOverridable inputs."${channel}".lib.nixosSystem) {
+    in (makeOverridable lib'.nixosSystem) {
       inherit system;
-      specialArgs = { inherit system lib inputs files; };
+      specialArgs = {
+        inherit system inputs files;
+        lib = lib';
+      };
+
+      ## Device Configuration ##
       modules = [{
         # Modulated Configuration Imports
         imports = imports ++ (attrValues self.nixosModules)
@@ -83,7 +94,7 @@ in {
 
           # Version
           stateVersion = version;
-          configurationRevision = self.rev or null;
+          configurationRevision = if (self ? rev) then self.rev else null;
           name = "${name}-${replaceStrings [ " " ] [ "_" ] description}";
           nixos.label = if (self ? rev) then
             "${substring 0 8 self.lastModifiedDate}.${self.shortRev}"

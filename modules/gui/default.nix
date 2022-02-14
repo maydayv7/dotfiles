@@ -9,5 +9,5 @@ with { inherit (lib) mkOption optional types util; }; {
   };
 
   config.warnings = optional (config.gui.desktop == null)
-    [ (options.gui.desktop.description + " is unset") ];
+    (options.gui.desktop.description + " is unset");
 }

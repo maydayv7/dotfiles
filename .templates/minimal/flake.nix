@@ -18,7 +18,7 @@
       nixosConfigurations.host = lib.build.device {
         name = "HOST_NAME";
         system = "x86_64-linux";
-        repo = "stable";
+        channel = "stable";
 
         # Generate these files using 'nixos-generate-config'
         imports = [ ./configuration.nix ./hardware-configuration.nix ];

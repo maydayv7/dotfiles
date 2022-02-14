@@ -45,7 +45,7 @@ in {
   ## File System Configuration ##
   config = {
     warnings = optional (filesystem == null)
-      [ (options.hardware.filesystem.description + " is unset") ];
+      (options.hardware.filesystem.description + " is unset");
   } // mkIf (filesystem != null) (mkMerge [
     {
       ## Partitions ##

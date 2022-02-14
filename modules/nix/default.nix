@@ -12,6 +12,7 @@
       manix
       nixfmt
       nix-linter
+      unstable.statix
     ];
 
     # Settings

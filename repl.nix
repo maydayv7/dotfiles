@@ -13,9 +13,8 @@ let
   outputs = removeAttrs (nixpkgs // nixpkgs.lib) [ "options" "config" ];
   nixpkgs = if (flake.inputs ? nixpkgs) then
     import flake.inputs.nixpkgs.outPath { }
-  else {
-    lib = { };
-  };
+  else
+    import <nixpkgs> { };
 in {
   inherit flake;
 } // builtins // outputs // flake

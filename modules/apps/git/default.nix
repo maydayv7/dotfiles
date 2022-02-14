@@ -26,6 +26,7 @@ in {
               prompt = "enabled";
               git_protocol = "https";
               aliases = rec {
+                a = "alias list";
                 b = "browse";
                 cfg = "config";
                 ci = "run";

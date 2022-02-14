@@ -62,7 +62,6 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Stable Release
-    nixpkgs.url = "nixpkgs";
     stable.url = "github:NixOS/nixpkgs?ref=nixos-21.11";
 
     # Unstable Packages Repository
@@ -79,6 +78,9 @@
     };
 
     ## Configuration Modules ##
+    # Nix Library Functions
+    library.url = "github:nix-community/nixpkgs.lib";
+
     # Flake Compatibility Library
     compatibility = {
       url = "github:edolstra/flake-compat";
@@ -87,6 +89,10 @@
 
     # Source Filter Functions
     filter.url = "github:numtide/nix-filter";
+    ignore = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs.nixpkgs.follows = "stable";
+    };
 
     # Flake Utility Functions
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
@@ -113,6 +119,7 @@
     generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "stable";
+      inputs.nixlib.follows = "library";
     };
 
     # Pre-Commit Hooks

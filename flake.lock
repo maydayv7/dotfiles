@@ -114,7 +114,9 @@
     },
     "generators": {
       "inputs": {
-        "nixlib": "nixlib",
+        "nixlib": [
+          "library"
+        ],
         "nixpkgs": [
           "stable"
         ]
@@ -193,6 +195,26 @@
         "type": "github"
       }
     },
+    "ignore": {
+      "inputs": {
+        "nixpkgs": [
+          "stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1635165013,
+        "narHash": "sha256-o/BdVjNwcB6jOmzZjOH703BesSkkS5O7ej3xhyO8hAY=",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "5b9e0ff9d3b551234b4f3eb3983744fa354b17f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
     "impermanence": {
       "locked": {
         "lastModified": 1644608592,
@@ -208,33 +230,19 @@
         "type": "github"
       }
     },
-    "nixlib": {
+    "library": {
       "locked": {
-        "lastModified": 1636849918,
-        "narHash": "sha256-nzUK6dPcTmNVrgTAC1EOybSMsrcx+QrVPyqRdyKLkjA=",
+        "lastModified": 1644712657,
+        "narHash": "sha256-bL1sdn3F+DjeIo2c4AKQmVsrk6KMNUfSVeER+72tRHk=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "28a5b0557f14124608db68d3ee1f77e9329e9dd5",
+        "rev": "e9d39d954b6fa4fc5bd56c9f5007cc37f3dcad76",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
         "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1644486793,
-        "narHash": "sha256-EeijR4guVHgVv+JpOX3cQO+1XdrkJfGmiJ9XVsVU530=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "1882c6b7368fd284ad01b0a5b5601ef136321292",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
       }
     },
     "nur": {
@@ -278,8 +286,9 @@
         "hardware": "hardware",
         "home": "home",
         "hooks": "hooks",
+        "ignore": "ignore",
         "impermanence": "impermanence",
-        "nixpkgs": "nixpkgs",
+        "library": "library",
         "nur": "nur",
         "proprietary": "proprietary",
         "sops": "sops",
