@@ -9,20 +9,38 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 ## Features
 [![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
++ Self-Contained
 + Device-Agnostic
 + Convenient and Automated
 + Hermetically Reproducible
 + Declarative and Derivational
 + Atomic, Generational and Immutable
++ Configures Multiple Users and Devices
+
+#### Notable Features
+
++ Multiple Shell Configurations
++ Support for Multiple Desktop Environments
++ Cutting Edge Software - PipeWire, Wayland, ...and many more!
++ Interactive [`repl`](./repl.nix) to explore Syntax and Configuration
++ Authentication Credentials Management using the [`sops`](https://github.com/Mic92/sops-nix) Module and [`gnupg`](https://gnupg.org/) Keys
++ Comprehensive User Configuration using the tightly integrated [`home-manager`](https://github.com/nix-community/home-manager) Module, with [Support](./modules/user/default.nix) for Configuring Shared User Configuration, Global Conditionals and User-Specific Configuration
++ Support for Multiple Programming Language Development [`shells`](./shells) integrated with [`direnv`](https://direnv.net/) and [`lorri`](https://github.com/nix-community/lorri)
++ Ephemeral, Opt-In File System State using the [`impermanence`](https://github.com/nix-community/impermanence) Module and [ZFS](https://zfsonlinux.org/)
++ Auto-Magic using [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) Helper Functions
++ Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) Image Generation Modules
++ Automatic [Deployment](./modules/nix/deploy.nix) using the [`deploy-rs`](https://github.com/serokell/deploy-rs) Tool
++ Wrapped `wine` [Applications](./packages/wine) using Erosanix's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
++ Declaratively Configured [Windows VM](./modules/hardware/virtualisation/windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 
 ## Programs
 | Type                | Program                                                         |
 | :------------------ | :-------------------------------------------------------------: |
-| Editor              | [gEdit](https://wiki.gnome.org/Apps/Gedit)                      |
-| Shell               | [ZSH](https://www.zsh.org)                                      |
+| Editors              | [gEdit](https://wiki.gnome.org/Apps/Gedit), [`nano`](https://www.nano-editor.org/)                      |
+| Shells               | [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                                      |
 | Terminal            | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal) |
 | Browser             | [Firefox](https://www.mozilla.org/en-US/firefox/)               |
-| Desktop Environment | [GNOME](https://www.gnome.org)                                  |
+| Desktop Environments | [GNOME](https://www.gnome.org)                                  |
 
 ## Structure
 ***Overview of File Hierarchy***
@@ -144,6 +162,8 @@ github:maydayv7/dotfiles
 <summary><b>Already Installed</b></summary>
 
 In case you want to use my configuration as-is for a fresh NixOS install, you can try the following steps:
+
+***Note:*** You can run `nix-shell` or `nix develop` in the repository to install all required dependencies
 
 1. Prepare `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
 sudo chown $USER /etc/nixos && sudo chmod ugo+rw /etc/nixos
@@ -291,6 +311,8 @@ All important, persisted user files are stored at `/data`. Personal files and me
 + [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration
 
 ### Important Links
+**See:** A [Curated List](https://github.com/nix-community/awesome-nix) of the Best Resources in the Nix Community
+
 + Official [Documentation](https://nixos.org/learn.html)
 + NixOS [Manual](https://nixos.org/manual/nixpkgs/stable)
 + Nix [Pills](https://nixos.org/guides/nix-pills/)
@@ -300,12 +322,6 @@ All important, persisted user files are stored at `/data`. Personal files and me
 + [NUR](https://github.com/nix-community/NUR) Nix User Repository
 + NixOS [Hardware Modules](https://github.com/nixos/hardware)
 + Home Manager [Options](https://nix-community.github.io/home-manager/options.html)
-+ [`sops`](https://github.com/Mic92/sops-nix) Module
-+ [`impermanence`](https://github.com/nix-community/impermanence) Module
-+ [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) Helper Functions
-+ [`nixos-generators`](https://github.com/nix-community/nixos-generators) Image Generation Modules
-+ [`deploy-rs`](https://github.com/serokell/deploy-rs) Automatic Deployment Tool
-+ Erosanix's `wine` Application [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
 
 #### Other Sources
 + Tweag [Article](https://www.tweag.io/blog/2020-05-25-flakes/) introducing Flakes
@@ -352,9 +368,9 @@ You can navigate to the `README`'s present in the various directories to know mo
 + Add `wine` Application Wrapper
 + Use System Independent `library`
 + Add Support for Ephemeral `/home`
-+ Add `shells` for multiple Languages
 + Bifurcate `users` and Refine User Configuration
 + Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
++ Add `shells` for Multiple Programming Languages integrated with [`lorri`](https://github.com/nix-community/lorri)
 
 ### v4.5 - 20220130
 + Use Calendar Versioning

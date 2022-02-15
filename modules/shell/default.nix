@@ -33,7 +33,9 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
         tree
       ];
 
-      # Program Configuration
+      ## Program Configuration
+      # Faster 'nix-shell'
+      services.lorri.enable = true;
       programs = {
         # Command Not Found Search
         command-not-found.enable = true;
@@ -52,7 +54,10 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
             # DirENV Support
             direnv = {
               enable = true;
-              nix-direnv.enable = true;
+              nix-direnv = {
+                enable = true;
+                enableFlakes = true;
+              };
             };
 
             # Bat Configuration
