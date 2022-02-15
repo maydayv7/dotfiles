@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://extensions.gnome.org/extension/4356/top-bar-organizer/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maydayv7 ];
+    maintainers = [ "maydayv7" ];
   };
 }

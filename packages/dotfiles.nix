@@ -13,6 +13,6 @@ stdenv.mkDerivation rec {
     description = "My PC Dotfiles";
     homepage = files.path.repo;
     license = licenses.mit;
-    maintainers = [ maydayv7 ];
+    maintainers = [ "maydayv7" ];
   };
 }

@@ -11,6 +11,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Custom Proprietary Fonts";
     license = licenses.unfree;
-    maintainers = [ maydayv7 ];
+    maintainers = [ "maydayv7" ];
   };
 }

@@ -171,7 +171,7 @@ gpg --output private.pgp --armor --export-secret-key <b><i>USER</i></b>@<b><i>EM
 
 4. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg`
 
-5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command (The `nixos` script can be used to simplify the process):  
+5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command (The [`nixos`](./scripts/README.md) script can be used to simplify the process):  
 *Replace* ***PATH*** *with the path to the `secret`* <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
 
 6. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
@@ -245,7 +245,7 @@ If you really want to get dirty with Nix and decide to invest oodles of your tim
 </details>
 
 ## Notes
-#### Caution
+### Caution
 I am pretty new to Nix, and my configuration is still *WIP* and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.4)
 
 It is not recommended to use NixOS if you are a beginner just starting out, without acquaintance with either the command-line or functional programming languages, since the learning curve is steep, debugging issues is difficult, documentation is shallow, and the effort required/time spent isn't worth the hassle for a novice/casual user
@@ -305,6 +305,7 @@ All important, persisted user files are stored at `/data`. Personal files and me
 + [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) Helper Functions
 + [`nixos-generators`](https://github.com/nix-community/nixos-generators) Image Generation Modules
 + [`deploy-rs`](https://github.com/serokell/deploy-rs) Automatic Deployment Tool
++ Erosanix's `wine` Application [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
 
 #### Other Sources
 + Tweag [Article](https://www.tweag.io/blog/2020-05-25-flakes/) introducing Flakes
@@ -339,10 +340,141 @@ Here are some repositories that I may have shamelessly rummaged through for buil
   * [wiltaylor](https://github.com/wiltaylor/dotfiles)
 
 ------------------------------------------------------------------
-[**Changelog**](./CHANGELOG.md)  
-[**Known Issues**](./LIMITATIONS.md)
 
 You can navigate to the `README`'s present in the various directories to know more about them
+
+<details>
+<summary><b>Changelog</b></summary>
+
+### v5.0
++ Improve `channels` Usage
++ Support `source` Filters
++ Add `wine` Application Wrapper
++ Use System Independent `library`
++ Add Support for Ephemeral `/home`
++ Add `shells` for multiple Languages
++ Bifurcate `users` and Refine User Configuration
++ Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
+
+### v4.5 - 20220130
++ Use Calendar Versioning
++ Use `nixConfig`
++ Support Auto-Upgrade
++ Support Multiple Users per Device
++ Improve Security and Harden System
++ Use PipeWire (with low-latency) for audio
++ Use [`nixos-generators`](https://github.com/nix-community/nixos-generators) for Image Generation
+
+### v4.0
++ Use `nixConfig`
++ Bifurcate `devices`
+  * Refactor `lib.build.system` into `build.iso` and `build.device`
++ Improve `lib` Handling
++ Improve Module Imports
++ Improve and Bifurcate `docs`
++ Handle `scripts` as packages
++ Improve configuration `checks`
++ Achieve `system` Independence
++ Add `.editorconfig` and `nanorc`
++ Refactor `sops` Encrypted Secrets
++ Stabilise and document `templates`
++ Fix `devshells`, `repl` and `scripts`
++ Fix Module Imports and `inputs` Patching
++ Improve Mime Types Handling with `lib.xdg`
++ Use `advanced` Ephemeral Root File System Layout with [ZFS](https://zfsonlinux.org/)
++ Use [`flake-compat`](https://github.com/edolstra/flake-compat), [`nix-gaming`](https://github.com/fufexan/nix-gaming) and [`nix-wayland`](https://github.com/nix-community/nix-wayland)
++ Improve Code Consistency, reduce Complexity and fix Syntactic and Semantic Errors
+  * Use [`pre-commit-hooks`](https://github.com/cachix/pre-commit-hooks.nix) to improve configuration `checks`
+  * Use [`nixfmt`](https://github.com/serokell/nixfmt) for formatting code
+  * Use [`nix-linter`](https://github.com/Synthetica9/nix-linter) to check stylistic errors
+
+### v3.0
++ Upgrade to NixOS v21.11 (Porcupine)!
++ Improve Package Declaration
++ Add Support for Instant Nix REPL
++ Add Support for patching `inputs`
++ Improve usage of Developer Shells
++ Import Modules using `nixosModules`
++ Use [`home-manager`](https://github.com/nix-community/home-manager) as a Module
++ Merge Device and User Configuration
+* Move all program configuration and dotfiles to `files`
++ Use [`sops-nix`](https://github.com/Mic92/sops-nix) at `secrets` for managing authentication credentials
++ Automatically map `modules`, `packages`, `overlays`, `shells` and `inputs`
+
+### v2.3
++ Add `docs` directory
++ Fix `.iso` Boot and Install Errors
++ Improve Scripts with error-checking
++ Add `direnv` support at `shells`
++ Add Support for Nix Developer Shells at `shells`
++ Use `secrets` as an `input` rather than as a `submodule`
++ Improve CI with automatic `flake.lock` update and dependency-checking
++ Bifurcate Flake `outputs` (as `configuration.nix`), `scripts` and `overlays`
+
+### v2.1
++ Simplify Installation
+  * Add `install` Script
+  * Add Support for creating Install Media
+  * Add overhauled `setup` Script
+  * Automatically build `.iso` and publish release using CI
++ Fix Home Activation
+
+### v2.0
++ Add BTRFS (opt-in state) Configuration
++ Improve Ephemeral Root Support with [impermanence](https://github.com/nix-community/impermanence)
++ Improve Installation Experience
++ Improve Home Activation
++ Bifurcate Modules and Roles
++ Reduce CI Time
++ Add the Office role
+
+### v1.0
++ Add Cachix Support
++ Add Nix Shell Support
++ Increase Readability
++ Improve Package Management
++ Under the hood CI changes
+
+### v0.7
++ Improve Secrets Management using Private Submodule at `secrets`
++ Overhaul Package Overrides
+  * Use `final: prev:` instead of `self: super:`
+  * Add support for NUR
+  * Split System Scripts and import as overlay
+  * Refactor Package Overrides into `packages`
++ Add archived dotfiles and revitalize existing ones
++ Improve Modulated Imports
++ Improve Fonts Management
++ Update README and scripts
+
+### v0.5pre
++ Added support for Nix Flakes
++ Added Custom Libraries for device and user management
++ Created system management script
++ Update README and install script
++ Add full support for multi-device configuration
++ Use better repository management
+
+### v0.1pre
++ Added basic NixOS system configuration using GNOME and GTK+
++ Added hardware support for 2 devices
++ Added `setup` script
++ Added `home-manager` support and user dotfiles
++ Added modulated configuration
++ Added Nix User Repository
++ Added repository pinning
++ Added essential package overlays
++ Added basic password management
++ Added README
+
+</details>
+
+<details>
+<summary><b>Known Limitations</b></summary>
+
++ It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
+
+</details>
 
 > Last Updated: **February** 2022
 

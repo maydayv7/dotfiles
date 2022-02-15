@@ -78,6 +78,7 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
     parted
     sops
     tree
+    wine.mkwindowsapp-tools
     zfs
   ];
 
@@ -139,6 +140,7 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
       echo "Running Garbage Collection..."
       if [ "$EUID" -ne 0 ] && [ "$2" != "--all" ]
       then
+        mkwindows-tools-gc
         nix-collect-garbage -d
         warn "Run as 'root' or use Option '--all' to Clean System Generations"
       else

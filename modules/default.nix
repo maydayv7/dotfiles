@@ -2,7 +2,8 @@
 let
   inherit (inputs) self generators;
   inherit (lib) extend forEach getAttrFromPath makeOverridable mkForce mkIf;
-  inherit (builtins) attrValues getAttr hashString map replaceStrings substring;
+  inherit (builtins)
+    any attrNames attrValues getAttr hashString map replaceStrings substring;
 in {
   ## Configuration Build Function ##
   config = { system ? "x86_64-linux", name ? "nixos", description ? ""
@@ -12,17 +13,16 @@ in {
 
     # Assertions
     assert (user == null) -> (users != null);
-    assert (channel == "stable") || (channel == "unstable");
+    assert any (name: name == channel) (attrNames self.channels."${system}");
 
     let
       # Default Package Channel
+      input = inputs."${channel}";
       pkgs = self.channels."${system}"."${channel}";
 
       # System Libraries
-      lib' = extend (final: prev:
-        with inputs."${channel}".lib; {
-          inherit nixosSystem trivial;
-        });
+      lib' =
+        extend (final: prev: with input.lib; { inherit nixosSystem trivial; });
 
       # User Build Function
       user' = { name, description, uid ? 1000, groups ? [ "wheel" ]
@@ -81,7 +81,8 @@ in {
         nix = {
           maxJobs = hardware.cores or 4;
           index = mkIf (update == "") true;
-          registry.nixpkgs.flake = mkForce inputs."${channel}";
+          nixPath = [ "nixpkgs=${input}" ];
+          registry.nixpkgs.flake = mkForce input;
         };
 
         system = {

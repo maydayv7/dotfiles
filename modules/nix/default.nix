@@ -32,7 +32,7 @@
       allowedUsers = [ "root" "@wheel" ];
       trustedUsers = [ "root" "@wheel" ];
 
-      # Nix Path
+      # Registry
       linkInputs = true;
       generateNixPathFromInputs = true;
       generateRegistryFromInputs = true;

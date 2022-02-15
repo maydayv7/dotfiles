@@ -19,6 +19,7 @@ let
       filters = ignore.lib // { inherit (filter.lib) filter matchExt; };
       hooks = hooks.lib;
       image = generators.nixosGenerate;
+      wine = wine.lib;
       util = import ./lib {
         inherit self platforms;
         lib = final;
@@ -42,12 +43,13 @@ in eachSystem platforms (system:
       };
 
     ## Package Configuration ##
-    legacyPackages = self.channels."${system}".stable;
+    legacyPackages = pkgs;
 
     # Channels
     channels = {
       stable = (build.channel stable [ ] ./packages/patches)."${system}";
       unstable = (build.channel unstable [ nur.overlay ] [ ])."${system}";
+      wine = wine.packages."${system}";
       gaming = gaming.packages."${system}";
       apps = {
         deploy = deploy.defaultPackage."${system}";

@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://extensions.gnome.org/extension/3433/fly-pie/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maydayv7 ];
+    maintainers = [ "maydayv7" ];
   };
 }

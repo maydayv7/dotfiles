@@ -1,14 +1,17 @@
 { config, lib, pkgs, ... }:
-let enable = builtins.elem "virtualisation" config.hardware.support;
+let
+  inherit (builtins) concatStringsSep elem;
+  inherit (lib) mkIf mkOption types;
+  enable = elem "virtualisation" config.hardware.support;
 in {
-  options.hardware.passthrough = lib.mkOption {
+  options.hardware.passthrough = mkOption {
     description = "PCI Device IDs for VM Passthrough";
-    type = lib.types.str;
-    default = "";
+    type = types.listOf types.str;
+    default = [ ];
   };
 
   ## Virtualisation Settings ##
-  config = lib.mkIf enable {
+  config = mkIf enable {
     # Enablement
     user.groups = [ "kvm" "libvirtd" ];
     user.persist.dirs = [ ".config/libvirt" ".local/share/libvirt" ];
@@ -20,9 +23,12 @@ in {
         [ "kvm-intel" "vfio" "vfio-pci" "vfio_virqfd" "vfio_iommu_type1" ];
       extraModprobeConfig = ''
         options kvm_intel nested=1
-        options vfio-pci ids=${config.hardware.passthrough}
+        options vfio-pci ids=${concatStringsSep "," config.hardware.passthrough}
       '';
     };
+
+    # VM Packages
+    environment.systemPackages = with pkgs; [ libguestfs virt-manager ];
 
     # VM Utilities
     virtualisation = {
@@ -33,13 +39,15 @@ in {
         onBoot = "ignore";
         onShutdown = "shutdown";
         qemu = {
+          package = pkgs.qemu_kvm;
           runAsRoot = false;
-          ovmf.enable = true;
+          swtpm.enable = true;
+          ovmf = {
+            enable = true;
+            package = pkgs.OVMFFull;
+          };
         };
       };
     };
-
-    # VM Packages
-    environment.systemPackages = with pkgs; [ libguestfs virt-manager ];
   };
 }

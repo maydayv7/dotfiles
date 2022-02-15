@@ -4,10 +4,6 @@ let
   inherit (lib) mkIf mkOption types util;
   enable = elem "wine" config.apps.list;
   wine = config.apps.wine.package;
-  wrap = import ./wrapper.nix {
-    inherit pkgs;
-    version = wine;
-  };
 in {
   options.apps.wine.package = mkOption {
     description = "Package to use for 'wine'";
@@ -23,10 +19,16 @@ in {
     hardware.opengl.driSupport32Bit = true;
 
     # Utilities
-    user.persist.dirs =
-      [ ".cache/lutris" ".config/lutris" ".local/share/lutris" ".wine" ];
+    user.persist.dirs = [
+      ".cache/lutris"
+      ".config/lutris"
+      ".config/notepad++"
+      ".local/share/lutris"
+      ".wine"
+    ];
 
     environment.systemPackages = with pkgs;
+      with pkgs.wine;
       map (name:
         if (name.override.__functionArgs ? wine) then
           name.override { inherit wine; }
@@ -34,10 +36,12 @@ in {
           name) [
             lutris
             playonlinux
+            mkwindowsapp-tools
+            notepad-plus-plus
           ]
 
           # Wrapped Packages
-      ++ attrValues (util.map.modules ../../../packages/wine
-        (name: pkgs.callPackage name { inherit wrap pkgs; }));
+      ++ attrValues (util.map.modules ../../packages/wine
+        (name: pkgs.callPackage name { inherit lib pkgs wine; }));
   };
 }

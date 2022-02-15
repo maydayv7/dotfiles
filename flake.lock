@@ -294,7 +294,8 @@
         "sops": "sops",
         "stable": "stable",
         "unstable": "unstable",
-        "utils": "utils"
+        "utils": "utils",
+        "wine": "wine"
       }
     },
     "sops": {
@@ -364,6 +365,26 @@
       "original": {
         "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
+        "type": "github"
+      }
+    },
+    "wine": {
+      "inputs": {
+        "nixpkgs": [
+          "stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1644583979,
+        "narHash": "sha256-BOOzoi3x9RQUzqQC59pcomKs+Mb+lDsMvAS4ATOzVr8=",
+        "owner": "emmanuelrosa",
+        "repo": "erosanix",
+        "rev": "70dd1052a05f452625d16edb42d536f940560f59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emmanuelrosa",
+        "repo": "erosanix",
         "type": "github"
       }
     }

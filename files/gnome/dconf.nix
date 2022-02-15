@@ -428,8 +428,12 @@ in {
     "org/gnome/desktop/app-folders/folders/1c3e59e4-a571-4ada-af1d-ed1ced384cfb" =
       {
         name = "Wine";
-        apps =
-          [ "7zip.desktop" "playonlinux.desktop" "net.lutris.Lutris.desktop" ];
+        apps = [
+          "7zip.desktop"
+          "Notepad++.desktop"
+          "playonlinux.desktop"
+          "net.lutris.Lutris.desktop"
+        ];
       };
 
     # Shell Extensions

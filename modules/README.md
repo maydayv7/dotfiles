@@ -9,7 +9,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
     * `mail`: Mail ID for `git`
     * `key`: GPG Key for `git` - Ex. `CF616EB19C2765E4`
     * `runner`: Enable Support for `git` Runners - `"github" / "gitlab"`
-  + `wine.package`: Package to use for `wine` - Ex. `pkgs.wine`
+  + `wine.package`: Package to use for `wine` - Ex. `pkgs.wineWowPackages.staging`
 
 * [`base`](./base): Module that contains the base common/shared configuration
 
@@ -25,7 +25,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   + `modules`: List of Hardware Configuration Modules imported from [`inputs.hardware`](https://github.com/nixos/nixos-hardware) - Ex. `[ "common-pc" ]`
   + `security`: Enable Additional Security and Hardening Settings - `true / false`
   + `support`: List of Additional Supported Hardware - `[ "mobile" "printer" "ssd" "virtualisation" ]`
-  + `passthrough`: PCI Device IDs for VM Passthrough using VFI/O (Use [`scripts/pci.sh`](../scripts/pci.sh)) - Ex. `"00:02.0,00:1c.0"`
+  + `passthrough`: PCI Device IDs for VM Passthrough using VFI/O (Use [`scripts/pci.sh`](../scripts/pci.sh)) - Ex. `[ "00:02.0" "00:1c.0" ]`
 
 * [`nix`](./nix): Module that configures the Nix Package Manager -
   + `index`: Enable Package Indexer - `"true" / "false"`
