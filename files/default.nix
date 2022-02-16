@@ -42,7 +42,6 @@ in {
   # GNOME Desktop
   gnome = {
     accounts = readFile ./gnome/accounts.conf;
-    bookmarks = readFile ./gnome/bookmarks;
     dconf = ./gnome/dconf.nix;
     shell = readFile ./gnome/gnome-shell.css;
     syntax = readFile ./gnome/nix.lang;
@@ -52,10 +51,20 @@ in {
   # GPG Keys Directory
   gpg = "/etc/nixos/files/gpg";
 
+  # GTK+ Settings
+  gtk.bookmarks = readFile ./gtk/bookmarks;
+
   # Pictures
   images = {
     profile = ./images/Profile.png;
     wallpapers = ./images/wallpapers;
+  };
+
+  # Plank Dock
+  plank = {
+    autostart = readFile ./plank/dock.desktop;
+    launchers = ./plank/launchers;
+    theme = readFile ./plank/dock.theme;
   };
 
   # Nano Text Editor
@@ -75,6 +84,13 @@ in {
 
   # XDG Settings
   xdg.mime = ./xdg/mime.nix;
+
+  # XFCE Desktop
+  xfce = {
+    css = readFile ./xfce/gtk.css;
+    settings = ./xfce/settings;
+    terminal = readFile ./xfce/terminalrc;
+  };
 
   # XORG Display Server
   xorg = readFile ./xorg/Xresources;

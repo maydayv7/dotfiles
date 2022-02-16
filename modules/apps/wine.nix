@@ -27,8 +27,7 @@ in {
       ".wine"
     ];
 
-    environment.systemPackages = with pkgs;
-      with pkgs.wine;
+    environment.systemPackages = with pkgs.wine // pkgs;
       map (name:
         if (name.override.__functionArgs ? wine) then
           name.override { inherit wine; }

@@ -15,6 +15,7 @@ in rec {
       format = "iso";
       description = "Install Media";
       kernelModules = [ "nvme" ];
+      gui.desktop = config.gui.desktop + "-minimal";
 
       # Default User
       user = {

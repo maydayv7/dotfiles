@@ -62,7 +62,6 @@ in {
         # GTK+ Theming
         gtk = {
           enable = true;
-
           theme = {
             name = "Adwaita-dark";
             package = pkgs.gnome.gnome-themes-extra;
@@ -73,9 +72,6 @@ in {
             package = pkgs.papirus-icon-theme;
           };
         };
-
-        # Display Settings
-        xresources.extraConfig = files.xorg;
 
         # Default Applications
         xdg.mimeApps.defaultApplications =
@@ -100,7 +96,7 @@ in {
           ".config/goa-1.0/accounts.conf".text = gnome.accounts;
 
           # GTK+ Bookmarks
-          ".config/gtk-3.0/bookmarks".text = gnome.bookmarks;
+          ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
 
           # X11 Gestures
           ".config/touchegg/touchegg.conf".text = gestures;
@@ -166,8 +162,7 @@ in {
           dconf2nix
           gnuchess
         ]) ++ (with pkgs;
-          with gnomeExtensions;
-          with unstable.gnomeExtensions; [
+          with unstable.gnomeExtensions // gnomeExtensions; [
             # GNOME Shell Extensions
             add-username-to-top-panel
             appindicator

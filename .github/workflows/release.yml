@@ -17,7 +17,7 @@ jobs:
           accept-flake-config = true
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Build Default Install Media
-      run: nix build github:maydayv7/dotfiles#installMedia.gnome.config.system.build.isoImage -L --show-trace
+      run: nix build github:maydayv7/dotfiles#installMedia.xfce.config.system.build.isoImage -L --show-trace
     - name: Draft Release
       uses: ncipollo/release-action@v1.9.0
       with:

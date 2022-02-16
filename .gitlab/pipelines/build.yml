@@ -22,7 +22,7 @@ iso:
   except:
     - /^(?!stable).+@/
   variables:
-    ISO: gnome # Default Variant
+    ISO: xfce # Default Variant
   script: nix build .#installMedia.$ISO.config.system.build.isoImage -L --show-trace
   after_script:
     - nix profile install nixpkgs#curl

@@ -1,4 +1,4 @@
-{ lib, pkgs, files, ... }:
+{ lib, pkgs, ... }:
 with pkgs;
 let metadata = import ./metadata.nix;
 in stdenv.mkDerivation rec {

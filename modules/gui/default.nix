@@ -1,10 +1,15 @@
 { config, options, lib, ... }:
-with { inherit (lib) mkOption optional types util; }; {
-  imports = util.map.module ./.;
+let
+  inherit (builtins) map;
+  inherit (util.map) module module';
+  inherit (lib) mkOption optional types util;
+in {
+  imports = module ./.;
 
   options.gui.desktop = mkOption {
     description = "GUI Desktop Choice";
-    type = types.nullOr (types.enum [ "gnome" "gnome-minimal" ]);
+    type = with types;
+      nullOr (enum ((module' ./.) ++ map (x: x + "-minimal") (module' ./.)));
     default = null;
   };
 

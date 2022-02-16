@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-desktop" version="1.0">
+  <property name="backdrop" type="empty">
+    <property name="screen0" type="empty">
+      <property name="monitoreDP-1" type="empty">
+        <property name="workspace0" type="empty">
+          <property name="color-style" type="int" value="0"/>
+          <property name="image-style" type="int" value="4"/>
+          <property name="last-image" type="string" value="/etc/nixos/files/images/wallpapers/Sunset.jpg"/>
+        </property>
+        <property name="workspace1" type="empty">
+          <property name="color-style" type="int" value="0"/>
+          <property name="image-style" type="int" value="5"/>
+          <property name="last-image" type="string" value="/nix/store/8ww4s5mj1p6l5jmb1jqdmrr4cv0mrmwq-xfdesktop-4.16.0/share/backgrounds/xfce/xfce-verticals.png"/>
+        </property>
+        <property name="workspace2" type="empty">
+          <property name="color-style" type="int" value="0"/>
+          <property name="image-style" type="int" value="5"/>
+          <property name="last-image" type="string" value="/nix/store/8ww4s5mj1p6l5jmb1jqdmrr4cv0mrmwq-xfdesktop-4.16.0/share/backgrounds/xfce/xfce-verticals.png"/>
+        </property>
+        <property name="workspace3" type="empty">
+          <property name="color-style" type="int" value="0"/>
+          <property name="image-style" type="int" value="5"/>
+          <property name="last-image" type="string" value="/nix/store/8ww4s5mj1p6l5jmb1jqdmrr4cv0mrmwq-xfdesktop-4.16.0/share/backgrounds/xfce/xfce-verticals.png"/>
+        </property>
+      </property>
+    </property>
+  </property>
+  <property name="desktop-icons" type="empty">
+    <property name="icon-size" type="uint" value="48"/>
+    <property name="primary" type="bool" value="true"/>
+    <property name="use-custom-font-size" type="bool" value="false"/>
+    <property name="show-tooltips" type="bool" value="true"/>
+    <property name="single-click" type="bool" value="true"/>
+    <property name="file-icons" type="empty">
+      <property name="show-removable" type="bool" value="false"/>
+      <property name="show-filesystem" type="bool" value="false"/>
+    </property>
+  </property>
+</channel>

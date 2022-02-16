@@ -118,7 +118,15 @@ in eachSystem platforms (system:
         timezone = "Asia/Kolkata";
         locale = "en_IN.UTF-8";
         kernel = "linux_zfs";
-        gui.desktop = "gnome-minimal";
+        gui.desktop = "gnome";
+      };
+
+      # XFCE Desktop
+      xfce = build.iso {
+        timezone = "Asia/Kolkata";
+        locale = "en_IN.UTF-8";
+        kernel = "linux_zfs";
+        gui.desktop = "xfce";
       };
     };
   }

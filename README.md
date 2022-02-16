@@ -36,13 +36,13 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 + Declaratively Configured [Windows VM](./modules/hardware/virtualisation/windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 
 ## Programs
-| Type                 | Programs                                                                           |
-| :------------------- | :--------------------------------------------------------------------------------: |
-| Editors              | [gEdit](https://wiki.gnome.org/Apps/Gedit), [`nano`](https://www.nano-editor.org/) |
-| Shells               | [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)         |
-| Terminal             | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal)                    |
-| Browser              | [Firefox](https://www.mozilla.org/en-US/firefox/)                                  |
-| Desktop Environments | [GNOME](https://www.gnome.org)                                                     |
+| Type                 | Programs                                                                                                                       |
+| :------------------- | :----------------------------------------------------------------------------------------------------------------------------: |
+| Editors              | [gEdit](https://wiki.gnome.org/Apps/Gedit), [`nano`](https://www.nano-editor.org/)                                             |
+| Shells               | [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                                                     |
+| Terminal             | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
+| Browser              | [Firefox](https://www.mozilla.org/en-US/firefox/)                                                                              |
+| Desktop Environments | [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/)                                                                      |
 
 ## Structure
 ***Overview of File Hierarchy***
@@ -370,6 +370,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 + Add `wine` Application Wrapper
 + Use System Independent `library`
 + Add Support for Ephemeral `/home`
++ Add Configuration for [XFCE](https://xfce.org/) Desktop
 + Bifurcate `users` and Refine User Configuration
 + Support Automatic `packages` Updates using `update.sh`
 + Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
