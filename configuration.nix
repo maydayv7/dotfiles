@@ -85,13 +85,23 @@ in eachSystem platforms (system:
     templates = {
       minimal = {
         description = "Simple, Minimal NixOS Configuration";
-        path = ./.templates/minimal;
+        path = filters.filter {
+          root = ./.templates/minimal;
+          include = [ (filters.matchExt "nix") ];
+        };
       };
       extensive = {
         description = "My Complete, Extensive NixOS Configuration";
         path = filters.filter {
           root = ./.;
-          exclude = [ ./.git-crypt ./files/gpg (filters.matchExt "secret") ];
+          exclude = [
+            ./files/gpg
+            ./.git-crypt
+            ./.github
+            ./.gitlab
+            (filters.matchExt "md")
+            (filters.matchExt "secret")
+          ];
         };
       };
     };

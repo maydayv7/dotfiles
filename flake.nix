@@ -146,12 +146,6 @@
     ## Additional Repositories ##
     # Personal Proprietary Software Collection
     proprietary.url = "github:maydayv7/proprietary";
-
-    # Firefox GNOME Theme
-    firefox = {
-      url = "github:rafaelmardojai/firefox-gnome-theme";
-      flake = false;
-    };
   };
 
   ## System Configuration ##

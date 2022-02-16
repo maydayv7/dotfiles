@@ -28,19 +28,21 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 + Support for Multiple Programming Language Development [`shells`](./shells) integrated with [`direnv`](https://direnv.net/) and [`lorri`](https://github.com/nix-community/lorri)
 + Ephemeral, Opt-In File System State using the [`impermanence`](https://github.com/nix-community/impermanence) Module and [ZFS](https://zfsonlinux.org/)
 + Auto-Magic using [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) Helper Functions
++ Automatic `packages` Updates using [`update.sh`](./packages/update.sh)
 + Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) Image Generation Modules
 + Automatic [Deployment](./modules/nix/deploy.nix) using the [`deploy-rs`](https://github.com/serokell/deploy-rs) Tool
-+ Wrapped `wine` [Applications](./packages/wine) using Erosanix's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
++ Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
++ Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
 + Declaratively Configured [Windows VM](./modules/hardware/virtualisation/windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 
 ## Programs
-| Type                | Program                                                         |
-| :------------------ | :-------------------------------------------------------------: |
-| Editors              | [gEdit](https://wiki.gnome.org/Apps/Gedit), [`nano`](https://www.nano-editor.org/)                      |
-| Shells               | [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                                      |
-| Terminal            | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal) |
-| Browser             | [Firefox](https://www.mozilla.org/en-US/firefox/)               |
-| Desktop Environments | [GNOME](https://www.gnome.org)                                  |
+| Type                 | Programs                                                                           |
+| :------------------- | :--------------------------------------------------------------------------------: |
+| Editors              | [gEdit](https://wiki.gnome.org/Apps/Gedit), [`nano`](https://www.nano-editor.org/) |
+| Shells               | [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)         |
+| Terminal             | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal)                    |
+| Browser              | [Firefox](https://www.mozilla.org/en-US/firefox/)                                  |
+| Desktop Environments | [GNOME](https://www.gnome.org)                                                     |
 
 ## Structure
 ***Overview of File Hierarchy***
@@ -369,6 +371,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 + Use System Independent `library`
 + Add Support for Ephemeral `/home`
 + Bifurcate `users` and Refine User Configuration
++ Support Automatic `packages` Updates using `update.sh`
 + Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
 + Add `shells` for Multiple Programming Languages integrated with [`lorri`](https://github.com/nix-community/lorri)
 

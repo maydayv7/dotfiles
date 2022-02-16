@@ -72,6 +72,7 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
     gnupg
     gnused
     gparted
+    jq
     manix
     nixfmt
     nix-linter
@@ -138,10 +139,11 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
     ;;
     clean)
       echo "Running Garbage Collection..."
+      mkwindows-tools-gc
+      nix-collect-garbage -d
+      rm -rf /nix/var/nix/profiles/per-user/"$USER"/profile
       if [ "$EUID" -ne 0 ] && [ "$2" != "--all" ]
       then
-        mkwindows-tools-gc
-        nix-collect-garbage -d
         warn "Run as 'root' or use Option '--all' to Clean System Generations"
       else
         sudo nix-collect-garbage -d
@@ -413,6 +415,12 @@ in lib.recursiveUpdate { meta.description = "System Management Script"; }
       "--commit")
         echo "Updating Flake Inputs..."
         nix flake update ${path.system} --commit-lock-file
+      ;;
+      "--pkgs")
+        echo "Updating Packages..."
+        pushd ${path.system}/packages > /dev/null
+        bash ${./packages.sh}
+        popd > /dev/null
       ;;
       *)
         echo "Updating Flake Input '$2'..."

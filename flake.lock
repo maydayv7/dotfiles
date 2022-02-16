@@ -58,22 +58,6 @@
         "type": "github"
       }
     },
-    "firefox": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1643919590,
-        "narHash": "sha256-N4sBv4tyqsDKurMOF9FP6ClZk0KdTsjVSj4i+FF8bQw=",
-        "owner": "rafaelmardojai",
-        "repo": "firefox-gnome-theme",
-        "rev": "7af6e1f49718ce55da7a97d2bff922fbc974f347",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rafaelmardojai",
-        "repo": "firefox-gnome-theme",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1638122382,
@@ -280,7 +264,6 @@
         "compatibility": "compatibility",
         "deploy": "deploy",
         "filter": "filter",
-        "firefox": "firefox",
         "gaming": "gaming",
         "generators": "generators",
         "hardware": "hardware",

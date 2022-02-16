@@ -1,5 +1,5 @@
 ### Packages
-The `packages` directory contains custom-built packages (can be accessed by `github:maydayv7/dotfiles#packages.${system}`)
+The `packages` directory contains custom-built packages (can be accessed by `github:maydayv7/dotfiles#packages.${system}`). Packages which have a separate `metadata.nix` can be automatically updated using `sh update.sh`
 
 ### Overlays
 The `overlays` directory contains overlays for pre-built packages  

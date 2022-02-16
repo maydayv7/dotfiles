@@ -120,9 +120,10 @@ in {
 
           # Firefox GNOME Theme
           ".mozilla/firefox/default/chrome/userChrome.css".text =
-            mkIf (elem pkgs.firefox apps) firefox.css;
+            mkIf (elem pkgs.firefox apps)
+            ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
           ".mozilla/firefox/default/chrome/userContent.css".text =
-            mkIf (elem pkgs.firefox apps) firefox.content;
+            mkIf (elem pkgs.firefox apps) firefox.theme;
           ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
             mkIf (elem pkgs.firefox apps)
             "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";

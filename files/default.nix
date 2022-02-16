@@ -28,10 +28,7 @@ in {
   fetch = readFile ./neofetch/config.conf;
 
   # Firefox Web Browser
-  firefox = {
-    css = ''@import "${inputs.firefox}/userChrome.css";'';
-    content = readFile ./firefox/userContent.css;
-  };
+  firefox.theme = readFile ./firefox/userContent.css;
 
   # Custom Fonts
   fonts = {

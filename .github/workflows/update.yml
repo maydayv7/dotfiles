@@ -1,4 +1,4 @@
-name: "chore(flake.lock): Update `inputs`"
+name: "chore: Automatic Scheduled Updates"
 on:
   workflow_dispatch:
   schedule:
@@ -22,8 +22,37 @@ jobs:
           accept-flake-config = true
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Update Flake Lock File
-      uses: DeterminateSystems/update-flake-lock@main
+      uses: DeterminateSystems/update-flake-lock@v8
       with:
         pr-labels: dependencies
         pr-title: >
           chore(flake.lock): Update `inputs`
+    - name: Update Packages
+      env:
+        GIT_AUTHOR_NAME: github-actions[bot]
+        GIT_AUTHOR_EMAIL: <github-actions[bot]@users.noreply.github.com>
+        GIT_COMMITTER_NAME: github-actions[bot]
+        GIT_COMMITTER_EMAIL: <github-actions[bot]@users.noreply.github.com>
+      run: |
+        nix profile install nixpkgs#jq
+        cd packages && bash ./update.sh
+    - name: Create PR
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: update_packages
+        delete-branch: true
+        title: >
+          chore(packages): Automatic Updates
+        labels: dependencies
+        body: |
+          Automated package updates using `packages/update.sh`.
+          ### Running GitHub Actions on this PR
+          GitHub Actions will not run workflows on pull requests which are opened by a GitHub Action.
+          To run GitHub Actions workflows on this PR, run:
+          ```sh
+          git branch -D update_packages
+          git fetch origin
+          git checkout update_packages
+          git commit --amend --no-edit
+          git push origin update_packages --force
+          ```
