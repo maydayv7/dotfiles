@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let enable = builtins.elem "git" config.apps.list;
 in {
-  imports = [ ./runner.nix ];
+  imports = [ ./hosting.nix ./runner.nix ];
 
   ## 'git' Configuration ##
   config = lib.mkIf enable {

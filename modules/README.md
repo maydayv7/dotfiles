@@ -5,9 +5,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 * [`apps`](./apps): Module that configures various apps and/or environments -
   + `list`: List of all enabled applications - `[ "discord" "firefox" "git" "office" "wine" ]`
   + `git` -
-    * `name`: User Name for `git`
-    * `mail`: Mail ID for `git`
-    * `key`: GPG Key for `git` - Ex. `CF616EB19C2765E4`
+    * `hosting`: Enable Gitea Code Hosting - `true / false`
     * `runner`: Enable Support for `git` Runners - `"github" / "gitlab"`
   + `wine.package`: Package to use for `wine` - Ex. `pkgs.wineWowPackages.staging`
 
