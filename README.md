@@ -60,6 +60,7 @@ github:maydayv7/dotfiles
 ├───checks
 │   └───x86_64-linux
 │       ├───Device-gnome: derivation 'nixos-rebuild'
+│       ├───Device-xfce: derivation 'nixos-rebuild'
 │       ├───activate: derivation 'deploy-rs-check-activate'
 │       ├───commit: derivation 'pre-commit-run'
 │       └───schema: derivation 'jsonschema-deploy-system'
@@ -73,9 +74,16 @@ github:maydayv7/dotfiles
 │   └───x86_64-linux: development environment 'devShell'
 ├───devShells
 │   └───x86_64-linux
+│       ├───cc: development environment 'C'
+│       ├───commit: development environment 'nix-shell'
+│       ├───go: development environment 'Go'
 │       ├───java: development environment 'Java'
+│       ├───lisp: development environment 'Lisp'
+│       ├───lua: development environment 'Lua'
+│       ├───python: development environment 'Python'
+│       ├───rust: development environment 'Rust'
 │       └───video: development environment 'Video'
-├───files: unknown
+├───files: 'dotfiles' and program configuration
 ├───installMedia: device install media
 ├───legacyPackages
 │   └───x86_64-linux: omitted (use '--legacy' to show)
@@ -99,9 +107,11 @@ github:maydayv7/dotfiles
 │   └───x86_64-linux
 │       ├───dotfiles: package 'Dotfiles-v5.0'
 │       └───fonts: package 'fonts-7'
-└───templates
-    ├───extensive: template: My Complete, Extensive NixOS Configuration
-    └───minimal: template: Simple, Minimal NixOS Configuration
+├───templates
+│   ├───extensive: template: My Complete, Extensive NixOS Configuration
+│   └───minimal: template: Simple, Minimal NixOS Configuration
+└───vmConfigurations
+    └───Windows: Virtual Machine
 ```
 
 + `checks`: custom configuration checks
@@ -116,11 +126,12 @@ github:maydayv7/dotfiles
 ├── .version
 ├── .templates
 ├── files
-├── devices
 ├── secrets
 ├── shells
 ├── repl.nix
 ├── users
+├── devices
+│   └── vm
 ├── scripts
 │   └── nixos.nix
 ├── packages
@@ -147,11 +158,12 @@ github:maydayv7/dotfiles
 + `.version`: system state version
 + [`.templates`](./templates/README.md): custom Flakes configuration templates
 + [`files`](./files/README.md): `dotfiles` and program configuration
-+ [`devices`](./devices/README.md): system configuration for various devices
 + [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
-+ `shells`: sandboxed shells for development purposes
++ `shells`: sand-boxed shells for development purposes
 + `repl.nix`: interactive shell to explore syntax and configuration
 + [`users`](./users/README.md): individual user-specific configuration
++ [`devices`](./devices/README.md): system configuration for various devices
++ [`vm`](./devices/vm/README.md): declarative configuration to build multiple virtual machines
 + [`scripts`](./scripts/README.md): useful system management scripts
 + [`packages`](./packages/README.md): locally built custom packages
 + `overlays`: overrides for pre-built packages
@@ -207,7 +219,7 @@ gpg --output private.pgp --armor --export-secret-key <b><i>USER</i></b>@<b><i>EM
 
 Download the latest NixOS `.iso` from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)  
 
-***Important:*** In order to use the configuration, you must first create a clone of this repository and follow steps 2 to 6 from the above section, and preferably upload it to a hosting platform like GitHub/GitLab
+***Important:*** In order to directly use the configuration, you must first create a clone of this repository and follow steps 2 to 6 from the above section, and preferably upload it to a hosting platform like GitHub/GitLab
 
 <details>
 <summary><i>Additional Install Media</i></summary>
@@ -216,10 +228,11 @@ If Nix is already installed on your system, you may run the following command to
 *Replace* ***VARIANT*** *with the name of Install Media to create*
 <pre><code>nix build github:maydayv7/dotfiles#installMedia.<b><i>VARIANT</i></b>.config.system.build.isoImage</code></pre>
 
-You can also download the NixOS `.iso` from [here](https://nixos.org/download.html) and run the install script using the following command (as `root`):
+You can also download the NixOS `.iso` from [here](https://nixos.org/download.html) and run the `install` script using the following command:
 
 ```
-nix run github:maydayv7/dotfiles#nixos -- install
+nix build github:maydayv7/dotfiles#nixos
+sudo ./result/bin/nixos install
 ```
 
 If you want to create an `.iso` image of the entire system, run the following command:  
@@ -229,7 +242,7 @@ If you want to create an `.iso` image of the entire system, run the following co
 </details>
 
 #### Partition Scheme
-*Note that the install script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
+*Note that the `install` script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space*
 
 | Name           | Label  | Format     | Size (minimum) |
 | :------------- | :----: | :--------: | :------------: |
@@ -280,7 +293,7 @@ If you have any doubts or suggestions, feel free to open an [issue](../../issues
 + Intel CPU + iGPU
 
 ### License
-The files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
+All the files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
 
 ### Branches
 There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
@@ -364,17 +377,18 @@ You can navigate to the `README`'s present in the various directories to know mo
 <details>
 <summary><b>Changelog</b></summary>
 
-### v5.0
+### v5.0 - 20220220
 + Improve `channels` Usage
 + Support `source` Filters
-+ Add `wine` Application Wrapper
++ Refine `git` Configuration
++ Use `wine` Application Wrapper
 + Use System Independent `library`
 + Add Support for Ephemeral `/home`
 + Add Configuration for [XFCE](https://xfce.org/) Desktop
 + Bifurcate `users` and Refine User Configuration
 + Support Automatic `packages` Updates using `update.sh`
 + Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
-+ Add `shells` for Multiple Programming Languages integrated with [`lorri`](https://github.com/nix-community/lorri)
++ Add Developer `shells` for Multiple Programming Languages integrated with [`lorri`](https://github.com/nix-community/lorri)
 
 ### v4.5 - 20220130
 + Use Calendar Versioning
@@ -462,29 +476,29 @@ You can navigate to the `README`'s present in the various directories to know mo
   * Add support for NUR
   * Split System Scripts and import as overlay
   * Refactor Package Overrides into `packages`
-+ Add archived dotfiles and revitalize existing ones
++ Add archived `dotfiles` and revitalize existing ones
 + Improve Modulated Imports
 + Improve Fonts Management
-+ Update README and scripts
++ Update README and `scripts`
 
 ### v0.5pre
-+ Added support for Nix Flakes
-+ Added Custom Libraries for device and user management
-+ Created system management script
-+ Update README and install script
-+ Add full support for multi-device configuration
-+ Use better repository management
++ Added Support for Nix Flakes
++ Added Custom Libraries for Device and User Management
++ Created System Management Script
++ Updated README and `install` Script
++ Add full support for Multi-Device Configuration
++ Use Better Repository Management
 
 ### v0.1pre
 + Added basic NixOS system configuration using GNOME and GTK+
 + Added hardware support for 2 devices
 + Added `setup` script
 + Added `home-manager` support and user dotfiles
-+ Added modulated configuration
-+ Added Nix User Repository
-+ Added repository pinning
-+ Added essential package overlays
-+ Added basic password management
++ Added Modulated Configuration
++ Added Support for Nix User Repository
++ Added Repository Pinning
++ Added Essential Package Overlays
++ Added Basic Password Management
 + Added README
 
 </details>
@@ -493,6 +507,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 <summary><b>Known Limitations</b></summary>
 
 + It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
++ Need to completely transition to Wayland
 
 </details>
 

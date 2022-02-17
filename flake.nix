@@ -23,16 +23,16 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> 20220130                     #
+#     Version -> 20220220 (v5.0)              #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
-#       The very heart of my 'dotfiles'       #
+#       The Very Heart of my 'dotfiles'       #
 # ########################################### #
 
 {
   description = ''
-    My Purely Reproducible, Hermetic, Declarative, Atomic, Immutable, Multi-PC
-    NixOS Configuration and Dotfiles
+    My Self-Contained, Purely Reproducible, Hermetic, Declarative, Automated, Extensible
+    Multi-PC NixOS Configuration and 'dotfiles'
   '';
 
   ## Nix Configuration ##
@@ -135,6 +135,12 @@
       inputs.nixpkgs.follows = "stable";
       inputs.utils.follows = "utils/flake-utils";
       inputs.flake-compat.follows = "compatibility";
+    };
+
+    # Windows VM Creator
+    windows = {
+      url = "git+https://git.m-labs.hk/M-Labs/wfvm";
+      flake = false;
     };
 
     # Wine Apps Wrapper

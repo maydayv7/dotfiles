@@ -1,7 +1,10 @@
-{ self, system ? builtins.currentSystem, lib, pkgs, files, ... }:
+{ system ? builtins.currentSystem, lib, inputs, pkgs, files, ... }:
 with files;
 let
-  inherit (lib.util.map) list;
+  inherit (inputs) self;
+  inherit (util.map) list;
+  inherit (lib) licenses recursiveUpdate util;
+
   persist = "/nix/state";
   devShells = list self.devShells."${system}";
   installMedia = list self.installMedia;
@@ -59,8 +62,14 @@ let
         update                     - Updates Secrets to defined Keys
     '';
   };
-in lib.recursiveUpdate { meta.description = "System Management Script"; }
-(pkgs.writeShellApplication {
+in recursiveUpdate {
+  meta = {
+    description = "System Management Script";
+    homepage = files.path.repo;
+    license = licenses.mit;
+    maintainers = [ "maydayv7" ];
+  };
+} (pkgs.writeShellApplication {
   name = "nixos";
   runtimeInputs = with pkgs; [
     cachix

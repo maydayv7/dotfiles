@@ -278,6 +278,7 @@
         "stable": "stable",
         "unstable": "unstable",
         "utils": "utils",
+        "windows": "windows",
         "wine": "wine"
       }
     },
@@ -349,6 +350,22 @@
         "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
         "type": "github"
+      }
+    },
+    "windows": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1639769632,
+        "narHash": "sha256-s1Tfm1x9EUNdd2HdtPnI+4zr6XTGtkspuFn50kqYdhM=",
+        "ref": "master",
+        "rev": "9d07da799c23a221b0a6462a5db404007ac18250",
+        "revCount": 37,
+        "type": "git",
+        "url": "https://git.m-labs.hk/M-Labs/wfvm"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.m-labs.hk/M-Labs/wfvm"
       }
     },
     "wine": {

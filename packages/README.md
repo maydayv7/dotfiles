@@ -10,4 +10,4 @@ hash = lib.fakeHash;
 sha256 = lib.fakeSha256;
 ```
 
-Then Nix will fail the build with an error message and give the correct hash
+Then Nix will fail the build with an `error` message and give the correct hash

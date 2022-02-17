@@ -33,7 +33,7 @@ extract () {
 }
 
 internet() {
-  if ! [ "$(echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1)" -eq 0 ]
+  if ! nc -zw1 google.com 443 2> /dev/null
   then
     error "You are Offline, Please Connect to the Internet"
   fi

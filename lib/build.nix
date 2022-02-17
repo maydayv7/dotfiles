@@ -1,8 +1,7 @@
 { self, platforms, lib, ... }:
 let
-  inherit (builtins) any attrValues isPath listToAttrs map mapAttrs readFile;
-  inherit (lib)
-    concatMapStrings nameValuePair recursiveUpdate remove splitString take util;
+  inherit (lib) nameValuePair recursiveUpdate util;
+  inherit (builtins) any attrValues isPath listToAttrs map readFile;
 in rec {
   ## Builder Functions ##
   each = attr: func:
@@ -44,17 +43,8 @@ in rec {
           config = import ../modules/nix/config.nix;
           overlays = overlays ++ (attrValues self.overlays or { }) ++ [
             (final: prev:
-              recursiveUpdate {
-                custom = self.packages."${system}";
-                apps = mapAttrs (name: value:
-                  pkgs.symlinkJoin {
-                    inherit name;
-                    paths = [
-                      (concatMapStrings (x: "/" + x)
-                        (take 3 (remove "" (splitString "/" value.program))))
-                    ];
-                  }) self.apps."${system}";
-              } self.channels."${system}")
+              recursiveUpdate { custom = self.packages."${system}"; }
+              self.channels."${system}")
           ];
         });
 }

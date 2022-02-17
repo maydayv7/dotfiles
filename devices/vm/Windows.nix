@@ -1,17 +1,13 @@
-{ pkgs ? import <nixpkgs> { }, pkgs' ? import (pkgs.fetchFromGitHub {
-  owner = "NixOS";
-  repo = "nixpkgs";
-  rev = "f8248ab6d9e69ea9c07950d73d48807ec595e923";
-  sha256 = "009i9j6mbq6i481088jllblgdnci105b2q4mscprdawg3knlyahk";
-}) { } }:
+system: inputs: pkgs:
 let
-  lib = import "${
-      pkgs.fetchgit {
-        url = "https://git.m-labs.hk/M-Labs/wfvm.git";
-        rev = "c7d9060eeef46bebaf376c95ca37c7a65a2ea896";
-        sha256 = "022fb7zpn48hg9qihmqmzqdphks7b7cbnw6f5s1qy1in5c7f8rx9";
-      }
-    }/wfvm" { pkgs = pkgs'; };
+  lib = import "${inputs.windows}/wfvm" {
+    pkgs = import (pkgs.fetchFromGitHub {
+      owner = "NixOS";
+      repo = "nixpkgs";
+      rev = "f8248ab6d9e69ea9c07950d73d48807ec595e923";
+      sha256 = "009i9j6mbq6i481088jllblgdnci105b2q4mscprdawg3knlyahk";
+    }) { inherit system; };
+  };
 in lib.makeWindowsImage {
   # Base Image
   windowsImage = pkgs.requireFile rec {

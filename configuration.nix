@@ -3,6 +3,7 @@ with inputs;
 let
   ## Variable Declaration ##
   # Supported Architectures
+  platform = "x86_64-linux";
   platforms = [ "x86_64-linux" ];
 
   # NixOS Version
@@ -26,7 +27,12 @@ let
       };
     } // home.lib // utils.lib);
 in eachSystem platforms (system:
-  let pkgs = self.channels."${system}".stable;
+  let
+    # Default Package Channel
+    pkgs = self.channels."${system}".stable;
+
+    # Package Calling Function
+    call = name: pkgs.callPackage name { inherit lib inputs pkgs files; };
   in {
     ## Configuration Checks ##
     checks = import ./modules/nix/checks.nix { inherit self system lib pkgs; };
@@ -60,17 +66,13 @@ in eachSystem platforms (system:
     # Custom Packages
     defaultApp = self.apps."${system}".nixos;
     defaultPackage = self.packages."${system}".dotfiles;
-    packages = map.modules ./packages
-      (name: pkgs.callPackage name { inherit lib inputs pkgs files; });
-    apps = map.modules ./scripts (name:
-      lib.mkApp {
-        drv = pkgs.callPackage name { inherit self lib pkgs files; };
-      });
+    apps = map.modules ./scripts (name: lib.mkApp { drv = call name; });
+    packages = map.modules ./packages call // map.modules ./scripts call;
   }) // {
     # Overrides
     overlays = map.modules ./packages/overlays import;
 
-    ## Program Configuration and `dotfiles` ##
+    ## Program Configuration and 'dotfiles' ##
     files = import ./files { inherit lib inputs; };
 
     ## Custom Library Functions ##
@@ -110,6 +112,10 @@ in eachSystem platforms (system:
     deploy = import ./modules/nix/deploy.nix { inherit self lib; };
     nixosConfigurations =
       map.modules ./devices (name: build.device (import name));
+
+    ## Virtual Machines ##
+    vmConfigurations = map.modules ./devices/vm
+      (name: import name platform inputs self.channels."${platform}".stable);
 
     ## Install Media Configuration ##
     installMedia = {

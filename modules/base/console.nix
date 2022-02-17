@@ -26,7 +26,7 @@ in {
       gparted
       killall
       mkpasswd
-      apps.nixos
+      custom.nixos
       ntfsprogs
       parted
       pciutils
