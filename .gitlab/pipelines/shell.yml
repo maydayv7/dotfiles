@@ -3,7 +3,7 @@ shell:
   stage: check
   only:
     changes:
-      - 'shells/*'
+      - "shells/*"
   except:
     - tags
     - schedules

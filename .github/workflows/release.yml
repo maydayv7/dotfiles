@@ -2,29 +2,29 @@ name: "ci: Create Release"
 on:
   push:
     tags:
-      - '*'
+      - "*"
 env:
   NIX_SHOW_STATS: 1
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - name: Install Nix
-      uses: cachix/install-nix-action@v16
-      with:
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          accept-flake-config = true
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Build Default Install Media
-      run: nix build github:maydayv7/dotfiles#installMedia.xfce.config.system.build.isoImage -L --show-trace
-    - name: Draft Release
-      uses: ncipollo/release-action@v1.9.0
-      with:
-        allowUpdates: true
-        artifactErrorsFailBuild: true
-        artifacts: "result/iso/nixos.iso"
-        draft: true
-        omitBodyDuringUpdate: true
-        omitNameDuringUpdate: true
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Nix
+        uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Build Default Install Media
+        run: nix build github:maydayv7/dotfiles#installMedia.xfce.config.system.build.isoImage -L --show-trace
+      - name: Draft Release
+        uses: ncipollo/release-action@v1.9.0
+        with:
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          artifacts: "result/iso/nixos.iso"
+          draft: true
+          omitBodyDuringUpdate: true
+          omitNameDuringUpdate: true
+          token: ${{ secrets.GITHUB_TOKEN }}

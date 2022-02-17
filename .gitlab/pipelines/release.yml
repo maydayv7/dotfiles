@@ -11,10 +11,10 @@ release:
   script: echo "Creating Release..."
   release:
     name: $CI_COMMIT_TAG
-    description: 'Draft Release'
+    description: "Draft Release"
     tag_name: $CI_COMMIT_TAG
     ref: $CI_COMMIT_SHA
     assets:
       links:
         - name: NixOS.iso
-          url: '${PACKAGE_REGISTRY}/installMedia/${CI_COMMIT_TAG}/NixOS.iso'
+          url: "${PACKAGE_REGISTRY}/installMedia/${CI_COMMIT_TAG}/NixOS.iso"

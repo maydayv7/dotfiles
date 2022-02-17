@@ -2,7 +2,7 @@ name: "ci: Check `devShells`"
 on:
   push:
     paths:
-      - 'shells/**'
+      - "shells/**"
 env:
   NIX_SHOW_STATS: 1
 jobs:
@@ -12,17 +12,17 @@ jobs:
       matrix:
         shell: [cc, go, java, lisp, lua, python, rust, video]
     steps:
-    - name: Install Nix
-      uses: cachix/install-nix-action@v16
-      with:
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          accept-flake-config = true
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Setup Cachix
-      uses: cachix/cachix-action@v10
-      with:
-        name: maydayv7-dotfiles
-        authToken: '${{ secrets.CACHIX_TOKEN }}'
-    - name: Check Shells
-      run: nix develop github:maydayv7/dotfiles#${{ matrix.shell }}
+      - name: Install Nix
+        uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: maydayv7-dotfiles
+          authToken: "${{ secrets.CACHIX_TOKEN }}"
+      - name: Check Shells
+        run: nix develop github:maydayv7/dotfiles#${{ matrix.shell }}

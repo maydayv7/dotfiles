@@ -1,4 +1,5 @@
 system: inputs: pkgs:
+## Windows Virtual Machine ##
 let
   lib = import "${inputs.windows}/wfvm" {
     pkgs = import (pkgs.fetchFromGitHub {

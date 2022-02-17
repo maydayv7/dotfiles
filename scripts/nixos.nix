@@ -86,6 +86,7 @@ in recursiveUpdate {
     nixfmt
     nix-linter
     parted
+    nodePackages.prettier
     sops
     tree
     wine.mkwindowsapp-tools
@@ -142,6 +143,7 @@ in recursiveUpdate {
       fi
       echo "Formatting Code..."
       find ${path.system} -type f -name "*.nix" -exec nixfmt {} \+
+      prettier --write --list-different --ignore-unknown ${path.system}
       echo "Checking Syntax..."
       nix-linter -r ${path.system} || true
       nix flake check ${path.system} --keep-going $flags

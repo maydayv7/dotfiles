@@ -3,23 +3,23 @@ on:
   workflow_dispatch:
   push:
     paths-ignore:
-      - '**.md'
-      - '**.yml'
-      - 'docs/**'
-      - 'files/**'
-      - 'shells/**'
+      - "**.md"
+      - "**.yml"
+      - "docs/**"
+      - "files/**"
+      - "shells/**"
 env:
   NIX_SHOW_STATS: 1
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-    - name: Install Nix
-      uses: cachix/install-nix-action@v16
-      with:
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          accept-flake-config = true
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Check Syntax
-      run: nix flake check github:maydayv7/dotfiles --keep-going
+      - name: Install Nix
+        uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Check Syntax
+        run: nix flake check github:maydayv7/dotfiles --keep-going

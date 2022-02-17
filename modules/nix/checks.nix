@@ -10,6 +10,7 @@ with { inherit (lib) deploy filters hooks util; };
       nixfmt.enable = true;
       nix-linter.enable = false;
       shellcheck.enable = true;
+      prettier.enable = true;
       statix = {
         enable = true;
         name = "statix";

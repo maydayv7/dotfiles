@@ -3,7 +3,7 @@ check:
   stage: check
   only:
     changes:
-      - '*.nix'
+      - "*.nix"
       - "**/*.nix"
   except:
     - tags
