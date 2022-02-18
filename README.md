@@ -33,6 +33,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) Image Generation Modules
 - Automatic [Deployment](./modules/nix/deploy.nix) using the [`deploy-rs`](https://github.com/serokell/deploy-rs) Tool
 - Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
+- Support for `source` Filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
 - Declaratively Configured [Windows VM](./modules/hardware/virtualisation/windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 

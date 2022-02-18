@@ -1,7 +1,6 @@
 { system ? builtins.currentSystem, lib, pkgs, wine, ... }:
 let
-  inherit (builtins) fetchurl;
-  inherit (pkgs) copyDesktopItems makeDesktopItem;
+  inherit (pkgs) copyDesktopItems fetchurl makeDesktopItem;
   inherit (lib.wine."${system}") copyDesktopIcons makeDesktopIcon mkWindowsApp;
 in mkWindowsApp rec {
   inherit wine;
