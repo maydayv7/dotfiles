@@ -7,19 +7,11 @@ with { inherit (lib) deploy filters hooks util; };
   commit = hooks."${system}".run {
     src = filters.gitignoreSource ../../.;
     hooks = {
+      prettier.enable = true;
       nixfmt.enable = true;
       nix-linter.enable = false;
       shellcheck.enable = true;
-      prettier.enable = true;
-      statix = {
-        enable = true;
-        name = "statix";
-        description = "Lints and Suggestions for the Nix Programming Language";
-        files = "\\.nix$";
-        pass_filenames = false;
-        entry =
-          "${pkgs.unstable.statix}/bin/statix check -o errfmt -i flake.nix";
-      };
+      statix.enable = true;
       stylua = {
         enable = true;
         name = "stylua";
@@ -29,24 +21,27 @@ with { inherit (lib) deploy filters hooks util; };
       };
     };
 
-    settings.nix-linter.checks = [
-      "BetaReduction"
-      "DIYInherit"
-      "EmptyInherit"
-      "EmptyLet"
-      "EmptyVariadicParamSet"
-      "EtaReduce"
-      "FreeLetInFunc"
-      "LetInInheritRecset"
-      "ListLiteralConcat"
-      "NegateAtom"
-      "SequentialLet"
-      "SetLiteralUpdate"
-      "UnfortunateArgName"
-      "UnneededRec"
-      "UnusedArg"
-      "UnusedLetBind"
-      "UpdateEmptySet"
-    ];
+    settings = {
+      statix.ignore = [ "flake.nix" "_*" ];
+      nix-linter.checks = [
+        "BetaReduction"
+        "DIYInherit"
+        "EmptyInherit"
+        "EmptyLet"
+        "EmptyVariadicParamSet"
+        "EtaReduce"
+        "FreeLetInFunc"
+        "LetInInheritRecset"
+        "ListLiteralConcat"
+        "NegateAtom"
+        "SequentialLet"
+        "SetLiteralUpdate"
+        "UnfortunateArgName"
+        "UnneededRec"
+        "UnusedArg"
+        "UnusedLetBind"
+        "UpdateEmptySet"
+      ];
+    };
   };
 }

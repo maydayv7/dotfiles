@@ -166,16 +166,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1639823344,
-        "narHash": "sha256-jlsQb2y6A5dB1R0wVPLOfDGM0wLyfYqEJNzMtXuzCXw=",
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "rev": "ff9c0b459ddc4b79c06e19d44251daa8e9cd1746",
+        "lastModified": 1645159397,
+        "narHash": "sha256-nlOkQu9QiRk6oQMrFTbuGqHYO+BDEqmzw9w6u/62f10=",
+        "owner": "maydayv7",
+        "repo": "nix-hooks",
+        "rev": "c7c5b10083f8f0cf43332df08f13ce8a174370ab",
         "type": "github"
       },
       "original": {
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
+        "owner": "maydayv7",
+        "repo": "nix-hooks",
         "type": "github"
       }
     },
