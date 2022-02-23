@@ -4,7 +4,7 @@ let
     attrNames attrValues foldl' isPath pathExists readDir toString;
   inherit (lib)
     flatten filterAttrs hasPrefix hasSuffix id mapAttrs' mapAttrsToList mkIf
-    nameValuePair recursiveUpdate removeSuffix;
+    nameValuePair removeSuffix;
 in rec {
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);

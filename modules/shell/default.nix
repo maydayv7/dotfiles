@@ -88,6 +88,8 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
             l = "ls --color --group-directories-first";
             ls = "exa -b -h -l -F --octal-permissions --icons --time-style iso";
             sike = "neofetch";
+            nixos-option =
+              "${pkgs.nixos-option} -I nixpkgs=${path.system}/lib/compat";
           };
         };
       };

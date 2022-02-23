@@ -24,6 +24,7 @@ in {
     environment.systemPackages = with pkgs; [
       cryptsetup
       gparted
+      inxi
       killall
       mkpasswd
       custom.nixos

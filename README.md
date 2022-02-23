@@ -141,6 +141,7 @@ github:maydayv7/dotfiles
 ├── packages
 │   └── overlays
 ├── lib
+│   ├── compat
 │   ├── build.nix
 │   ├── map.nix
 │   ├── pack.nix
@@ -172,6 +173,7 @@ github:maydayv7/dotfiles
 - [`packages`](./packages/README.md): locally built custom packages
 - `overlays`: overrides for pre-built packages
 - [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
+- [`compat`](./lib/compat): compatibility library for older Nix versions
 - [`modules`](./modules/README.md): custom configuration modules for additional functionality
 
 ## Installation
@@ -181,7 +183,7 @@ github:maydayv7/dotfiles
 
 In case you want to use my configuration as-is for a fresh NixOS install, you can try the following steps:
 
-**_Note:_** You can run `nix-shell` or `nix develop` in the repository to install all required dependencies
+**_Note:_** You can run `nix develop` or `nix-shell ./lib/compat/shell.nix` in the repository to install all required dependencies
 
 1. Prepare `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
    sudo chown $USER /etc/nixos && sudo chmod ugo+rw /etc/nixos
@@ -403,6 +405,10 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 <details>
 <summary><b>Changelog</b></summary>
+
+### v5.1 - NEXT
+
+- Refine Compatibility Libraries
 
 ### v5.0 - 20220220
 

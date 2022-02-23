@@ -3,7 +3,6 @@ with inputs;
 let
   ## Variable Declaration ##
   # Supported Architectures
-  platform = "x86_64-linux";
   platforms = [ "x86_64-linux" ];
 
   # NixOS Version
@@ -11,8 +10,8 @@ let
 
   # System Libraries
   inherit (self) files;
-  inherit (builtins) readFile;
   inherit (lib) eachSystem filters;
+  inherit (builtins) head readFile;
   inherit (lib.util) build map pack;
   lib = library.lib.extend (final: prev:
     {
@@ -114,8 +113,9 @@ in eachSystem platforms (system:
       map.modules ./devices (name: build.device (import name));
 
     ## Virtual Machines ##
-    vmConfigurations = map.modules ./devices/vm
-      (name: import name platform inputs self.channels."${platform}".stable);
+    vmConfigurations = map.modules ./devices/vm (name:
+      import name (head platforms) inputs
+      self.channels."${head platforms}".stable);
 
     ## Install Media Configuration ##
     installMedia = {

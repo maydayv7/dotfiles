@@ -271,11 +271,22 @@ in recursiveUpdate {
         package=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep "$2")
         if [ -z "$package" ]
         then
-          if nix search nixpkgs#"$2" &> /dev/null
+          location=$(find /nix/store -maxdepth 1 -type d -name "*$2*")
+          if [ -n "$location" ]
           then
-            error "Package '$2' is not installed"
+            if (( $(grep -c . <<<"$location") > 1 ))
+            then
+              echo -e "Locations:\n$location"
+            else
+              echo -e "Location: $location"
+            fi
           else
-            error "Package '$2' is invalid"
+            if nix search nixpkgs#"$2" &> /dev/null
+            then
+              error "Package '$2' is not installed"
+            else
+              error "Package '$2' is invalid"
+            fi
           fi
         else
           if (( $(grep -c . <<<"$package") > 1 ))
