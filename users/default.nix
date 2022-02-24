@@ -11,6 +11,12 @@ in {
       default = config.home.username;
     };
 
+    fullname = mkOption {
+      description = "Full User Name";
+      type = types.str;
+      default = "Default User";
+    };
+
     mail = mkOption {
       description = "User Mail ID";
       type = types.str;

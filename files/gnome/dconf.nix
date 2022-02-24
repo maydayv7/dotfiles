@@ -358,10 +358,13 @@ in {
         "flypie@schneegans.github.com"
         "color-picker@tuberry"
         "burn-my-windows@schneegans.github.com"
-        "gTile@vibou"
         "desktop-cube@schneegans.github.com"
         "timepp@zagortenay333"
         "add-username-toppanel@brendaw.com"
+        "avatar@pawel.swiszcz.com"
+        "AlphabeticalAppGrid@stuarthayhurst"
+        "lock-screen-message@advendradeswanta.gitlab.com"
+        "workspace-dry-names@benmoussatmouad.github.io"
       ];
       favorite-apps = [
         "google-chrome.desktop"
@@ -437,7 +440,22 @@ in {
       };
 
     # Shell Extensions
+    "org/gnome/shell/extensions/workspace-dry-names".name-option = "countries";
     "org/gnome/shell/extensions/user-theme".name = "Adwaita";
+    "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position =
+      "start";
+    "org/gnome/shell/extensions/lock-screen-message".message =
+      "Welcome, ${config.credentials.fullname}!";
+
+    "org/gnome/shell/extensions/avatar" = {
+      avatar-shadow-user-name = false;
+      buttons-icon-size = 20;
+      buttons-position = 12;
+      name-style-dark = false;
+      show-buttons = false;
+      show-system-name = false;
+    };
+
     "org/gnome/shell/extensions/caffeine" = {
       inhibit-apps = [ "teams.desktop" "startcenter.desktop" ];
       nightlight-control = "never";
@@ -490,6 +508,8 @@ in {
       };
 
     "org/gnome/shell/extensions/burn-my-windows" = {
+      close-preview-effect = "";
+      destroy-dialogs = true;
       fire-color-1 = "rgba(0,110,255,0)";
       fire-color-2 = "rgba(30,111,180,0.24)";
       fire-color-3 = "rgba(38,181,255,0.54)";
@@ -497,6 +517,8 @@ in {
       fire-color-5 = "rgb(97,189,255)";
       flame-movement-speed = -0.1;
       flame-scale = 1.5;
+      open-preview-effect = "";
+      tv-open-effect = true;
     };
 
     "org/gnome/shell/extensions/desktop-cube" = {
@@ -557,7 +579,8 @@ in {
 
     "org/gnome/shell/extensions/top-bar-organizer" = {
       center-box-order = [ "dateMenu" ];
-      left-box-order = [ "timepp" "appMenu" "activities" ];
+      left-box-order =
+        [ "workspace-name-indicator" "timepp" "appMenu" "activities" ];
       right-box-order = [
         "aggregateMenu"
         "drive-menu"

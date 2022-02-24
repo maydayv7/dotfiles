@@ -40,7 +40,8 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   - `persist`: User Files to Preserve across Reboots (while using `advanced` File System Layout)
   - `home`: User Home Configuration (Alias for `home-manager.users.${username}`) -
     - `credentials`: Individual User Credentials -
-      - `name`: Alternative User Name
+      - `name`: Alternative (Work) User Name
+      - `fulname`: Full User Name
       - `mail`: User Mail ID - Ex. `"nixos@localhost.org"`
       - `key`: User GPG Key - Ex. `"CF616EB19C2765E4"`
   - `settings`: User Settings (Alias for `users.users.${username}`) -

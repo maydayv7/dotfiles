@@ -166,6 +166,7 @@ in {
             # GNOME Shell Extensions
             add-username-to-top-panel
             appindicator
+            avatar
             burn-my-windows
             caffeine
             clipboard-indicator
@@ -179,11 +180,13 @@ in {
             gtile
             just-perfection
             lock-keys
+            lock-screen-message
             screenshot-locations
             sound-output-device-chooser
             timepp
             custom.top-bar-organizer
             vitals
+            worksapce-dry-names
             x11-gestures
           ]);
 

@@ -12,13 +12,7 @@ with { inherit (lib) deploy filters hooks util; };
       nix-linter.enable = false;
       shellcheck.enable = true;
       statix.enable = true;
-      stylua = {
-        enable = true;
-        name = "stylua";
-        description = "An Opinionated Lua Code Formatter";
-        entry = "${pkgs.stylua}/bin/stylua";
-        types = [ "file" "lua" ];
-      };
+      stylua.enable = true;
     };
 
     settings = {

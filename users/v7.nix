@@ -3,6 +3,7 @@ with files; {
   # Credentials
   credentials = {
     name = "maydayv7";
+    fullname = "V7";
     mail = "maydayv7@gmail.com";
     key = "8C240C0C11293EE56260601CCF616EB19C2765E4";
   };
