@@ -41,7 +41,7 @@ in {
       publicKeys = map (source: {
         inherit source;
         trust = "ultimate";
-      }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
+      }) (attrValues (util.map.files ./keys id ".gpg"));
     };
 
     # XDG Configuration

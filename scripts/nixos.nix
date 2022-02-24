@@ -403,7 +403,7 @@ in recursiveUpdate {
       su recovery -c "if ! [ -d ${persist} ]; then DIR=${path.system}; else DIR=${persist}${path.system}; fi; sudo -S rm -rf $DIR && sudo mkdir $DIR && sudo chgrp -R keys $DIR && sudo chmod g+rwx $DIR"
       newline
       echo "Cloning Repository..."
-      git clone ${path.repo} $DIR
+      git clone --recurse-submodules ${path.repo} $DIR
       cd $DIR
       git-crypt unlock
       newline

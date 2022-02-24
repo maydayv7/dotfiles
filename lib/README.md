@@ -32,3 +32,5 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
 
 - [`xdg`](./xdg.nix): XDG Helper Functions to simplify menial desktop-related tasks -
   - `mime`: Sets `mimetype` values according to specified application and types
+
+The [`compat`](./compat) directory consists of compatibility libraries which enable you to run legacy Nix commands such as `nix-build`, `nix-shell`, and so on...
