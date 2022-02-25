@@ -1,5 +1,7 @@
-{ lib, inputs }:
-let
+{
+  lib,
+  inputs,
+}: let
   none = lib.id;
   inherit (lib.util) map;
   inherit (builtins) readFile;

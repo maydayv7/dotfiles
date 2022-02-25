@@ -1,4 +1,4 @@
-# ########################################### #
+###############################################
 #           ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖          #
 #           ▜███▙       ▜███▙  ▟███▛          #
 #            ▜███▙       ▜███▙▟███▛           #
@@ -27,8 +27,7 @@
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The Very Heart of my 'dotfiles'       #
-# ########################################### #
-
+###############################################
 {
   description = ''
     My Self-Contained, Purely Reproducible, Hermetic, Declarative, Automated, Extensible
@@ -127,7 +126,7 @@
     # Pre-Commit Hooks
     hooks = {
       url = "github:maydayv7/nix-hooks";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "unstable";
       inputs.flake-utils.follows = "utils/flake-utils";
     };
 

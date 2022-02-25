@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   ## User Home Configuration ##
   config = {
     # Environment Settings
@@ -10,7 +10,7 @@
     };
 
     user.home = {
-      imports = [ ../../users ];
+      imports = [../../users];
       systemd.user.startServices = true;
 
       # Package Configuration

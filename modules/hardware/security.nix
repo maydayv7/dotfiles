@@ -1,14 +1,20 @@
-{ config, lib, ... }:
-with { inherit (lib) mkEnableOption mkOverride; }; {
+{
+  config,
+  lib,
+  ...
+}:
+with {inherit (lib) mkEnableOption mkOverride;}; {
   options.hardware.security =
     mkEnableOption "Enable Additional Security and Hardening Settings";
 
   ## Security Settings ##
   config = lib.mkIf config.hardware.security {
-    warnings = [''
-      Additional Security Settings are Enabled
-      - These may cause Instability Issues or Sacrifice Performance
-    ''];
+    warnings = [
+      ''
+        Additional Security Settings are Enabled
+        - These may cause Instability Issues or Sacrifice Performance
+      ''
+    ];
 
     # Protocols
     programs.firejail.enable = true;
@@ -19,8 +25,7 @@ with { inherit (lib) mkEnableOption mkOverride; }; {
 
     boot = {
       # Parameters
-      kernelParams =
-        [ "page_alloc.shuffle=1" "page_poison=1" "slub_debug=FZP" ];
+      kernelParams = ["page_alloc.shuffle=1" "page_poison=1" "slub_debug=FZP"];
 
       # Flags
       kernel.sysctl = {
@@ -56,7 +61,7 @@ with { inherit (lib) mkEnableOption mkOverride; }; {
       };
 
       # Secure Modules
-      kernelModules = [ "tcp_bbr" ];
+      kernelModules = ["tcp_bbr"];
 
       # Old & Obscure Modules
       blacklistedKernelModules = [

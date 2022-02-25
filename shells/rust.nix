@@ -1,6 +1,6 @@
 pkgs: {
   name = "Rust";
-  packages = with pkgs; [ rustup ];
+  packages = with pkgs; [rustup];
   RUST_BACKTRACE = 1;
   shellHook = ''
     echo "## Rust Development Shell ##"

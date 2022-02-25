@@ -1,4 +1,4 @@
-{ files, ... }: {
+{files, ...}: {
   ## XORG Configuration ##
   config = {
     user.home.xresources.extraConfig = files.xorg;
@@ -9,7 +9,7 @@
 
       # Driver Settings
       useGlamor = true;
-      videoDrivers = [ "modesetting" ];
+      videoDrivers = ["modesetting"];
     };
   };
 }

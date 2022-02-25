@@ -1,7 +1,13 @@
-{ config, lib, pkgs, files, ... }:
-let enable = builtins.elem "git" config.apps.list;
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}: let
+  enable = builtins.elem "git" config.apps.list;
 in {
-  imports = [ ./hosting.nix ./runner.nix ];
+  imports = [./hosting.nix ./runner.nix];
 
   ## 'git' Configuration ##
   config = lib.mkIf enable {
@@ -16,9 +22,9 @@ in {
 
     # Settings
     user = {
-      persist.dirs = [ ".config/gh" ];
+      persist.dirs = [".config/gh"];
       home = {
-        imports = [ ./user.nix ];
+        imports = [./user.nix];
 
         # Hooks
         home.file.".git-hooks".source = files.git.hooks;
@@ -70,7 +76,7 @@ in {
             };
 
             # Globally Ignored Files
-            ignores = [ "*~*" "*.bak" ".direnv" "result" "result-*" "tags.*" ];
+            ignores = ["*~*" "*.bak" ".direnv" "result" "result-*" "tags.*"];
 
             # Additional Parameters
             extraConfig = {
@@ -99,8 +105,7 @@ in {
               cia = "${ci} -a";
               co = "checkout";
               cp = "cherry-pick";
-              cpp =
-                "!sh -c 'CURRENT=$(git ${bc}) && git ${st} && git ${co} -B $2 $3 && git ${cp} $1 && git ${pf} $4 && git ${co} $CURRENT && git ${stp}' -";
+              cpp = "!sh -c 'CURRENT=$(git ${bc}) && git ${st} && git ${co} -B $2 $3 && git ${cp} $1 && git ${pf} $4 && git ${co} $CURRENT && git ${stp}' -";
               d = "diff";
               df = "${d} HEAD";
               dx = "${d} --color-words";
@@ -109,8 +114,7 @@ in {
               l = "log --graph --decorate --abbrev-commit";
               l1 = "${l} --pretty=oneline --all";
               lf = "log -p --follow";
-              lg =
-                "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
+              lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
               ll = "${l} -p";
               m = "merge";
               ms = "${m} --squash";
@@ -120,8 +124,7 @@ in {
               pt = "${p} --tag";
               pu = "${p} --set-upstream";
               rb = "rebase";
-              record =
-                "!sh -c '(git ${a} -p -- $@ && git ${ci}) || git ${r}' --";
+              record = "!sh -c '(git ${a} -p -- $@ && git ${ci}) || git ${r}' --";
               ro = "restore";
               r = "reset";
               rs = "${r} --soft";

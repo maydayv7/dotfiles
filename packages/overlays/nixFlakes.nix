@@ -10,6 +10,6 @@ final: prev: {
       sha256 = "sha256-xEPeMcNJVOeZtoN+d+aRwolpW8mFSEQx76HTRdlhPhg=";
     };
 
-    patches = [ ];
+    patches = [];
   });
 }

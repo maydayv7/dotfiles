@@ -1,6 +1,11 @@
-{ config, lib, pkgs, files, ... }:
-with files;
-let
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}:
+with files; let
   inherit (lib) mkIf mkForce mkMerge util;
   inherit (config.gui) desktop;
 
@@ -56,21 +61,23 @@ in {
       # User Configuration
       user.home = {
         # GTK+ Theming
-        gtk = {
-          enable = true;
-          gtk3.extraCss = xfce.css;
-        } // theme;
+        gtk =
+          {
+            enable = true;
+            gtk3.extraCss = xfce.css;
+          }
+          // theme;
 
         # Default Applications
         xdg.mimeApps.defaultApplications =
           util.xdg.mime (import files.xdg.mime) {
-            audio = [ "org.xfce.Parole.desktop" ];
-            calendar = [ "org.xfce.orage.desktop" ];
-            directory = [ "thunar.desktop" ];
-            image = [ "org.xfce.ristretto.desktop" ];
-            pdf = [ "atril.desktop" ];
-            text = [ "org.xfce.mousepad.desktop" ];
-            video = [ "org.xfce.Parole.desktop" ];
+            audio = ["org.xfce.Parole.desktop"];
+            calendar = ["org.xfce.orage.desktop"];
+            directory = ["thunar.desktop"];
+            image = ["org.xfce.ristretto.desktop"];
+            pdf = ["atril.desktop"];
+            text = ["org.xfce.mousepad.desktop"];
+            video = ["org.xfce.Parole.desktop"];
           };
 
         home.file = {
@@ -130,7 +137,7 @@ in {
     # Minimal XFCE Desktop Configuration
     (mkIf (desktop == "xfce-minimal") {
       # Utilities
-      environment.systemPackages = [ pkgs.firefox ];
+      environment.systemPackages = [pkgs.firefox];
 
       # Disabled Services
       services.tumbler.enable = mkForce false;

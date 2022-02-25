@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (builtins) attrValues elem map;
   inherit (lib) mkIf mkOption types util;
   enable = elem "wine" config.apps.list;
@@ -29,18 +33,16 @@ in {
 
     environment.systemPackages = with pkgs.wine // pkgs;
       map (name:
-        if (name.override.__functionArgs ? wine) then
-          name.override { inherit wine; }
-        else
-          name) [
-            lutris
-            playonlinux
-            mkwindowsapp-tools
-            notepad-plus-plus
-          ]
-
-          # Wrapped Packages
+        if (name.override.__functionArgs ? wine)
+        then name.override {inherit wine;}
+        else name) [
+        lutris
+        playonlinux
+        mkwindowsapp-tools
+        notepad-plus-plus
+      ]
+      # Wrapped Packages
       ++ attrValues (util.map.modules ../../packages/wine
-        (name: pkgs.callPackage name { inherit lib pkgs wine; }));
+      (name: pkgs.callPackage name {inherit lib pkgs wine;}));
   };
 }

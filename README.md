@@ -325,7 +325,7 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 
 #### Continuous Integration
 
-This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter)) and format it (using [`nixfmt`](https://github.com/serokell/nixfmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./.gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
+This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter) and [`statix`](https://github.com/nerdypepper/statix)) and format it (using [`alejandra`](https://github.com/kamadorueda/alejandra) and [`prettier`](https://github.com/prettier/prettier)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./.gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ###### Variables
 
@@ -409,6 +409,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 ### v5.1 - NEXT
 
 - Refine Compatibility Libraries
+- Use [`alejandra`](https://github.com/kamadorueda/alejandra) for formatting code
 
 ### v5.0 - 20220220
 

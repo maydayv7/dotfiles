@@ -1,5 +1,8 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (builtins) attrValues map;
   inherit (lib) id mkIf mkOption types util;
   cfg = config.credentials.key;

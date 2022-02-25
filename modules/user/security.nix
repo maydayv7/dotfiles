@@ -1,5 +1,9 @@
-{ config, lib, files, ... }:
-let
+{
+  config,
+  lib,
+  files,
+  ...
+}: let
   inherit (lib) filterAttrs mkForce mkIf optional util;
   inherit (builtins) all any attrNames attrValues hasAttr mapAttrs readFile;
   inherit (config.sops) secrets;
@@ -12,13 +16,16 @@ in {
     # Passwords
     services.openssh.enable = mkIf enable (mkForce false);
     sops.secrets =
-      if enable then (mkForce { }) else util.map.secrets ./passwords true;
+      if enable
+      then (mkForce {})
+      else util.map.secrets ./passwords true;
 
     users.extraUsers.root.passwordFile =
       mkIf (hasAttr "root.secret" secrets) secrets."root.secret".path;
     users.users = mapAttrs (name: value: {
       passwordFile = mkIf (!value.minimal) secrets."${name}.secret".path;
-    }) settings;
+    })
+    settings;
 
     # Recovery Account
     users.extraUsers.recovery = mkIf recovery {
@@ -27,7 +34,7 @@ in {
       isNormalUser = true;
       uid = 1100;
       group = "users";
-      extraGroups = [ "wheel" ];
+      extraGroups = ["wheel"];
       useDefaultShell = true;
       initialHashedPassword = readFile ./passwords/default;
     };
@@ -41,14 +48,19 @@ in {
       '';
 
       # Passwordless Access
-      extraRules = [{
-        users = attrNames (filterAttrs (_: value: value.minimal) settings)
-          ++ optional recovery "recovery";
-        commands = [{
-          command = "ALL";
-          options = [ "NOPASSWD" "SETENV" ];
-        }];
-      }];
+      extraRules = [
+        {
+          users =
+            attrNames (filterAttrs (_: value: value.minimal) settings)
+            ++ optional recovery "recovery";
+          commands = [
+            {
+              command = "ALL";
+              options = ["NOPASSWD" "SETENV"];
+            }
+          ];
+        }
+      ];
     };
   };
 }

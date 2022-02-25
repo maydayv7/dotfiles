@@ -8,29 +8,29 @@
   locale = "en_IN.UTF-8";
 
   kernel = "linux_lqx";
-  kernelModules = [ "nvme" "thunderbolt" ];
+  kernelModules = ["nvme" "thunderbolt"];
 
   hardware = {
     boot = "efi";
     cores = 8;
     filesystem = "advanced";
     security = true;
-    support = [ "mobile" "printer" "virtualisation" ];
-    modules = [ "dell-inspiron-5509" ];
+    support = ["mobile" "printer" "virtualisation"];
+    modules = ["dell-inspiron-5509"];
   };
 
   gui.desktop = "gnome";
   shell.utilities = true;
-  apps.list = [ "discord" "firefox" "git" "office" "wine" ];
+  apps.list = ["discord" "firefox" "git" "office" "wine"];
 
   # User V7
   user = {
     name = "v7";
     description = "V 7";
-    groups = [ "wheel" "keys" ];
+    groups = ["wheel" "keys"];
     uid = 1000;
     shell = "zsh";
-    shells = [ "bash" ];
+    shells = ["bash"];
     recovery = true;
   };
 }

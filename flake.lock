@@ -162,15 +162,15 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "stable"
+          "unstable"
         ]
       },
       "locked": {
-        "lastModified": 1645686855,
-        "narHash": "sha256-wQpCtxJlNZC24OXyPD8tuRj1c5H/eiAMp9zzk6CvqPI=",
+        "lastModified": 1645780065,
+        "narHash": "sha256-wKEVtMIoJHrw1sXjKQPtcR9/+QhhHAVhmV3RtfRz4+0=",
         "owner": "maydayv7",
         "repo": "nix-hooks",
-        "rev": "de5448474161ca284dd3c96e2b279d2f62bcf6d6",
+        "rev": "dd77acf8105988fdac5682f560520d4f94461f5c",
         "type": "github"
       },
       "original": {
@@ -320,11 +320,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1644613700,
-        "narHash": "sha256-wLRPJclMH8vsHuFtyI78aF09lw5mbi3lMB6uiK5S2wE=",
-        "owner": "NixOS",
+        "lastModified": 1645655918,
+        "narHash": "sha256-ZfbEFRW7o237+A1P7eTKhXje435FCAoe0blj2n20Was=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "23d785aa6f853e6cf3430119811c334025bbef55",
+        "rev": "77a7a4197740213879b9a1d2e1788c6c8ade4274",
         "type": "github"
       },
       "original": {

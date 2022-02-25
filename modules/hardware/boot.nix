@@ -1,7 +1,11 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}: {
   options.hardware.boot = lib.mkOption {
     description = "Supported Boot Firmware";
-    type = lib.types.enum [ "mbr" "efi" ];
+    type = lib.types.enum ["mbr" "efi"];
     default = "mbr";
   };
 

@@ -1,4 +1,4 @@
-{ files, ... }: {
+{files, ...}: {
   # Credentials
   credentials = {
     fullname = "Navya G";

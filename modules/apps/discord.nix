@@ -1,12 +1,18 @@
-{ config, lib, pkgs, files, ... }:
-let enable = builtins.elem "discord" config.apps.list;
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}: let
+  enable = builtins.elem "discord" config.apps.list;
 in {
   ## Discord Configuration ##
   config = lib.mkIf enable {
-    environment.systemPackages = with pkgs; [ betterdiscordctl discord ];
+    environment.systemPackages = with pkgs; [betterdiscordctl discord];
 
     user = {
-      persist.dirs = [ ".config/BetterDiscord" ".config/discord" ];
+      persist.dirs = [".config/BetterDiscord" ".config/discord"];
       home.home = {
         # Plugins
         file.".config/BetterDiscord/plugins" = {
@@ -14,8 +20,8 @@ in {
           recursive = true;
         };
 
-        # Discord Activation  
-        activation.discordSetup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        # Discord Activation
+        activation.discordSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
           echo "Setting up Discord..."
           $DRY_RUN_CMD /usr/bin/env betterdiscordctl $VERBOSE_ARG install || true
         '';

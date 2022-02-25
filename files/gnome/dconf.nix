@@ -1,6 +1,11 @@
-{ config, lib, files, ... }:
-with lib.hm.gvariant;
-let homeDir = config.home.homeDirectory;
+{
+  config,
+  lib,
+  files,
+  ...
+}:
+with lib.hm.gvariant; let
+  homeDir = config.home.homeDirectory;
 in {
   # Home Directory
   home.file = {
@@ -18,94 +23,92 @@ in {
   dconf.settings = {
     # Keyboard Shortcuts
     "org/gnome/desktop/wm/keybindings" = {
-      begin-move = [ ];
-      begin-resize = [ ];
-      close = [ "<Super>q" "<Alt>F4" ];
-      cycle-group = [ ];
-      cycle-group-backward = [ ];
-      maximize = [ "<Super>Up" ];
-      minimize = [ "<Super>Down" ];
-      move-to-monitor-down = [ ];
-      move-to-monitor-left = [ "<Shift><Super>Left" ];
-      move-to-monitor-right = [ "<Shift><Super>Right" ];
-      move-to-monitor-up = [ ];
-      move-to-workspace-1 = [ ];
-      move-to-workspace-down = [ ];
-      move-to-workspace-last = [ ];
-      move-to-workspace-left = [ "<Primary><Super>Left" ];
-      move-to-workspace-right = [ "<Primary><Super>Right" ];
-      move-to-workspace-up = [ ];
-      panel-main-menu = [ ];
-      panel-run-dialog = [ "<Super>F2" ];
-      switch-group = [ ];
-      switch-group-backward = [ ];
-      switch-to-workspace-down = [ "<Primary><Super>Down" "<Primary><Super>j" ];
-      switch-to-workspace-left = [ "<Super>Left" ];
-      switch-to-workspace-right = [ "<Super>Right" ];
-      switch-to-workspace-up = [ "<Primary><Super>Up" "<Primary><Super>k" ];
-      toggle-maximized = [ "<Super>m" ];
-      unmaximize = [ ];
+      begin-move = [];
+      begin-resize = [];
+      close = ["<Super>q" "<Alt>F4"];
+      cycle-group = [];
+      cycle-group-backward = [];
+      maximize = ["<Super>Up"];
+      minimize = ["<Super>Down"];
+      move-to-monitor-down = [];
+      move-to-monitor-left = ["<Shift><Super>Left"];
+      move-to-monitor-right = ["<Shift><Super>Right"];
+      move-to-monitor-up = [];
+      move-to-workspace-1 = [];
+      move-to-workspace-down = [];
+      move-to-workspace-last = [];
+      move-to-workspace-left = ["<Primary><Super>Left"];
+      move-to-workspace-right = ["<Primary><Super>Right"];
+      move-to-workspace-up = [];
+      panel-main-menu = [];
+      panel-run-dialog = ["<Super>F2"];
+      switch-group = [];
+      switch-group-backward = [];
+      switch-to-workspace-down = ["<Primary><Super>Down" "<Primary><Super>j"];
+      switch-to-workspace-left = ["<Super>Left"];
+      switch-to-workspace-right = ["<Super>Right"];
+      switch-to-workspace-up = ["<Primary><Super>Up" "<Primary><Super>k"];
+      toggle-maximized = ["<Super>m"];
+      unmaximize = [];
     };
 
     "org/gnome/mutter/keybindings" = {
-      toggle-tiled-left = [ ];
-      toggle-tiled-right = [ ];
+      toggle-tiled-left = [];
+      toggle-tiled-right = [];
     };
 
     "org/gnome/shell/keybindings" = {
-      focus-active-notification = [ ];
-      open-application-menu = [ ];
-      toggle-message-tray = [ ];
-      toggle-overview = [ ];
+      focus-active-notification = [];
+      open-application-menu = [];
+      toggle-message-tray = [];
+      toggle-overview = [];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      area-screenshot = [ "Print" ];
-      area-screenshot-clip = [ ];
-      control-center = [ "<Super>i" ];
-      email = [ "<Super>e" ];
-      home = [ "<Super>f" ];
-      magnifier = [ "<Super>x" ];
-      magnifier-zoom-in = [ "<Super>equal" ];
-      magnifier-zoom-out = [ "<Super>minus" ];
-      rotate-video-lock-static = [ ];
-      screencast = [ "<Alt>Print" ];
-      screenreader = [ ];
-      screenshot = [ "<Shift>Print" ];
-      screenshot-clip = [ ];
-      screensaver = [ "<Super>l" ];
-      terminal = [ "<Super>t" ];
-      volume-down = [ "AudioLowerVolume" ];
-      volume-up = [ "AudioRaiseVolume" ];
-      window-screenshot = [ "<Primary>Print" ];
-      window-screenshot-clip = [ ];
-      www = [ "<Super>w" ];
+      area-screenshot = ["Print"];
+      area-screenshot-clip = [];
+      control-center = ["<Super>i"];
+      email = ["<Super>e"];
+      home = ["<Super>f"];
+      magnifier = ["<Super>x"];
+      magnifier-zoom-in = ["<Super>equal"];
+      magnifier-zoom-out = ["<Super>minus"];
+      rotate-video-lock-static = [];
+      screencast = ["<Alt>Print"];
+      screenreader = [];
+      screenshot = ["<Shift>Print"];
+      screenshot-clip = [];
+      screensaver = ["<Super>l"];
+      terminal = ["<Super>t"];
+      volume-down = ["AudioLowerVolume"];
+      volume-up = ["AudioRaiseVolume"];
+      window-screenshot = ["<Primary>Print"];
+      window-screenshot-clip = [];
+      www = ["<Super>w"];
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
       ];
     };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
-      {
-        binding = "<Primary><Alt>Return";
-        command = "gnome-system-monitor";
-        name = "Task Manager";
-      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      binding = "<Primary><Alt>Return";
+      command = "gnome-system-monitor";
+      name = "Task Manager";
+    };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
-      {
-        binding = "<Super>t";
-        command = "gnome-terminal";
-        name = "Terminal";
-      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Super>t";
+      command = "gnome-terminal";
+      name = "Terminal";
+    };
 
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,close";
       titlebar-font = "Product Sans Bold 11";
       visual-bell = false;
       num-workspaces = 4;
-      workspace-names = [ "Desktop" "School" "Work" "Play" ];
+      workspace-names = ["Desktop" "School" "Work" "Play"];
     };
 
     # Core Settings
@@ -200,17 +203,15 @@ in {
     "org/gnome/desktop/calendar".show-weekdate = true;
     "ca/desrt/dconf-editor".show-warning = false;
     "io/github/seadve/Kooha".video-format = "mp4";
-    "org/gnome/boxes".shared-folders =
-      "[<{'uuid': <'5b825243-4232-4426-9d82-3df05e684e42'>, 'path': <'${homeDir}'>, 'name': <'Home'>}>]";
-    "org/gnome/shell/world-clocks".locations =
-      "[<(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>]";
+    "org/gnome/boxes".shared-folders = "[<{'uuid': <'5b825243-4232-4426-9d82-3df05e684e42'>, 'path': <'${homeDir}'>, 'name': <'Home'>}>]";
+    "org/gnome/shell/world-clocks".locations = "[<(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>]";
 
     "org/gnome/Geary" = {
       ask-open-attachment = true;
       compose-as-html = true;
       formatting-toolbar-visible = false;
       migrated-config = true;
-      optional-plugins = [ "email-templates" "sent-sound" "mail-merge" ];
+      optional-plugins = ["email-templates" "sent-sound" "mail-merge"];
       startup-notifications = true;
     };
 
@@ -247,7 +248,7 @@ in {
       auto-hide-map = true;
       auto-save-timeout = 60;
       completion-n-rows = 7;
-      draw-spaces = [ "tab" ];
+      draw-spaces = ["tab"];
       highlight-current-line = true;
       highlight-matching-brackets = true;
       overscroll = 7;
@@ -274,48 +275,47 @@ in {
 
     "org/gnome/terminal/legacy/profiles:" = {
       default = "b1dcc9dd-5262-4d8d-a863-c897e6d979b9";
-      list = [ "b1dcc9dd-5262-4d8d-a863-c897e6d979b9" ];
+      list = ["b1dcc9dd-5262-4d8d-a863-c897e6d979b9"];
     };
 
-    "org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9" =
-      {
-        audible-bell = false;
-        background-transparency-percent = 8;
-        backspace-binding = "ascii-delete";
-        cursor-blink-mode = "system";
-        cursor-shape = "ibeam";
-        default-size-columns = 100;
-        default-size-rows = 30;
-        delete-binding = "delete-sequence";
-        exit-action = "close";
-        login-shell = false;
-        palette = [
-          "rgb(23,20,33)"
-          "rgb(192,28,40)"
-          "rgb(38,162,105)"
-          "rgb(162,115,76)"
-          "rgb(18,72,139)"
-          "rgb(163,71,186)"
-          "rgb(42,161,179)"
-          "rgb(208,207,204)"
-          "rgb(94,92,100)"
-          "rgb(246,97,81)"
-          "rgb(51,209,122)"
-          "rgb(233,173,12)"
-          "rgb(42,123,222)"
-          "rgb(192,97,203)"
-          "rgb(51,199,222)"
-          "rgb(255,255,255)"
-        ];
-        scrollback-lines = 70000;
-        scrollback-unlimited = true;
-        scrollbar-policy = "always";
-        use-custom-command = false;
-        use-system-font = true;
-        use-theme-colors = true;
-        use-transparent-background = true;
-        visible-name = "Terminal";
-      };
+    "org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9" = {
+      audible-bell = false;
+      background-transparency-percent = 8;
+      backspace-binding = "ascii-delete";
+      cursor-blink-mode = "system";
+      cursor-shape = "ibeam";
+      default-size-columns = 100;
+      default-size-rows = 30;
+      delete-binding = "delete-sequence";
+      exit-action = "close";
+      login-shell = false;
+      palette = [
+        "rgb(23,20,33)"
+        "rgb(192,28,40)"
+        "rgb(38,162,105)"
+        "rgb(162,115,76)"
+        "rgb(18,72,139)"
+        "rgb(163,71,186)"
+        "rgb(42,161,179)"
+        "rgb(208,207,204)"
+        "rgb(94,92,100)"
+        "rgb(246,97,81)"
+        "rgb(51,209,122)"
+        "rgb(233,173,12)"
+        "rgb(42,123,222)"
+        "rgb(192,97,203)"
+        "rgb(51,199,222)"
+        "rgb(255,255,255)"
+      ];
+      scrollback-lines = 70000;
+      scrollback-unlimited = true;
+      scrollbar-policy = "always";
+      use-custom-command = false;
+      use-system-font = true;
+      use-theme-colors = true;
+      use-transparent-background = true;
+      visible-name = "Terminal";
+    };
 
     "org/gnome/gedit/preferences/ui".show-tabs-mode = "auto";
     "org/gnome/gedit/preferences/editor" = {
@@ -332,11 +332,10 @@ in {
 
     # App Grid
     "org/gnome/shell" = {
-      command-history = [ "rt" "r" ];
+      command-history = ["rt" "r"];
       disable-user-extensions = false;
       disable-extension-version-validation = true;
-      disabled-extensions =
-        [ "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
+      disabled-extensions = ["workspace-indicator@gnome-shell-extensions.gcampax.github.com"];
       enabled-extensions = [
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "compiz-windows-effect@hermes83.github.com"
@@ -385,67 +384,61 @@ in {
       ];
     };
 
-    "org/gnome/desktop/app-folders/folders/4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff" =
-      {
-        name = "Games";
-        apps = [
-          "org.gnome.Chess.desktop"
-          "org.gnome.Sudoku.desktop"
-          "org.gnome.Mines.desktop"
-          "org.gnome.Quadrapassel.desktop"
-        ];
-      };
+    "org/gnome/desktop/app-folders/folders/4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff" = {
+      name = "Games";
+      apps = [
+        "org.gnome.Chess.desktop"
+        "org.gnome.Sudoku.desktop"
+        "org.gnome.Mines.desktop"
+        "org.gnome.Quadrapassel.desktop"
+      ];
+    };
 
-    "org/gnome/desktop/app-folders/folders/a136187d-1d93-4d35-8423-082f15957be9" =
-      {
-        name = "Office";
-        apps = [
-          "startcenter.desktop"
-          "writer.desktop"
-          "impress.desktop"
-          "draw.desktop"
-          "base.desktop"
-          "calc.desktop"
-          "math.desktop"
-          "onlyoffice-desktopeditors.desktop"
-          "net.sourceforge.gscan2pdf.desktop"
-          "virt-manager.desktop"
-        ];
-      };
+    "org/gnome/desktop/app-folders/folders/a136187d-1d93-4d35-8423-082f15957be9" = {
+      name = "Office";
+      apps = [
+        "startcenter.desktop"
+        "writer.desktop"
+        "impress.desktop"
+        "draw.desktop"
+        "base.desktop"
+        "calc.desktop"
+        "math.desktop"
+        "onlyoffice-desktopeditors.desktop"
+        "net.sourceforge.gscan2pdf.desktop"
+        "virt-manager.desktop"
+      ];
+    };
 
-    "org/gnome/desktop/app-folders/folders/b79e9b82-2127-459b-9e82-11bd3be09d04" =
-      {
-        name = "Utilities";
-        apps = [
-          "org.gnome.Logs.desktop"
-          "org.gnome.Devhelp.desktop"
-          "org.gnome.Tour.desktop"
-          "cups.desktop"
-          "nixos-manual.desktop"
-          "yelp.desktop"
-          "org.gnome.baobab.desktop"
-          "xterm.desktop"
-        ];
-      };
+    "org/gnome/desktop/app-folders/folders/b79e9b82-2127-459b-9e82-11bd3be09d04" = {
+      name = "Utilities";
+      apps = [
+        "org.gnome.Logs.desktop"
+        "org.gnome.Devhelp.desktop"
+        "org.gnome.Tour.desktop"
+        "cups.desktop"
+        "nixos-manual.desktop"
+        "yelp.desktop"
+        "org.gnome.baobab.desktop"
+        "xterm.desktop"
+      ];
+    };
 
-    "org/gnome/desktop/app-folders/folders/1c3e59e4-a571-4ada-af1d-ed1ced384cfb" =
-      {
-        name = "Wine";
-        apps = [
-          "7zip.desktop"
-          "Notepad++.desktop"
-          "playonlinux.desktop"
-          "net.lutris.Lutris.desktop"
-        ];
-      };
+    "org/gnome/desktop/app-folders/folders/1c3e59e4-a571-4ada-af1d-ed1ced384cfb" = {
+      name = "Wine";
+      apps = [
+        "7zip.desktop"
+        "Notepad++.desktop"
+        "playonlinux.desktop"
+        "net.lutris.Lutris.desktop"
+      ];
+    };
 
     # Shell Extensions
     "org/gnome/shell/extensions/workspace-dry-names".name-option = "countries";
     "org/gnome/shell/extensions/user-theme".name = "Adwaita";
-    "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position =
-      "start";
-    "org/gnome/shell/extensions/lock-screen-message".message =
-      "Welcome, ${config.credentials.fullname}!";
+    "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position = "start";
+    "org/gnome/shell/extensions/lock-screen-message".message = "Welcome, ${config.credentials.fullname}!";
 
     "org/gnome/shell/extensions/avatar" = {
       avatar-shadow-user-name = false;
@@ -457,14 +450,14 @@ in {
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      inhibit-apps = [ "teams.desktop" "startcenter.desktop" ];
+      inhibit-apps = ["teams.desktop" "startcenter.desktop"];
       nightlight-control = "never";
       show-notifications = false;
       user-enabled = true;
     };
 
     "org/gnome/shell/extensions/color-picker" = {
-      color-picker-shortcut = [ "<Super>c" ];
+      color-picker-shortcut = ["<Super>c"];
       enable-shortcut = true;
       enable-systray = true;
       menu-size = "uint32 8";
@@ -474,14 +467,14 @@ in {
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
       cache-size = 1051;
-      clear-history = [ ];
+      clear-history = [];
       confirm-clear = false;
       history-size = 70;
       move-item-first = true;
-      next-entry = [ ];
-      prev-entry = [ ];
+      next-entry = [];
+      prev-entry = [];
       strip-text = true;
-      toggle-menu = [ "<Super>v" ];
+      toggle-menu = ["<Super>v"];
     };
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
@@ -490,22 +483,18 @@ in {
       ws-switch-indicator-mode = 1;
     };
 
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0".action =
-      "toggle-overview";
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-left-0".action =
-      "show-applications";
+    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0".action = "toggle-overview";
+    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-left-0".action = "show-applications";
 
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-right-0" =
-      {
-        action = "show-desktop";
-        ctrl = true;
-      };
+    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-right-0" = {
+      action = "show-desktop";
+      ctrl = true;
+    };
 
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-right-0" =
-      {
-        action = "next-workspace";
-        ctrl = true;
-      };
+    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-right-0" = {
+      action = "next-workspace";
+      ctrl = true;
+    };
 
     "org/gnome/shell/extensions/burn-my-windows" = {
       close-preview-effect = "";
@@ -556,8 +545,7 @@ in {
     };
 
     "org/gnome/shell/extensions/lockkeys".style = "show-hide";
-    "org/gnome/shell/extensions/screenshotlocations".save-directory =
-      "${homeDir}/Pictures/Screenshots";
+    "org/gnome/shell/extensions/screenshotlocations".save-directory = "${homeDir}/Pictures/Screenshots";
 
     "org/gnome/shell/extensions/sound-output-device-chooser" = {
       expand-volume-menu = false;
@@ -578,9 +566,8 @@ in {
     };
 
     "org/gnome/shell/extensions/top-bar-organizer" = {
-      center-box-order = [ "dateMenu" ];
-      left-box-order =
-        [ "workspace-name-indicator" "timepp" "appMenu" "activities" ];
+      center-box-order = ["dateMenu"];
+      left-box-order = ["workspace-name-indicator" "timepp" "appMenu" "activities"];
       right-box-order = [
         "aggregateMenu"
         "drive-menu"
@@ -596,27 +583,22 @@ in {
     };
 
     "org/gnome/shell/extensions/vitals" = {
-      hot-sensors = [ "_default_icon_" ];
+      hot-sensors = ["_default_icon_"];
       show-battery = true;
       show-storage = false;
     };
 
     "org/gnome/shell/extensions/dash-to-panel" = {
       animate-appicon-hover = true;
-      animate-appicon-hover-animation-convexity =
-        "{'RIPPLE': 2.2000000000000002, 'PLANK': 1.0, 'SIMPLE': 0.0}";
-      animate-appicon-hover-animation-extent =
-        "{'RIPPLE': 6, 'PLANK': 4, 'SIMPLE': 1}";
-      animate-appicon-hover-animation-rotation =
-        "{'SIMPLE': 7, 'RIPPLE': 10, 'PLANK': 0}";
-      animate-appicon-hover-animation-travel =
-        "{'SIMPLE': 0.16, 'RIPPLE': 0.27000000000000002, 'PLANK': 0.0}";
+      animate-appicon-hover-animation-convexity = "{'RIPPLE': 2.2000000000000002, 'PLANK': 1.0, 'SIMPLE': 0.0}";
+      animate-appicon-hover-animation-extent = "{'RIPPLE': 6, 'PLANK': 4, 'SIMPLE': 1}";
+      animate-appicon-hover-animation-rotation = "{'SIMPLE': 7, 'RIPPLE': 10, 'PLANK': 0}";
+      animate-appicon-hover-animation-travel = "{'SIMPLE': 0.16, 'RIPPLE': 0.27000000000000002, 'PLANK': 0.0}";
       animate-appicon-hover-animation-type = "RIPPLE";
-      animate-appicon-hover-animation-zoom =
-        "{'SIMPLE': 1.0900000000000001, 'RIPPLE': 1.1399999999999999, 'PLANK': 2.0}";
+      animate-appicon-hover-animation-zoom = "{'SIMPLE': 1.0900000000000001, 'RIPPLE': 1.1399999999999999, 'PLANK': 2.0}";
       appicon-margin = 6;
       appicon-padding = 4;
-      available-monitors = [ 0 ];
+      available-monitors = [0];
       desktop-line-custom-color = "rgb(138,180,248)";
       desktop-line-use-custom-color = false;
       dot-color-dominant = true;
@@ -690,10 +672,8 @@ in {
       center-auto-color-opacity-hover = 0.0;
       center-auto-color-saturation = 0.75;
       center-auto-color-saturation-hover = 0.75;
-      center-background-image =
-        "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
-      center-background-image-hover =
-        "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      center-background-image = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      center-background-image-hover = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
       center-color-mode = "fixed";
       center-color-mode-hover = "fixed";
       center-fixed-color = "rgba(255,255,255,0)";
@@ -712,10 +692,8 @@ in {
       child-auto-color-opacity-hover = 1.0;
       child-auto-color-saturation = 0.9;
       child-auto-color-saturation-hover = 1.0;
-      child-background-image =
-        "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
-      child-background-image-hover =
-        "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      child-background-image = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      child-background-image-hover = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
       child-color-mode = "fixed";
       child-color-mode-hover = "fixed";
       child-draw-above = false;
@@ -734,10 +712,8 @@ in {
       easing-duration = 0.25;
       easing-mode = "ease-out";
       font = "Product Sans Medium, Medium 11";
-      grandchild-background-image =
-        "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
-      grandchild-background-image-hover =
-        "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      grandchild-background-image = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
+      grandchild-background-image-hover = "/run/current-system/sw/share/gnome-shell/extensions/flypie@schneegans.github.com/presets/assets/adwaita-dark.svg";
       grandchild-color-mode = "fixed";
       grandchild-color-mode-hover = "fixed";
       grandchild-draw-above = false;

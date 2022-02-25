@@ -1,16 +1,21 @@
-{ config, lib, pkgs, ... }:
-let enable = builtins.elem "printer" config.hardware.support;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  enable = builtins.elem "printer" config.hardware.support;
 in {
   ## Printer Firmware ##
   config = lib.mkIf enable {
     # Scanning
-    user.groups = [ "scanner" ];
+    user.groups = ["scanner"];
     hardware.sane.enable = true;
 
     # Printing
     services.printing = {
       enable = true;
-      drivers = with pkgs; [ gutenprint cnijfilter2 ];
+      drivers = with pkgs; [gutenprint cnijfilter2];
     };
   };
 }

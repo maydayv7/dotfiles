@@ -1,3 +1,3 @@
-{ ... }:
-with ((import ../flake.nix).defaultNix);
-nixosConfigurations."${inputs.library.lib.fileContents /etc/hostname}"
+_:
+with (import ../flake.nix).defaultNix;
+  nixosConfigurations."${inputs.library.lib.fileContents /etc/hostname}"

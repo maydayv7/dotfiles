@@ -12,16 +12,16 @@
     boot = "efi";
     cores = 4;
     filesystem = "simple";
-    modules = [ "common-cpu-intel" "common-pc" "common-pc-laptop" ];
+    modules = ["common-cpu-intel" "common-pc" "common-pc-laptop"];
   };
 
   gui.desktop = "gnome";
-  apps.list = [ "firefox" "office" ];
+  apps.list = ["firefox" "office"];
 
   # User Navya
   user = {
     name = "navya";
-    groups = [ "wheel" ];
+    groups = ["wheel"];
     description = "Navya";
     shell = "zsh";
   };

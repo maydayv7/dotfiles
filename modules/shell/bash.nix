@@ -1,6 +1,11 @@
-{ config, lib, pkgs, files, ... }:
-with files;
-let
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}:
+with files; let
   inherit (builtins) any attrValues elem mapAttrs;
   inherit (config.user) settings;
   enable = any (value: elem "bash" value.shells) (attrValues settings);
@@ -8,10 +13,10 @@ in {
   ## Bourne Shell Configuration ##
   config = lib.mkIf enable {
     # Shell Environment
-    environment.shells = [ pkgs.bashInteractive ];
+    environment.shells = [pkgs.bashInteractive];
     user.persist = {
-      files = [ ".bash_history" ];
-      dirs = [ ".local/share/bash" ];
+      files = [".bash_history"];
+      dirs = [".local/share/bash"];
     };
 
     # Settings
@@ -35,10 +40,11 @@ in {
           ];
 
           # Initialization
-          initExtra = ''
-            source <(${pkgs.cod}/bin/cod init $$ bash)
-            eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
-          ''
+          initExtra =
+            ''
+              source <(${pkgs.cod}/bin/cod init $$ bash)
+              eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
+            ''
             # Prompt
             + ''
               function _update_ps1() {
@@ -54,8 +60,8 @@ in {
 
           # Command History
           historySize = 100000;
-          historyIgnore = [ "rm" "pkill" ];
-          historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
+          historyIgnore = ["rm" "pkill"];
+          historyControl = ["erasedups" "ignoredups" "ignorespace"];
         };
 
         # Command Not Found Integration
@@ -63,6 +69,7 @@ in {
 
         # DirENV Integration
         programs.direnv.enableBashIntegration = true;
-      }) settings;
+      })
+    settings;
   };
 }

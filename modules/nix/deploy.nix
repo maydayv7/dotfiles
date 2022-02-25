@@ -1,5 +1,8 @@
-{ self, lib }:
-with { inherit (builtins) mapAttrs; }; {
+{
+  self,
+  lib,
+}:
+with {inherit (builtins) mapAttrs;}; {
   autoRollback = true;
   magicRollback = false;
   user = "root";
@@ -7,6 +10,7 @@ with { inherit (builtins) mapAttrs; }; {
   nodes = mapAttrs (hostname: config: {
     inherit hostname;
     profiles.system.path = lib.deploy."${config.pkgs.system}".activate.nixos
-      self.nixosConfigurations."${hostname}";
-  }) self.nixosConfigurations;
+    self.nixosConfigurations."${hostname}";
+  })
+  self.nixosConfigurations;
 }

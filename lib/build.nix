@@ -1,5 +1,9 @@
-{ self, platforms, lib, ... }:
-let
+{
+  self,
+  platforms,
+  lib,
+  ...
+}: let
   inherit (lib) nameValuePair recursiveUpdate util;
   inherit (builtins) any attrValues isPath listToAttrs map readFile;
 in rec {
@@ -10,10 +14,11 @@ in rec {
   # Configuration Builders
   device = self.nixosModule.config;
   iso = config:
-    self.nixosModule.config (config // {
+    self.nixosModule.config (config
+    // {
       format = "iso";
       description = "Install Media";
-      kernelModules = [ "nvme" ];
+      kernelModules = ["nvme"];
       gui.desktop = config.gui.desktop + "-minimal";
 
       # Default User
@@ -28,23 +33,28 @@ in rec {
     });
 
   # Package Channels Builder
-  channel = src: overlays: patch:
-    let patches = util.map.patches patch;
-    in each platforms (system:
-      let pkgs = src.legacyPackages."${system}";
-      in (if !(any isPath patches) then
-        import src
+  channel = src: overlays: patch: let
+    patches = util.map.patches patch;
+  in
+    each platforms (system: let
+      pkgs = src.legacyPackages."${system}";
+    in
+      (if !(any isPath patches)
+      then import src
       else
         import (pkgs.applyPatches {
           inherit src patches;
           name = "Patched-Input_${src.shortRev}";
         })) {
-          inherit system;
-          config = import ../modules/nix/config.nix;
-          overlays = overlays ++ (attrValues self.overlays or { }) ++ [
+        inherit system;
+        config = import ../modules/nix/config.nix;
+        overlays =
+          overlays
+          ++ (attrValues self.overlays or {})
+          ++ [
             (final: prev:
-              recursiveUpdate { custom = self.packages."${system}"; }
+              recursiveUpdate {custom = self.packages."${system}";}
               self.channels."${system}")
           ];
-        });
+      });
 }

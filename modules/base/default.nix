@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = lib.util.map.module ./.;
 
   ## Base Configuration ##
@@ -6,7 +10,7 @@
     # Documentation
     environment = {
       enableDebugInfo = true;
-      systemPackages = [ pkgs.man-pages ];
+      systemPackages = [pkgs.man-pages];
     };
 
     documentation = {

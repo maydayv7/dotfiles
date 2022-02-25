@@ -1,6 +1,10 @@
-{ lib, pkgs, files, ... }:
-with pkgs;
-stdenv.mkDerivation rec {
+{
+  lib,
+  pkgs,
+  files,
+  ...
+}:
+pkgs.stdenv.mkDerivation rec {
   pname = "Dotfiles";
   version = "v5.0";
   longVersion = "20220220";
@@ -13,6 +17,6 @@ stdenv.mkDerivation rec {
     description = "My PC Dotfiles";
     homepage = files.path.repo;
     license = licenses.mit;
-    maintainers = [ "maydayv7" ];
+    maintainers = ["maydayv7"];
   };
 }

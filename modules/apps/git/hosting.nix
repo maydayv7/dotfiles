@@ -1,11 +1,15 @@
-{ config, lib, ... }:
-let inherit (config.apps.git) hosting;
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit (config.apps.git) hosting;
 in {
   options.apps.git.hosting = lib.mkEnableOption "Enable Gitea Code Hosting";
 
   config = lib.mkIf hosting {
     # User Configuration
-    user.groups = [ "gitea" ];
+    user.groups = ["gitea"];
     users.users.git = {
       useDefaultShell = true;
       home = "/var/lib/gitea";
@@ -33,10 +37,10 @@ in {
     };
 
     # NGINX Secured Reverse Proxy
-    environment.persist.dirs = [ "/srv" ];
+    environment.persist.dirs = ["/srv"];
     networking.firewall = {
-      allowedUDPPorts = [ 7000 ];
-      allowedTCPPorts = [ 80 443 7000 ];
+      allowedUDPPorts = [7000];
+      allowedTCPPorts = [80 443 7000];
     };
 
     security.acme = {

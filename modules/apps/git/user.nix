@@ -1,14 +1,20 @@
-{ config, options, lib, ... }:
-let
+{
+  config,
+  options,
+  lib,
+  ...
+}: let
   cfg = config.credentials;
   opt = options.credentials.mail.description;
 in {
   ## User Credentials @@
   # Warnings
-  assertions = [{
-    assertion = cfg.mail != "";
-    message = opt + " must be set";
-  }];
+  assertions = [
+    {
+      assertion = cfg.mail != "";
+      message = opt + " must be set";
+    }
+  ];
 
   programs.git = {
     userName = cfg.name;

@@ -1,6 +1,12 @@
-{ config, lib, pkgs, files, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}:
 with files;
-with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
+with {inherit (lib) mkEnableOption mkIf mkMerge util;}; {
   imports = util.map.module ./.;
 
   options.shell.utilities = mkEnableOption "Enable Additional Shell Utilities";
@@ -10,7 +16,7 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
     {
       # Environment Settings
       environment = {
-        systemPackages = [ pkgs.nano ];
+        systemPackages = [pkgs.nano];
 
         # Default Editor
         variables.EDITOR = "nano";
@@ -28,6 +34,7 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
         file
         lolcat
         neofetch
+        nixos-option
         shellcheck
         stylua
         tree
@@ -48,7 +55,7 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
       };
 
       user = {
-        persist.dirs = [ ".local/share/direnv" ];
+        persist.dirs = [".local/share/direnv"];
         home = {
           programs = {
             # DirENV Support
@@ -67,7 +74,7 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
                 style = "full";
                 italic-text = "always";
                 theme = "Monokai Extended Bright";
-                map-syntax = [ ".ignore:Git Ignore" ];
+                map-syntax = [".ignore:Git Ignore"];
               };
             };
           };
@@ -88,8 +95,7 @@ with { inherit (lib) mkEnableOption mkIf mkMerge util; }; {
             l = "ls --color --group-directories-first";
             ls = "exa -b -h -l -F --octal-permissions --icons --time-style iso";
             sike = "neofetch";
-            nixos-option =
-              "${pkgs.nixos-option} -I nixpkgs=${path.system}/lib/compat";
+            nixos-option = "nixos-option -I nixpkgs=${path.system}/lib/compat";
           };
         };
       };

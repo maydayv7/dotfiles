@@ -17,9 +17,9 @@
     "x-scheme-handler/unknown"
   ];
 
-  calendar = [ "text/calendar" "x-scheme-handler/webcal" ];
+  calendar = ["text/calendar" "x-scheme-handler/webcal"];
 
-  directory = [ "inode/directory" ];
+  directory = ["inode/directory"];
 
   image = [
     "image/bmp"
@@ -33,11 +33,11 @@
     "image/webp"
   ];
 
-  magnet = [ "x-scheme-handler/magnet" ];
+  magnet = ["x-scheme-handler/magnet"];
 
-  mail = [ "x-scheme-handler/mailto" ];
+  mail = ["x-scheme-handler/mailto"];
 
-  markdown = [ "text/markdown" ];
+  markdown = ["text/markdown"];
 
   office = [
     "application/vnd.oasis.opendocument.text"
@@ -51,9 +51,9 @@
     "application/vnd.ms-powerpoint"
   ];
 
-  pdf = [ "application/pdf" ];
+  pdf = ["application/pdf"];
 
-  text = [ "text/plain" ];
+  text = ["text/plain"];
 
   video = [
     "video/mp2t"

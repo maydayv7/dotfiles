@@ -1,6 +1,11 @@
-{ config, lib, pkgs, files, ... }:
-with files;
-let
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}:
+with files; let
   inherit (builtins) any attrValues elem mapAttrs;
   inherit (config.user) settings;
   enable = any (value: elem "zsh" value.shells) (attrValues settings);
@@ -9,13 +14,13 @@ in {
   config = lib.mkIf enable {
     # Shell Environment
     user.persist = {
-      files = [ ".zsh_history" ];
-      dirs = [ ".cache/zsh" ];
+      files = [".zsh_history"];
+      dirs = [".cache/zsh"];
     };
 
     environment = {
-      shells = [ pkgs.zsh ];
-      pathsToLink = [ "/share/zsh" ];
+      shells = [pkgs.zsh];
+      pathsToLink = ["/share/zsh"];
     };
 
     # Settings
@@ -36,9 +41,10 @@ in {
             eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
           '';
 
-          initExtra = ''
-            source <(${pkgs.cod}/bin/cod init $$ zsh)
-          ''
+          initExtra =
+            ''
+              source <(${pkgs.cod}/bin/cod init $$ zsh)
+            ''
             # Keybindings
             + ''
               bindkey '^[[1;5C' forward-word
@@ -62,7 +68,7 @@ in {
             extended = true;
             ignoreDups = true;
             expireDuplicatesFirst = true;
-            ignorePatterns = [ "rm *" "pkill *" ];
+            ignorePatterns = ["rm *" "pkill *"];
           };
 
           # Additional Plugins
@@ -80,14 +86,13 @@ in {
             {
               name = "zsh-syntax-highlighting";
               src = pkgs.zsh-syntax-highlighting;
-              file =
-                "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
+              file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
             }
           ];
         };
 
         # Utilities
-        home.packages = with pkgs; [ fzf fzf-zsh ];
+        home.packages = with pkgs; [fzf fzf-zsh];
 
         # Prompt
         home.file.".p10k.zsh".text = zsh.prompt;
@@ -97,6 +102,7 @@ in {
 
         # DirENV Integration
         programs.direnv.enableZshIntegration = true;
-      }) settings;
+      })
+    settings;
   };
 }

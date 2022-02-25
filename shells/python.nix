@@ -1,14 +1,14 @@
 pkgs: {
   name = "Python";
   packages = with pkgs;
-    with python39Packages; [
-      python39
-      ipython
-      pip
-      poetry
-      pylint
-      setuptools
-    ];
+  with python39Packages; [
+    python39
+    ipython
+    pip
+    poetry
+    pylint
+    setuptools
+  ];
 
   shellHook = ''
     echo "## Python Development Shell ##"

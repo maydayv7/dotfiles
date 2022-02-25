@@ -1,17 +1,22 @@
-{ config, lib, pkgs, files, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}: let
   inherit (lib) mkIf util;
   enable = builtins.elem "firefox" config.apps.list;
 in {
   ## Firefox Browser Configuration ##
   config = mkIf enable {
-    environment.systemPackages = [ pkgs.firefox ];
-    user.persist.dirs = [ ".cache/mozilla/firefox" ".mozilla/firefox" ];
+    environment.systemPackages = [pkgs.firefox];
+    user.persist.dirs = [".cache/mozilla/firefox" ".mozilla/firefox"];
 
     user.home = {
       # File Associations
       xdg.mimeApps.defaultApplications = util.xdg.mime (import files.xdg.mime) {
-        browser = [ "firefox.desktop" ];
+        browser = ["firefox.desktop"];
       };
 
       # Profile

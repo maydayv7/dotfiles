@@ -1,6 +1,6 @@
 pkgs: {
   name = "Java";
-  packages = with pkgs; [ jdk nodejs scala sbt yarn ];
+  packages = with pkgs; [jdk nodejs scala sbt yarn];
   shellHook = ''
     echo "## Java Development Shell ##"
 

@@ -1,9 +1,8 @@
-{ self, ... }@inputs:
-with inputs;
-let
+{self, ...} @ inputs:
+with inputs; let
   ## Variable Declaration ##
   # Supported Architectures
-  platforms = [ "x86_64-linux" ];
+  platforms = ["x86_64-linux"];
 
   # NixOS Version
   version = readFile ./.version;
@@ -16,7 +15,7 @@ let
   lib = library.lib.extend (final: prev:
     {
       deploy = deploy.lib;
-      filters = ignore.lib // { inherit (filter.lib) filter matchExt; };
+      filters = ignore.lib // {inherit (filter.lib) filter matchExt;};
       hooks = hooks.lib;
       image = generators.nixosGenerate;
       wine = wine.lib;
@@ -24,27 +23,30 @@ let
         inherit self platforms;
         lib = final;
       };
-    } // home.lib // utils.lib);
-in eachSystem platforms (system:
-  let
+    }
+    // home.lib
+    // utils.lib);
+in
+  eachSystem platforms (system: let
     # Default Package Channel
     pkgs = self.channels."${system}".stable;
 
     # Package Calling Function
-    call = name: pkgs.callPackage name { inherit lib inputs pkgs files; };
+    call = name: pkgs.callPackage name {inherit lib inputs pkgs files;};
   in {
     ## Configuration Checks ##
-    checks = import ./modules/nix/checks.nix { inherit self system lib pkgs; };
+    checks = import ./modules/nix/checks.nix {inherit self system lib pkgs;};
 
     ## Developer Shells ##
     # Default Shell
-    devShell = import ./shells { inherit pkgs; };
+    devShell = import ./shells {inherit pkgs;};
 
     # Tailored Shells
-    devShells = map.modules' ./shells (file: pkgs.mkShell (import file pkgs))
+    devShells =
+      map.modules' ./shells (file: pkgs.mkShell (import file pkgs))
       // {
         commit =
-          pkgs.mkShell { inherit (self.checks."${system}".commit) shellHook; };
+          pkgs.mkShell {inherit (self.checks."${system}".commit) shellHook;};
       };
 
     ## Package Configuration ##
@@ -52,8 +54,8 @@ in eachSystem platforms (system:
 
     # Channels
     channels = {
-      stable = (build.channel stable [ ] ./packages/patches)."${system}";
-      unstable = (build.channel unstable [ nur.overlay ] [ ])."${system}";
+      stable = (build.channel stable [] ./packages/patches)."${system}";
+      unstable = (build.channel unstable [nur.overlay] [])."${system}";
       wine = wine.packages."${system}";
       gaming = gaming.packages."${system}";
       apps = {
@@ -65,20 +67,21 @@ in eachSystem platforms (system:
     # Custom Packages
     defaultApp = self.apps."${system}".nixos;
     defaultPackage = self.packages."${system}".dotfiles;
-    apps = map.modules ./scripts (name: lib.mkApp { drv = call name; });
+    apps = map.modules ./scripts (name: lib.mkApp {drv = call name;});
     packages = map.modules ./packages call // map.modules ./scripts call;
-  }) // {
+  })
+  // {
     # Overrides
     overlays = map.modules ./packages/overlays import;
 
     ## Program Configuration and 'dotfiles' ##
-    files = import ./files { inherit lib inputs; };
+    files = import ./files {inherit lib inputs;};
 
     ## Custom Library Functions ##
     lib = lib.util;
 
     ## Custom Configuration Modules ##
-    nixosModule = import ./modules { inherit version lib inputs files; };
+    nixosModule = import ./modules {inherit version lib inputs files;};
     nixosModules = map.modules ./modules import;
 
     ## Configuration Templates ##
@@ -88,9 +91,10 @@ in eachSystem platforms (system:
         description = "Simple, Minimal NixOS Configuration";
         path = filters.filter {
           root = ./.templates/minimal;
-          include = [ (filters.matchExt "nix") ];
+          include = [(filters.matchExt "nix")];
         };
       };
+
       extensive = {
         description = "My Complete, Extensive NixOS Configuration";
         path = filters.filter {
@@ -108,14 +112,13 @@ in eachSystem platforms (system:
     };
 
     ## Device Configuration ##
-    deploy = import ./modules/nix/deploy.nix { inherit self lib; };
+    deploy = import ./modules/nix/deploy.nix {inherit self lib;};
     nixosConfigurations =
       map.modules ./devices (name: build.device (import name));
 
     ## Virtual Machines ##
     vmConfigurations = map.modules ./devices/vm (name:
-      import name (head platforms) inputs
-      self.channels."${head platforms}".stable);
+      import name (head platforms) inputs self.channels."${head platforms}".stable);
 
     ## Install Media Configuration ##
     installMedia = {

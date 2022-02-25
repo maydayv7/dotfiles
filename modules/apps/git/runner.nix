@@ -1,12 +1,17 @@
-{ config, lib, pkgs, files, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}: let
   inherit (lib) mkIf mkMerge mkOption types util;
   inherit (config.apps.git) runner;
   inherit (config.sops) secrets;
 in {
   options.apps.git.runner = mkOption {
     description = "Support for 'git' Runners";
-    type = types.nullOr (types.enum [ "github" "gitlab" ]);
+    type = types.nullOr (types.enum ["github" "gitlab"]);
     default = null;
   };
 
@@ -19,11 +24,11 @@ in {
 
     (mkIf (runner == "github") {
       # GitHub Runner
-      environment.systemPackages = [ pkgs.act ];
+      environment.systemPackages = [pkgs.act];
       services.github-runner = {
         enable = true;
         url = files.path.repo;
-        extraLabels = [ "self" ];
+        extraLabels = ["self"];
         tokenFile = secrets."github-runner.secret".path;
       };
     })
@@ -38,7 +43,7 @@ in {
         enable = true;
         services.default = {
           dockerImage = "alpine";
-          tagList = [ "self" ];
+          tagList = ["self"];
           registrationConfigFile = secrets."gitlab-runner.secret".path;
         };
       };

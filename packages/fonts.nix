@@ -1,6 +1,10 @@
-{ lib, pkgs, files, ... }:
-with pkgs;
-stdenv.mkDerivation rec {
+{
+  lib,
+  pkgs,
+  files,
+  ...
+}:
+pkgs.stdenv.mkDerivation rec {
   pname = "fonts";
   version = "7";
 
@@ -11,6 +15,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Custom Proprietary Fonts";
     license = licenses.unfree;
-    maintainers = [ "maydayv7" ];
+    maintainers = ["maydayv7"];
   };
 }

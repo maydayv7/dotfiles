@@ -1,10 +1,28 @@
-{ lib, ... }:
-let
-  inherit (builtins)
-    attrNames attrValues foldl' isPath pathExists readDir toString;
-  inherit (lib)
-    flatten filterAttrs hasPrefix hasSuffix id mapAttrs' mapAttrsToList mkIf
-    nameValuePair removeSuffix;
+{lib, ...}: let
+  inherit
+    (builtins)
+    attrNames
+    attrValues
+    foldl'
+    isPath
+    pathExists
+    readDir
+    toString
+    ;
+
+  inherit
+    (lib)
+    flatten
+    filterAttrs
+    hasPrefix
+    hasSuffix
+    id
+    mapAttrs'
+    mapAttrsToList
+    mkIf
+    nameValuePair
+    removeSuffix
+    ;
 in rec {
   ## Mapping Functions ##
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
@@ -13,45 +31,54 @@ in rec {
   ## Files Map
   # Top Level
   files = dir: func: extension:
-    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
-      let path = "${toString dir}/${name}";
-      in if (type == "directory" || type == "symlink")
-      && (if (extension == ".nix") then
-        pathExists "${path}/default.nix"
-      else
-        true) then
-        nameValuePair name (func path)
-      else if type == "regular"
-      && (if (extension == ".nix") then name != "default.nix" else true)
-      && hasSuffix extension name then
-        nameValuePair (removeSuffix extension name) (func path)
-      else
-        nameValuePair "" null) (readDir dir);
+    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type: let
+      path = "${toString dir}/${name}";
+    in
+      if
+        (type == "directory" || type == "symlink")
+        && (if (extension == ".nix")
+        then pathExists "${path}/default.nix"
+        else true)
+      then nameValuePair name (func path)
+      else if
+        type
+        == "regular"
+        && (if (extension == ".nix")
+        then name != "default.nix"
+        else true)
+        && hasSuffix extension name
+      then nameValuePair (removeSuffix extension name) (func path)
+      else nameValuePair "" null) (readDir dir);
 
   # Recursive
   files' = dir: func: extension:
-    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
-      let path = "${toString dir}/${name}";
-      in if (type == "directory" || type == "symlink") then
-        nameValuePair name (files' path func)
-      else if type == "regular"
-      && (if (extension == ".nix") then name != "default.nix" else true)
-      && hasSuffix extension name then
-        nameValuePair (removeSuffix extension name) (func path)
-      else
-        nameValuePair "" null) (readDir dir);
+    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type: let
+      path = "${toString dir}/${name}";
+    in
+      if (type == "directory" || type == "symlink")
+      then nameValuePair name (files' path func)
+      else if
+        type
+        == "regular"
+        && (if (extension == ".nix")
+        then name != "default.nix"
+        else true)
+        && hasSuffix extension name
+      then nameValuePair (removeSuffix extension name) (func path)
+      else nameValuePair "" null) (readDir dir);
 
   # Package Patches
   patches = patch:
-    if isPath patch then
+    if isPath patch
+    then
       flatten (mapAttrsToList (name: type:
-        if type == "regular"
-        && (hasSuffix ".diff" name || hasSuffix ".patch" name) then
-          patch + "/${name}"
-        else
-          null) (readDir patch))
-    else
-      patch;
+        if
+          type
+          == "regular"
+          && (hasSuffix ".diff" name || hasSuffix ".patch" name)
+        then patch + "/${name}"
+        else null) (readDir patch))
+    else patch;
 
   # Module Imports
   module = dir: attrValues (modules dir id);
@@ -62,12 +89,12 @@ in rec {
   # 'sops' Encrypted Secrets
   secrets = dir: neededForUsers:
     filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
-      if type == "regular" && hasSuffix ".secret" name then
+      if type == "regular" && hasSuffix ".secret" name
+      then
         nameValuePair name {
           sopsFile = dir + "/${name}";
           format = "binary";
           inherit neededForUsers;
         }
-      else
-        nameValuePair "" null) (readDir dir);
+      else nameValuePair "" null) (readDir dir);
 }

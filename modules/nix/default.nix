@@ -1,19 +1,15 @@
-{ inputs, pkgs, ... }: {
-  imports = [ ./index.nix inputs.utils.nixosModules.autoGenFromInputs ];
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  imports = [./index.nix inputs.utils.nixosModules.autoGenFromInputs];
 
   ## Nix Settings ##
   config = {
     # Utilities
-    user.persist.dirs = [ ".cache/nix" ".cache/manix" ];
-    environment.systemPackages = with pkgs; [
-      cachix
-      apps.deploy
-      apps.generators
-      manix
-      nixfmt
-      nix-linter
-      unstable.statix
-    ];
+    user.persist.dirs = [".cache/nix" ".cache/manix"];
+    environment.systemPackages = with pkgs; [cachix manix];
 
     # Settings
     nix = {
@@ -29,8 +25,8 @@
       };
 
       # User Permissions
-      allowedUsers = [ "root" "@wheel" ];
-      trustedUsers = [ "root" "@wheel" ];
+      allowedUsers = ["root" "@wheel"];
+      trustedUsers = ["root" "@wheel"];
 
       # Registry
       linkInputs = true;
@@ -39,7 +35,7 @@
 
       # Additional Features
       useSandbox = true;
-      systemFeatures = [ "kvm" "recursive-nix" ];
+      systemFeatures = ["kvm" "recursive-nix"];
       extraOptions = ''
         accept-flake-config = true
         warn-dirty = false

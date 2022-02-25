@@ -1,5 +1,5 @@
-{ lib, ... }:
-with { inherit (lib) mkOption types util; }; {
+{lib, ...}:
+with {inherit (lib) mkOption types util;}; {
   imports = util.map.module ./.;
 
   options.hardware = with types; {
@@ -12,13 +12,13 @@ with { inherit (lib) mkOption types util; }; {
     modules = mkOption {
       description = "List of Modules imported from 'inputs.hardware'";
       type = listOf str;
-      default = [ ];
+      default = [];
     };
 
     support = mkOption {
       description = "List of Additional Supported Hardware";
       type = listOf (enum (util.map.module' ./.));
-      default = [ ];
+      default = [];
     };
   };
 }

@@ -1,6 +1,11 @@
-{ lib, inputs, pkgs, ... }:
-with { inherit (lib) mkAfter mkForce; }; {
-  imports = [ inputs.gaming.nixosModules.pipewireLowLatency ];
+{
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
+with {inherit (lib) mkAfter mkForce;}; {
+  imports = [inputs.gaming.nixosModules.pipewireLowLatency];
 
   ## Device Firmware ##
   config = {
@@ -60,7 +65,7 @@ with { inherit (lib) mkAfter mkForce; }; {
     };
 
     # Network Settings
-    user.groups = [ "networkmanager" ];
+    user.groups = ["networkmanager"];
     environment.persist.dirs = [
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
@@ -84,10 +89,12 @@ with { inherit (lib) mkAfter mkForce; }; {
       enableSSHSupport = true;
     };
 
-    user.persist.dirs = [{
-      directory = ".gnupg";
-      mode = "0700";
-    }];
+    user.persist.dirs = [
+      {
+        directory = ".gnupg";
+        mode = "0700";
+      }
+    ];
 
     # SSH
     systemd.services.sshd.preStart = mkAfter ''
@@ -99,7 +106,7 @@ with { inherit (lib) mkAfter mkForce; }; {
       enable = true;
       passwordAuthentication = true;
       permitRootLogin = mkForce "no";
-      hostKeys = mkForce [ ];
+      hostKeys = mkForce [];
     };
 
     # Power Management

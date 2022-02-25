@@ -1,4 +1,9 @@
-{ config, pkgs, files, ... }:
+{
+  config,
+  pkgs,
+  files,
+  ...
+}:
 with files; {
   # Credentials
   credentials = {
@@ -10,7 +15,7 @@ with files; {
 
   # Home Configuration
   home = {
-    packages = [ pkgs.home-manager ];
+    packages = [pkgs.home-manager];
 
     # Directory Symlinks
     file = {

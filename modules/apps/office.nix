@@ -1,5 +1,11 @@
-{ config, lib, pkgs, files, ... }:
-let enable = builtins.elem "office" config.apps.list;
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}: let
+  enable = builtins.elem "office" config.apps.list;
 in {
   ## Office Environment Configuration ##
   config = lib.mkIf enable {
@@ -27,14 +33,13 @@ in {
 
     # Dictionaries
     environment = {
-      pathsToLink = [ "/share/hunspell" "/share/myspell" "/share/hyphen" ];
-      variables.DICPATH =
-        "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
+      pathsToLink = ["/share/hunspell" "/share/myspell" "/share/hyphen"];
+      variables.DICPATH = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
     };
 
     user = {
       # Persisted Files
-      persist.files = [ ".config/gscan2pdfrc" ".config/zoomus.conf" ];
+      persist.files = [".config/gscan2pdfrc" ".config/zoomus.conf"];
       persist.dirs = [
         ".bluej"
         ".thunderbird"

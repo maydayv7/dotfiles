@@ -1,4 +1,10 @@
-{ config, lib, pkgs, files, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  files,
+  ...
+}: {
   options.gui.fonts.enable = lib.mkEnableOption "Enable Fonts Configuration";
 
   ## Font Configuration ##
@@ -11,10 +17,10 @@
         enable = true;
         localConf = files.fonts.config;
         defaultFonts = {
-          monospace = [ "MesloLGS NF" ];
-          sansSerif = [ "Product Sans" ];
-          serif = [ "Noto Serif" ];
-          emoji = [ "Noto Color Emoji" ];
+          monospace = ["MesloLGS NF"];
+          sansSerif = ["Product Sans"];
+          serif = ["Noto Serif"];
+          emoji = ["Noto Color Emoji"];
         };
       };
     };

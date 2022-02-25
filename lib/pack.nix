@@ -1,5 +1,8 @@
-{ self, lib, ... }:
-let
+{
+  self,
+  lib,
+  ...
+}: let
   inherit (builtins) attrNames;
   inherit (lib) genAttrs id mapAttrs';
 in rec {

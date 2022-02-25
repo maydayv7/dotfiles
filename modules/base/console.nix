@@ -1,12 +1,16 @@
-{ config, pkgs, ... }:
-let font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
+{
+  config,
+  pkgs,
+  ...
+}: let
+  font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
 in {
   ## Console Configuration ##
   config = {
     # Setup
     console = {
       font = "ter-132n";
-      packages = [ pkgs.terminus_font ];
+      packages = [pkgs.terminus_font];
       useXkbConfig = true;
     };
 

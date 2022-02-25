@@ -1,5 +1,9 @@
-{ config, options, lib, ... }:
-let
+{
+  config,
+  options,
+  lib,
+  ...
+}: let
   inherit (builtins) map;
   inherit (util.map) module module';
   inherit (lib) mkOption optional types util;
@@ -14,5 +18,5 @@ in {
   };
 
   config.warnings = optional (config.gui.desktop == null)
-    (options.gui.desktop.description + " is unset");
+  (options.gui.desktop.description + " is unset");
 }
