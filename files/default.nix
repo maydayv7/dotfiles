@@ -39,6 +39,9 @@ in {
   # X11 Gestures
   gestures = readFile ./touchegg/touchegg.conf;
 
+  # 'git' Version Control
+  git.hooks = ./git/hooks;
+
   # GNOME Desktop
   gnome = {
     accounts = readFile ./gnome/accounts.conf;

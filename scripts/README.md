@@ -13,9 +13,10 @@ $ nixos
 # Usage #
   apply [ --'option' ]        - Applies Device and User Configuration
   cache 'command'             - Pushes Binary Cache Output to Cachix
-  check [ --trace ]           - Checks System Configuration [ Displays Error to Trace ]
+  check [ --trace | --fast ]  - Checks System Configuration [ Displays Error to Trace ]
   clean [ --all ]             - Garbage Collects and Optimises Nix Store
   explore                     - Opens Interactive Shell to explore Syntax and Configuration
+  format [ path ]             - Formats Configuration Syntax [ in 'path' ]
   install                     - Installs NixOS onto System
   iso 'variant' [ --burn ]    - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
   list [ 'pattern' ]          - Lists all Installed Packages [ Returns Matches ]

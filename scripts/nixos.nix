@@ -21,9 +21,10 @@ let
       # Usage #
         apply [ --'option' ]        - Applies Device and User Configuration
         cache 'command'             - Pushes Binary Cache Output to Cachix
-        check [ --trace ]           - Checks System Configuration [ Displays Error to Trace ]
+        check [ --trace | --fast ]  - Checks System Configuration [ Displays Error to Trace ]
         clean [ --all ]             - Garbage Collects and Optimises Nix Store
         explore                     - Opens Interactive Shell to explore Syntax and Configuration
+        format [ path ]             - Formats Configuration Syntax [ in 'path' ]
         install                     - Installs NixOS onto System
         iso 'variant' [ --burn ]    - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
         list [ 'pattern' ]          - Lists all Installed Packages [ Returns Matches ]
@@ -137,16 +138,14 @@ in recursiveUpdate {
       fi
     ;;
     check)
-      if [ "$2" == "--trace" ]
-      then
-        flags="--show-trace"
-      fi
-      echo "Formatting Code..."
-      find ${path.system} -type f -name "*.nix" -exec nixfmt {} \+
-      prettier --write --list-different --ignore-unknown ${path.system}
       echo "Checking Syntax..."
       nix-linter -r ${path.system} || true
-      nix flake check ${path.system} --keep-going $flags
+      case $2 in
+      "") nix flake check ${path.system} --keep-going;;
+      "--trace") nix flake check ${path.system} --keep-going --show-trace;;
+      "--fast") nix build -L --no-link ${path.system}#checks.${system}.activate;;
+      *) nix flake check "$2" --keep-going;;
+      esac
     ;;
     clean)
       echo "Running Garbage Collection..."
@@ -171,6 +170,17 @@ in recursiveUpdate {
       "") nix repl --arg host true --arg path ${path.system} ${repl};;
       *) nix repl --arg path "$(readlink -f "$2" | sed 's|/flake.nix||')" ${repl};;
       esac
+    ;;
+    format)
+      echo "Formatting Code..."
+      if [ -z "$2" ]
+      then
+        path=${path.system}
+      else
+        path="$2"
+      fi
+      find "$path" -type f -name "*.nix" -exec nixfmt {} \+
+      prettier --write --list-different --ignore-unknown "$path"
     ;;
     install)
       internet

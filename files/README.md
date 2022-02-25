@@ -7,6 +7,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`discord`](./discord) - `discord` Chat Theming
 - [`firefox`](./firefox) - `firefox` Web Browser Theming
 - [`fonts`](./fonts) - Fonts Configuration
+- [`git`](./git) - Configuration for `git` Version Control
 - [`gnome`](./gnome) - Configuration Files for GNOME Desktop
 - [`gpg`](./gpg) - Encrypted GPG Keys
 - [`gtk`](./gtk) - GTK+ Theming and Styles

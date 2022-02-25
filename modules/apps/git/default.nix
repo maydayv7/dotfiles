@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, files, ... }:
 let enable = builtins.elem "git" config.apps.list;
 in {
   imports = [ ./hosting.nix ./runner.nix ];
@@ -19,6 +19,11 @@ in {
       persist.dirs = [ ".config/gh" ];
       home = {
         imports = [ ./user.nix ];
+
+        # Hooks
+        home.file.".git-hooks".source = files.git.hooks;
+
+        # 'gh' Configuration
         programs = {
           gh = {
             enable = true;
@@ -49,6 +54,7 @@ in {
             };
           };
 
+          # 'git' Settings
           git = {
             enable = true;
             lfs.enable = true;
@@ -69,7 +75,7 @@ in {
             # Additional Parameters
             extraConfig = {
               color.ui = "auto";
-              core.hooksPath = ".git-hooks";
+              core.hooksPath = "~/.git-hooks";
               credential.helper = "libsecret";
               diff.colorMoved = "default";
               init.defaultBranch = "main";

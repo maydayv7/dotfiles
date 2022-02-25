@@ -3,7 +3,7 @@ error() { echo -e "\033[0;31merror:\033[0m $1"; exit 7; }
 
 ## Commit Message ##
 # Keywords
-if ! head -1 "$1" | grep -qE "^(feat|fix|ci|chore|docs|test|style|refactor)(\(.+?\))?\!?: .{1,}$"
+if ! head -1 "$1" | grep -qE "^(feat|fix|ci|blog|chore|docs|test|style|refactor)(\(.+?\))?\!?: .{1,}$"
 then
   error "Commit Message is invalid"
 fi
