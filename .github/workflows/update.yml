@@ -34,6 +34,7 @@ jobs:
           GIT_COMMITTER_NAME: github-actions[bot]
           GIT_COMMITTER_EMAIL: <github-actions[bot]@users.noreply.github.com>
         run: |
+          git checkout stable
           nix profile install nixpkgs#jq
           cd packages && bash ./update.sh
       - name: Create PR

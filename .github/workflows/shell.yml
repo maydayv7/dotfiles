@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        shell: [cc, go, java, lisp, lua, python, rust, video]
+        shell: [cc, format, go, java, lisp, lua, python, rust, video]
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v16

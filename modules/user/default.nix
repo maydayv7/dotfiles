@@ -17,6 +17,7 @@
     types
     util
     ;
+
   inherit (config.user) groups home settings;
 in {
   imports = util.map.module ./. ++ [inputs.home.nixosModules.home-manager];
@@ -132,6 +133,7 @@ in {
         else if (find == "1")
         then throw "Only one User can be Automatically Logged-In"
         else true;
+
       user = mkIf config.services.xserver.displayManager.autoLogin.enable
       (findFirst (name: with settings."${name}"; autologin || minimal) "nixos"
       (attrNames settings));

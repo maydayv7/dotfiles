@@ -443,10 +443,12 @@ in {
     "org/gnome/shell/extensions/avatar" = {
       avatar-shadow-user-name = false;
       buttons-icon-size = 20;
-      buttons-position = 12;
+      buttons-position = 50;
       name-style-dark = false;
-      show-buttons = false;
+      show-buttons = true;
       show-system-name = false;
+      show-media-center = true;
+      set-custom-panel-menu-width = 400;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
