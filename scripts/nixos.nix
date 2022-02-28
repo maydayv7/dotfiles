@@ -92,6 +92,7 @@ in
       gparted
       jq
       manix
+      nixFlakes
       nix-linter
       parted
       nodePackages.prettier

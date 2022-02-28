@@ -38,13 +38,10 @@ in
     checks = import ./modules/nix/checks.nix {inherit self system lib pkgs;};
 
     ## Developer Shells ##
-    # Default Shell
-    devShell = import ./shells {inherit pkgs;};
-
-    # Tailored Shells
     devShells =
       map.modules' ./shells (file: pkgs.mkShell (import file pkgs))
       // {
+        default = import ./shells {inherit pkgs;};
         commit =
           pkgs.mkShell {inherit (self.checks."${system}".commit) shellHook;};
       };
@@ -65,10 +62,8 @@ in
     };
 
     # Custom Packages
-    defaultApp = self.apps."${system}".nixos;
-    defaultPackage = self.packages."${system}".dotfiles;
-    apps = map.modules ./scripts (name: lib.mkApp {drv = call name;});
-    packages = map.modules ./packages call // map.modules ./scripts call;
+    apps = map.modules ./scripts (name: lib.mkApp {drv = call name;}) // {default = self.apps."${system}".nixos;};
+    packages = map.modules ./packages call // map.modules ./scripts call // {default = self.packages."${system}".dotfiles;};
   })
   // {
     # Overrides
@@ -85,9 +80,8 @@ in
     nixosModules = map.modules ./modules import;
 
     ## Configuration Templates ##
-    defaultTemplate = self.templates.minimal;
     templates = {
-      minimal = {
+      default = {
         description = "Simple, Minimal NixOS Configuration";
         path = filters.filter {
           root = ./.templates/minimal;
