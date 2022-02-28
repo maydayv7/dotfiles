@@ -5,12 +5,16 @@
   files,
   ...
 }: let
+  inherit (lib) mkIf util;
   enable = builtins.elem "git" config.apps.list;
 in {
   imports = [./hosting.nix ./runner.nix];
 
   ## 'git' Configuration ##
-  config = lib.mkIf enable {
+  config = mkIf enable {
+    # Secrets
+    sops.secrets = util.map.secrets ./secrets false;
+
     # Utilities
     environment.systemPackages = with pkgs; [
       gitFull

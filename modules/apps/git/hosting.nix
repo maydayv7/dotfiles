@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (config.apps.git) hosting;
+  inherit (config.sops) secrets;
 in {
   options.apps.git.hosting = lib.mkEnableOption "Enable Gitea Code Hosting";
 
@@ -30,8 +31,8 @@ in {
 
       # Repository
       appName = "@maydayv7 Code Hosting";
-      domain = "maydayv7.io";
-      rootUrl = "https://code.maydayv7.io";
+      domain = "maydayv7.tk";
+      rootUrl = "https://maydayv7.tk";
       httpPort = 7000;
       settings.ui.DEFAULT_THEME = "arc-green";
     };
@@ -45,7 +46,15 @@ in {
 
     security.acme = {
       acceptTerms = true;
-      email = "accounts+acme@maydayv7.io";
+      email = "accounts+acme@maydayv7.tk";
+      certs."maydayv7.tk" = {
+        group = "nginx";
+        email = "maydayv7@maydayv7.tk";
+        dnsProvider = "cloudflare";
+        credentialsFile = secrets."cloudflare.secret".path;
+        extraDomainNames = ["*.christine.website"];
+        extraLegoFlags = ["--dns.resolvers=8.8.8.8:53"];
+      };
     };
 
     services.nginx = {
@@ -73,10 +82,10 @@ in {
       recommendedTlsSettings = true;
 
       # Code Hosting
-      virtualHosts."code.maydayv7.io" = {
+      virtualHosts."maydayv7.tk" = {
         forceSSL = true;
-        enableACME = true;
-        root = "/srv/www/code.maydayv7.io";
+        useACMEHost = "maydayv7.tk";
+        root = "/srv/www/maydayv7.tk";
         locations."/".proxyPass = "http://127.0.0.1:7000";
       };
     };

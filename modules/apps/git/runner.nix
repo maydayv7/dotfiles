@@ -5,7 +5,7 @@
   files,
   ...
 }: let
-  inherit (lib) mkIf mkMerge mkOption types util;
+  inherit (lib) mkIf mkMerge mkOption types;
   inherit (config.apps.git) runner;
   inherit (config.sops) secrets;
 in {
@@ -17,11 +17,6 @@ in {
 
   ## Runner Configuration ##
   config = mkIf (runner != null) (mkMerge [
-    {
-      # Secrets
-      sops.secrets = util.map.secrets ./secrets false;
-    }
-
     (mkIf (runner == "github") {
       # GitHub Runner
       environment.systemPackages = [pkgs.act];
