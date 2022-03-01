@@ -1,0 +1,15 @@
+@import "variables";
+
+.logo {
+  align-items: center;
+  background: var(--accent);
+  border-radius: $corner-radius;
+  color: black;
+  display: flex;
+  padding: 8px 15px;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent-secondary);
+  }
+}

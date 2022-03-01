@@ -52,7 +52,6 @@ in {
         email = "maydayv7@maydayv7.tk";
         dnsProvider = "cloudflare";
         credentialsFile = secrets."cloudflare.secret".path;
-        extraDomainNames = ["*.christine.website"];
         extraLegoFlags = ["--dns.resolvers=8.8.8.8:53"];
       };
     };

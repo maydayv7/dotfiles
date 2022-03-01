@@ -1,0 +1,11 @@
+.toc {
+  @include menu;
+  margin: 35px 0;
+
+  &-head {
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: bold;
+    padding-left: 7px;
+  }
+}

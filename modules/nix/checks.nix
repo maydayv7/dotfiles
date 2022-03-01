@@ -2,7 +2,6 @@
   self,
   system,
   lib,
-  pkgs,
 }:
 with {inherit (lib) deploy filters hooks util;};
 # Install Media Checks

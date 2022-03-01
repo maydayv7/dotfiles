@@ -1,0 +1,62 @@
+{% import "macros/head.html" as head -%} {% import "macros/header.html" as
+header -%} {% import "macros/footer.html" as footer -%} {% import
+"macros/social.html" as social -%} {% import "macros/pagination.html" as
+pagination -%} {% import "macros/posts.html" as posts -%} {% import
+"macros/lists.html" as lists -%} {% import "macros/squiggle-line.html" as
+squiggle -%} {% import "macros/edit.html" as edit -%} {% import
+"macros/url.html" as url -%} {% import "macros/analytics.html" as analytics -%}
+{% import "macros/comments.html" as comments -%} {% import
+"macros/javascript.html" as js -%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%- block title -%}
+    <title>{{ config.title }}</title>
+    {%- endblock title -%} {%- block general_meta -%} {{ head::general_meta() }}
+    {%- endblock general_meta -%} {%- block css -%} {{
+    head::styling(config=config) }} {%- endblock css -%} {%- block font -%} {{
+    head::font(config=config) }} {%- endblock font -%} {%- block rss -%} {%-
+    endblock rss -%} {%- block favicon -%} {{ head::favicon(config=config) }}
+    {%- endblock favicon -%} {%- block math -%} {%- endblock math -%}
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>My Blog</title>
+  </head>
+
+  {% block analytics -%} {{ analytics::google_analytics(config=config) }} {%-
+  endblock analytics %}
+
+  <body class="">
+    {%- if config.extra.full_width -%} {%- set container = "container full" -%}
+    {%- elif config.extra.center -%} {%- set container = "container center" -%}
+    {%- else -%} {%- set container = "container" -%} {%- endif -%} {%- if not
+    current_url -%} {%- set current_url = "" -%} {%- endif -%}
+
+    <div class="{{ container }}">
+      {%- block header -%} {{ header::header(config=config,
+      current_url=current_url) }} {%- endblock header -%}
+
+      <div class="content">
+        {%- block main -%} {{ lists::list_pages() }} {%- endblock main -%}
+      </div>
+
+      {%- block pagination -%} {{ pagination::paginate(pagelink = current_url)
+      }} {%- endblock pagination -%} {%- block footer -%}
+      <footer class="footer">
+        <div class="footer__inner">
+          {%- block copyright -%} {{ footer::copyright(config = config) }} {%-
+          endblock copyright -%} {%- block script -%} {{ js::mobile() }} {%-
+          endblock script -%}
+        </div>
+        <div>
+          {{ social::socials_bar() }} {%- block theme -%} {{ footer::theme
+          (config = config) }} {%- endblock theme -%}
+        </div>
+      </footer>
+      {%- endblock footer -%}
+    </div>
+    {{ js::script() }}
+  </body>
+</html>

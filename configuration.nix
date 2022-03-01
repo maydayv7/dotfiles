@@ -35,13 +35,14 @@ in
     call = name: pkgs.callPackage name {inherit lib inputs pkgs files;};
   in {
     ## Configuration Checks ##
-    checks = import ./modules/nix/checks.nix {inherit self system lib pkgs;};
+    checks = import ./modules/nix/checks.nix {inherit self system lib;};
 
     ## Developer Shells ##
     devShells =
       map.modules' ./shells (file: pkgs.mkShell (import file pkgs))
       // {
         default = import ./shells {inherit pkgs;};
+        website = import ./site/shell.nix {inherit pkgs;};
         commit =
           pkgs.mkShell {inherit (self.checks."${system}".commit) shellHook;};
       };

@@ -1,0 +1,20 @@
+{% import "macros/menu.html" as menu -%} {% import "macros/logo.html" as logo
+-%} {% macro header(config, current_url) %}
+<header class="header">
+  <div class="header-inner">
+    <div class="header-logo">{{ logo::logo(config=config) }}</div>
+    <div class="menu-trigger" tabindex="0">
+      <div class="menu-trigger-button">menu</div>
+    </div>
+  </div>
+  {{ menu::menu(config=config, current_url=current_url) }} {% if
+  config.build_search_index %}
+  <div class="search-container js-only">
+    <input class="input" id="search" type="search" placeholder="Search" />
+    <div class="search-results box">
+      <div class="search-results__items"></div>
+    </div>
+  </div>
+  {% endif %}
+</header>
+{% endmacro header %}

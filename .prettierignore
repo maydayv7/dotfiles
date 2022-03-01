@@ -1,2 +1,9 @@
 result
 files/proprietary
+
+# Formatting Errors
+site/templates/macros/edit.html
+site/templates/macros/javascript.html
+site/templates/macros/posts.html
+site/templates/macros/menu.html
+site/templates/tags/list.html

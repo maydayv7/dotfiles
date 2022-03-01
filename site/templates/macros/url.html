@@ -1,0 +1,18 @@
+{% macro internal(path, text, newtab=false, trailing_slash=true) -%}
+<a
+  href="{{ get_url(path=path, railing_slash=trailing_slash) }}"
+  {%-
+  if
+  item.newtab
+  %}
+  target="_blank"
+  {%-
+  endif
+  %}>
+  {{ text }}
+</a>
+{%- endmacro internal %} {% macro external(url, text, icon=true) -%}
+<a href="{{ url }}" rel="noopener noreferrer nofollow" target="_blank">
+  {{ text }}{%- if icon %}  {%- endif -%}
+</a>
+{%- endmacro external %}

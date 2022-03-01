@@ -1,0 +1,48 @@
+{% import "macros/pagination.html" as pages -%} {% import
+"macros/javascript.html" as js -%} {% import "macros/toc.html" as toc -%} {%
+extends "base.html" -%} {%- block math -%} {% if page.extra.math %} {{
+js::katex() }} {% endif %} {%- endblock math -%} {%- block title %}
+<title>{{ page.title }} - {{ config.extra.author }}</title>
+{%- endblock title -%} {%- block main -%}
+<article class="post">
+  {% set section = get_section(path="blog/_index.md") %}
+  <header>
+    <h1 class="post-title">
+      {% if page.extra['archive'] %} {{ page.title }} ({{ section.pages | length
+      }} post{{ section.pages | length | pluralize }}) {% else %}
+      <a href="{{ page.permalink }}">{{ page.title }}</a>
+      {% endif %}
+    </h1>
+    {% if not page.extra['skip-meta'] -%} {{ posts::meta(page=page) }} {% endif
+    %} {%- block ToC -%} {%- if page.extra.ToC or config.extra.table_of_contents
+    -%} {{ toc::toc(t=page.toc) }} {%- endif -%} {%- endblock ToC -%}
+  </header>
+
+  <div class="post-content">{{ page.content | safe }}</div>
+
+  {% if page.extra['archive'] %}
+  <ul class="post-list">
+    {% for page in section.pages %}
+    <li>{{ posts::meta(page=page, list=true) }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %} {% if page.extra['feeds'] %}
+  <ul class="post-list">
+    <li>
+      {{ url::internal(path=config.extra.rss_path, trailing_slash=false,
+      text="RSS link") }}
+    </li>
+    <li>
+      {{ url::internal(path="{{ get_url(path='blog/atom.xml',
+      trailing_slash=false) }}", text="Atom Link") }}
+    </li>
+  </ul>
+  {% endif %} {% if config.extra.edit_page and page.extra.edit %} {{
+  edit::edit_page(current_path=current_path) }} {% endif %} {% if
+  page.extra.comments %}
+  <button type="button" class="comments-collapsible">Show Comments</button>
+  {{ comments::comments() }} {% endif %} {% if page.extra.github %}
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  {% endif %} {{ pages::related() }}
+</article>
+{%- endblock main -%}

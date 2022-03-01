@@ -1,0 +1,25 @@
+{% macro comments() %} {% if config.extra.disqus.enabled is defined and
+config.extra.disqus.enabled == true %} {{ comments::disqus() }} {{
+js::comments() }} {% endif %} {% endmacro comments %} {% macro disqus() %}
+<div class="comments" id="disqus_thread"></div>
+<script>
+  var disqus_config = function () {
+    this.page.url = "{{ page.permalink | safe }}";
+    this.page.identifier = "{{ page.permalink | safe }}";
+  };
+
+  (function () {
+    var d = document,
+      s = d.createElement("script");
+    s.src = "https://{{config.extra.disqus.short_name}}.disqus.com/embed.js";
+    s.setAttribute("data-timestamp", +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >Comments powered by Disqus</a
+  ></noscript
+>
+{% endmacro disqus %}
