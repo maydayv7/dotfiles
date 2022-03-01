@@ -2,10 +2,9 @@
   lib,
   inputs,
 }: let
-  none = lib.id;
   inherit (lib.util) map;
   inherit (builtins) readFile;
-  inherit (inputs.proprietary) files;
+  proprietary = import ./proprietary;
 in {
   ## Dotfiles ##
   # File Paths
@@ -18,11 +17,11 @@ in {
   };
 
   # ASCII Art
-  ascii = map.files' ./ascii none "";
+  ascii = map.files' ./ascii lib.id "";
 
   # Discord Chat
   discord = {
-    inherit (files.discord) plugins;
+    inherit (proprietary.discord) plugins;
     theme = readFile ./discord/theme.css;
   };
 
@@ -34,7 +33,7 @@ in {
 
   # Custom Fonts
   fonts = {
-    path = files.fonts;
+    path = proprietary.fonts;
     config = readFile ./fonts/fontconfig.xml;
   };
 

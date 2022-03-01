@@ -309,7 +309,7 @@ _May change according to available hardware_
 
 ### License
 
-All the files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
+All the files (**except** [./files/proprietary](./files/proprietary)) and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
 
 ### Branches
 

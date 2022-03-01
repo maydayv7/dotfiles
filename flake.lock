@@ -244,21 +244,6 @@
         "type": "github"
       }
     },
-    "proprietary": {
-      "locked": {
-        "lastModified": 1644669405,
-        "narHash": "sha256-escrXN2pjBGG6vpBs2ziznMYjWzbp/wEx6LgCvXUENM=",
-        "owner": "maydayv7",
-        "repo": "proprietary",
-        "rev": "5c1783ebc2daf83efdd4006868dce9b60085baba",
-        "type": "github"
-      },
-      "original": {
-        "owner": "maydayv7",
-        "repo": "proprietary",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "compatibility": "compatibility",
@@ -273,7 +258,6 @@
         "impermanence": "impermanence",
         "library": "library",
         "nur": "nur",
-        "proprietary": "proprietary",
         "sops": "sops",
         "stable": "stable",
         "unstable": "unstable",

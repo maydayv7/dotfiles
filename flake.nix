@@ -149,10 +149,6 @@
       url = "github:emmanuelrosa/erosanix";
       inputs.nixpkgs.follows = "stable";
     };
-
-    ## Additional Repositories ##
-    # Personal Proprietary Software Collection
-    proprietary.url = "github:maydayv7/proprietary";
   };
 
   ## System Configuration ##
