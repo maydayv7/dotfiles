@@ -4,9 +4,9 @@ The `files` directory is used to store all my plain-text program configuration f
 
 - [`archive`](./archive) - Old, Archived Files
 - [`ascii`](./ascii) - Personal Collection of beautiful Ascii Art
-- [`discord`](./discord) - `discord` Chat Theming
+- [`discord`](./discord) - `discord` Chat Theming and Plugins
 - [`firefox`](./firefox) - `firefox` Web Browser Theming
-- [`fonts`](./fonts) - Fonts Configuration
+- [`fonts`](./fonts) - Proprietary Fonts and Configuration
 - [`git`](./git) - Configuration for `git` Version Control
 - [`gnome`](./gnome) - Configuration Files for GNOME Desktop
 - [`gpg`](./gpg) - Encrypted GPG Keys
@@ -15,7 +15,6 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`nano`](./nano) - `nano` Text Editor Global Configuration
 - [`neofetch`](./neofetch) - `neofetch` CLI Theming
 - [`plank`](./plank) - `plank` Dock Theming
-- [`proprietary`](./proprietary/README.md) - Personal Collection of Proprietary Software
 - [`templates`](./templates) - Document Templates
 - [`touchegg`](./touchegg) - X11 Gestures provided by `touchegg`
 - [`wine`](./wine) - Configuration and Theming for `wine` applications

@@ -4,7 +4,6 @@
 }: let
   inherit (lib.util) map;
   inherit (builtins) readFile;
-  proprietary = import ./proprietary;
 in {
   ## Dotfiles ##
   # File Paths
@@ -21,7 +20,7 @@ in {
 
   # Discord Chat
   discord = {
-    inherit (proprietary.discord) plugins;
+    plugins = ./discord/plugins;
     theme = readFile ./discord/theme.css;
   };
 
@@ -33,7 +32,7 @@ in {
 
   # Custom Fonts
   fonts = {
-    path = proprietary.fonts;
+    path = ./fonts/proprietary;
     config = readFile ./fonts/fontconfig.xml;
   };
 
