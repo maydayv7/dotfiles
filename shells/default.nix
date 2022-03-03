@@ -1,4 +1,4 @@
-{pkgs ? import <nixpkgs> {}, ...}:
+{pkgs ? import ../., ...}:
 pkgs.mkShell {
   name = "devShell";
   packages = with pkgs; [figlet git git-crypt gnupg jq shellcheck sops];

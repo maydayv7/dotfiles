@@ -24,12 +24,14 @@ in {
       description = "User Mail ID";
       type = types.str;
       default = "";
+      example = "user@email.com";
     };
 
     key = mkOption {
       description = "User GPG Key";
       type = types.str;
       default = "";
+      example = "Use 'gpg --list-signatures --keyid-format short'";
     };
   };
 

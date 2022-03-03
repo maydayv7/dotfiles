@@ -12,6 +12,7 @@ in {
     description = "PCI Device IDs for VM Passthrough";
     type = types.listOf types.str;
     default = [];
+    example = ["00:02.0" "00:1c.0"];
   };
 
   ## Virtualisation Settings ##

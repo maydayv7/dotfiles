@@ -4,7 +4,7 @@
 
 Generated using [Zola](https://www.getzola.org/) and Deployed with [Nix](https://nixos.org/) & [GitHub Pages](https://pages.github.com/)
 
-Hosted at [maydayv7.github.io](https://maydayv7.github.io) and [maydayv7.netlify.app](https://maydayv7.netlify.app)
+Hosted at [maydayv7.github.io](https://maydayv7.github.io)
 
 #### Build
 

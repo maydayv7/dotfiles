@@ -8,7 +8,9 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 
   - `list`: List of all enabled applications - `[ "discord" "firefox" "git" "office" "wine" ]`
   - `git` -
-    - `hosting`: Enable Gitea Code Hosting - `true / false`
+    - `hosting` -
+      - `enable`: Enable Gitea Code Hosting - `true / false`
+      - `domain`: Website Domain Name - Ex. `maydayv7.io`
     - `runner`: Enable Support for `git` Runners - `"github" / "gitlab"`
   - `wine.package`: Package to use for `wine` - Ex. `pkgs.wineWowPackages.staging`
 
@@ -16,7 +18,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 
 - [`gui`](./gui): Module that configures GUI Desktops/Environments and the like -
 
-  - `desktop`: Choice of GUI Desktop - `"gnome" / "gnome-minimal"`
+  - `desktop`: Choice of GUI Desktop - `"gnome" / "xfce"`
   - `fonts.enable`: Enable Fonts Configuration - `true / false`
 
 - [`hardware`](./hardware): Module that configures device and additional hardware -

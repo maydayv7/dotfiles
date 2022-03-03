@@ -24,12 +24,14 @@ in {
         description = "Additional System Files to Preserve";
         type = listOf str;
         default = [];
+        example = ["/etc/machine-id"];
       };
 
       dirs = mkOption {
         description = "Additional System Directories to Preserve";
         type = listOf str;
         default = [];
+        example = ["/etc/nixos"];
       };
     };
 
@@ -38,12 +40,14 @@ in {
         description = "Additional User Files to Preserve";
         type = listOf str;
         default = [];
+        example = [".bash_history"];
       };
 
       dirs = mkOption {
         description = "Additional User Directories to Preserve";
         type = listOf (either str attrs);
         default = [];
+        example = ["Downloads"];
       };
     };
   };

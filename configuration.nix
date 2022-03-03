@@ -29,7 +29,7 @@ with inputs; let
 in
   eachSystem platforms (system: let
     # Default Package Channel
-    pkgs = self.channels."${system}".stable;
+    pkgs = self.legacyPackages."${system}";
 
     # Package Calling Function
     call = name: pkgs.callPackage name {inherit lib inputs pkgs files;};
@@ -48,7 +48,7 @@ in
       };
 
     ## Package Configuration ##
-    legacyPackages = pkgs;
+    legacyPackages = self.channels."${system}".stable;
 
     # Channels
     channels = {

@@ -9,7 +9,7 @@ in {
   ## Printer Firmware ##
   config = lib.mkIf enable {
     # Scanning
-    user.groups = ["scanner"];
+    user.groups = ["lp" "scanner"];
     hardware.sane.enable = true;
 
     # Printing

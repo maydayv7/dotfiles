@@ -1,6 +1,6 @@
 {
   site ? null,
-  pkgs ? import <nixpkgs> {},
+  pkgs ? import ../.,
   ...
 }:
 with pkgs;

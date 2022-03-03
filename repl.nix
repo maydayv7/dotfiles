@@ -2,7 +2,7 @@
   path ? /etc/nixos,
   host ? false,
 }: let
-  inherit (builtins) getFlake head match pathExists readFile removeAttrs;
+  inherit (builtins) currentSystem getFlake head match pathExists readFile removeAttrs;
 
   flake =
     if pathExists "${path}/flake.nix"
@@ -12,6 +12,8 @@
   pkgs =
     if (flake.inputs ? nixpkgs)
     then import flake.inputs.nixpkgs.outPath {}
+    else if (flake.legacyPackages ? currentSystem)
+    then import flake.legacyPackages."${currentSystem}"
     else import <nixpkgs> {};
 in
   {

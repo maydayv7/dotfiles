@@ -3,12 +3,29 @@
   lib,
   ...
 }: let
-  inherit (config.apps.git) hosting;
+  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (config.apps.git.hosting) enable domain;
+  opt = config.apps.git.hosting.domain;
   inherit (config.sops) secrets;
 in {
-  options.apps.git.hosting = lib.mkEnableOption "Enable Gitea Code Hosting";
+  options.apps.git.hosting = {
+    enable = lib.mkEnableOption "Enable Gitea Code Hosting";
+    domain = mkOption {
+      description = "Website Domain Name";
+      type = types.str;
+      default = "";
+      example = "maydayv7.io";
+    };
+  };
 
-  config = lib.mkIf hosting {
+  config = mkIf enable {
+    assertions = [
+      {
+        assertion = domain != "";
+        message = opt + " must be set";
+      }
+    ];
+
     # User Configuration
     user.groups = ["gitea"];
     users.users.git = {
@@ -30,9 +47,9 @@ in {
       disableRegistration = true;
 
       # Repository
-      appName = "@maydayv7 Code Hosting";
-      domain = "maydayv7.tk";
-      rootUrl = "https://maydayv7.tk";
+      inherit domain;
+      appName = "Code Hosting";
+      rootUrl = "https://${domain}";
       httpPort = 7000;
       settings.ui.DEFAULT_THEME = "arc-green";
     };
@@ -46,10 +63,10 @@ in {
 
     security.acme = {
       acceptTerms = true;
-      email = "accounts+acme@maydayv7.tk";
-      certs."maydayv7.tk" = {
+      email = "accounts+acme@${domain}";
+      certs."${domain}" = {
         group = "nginx";
-        email = "maydayv7@maydayv7.tk";
+        email = "admin@${domain}";
         dnsProvider = "cloudflare";
         credentialsFile = secrets."cloudflare.secret".path;
         extraLegoFlags = ["--dns.resolvers=8.8.8.8:53"];
@@ -81,10 +98,10 @@ in {
       recommendedTlsSettings = true;
 
       # Code Hosting
-      virtualHosts."maydayv7.tk" = {
+      virtualHosts."${domain}" = {
         forceSSL = true;
-        useACMEHost = "maydayv7.tk";
-        root = "/srv/www/maydayv7.tk";
+        useACMEHost = "${domain}";
+        root = "/srv/www/${domain}";
         locations."/".proxyPass = "http://127.0.0.1:7000";
       };
     };

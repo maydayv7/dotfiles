@@ -247,7 +247,7 @@ in
           elif grep -wq "$2" <<<"${nixosConfigurations}"
           then
             echo "Building '$2' Device Image..."
-            nix run github:nix-community/nixos-generators -- -f iso --flake ${path.system}#"$2"
+            nixos-generate -f iso --flake ${path.system}#"$2"
           else
             error "Unknown Variant '$2'" "# Available Variants #\n  Install Media: ${installMedia}\n  Devices: ${nixosConfigurations}"
           fi
@@ -321,7 +321,7 @@ in
         esac
       ;;
       run)
-        if [[ "$2" == *[:/]* ]] || grep -wq "$2" <<<"${list inputs}"
+        if [[ "$2" == *[:/]* ]] || grep -wq "$2" <<<"${list inputs + "nixpkgs"}"
         then
           nix run "$2"#"$3" -- "''${@:4}"
         else
