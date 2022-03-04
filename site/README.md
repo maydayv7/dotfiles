@@ -1,12 +1,12 @@
-### My Personal Website
+## My Personal Website
 
-![website](./image.png)
+[![website](./image.png)](https://maydayv7.tk)
 
-Generated using [Zola](https://www.getzola.org/) and Deployed with [Nix](https://nixos.org/) & [GitHub Pages](https://pages.github.com/)
+Generated using [Zola](https://www.getzola.org/) and Deployed with [Nix](https://nixos.org/), [GitHub Pages](https://pages.github.com/) and [Vercel](https://vercel.com)
 
-Hosted at [maydayv7.github.io](https://maydayv7.github.io)
+Hosted at [maydayv7.tk](https://maydayv7.tk) and [maydayv7.github.io](https://maydayv7.github.io)
 
-#### Build
+### Build
 
 You can grab all the required dependencies using `nix develop github:maydayv7/dotfiles#website` or `nix-shell`
 
@@ -21,11 +21,11 @@ Then click [here](http://localhost:1111)
 
 To build the site, run `nix build`. In order to override the Base URL, <code>nix-build -E "with import ./.; callPackage ./site { site = <b><i>URL</i></b>; }"</code> can be used
 
-##### Continuous Integration
+#### Continuous Integration
 
-[`GitHub Actions`](../.github/workflows/website.yml) is used in order to automatically build the site and publish it using GitHub Pages
+[`GitHub Actions`](../.github/workflows/website.yml) is used in order to automatically build the site and publish it using GitHub Pages. [Vercel](https://vercel.com) automatically deploys to the main domain as well as [maydayv7.vercel.app](https://maydayv7.vercel.app) on every commit and allows for PR previews
 
-#### Features
+### Features
 
 - [x] Pagination
 - [x] Categories
@@ -46,7 +46,7 @@ To build the site, run `nix build`. In order to override the Base URL, <code>nix
   - [x] YouTube : Embed Video - <code>{{ youtube(id="<b>ID</b>") }}</code>
   - [x] Vimeo : Embed Video - <code>{{ vimeo(id="<b>ID</b>") }}</code>
 
-##### Credits
+#### Credits
 
 Huge thanks to:
 
