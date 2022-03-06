@@ -25,10 +25,9 @@ jobs:
       - name: Build Zola Site
         run: nix build .#website
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        uses: peaceiris/actions-gh-pages@v3.8.0
         with:
-          branch: deploy
-          folder: result
-          single-commit: true
-          token: ${{ secrets.ACCESS_TOKEN }}
-          repository-name: maydayv7/maydayv7.github.io
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          publish_dir: ./result
+          publish_branch: deploy
+          cname: maydayv7.tk

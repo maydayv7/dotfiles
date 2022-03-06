@@ -216,7 +216,7 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
 4. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg`
 
 5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command (The [`nixos`](./scripts/README.md) script can be used to simplify the process):  
-   _Replace_ **_PATH_** _with the path to the `secret`_ <pre><code>sops --config /etc/nixos/secrets/.sops.yaml -i <b><i>PATH</i></b></code></pre>
+   _Replace_ **_PATH_** _with the path to the `secret`_ <pre><code>sops --config <i>/path/to/<b>.sops.yaml</b></i> -i <b><i>PATH</i></b></code></pre>
 
 6. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
 
