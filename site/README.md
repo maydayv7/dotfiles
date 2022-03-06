@@ -23,7 +23,7 @@ To build the site, run `nix build`. In order to override the Base URL, <code>nix
 
 #### Continuous Integration
 
-[`GitHub Actions`](../.github/workflows/website.yml) is used in order to automatically build the site and publish it using GitHub Pages. [Vercel](https://vercel.com) automatically deploys to the main domain as well as [maydayv7.vercel.app](https://maydayv7.vercel.app) on every commit and allows for PR previews
+[`GitHub Actions`](../.github/workflows/website.yml) is used in order to automatically build the site and publish it to the main domain using GitHub Pages. [Vercel](https://vercel.com) automatically deploys to [maydayv7.vercel.app](https://maydayv7.vercel.app) on every commit and allows for PR previews
 
 ### Features
 

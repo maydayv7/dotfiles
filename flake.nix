@@ -125,7 +125,7 @@
 
     # Pre-Commit Hooks
     hooks = {
-      url = "github:maydayv7/nix-hooks";
+      url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "unstable";
       inputs.flake-utils.follows = "utils/flake-utils";
     };
