@@ -1,7 +1,4 @@
-{
-  lib,
-  inputs,
-}: let
+lib: let
   inherit (lib.util) map;
   inherit (builtins) readFile;
 in {

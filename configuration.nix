@@ -71,7 +71,7 @@ in
     overlays = map.modules ./packages/overlays import;
 
     ## Program Configuration and 'dotfiles' ##
-    files = import ./files {inherit lib inputs;};
+    files = import ./files lib;
 
     ## Custom Library Functions ##
     lib = lib.util;

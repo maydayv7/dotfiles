@@ -1,6 +1,6 @@
 final: prev: {
   # Update Discord to Latest Version
-  discord = prev.discord.overrideAttrs (old: rec {
+  discord = prev.discord.overrideAttrs (_: rec {
     version = "0.0.17";
 
     src = prev.fetchzip {

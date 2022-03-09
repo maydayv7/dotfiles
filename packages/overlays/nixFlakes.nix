@@ -1,16 +1,17 @@
 final: prev: {
   # Update Nix to Latest Version and Patch using unmerged PRs
-  nixFlakes = prev.nixFlakes.overrideAttrs (old: {
+  nixFlakes = prev.nixFlakes.overrideAttrs (old: rec {
     version = "2.7+";
+    longVersion = builtins.replaceStrings ["+"] [""] version + ".0";
 
     src = prev.fetchFromGitHub {
       owner = "NixOS";
       repo = "nix";
-      rev = "391f4fcabe6c307afeb2f39dec07d43f1e6bf748";
-      sha256 = "sha256-tZZJiLsT2RHcJWAA8yOstARoff316wrlz3wnsfxFy18=";
+      rev = longVersion;
+      sha256 = "sha256-m8tqCS6uHveDon5GSro5yZor9H+sHeh+v/veF1IGw24=";
     };
 
-    buildInputs = old.buildInputs ++ [final.pkgs.nlohmann_json];
+    buildInputs = old.buildInputs ++ [final.nlohmann_json];
     patches = [
       /*
          (prev.fetchpatch {

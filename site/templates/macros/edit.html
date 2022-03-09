@@ -1,6 +1,6 @@
 {% macro edit_page(current_path) %}
 <p class="post-edit">
-  <a href="{{ config.extra.edit_url }}/content{{
+  <a href="{{ config.extra.repo_url }}/content{{
   current_path | replace(from="\\", to="/") | trim_end_matches(pat="/")
   }}.md"><svg
     xmlns="http://www.w3.org/2000/svg"

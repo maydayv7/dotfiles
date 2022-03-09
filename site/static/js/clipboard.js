@@ -3,14 +3,14 @@ function addCopyButtons(clipboard) {
     var button = document.createElement("button");
     button.className = "copy";
     button.type = "button";
-    button.innerText = "Copy";
+    button.innerText = "📋 Copy";
     button.addEventListener("click", function () {
       clipboard.writeText(codeBlock.innerText).then(
         function () {
           button.blur();
           button.innerText = "Copied!";
           setTimeout(function () {
-            button.innerText = "Copy";
+            button.innerText = "📋 Copy";
           }, 2000);
         },
         function (error) {

@@ -65,7 +65,7 @@ center = true
 # Allow Editing Articles
 # Use 'edit = false' in [extra] to disable for individual pages
 edit_page = true
-edit_url = "https://github.com/maydayv7/dotfiles/blob/stable/site"
+repo_url = "https://github.com/maydayv7/dotfiles/blob/stable/site"
 
 # License
 author = "maydayv7"
