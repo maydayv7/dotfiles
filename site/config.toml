@@ -72,9 +72,10 @@ author = "maydayv7"
 copyright = "V 7"
 google_analytics_tracking_id = "G-26PNXDYZNZ"
 
-# Disqus Page Comments
+# Page Comments
 # Use 'comments = true' in [extra] for individual pages
-disqus = { enabled = true, short_name = "maydayv7" }
+disqus = { enabled = false, short_name = "maydayv7" }
+giscus = { enabled = true, repo = "maydayv7/dotfiles", repo_id = "R_kgDOGuzdUw", category = "Blog", category_id = "DIC_kwDOGuzdU84CODRX" }
 
 # Main Menu
 main_menu_items = [

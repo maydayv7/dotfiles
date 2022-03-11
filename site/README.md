@@ -32,7 +32,7 @@ To build the site, run `nix build`. In order to override the Base URL, <code>nix
 - [x] Social Links
 - [x] Search
 - [x] Analytics
-- [x] Comments using [Disqus](https://disqus.com/)
+- [x] Comments using [Disqus](https://disqus.com/)/[Giscus](https://giscus.app/)
 - [x] Theme Switcher
 - [x] Syntax Highlighting Theme
 - [x] [KaTeX](https://katex.org/) Support -

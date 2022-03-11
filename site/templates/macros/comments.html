@@ -1,5 +1,7 @@
 {% macro comments() %} {% if config.extra.disqus.enabled is defined and
 config.extra.disqus.enabled == true %} {{ comments::disqus() }} {{
+js::comments() }} {% endif %} {% if config.extra.giscus.enabled is defined and
+config.extra.giscus.enabled == true %} {{ comments::giscus() }} {{
 js::comments() }} {% endif %} {% endmacro comments %} {% macro disqus() %}
 <div class="comments" id="disqus_thread"></div>
 <script>
@@ -22,4 +24,21 @@ js::comments() }} {% endif %} {% endmacro comments %} {% macro disqus() %}
     >Comments powered by Disqus</a
   ></noscript
 >
-{% endmacro disqus %}
+{% endmacro disqus %} {% macro giscus() %}
+<div class="comments" id="giscus_thread">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="{{config.extra.giscus.repo}}"
+    data-repo-id="{{config.extra.giscus.repo_id}}"
+    data-category="{{config.extra.giscus.category}}"
+    data-category-id="{{config.extra.giscus.category_id}}"
+    data-mapping="title"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="transparent_dark"
+    data-lang="en"
+    crossorigin="anonymous"
+    async></script>
+</div>
+{% endmacro giscus %}
