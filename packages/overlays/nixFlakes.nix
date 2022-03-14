@@ -14,9 +14,9 @@ final: prev: {
     buildInputs = old.buildInputs ++ [final.nlohmann_json];
     patches = [
       /*
-         (prev.fetchpatch {
+       (prev.fetchpatch {
          name = "dirty-rev.patch";
-         sha256 = "sha256-KVXTpSRIsgvyisJeWMan1fUWgyGpx17mUGZjE+QVPbI=";
+         sha256 = final.lib.fakeSha256;
          url = "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/5385.patch";
        })
        */

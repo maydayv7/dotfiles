@@ -36,16 +36,20 @@ in rec {
     in
       if
         (type == "directory" || type == "symlink")
-        && (if (extension == ".nix")
-        then pathExists "${path}/default.nix"
-        else true)
+        && (
+          if (extension == ".nix")
+          then pathExists "${path}/default.nix"
+          else true
+        )
       then nameValuePair name (func path)
       else if
         type
         == "regular"
-        && (if (extension == ".nix")
-        then name != "default.nix"
-        else true)
+        && (
+          if (extension == ".nix")
+          then name != "default.nix"
+          else true
+        )
         && hasSuffix extension name
       then nameValuePair (removeSuffix extension name) (func path)
       else nameValuePair "" null) (readDir dir);
@@ -60,9 +64,11 @@ in rec {
       else if
         type
         == "regular"
-        && (if (extension == ".nix")
-        then name != "default.nix"
-        else true)
+        && (
+          if (extension == ".nix")
+          then name != "default.nix"
+          else true
+        )
         && hasSuffix extension name
       then nameValuePair (removeSuffix extension name) (func path)
       else nameValuePair "" null) (readDir dir);

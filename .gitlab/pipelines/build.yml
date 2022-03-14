@@ -25,5 +25,5 @@ iso:
     ISO: xfce # Default Variant
   script: nix build .#installMedia.$ISO.config.system.build.isoImage -L --show-trace
   after_script:
-    - nix profile install nixpkgs#curl
+    - nix profile install .#curl
     - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./result/iso/nixos.iso ${PACKAGE_REGISTRY}/installMedia/${CI_COMMIT_TAG}/NixOS.iso'

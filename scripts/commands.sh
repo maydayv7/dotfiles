@@ -1,4 +1,7 @@
-# Useful Commands
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p bzip2 coreutils git gnupg gnutar gzip p7zip unzip
+
+# Useful Commands #
 
 error() {
   echo -e "\n\033[0;31merror:\033[0m $1"

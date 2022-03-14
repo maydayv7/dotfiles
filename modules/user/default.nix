@@ -101,9 +101,10 @@ in {
                 }
                 else {};
 
-              forwarded = filterAttrs
-              (name: _: !(options ? "${name}") || name == "extraGroups")
-              config;
+              forwarded =
+                filterAttrs
+                (name: _: !(options ? "${name}") || name == "extraGroups")
+                config;
             };
           }));
       };
@@ -124,8 +125,9 @@ in {
 
     # Login
     services.xserver.displayManager.autoLogin = let
-      find = findSingle (value: value.autologin || value.minimal) "0" "1"
-      (attrValues settings);
+      find =
+        findSingle (value: value.autologin || value.minimal) "0" "1"
+        (attrValues settings);
     in {
       enable =
         if (find == "0")
@@ -134,9 +136,10 @@ in {
         then throw "Only one User can be Automatically Logged-In"
         else true;
 
-      user = mkIf config.services.xserver.displayManager.autoLogin.enable
-      (findFirst (name: with settings."${name}"; autologin || minimal) "nixos"
-      (attrNames settings));
+      user =
+        mkIf config.services.xserver.displayManager.autoLogin.enable
+        (findFirst (name: with settings."${name}"; autologin || minimal) "nixos"
+          (attrNames settings));
     };
 
     # Home Management

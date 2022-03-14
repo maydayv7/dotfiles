@@ -10,6 +10,7 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
   - `iso`: configuration building function used to build the entire configuration for install media (`installMedia`) as per provided parameters
   - `each`: Maps function for each `attr` as passed
   - `channel`: Builds package `channels` for desired `inputs` with specified `overlays` for each `system`, and optionally patches the `input`
+  - `script`: Builds script from specified file by removing `shebangs` and exporting as a _string_
 
 - [`map`](./map.nix): Mapping functions primarily aimed at shortening code complexity -
 

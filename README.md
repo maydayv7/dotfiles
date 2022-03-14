@@ -414,6 +414,9 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 - Create Website using [Zola](https://www.getzola.org/)
 - Refine Compatibility Libraries
+- Refine Scripts
+  - Use `nix-shell` Shebangs
+  - Add `lib.build.script`
 - Use [`alejandra`](https://github.com/kamadorueda/alejandra) for formatting code
 
 ### v5.0 - 20220220

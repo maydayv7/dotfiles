@@ -35,8 +35,7 @@ jobs:
           GIT_COMMITTER_EMAIL: <github-actions[bot]@users.noreply.github.com>
         run: |
           git checkout stable
-          nix profile install nixpkgs#jq
-          cd packages && bash ./update.sh
+          cd packages && ./update.sh
       - name: Create PR
         uses: peter-evans/create-pull-request@v3
         with:

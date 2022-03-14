@@ -23,13 +23,15 @@ in
   // (removeAttrs (pkgs // pkgs.lib) ["options" "config"])
   // flake
   // (flake.nixosConfigurations or {})
-  // (if host
-  then
-    flake
-    .nixosConfigurations
-    ."${
-      head (match ''
-        ([a-zA-Z0-9\-]+)
-      '' (readFile "/etc/hostname"))
-    }"
-  else {})
+  // (
+    if host
+    then
+      flake
+      .nixosConfigurations
+      ."${
+        head (match ''
+          ([a-zA-Z0-9\-]+)
+        '' (readFile "/etc/hostname"))
+      }"
+    else {}
+  )

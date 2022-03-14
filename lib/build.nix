@@ -4,8 +4,8 @@
   lib,
   ...
 }: let
-  inherit (lib) nameValuePair recursiveUpdate util;
-  inherit (builtins) any attrValues isPath listToAttrs map readFile;
+  inherit (lib) hasPrefix nameValuePair recursiveUpdate splitString util;
+  inherit (builtins) any attrValues concatStringsSep filter isPath listToAttrs map readFile;
 in rec {
   ## Builder Functions ##
   each = attr: func:
@@ -15,22 +15,22 @@ in rec {
   device = self.nixosModule.config;
   iso = config:
     self.nixosModule.config (config
-    // {
-      format = "iso";
-      description = "Install Media";
-      kernelModules = ["nvme"];
-      gui.desktop = config.gui.desktop + "-minimal";
+      // {
+        format = "iso";
+        description = "Install Media";
+        kernelModules = ["nvme"];
+        gui.desktop = config.gui.desktop + "-minimal";
 
-      # Default User
-      user = {
-        name = "nixos";
-        description = "Default User";
-        minimal = true;
-        recovery = false;
-        shells = null;
-        password = readFile ../modules/user/passwords/default;
-      };
-    });
+        # Default User
+        user = {
+          name = "nixos";
+          description = "Default User";
+          minimal = true;
+          recovery = false;
+          shells = null;
+          password = readFile ../modules/user/passwords/default;
+        };
+      });
 
   # Package Channels Builder
   channel = src: overlays: patch: let
@@ -39,13 +39,15 @@ in rec {
     each platforms (system: let
       pkgs = src.legacyPackages."${system}";
     in
-      (if !(any isPath patches)
-      then import src
-      else
-        import (pkgs.applyPatches {
-          inherit src patches;
-          name = "Patched-Input_${src.shortRev}";
-        })) {
+      (
+        if !(any isPath patches)
+        then import src
+        else
+          import (pkgs.applyPatches {
+            inherit src patches;
+            name = "Patched-Input_${src.shortRev}";
+          })
+      ) {
         inherit system;
         config = import ../modules/nix/config.nix;
         overlays =
@@ -57,4 +59,10 @@ in rec {
               self.channels."${system}")
           ];
       });
+
+  # Script Builder
+  script = file:
+    concatStringsSep "\n"
+    ((filter (line: line != "" && !(hasPrefix "#!" line)))
+      (splitString "\n" (readFile file)));
 }

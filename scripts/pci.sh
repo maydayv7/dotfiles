@@ -1,4 +1,7 @@
-# Shows PCI devices mapped to IOMMU groups
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p coreutils
+
+# Shows PCI Devices mapped to IOMMU Groups #
 
 for group in $(find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V)
 do

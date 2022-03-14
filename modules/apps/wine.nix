@@ -43,6 +43,6 @@ in {
       ]
       # Wrapped Packages
       ++ attrValues (util.map.modules ../../packages/wine
-      (name: pkgs.callPackage name {inherit lib pkgs wine;}));
+        (name: pkgs.callPackage name {inherit lib pkgs wine;}));
   };
 }

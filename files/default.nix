@@ -1,5 +1,5 @@
 lib: let
-  inherit (lib.util) map;
+  inherit (lib.util) build map;
   inherit (builtins) readFile;
 in {
   ## Dotfiles ##
@@ -74,7 +74,7 @@ in {
   repl = ../repl.nix;
 
   # Bash Scripts
-  scripts = map.files ../scripts readFile ".sh";
+  scripts = map.files ../scripts build.script ".sh";
 
   # 'sops' Encrypted Secrets
   sops = ../secrets/.sops.yaml;

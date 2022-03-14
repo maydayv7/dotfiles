@@ -216,16 +216,18 @@
     },
     "library": {
       "locked": {
-        "lastModified": 1646527169,
-        "narHash": "sha256-L+hnaR1yT9YyJUrNyQlxpluOW6eSgPeChmsDA54Fbwk=",
+        "lastModified": 1645317664,
+        "narHash": "sha256-KmeflyKQXMtqsxqlRX+94O6bUCBngqR6seqjd6UIbZM=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "4936ea5f6fe2be650524006722b4e33a2e4a4e25",
+        "rev": "1637168cfad105ccd522ae59648ce0289966c565",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "master",
         "repo": "nixpkgs.lib",
+        "rev": "1637168cfad105ccd522ae59648ce0289966c565",
         "type": "github"
       }
     },
@@ -355,7 +357,7 @@
     "wine": {
       "inputs": {
         "nixpkgs": [
-          "stable"
+          "unstable"
         ]
       },
       "locked": {

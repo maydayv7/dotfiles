@@ -11,9 +11,8 @@ update:
     - git config --global user.name "${GITLAB_USER_NAME}"
     - git branch update-$CI_JOB_ID
     - git checkout update-$CI_JOB_ID
-    - nix profile install nixpkgs#jq
   script:
     - nix flake update --commit-lock-file
-    - cd packages && bash ./update.sh
+    - cd packages && ./update.sh
   after_script:
     - git push "https://${CI_PROJECT_NAMESPACE}:${ACCESS_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git" HEAD:update-$CI_JOB_ID -o merge_request.create -o merge_request.target=stable -o merge_request.remove_source_branch

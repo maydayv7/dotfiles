@@ -55,8 +55,9 @@ in {
   ## File System Configuration ##
   config =
     {
-      warnings = optional (filesystem == null)
-      (options.hardware.filesystem.description + " is unset");
+      warnings =
+        optional (filesystem == null)
+        (options.hardware.filesystem.description + " is unset");
     }
     // mkIf (filesystem != null) (mkMerge [
       {
@@ -145,27 +146,28 @@ in {
 
           "/data" = {
             hideMounts = true;
-            users = mapAttrs (name: _: {
-              inherit (config.user.persist) files;
-              directories =
-                [
-                  "Desktop"
-                  "Documents"
-                  "Downloads"
-                  "Music"
-                  "Pictures"
-                  "Projects"
-                  "Public"
-                  "Videos"
-                  ".local/share/Trash"
-                  {
-                    directory = ".local/share/keyrings";
-                    mode = "0700";
-                  }
-                ]
-                ++ config.user.persist.dirs;
-            })
-            config.user.settings;
+            users =
+              mapAttrs (name: _: {
+                inherit (config.user.persist) files;
+                directories =
+                  [
+                    "Desktop"
+                    "Documents"
+                    "Downloads"
+                    "Music"
+                    "Pictures"
+                    "Projects"
+                    "Public"
+                    "Videos"
+                    ".local/share/Trash"
+                    {
+                      directory = ".local/share/keyrings";
+                      mode = "0700";
+                    }
+                  ]
+                  ++ config.user.persist.dirs;
+              })
+              config.user.settings;
           };
         };
 

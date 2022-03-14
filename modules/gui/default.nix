@@ -17,6 +17,7 @@ in {
     default = null;
   };
 
-  config.warnings = optional (config.gui.desktop == null)
-  (options.gui.desktop.description + " is unset");
+  config.warnings =
+    optional (config.gui.desktop == null)
+    (options.gui.desktop.description + " is unset");
 }

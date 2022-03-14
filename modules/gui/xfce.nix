@@ -69,16 +69,15 @@ in {
           // theme;
 
         # Default Applications
-        xdg.mimeApps.defaultApplications =
-          util.xdg.mime (import files.xdg.mime) {
-            audio = ["org.xfce.Parole.desktop"];
-            calendar = ["org.xfce.orage.desktop"];
-            directory = ["thunar.desktop"];
-            image = ["org.xfce.ristretto.desktop"];
-            pdf = ["atril.desktop"];
-            text = ["org.xfce.mousepad.desktop"];
-            video = ["org.xfce.Parole.desktop"];
-          };
+        xdg.mimeApps.defaultApplications = util.xdg.mime (import files.xdg.mime) {
+          audio = ["org.xfce.Parole.desktop"];
+          calendar = ["org.xfce.orage.desktop"];
+          directory = ["thunar.desktop"];
+          image = ["org.xfce.ristretto.desktop"];
+          pdf = ["atril.desktop"];
+          text = ["org.xfce.mousepad.desktop"];
+          video = ["org.xfce.Parole.desktop"];
+        };
 
         home.file = {
           # GTK+ Bookmarks

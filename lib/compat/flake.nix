@@ -2,7 +2,7 @@ let
   flake = import (let
     lock =
       (builtins.fromJSON
-      (builtins.readFile ../../flake.lock))
+        (builtins.readFile ../../flake.lock))
       .nodes
       .compatibility
       .locked;

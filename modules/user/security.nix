@@ -22,10 +22,11 @@ in {
 
     users.extraUsers.root.passwordFile =
       mkIf (hasAttr "root.secret" secrets) secrets."root.secret".path;
-    users.users = mapAttrs (name: value: {
-      passwordFile = mkIf (!value.minimal) secrets."${name}.secret".path;
-    })
-    settings;
+    users.users =
+      mapAttrs (name: value: {
+        passwordFile = mkIf (!value.minimal) secrets."${name}.secret".path;
+      })
+      settings;
 
     # Recovery Account
     users.extraUsers.recovery = mkIf recovery {

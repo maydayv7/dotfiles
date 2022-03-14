@@ -112,8 +112,9 @@ in
       map.modules ./devices (name: build.device (import name));
 
     ## Virtual Machines ##
-    vmConfigurations = map.modules ./devices/vm (name:
-      import name (head platforms) inputs self.channels."${head platforms}".stable);
+    vmConfigurations =
+      map.modules ./devices/vm (name:
+        import name (head platforms) inputs self.channels."${head platforms}".stable);
 
     ## Install Media Configuration ##
     installMedia = {

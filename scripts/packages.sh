@@ -1,4 +1,8 @@
-# Script to Automatically Update Packages
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p coreutils jq
+# shellcheck shell=bash
+
+# Script to Automatically Update Packages #
 
 set -euo pipefail
 unset NIX_PATH

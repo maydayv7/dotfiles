@@ -1,4 +1,7 @@
-# Script to automatically Create, Label, Format and Mount Partitions
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p dosfstools ntfs3g parted util-linux zfs
+
+# Script to automatically Create, Label, Format and Mount Partitions #
 
 partition_disk() {
   read -rp "Enter Path to Disk: /dev/" DISK

@@ -49,7 +49,7 @@ with files; let
         --boot                      - Applies Configuration on boot
         --check                     - Checks Configuration Build
         --deploy [ 'device' ]       - Automatically Deploy via SSH
-        --rollback [ 'generation' ] - Reverts to Last Build Generation
+        --rollback [ 'generation' ] - Reverts to Last [ or Specified ] Build Generation
         --test                      - Tests Configuration Build
     '';
 
@@ -116,21 +116,43 @@ in
       "") error "Expected an Option" "${usage.script}";;
       help|--help|-h) echo -e "## Tool for NixOS System Management ##\n${usage.script}";;
       apply)
-        echo "Applying Configuration..."
         case $2 in
-        "") sudo nixos-rebuild switch --flake ${path.system}#;;
-        "--boot") sudo nixos-rebuild boot --flake ${path.system}#;;
-        "--check") nixos-rebuild dry-activate --flake ${path.system}#;;
-        "--deploy") deploy -s ${path.system}#"$3";;
-        "--test") sudo nixos-rebuild test --no-build-nix --show-trace --flake ${path.system}#;;
+        "")
+          echo "Applying Configuration..."
+          sudo nixos-rebuild switch --flake ${path.system}#
+        ;;
+        "--boot")
+          echo "Applying Configuration..."
+          sudo nixos-rebuild boot --flake ${path.system}#
+        ;;
+        "--check")
+          echo "Checking Configuration..."
+          nixos-rebuild dry-activate --flake ${path.system}#
+        ;;
+        "--deploy")
+          echo "Deploying Configuration..."
+          deploy -s ${path.system}#"$3"
+        ;;
+        "--test")
+          echo "Testing Configuration..."
+          sudo nixos-rebuild test --no-build-nix --show-trace --flake ${path.system}#
+        ;;
         "--rollback")
-          if [ -z "$2" ]
-          then
+          profile="/nix/var/nix/profiles/system"
+          case $3 in
+          "")
+            echo "Applying Rollback..."
             sudo nixos-rebuild switch --rollback
-          else
-            profile="/nix/var/nix/profiles/system"
+          ;;
+          list)
+            echo "# System Generations #"
+            sudo nix-env --list-generations -p "$profile"
+          ;;
+          *)
+            echo "Rolling Back to Generation '$3'..."
             sudo nix-env --switch-generation "$3" -p "$profile" && sudo $profile/bin/switch-to-configuration switch
-          fi
+          ;;
+          esac
         ;;
         *) error "Unknown Option '$2'" "${usage.apply}";;
         esac

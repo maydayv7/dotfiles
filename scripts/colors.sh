@@ -1,4 +1,7 @@
-# Print Color Map
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash
+
+# Print Color Map #
 
 for i in {0..255}
 do

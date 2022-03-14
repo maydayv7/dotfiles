@@ -79,19 +79,18 @@ in {
         };
 
         # Default Applications
-        xdg.mimeApps.defaultApplications =
-          util.xdg.mime (import files.xdg.mime) {
-            audio = ["org.gnome.Lollypop.desktop"];
-            calendar = ["org.gnome.Calendar.desktop"];
-            directory = ["org.gnome.Nautilus.desktop"];
-            image = ["org.gnome.eog.desktop"];
-            magnet = ["transmission-gtk.desktop"];
-            mail = ["org.gnome.Geary.desktop"];
-            markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
-            pdf = ["org.gnome.Evince.desktop"];
-            text = ["org.gnome.gedit.desktop"];
-            video = ["io.github.celluloid_player.Celluloid.desktop"];
-          };
+        xdg.mimeApps.defaultApplications = util.xdg.mime (import files.xdg.mime) {
+          audio = ["org.gnome.Lollypop.desktop"];
+          calendar = ["org.gnome.Calendar.desktop"];
+          directory = ["org.gnome.Nautilus.desktop"];
+          image = ["org.gnome.eog.desktop"];
+          magnet = ["transmission-gtk.desktop"];
+          mail = ["org.gnome.Geary.desktop"];
+          markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
+          pdf = ["org.gnome.Evince.desktop"];
+          text = ["org.gnome.gedit.desktop"];
+          video = ["io.github.celluloid_player.Celluloid.desktop"];
+        };
 
         home.file = {
           # Initial Setup
@@ -169,33 +168,33 @@ in {
           gnuchess
         ])
         ++ (with pkgs;
-        with unstable.gnomeExtensions // gnomeExtensions; [
-          # GNOME Shell Extensions
-          add-username-to-top-panel
-          appindicator
-          avatar
-          burn-my-windows
-          caffeine
-          clipboard-indicator
-          color-picker
-          compiz-windows-effect
-          compiz-alike-magic-lamp-effect
-          custom-hot-corners-extended
-          dash-to-panel
-          desktop-cube
-          custom.fly-pie
-          gtile
-          just-perfection
-          lock-keys
-          lock-screen-message
-          screenshot-locations
-          sound-output-device-chooser
-          timepp
-          custom.top-bar-organizer
-          vitals
-          worksapce-dry-names
-          x11-gestures
-        ]);
+          with unstable.gnomeExtensions // gnomeExtensions; [
+            # GNOME Shell Extensions
+            add-username-to-top-panel
+            appindicator
+            avatar
+            burn-my-windows
+            caffeine
+            clipboard-indicator
+            color-picker
+            compiz-windows-effect
+            compiz-alike-magic-lamp-effect
+            custom-hot-corners-extended
+            dash-to-panel
+            desktop-cube
+            custom.fly-pie
+            gtile
+            just-perfection
+            lock-keys
+            lock-screen-message
+            screenshot-locations
+            sound-output-device-chooser
+            timepp
+            custom.top-bar-organizer
+            vitals
+            worksapce-dry-names
+            x11-gestures
+          ]);
 
       # Persisted Files
       user.persist = {

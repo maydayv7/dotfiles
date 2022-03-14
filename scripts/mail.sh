@@ -1,5 +1,7 @@
-# Script to convert '.pst' Files to '.mbox'
-# Optionally Import into Thunderbird
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p coreutils gnused libpst
+
+# Script to convert '.pst' Files to '.mbox' #
 
 MAIL=./convert-$(date '+%H-%M_%d-%m-%y')
 

@@ -90,12 +90,16 @@ in {
             imports =
               imports
               ++ (attrValues self.nixosModules)
-              ++ map user' (if (user != null)
-              then [user]
-              else users)
-              ++ (if (format != null)
-              then [(getAttr format generators.nixosModules)]
-              else [])
+              ++ map user' (
+                if (user != null)
+                then [user]
+                else users
+              )
+              ++ (
+                if (format != null)
+                then [(getAttr format generators.nixosModules)]
+                else []
+              )
               ++ forEach hardware.modules or []
               (name: getAttrFromPath [name] inputs.hardware.nixosModules);
             inherit apps gui hardware shell;

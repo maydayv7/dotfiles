@@ -80,7 +80,13 @@
 
     ## Configuration Modules ##
     # Nix Library Functions
-    library.url = "github:nix-community/nixpkgs.lib";
+    library = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nixpkgs.lib";
+      ref = "master";
+      rev = "1637168cfad105ccd522ae59648ce0289966c565";
+    };
 
     # Flake Compatibility Library
     compatibility = {
@@ -147,7 +153,7 @@
     # Wine Apps Wrapper
     wine = {
       url = "github:emmanuelrosa/erosanix";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "unstable";
     };
   };
 
