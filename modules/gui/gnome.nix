@@ -79,7 +79,7 @@ in {
         };
 
         # Default Applications
-        xdg.mimeApps.defaultApplications = util.xdg.mime (import files.xdg.mime) {
+        xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
           audio = ["org.gnome.Lollypop.desktop"];
           calendar = ["org.gnome.Calendar.desktop"];
           directory = ["org.gnome.Nautilus.desktop"];
@@ -90,6 +90,23 @@ in {
           pdf = ["org.gnome.Evince.desktop"];
           text = ["org.gnome.gedit.desktop"];
           video = ["io.github.celluloid_player.Celluloid.desktop"];
+        };
+
+        # Code Editor Settings
+        programs.vscode = mkIf (elem pkgs.vscode apps) {
+          userSettings = {
+            "workbench.colorTheme" = "GNOME dark";
+            "terminal.external.linuxExec" = "gnome-terminal";
+          };
+
+          extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "vscode-gnome-theme";
+              publisher = "rafaelmardojai";
+              version = "0.3.0";
+              sha256 = "sha256-CXBh175GjiGbqkm/72SLDTOZZjF62cHZUTVVFiQkcVU=";
+            }
+          ];
         };
 
         home.file = {

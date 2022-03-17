@@ -18,7 +18,6 @@ in {
       hunspell
       hunspellDicts.en_US-large
       hyphen
-      libpst
       libreoffice
       onlyoffice-bin
 

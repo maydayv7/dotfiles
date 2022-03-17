@@ -4,8 +4,8 @@
   lib,
   ...
 }: let
-  inherit (lib) hasPrefix nameValuePair recursiveUpdate splitString util;
-  inherit (builtins) any attrValues concatStringsSep filter isPath listToAttrs map readFile;
+  inherit (lib) flatten hasPrefix mapAttrsToList nameValuePair recursiveUpdate splitString util;
+  inherit (builtins) any attrValues concatStringsSep filter hasAttr isPath listToAttrs map readFile;
 in rec {
   ## Builder Functions ##
   each = attr: func:
@@ -59,6 +59,14 @@ in rec {
               self.channels."${system}")
           ];
       });
+
+  # Mime Types Handler
+  mime = values: option:
+    listToAttrs (flatten (mapAttrsToList (name: types:
+      if hasAttr name option
+      then map (type: nameValuePair type option."${name}") types
+      else [])
+    values));
 
   # Script Builder
   script = file:

@@ -80,7 +80,7 @@ in {
             };
 
             # Globally Ignored Files
-            ignores = ["*~*" "*.bak" ".direnv" "result" "result-*" "tags.*"];
+            ignores = ["*~*" "*.bak" ".direnv" ".vscode" "result" "result-*" "tags.*"];
 
             # Additional Parameters
             extraConfig = {

@@ -1,6 +1,6 @@
 lib: let
   inherit (lib.util) build map;
-  inherit (builtins) readFile;
+  inherit (builtins) fromJSON readFile;
 in {
   ## Dotfiles ##
   # File Paths
@@ -82,8 +82,11 @@ in {
   # Document Templates
   templates = ./templates;
 
+  # Visual Studio Code Editor
+  vscode = map.files ./vscode (file: fromJSON (readFile file)) ".json";
+
   # XDG Settings
-  xdg.mime = ./xdg/mime.nix;
+  xdg.mime = import ./xdg/mime.nix;
 
   # XFCE Desktop
   xfce = {

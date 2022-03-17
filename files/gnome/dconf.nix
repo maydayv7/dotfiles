@@ -397,6 +397,7 @@ in {
     "org/gnome/desktop/app-folders/folders/a136187d-1d93-4d35-8423-082f15957be9" = {
       name = "Office";
       apps = [
+        "Code.desktop"
         "startcenter.desktop"
         "writer.desktop"
         "impress.desktop"

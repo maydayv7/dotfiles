@@ -17,6 +17,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`plank`](./plank) - `plank` Dock Theming
 - [`templates`](./templates) - Document Templates
 - [`touchegg`](./touchegg) - X11 Gestures provided by `touchegg`
+- [`vscode`](./vscode) - Visual Studio Code Editor Configuration
 - [`wine`](./wine) - Configuration and Theming for `wine` applications
 - [`xdg`](./xdg) - XDG Desktop Utilities Configuration
 - [`xfce`](./xfce) - Configuration Files for XFCE Desktop

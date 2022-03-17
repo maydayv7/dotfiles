@@ -10,6 +10,7 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
   - `iso`: configuration building function used to build the entire configuration for install media (`installMedia`) as per provided parameters
   - `each`: Maps function for each `attr` as passed
   - `channel`: Builds package `channels` for desired `inputs` with specified `overlays` for each `system`, and optionally patches the `input`
+  - `mime`: Builds and sets `mimetype` values according to specified application and types
   - `script`: Builds script from specified file by removing `shebangs` and exporting as a _string_
 
 - [`map`](./map.nix): Mapping functions primarily aimed at shortening code complexity -
@@ -30,8 +31,5 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
 - [`types`](./types.nix): Custom Module Option Types for advanced configuration -
 
   - `mergedAttrs`: Type specifier for merged `attrsets`
-
-- [`xdg`](./xdg.nix): XDG Helper Functions to simplify menial desktop-related tasks -
-  - `mime`: Sets `mimetype` values according to specified application and types
 
 The [`compat`](./compat) directory consists of compatibility libraries which enable you to run legacy Nix commands such as `nix-build`, `nix-shell`, and so on...

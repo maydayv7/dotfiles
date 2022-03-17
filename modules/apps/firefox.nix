@@ -15,7 +15,7 @@ in {
 
     user.home = {
       # File Associations
-      xdg.mimeApps.defaultApplications = util.xdg.mime (import files.xdg.mime) {
+      xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
         browser = ["firefox.desktop"];
       };
 
