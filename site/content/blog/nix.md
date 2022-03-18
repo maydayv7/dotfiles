@@ -69,8 +69,8 @@ Given below is an simple Nix derivation, just as an example:
 with pkgs;
 stdenv.mkDerivation rec {
   pname = "Dotfiles";
-  version = "v5.0";
-  longVersion = "20220220";
+  version = "v7.0";
+  longVersion = "20220318";
 
   src = fetchFromGitHub
   {

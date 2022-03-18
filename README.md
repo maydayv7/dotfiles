@@ -72,7 +72,7 @@ github:maydayv7/dotfiles
 ├───defaultApp
 │   └───x86_64-linux: app
 ├───defaultPackage
-│   └───x86_64-linux: package 'Dotfiles-v5.0'
+│   └───x86_64-linux: package 'Dotfiles-v7.0'
 ├───defaultTemplate: template: Simple, Minimal NixOS Configuration
 ├───deploy: automatc deployments
 ├───devShell
@@ -110,7 +110,7 @@ github:maydayv7/dotfiles
 │   └───nixFlakes: Nixpkgs overlay
 ├───packages
 │   └───x86_64-linux
-│       ├───dotfiles: package 'Dotfiles-v5.0'
+│       ├───dotfiles: package 'Dotfiles-v7.0'
 │       ├───fonts: package 'fonts-7'
 │       └───website: package 'website-stable'
 ├───templates
@@ -410,7 +410,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 <details>
 <summary><b>Changelog</b></summary>
 
-### v5.1 - NEXT
+### v7.0 - 20220318
 
 - Create Website using [Zola](https://www.getzola.org/)
 - Refine Compatibility Libraries

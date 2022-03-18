@@ -97,16 +97,18 @@ with {inherit (lib) mkAfter mkForce;}; {
     ];
 
     # SSH
-    systemd.services.sshd.preStart = mkAfter ''
-      if ! [ -s "/etc/ssh/ssh_host_rsa_key" ]; then
-      ssh-keygen -t "rsa" -b "4096" -f "/etc/ssh/ssh_host_rsa_key" -N ""; fi
-    '';
-
     services.openssh = {
       enable = true;
       passwordAuthentication = true;
       permitRootLogin = mkForce "no";
-      hostKeys = mkForce [];
+      hostKeys = [
+        {
+          comment = "Host SSH Key";
+          bits = 4096;
+          type = "ed25519";
+          path = "/etc/ssh/ssh_key";
+        }
+      ];
     };
 
     # Power Management
