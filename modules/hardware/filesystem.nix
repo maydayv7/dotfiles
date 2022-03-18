@@ -3,11 +3,10 @@
   options,
   lib,
   inputs,
-  files,
   ...
 }: let
-  inherit (builtins) mapAttrs;
-  inherit (lib) mkAfter mkForce mkIf mkMerge mkOption optional types;
+  inherit (builtins) filter listToAttrs mapAttrs;
+  inherit (lib) hasPrefix mkAfter mkIf mkMerge mkOption nameValuePair optional types;
   inherit (config.hardware) filesystem;
 in {
   imports = [inputs.impermanence.nixosModule];
@@ -97,26 +96,29 @@ in {
 
       ## Advanced File System Configuration using BTRFS ##
       (mkIf (filesystem == "advanced") {
-        fileSystems = {
-          # ROOT Partition
-          "/" = {
-            device = "fspool/system/root";
-            fsType = "zfs";
-          };
+        fileSystems =
+          {
+            # ROOT Partition
+            "/" = {
+              device = "fspool/system/root";
+              fsType = "zfs";
+            };
 
-          # NIX Partition
-          "/nix" = {
-            device = "fspool/system/nix";
-            fsType = "zfs";
-          };
+            # NIX Partition
+            "/nix" = {
+              device = "fspool/system/nix";
+              fsType = "zfs";
+            };
 
-          # PERSISTENT Partition
-          "/data" = {
-            device = "fspool/data";
-            fsType = "zfs";
-            neededForBoot = true;
-          };
-        };
+            # PERSISTENT Partition
+            "/data" = {
+              device = "fspool/data";
+              fsType = "zfs";
+              neededForBoot = true;
+            };
+          }
+          // listToAttrs (map (dir: nameValuePair dir {neededForBoot = true;})
+            (filter (hasPrefix "/etc") config.environment.persist.dirs));
 
         # Boot Settings
         boot = {
@@ -135,12 +137,11 @@ in {
         };
 
         # Persisted Files
-        sops.gnupg.home = mkForce "/nix/state${files.gpg}";
         environment.persistence = {
           "/nix/state" = {
             files = ["/etc/machine-id"] ++ config.environment.persist.files;
             directories =
-              ["/etc/nixos" "/var/log" "/var/lib/AccountsService"]
+              ["/var/log" "/var/lib/AccountsService"]
               ++ config.environment.persist.dirs;
           };
 

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  files,
   ...
 }: let
   font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
@@ -25,23 +26,26 @@ in {
     };
 
     # Essential Utilities
-    environment.systemPackages = with pkgs; [
-      cryptsetup
-      gparted
-      inxi
-      killall
-      mkpasswd
-      custom.nixos
-      ntfsprogs
-      parted
-      pciutils
-      rsync
-      sdparm
-      smartmontools
-      unrar
-      unzip
-      usbutils
-      wget
-    ];
+    environment = {
+      persist.dirs = [files.path.system];
+      systemPackages = with pkgs; [
+        cryptsetup
+        gparted
+        inxi
+        killall
+        mkpasswd
+        custom.nixos
+        ntfsprogs
+        parted
+        pciutils
+        rsync
+        sdparm
+        smartmontools
+        unrar
+        unzip
+        usbutils
+        wget
+      ];
+    };
   };
 }

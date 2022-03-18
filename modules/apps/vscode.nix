@@ -16,7 +16,7 @@ in {
     environment.systemPackages = with pkgs; [rnix-lsp vscode];
 
     user = {
-      persist.dirs = [".config/Code"];
+      persist.dirs = [".config/Code" ".vscode"];
       home = {
         xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
           text = ["code.desktop"];
