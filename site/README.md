@@ -1,6 +1,6 @@
 ## My Personal Website
 
-[![website](./themes.png)](https://maydayv7.tk)
+[![website](../files/images/site.png)](https://maydayv7.tk)
 
 Generated using [Zola](https://www.getzola.org/) and Deployed with [Nix](https://nixos.org/), [GitHub Pages](https://pages.github.com/) and [Vercel](https://vercel.com)
 

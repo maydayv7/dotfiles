@@ -95,6 +95,9 @@ in {
     terminal = readFile ./xfce/terminalrc;
   };
 
+  # My Personal Website
+  website = ../site;
+
   # XORG Display Server
   xorg = readFile ./xorg/Xresources;
 

@@ -99,6 +99,8 @@ in
             ./.git-crypt
             ./.github
             ./.gitlab
+            ./site
+            ./packages/website.nix
             (filters.matchExt "md")
             (filters.matchExt "secret")
           ];

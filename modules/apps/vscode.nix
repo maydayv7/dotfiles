@@ -45,6 +45,10 @@ in {
               github.vscode-pull-request-github
               jnoortheen.nix-ide
               kamadorueda.alejandra
+              ms-python.python
+              ms-vscode.cpptools
+              redhat.java
+              redhat.vscode-yaml
               yzhang.markdown-all-in-one
             ]
             # Custom Extensions
@@ -60,6 +64,12 @@ in {
                 publisher = "vscode-org-mode";
                 version = "1.0.0";
                 sha256 = "1dp6mz1rb8awrrpig1j8y6nyln0186gkmrflfr8hahaqr668il53";
+              }
+              {
+                name = "vscode-html-css";
+                publisher = "ecmel";
+                version = "1.11.0";
+                sha256 = "sha256-xwzfTFSBonGcfyhE0fs1ZRHlRbPFLGgshw1NLLyFypI=";
               }
             ];
         };
