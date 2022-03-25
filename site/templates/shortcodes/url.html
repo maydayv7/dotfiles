@@ -1,0 +1,4 @@
+{% if trail_slash -%} {% set url = get_url(path=path,
+trailing_slash=trail_slash) %} {%- else -%} {% set url = get_url(path=path) %}
+{%- endif -%}
+<a href="{{ url }}">{{ text }}</a>

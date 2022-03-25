@@ -2,7 +2,7 @@
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code
+This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.tk](https://maydayv7.tk). You can follow along with my [NixOS Desktop](https://maydayv7.tk/series/nixos-desktop/) Series
 
 [![Desktop](./files/images/desktop.png)](https://www.reddit.com/r/unixporn/comments/ssb7mf/gnome_my_dream/)
 
@@ -24,6 +24,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Support for Multiple Desktop Environments
 - Cutting Edge Software - PipeWire, Wayland, ...and many more!
 - Interactive [`repl`](./repl.nix) to explore Syntax and Configuration
+- Automatically Builds and Deploys my [Website](./site)
 - Authentication Credentials Management using the [`sops`](https://github.com/Mic92/sops-nix) Module and [`gnupg`](https://gnupg.org/) Keys
 - Comprehensive User Configuration using the tightly integrated [`home-manager`](https://github.com/nix-community/home-manager) Module, with [Support](./modules/user/default.nix) for Configuring Shared User Configuration, Global Conditionals and User-Specific Configuration
 - Support for Multiple Programming Language Development [`shells`](./shells) integrated with [`direnv`](https://direnv.net/) and [`lorri`](https://github.com/nix-community/lorri)
@@ -110,7 +111,8 @@ github:maydayv7/dotfiles
 ├───packages
 │   └───x86_64-linux
 │       ├───dotfiles: package 'Dotfiles-v7.0'
-│       └───fonts: package 'fonts-7'
+│       ├───fonts: package 'fonts-7'
+│       └───website: package 'website-stable'
 ├───templates
 │   ├───extensive: template: My Complete, Extensive NixOS Configuration
 │   └───minimal: template: Simple, Minimal NixOS Configuration
@@ -132,6 +134,7 @@ github:maydayv7/dotfiles
 ├── files
 ├── secrets
 ├── shells
+├── site
 ├── repl.nix
 ├── users
 ├── devices
@@ -165,6 +168,7 @@ github:maydayv7/dotfiles
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 - `shells`: sand-boxed shells for development purposes
+- [`site`](./site/README.md): personal website generated using [`zola`](https://www.getzola.org/)
 - `repl.nix`: interactive shell to explore syntax and configuration
 - [`users`](./users/README.md): individual user-specific configuration
 - [`devices`](./devices/README.md): system configuration for various devices
@@ -406,6 +410,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 <details>
 <summary><b>Changelog</b></summary>
 
+- Create Website using [Zola](https://www.getzola.org/)
 - Refine Compatibility Libraries
 - Refine Scripts
   - Use `nix-shell` Shebangs

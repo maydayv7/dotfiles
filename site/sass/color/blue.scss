@@ -1,0 +1,16 @@
+:root {
+  --accent: rgb(35, 176, 255);
+  --accent-alpha-20: rgba(35, 176, 255, 0.2);
+  --accent-alpha-70: rgba(35, 176, 255, 0.7);
+  --accent-secondary: rgb(238, 114, 241);
+  --accent-secondary-alpha-20: rgba(238, 114, 241, 0.2);
+  --accent-secondary-alpha-70: rgba(238, 114, 241, 0.7);
+
+  --background: rgba(29, 30, 40);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-secondary-color: rgb(35, 176, 255);
+
+  --color: whitesmoke;
+  --image-filter: invert(58%) sepia(93%) saturate(582%) hue-rotate(262deg)
+    brightness(98%) contrast(93%);
+}

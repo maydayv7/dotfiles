@@ -1,0 +1,92 @@
+# The Site URL
+base_url = "/"
+title = "maydayv7"
+description = "My Personal Website"
+
+# The Default Language used in Feeds
+default_language = "en"
+
+# Automatically Compile all '.scss' files in './sass'
+compile_sass = true
+
+# Build Search Index to be used later by a JS Library
+build_search_index = true
+
+# RSS Feed
+feed_filename = "rss.xml"
+
+# Taxonomies
+# See <https://www.getzola.org/documentation/content/taxonomies/>
+taxonomies = [
+  { name = "series", feed = true, paginate_by = 10 },
+  { name = "tags", feed = true, paginate_by = 10 },
+]
+
+[markdown]
+# Perform Syntax Highlighting
+highlight_code = true
+highlight_theme = "css"
+
+# Parser Settings
+render_emoji = true
+smart_punctuation = false
+
+# External Link Settings
+external_links_target_blank = true
+external_links_no_follow = true
+external_links_no_referrer = true
+
+[search]
+# Site Search Settings
+include_title = true
+include_description = false
+include_path = false
+include_content = true
+
+[extra]
+# Site Theme
+theme_color = "red"
+color_schemes = ["black", "blue", "red"]
+read_more = "Read More..."
+
+# Enable Math Typesetting with KaTeX
+# Use 'math=true' in [extra] on individual pages
+math_katex = true
+
+# Generate Table of Contents for all Articles
+# Use 'ToC = true' in [extra] for individual pages
+table_of_contents = false 
+
+# Logo
+favicon = "desktop.ico"
+logo_text = "maydayv7"
+center = true
+
+# Allow Editing Articles
+# Use 'edit = false' in [extra] to disable for individual pages
+edit_page = true
+repo_url = "https://github.com/maydayv7/dotfiles/blob/stable/site"
+
+# License
+author = "maydayv7"
+copyright = "V 7"
+google_analytics_tracking_id = "G-26PNXDYZNZ"
+
+# Page Comments
+# Use 'comments = true' in [extra] for individual pages
+disqus = { enabled = false, short_name = "maydayv7" }
+giscus = { enabled = true, repo = "maydayv7/dotfiles", repo_id = "R_kgDOGuzdUw", category = "Blog", category_id = "DIC_kwDOGuzdU84CODRX" }
+
+# Main Menu
+main_menu_items = [
+  { url = "/blog/", name="Blog" },
+  { url = "/projects/", name="Projects" },
+  { url = "/about/", name="About" },
+]
+
+# Socials Bar
+email = "mailto:maydayv7@gmail.com"
+show_rss_badge = true
+rss_path = "blog/rss.xml"
+reddit_profile = "https://reddit.com/u/maydayv7"
+github_profile = "https://github.com/maydayv7"

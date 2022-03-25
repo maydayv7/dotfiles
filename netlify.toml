@@ -1,0 +1,9 @@
+[build]
+publish = "build"
+command = """
+export NP_GIT=$(which git)
+wget -nv https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable
+chmod +x nix-portable
+./nix-portable nix-build -E "with import ./.; callPackage ./site { site = ${DEPLOY_PRIME_URL}; }"
+./nix-portable nix-shell -p bash --run "cp -rL result build"
+"""

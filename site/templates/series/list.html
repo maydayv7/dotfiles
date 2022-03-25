@@ -1,0 +1,16 @@
+{% extends "base.html" %} {%- block title %}
+<title>Series - {{ config.extra.author }}</title>
+{%- endblock title -%} {% block main %}
+<article class="post">
+  <h1 class="post-title">^{{ taxonomy.name }}</h1>
+
+  <ul class="post-list">
+    {% for term in terms %}
+    <li>
+      <a href="{{ term.permalink | safe }}">{{ term.name }}</a>
+      ({{ term.pages | length }} post{{ term.pages | length | pluralize }})
+    </li>
+    {% endfor %}
+  </ul>
+</article>
+{% endblock main %}

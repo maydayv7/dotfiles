@@ -1,0 +1,28 @@
+{%- macro font(config) %} <link rel="stylesheet" href="{{
+get_url(path="fonts.css", trailing_slash=false) }}"> {% endmacro font -%} {%
+macro styling(config) %} <link rel="stylesheet" href="{{
+get_url(path="style.css", trailing_slash=false) }}"> {% if
+config.extra.theme_color -%} {% set color = "color/" ~config.extra.theme_color ~
+".css" -%}
+<link rel="stylesheet" href="{{ get_url(path=color, trailing_slash=false) }}" />
+{%- else -%} <link rel="stylesheet" href="{{ get_url(path="color/red.css",
+trailing_slash=false) }}"> {% endif %} {% endmacro styling %} {% macro
+feed_discovery(path) %}
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="RSS"
+  href="{{ get_url(path=path, trailing_slash=false) }}" />
+{% endmacro feed_discovery %} {% macro favicon(config) %} {% if
+config.extra.favicon %}
+<link
+  rel="shortcut icon"
+  href="{{ get_url(path=config.extra.favicon, trailing_slash=false) }}?"
+  type="image/x-icon" />
+{% endif %} {% endmacro favicon %} {% macro general_meta() %}
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<meta name="description" content="{{ config.description }}" />
+{% endmacro general_meta %}

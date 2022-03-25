@@ -99,7 +99,7 @@ in rec {
   };
 
   # My Personal Website
-  website = "TODO";
+  website = ../site;
 
   # XORG Display Server
   xorg = readFile ./xorg/Xresources;

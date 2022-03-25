@@ -1,0 +1,38 @@
+<figure
+  class="{% if class is defined %}{{ class | safe }}{% else -%} center {%- endif %}">
+  {%- if static is defined -%}
+  <img
+    src="{{ get_url(path=src) | safe }}"
+    {%
+    if
+    alt
+    %}
+    alt="{{ alt }}"
+    {%
+    endif
+    %} />
+  {%- else -%} {%- set src = page.path ~ src -%}
+  <img
+    src="{{ get_url(path=src) | safe }}"
+    {%
+    if
+    alt
+    %}
+    alt="{{ alt }}"
+    {%
+    endif
+    %} />
+  {%- endif -%} {% if caption %}
+  <figcaption
+    {%
+    if
+    caption_style
+    %}
+    style="{{ caption_style | safe }}"
+    {%
+    endif
+    %}>
+    {{ caption }}
+  </figcaption>
+  {% endif %}
+</figure>
