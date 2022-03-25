@@ -1,0 +1,29 @@
+# Build Device Configuration
+device:
+  stage: build
+  only:
+    - tags
+  except:
+    - /^(?!stable).+@/
+  allow_failure: true
+  variables:
+    CACHIX_AUTH_TOKEN: $CACHIX_TOKEN
+    CACHIX_CACHE_NAME: maydayv7-dotfiles
+  parallel:
+    matrix:
+      - DEVICE: [Vortex, Futura]
+  script: cachix watch-exec $CACHIX_CACHE_NAME nix build .#nixosConfigurations.$DEVICE.config.system.build.toplevel -- -L --show-trace
+
+# Build and Upload Install Media Image
+iso:
+  stage: build
+  only:
+    - tags
+  except:
+    - /^(?!stable).+@/
+  variables:
+    ISO: xfce # Default Variant
+  script: nix build .#installMedia.$ISO.config.system.build.isoImage -L --show-trace
+  after_script:
+    - nix profile install .#curl
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file ./result/iso/nixos.iso ${PACKAGE_REGISTRY}/installMedia/${CI_COMMIT_TAG}/NixOS.iso'

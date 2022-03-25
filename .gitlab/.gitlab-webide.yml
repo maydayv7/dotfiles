@@ -1,0 +1,4 @@
+terminal:
+  image: nixpkgs/cachix-flakes:latest
+  before_script:
+    - nix develop

@@ -1,0 +1,18 @@
+# Check Nix Developer Shells
+shell:
+  stage: check
+  only:
+    changes:
+      - "shells/*"
+  except:
+    - tags
+    - schedules
+  allow_failure: true
+  variables:
+    CACHIX_AUTH_TOKEN: $CACHIX_TOKEN
+    CACHIX_CACHE_NAME: maydayv7-dotfiles
+  parallel:
+    matrix:
+      - DEVSHELL:
+          [cc, format, go, java, lisp, lua, python, rust, video, website]
+  script: cachix watch-exec $CACHIX_CACHE_NAME nix develop .#$DEVSHELL
