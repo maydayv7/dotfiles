@@ -3,6 +3,7 @@
   options,
   lib,
   inputs,
+  files,
   ...
 }: let
   inherit (builtins) filter listToAttrs mapAttrs;
@@ -138,7 +139,7 @@ in {
 
         # Persisted Files
         environment.persistence = {
-          "/nix/state" = {
+          "${files.persist}" = {
             files = ["/etc/machine-id"] ++ config.environment.persist.files;
             directories =
               ["/var/log" "/var/lib/AccountsService"]

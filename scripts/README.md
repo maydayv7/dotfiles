@@ -25,7 +25,6 @@ $ nixos
   save                        - Saves Configuration State to Repository
   search 'term' [ 'source' ]  - Searches for Packages [ Providing 'term' ] or Configuration Options
   secret 'choice' [ 'path' ]  - Manages 'sops' Encrypted Secrets
-  setup                       - Sets up System after Install
   shell [ 'name' ]            - Opens desired Nix Developer Shell
   update [ 'repository' ]     - Updates System Repositories
 ```

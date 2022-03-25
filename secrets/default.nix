@@ -10,7 +10,11 @@ with {inherit (lib) mkForce util;}; {
 
   ## Authentication Credentials Management ##
   config = {
-    environment.systemPackages = [pkgs.sops];
+    environment = {
+      persist.dirs = [files.gpg];
+      systemPackages = [pkgs.sops];
+    };
+
     sops = {
       # Encrypted Secrets
       secrets = util.map.secrets ./. false;

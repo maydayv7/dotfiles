@@ -42,26 +42,6 @@ internet() {
   fi
 }
 
-keys() {
-  read -rp "Enter Path to GPG Keys (path/.git): " KEY
-  pushd "$HOME" > /dev/null || exit
-  LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-  if [ -z "$KEY" ]
-  then
-    error "Path to GPG Keys cannot be empty"
-  elif [[ $KEY =~ $LINK ]]
-  then
-    echo "Cloning Keys..."
-    git clone "$KEY" keys --progress
-  else
-    cp -r "$KEY"/. ./keys
-  fi
-  echo "Importing Keys..."
-  find ./keys -name '*.gpg' -exec gpg --import {} \+
-  rm -rf ./keys
-  popd > /dev/null || exit
-}
-
 newline() {
   echo -e "\n";
 }

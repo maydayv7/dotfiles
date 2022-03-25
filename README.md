@@ -194,8 +194,8 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
    cd /etc/nixos
    </code></pre>
 
-2. Clone this repository (`git` and `git-crypt` must be installed): <pre><code>nix flake init -t github:maydayv7/dotfiles#extensive
-   git init && git-crypt init
+2. Clone this repository (and preferably initialize it using `git`): <pre><code>nix flake init -t github:maydayv7/dotfiles#extensive
+   git init
    </code></pre>
 
 3. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](./secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
@@ -213,7 +213,7 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
    </code></pre>
    _Save the keys `public.gpg` and `private.gpg` in a secure location_
 
-4. Authenticate `git-crypt` using your GPG keys using the command `git-crypt add-gpg-user` and copy the `$HOME/.gnupg` directory to `files/gpg`
+4. Import all required GPG Keys into a convenient location (like `/etc/gpg`) using <code>gpg --homedir <i>DIR</i> import</code> and specify it at `config.sops.gnupg.home` (Required for decryption of `secrets` on boot, can also be on an external drive)
 
 5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command (The [`nixos`](./scripts/README.md) script can be used to simplify the process):  
    _Replace_ **_PATH_** _with the path to the `secret`_ <pre><code>sops --config <i>/path/to/<b>.sops.yaml</b></i> -i <b><i>PATH</i></b></code></pre>

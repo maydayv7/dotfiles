@@ -95,8 +95,6 @@ in
         path = filters.filter {
           root = ./.;
           exclude = [
-            ./files/gpg
-            ./.git-crypt
             ./.github
             ./.gitlab
             ./site

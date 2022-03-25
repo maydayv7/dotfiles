@@ -1,7 +1,7 @@
 lib: let
   inherit (lib.util) build map;
   inherit (builtins) fromJSON readFile;
-in {
+in rec {
   ## Dotfiles ##
   # File Paths
   path = {
@@ -49,7 +49,7 @@ in {
   };
 
   # GPG Keys Directory
-  gpg = "/etc/nixos/files/gpg";
+  gpg = "/etc/gpg";
 
   # GTK+ Settings
   gtk.bookmarks = readFile ./gtk/bookmarks;
@@ -59,6 +59,9 @@ in {
     profile = ./images/Profile.png;
     wallpapers = ./images/wallpapers;
   };
+
+  # Persisted Files
+  persist = "/nix/state";
 
   # Plank Dock
   plank = {

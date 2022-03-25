@@ -11,7 +11,6 @@ with files; let
   inherit (util.map) list;
   inherit (lib) licenses recursiveUpdate util;
 
-  persist = "/nix/state";
   devShells = list self.devShells."${system}";
   installMedia = list self.installMedia;
   nixosConfigurations = list self.nixosConfigurations;
@@ -39,7 +38,6 @@ with files; let
         save                        - Saves Configuration State to Repository
         search 'term' [ 'source' ]  - Searches for Packages [ Providing 'term' ] or Configuration Options
         secret 'choice' [ 'path' ]  - Manages 'sops' Encrypted Secrets
-        setup                       - Sets up System after Install
         shell [ 'name' ]            - Opens desired Nix Developer Shell
         update [ 'repository' ]     - Updates System Repositories
     '';
@@ -86,7 +84,6 @@ in
       apps.deploy
       apps.generators
       git
-      git-crypt
       gnupg
       gnused
       gparted
@@ -228,16 +225,16 @@ in
         read -rp "Select Filesystem to use for Disk (simple/advanced): " choice
           case $choice in
             1|[Ss]*)
-              read -rp "Do you want to Create ZFS Pool and Datasets? (Y/N): " choice
+              read -rp "Do you want to Create and Format the EXT4 Partitions? (Y/N): " choice
                 case $choice in
-                  [Yy]*) create_ext4; mount_ext4;;
+                  [Yy]*) DIR=${path.system}; create_ext4; mount_ext4;;
                   *) warn "Assuming that Required EXT4 Partition has already been Created"; mount_ext4;;
                 esac
             ;;
             2|[Aa]*)
-              read -rp "Do you want to Create ZFS Pool and Datasets? (Y/N): " choice
+              read -rp "Do you want to Create the ZFS Pool and Datasets? (Y/N): " choice
                 case $choice in
-                  [Yy]*) create_zfs; mount_zfs;;
+                  [Yy]*) DIR=${persist}${path.system}; create_zfs; mount_zfs;;
                   *) warn "Assuming that Required ZFS Pool and Datasets have already been Created"; mount_zfs;;
                 esac
             ;;
@@ -253,7 +250,35 @@ in
         fi
         echo "Installing System from '$URL'..."
         nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST" --impure
-        warn "Run 'nixos setup' in the Newly Installed System to Finish Setup"
+        newline
+
+        read -rp "Enter Path to GPG Keys (path/.git): " KEY
+        LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+        if [ -z "$KEY" ]
+        then
+          error "Path to GPG Keys cannot be empty"
+        elif [[ $KEY =~ $LINK ]]
+        then
+          echo "Cloning Keys..."
+          git clone "$KEY" keys --progress
+        else
+          cp -r "$KEY"/. ./keys
+        fi
+        echo "Importing Keys..."
+        find ./keys -name '*.gpg' -exec gpg --homedir /mnt${files.gpg} --import {} \+
+        rm -rf ./keys
+        newline
+
+        echo "Preparing ${path.system}..."
+        DIR=/mnt$DIR
+        rm -rf $DIR && mkdir $DIR
+        newline
+
+        echo "Cloning Repository..."
+        git clone --recurse-submodules ${path.repo} $DIR
+        chgrp -R keys $DIR && chmod g+rwx $DIR -R
+        newline
+
         unmount_all
         newline
         restart
@@ -428,32 +453,6 @@ in
         ;;
         *) error "Unknown Option '$2'" "${usage.secret}";;
         esac
-      ;;
-      setup)
-        internet
-        keys
-        newline
-        echo "Preparing Directory..."
-        if ! [ -d ${persist} ]
-        then
-          DIR=${path.system}
-        else
-          DIR=${persist}${path.system}
-        fi
-        su recovery -c "if ! [ -d ${persist} ]; then DIR=${path.system}; else DIR=${persist}${path.system}; fi; sudo -S rm -rf $DIR && sudo mkdir $DIR && sudo chgrp -R keys $DIR && sudo chmod g+rwx $DIR"
-        newline
-        echo "Cloning Repository..."
-        git clone --recurse-submodules ${path.repo} $DIR
-        cd $DIR
-        git-crypt unlock
-        newline
-        echo "Applying Configuration..."
-        if [ -d ${persist} ]
-        then
-          su recovery -c 'sudo -S umount -l ${path.system} && sudo -S mount ${path.system}'
-        fi
-        su recovery -c 'sudo -S nixos-rebuild switch --flake ${path.system}'
-        restart
       ;;
       shell)
         case $2 in
