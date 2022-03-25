@@ -1,0 +1,31 @@
+## Arch ZSH Config
+
+# Powerlevel10k Prompt
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Find The Command
+source /usr/share/doc/find-the-command/ftc.zsh noprompt quiet
+
+# Oh My ZSH
+export ZSH="/home/v7/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
+
+# Set name of the theme to load
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Plugins
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+# Aliases
+alias sike="neofetch"
+alias edit="nano"
+alias hi="echo 'Hi there. How are you?'"
+alias bye="exit"
+alias repo="sudo systemctl start reflector.service"

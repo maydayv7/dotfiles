@@ -1,0 +1,14 @@
+[
+  {
+    "key": "meta+/",
+    "command": "workbench.action.showCommands"
+  },
+  {
+    "key": "ctrl+d",
+    "command": "editor.action.deleteLines"
+  },
+  {
+    "key": "alt+t",
+    "command": "workbench.action.terminal.focus"
+  }
+]

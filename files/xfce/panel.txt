@@ -1,0 +1,102 @@
+# Panel Configuration Backup
+# Compress using 'bunzip2'
+
+/configver 2
+/panels [<0>]
+/panels/dark-mode true
+/panels/panel-0/autohide-behavior uint32 1
+/panels/panel-0/background-alpha uint32 80
+/panels/panel-0/background-rgba [<1.0>, <1.0>, <1.0>, <0.477966>]
+/panels/panel-0/background-style uint32 0
+/panels/panel-0/disable-struts false
+/panels/panel-0/enter-opacity uint32 100
+/panels/panel-0/icon-size uint32 0
+/panels/panel-0/leave-opacity uint32 95
+/panels/panel-0/length uint32 90
+/panels/panel-0/length-adjust true
+/panels/panel-0/mode uint32 0
+/panels/panel-0/nrows uint32 1
+/panels/panel-0/plugin-ids [<1>, <15>, <22>, <18>, <3>, <16>, <4>, <19>, <17>, <2>, <6>, <5>, <7>, <8>, <20>, <9>, <10>, <11>, <13>, <14>]
+/panels/panel-0/position 'p=0;x=946;y=27'
+/panels/panel-0/position-locked true
+/panels/panel-0/size uint32 27
+/panels/panel-0/span-monitors false
+/plugins/clipman/tweaks/paste-on-activate uint32 2
+/plugins/clipman/tweaks/popup-at-pointer true
+/plugins/plugin-1 'separator'
+/plugins/plugin-1/style uint32 0
+/plugins/plugin-10 'actions'
+/plugins/plugin-10/appearance uint32 1
+/plugins/plugin-10/ask-confirmation true
+/plugins/plugin-10/button-title uint32 0
+/plugins/plugin-10/invert-orientation false
+/plugins/plugin-10/items [<'+lock-screen'>, <'+separator'>, <'+suspend'>, <'+hibernate'>, <'+separator'>, <'-hybrid-sleep'>, <'+restart'>, <'+shutdown'>, <'+separator'>, <'+switch-user'>, <'-logout-dialog'>, <'+logout'>]
+/plugins/plugin-11 'separator'
+/plugins/plugin-11/expand false
+/plugins/plugin-11/style uint32 0
+/plugins/plugin-13 'notification-plugin'
+/plugins/plugin-14 'separator'
+/plugins/plugin-14/expand false
+/plugins/plugin-14/style uint32 0
+/plugins/plugin-15 'whiskermenu'
+/plugins/plugin-16 'namebar'
+/plugins/plugin-17 'xfce4-notes-plugin'
+/plugins/plugin-18 'eyes'
+/plugins/plugin-19 'screenshooter'
+/plugins/plugin-2 'xfce4-clipman-plugin'
+/plugins/plugin-20 'weather'
+/plugins/plugin-20/cache-max-age 172800
+/plugins/plugin-20/forecast/days 5
+/plugins/plugin-20/forecast/layout 1
+/plugins/plugin-20/location/latitude '17.425400'
+/plugins/plugin-20/location/longitude '78.507500'
+/plugins/plugin-20/location/name 'Hyderabad, India'
+/plugins/plugin-20/msl 529
+/plugins/plugin-20/offset '+05:30'
+/plugins/plugin-20/power-saving true
+/plugins/plugin-20/round true
+/plugins/plugin-20/scrollbox/animate true
+/plugins/plugin-20/scrollbox/color 'rgba(0,0,0,0)'
+/plugins/plugin-20/scrollbox/lines 1
+/plugins/plugin-20/scrollbox/show true
+/plugins/plugin-20/scrollbox/use-color false
+/plugins/plugin-20/single-row true
+/plugins/plugin-20/theme-dir '/nix/store/qrb3nm6l6mz283ifjchn2idw2d7l8mi5-xfce4-weather-plugin-0.11.0/share/xfce4/weather/icons/liquid'
+/plugins/plugin-20/timezone 'Asia/Kolkata'
+/plugins/plugin-20/tooltip-style 1
+/plugins/plugin-20/units/altitude 0
+/plugins/plugin-20/units/apparent-temperature 0
+/plugins/plugin-20/units/precipitation 0
+/plugins/plugin-20/units/pressure 0
+/plugins/plugin-20/units/temperature 0
+/plugins/plugin-20/units/windspeed 0
+/plugins/plugin-22 'separator'
+/plugins/plugin-22/style uint32 0
+/plugins/plugin-3 'separator'
+/plugins/plugin-3/expand true
+/plugins/plugin-3/style uint32 0
+/plugins/plugin-4 'systray'
+/plugins/plugin-4/icon-size 16
+/plugins/plugin-4/known-legacy-items [<'thunar'>, <'networkmanager applet'>]
+/plugins/plugin-4/show-frame false
+/plugins/plugin-4/size-max uint32 16
+/plugins/plugin-4/symbolic-icons true
+/plugins/plugin-5 'pulseaudio'
+/plugins/plugin-5/enable-keyboard-shortcuts true
+/plugins/plugin-5/enable-mpris true
+/plugins/plugin-5/enable-multimedia-keys true
+/plugins/plugin-5/enable-wnck true
+/plugins/plugin-5/show-notifications true
+/plugins/plugin-6 'power-manager-plugin'
+/plugins/plugin-7 'separator'
+/plugins/plugin-7/style uint32 0
+/plugins/plugin-8 'clock'
+/plugins/plugin-8/digital-format '%a %I:%M %p'
+/plugins/plugin-8/mode uint32 2
+/plugins/plugin-8/show-frame true
+/plugins/plugin-8/size-max uint32 22
+/plugins/plugin-8/style uint32 0
+/plugins/plugin-8/tooltip-format '%A %d %B %Y'
+/plugins/plugin-9 'separator'
+/plugins/plugin-9/expand false
+/plugins/plugin-9/style uint32 0
