@@ -1,0 +1,33 @@
+name: "ci: Build and Deploy Site"
+on:
+  workflow_dispatch:
+  push:
+    branches: [stable]
+    push:
+      paths:
+        - "site/**"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: Install Nix
+        uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Build Zola Site
+        run: nix build .#website
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3.8.0
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          publish_dir: ./result
+          publish_branch: deploy
+          cname: maydayv7.tk
