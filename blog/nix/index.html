@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<title>What is Nix? - maydayv7</title>
+<title>The Nix Cheat Sheet - maydayv7</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta
   name="viewport"
@@ -84,7 +84,7 @@
   <header>
     <h1 class="post-title">
       
-      <a href="&#x2F;blog&#x2F;nix&#x2F;">What is Nix?</a>
+      <a href="&#x2F;blog&#x2F;nix&#x2F;">The Nix Cheat Sheet</a>
       
     </h1>
     
@@ -92,8 +92,8 @@
   
 <span class="post-date">2022.02.20</span>
 ::
-  <span class="post-readtime"> <i>7</i> min read </span>
-   :: <span class="post-wordcount"> <i>1278</i> words </span>   :: <strong
+  <span class="post-readtime"> <i>4</i> min read </span>
+   :: <span class="post-wordcount"> <i>723</i> words </span>   :: <strong
   >^<a href="/series/nixos-desktop/">NixOS Desktop</a></strong
 >
   :: #<a href="/tags/linux/">Linux</a> #<a href="/tags/nix/">Nix</a> #<a href="/tags/nixos/">NixOS</a>  
@@ -111,50 +111,6 @@
       
       <li>
         <a href="/blog/nix/#terminology">Terminology</a>
-        
-      </li>
-      
-      <li>
-        <a href="/blog/nix/#language-basics">Language Basics</a>
-        
-        <ul>
-          
-          <li>
-            <a href="/blog/nix/#types">Types</a>
-          </li>
-          
-          <ul>
-            
-            <li>
-              <a href="/blog/nix/#strings">Strings</a>
-              
-            </li>
-            
-            <li>
-              <a href="/blog/nix/#lists">Lists</a>
-              
-            </li>
-            
-            <li>
-              <a href="/blog/nix/#attribute-sets">Attribute Sets</a>
-              
-            </li>
-            
-          </ul>
-           
-          <li>
-            <a href="/blog/nix/#expressions">Expressions</a>
-          </li>
-           
-          <li>
-            <a href="/blog/nix/#functions">Functions</a>
-          </li>
-           
-          <li>
-            <a href="/blog/nix/#derivation">Derivation</a>
-          </li>
-           
-        </ul>
         
       </li>
       
@@ -185,86 +141,7 @@
 <p><strong>Nix</strong> is a purely <strong><em>functional</em></strong> <em>package manager</em>. This means that it treats packages like <em>values</em> built by <em>functions</em> that don’t have side-effects, and never change after they have been built (known as <strong>immutability</strong>). This results in the <em>purity</em> of a package which ensures <em>reproducibility</em> in any environment and at any future point in time. For every package that it builds, it firsts computes a <strong>derivation</strong> (by evaluating expressions written in the Nix <em>language</em>) which consists of information about all the <em>dependencies</em> of a package, build commands, miscellaneous meta-information, and a <em>prefix</em> or <strong><em>store path</em></strong> into which said package shall be installed, which is in the form of <code>/nix/store/<b>HASH</b>-<i>NAME</i>-<i>VERSION</i></code>, where the <em>hash</em> is built from all the input dependencies required to build the package. Then, it <strong><em>realises</em></strong> that derivation by running the specified build commands in an isolated environment (in a <strong><em>sandbox</em></strong>). This allows Nix to guarantee reproducibility, and allows it to support <strong><em>binary cache</em></strong>, by <em>substituting</em> the store path from some other location. This also enables us to have <strong><em>multiple versions</em></strong> of the same package, since each one will have it's own isolated prefix, and makes easy to <strong><em>rollback</em></strong> to a previous version of a package. And since the build environment is completely isolated from the host system, non-privileged users can install software completely <em>securely</em></p>
 <p><strong>NixOS</strong> is a GNU/Linux distribution that uses Nix, both a package manager, as well as a <em>configuration</em> manager. The system derivation is realised from <strong><em>configuration files</em></strong> written in the Nix language containing data about all the applications to be installed on the system and subsequently their configuration. In addition to all the benefits provided by Nix, because of the way it is configured, all updates and rollbacks are atomic (and can be automated), and in case anything doesn't function as intended, such as when the system doesn't even boot, every single derivation that was installed <sup class="footnote-reference"><a href="#1">1</a></sup> is listed in the boot loader, and you can boot directly into it. This, along with the fact that NixOS provides for completely reproducible configurations, and allows to easily switch between conflicting package arrangements, makes it an ideal choice for use in multi-PC setups, such as home office configurations, for small organizations or even to rejuvenate individual setups with the amount of benefits that it offers. Thus, I have chosen NixOS above all others in pursuit of a reliable, relatively stable distro that I could conveniently use to manage the computers that I own</p>
 <p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/nixos/nixpkgs"><strong><code>nixpkgs</code></strong></a>, basically the main <em>package repository</em> to use with Nix, is a giant collection of package descriptions as well as configuration modules written in the Nix language, that serves to build multiple applications for our day-to-day use, as well as the tools required to properly define a NixOS Configuration. It provides a vast number of applications, programs and services, language-specific package sets, cross-compilation tools, and many other such packages, which makes Nix such a powerful tool</p>
-<p>The Nix <strong>programming language</strong> is simple, <em>lazy</em> (which means evaluation of expressions is delayed until their values are actually needed), pure, functional, and dynamically typed, which specializes in building packages</p>
-<h1 id="language-basics">Language Basics<a class="zola-anchor" href="#language-basics" aria-label="Anchor link for: language-basics"
-  >§</a
->
-</h1>
-<p><code>nix repl</code> is a simple CLI tool for playing around with the Nix language. It is advisable to use it in order to completely understand all the quirks of the syntax</p>
-<h2 id="types">Types<a class="zola-anchor" href="#types" aria-label="Anchor link for: types"
-  >§</a
->
-</h2>
-<p>Nix supports the basic <code>+</code>, <code>-</code>, <code>*</code> and <code>/</code> arithmetic operations (although using <code>/</code> with single space converts a string to a path)
-Other operators are: <em>Booleans</em> - <code>||</code>, <code>&amp;&amp;</code> and <code>!</code>, <em>Relationals</em> - <code>!=</code>, <code>==</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.
-It has <em>integer</em>, <em>floating point</em>, <em>string</em>, <em>path</em>, <em>boolean</em> and <code>null</code> simple types. Then there are also lists, sets and functions
-Nix is <strong><em>strongly typed</em></strong>, strings and integers must be <em>converted</em> to be mixed together and used</p>
-<h4 id="strings">Strings<a class="zola-anchor" href="#strings" aria-label="Anchor link for: strings"
-  >§</a
->
-</h4>
-<p>They are enclosed in either <code>&quot;&quot;</code> for a single line or <code>''</code> for multiple lines. It is also possible to <strong><em>interpolate</em></strong> Nix expressions using <code>${ ... }</code> (which can also be escaped using <code>''$</code>)</p>
-<h4 id="lists">Lists<a class="zola-anchor" href="#lists" aria-label="Anchor link for: lists"
-  >§</a
->
-</h4>
-<p>Sequence of expressions delimited by space. Ex - <code>[ &quot;1&quot; &quot;2&quot; true var ]</code></p>
-<h4 id="attribute-sets">Attribute Sets<a class="zola-anchor" href="#attribute-sets" aria-label="Anchor link for: attribute-sets"
-  >§</a
->
-</h4>
-<p>They are association between string keys (Unquoted identifiers can also be used) and Nix Values. Ex - <code>{ a = &quot;foo&quot;; &quot;a-b&quot; = &quot;bar&quot;; }</code>. Members can be accessed using the <code>.</code> operator. <strong><em>Recursive</em></strong> Sets are created using the <code>rec</code> keyword which allows members of the <code>attrset</code> to be referenced by the other elements. For example, when <code>msg = rec { hi = &quot;Hello&quot;; world = hi + &quot;World!&quot;}</code>, <code>msg.world</code> equals <code>&quot;HelloWorld!&quot;</code></p>
-<h2 id="expressions">Expressions<a class="zola-anchor" href="#expressions" aria-label="Anchor link for: expressions"
-  >§</a
->
-</h2>
-<p><strong><em>if</em></strong> <strong>Expression:</strong> Conditional used for evaluation. Ex - <code>if 7 &gt; 3 then &quot;yes&quot; else &quot;no&quot;</code> evaluates to <code>&quot;yes&quot;</code></p>
-<p><strong><em>let</em></strong> <strong>Expression:</strong> Allows for definition of local variables to be used in inner elements (recursively). Ex - <code>let a = 7; in a + 3</code> evaluates to <code>10</code>. The same variable cannot be assigned twice</p>
-<h2 id="functions">Functions<a class="zola-anchor" href="#functions" aria-label="Anchor link for: functions"
-  >§</a
->
-</h2>
-<p>Functions are of two types. The first makes use of positional parameters. A simple function <code>add = x: y: x + y</code>, when called using <code>add 7 3</code>, will return <code>10</code>. Such a function has to be called with exactly the same number of arguments as explicitly defined, or will return an error. The second type of functions allows more complex substitutions. For example, when <code>add = { x ? 7, y }: x + y</code> is called using <code>add { y = 3; }</code>, it will still return 10, as <code>?</code> allows you to specify the default value when the argument isn't provided</p>
-<h2 id="derivation">Derivation<a class="zola-anchor" href="#derivation" aria-label="Anchor link for: derivation"
-  >§</a
->
-</h2>
-<p>Given below is an simple Nix derivation, just as an example:</p>
-<pre data-lang="nix" class="language-nix z-code"><code class="language-nix" data-lang="nix"><span class="z-source z-nix"><span class="z-punctuation z-definition z-entity z-function z-2 z-nix">{</span> <span class="z-variable z-parameter z-function z-1 z-nix">lib</span><span class="z-keyword z-operator z-nix">,</span> <span class="z-variable z-parameter z-function z-1 z-nix">pkgs</span><span class="z-keyword z-operator z-nix">,</span> <span class="z-keyword z-operator z-nix">... </span><span class="z-punctuation z-definition z-entity z-function z-nix">}</span><span class="z-punctuation z-definition z-function z-nix">:</span>
-<span class="z-keyword z-other z-nix">with</span> <span class="z-variable z-parameter z-name z-nix">pkgs</span>;
-<span class="z-variable z-parameter z-name z-nix">stdenv</span><span class="z-keyword z-operator z-nix">.</span><span class="z-variable z-parameter z-name z-nix">mkDerivation</span> <span class="z-keyword z-other z-nix">rec</span> <span class="z-punctuation z-definition z-attrset z-nix">{</span>
-  <span class="z-entity z-other z-attribute-name z-multipart z-nix">pname</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>Dotfiles<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-  <span class="z-entity z-other z-attribute-name z-multipart z-nix">version</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>v7.0<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-  <span class="z-entity z-other z-attribute-name z-multipart z-nix">longVersion</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>20220318<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-
-  <span class="z-entity z-other z-attribute-name z-multipart z-nix">src</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-variable z-parameter z-name z-nix">fetchFromGitHub</span>
-  <span class="z-punctuation z-definition z-attrset-or-function z-nix">{</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">owner</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>maydayv7<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">repo</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>dotfiles<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">sha256</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-variable z-parameter z-name z-nix">lib</span><span class="z-keyword z-operator z-nix">.</span><span class="z-variable z-parameter z-name z-nix">fakeSha256</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">rev</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-variable z-parameter z-name z-nix">version</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-  <span class="z-punctuation z-definition z-attrset z-nix">}</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-
-  <span class="z-entity z-other z-attribute-name z-multipart z-nix">dontBuild</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-constant z-language z-nix">true</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-  <span class="z-entity z-other z-attribute-name z-multipart z-nix">buildInputs</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-punctuation z-definition z-list z-nix">[</span> <span class="z-variable z-parameter z-name z-nix">coreutils</span> <span class="z-punctuation z-definition z-list z-nix">]</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-  <span class="z-entity z-other z-attribute-name z-multipart z-nix">installPhase</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>mkdir -p $out/ &amp;&amp; cp -r . $out/<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-
-  <span class="z-entity z-other z-attribute-name z-multipart z-nix">meta</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-keyword z-other z-nix">with</span> <span class="z-variable z-parameter z-name z-nix">lib</span>; <span class="z-punctuation z-definition z-attrset-or-function z-nix">{</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">description</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>My PC Dotfiles<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">homepage</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>https://github.com/maydayv7/dotfiles<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">license</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-variable z-parameter z-name z-nix">licenses</span><span class="z-keyword z-operator z-nix">.</span><span class="z-variable z-parameter z-name z-nix">mit</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">platform</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-variable z-parameter z-name z-nix">platforms</span><span class="z-keyword z-operator z-nix">.</span><span class="z-variable z-parameter z-name z-nix">all</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-    <span class="z-entity z-other z-attribute-name z-multipart z-nix">maintainers</span> <span class="z-keyword z-operator z-bind z-nix">=</span> <span class="z-punctuation z-definition z-list z-nix">[</span> <span class="z-string z-quoted z-double z-nix"><span class="z-punctuation z-definition z-string z-double z-start z-nix">&quot;</span>maydayv7<span class="z-punctuation z-definition z-string z-double z-end z-nix">&quot;</span></span> <span class="z-punctuation z-definition z-list z-nix">]</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-  <span class="z-punctuation z-definition z-attrset z-nix">}</span><span class="z-punctuation z-terminator z-bind z-nix">;</span>
-<span class="z-punctuation z-definition z-attrset z-nix">}</span>
-</span></code></pre>
-<p>Let us inspect it line by line</p>
-<ol>
-<li><code>{ lib, pkgs, ... }</code>: <code>lib</code> refers to the cores set of library functions provided by <code>nixpkgs</code> which act as tools to perform a number of package management functions using Nix. <code>pkgs</code> refers to all the other packages already present in <code>nixpkgs</code> which may be used as dependencies by the program to be built</li>
-<li><code>with</code> is a keyword that allows us to directly call the members of an <code>attrset</code> without prefixing it's name multiple times. For example, instead of using <code>pkgs.fetchFromGitHub</code> or <code>pkgs.coreutils</code> (later in the file), we can directly reference using their names</li>
-<li><code>stdenv</code> is a standard derivation which serves as base for packaging software. It is used to pull in dependencies and basic tools needed to compile the program. <code>mkDerivation</code> is a wrapper around the raw derivation function which pulls in the <code>stdenv</code> for us, and runs a generic <code>make</code> builder</li>
-<li><code>src</code> specifies the root source tree from which the program is to be built. <code>fetchFromGitHub</code> is a convenience function used to specify a GitHub repository as the source</li>
-</ol>
+<p>The Nix <strong>programming language</strong> is simple, <em>lazy</em> (which means evaluation of expressions is delayed until their values are actually needed), pure, functional, and dynamically typed, which specializes in building packages. The Nix <a rel="noopener nofollow noreferrer" target="_blank" href="https://nixos.org/guides/nix-pills/">Pills</a> Tutorial dives into the language syntax and semantics in detail</p>
 <h1 id="resources">Resources<a class="zola-anchor" href="#resources" aria-label="Anchor link for: resources"
   >§</a
 >
@@ -272,9 +149,10 @@ Nix is <strong><em>strongly typed</em></strong>, strings and integers must be <e
 <p>Below is a list of handy, helpful resources and documentation that can be used to learn more about the Nix ecosystem in depth:</p>
 <ul>
 <li>Official <a rel="noopener nofollow noreferrer" target="_blank" href="https://nixos.org/learn.html">Documentation</a> and the NixOS <a rel="noopener nofollow noreferrer" target="_blank" href="https://nixos.org/manual/nixpkgs/stable">Manual</a></li>
-<li>The Nix <a rel="noopener nofollow noreferrer" target="_blank" href="https://nixos.org/guides/nix-pills/">Pills</a> Tutorial</li>
 <li>Serokell's <a rel="noopener nofollow noreferrer" target="_blank" href="https://serokell.io/blog/what-is-nix">Blog</a> introducing Nix</li>
 <li>Justin's <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/justinwoo/nix-shorts">Notes</a> on using Nix</li>
+<li>Tweag <a rel="noopener nofollow noreferrer" target="_blank" href="https://www.tweag.io/blog/2020-05-25-flakes/">Article</a> introducing Flakes</li>
+<li>Serokell's <a rel="noopener nofollow noreferrer" target="_blank" href="https://serokell.io/blog/practical-nix-flakes">Blog</a> on Flakes Usage</li>
 </ul>
 <h1 id="footnotes">Footnotes<a class="zola-anchor" href="#footnotes" aria-label="Anchor link for: footnotes"
   >§</a
