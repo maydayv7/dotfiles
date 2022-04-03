@@ -23,7 +23,7 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> 20220318 (v7.0)              #
+#     Version -> 22.04 (v10)                  #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The Very Heart of my 'dotfiles'       #
@@ -75,7 +75,6 @@
     gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "unstable";
-      inputs.utils.follows = "utils";
     };
 
     ## Configuration Modules ##

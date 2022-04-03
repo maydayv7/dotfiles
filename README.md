@@ -410,6 +410,17 @@ You can navigate to the `README`'s present in the various directories to know mo
 <details>
 <summary><b>Changelog</b></summary>
 
+### 22.04 (v10)
+
+- Deprecate `git-crypt` Usage
+- Improve Installation Experience
+- Create Nix Cheat Sheet
+
+<details>
+<summary><i>Archive</i></summary>
+
+### v7.0
+
 - Create Website using [Zola](https://www.getzola.org/)
 - Refine Compatibility Libraries
 - Refine Scripts
@@ -417,6 +428,8 @@ You can navigate to the `README`'s present in the various directories to know mo
   - Add `lib.build.script`
 - Support Visual Studio Code Editor
 - Use [`alejandra`](https://github.com/kamadorueda/alejandra) for formatting code
+
+### v5.0
 
 - Improve `channels` Usage
 - Support `source` Filters
@@ -430,6 +443,8 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Add Support for Automatic Deployments using [`deploy-rs`](https://github.com/serokell/deploy-rs)
 - Add Developer `shells` for Multiple Programming Languages integrated with [`lorri`](https://github.com/nix-community/lorri)
 
+### v4.5
+
 - Use Calendar Versioning
 - Use `nixConfig`
 - Support Auto-Upgrade
@@ -437,6 +452,8 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Improve Security and Harden System
 - Use PipeWire (with low-latency) for audio
 - Use [`nixos-generators`](https://github.com/nix-community/nixos-generators) for Image Generation
+
+### v4.0
 
 - Use `nixConfig`
 - Bifurcate `devices`
@@ -456,9 +473,12 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Use `advanced` Ephemeral Root File System Layout with [ZFS](https://zfsonlinux.org/)
 - Use [`flake-compat`](https://github.com/edolstra/flake-compat), [`nix-gaming`](https://github.com/fufexan/nix-gaming) and [`nix-wayland`](https://github.com/nix-community/nix-wayland)
 - Improve Code Consistency, reduce Complexity and fix Syntactic and Semantic Errors
+
   - Use [`pre-commit-hooks`](https://github.com/cachix/pre-commit-hooks.nix) to improve configuration `checks`
   - Use [`nixfmt`](https://github.com/serokell/nixfmt) for formatting code
   - Use [`nix-linter`](https://github.com/Synthetica9/nix-linter) to check stylistic errors
+
+### v3.0
 
 - Upgrade to NixOS v21.11 (Porcupine)!
 - Improve Package Declaration
@@ -472,6 +492,8 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Use [`sops-nix`](https://github.com/Mic92/sops-nix) at `secrets` for managing authentication credentials
 - Automatically map `modules`, `packages`, `overlays`, `shells` and `inputs`
 
+### v2.3
+
 - Add `docs` directory
 - Fix `.iso` Boot and Install Errors
 - Improve Scripts with error-checking
@@ -481,12 +503,16 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Improve CI with automatic `flake.lock` update and dependency-checking
 - Bifurcate Flake `outputs` (as `configuration.nix`), `scripts` and `overlays`
 
+### v2.1
+
 - Simplify Installation
   - Add `install` Script
   - Add Support for creating Install Media
   - Add overhauled `setup` Script
   - Automatically build `.iso` and publish release using CI
 - Fix Home Activation
+
+### v2.0
 
 - Add BTRFS (opt-in state) Configuration
 - Improve Ephemeral Root Support with [impermanence](https://github.com/nix-community/impermanence)
@@ -496,11 +522,15 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Reduce CI Time
 - Add the Office role
 
+### v1.0
+
 - Add Cachix Support
 - Add Nix Shell Support
 - Increase Readability
 - Improve Package Management
 - Under the hood CI changes
+
+### v0.7
 
 - Improve Secrets Management using Private Submodule at `secrets`
 - Overhaul Package Overrides
@@ -513,12 +543,16 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Improve Fonts Management
 - Update README and `scripts`
 
+### v0.5
+
 - Added Support for Nix Flakes
 - Added Custom Libraries for Device and User Management
 - Created System Management Script
 - Updated README and `install` Script
 - Add full support for Multi-Device Configuration
 - Use Better Repository Management
+
+### v0.1
 
 - Added basic NixOS system configuration using GNOME and GTK+
 - Added hardware support for 2 devices
@@ -533,6 +567,8 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 </details>
 
+</details>
+
 <details>
 <summary><b>Known Limitations</b></summary>
 
@@ -541,7 +577,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 </details>
 
-> Last Updated: **March** 2022
+> Last Updated: **April** 2022
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 
