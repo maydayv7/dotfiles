@@ -93,7 +93,7 @@
 <span class="post-date">2022.02.20</span>
 ::
   <span class="post-readtime"> <i>4</i> min read </span>
-   :: <span class="post-wordcount"> <i>723</i> words </span>   :: <strong
+   :: <span class="post-wordcount"> <i>732</i> words </span>   :: <strong
   >^<a href="/series/nixos-desktop/">NixOS Desktop</a></strong
 >
   :: #<a href="/tags/linux/">Linux</a> #<a href="/tags/nix/">Nix</a> #<a href="/tags/nixos/">NixOS</a>  
@@ -141,7 +141,7 @@
 <p><strong>Nix</strong> is a purely <strong><em>functional</em></strong> <em>package manager</em>. This means that it treats packages like <em>values</em> built by <em>functions</em> that don’t have side-effects, and never change after they have been built (known as <strong>immutability</strong>). This results in the <em>purity</em> of a package which ensures <em>reproducibility</em> in any environment and at any future point in time. For every package that it builds, it firsts computes a <strong>derivation</strong> (by evaluating expressions written in the Nix <em>language</em>) which consists of information about all the <em>dependencies</em> of a package, build commands, miscellaneous meta-information, and a <em>prefix</em> or <strong><em>store path</em></strong> into which said package shall be installed, which is in the form of <code>/nix/store/<b>HASH</b>-<i>NAME</i>-<i>VERSION</i></code>, where the <em>hash</em> is built from all the input dependencies required to build the package. Then, it <strong><em>realises</em></strong> that derivation by running the specified build commands in an isolated environment (in a <strong><em>sandbox</em></strong>). This allows Nix to guarantee reproducibility, and allows it to support <strong><em>binary cache</em></strong>, by <em>substituting</em> the store path from some other location. This also enables us to have <strong><em>multiple versions</em></strong> of the same package, since each one will have it's own isolated prefix, and makes easy to <strong><em>rollback</em></strong> to a previous version of a package. And since the build environment is completely isolated from the host system, non-privileged users can install software completely <em>securely</em></p>
 <p><strong>NixOS</strong> is a GNU/Linux distribution that uses Nix, both a package manager, as well as a <em>configuration</em> manager. The system derivation is realised from <strong><em>configuration files</em></strong> written in the Nix language containing data about all the applications to be installed on the system and subsequently their configuration. In addition to all the benefits provided by Nix, because of the way it is configured, all updates and rollbacks are atomic (and can be automated), and in case anything doesn't function as intended, such as when the system doesn't even boot, every single derivation that was installed <sup class="footnote-reference"><a href="#1">1</a></sup> is listed in the boot loader, and you can boot directly into it. This, along with the fact that NixOS provides for completely reproducible configurations, and allows to easily switch between conflicting package arrangements, makes it an ideal choice for use in multi-PC setups, such as home office configurations, for small organizations or even to rejuvenate individual setups with the amount of benefits that it offers. Thus, I have chosen NixOS above all others in pursuit of a reliable, relatively stable distro that I could conveniently use to manage the computers that I own</p>
 <p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/nixos/nixpkgs"><strong><code>nixpkgs</code></strong></a>, basically the main <em>package repository</em> to use with Nix, is a giant collection of package descriptions as well as configuration modules written in the Nix language, that serves to build multiple applications for our day-to-day use, as well as the tools required to properly define a NixOS Configuration. It provides a vast number of applications, programs and services, language-specific package sets, cross-compilation tools, and many other such packages, which makes Nix such a powerful tool</p>
-<p>The Nix <strong>programming language</strong> is simple, <em>lazy</em> (which means evaluation of expressions is delayed until their values are actually needed), pure, functional, and dynamically typed, which specializes in building packages. The Nix <a rel="noopener nofollow noreferrer" target="_blank" href="https://nixos.org/guides/nix-pills/">Pills</a> Tutorial dives into the language syntax and semantics in detail</p>
+<p>The Nix <strong>programming language</strong> is simple, <em>lazy</em> <sup class="footnote-reference"><a href="#2">2</a></sup>, pure, functional, and dynamically typed, which specializes in building packages. The Nix <a rel="noopener nofollow noreferrer" target="_blank" href="https://nixos.org/guides/nix-pills/">Pills</a> Tutorial dives into the language syntax and semantics in detail</p>
 <h1 id="resources">Resources<a class="zola-anchor" href="#resources" aria-label="Anchor link for: resources"
   >§</a
 >
@@ -160,6 +160,9 @@
 </h1>
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>Provided that they are not <strong><em>garbage collected</em></strong> - Removing or modifying a package from the configuration doesn't exactly delete older versions from the system. All they do is create a new derivation that no longer contains symlinks to the older packages. Since disk space is limited, unused packages should be removed at some point, which can be done using <code>nix-collect-garbage -d</code> or <code>nix store --gc</code></p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Evaluation of expressions is delayed until their values are actually needed. For more information, see <a rel="noopener nofollow noreferrer" target="_blank" href="https://en.wikipedia.org/wiki/Lazy_evaluation">this</a></p>
 </div>
 </div>
 
@@ -219,7 +222,8 @@
   </ul>
 </div>
  
-</article></div>  <footer class="footer">
+</article>
+<button class="scroll-back" id="scroll-back" title="Scroll Up">↑</button></div>  <footer class="footer">
         <div class="footer__inner">
 <div class="copyright">
   <span>
@@ -275,6 +279,7 @@
 <script> switch_theme.init("/"); </script>
 <script src="/js/clipboard.js"></script>
 <script src="/js/footnote.js"></script>
+<script src="/js/scroll.js"></script>
 
   <script src="/elasticlunr.min.js"></script>
   <script src="/search_index.en.js"></script>
