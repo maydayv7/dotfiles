@@ -189,7 +189,7 @@ blockquote {
           font-size: inherit;
           margin-left: 0.5rem;
           text-decoration: none;
-          vertial-align: 1%;
+          vertical-align: 1%;
           visibility: hidden;
         }
 
@@ -243,5 +243,25 @@ blockquote {
     &.meta-title {
       color: var(--accent-secondary);
     }
+  }
+}
+
+.scroll-back {
+  background-color: var(--accent-alpha-20);
+  border-radius: 10px;
+  border: none;
+  bottom: 20px;
+  color: var(--accent-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  outline: none;
+  padding: 12px;
+  position: fixed;
+  right: 30px;
+  transition: all 0.5s ease;
+  z-index: 100;
+
+  &:hover {
+    background-color: var(--accent-alpha-70);
   }
 }

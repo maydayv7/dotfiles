@@ -97,6 +97,13 @@ h6 {
   display: none;
 }
 
+hr {
+  width: 100%;
+  border: none;
+  background: var(--border-color);
+  height: 1px;
+}
+
 a {
   color: inherit;
   background: linear-gradient(
@@ -144,6 +151,24 @@ ol {
 
 ol ol {
   list-style-type: lower-alpha;
+}
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 40px 0;
+}
+
+th {
+  color: var(--accent);
+}
+
+table,
+th,
+td {
+  border: 1px dashed var(--accent);
+  padding: 10px;
 }
 
 input {

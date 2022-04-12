@@ -25,7 +25,7 @@ This Page is still under heavy development and may remain unfinished or subjecte
 
 [**`nixpkgs`**](https://github.com/nixos/nixpkgs), basically the main _package repository_ to use with Nix, is a giant collection of package descriptions as well as configuration modules written in the Nix language, that serves to build multiple applications for our day-to-day use, as well as the tools required to properly define a NixOS Configuration. It provides a vast number of applications, programs and services, language-specific package sets, cross-compilation tools, and many other such packages, which makes Nix such a powerful tool
 
-The Nix **programming language** is simple, _lazy_ (which means evaluation of expressions is delayed until their values are actually needed), pure, functional, and dynamically typed, which specializes in building packages. The Nix [Pills](https://nixos.org/guides/nix-pills/) Tutorial dives into the language syntax and semantics in detail
+The Nix **programming language** is simple, _lazy_ [^2], pure, functional, and dynamically typed, which specializes in building packages. The Nix [Pills](https://nixos.org/guides/nix-pills/) Tutorial dives into the language syntax and semantics in detail
 
 # Resources
 
@@ -40,3 +40,5 @@ Below is a list of handy, helpful resources and documentation that can be used t
 # Footnotes
 
 [^1]: Provided that they are not **_garbage collected_** - Removing or modifying a package from the configuration doesn't exactly delete older versions from the system. All they do is create a new derivation that no longer contains symlinks to the older packages. Since disk space is limited, unused packages should be removed at some point, which can be done using `nix-collect-garbage -d` or `nix store --gc`
+
+[^2]: Evaluation of expressions is delayed until their values are actually needed. For more information, see [this](https://en.wikipedia.org/wiki/Lazy_evaluation)

@@ -42,19 +42,24 @@
 }
 
 a.backlink {
-  margin-left: 5px;
+  margin-left: 10px;
   font-size: 1.3rem;
 }
 
 .footnote {
   &-definition {
-    display: flex;
+    color: var(--accent);
     margin-right: 10px;
+
+    p {
+      display: inline;
+      color: rgba(255, 255, 255, 0.7);
+    }
 
     &-label {
       font-style: italic;
       font-weight: bold;
-      margin-right: 10px;
+      margin-left: 3px;
     }
   }
 }

@@ -414,7 +414,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 - Deprecate `git-crypt` Usage
 - Improve Installation Experience
-- Create Nix Cheat Sheet
+- Begin Work on Blog
 
 <details>
 <summary><i>Archive</i></summary>
