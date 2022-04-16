@@ -244,7 +244,18 @@ in {
     # Minimal GNOME Desktop Configuration
     (mkIf (desktop == "gnome-minimal") {
       # Disable Suspension
-      services.xserver.displayManager.gdm.autoSuspend = false;
+      services.xserver = {
+        displayManager.gdm.autoSuspend = false;
+        desktopManager.gnome = {
+          favoriteAppsOverride = ''
+            [org.gnome.shell]
+            favorite-apps=[ 'org.gnome.Epiphany.desktop', 'nixos-manual.desktop', 'org.gnome.Console.desktop', 'org.gnome.Nautilus.desktop', 'gparted.desktop' ]
+          '';
+
+          extraGSettingsOverrides = gnome.iso;
+          extraGSettingsOverridePackages = [pkgs.gnome.gnome-settings-daemon];
+        };
+      };
 
       # Essential Utilities
       environment.systemPackages = with pkgs.gnome; [

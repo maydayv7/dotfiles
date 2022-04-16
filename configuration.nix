@@ -77,8 +77,9 @@ in
     lib = lib.util;
 
     ## Custom Configuration Modules ##
-    nixosModule = import ./modules {inherit version lib inputs files;};
-    nixosModules = map.modules ./modules import;
+    nixosModules =
+      map.modules ./modules import
+      // {default = import ./modules {inherit version lib inputs files;};};
 
     ## Configuration Templates ##
     templates = {

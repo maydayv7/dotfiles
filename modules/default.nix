@@ -14,6 +14,7 @@
     getAttr
     hashString
     map
+    removeAttrs
     replaceStrings
     substring
     ;
@@ -89,7 +90,7 @@ in {
             # Modulated Configuration Imports
             imports =
               imports
-              ++ (attrValues self.nixosModules)
+              ++ (attrValues (removeAttrs self.nixosModules ["default"]))
               ++ map user' (
                 if (user != null)
                 then [user]

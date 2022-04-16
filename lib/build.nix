@@ -12,7 +12,7 @@ in rec {
     listToAttrs (map (name: nameValuePair name (func name)) attr);
 
   # Configuration Builders
-  device = self.nixosModule.config;
+  device = self.nixosModules.default.config;
   iso = config:
     self.nixosModule.config (config
       // {
