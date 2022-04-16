@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   pkgs,
   files,
   ...
@@ -18,10 +19,13 @@ in {
     user = {
       persist.dirs = [".config/Code" ".vscode"];
       home = {
+        imports = ["${inputs.vscode}/modules/vscode-server/home.nix"];
+
         xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
           text = ["code.desktop"];
         };
 
+        services.vscode-server.enable = true;
         programs.vscode = {
           enable = true;
           package = pkgs.vscode;
@@ -46,6 +50,7 @@ in {
               jnoortheen.nix-ide
               kamadorueda.alejandra
               ms-python.python
+              ms-vscode-remote.remote-ssh
               ms-vscode.cpptools
               redhat.java
               redhat.vscode-yaml

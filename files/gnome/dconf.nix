@@ -447,10 +447,11 @@ in {
       buttons-icon-size = 20;
       buttons-position = 50;
       name-style-dark = false;
-      show-buttons = true;
-      show-system-name = false;
-      show-media-center = true;
       set-custom-panel-menu-width = 400;
+      show-buttons = true;
+      show-media-center = true;
+      show-system-name = false;
+      show-top-image = false;
     };
 
     "org/gnome/shell/extensions/caffeine" = {

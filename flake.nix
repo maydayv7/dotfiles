@@ -143,6 +143,12 @@
       inputs.flake-compat.follows = "compatibility";
     };
 
+    # VS Code Server Support
+    vscode = {
+      url = "github:msteen/nixos-vscode-server";
+      flake = false;
+    };
+
     # Windows VM Creator
     windows = {
       url = "git+https://git.m-labs.hk/M-Labs/wfvm";
