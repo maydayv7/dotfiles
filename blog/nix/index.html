@@ -159,10 +159,8 @@
 >
 </h1>
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
-<p>Provided that they are not <strong><em>garbage collected</em></strong> - Removing or modifying a package from the configuration doesn't exactly delete older versions from the system. All they do is create a new derivation that no longer contains symlinks to the older packages. Since disk space is limited, unused packages should be removed at some point, which can be done using <code>nix-collect-garbage -d</code> or <code>nix store --gc</code></p>
-</div>
-<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
-<p>Evaluation of expressions is delayed until their values are actually needed. For more information, see <a rel="noopener nofollow noreferrer" target="_blank" href="https://en.wikipedia.org/wiki/Lazy_evaluation">this</a></p>
+<p>Provided that they are not <strong><em>garbage collected</em></strong> - Removing or modifying a package from the configuration doesn't exactly delete older versions from the system. All they do is create a new derivation that no longer contains symlinks to the older packages. Since disk space is limited, unused packages should be removed at some point, which can be done using <code>nix-collect-garbage -d</code> or <code>nix store --gc</code>
+<sup class="footnote-reference"><a href="#2">2</a></sup>: Evaluation of expressions is delayed until their values are actually needed. For more information, see <a rel="noopener nofollow noreferrer" target="_blank" href="https://en.wikipedia.org/wiki/Lazy_evaluation">this</a></p>
 </div>
 </div>
 

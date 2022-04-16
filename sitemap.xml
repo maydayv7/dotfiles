@@ -7,6 +7,9 @@
         <loc>/about/</loc>
     </url>
     <url>
+        <loc>/anime/</loc>
+    </url>
+    <url>
         <loc>/archive/</loc>
     </url>
     <url>
@@ -31,6 +34,9 @@
     </url>
     <url>
         <loc>/projects/</loc>
+    </url>
+    <url>
+        <loc>/sample/</loc>
     </url>
     <url>
         <loc>/series/</loc>
