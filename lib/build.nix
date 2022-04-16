@@ -14,7 +14,7 @@ in rec {
   # Configuration Builders
   device = self.nixosModules.default.config;
   iso = config:
-    self.nixosModule.config (config
+    device (config
       // {
         format = "iso";
         description = "Install Media";
