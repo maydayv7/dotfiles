@@ -19,6 +19,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: touch;
   -webkit-text-size-adjust: 100%;
+
+  @media (max-width: $phone-max-width) {
+    font-size: 1rem;
+  }
 }
 
 *,
@@ -86,7 +90,11 @@ h3,
 h4,
 h5,
 h6 {
-  line-height: 1.3;
+  line-height: 1.2;
+
+  &:not(first-child) {
+    margin-top: 40px;
+  }
 
   .zola-anchor {
     visibility: hidden;

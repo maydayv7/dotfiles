@@ -28,7 +28,7 @@ blockquote {
   color: var(--color);
   display: block;
   font-size: 0.8em;
-  margin: -10px 0 -2px auto;
+  margin: -15px 0 -2px auto;
   padding: 3px 8px;
 
   &:active {
@@ -107,7 +107,6 @@ blockquote {
     h5,
     h6 {
       color: var(--accent-secondary);
-      font-size: $font-size + 0.1rem;
     }
 
     h1:before {

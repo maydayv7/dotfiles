@@ -415,6 +415,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Deprecate `git-crypt` Usage
 - Improve Installation Experience
 - Begin Work on Blog
+- Stabilize with multiple Bug-Fixes
 
 <details>
 <summary><i>Archive</i></summary>

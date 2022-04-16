@@ -40,5 +40,4 @@ Below is a list of handy, helpful resources and documentation that can be used t
 # Footnotes
 
 [^1]: Provided that they are not **_garbage collected_** - Removing or modifying a package from the configuration doesn't exactly delete older versions from the system. All they do is create a new derivation that no longer contains symlinks to the older packages. Since disk space is limited, unused packages should be removed at some point, which can be done using `nix-collect-garbage -d` or `nix store --gc`
-
 [^2]: Evaluation of expressions is delayed until their values are actually needed. For more information, see [this](https://en.wikipedia.org/wiki/Lazy_evaluation)
