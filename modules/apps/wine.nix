@@ -20,6 +20,7 @@ in {
   config = mkIf enable {
     # Firmware
     services.samba.enable = true;
+    hardware.xpadneo.enable = true;
     hardware.opengl.driSupport32Bit = true;
 
     # Utilities
