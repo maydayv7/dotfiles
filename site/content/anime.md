@@ -11,34 +11,34 @@ comments = true
 
 - 3D Kanojo
 - Bunny Girl Senpai
-- Chuunibyou demo Koi ga Shitai!
-- Clannad
-- Classroom of the Elite
+- Chuunibyou demo Koi ga Shitai! <sup>#</sup>
+- Clannad <sup>#</sup>
+- Classroom of the Elite <sup>\*</sup>
 - Death Note
 - Domestic Girlfriend
-- Fruits Basket
+- Fruits Basket <sup>#</sup>
 - Golden Time
 - Horimiya
 - I Can't Understand What My Husband Is Saying
-- Ijinaraide, Nagatoro-san
-- Kaguya-sama: Love is War
+- Ijinaraide, Nagatoro-san <sup>\*</sup>
+- Kaguya-sama: Love is War <sup>#</sup>
 - Kimi ni Todoke
 - Kokoro Connect
-- Komi Can't Communicate
-- My Dress Up Darling
+- Komi Can't Communicate <sup>\*</sup> <sup>#</sup>
+- My Dress Up Darling <sup>\*</sup>
 - My Senpai is Annoying
 - Nisekoi
-- Oregairu
+- Oregairu <sup>#</sup>
 - Prison School
-- Rent-a-Girlfriend
-- RikeKoi
-- Scums Wish
-- Skilled Teaser Takagi-san
-- The Pet Girl of Sakurasou
-- The Quintessential Quintuplets
-- Tonikawa: To the Moon!
+- Rent-a-Girlfriend <sup>\*</sup>
+- RikeKoi <sup>#</sup>
+- Scums Wish <sup>\*</sup>
+- The Pet Girl of Sakurasou <sup>\*</sup>
+- The Quintessential Quintuplets <sup>#</sup>
+- Tonikawa: To the Moon! <sup>\*</sup>
 - ToraDora!
 - Tsurezure Children
+- Uzaki-chan wa Asobitai! <sup>\*</sup>
 - Violet Evergarden
 - Wotaku ni Koi wa Muzukashii
 - Your Lie in April
@@ -46,6 +46,7 @@ comments = true
 # Ongoing
 
 - [x] Aharen-san wa Hakarenai
+- [x] Kawaii dake ja nai Shikimori-san
 - [x] Spy X Family
 
 # Wishlist
@@ -53,3 +54,12 @@ comments = true
 - [ ] Gosick
 - [x] Hyouka
 - [ ] One Outs
+- [ ] Kanojo mo Kanojo
+- [ ] Steins;Gate <sup>#</sup>
+- [ ] Skilled Teaser Takagi-san <sup>#</sup>
+
+---
+
+&#9744; --> Watch Status  
+<sup>\*</sup> --> Incomplete  
+<sup>#</sup> --> Multiple Seasons

@@ -161,6 +161,10 @@ ol ol {
   list-style-type: lower-alpha;
 }
 
+sup {
+  color: var(--accent-secondary);
+}
+
 table {
   table-layout: fixed;
   border-collapse: collapse;
