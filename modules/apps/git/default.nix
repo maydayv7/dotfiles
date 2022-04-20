@@ -22,6 +22,7 @@ in {
       git-lfs
       gh
       tig
+      treefmt
     ];
 
     # Settings

@@ -29,7 +29,6 @@ with files; let
         check [ --trace | --fast ]  - Checks System Configuration [ Displays Error to Trace ]
         clean [ --all ]             - Garbage Collects and Optimises Nix Store
         explore                     - Opens Interactive Shell to explore Syntax and Configuration
-        format [ 'path' ]           - Formats Configuration Syntax [ in 'path' ]
         install                     - Installs NixOS onto System
         iso 'variant' [ --burn ]    - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
         list [ 'pattern' ]          - Lists all Installed Packages [ Returns Matches ]
@@ -165,8 +164,11 @@ in
         fi
       ;;
       check)
+        echo "Formatting Code..."
+        pushd ${path.system} > /dev/null; nix fmt; popd > /dev/null
         echo "Checking Syntax..."
         nix-linter -r ${path.system} || true
+        newline
         case $2 in
         "") nix flake check ${path.system} --keep-going;;
         "--trace") nix flake check ${path.system} --keep-going --show-trace;;
@@ -197,17 +199,6 @@ in
         "") nix repl --arg host true --arg path ${path.system} ${repl};;
         *) nix repl --arg path "$(readlink -f "$2" | sed 's|/flake.nix||')" ${repl};;
         esac
-      ;;
-      format)
-        echo "Formatting Code..."
-        if [ -z "$2" ]
-        then
-          path=${path.system}
-        else
-          path="$2"
-        fi
-        alejandra "$path"
-        prettier --write --list-different --ignore-unknown "$path"
       ;;
       install)
         internet

@@ -48,7 +48,7 @@ in
       };
 
     ## Code Formatter ##
-    formatter = pkgs.unstable.alejandra;
+    formatter = pkgs.treefmt;
 
     ## Package Configuration ##
     legacyPackages = self.channels."${system}".stable;

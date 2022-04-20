@@ -54,7 +54,7 @@ comments = true
 - [ ] Gosick
 - [x] Hyouka
 - [ ] One Outs
-- [ ] Kanojo mo Kanojo
+- [x] Date a Live <sup>\*</sup> <sup>#</sup>
 - [ ] Steins;Gate <sup>#</sup>
 - [ ] Skilled Teaser Takagi-san <sup>#</sup>
 
