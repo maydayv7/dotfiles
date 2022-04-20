@@ -47,6 +47,9 @@ in
           pkgs.mkShell {inherit (self.checks."${system}".commit) shellHook;};
       };
 
+    ## Code Formatter ##
+    formatter = pkgs.unstable.alejandra;
+
     ## Package Configuration ##
     legacyPackages = self.channels."${system}".stable;
 

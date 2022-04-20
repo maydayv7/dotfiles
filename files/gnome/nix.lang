@@ -42,14 +42,14 @@
   <definitions>
 
     <!--contexts NOT used in the main context-->
-	<context id="antiquotation" style-ref="def:statement">
-	 <start>\${</start>
-	 <end>}</end>
-	 <include>
-	  <context ref="nix"/>
-	 </include>
-	</context>
-	
+    <context id="antiquotation" style-ref="def:statement">
+      <start>\${</start>
+      <end>}</end>
+      <include>
+        <context ref="nix"/>
+      </include>
+    </context>
+
     <context id="null-value" style-ref="null-value">
       <keyword>null</keyword>
     </context>
@@ -105,6 +105,7 @@
       <keyword>div</keyword>
       <keyword>elem</keyword>
       <keyword>elemAt</keyword>
+      <keyword>fetchClosure</keyword>
       <keyword>fetchGit</keyword>
       <keyword>fetchMercurial</keyword>
       <keyword>fetchTarball</keyword>
@@ -185,41 +186,41 @@
       <keyword>zipAttrsWith</keyword>
     </context>
 
-	<context id="indented-string" style-ref="indented-string" class="string" class-disabled="no-spell-check">
+    <context id="indented-string" style-ref="indented-string" class="string" class-disabled="no-spell-check">
       <start>''</start>
       <end>''</end>
       <include>
-		<context id="indented-string-escape-antiquotation" style-ref="escape">
-		 <match>''\${</match>
-		</context>
-		<context id="indented-string-escape" style-ref="escape">
-		 <match>''\\.</match>
-		</context>
-		<context ref="antiquotation"/>
+        <context id="indented-string-escape-antiquotation" style-ref="escape">
+          <match>''\${</match>
+        </context>
+        <context id="indented-string-escape" style-ref="escape">
+          <match>''\\.</match>
+        </context>
+        <context ref="antiquotation"/>
       </include>
     </context>
 
-	<context id="string" style-ref="indented-string" class="string" class-disabled="no-spell-check">
+    <context id="string" style-ref="indented-string" class="string" class-disabled="no-spell-check">
       <start>"</start>
       <end>"</end>
       <include>
-		<context ref="def:escape"/>
-		<context ref="antiquotation"/>
+        <context ref="def:escape"/>
+        <context ref="antiquotation"/>
       </include>
     </context>
 
-	<context id="operators" style-ref="def:operator" extend-parent="false">
+    <context id="operators" style-ref="def:operator" extend-parent="false">
       <match>@|:|(//)|\+|\?|(==)|(\|\|)|(&amp;&amp;)|!|(->)</match>
     </context>
 
     <context id="path" style-ref="path" class="path">
-	 <match case-sensitive="false">(/|\./|\.\./)[a-zA-Z0-9\./\-_]*</match>
-	</context>
+      <match case-sensitive="false">(/|\./|\.\./)[a-zA-Z0-9\./\-_]*</match>
+    </context>
 
-	<context id="uri" style-ref="uri" class="uri">
-	 <match case-sensitive="false">\%{def:net-address}</match>
-	</context>
-	
+    <context id="uri" style-ref="uri" class="uri">
+      <match case-sensitive="false">\%{def:net-address}</match>
+    </context>
+
     <!--main context-->
     <context id="nix" class="no-spell-check">
       <include>
@@ -235,8 +236,8 @@
         <context ref="functions"/>
         <context ref="null-value"/>
         <context ref="operators"/>
-		<context ref="path"/>
-		<context ref="uri"/>
+        <context ref="path"/>
+        <context ref="uri"/>
       </include>
     </context>
     <!--main context-->
