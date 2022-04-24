@@ -1,4 +1,5 @@
-![Logo](./files/images/logo.png)
+![Logo](./files/images/logo/dark.png#gh-dark-mode-only)
+![Logo](./files/images/logo/light.png#gh-light-mode-only)
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
