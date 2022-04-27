@@ -118,12 +118,13 @@ in {
             # Kernel Configuration
             boot = {
               initrd.availableKernelModules =
-                kernelModules
-                ++ ["ahci" "sd_mod" "usbhid" "usb_storage" "xhci_pci"];
+                if (kernelModules != null)
+                then kernelModules ++ ["ahci" "sd_mod" "usbhid" "usb_storage" "xhci_pci"]
+                else [];
               kernelPackages =
-                if (kernel == "linux_zfs")
+                if (kernel == "zfs")
                 then pkgs.zfs.latestCompatibleLinuxPackages
-                else pkgs.linuxKernel.packages."${kernel}";
+                else pkgs.linuxKernel.packages."${"linux_" + kernel}";
             };
 
             # Package Configuration

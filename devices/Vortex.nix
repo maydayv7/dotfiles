@@ -7,7 +7,7 @@
   timezone = "Asia/Kolkata";
   locale = "en_IN.UTF-8";
 
-  kernel = "linux_lqx";
+  kernel = "lqx";
   kernelModules = ["nvme" "thunderbolt"];
 
   hardware = {

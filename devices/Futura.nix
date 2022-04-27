@@ -7,7 +7,7 @@
   locale = "en_IN.UTF-8";
   update = "weekly";
 
-  kernel = "linux_5_4";
+  kernel = "5_4";
   hardware = {
     boot = "efi";
     cores = 4;
