@@ -159,6 +159,7 @@
     wine = {
       url = "github:emmanuelrosa/erosanix";
       inputs.nixpkgs.follows = "unstable";
+      inputs.flake-compat.follows = "compatibility";
     };
   };
 
