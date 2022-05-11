@@ -10,13 +10,18 @@ comments = true
 # Seen
 
 - 3D Kanojo
+- 86 <sup>\*</sup> <sup>#</sup>
+- A Silent Voice
+- Ao-chan can't Study
 - Bunny Girl Senpai
 - Chuunibyou demo Koi ga Shitai! <sup>#</sup>
 - Clannad <sup>#</sup>
 - Classroom of the Elite <sup>\*</sup>
+- Date a Live <sup>\*</sup> <sup>#</sup>
 - Death Note
 - Domestic Girlfriend
 - Fruits Basket <sup>#</sup>
+- Gekkan Shoujo Nozaki-kun
 - Golden Time
 - Horimiya
 - I Can't Understand What My Husband Is Saying
@@ -48,15 +53,17 @@ comments = true
 - [x] Aharen-san wa Hakarenai
 - [x] Kawaii dake ja nai Shikimori-san
 - [x] Spy X Family
+- [ ] Kakkou no Iinazuke
+- [ ] Koiseka
 
 # Wishlist
 
 - [ ] Gosick
 - [x] Hyouka
 - [ ] One Outs
-- [x] Date a Live <sup>\*</sup> <sup>#</sup>
 - [ ] Steins;Gate <sup>#</sup>
 - [ ] Skilled Teaser Takagi-san <sup>#</sup>
+- [ ] A Place Further than the Universe
 
 ---
 

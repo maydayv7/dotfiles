@@ -85,30 +85,7 @@ in
       // {default = import ./modules {inherit version lib inputs files;};};
 
     ## Configuration Templates ##
-    templates = {
-      default = {
-        description = "Simple, Minimal NixOS Configuration";
-        path = filters.filter {
-          root = ./.templates/minimal;
-          include = [(filters.matchExt "nix")];
-        };
-      };
-
-      extensive = {
-        description = "My Complete, Extensive NixOS Configuration";
-        path = filters.filter {
-          root = ./.;
-          exclude = [
-            ./.github
-            ./.gitlab
-            ./site
-            ./packages/website.nix
-            (filters.matchExt "md")
-            (filters.matchExt "secret")
-          ];
-        };
-      };
-    };
+    templates = import ./.templates lib;
 
     ## Device Configuration ##
     deploy = import ./modules/nix/deploy.nix {inherit self lib;};
