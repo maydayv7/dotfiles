@@ -91,6 +91,7 @@ in {
               diff.colorMoved = "default";
               init.defaultBranch = "main";
               pull.rebase = "true";
+              safe.directory = files.path.system;
             };
 
             # Command Aliases

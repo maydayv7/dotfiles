@@ -13,6 +13,12 @@
   "extensions.autoUpdate": false,
   "extensions.ignoreRecommendations": true,
   "files.autoSave": "onWindowChange",
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true
+  },
   "files.trimFinalNewlines": true,
   "gitlens.advanced.commitOrdering": "date",
   "gitlens.advanced.fileHistoryFollowsRenames": true,
