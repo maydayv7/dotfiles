@@ -1,5 +1,6 @@
 {
   config,
+  sys,
   lib,
   files,
   ...
@@ -124,6 +125,7 @@ in {
     };
 
     "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
       clock-show-weekday = true;
       document-font-name = "Product Sans 11";
       enable-animations = true;
@@ -132,8 +134,6 @@ in {
       font-hinting = "slight";
       font-name = "Product Sans Medium, Medium 11";
       gtk-im-module = "gtk-im-context-simple";
-      gtk-theme = "Adwaita-dark";
-      icon-theme = "Papirus-Dark";
       locate-pointer = true;
       monospace-font-name = "MesloLGS NF 10";
       show-battery-percentage = true;
@@ -223,6 +223,7 @@ in {
       use-google-search-suggestions = true;
     };
 
+    "org/gnome/epiphany/sync".sync-device-name = sys.networking.hostName;
     "org/gnome/epiphany/web" = {
       default-zoom-level = 1.0;
       enable-mouse-gestures = true;
@@ -343,7 +344,7 @@ in {
         "avatar@pawel.swiszcz.com"
         "burn-my-windows@schneegans.github.com"
         "caffeine@patapon.info"
-        "clipboard-indicator@tudmotu.com"
+        "clipboard-history@alexsaveau.dev"
         "color-picker@tuberry"
         "color-picker@tuberry"
         "compiz-alike-magic-lamp-effect@hermes83.github.com"
@@ -470,16 +471,11 @@ in {
       persistent-mode = true;
     };
 
-    "org/gnome/shell/extensions/clipboard-indicator" = {
-      cache-size = 1051;
-      clear-history = [];
-      confirm-clear = false;
-      history-size = 70;
-      move-item-first = true;
-      next-entry = [];
-      prev-entry = [];
+    "org/gnome/shell/extensions/clipboard-history" = {
+      disable-down-arrow = true;
       strip-text = true;
       toggle-menu = ["<Super>v"];
+      window-width-percentage = 25;
     };
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
@@ -581,9 +577,10 @@ in {
         "vitalsMenu"
         "dwellClick"
         "lockkeys"
-        "clipboardIndicator"
+        "Clipboard History Indicator"
         "a11y"
         "keyboard"
+        "screenRecording"
       ];
     };
 
@@ -649,7 +646,7 @@ in {
       stockgs-keep-top-panel = false;
       stockgs-panelbtn-click-only = false;
       taskbar-locked = false;
-      trans-bg-color = "#282828";
+      trans-bg-color = "#232323";
       trans-dynamic-anim-target = 1.0;
       trans-dynamic-anim-time = 200;
       trans-dynamic-behavior = "MAXIMIZED_WINDOWS";

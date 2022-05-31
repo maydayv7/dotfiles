@@ -147,7 +147,10 @@ in {
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "bak";
-      extraSpecialArgs = {inherit lib inputs files;};
+      extraSpecialArgs = {
+        inherit lib inputs files;
+        sys = config;
+      };
       users = mapAttrs (_: value: {imports = value.homeConfig;}) settings;
     };
   };
