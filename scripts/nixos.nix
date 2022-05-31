@@ -94,7 +94,7 @@ in
         wine.mkwindowsapp-tools
         zfs
       ]
-      ++ array (import ../modules/nix/format.nix) pkgs.unstable;
+      ++ array (import ../modules/nix/format.nix) pkgs;
 
     text = ''
       set +eu
