@@ -5,7 +5,7 @@
   files,
 }: let
   inherit (inputs) self generators;
-  inherit (lib) extend forEach getAttrFromPath makeOverridable mkForce mkIf;
+  inherit (lib) extend makeOverridable mkForce mkIf;
   inherit
     (builtins)
     any
@@ -44,6 +44,7 @@ in {
     pkgs = self.channels."${system}"."${channel}";
 
     # System Libraries
+    util = lib'.util;
     lib' =
       extend (final: prev: with input.lib; {inherit nixosSystem trivial;});
 
@@ -101,8 +102,7 @@ in {
                 then [(getAttr format generators.nixosModules)]
                 else []
               )
-              ++ forEach hardware.modules or []
-              (name: getAttrFromPath [name] inputs.hardware.nixosModules);
+              ++ util.map.array (hardware.modules or []) inputs.hardware.nixosModules;
             inherit apps gui hardware shell;
 
             # Device Name

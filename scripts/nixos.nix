@@ -8,7 +8,7 @@
 }:
 with files; let
   inherit (inputs) self;
-  inherit (util.map) list;
+  inherit (util.map) array list;
   inherit (lib) licenses recursiveUpdate util;
 
   devShells = list self.devShells."${system}";
@@ -76,27 +76,25 @@ in
     };
   } (pkgs.writeShellApplication {
     name = "nixos";
-    runtimeInputs = with pkgs; [
-      unstable.alejandra
-      cachix
-      coreutils
-      apps.deploy
-      apps.generators
-      git
-      gnupg
-      gnused
-      gparted
-      jq
-      manix
-      nixFlakes
-      nix-linter
-      parted
-      nodePackages.prettier
-      sops
-      tree
-      wine.mkwindowsapp-tools
-      zfs
-    ];
+    runtimeInputs = with pkgs;
+      [
+        cachix
+        coreutils
+        apps.deploy
+        apps.generators
+        git
+        gnupg
+        gnused
+        gparted
+        jq
+        nixFlakes
+        parted
+        sops
+        tree
+        wine.mkwindowsapp-tools
+        zfs
+      ]
+      ++ array (import ../modules/nix/format.nix) pkgs.unstable;
 
     text = ''
       set +eu

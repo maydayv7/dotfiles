@@ -15,6 +15,7 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
 
 - [`map`](./map.nix): Mapping functions primarily aimed at shortening code complexity -
 
+  - `array`: Maps required parameter to all elements present in `list`
   - `filter`: Filters out unneeded `attrs` and maps required ones to specified function
   - `list`: Lists all toplevel `attrs` of `attrset` and returns a space-separated string
   - `files`: Maps all files with a particular extension stored in a directory as an `attrset` acted upon by specified function. Use `files'` in order to recursively search inside directories

@@ -1,11 +1,5 @@
 pkgs: {
   name = "Formatter";
   shellHook = ''echo "## Formatting Shell ##"'';
-  packages = with pkgs; [
-    unstable.alejandra
-    nix-linter
-    nodePackages.prettier
-    shellcheck
-    statix
-  ];
+  packages = (import ../lib/map.nix {lib = pkgs.lib;}).array (import ../modules/nix/format.nix) pkgs.unstable;
 }

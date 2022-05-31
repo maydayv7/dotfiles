@@ -14,6 +14,8 @@
     (lib)
     flatten
     filterAttrs
+    forEach
+    getAttrFromPath
     hasPrefix
     hasSuffix
     id
@@ -25,6 +27,7 @@
     ;
 in rec {
   ## Mapping Functions ##
+  array = list: func: forEach list (name: getAttrFromPath [name] func);
   filter = name: func: attrs: filterAttrs name (mapAttrs' func attrs);
   list = func: foldl' (x: y: x + y + " ") "" (attrNames func);
 

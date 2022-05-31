@@ -12,7 +12,8 @@ comments = true
 - 3D Kanojo
 - 86 <sup>\*</sup> <sup>#</sup>
 - A Silent Voice
-- Ao-chan can't Study
+- Akudama Drive
+- Ao can't Study
 - Bunny Girl Senpai
 - Chuunibyou demo Koi ga Shitai! <sup>#</sup>
 - Clannad <sup>#</sup>
@@ -30,6 +31,7 @@ comments = true
 - Kimi ni Todoke
 - Kokoro Connect
 - Komi Can't Communicate <sup>\*</sup> <sup>#</sup>
+- Konosuba <sup>#</sup>
 - My Dress Up Darling <sup>\*</sup>
 - My Senpai is Annoying
 - Nisekoi

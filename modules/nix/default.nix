@@ -1,15 +1,17 @@
 {
+  lib,
   inputs,
   pkgs,
   ...
-}: {
+}:
+with {inherit (lib.util.map) array;}; {
   imports = [./index.nix inputs.utils.nixosModules.autoGenFromInputs];
 
   ## Nix Settings ##
   config = {
     # Utilities
     user.persist.dirs = [".cache/nix" ".cache/manix"];
-    environment.systemPackages = with pkgs; [cachix manix];
+    environment.systemPackages = [pkgs.cachix] ++ array (import ./format.nix) pkgs.unstable;
 
     # Settings
     nix = {
