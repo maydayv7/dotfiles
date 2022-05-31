@@ -45,13 +45,12 @@ in {
       };
 
       services = {
-        dbus.packages = [pkgs.gnome.dconf];
+        dbus.packages = [pkgs.dconf];
         udev.packages = [pkgs.gnome.gnome-settings-daemon];
         touchegg.enable = true;
         gnome = {
           chrome-gnome-shell.enable = true;
           core-developer-tools.enable = true;
-          experimental-features.realtime-scheduling = true;
           gnome-initial-setup.enable = true;
           gnome-keyring.enable = true;
           gnome-remote-desktop.enable = true;
