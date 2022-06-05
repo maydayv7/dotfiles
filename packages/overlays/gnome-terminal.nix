@@ -12,8 +12,8 @@ final: prev: {
             ++ [
               (prev.fetchpatch {
                 name = "transparency.patch";
-                sha256 = "0y116dww3j1mk4s2qklkgw8jjmvdfdpwynbijq0iwazvlggmsilk";
-                url = "https://aur.archlinux.org/cgit/aur.git/plain/transparency.patch?h=gnome-terminal-transparency&id=7dd7cd2471e42af8130cda7905b2b2c2a334ac4b";
+                sha256 = "sha256-vQ/xHgbfp03zp4b/llfP2MRgC15NR3XGkRm26hfN8Ow=";
+                url = "https://aur.archlinux.org/cgit/aur.git/plain/transparency.patch?h=gnome-terminal-transparency&id=eb672d7753287b88c5fe2557566fd4611c8c0a38";
               })
             ];
         });

@@ -5,6 +5,7 @@
   wine,
   ...
 }: let
+  inherit (builtins) concatLists map;
   inherit (pkgs) copyDesktopItems fetchurl makeDesktopItem;
   inherit (lib.wine."${system}") copyDesktopIcons makeDesktopIcon mkWindowsApp;
 in
@@ -39,25 +40,18 @@ in
     '';
 
     desktopItems = let
-      mimeType = builtins.concatStringsSep ";" [
-        "application/epub+zip"
-        "application/x-zip-compressed-fb2"
-        "application/x-cbt"
-        "application/x-cb7"
-        "application/x-7z-compressed"
-        "application/vnd.rar"
-        "application/x-tar"
-        "application/zip"
-      ];
+      textTypes = map (n: "text/" + n) [];
+      appTypes = map (n: "application/" + n) ["epub+zip" "x-zip-compressed-fb2" "x-cbt" "x-cb7" "x-7z-compressed" "vnd.rar" "x-tar" "zip"];
+      mimeTypes = concatLists [textTypes appTypes];
     in [
       (makeDesktopItem {
-        inherit mimeType;
+        inherit mimeTypes;
         name = pname;
         exec = pname;
         icon = pname;
         desktopName = "7-Zip";
         genericName = "Archive Manager";
-        categories = "Office;";
+        categories = ["Office" "Utility"];
       })
     ];
 

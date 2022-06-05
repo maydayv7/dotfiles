@@ -11,12 +11,12 @@ with {inherit (lib.util.map) array;}; {
   config = {
     # Utilities
     user.persist.dirs = [".cache/nix" ".cache/manix"];
-    environment.systemPackages = [pkgs.cachix] ++ array (import ./format.nix) pkgs.unstable;
+    environment.systemPackages = [pkgs.cachix] ++ array (import ./format.nix) pkgs;
 
     # Settings
     nix = {
       # Version
-      package = pkgs.nixFlakes;
+      package = pkgs.nix;
 
       # Garbage Collection
       autoOptimiseStore = true;

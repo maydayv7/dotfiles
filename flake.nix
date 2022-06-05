@@ -23,7 +23,7 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> 22.04 (v10)                  #
+#     Version -> 22.07 (v11)                  #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The Very Heart of my 'dotfiles'       #
@@ -63,7 +63,7 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Stable Release
-    stable.url = "github:NixOS/nixpkgs?ref=nixos-21.11";
+    stable.url = "github:NixOS/nixpkgs?ref=nixos-22.05";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -84,7 +84,7 @@
       owner = "nix-community";
       repo = "nixpkgs.lib";
       ref = "master";
-      rev = "1637168cfad105ccd522ae59648ce0289966c565";
+      rev = "81ce0b50f52b58a6a97184c0a4c42e6d964cfa06";
     };
 
     # Flake Compatibility Library
@@ -108,7 +108,7 @@
 
     # User Home Manager
     home = {
-      url = "github:nix-community/home-manager?ref=release-21.11";
+      url = "github:nix-community/home-manager?ref=release-22.05";
       inputs.nixpkgs.follows = "stable";
     };
 
@@ -131,7 +131,7 @@
     # Pre-Commit Hooks
     hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "stable";
       inputs.flake-utils.follows = "utils/flake-utils";
     };
 

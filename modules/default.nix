@@ -44,7 +44,7 @@ in {
     pkgs = self.channels."${system}"."${channel}";
 
     # System Libraries
-    util = lib'.util;
+    inherit (lib') util;
     lib' =
       extend (final: prev: with input.lib; {inherit nixosSystem trivial;});
 

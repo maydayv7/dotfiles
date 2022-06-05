@@ -1,7 +1,7 @@
 ![Logo](./files/images/logo/dark.png#gh-dark-mode-only)
 ![Logo](./files/images/logo/light.png#gh-light-mode-only)
 
-![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v21.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v22.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.tk](https://maydayv7.tk). You can follow along with my [NixOS Desktop](https://maydayv7.tk/series/nixos-desktop/) Series
 
@@ -411,8 +411,11 @@ You can navigate to the `README`'s present in the various directories to know mo
 <details>
 <summary><b>Changelog</b></summary>
 
-### NEXT
+### 22.07 (v11)
 
+- Upgrade to NixOS v22.05 (Quokka)!
+- Add `lib.map.array`
+- Improve `nixos` Script
 - Use [`treefmt`](https://github.com/numtide/treefmt) for Formatting Code
 
 ### 22.04 (v10)
@@ -583,7 +586,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 </details>
 
-> Last Updated: **April** 2022
+> Last Updated: **July** 2022
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 

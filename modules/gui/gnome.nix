@@ -45,13 +45,13 @@ in {
       };
 
       services = {
-        dbus.packages = [pkgs.gnome.dconf];
+        dbus.packages = [pkgs.dconf];
         udev.packages = [pkgs.gnome.gnome-settings-daemon];
         touchegg.enable = true;
+        telepathy.enable = true;
         gnome = {
           chrome-gnome-shell.enable = true;
           core-developer-tools.enable = true;
-          experimental-features.realtime-scheduling = true;
           gnome-initial-setup.enable = true;
           gnome-keyring.enable = true;
           gnome-remote-desktop.enable = true;
@@ -68,8 +68,8 @@ in {
         gtk = {
           enable = true;
           theme = {
-            name = "Adwaita-dark";
-            package = pkgs.gnome.gnome-themes-extra;
+            name = "adw-gtk3-dark";
+            package = pkgs.custom.adw-gtk3;
           };
 
           iconTheme = {
@@ -122,8 +122,13 @@ in {
           # X11 Gestures
           ".config/touchegg/touchegg.conf".text = gestures;
 
-          # Custome GNOME Shell Theme
-          ".themes/Adwaita/gnome-shell/gnome-shell.css".text = gnome.shell;
+          # Prevent Suspension on lid close
+          ".config/autostart/ignore-lid-switch-tweak.desktop".text = ''
+            [Desktop Entry]
+            Type=Application
+            Name=ignore-lid-switch-tweak
+            Exec=${pkgs.gnome.gnome-tweaks}/libexec/gnome-tweak-tool-lid-inhibitor
+          '';
 
           # gEdit Color Scheme
           ".local/share/gtksourceview-4/styles/tango-dark.xml".text =
@@ -150,10 +155,12 @@ in {
       environment.systemPackages = with pkgs.gnome;
         [
           # GNOME Apps
+          gedit
           gnome-boxes
           gnome-dictionary
           gnome-notes
           gnome-sound-recorder
+          gnome-terminal
           gnome-tweaks
           polari
 
@@ -172,7 +179,7 @@ in {
           giara
           gimp
           gnome-podcasts
-          gnome-passwordsafe
+          gnome-secrets
           gthumb
           kooha
           lollypop
@@ -188,11 +195,12 @@ in {
           with unstable.gnomeExtensions // gnomeExtensions; [
             # GNOME Shell Extensions
             add-username-to-top-panel
+            alphabetical-app-grid
             appindicator
             avatar
             burn-my-windows
             caffeine
-            clipboard-indicator
+            clipboard-history
             color-picker
             compiz-windows-effect
             compiz-alike-magic-lamp-effect
@@ -207,7 +215,7 @@ in {
             screenshot-locations
             sound-output-device-chooser
             timepp
-            custom.top-bar-organizer
+            top-bar-organizer
             vitals
             worksapce-dry-names
             x11-gestures
@@ -261,8 +269,8 @@ in {
       environment.systemPackages = with pkgs.gnome; [
         epiphany
         gedit
+        pkgs.gnome-console
         gnome-system-monitor
-        pkgs.kgx
         nautilus
       ];
 

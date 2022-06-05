@@ -7,7 +7,7 @@
   ...
 }: let
   inherit (builtins) filter listToAttrs mapAttrs;
-  inherit (lib) hasPrefix mkAfter mkIf mkMerge mkOption nameValuePair optional remove types;
+  inherit (lib) hasPrefix mkAfter mkIf mkMerge mkOption nameValuePair optional types;
   inherit (config.hardware) filesystem;
 in {
   imports = [inputs.impermanence.nixosModule];
@@ -119,7 +119,7 @@ in {
             };
           }
           // listToAttrs (map (dir: nameValuePair dir {neededForBoot = true;})
-            (filter (hasPrefix "/etc") (remove "/etc/nixos" config.environment.persist.dirs)));
+            (filter (hasPrefix "/etc") config.environment.persist.dirs));
 
         # Boot Settings
         boot = {
@@ -142,7 +142,7 @@ in {
           "${files.persist}" = {
             files = ["/etc/machine-id"] ++ config.environment.persist.files;
             directories =
-              ["/var/log" "/var/lib/AccountsService"]
+              ["/etc/nixos" "/var/log" "/var/lib/AccountsService"]
               ++ config.environment.persist.dirs;
           };
 

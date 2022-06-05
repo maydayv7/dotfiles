@@ -8,6 +8,7 @@
   "editor.suggest.showStatusBar": true,
   "editor.unfoldOnClickAfterEndOfLine": true,
   "explorer.incrementalNaming": "smart",
+  "explorer.confirmDelete": false,
   "explorer.openEditors.visible": 7,
   "extensions.autoCheckUpdates": false,
   "extensions.autoUpdate": false,
