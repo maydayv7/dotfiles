@@ -195,6 +195,7 @@ in {
           with unstable.gnomeExtensions // gnomeExtensions; [
             # GNOME Shell Extensions
             add-username-to-top-panel
+            alphabetical-app-grid
             appindicator
             avatar
             burn-my-windows
@@ -214,7 +215,7 @@ in {
             screenshot-locations
             sound-output-device-chooser
             timepp
-            custom.top-bar-organizer
+            top-bar-organizer
             vitals
             worksapce-dry-names
             x11-gestures

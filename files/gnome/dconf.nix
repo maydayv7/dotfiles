@@ -373,7 +373,7 @@ in {
         "org.gnome.Nautilus.desktop"
         "org.gnome.Terminal.desktop"
         "org.gnome.gedit.desktop"
-        "gnome-control-center.desktop"
+        "org.gnome.Settings.desktop"
       ];
     };
 
@@ -460,6 +460,14 @@ in {
       nightlight-control = "never";
       show-notifications = false;
       user-enabled = true;
+    };
+
+    "org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect" = {
+      friction = 6.0;
+      mass = 50.0;
+      resize-effect = true;
+      speedup-factor-divider = 10.0;
+      spring-k = 5.0;
     };
 
     "org/gnome/shell/extensions/color-picker" = {

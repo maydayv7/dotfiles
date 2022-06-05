@@ -6,12 +6,12 @@
 with pkgs;
   stdenv.mkDerivation rec {
     pname = "gnome-shell-extension-fly-pie";
-    version = "v13";
+    version = "v16";
 
     src = fetchzip {
       stripRoot = false;
       url = "https://extensions.gnome.org/extension-data/flypieschneegans.github.com.${version}.shell-extension.zip";
-      sha256 = "sha256-7O7Kii9wQS5cg8UIEEyf2ePoGZ7XtpzE+4p+zwxp+Go=";
+      sha256 = "sha256-YmPEeHNauWGnd9lIs9ymq3wL3Cu2FgRMgueyXzKTXC0=";
     };
 
     dontBuild = true;
