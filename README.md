@@ -345,6 +345,9 @@ The system may be set up using either a `simple` or `advanced` filesystem layout
 
 All important, persisted user files are stored at `/data`. Personal files and media are stored on an NTFS partition mounted to `/data/files`
 
+### Home Manager
+The [`home-manager`](https://github.com/nix-community/home-manager) module is used in tandem with the system configuration in order to define user-specific configuration. The `config.user.home` option has been declared in [`modules/user/default.nix`](./modules/user/default.nix) independent of the original module, from which the final configuration is built, in order to prevent infinite recursion while configuring multiple users per system. The system `config` can be accessed using the `sys` parameter in `home-manager` modules
+
 ## Links
 
 ### Theming

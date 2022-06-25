@@ -113,9 +113,6 @@ in {
           # Initial Setup
           ".config/gnome-initial-setup-done".text = "yes";
 
-          # Online Accounts
-          ".config/goa-1.0/accounts.conf".text = gnome.accounts;
-
           # GTK+ Bookmarks
           ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
 

@@ -1,5 +1,5 @@
 {files, ...}: {
-  # Credentials
+  # Personal Credentials
   credentials = {
     fullname = "Navya G";
     mail = "gnavya009@gmail.com";

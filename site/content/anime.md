@@ -40,6 +40,7 @@ comments = true
 - Rent-a-Girlfriend <sup>\*</sup>
 - RikeKoi <sup>#</sup>
 - Scums Wish <sup>\*</sup>
+- Steins;Gate <sup>#</sup>
 - The Pet Girl of Sakurasou <sup>\*</sup>
 - The Quintessential Quintuplets <sup>#</sup>
 - Tonikawa: To the Moon! <sup>\*</sup>
@@ -63,7 +64,6 @@ comments = true
 - [ ] Gosick
 - [x] Hyouka
 - [ ] One Outs
-- [ ] Steins;Gate <sup>#</sup>
 - [ ] Skilled Teaser Takagi-san <sup>#</sup>
 - [ ] A Place Further than the Universe
 

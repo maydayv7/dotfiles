@@ -41,7 +41,6 @@ in rec {
 
   # GNOME Desktop
   gnome = {
-    accounts = readFile ./gnome/accounts.conf;
     dconf = ./gnome/dconf.nix;
     iso = readFile ./gnome/iso;
     syntax = readFile ./gnome/nix.lang;

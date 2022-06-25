@@ -5,7 +5,7 @@
   ...
 }:
 with files; {
-  # Credentials
+  # Personal Credentials
   credentials = {
     name = "maydayv7";
     fullname = "V7";
@@ -21,6 +21,9 @@ with files; {
     file = {
       # Profile Picture
       ".face".source = images.profile;
+
+      # Online Accounts
+      ".config/goa-1.0/accounts.conf".text = builtins.readFile ./accounts.conf;
 
       # Dotfiles
       "Projects/dotfiles".source =
