@@ -24,6 +24,8 @@
   image = [
     "image/bmp"
     "image/gif"
+    "image/heic"
+    "image/heif"
     "image/jpeg"
     "image/jpg"
     "image/png"
@@ -60,9 +62,11 @@
     "video/mp4"
     "video/mpeg"
     "video/ogg"
+    "video/quicktime"
     "video/webm"
     "video/x-flv"
     "video/x-matroska"
+    "video/x-ms-wmv"
     "video/x-msvideo"
   ];
 }
