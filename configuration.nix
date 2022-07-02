@@ -35,7 +35,7 @@ in
     call = name: pkgs.callPackage name {inherit lib inputs pkgs files;};
   in {
     ## Configuration Checks ##
-    checks = import ./modules/nix/checks.nix {inherit self system lib pkgs;};
+    checks = import ./modules/nix/checks.nix {inherit self system lib;};
 
     ## Developer Shells ##
     devShells =

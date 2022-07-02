@@ -2,7 +2,6 @@
   self,
   system,
   lib,
-  pkgs,
 }:
 with {inherit (lib) deploy filters hooks util;};
 # Install Media Checks
@@ -19,11 +18,7 @@ with {inherit (lib) deploy filters hooks util;};
         nix-linter.enable = false;
         shellcheck.enable = true;
         statix.enable = true;
-        stylua = {
-          enable = true;
-          types = ["file" "lua"];
-          entry = "${pkgs.stylua}/bin/stylua";
-        };
+        stylua.enable = true;
       };
 
       settings = {
