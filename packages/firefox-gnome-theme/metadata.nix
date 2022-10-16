@@ -1,6 +1,6 @@
 {
   repo = "https://github.com/rafaelmardojai/firefox-gnome-theme";
   branch = "master";
-  rev = "73c929f3b1583ef0053bda6a0353b17ade3b0c39";
-  sha256 = "sha256-Vxxxwi2XV3oys2xbjkt2RSHu0mPeEKX0x4ksI1ANVec=";
+  rev = "950298c0af7c7f569cabc3f4b56a6ef3948cf120";
+  sha256 = "sha256-7S9TEWYLV71xdnUNiAjwpSN6IVbwvcwRAXw/dAxgI1w=";
 }
