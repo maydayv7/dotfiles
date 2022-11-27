@@ -20,7 +20,7 @@ jobs:
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Setup Cachix
-        uses: cachix/cachix-action@v11
+        uses: cachix/cachix-action@v12
         with:
           name: maydayv7-dotfiles
           authToken: "${{ secrets.CACHIX_TOKEN }}"
