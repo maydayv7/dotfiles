@@ -481,6 +481,7 @@ in {
 
     "org/gnome/shell/extensions/clipboard-history" = {
       disable-down-arrow = true;
+      paste-on-selection = false;
       strip-text = true;
       toggle-menu = ["<Super>v"];
       window-width-percentage = 25;

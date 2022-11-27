@@ -19,7 +19,9 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 - [`gui`](./gui): Module that configures GUI Desktops/Environments and the like -
 
   - `desktop`: Choice of GUI Desktop - `"gnome" / "xfce"`
-  - `fonts.enable`: Enable Fonts Configuration - `true / false`
+  - `fonts` -
+    - `enable`: Enable Fonts Configuration - `true / false`
+    - `usrshare`: Create`/usr/share/fonts` and fill it with the system fonts - `true / false`
 
 - [`hardware`](./hardware): Module that configures device and additional hardware -
 

@@ -15,7 +15,10 @@ in {
 
     ## iOS Compatibilty Configuration ##
     # File Transfer
-    services.usbmuxd.enable = true;
     environment.systemPackages = [pkgs.libimobiledevice];
+
+    #!# Run the following command to start service:
+    #!# sudo systemctl restart usbmuxd.service
+    services.usbmuxd.enable = true;
   };
 }

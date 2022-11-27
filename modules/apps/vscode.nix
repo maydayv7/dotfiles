@@ -25,7 +25,10 @@ in {
           text = ["code.desktop"];
         };
 
+        #!# Run the following command on first boot:
+        #!# systemctl --user enable auto-fix-vscode-server.service
         services.vscode-server.enable = true;
+
         programs.vscode = {
           enable = true;
           package = pkgs.vscode;
