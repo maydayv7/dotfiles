@@ -7,7 +7,7 @@
 pkgs.stdenv.mkDerivation rec {
   pname = "Dotfiles";
   version = "v11";
-  longVersion = "22.07";
+  longVersion = "22.11";
 
   src = files.path.toplevel;
   dontBuild = true;

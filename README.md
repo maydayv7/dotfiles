@@ -415,11 +415,13 @@ You can navigate to the `README`'s present in the various directories to know mo
 <details>
 <summary><b>Changelog</b></summary>
 
-### 22.07 (v11)
+### 22.11 (v11)
 
 - Upgrade to NixOS v22.05 (Quokka)!
 - Add `lib.map.array`
 - Improve `nixos` Script
+- Add `gui.fonts.usershare`
+- General Maintenance Updates
 - Use [`treefmt`](https://github.com/numtide/treefmt) for Formatting Code
 
 ### 22.04 (v10)
