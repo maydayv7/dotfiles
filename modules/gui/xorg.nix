@@ -8,7 +8,6 @@
       layout = "us";
 
       # Driver Settings
-      useGlamor = true;
       videoDrivers = ["modesetting"];
     };
   };

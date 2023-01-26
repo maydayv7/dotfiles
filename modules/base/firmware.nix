@@ -118,6 +118,7 @@ with {inherit (lib) mkAfter mkForce;}; {
       cpuFreqGovernor = "powersave";
     };
 
+    systemd.oomd.enable = false;
     services.earlyoom = {
       enable = true;
       enableNotifications = true;

@@ -164,9 +164,6 @@ in
       check)
         echo "Formatting Code..."
         pushd ${path.system} > /dev/null; nix fmt; popd > /dev/null
-        echo "Checking Syntax..."
-        nix-linter -r ${path.system} || true
-        newline
         case $2 in
         "") nix flake check ${path.system} --keep-going;;
         "--trace") nix flake check ${path.system} --keep-going --show-trace;;

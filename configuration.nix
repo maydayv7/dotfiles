@@ -73,11 +73,11 @@ in
     # Overrides
     overlays = map.modules ./packages/overlays import;
 
-    ## Program Configuration and 'dotfiles' ##
-    files = import ./files lib;
-
     ## Custom Library Functions ##
     lib = lib.util;
+
+    ## Program Configuration and 'dotfiles' ##
+    files = import ./files lib self.legacyPackages."${head platforms}";
 
     ## Custom Configuration Modules ##
     nixosModules =

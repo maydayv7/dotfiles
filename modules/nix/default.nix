@@ -19,25 +19,25 @@ with {inherit (lib.util.map) array;}; {
       package = pkgs.nix;
 
       # Garbage Collection
-      autoOptimiseStore = true;
+      settings.auto-optimise-store = true;
       gc = {
         automatic = true;
         dates = "weekly";
         options = "--delete-older-than 7d";
       };
 
-      # User Permissions
-      allowedUsers = ["root" "@wheel"];
-      trustedUsers = ["root" "@wheel"];
-
       # Registry
       linkInputs = true;
       generateNixPathFromInputs = true;
       generateRegistryFromInputs = true;
 
+      # User Permissions
+      settings.allowed-users = ["root" "@wheel"];
+      settings.trusted-users = ["root" "@wheel"];
+
       # Additional Features
-      useSandbox = true;
-      systemFeatures = ["kvm" "recursive-nix"];
+      settings.sandbox = true;
+      settings.system-features = ["kvm" "recursive-nix"];
       extraOptions = ''
         accept-flake-config = true
         warn-dirty = false

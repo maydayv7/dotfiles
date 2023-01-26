@@ -42,7 +42,6 @@ in {
           # Initialization
           initExtra =
             ''
-              source <(${pkgs.cod}/bin/cod init $$ bash)
               eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
             ''
             # Prompt

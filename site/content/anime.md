@@ -26,11 +26,12 @@ comments = true
 - Domestic Girlfriend
 - Erased
 - Fruits Basket <sup>#</sup>
+- Fuufu Ijou, Koibito Miman <sup>\*</sup>
 - Gekkan Shoujo Nozaki-kun
 - Golden Time
 - Horimiya
 - I Can't Understand What My Husband Is Saying
-- Ijinaraide, Nagatoro-san <sup>\*</sup>
+- Ijinaraide, Nagatoro-san <sup>\*</sup> <sup>#</sup>
 - Kaguya-sama: Love is War <sup>#</sup>
 - Kakkou no Iinazuke
 - Kawaii dake ja nai Shikimori-san
@@ -40,6 +41,7 @@ comments = true
 - Kokoro Connect
 - Komi Can't Communicate <sup>\*</sup> <sup>#</sup>
 - Konosuba <sup>#</sup>
+- Link Click <sup>\*</sup>
 - Lycoris Recoil <sup>\*</sup>
 - My Dress Up Darling <sup>\*</sup>
 - My Senpai is Annoying
@@ -53,6 +55,7 @@ comments = true
 - Scums Wish <sup>\*</sup>
 - Spy X Family <sup>\*</sup> <sup>#</sup>
 - Steins;Gate <sup>#</sup>
+- Sword Art Online <sup>#</sup>
 - The Pet Girl of Sakurasou <sup>\*</sup>
 - The Quintessential Quintuplets <sup>#</sup>
 - Tomodachi Game <sup>\*</sup>
@@ -60,9 +63,9 @@ comments = true
 - ToraDora!
 - Tsurezure Children
 - Uzaki-chan wa Asobitai! <sup>\*</sup> <sup>#</sup>
-- Violet Evergarden
-- Vermeil in Gold
-- When will Ayumu make his Move
+- Violet Evergarden <sup>#</sup>
+- Vermeil in Gold <sup>\*</sup>
+- When will Ayumu make his Move <sup>\*</sup>
 - Wotaku ni Koi wa Muzukashii
 - Yosuga no Sora
 - Your Lie in April
@@ -83,7 +86,6 @@ comments = true
 # Ongoing
 
 - [x] Chainsaw Man
-- [ ] Fuufu Ijou, Koibito Miman
 
 # Wishlist
 

@@ -50,8 +50,8 @@ in {
         touchegg.enable = true;
         telepathy.enable = true;
         gnome = {
-          chrome-gnome-shell.enable = true;
           core-developer-tools.enable = true;
+          gnome-browser-connector.enable = true;
           gnome-initial-setup.enable = true;
           gnome-keyring.enable = true;
           gnome-remote-desktop.enable = true;
@@ -96,15 +96,15 @@ in {
         programs.vscode = mkIf (elem pkgs.vscode apps) {
           userSettings = {
             "workbench.colorTheme" = "GNOME dark";
-            "terminal.external.linuxExec" = "gnome-terminal";
+            "terminal.external.linuxExec" = "gnome-console";
           };
 
           extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
               name = "vscode-gnome-theme";
               publisher = "rafaelmardojai";
-              version = "0.3.0";
-              sha256 = "sha256-CXBh175GjiGbqkm/72SLDTOZZjF62cHZUTVVFiQkcVU=";
+              version = "0.4.1";
+              sha256 = "sha256-J4WEa6VVPks6rhzjE5oD88RwqaRjTjn/gPeZKaCS6RM=";
             }
           ];
         };
@@ -157,7 +157,6 @@ in {
           gnome-dictionary
           gnome-notes
           gnome-sound-recorder
-          gnome-terminal
           gnome-tweaks
           polari
 
@@ -191,13 +190,10 @@ in {
         ++ (with pkgs;
           with unstable.gnomeExtensions // gnomeExtensions; [
             # GNOME Shell Extensions
-            add-username-to-top-panel
             alphabetical-app-grid
             appindicator
             avatar
-            burn-my-windows
             caffeine
-            clipboard-history
             color-picker
             compiz-windows-effect
             compiz-alike-magic-lamp-effect
@@ -209,10 +205,9 @@ in {
             just-perfection
             lock-keys
             lock-screen-message
-            screenshot-locations
-            sound-output-device-chooser
+            unstable.gnomeExtensions.pano
             timepp
-            top-bar-organizer
+            custom.top-bar-organizer
             vitals
             worksapce-dry-names
             x11-gestures
@@ -227,6 +222,7 @@ in {
           ".config/gnome-builder"
           ".config/GIMP"
           ".config/pitivi"
+          ".local/share/clipboard"
           ".local/share/epiphany"
           ".local/share/evolution"
           ".local/share/flatpak"
@@ -238,7 +234,6 @@ in {
           ".local/share/polari"
           ".local/share/telepathy"
           ".local/share/webkitgtk"
-          ".cache/clipboard-indicator@tudmotu.com"
           ".cache/fractal"
           ".cache/gnome-builder"
           ".cache/timepp_gnome_shell_extension"

@@ -100,7 +100,7 @@ in {
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
       binding = "<Super>t";
-      command = "gnome-terminal";
+      command = "kgx";
       name = "Terminal";
     };
 
@@ -229,6 +229,11 @@ in {
       enable-mouse-gestures = true;
     };
 
+    "org/gnome/nautilus/icon-view" = {
+      captions = ["size" "date_modified" "none"];
+      default-zoom-level = "medium";
+    };
+
     "org/gnome/nautilus/preferences" = {
       click-policy = "single";
       default-folder-viewer = "icon-view";
@@ -257,67 +262,6 @@ in {
       style-scheme-name = "builder-dark";
     };
 
-    "org/gnome/builder/terminal" = {
-      limit-scrollback = false;
-      scrollback-lines = "uint32 10000";
-    };
-
-    "org/gnome/gitlab/somas/Apostrophe" = {
-      color-scheme = "dark";
-      input-format = "gfm";
-    };
-
-    "org/gnome/terminal/legacy" = {
-      default-show-menubar = true;
-      new-tab-position = "next";
-      schema-version = 3;
-      theme-variant = "dark";
-    };
-
-    "org/gnome/terminal/legacy/profiles:" = {
-      default = "b1dcc9dd-5262-4d8d-a863-c897e6d979b9";
-      list = ["b1dcc9dd-5262-4d8d-a863-c897e6d979b9"];
-    };
-
-    "org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9" = {
-      audible-bell = false;
-      background-transparency-percent = 8;
-      backspace-binding = "ascii-delete";
-      cursor-blink-mode = "system";
-      cursor-shape = "ibeam";
-      default-size-columns = 100;
-      default-size-rows = 30;
-      delete-binding = "delete-sequence";
-      exit-action = "close";
-      login-shell = false;
-      palette = [
-        "rgb(23,20,33)"
-        "rgb(192,28,40)"
-        "rgb(38,162,105)"
-        "rgb(162,115,76)"
-        "rgb(18,72,139)"
-        "rgb(163,71,186)"
-        "rgb(42,161,179)"
-        "rgb(208,207,204)"
-        "rgb(94,92,100)"
-        "rgb(246,97,81)"
-        "rgb(51,209,122)"
-        "rgb(233,173,12)"
-        "rgb(42,123,222)"
-        "rgb(192,97,203)"
-        "rgb(51,199,222)"
-        "rgb(255,255,255)"
-      ];
-      scrollback-lines = 70000;
-      scrollback-unlimited = true;
-      scrollbar-policy = "always";
-      use-custom-command = false;
-      use-system-font = true;
-      use-theme-colors = true;
-      use-transparent-background = true;
-      visible-name = "Terminal";
-    };
-
     "org/gnome/gedit/preferences/ui".show-tabs-mode = "auto";
     "org/gnome/gedit/preferences/editor" = {
       scheme = "tango-dark";
@@ -338,14 +282,10 @@ in {
       disable-extension-version-validation = true;
       disabled-extensions = ["workspace-indicator@gnome-shell-extensions.gcampax.github.com"];
       enabled-extensions = [
-        "add-username-toppanel@brendaw.com"
         "AlphabeticalAppGrid@stuarthayhurst"
         "appindicatorsupport@rgcjonas.gmail.com"
         "avatar@pawel.swiszcz.com"
-        "burn-my-windows@schneegans.github.com"
         "caffeine@patapon.info"
-        "clipboard-history@alexsaveau.dev"
-        "color-picker@tuberry"
         "color-picker@tuberry"
         "compiz-alike-magic-lamp-effect@hermes83.github.com"
         "compiz-windows-effect@hermes83.github.com"
@@ -358,8 +298,7 @@ in {
         "just-perfection-desktop@just-perfection"
         "lock-screen-message@advendradeswanta.gitlab.com"
         "lockkeys@vaina.lt"
-        "screenshotlocations.timur@linux.com"
-        "sound-output-device-chooser@kgshank.net"
+        "pano@elhan.io"
         "timepp@zagortenay333"
         "top-bar-organizer@julian.gse.jsts.xyz"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
@@ -371,7 +310,7 @@ in {
         "google-chrome.desktop"
         "org.gnome.Geary.desktop"
         "org.gnome.Nautilus.desktop"
-        "org.gnome.Terminal.desktop"
+        "org.gnome.Console.desktop"
         "org.gnome.gedit.desktop"
         "org.gnome.Settings.desktop"
       ];
@@ -442,15 +381,17 @@ in {
     "org/gnome/shell/extensions/user-theme".name = "Adwaita";
     "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position = "start";
     "org/gnome/shell/extensions/lock-screen-message".message = "Welcome, ${config.credentials.fullname}!";
+    "org/gnome/shell/extensions/lockkeys".style = "show-hide";
 
     "org/gnome/shell/extensions/avatar" = {
+      avatar-shadow = true;
       avatar-shadow-user-name = false;
       buttons-icon-size = 20;
       buttons-position = 50;
       name-style-dark = false;
-      set-custom-panel-menu-width = 400;
-      show-buttons = true;
-      show-media-center = true;
+      set-custom-panel-menu-width = 0;
+      show-buttons = false;
+      show-media-center = false;
       show-system-name = false;
       show-top-image = false;
     };
@@ -479,14 +420,6 @@ in {
       persistent-mode = true;
     };
 
-    "org/gnome/shell/extensions/clipboard-history" = {
-      disable-down-arrow = true;
-      paste-on-selection = false;
-      strip-text = true;
-      toggle-menu = ["<Super>v"];
-      window-width-percentage = 25;
-    };
-
     "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
       ws-switch-wrap = true;
       ws-switch-ignore-last = true;
@@ -506,23 +439,10 @@ in {
       ctrl = true;
     };
 
-    "org/gnome/shell/extensions/burn-my-windows" = {
-      close-preview-effect = "";
-      destroy-dialogs = true;
-      fire-color-1 = "rgba(0,110,255,0)";
-      fire-color-2 = "rgba(30,111,180,0.24)";
-      fire-color-3 = "rgba(38,181,255,0.54)";
-      fire-color-4 = "rgba(34,162,255,0.84)";
-      fire-color-5 = "rgb(97,189,255)";
-      flame-movement-speed = -0.1;
-      flame-scale = 1.5;
-      open-preview-effect = "";
-      tv-open-effect = true;
-    };
-
     "org/gnome/shell/extensions/desktop-cube" = {
       active-workpace-opacity = 195;
       depth-separation = 25;
+      enable-desktop-edge-switch = false;
       horizontal-stretch = 100;
       inactive-workpace-opacity = 224;
       overview-transition-time = 0;
@@ -532,9 +452,9 @@ in {
     };
 
     "org/gnome/shell/extensions/gtile" = {
-      show-icon = false;
+      show-icon = true;
       target-presets-to-monitor-of-mouse = true;
-      theme = "Default";
+      theme = "Minimal Dark";
       window-margin = 2;
       window-margin-fullscreen-enabled = true;
     };
@@ -554,12 +474,11 @@ in {
       workspace-wrap-around = true;
     };
 
-    "org/gnome/shell/extensions/lockkeys".style = "show-hide";
-    "org/gnome/shell/extensions/screenshotlocations".save-directory = "${homeDir}/Pictures/Screenshots";
-
-    "org/gnome/shell/extensions/sound-output-device-chooser" = {
-      expand-volume-menu = false;
-      hide-on-single-device = true;
+    "org/gnome/shell/extensions/pano" = {
+      database-location = "${homeDir}/.local/share/clipboard";
+      global-shortcut = ["<Super>v"];
+      history-length = 250;
+      incognito-shortcut = ["<Ctrl><Super>v"];
     };
 
     "org/gnome/shell/extensions/timepp" = {
@@ -586,7 +505,7 @@ in {
         "vitalsMenu"
         "dwellClick"
         "lockkeys"
-        "Clipboard History Indicator"
+        "pano@elhan.io"
         "a11y"
         "keyboard"
         "screenRecording"

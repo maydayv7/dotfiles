@@ -113,7 +113,7 @@ in {
 
             # Localization
             time.timeZone = timezone;
-            i18n.defaultLocale = locale;
+            i18n.defaultLocale = "en_${locale}";
 
             # Kernel Configuration
             boot = {
@@ -130,7 +130,7 @@ in {
             # Package Configuration
             nixpkgs = {inherit pkgs;};
             nix = {
-              maxJobs = hardware.cores or 4;
+              settings.max-jobs = hardware.cores or 4;
               index = mkIf (update == "") true;
               nixPath = ["nixpkgs=${input}"];
               registry.nixpkgs.flake = mkForce input;

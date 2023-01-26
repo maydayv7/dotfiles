@@ -11,37 +11,13 @@ with {inherit (lib) deploy filters hooks util;};
     # Pre-Commit Hooks
     commit = hooks."${system}".run {
       src = filters.gitignoreSource ../../.;
+      settings.statix.ignore = ["flake.nix" "_*"];
       hooks = {
         alejandra.enable = true;
         prettier.enable = true;
-        nixfmt.enable = false;
-        nix-linter.enable = false;
         shellcheck.enable = true;
         statix.enable = true;
         stylua.enable = true;
-      };
-
-      settings = {
-        statix.ignore = ["flake.nix" "_*"];
-        nix-linter.checks = [
-          "BetaReduction"
-          "DIYInherit"
-          "EmptyInherit"
-          "EmptyLet"
-          "EmptyVariadicParamSet"
-          "EtaReduce"
-          "FreeLetInFunc"
-          "LetInInheritRecset"
-          "ListLiteralConcat"
-          "NegateAtom"
-          "SequentialLet"
-          "SetLiteralUpdate"
-          "UnfortunateArgName"
-          "UnneededRec"
-          "UnusedArg"
-          "UnusedLetBind"
-          "UpdateEmptySet"
-        ];
       };
     };
   }

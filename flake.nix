@@ -23,7 +23,7 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> 22.11 (v11)                  #
+#     Version -> 23.xy (v12)                  #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The Very Heart of my 'dotfiles'       #
@@ -63,7 +63,7 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Stable Release
-    stable.url = "github:NixOS/nixpkgs?ref=nixos-22.05";
+    stable.url = "github:NixOS/nixpkgs?ref=nixos-22.11";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -84,7 +84,7 @@
       owner = "nix-community";
       repo = "nixpkgs.lib";
       ref = "master";
-      rev = "81ce0b50f52b58a6a97184c0a4c42e6d964cfa06";
+      rev = "af5239f892ae6e1c8bb560b11ed874cebbd10696";
     };
 
     # Flake Compatibility Library
@@ -108,8 +108,9 @@
 
     # User Home Manager
     home = {
-      url = "github:nix-community/home-manager?ref=release-22.05";
+      url = "github:nix-community/home-manager?ref=release-22.11";
       inputs.nixpkgs.follows = "stable";
+      inputs.utils.follows = "utils/flake-utils";
     };
 
     # Authentication Credentials Manager
@@ -132,7 +133,10 @@
     hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs-stable.follows = "stable";
+      inputs.flake-compat.follows = "compatibility";
       inputs.flake-utils.follows = "utils/flake-utils";
+      inputs.gitignore.follows = "ignore";
     };
 
     # Automatic Deployment Tool

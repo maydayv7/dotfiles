@@ -1,5 +1,4 @@
-# Panel Configuration Backup
-# Compress using 'bunzip2'
+# xfce4 Panel Configuration
 
 /configver 2
 /panels [<0>]
@@ -16,7 +15,7 @@
 /panels/panel-0/length-adjust true
 /panels/panel-0/mode uint32 0
 /panels/panel-0/nrows uint32 1
-/panels/panel-0/plugin-ids [<1>, <15>, <22>, <18>, <3>, <16>, <4>, <19>, <17>, <2>, <6>, <5>, <7>, <8>, <20>, <9>, <10>, <11>, <13>, <14>]
+/panels/panel-0/plugin-ids [<1>, <15>, <22>, <18>, <12>, <3>, <4>, <19>, <17>, <2>, <6>, <5>, <7>, <8>, <20>, <9>, <10>, <11>, <13>, <14>]
 /panels/panel-0/position 'p=0;x=946;y=27'
 /panels/panel-0/position-locked true
 /panels/panel-0/size uint32 27
@@ -34,12 +33,12 @@
 /plugins/plugin-11 'separator'
 /plugins/plugin-11/expand false
 /plugins/plugin-11/style uint32 0
+/plugins/plugin-12 'pager'
 /plugins/plugin-13 'notification-plugin'
 /plugins/plugin-14 'separator'
 /plugins/plugin-14/expand false
 /plugins/plugin-14/style uint32 0
 /plugins/plugin-15 'whiskermenu'
-/plugins/plugin-16 'namebar'
 /plugins/plugin-17 'xfce4-notes-plugin'
 /plugins/plugin-18 'eyes'
 /plugins/plugin-19 'screenshooter'
@@ -48,11 +47,7 @@
 /plugins/plugin-20/cache-max-age 172800
 /plugins/plugin-20/forecast/days 5
 /plugins/plugin-20/forecast/layout 1
-/plugins/plugin-20/location/latitude '17.425400'
-/plugins/plugin-20/location/longitude '78.507500'
-/plugins/plugin-20/location/name 'Hyderabad, India'
 /plugins/plugin-20/msl 529
-/plugins/plugin-20/offset '+05:30'
 /plugins/plugin-20/power-saving true
 /plugins/plugin-20/round true
 /plugins/plugin-20/scrollbox/animate true
@@ -61,8 +56,7 @@
 /plugins/plugin-20/scrollbox/show true
 /plugins/plugin-20/scrollbox/use-color false
 /plugins/plugin-20/single-row true
-/plugins/plugin-20/theme-dir '/nix/store/qrb3nm6l6mz283ifjchn2idw2d7l8mi5-xfce4-weather-plugin-0.11.0/share/xfce4/weather/icons/liquid'
-/plugins/plugin-20/timezone 'Asia/Kolkata'
+/plugins/plugin-20/theme-dir '/run/current-system/sw/share/xfce4/weather/icons/liquid'
 /plugins/plugin-20/tooltip-style 1
 /plugins/plugin-20/units/altitude 0
 /plugins/plugin-20/units/apparent-temperature 0

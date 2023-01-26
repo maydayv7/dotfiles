@@ -1,7 +1,7 @@
 ![Logo](./files/images/logo/dark.png#gh-dark-mode-only)
 ![Logo](./files/images/logo/light.png#gh-light-mode-only)
 
-![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v22.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v22.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.tk](https://maydayv7.tk). You can follow along with my [NixOS Desktop](https://maydayv7.tk/series/nixos-desktop/) Series
 
@@ -9,7 +9,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 
 ## Features
 
-[![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
+<img alt="Built with Nix" src="https://raw.githubusercontent.com/nix-community/builtwithnix.org/62897617ceefe428f135e82c3a87ea093e29e045/img/built_with_nix.svg" width="130" height="50"/>
 
 - Self-Contained
 - Device-Agnostic
@@ -61,6 +61,7 @@ $ nix flake show
 github:maydayv7/dotfiles
 ├───apps
 │   └───x86_64-linux
+│       ├───default: app
 │       └───nixos: app
 ├───channels: package repositories
 ├───checks
@@ -70,26 +71,24 @@ github:maydayv7/dotfiles
 │       ├───activate: derivation 'deploy-rs-check-activate'
 │       ├───commit: derivation 'pre-commit-run'
 │       └───schema: derivation 'jsonschema-deploy-system'
-├───defaultApp
-│   └───x86_64-linux: app
-├───defaultPackage
-│   └───x86_64-linux: package 'Dotfiles-v7.0'
-├───defaultTemplate: template: Simple, Minimal NixOS Configuration
 ├───deploy: automatc deployments
-├───devShell
-│   └───x86_64-linux: development environment 'devShell'
 ├───devShells
 │   └───x86_64-linux
 │       ├───cc: development environment 'C'
 │       ├───commit: development environment 'nix-shell'
+│       ├───default: development environment 'devShell'
+│       ├───format: development environment 'Formatter'
 │       ├───go: development environment 'Go'
 │       ├───java: development environment 'Java'
 │       ├───lisp: development environment 'Lisp'
 │       ├───lua: development environment 'Lua'
 │       ├───python: development environment 'Python'
 │       ├───rust: development environment 'Rust'
-│       └───video: development environment 'Video'
+│       ├───video: development environment 'Video'
+│       └───website: development environment 'Website'
 ├───files: 'dotfiles' and program configuration
+├───formatter
+│   └───x86_64-linux: package 'treefmt-0.4.1'
 ├───installMedia: device install media
 ├───legacyPackages
 │   └───x86_64-linux: omitted (use '--legacy' to show)
@@ -108,15 +107,20 @@ github:maydayv7/dotfiles
 │   ├───shell: NixOS module
 │   └───user: NixOS module
 ├───overlays
-│   └───nixFlakes: Nixpkgs overlay
+│   ├───discord: Nixpkgs overlay
+│   ├───gnome-terminal: Nixpkgs overlay
+│   ├───google-chrome: Nixpkgs overlay
+│   └───miscellaneous: Nixpkgs overlay
 ├───packages
 │   └───x86_64-linux
-│       ├───dotfiles: package 'Dotfiles-v7.0'
+│       ├───adw-gtk3: package 'adw-gtk3-v4.2'
+│       ├───dotfiles: package 'Dotfiles-v12.0'
 │       ├───fonts: package 'fonts-7'
+│       ├───nixos: package 'nixos'
 │       └───website: package 'website-stable'
 ├───templates
-│   ├───extensive: template: My Complete, Extensive NixOS Configuration
-│   └───minimal: template: Simple, Minimal NixOS Configuration
+│   ├───default: template: Simple, Minimal NixOS Configuration
+│   └───extensive: template: My Complete, Extensive NixOS Configuration
 └───vmConfigurations
     └───Windows: Virtual Machine
 ```
@@ -149,8 +153,7 @@ github:maydayv7/dotfiles
 │   ├── build.nix
 │   ├── map.nix
 │   ├── pack.nix
-│   ├── types.nix
-│   └── xdg.nix
+│   └── types.nix
 └── modules
     ├── apps
     ├── base
@@ -330,7 +333,7 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 
 #### Continuous Integration
 
-This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using [`nix-linter`](https://github.com/Synthetica9/nix-linter) and [`statix`](https://github.com/nerdypepper/statix)) and format it (using [`treefmt`](https://github.com/numtide/treefmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./.gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
+This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using and [`statix`](https://github.com/nerdypepper/statix)) and format it (using [`treefmt`](https://github.com/numtide/treefmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./.gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ###### Variables
 
@@ -414,6 +417,13 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 <details>
 <summary><b>Changelog</b></summary>
+
+### 23.xy (v12)
+
+- Upgrade to NixOS v22.11 (Raccoon)!
+- Drop `cod`, `nix-linter` and `mutter-rounded`
+- Fix GNOME Extensions
+- Improve XFCE Configuration Handling
 
 ### 22.11 (v11)
 

@@ -6,8 +6,8 @@
   ...
 }:
 with files; let
-  inherit (lib) mkIf mkForce mkMerge util;
   inherit (config.gui) desktop;
+  inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair util;
 
   # GTK+ Theme
   theme = {
@@ -69,7 +69,7 @@ in {
           // theme;
 
         # Default Applications
-        xdg.mimeApps.defaultApplications = util.xdg.mime (import files.xdg.mime) {
+        xdg.mimeApps.defaultApplications = util.build.mime xdg.mime {
           audio = ["org.xfce.Parole.desktop"];
           calendar = ["org.xfce.orage.desktop"];
           directory = ["thunar.desktop"];
@@ -79,23 +79,24 @@ in {
           video = ["org.xfce.Parole.desktop"];
         };
 
-        home.file = {
-          # GTK+ Bookmarks
-          ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
+        home.file =
+          {
+            # GTK+ Bookmarks
+            ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
 
-          # Desktop Settings
-          ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
-          ".config/xfce4/xfconf/xfce-perchannel-xml".source = xfce.settings;
+            # Plank Dock
+            ".config/autostart/Dock.desktop".text = plank.autostart;
+            ".config/plank/dock1/launchers".source = plank.launchers;
+            ".local/share/plank/themes/default/dock.theme".text = plank.theme;
 
-          # Plank Dock
-          ".config/autostart/Dock.desktop".text = plank.autostart;
-          ".config/plank/dock1/launchers".source = plank.launchers;
-          ".local/share/plank/themes/default/dock.theme".text = plank.theme;
-        };
+            # Desktop Settings
+            ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
+          }
+          // mapAttrs' (name: value: nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml" {"text" = value;}) files.xfce.settings;
       };
 
       # Plugins
-      services.xserver.desktopManager.xfce.thunarPlugins = with pkgs.xfce; [
+      programs.thunar.plugins = with pkgs.xfce; [
         thunar-archive-plugin
         thunar-dropbox-plugin
         thunar-volman
@@ -109,7 +110,6 @@ in {
         mate.atril
         xfce4-clipman-plugin
         xfce4-eyes-plugin
-        xfce4-namebar-plugin
         xfce4-notes-plugin
         xfce4-panel-profiles
         xfce4-pulseaudio-plugin

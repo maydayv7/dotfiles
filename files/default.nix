@@ -1,6 +1,6 @@
-lib: let
+lib: pkgs: let
   inherit (lib.util) build map;
-  inherit (builtins) fromJSON readFile;
+  inherit (builtins) fromJSON readFile replaceStrings;
 in rec {
   ## Dotfiles ##
   # File Paths
@@ -93,7 +93,9 @@ in rec {
   # XFCE Desktop
   xfce = {
     css = readFile ./xfce/gtk.css;
-    settings = ./xfce/settings;
+    settings =
+      map.files ./xfce/settings
+      (file: replaceStrings ["@system" "@desktop"] ["/etc/nixos" "${pkgs.xfce.xfdesktop.outPath}"] (readFile file)) ".xml";
     terminal = readFile ./xfce/terminalrc;
   };
 

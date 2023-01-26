@@ -123,19 +123,11 @@
       <property name="style" type="uint" value="0"/>
     </property>
     <property name="plugin-2" type="string" value="xfce4-clipman-plugin"/>
-    <property name="plugin-16" type="string" value="namebar"/>
     <property name="plugin-17" type="string" value="xfce4-notes-plugin"/>
     <property name="plugin-18" type="string" value="eyes"/>
     <property name="plugin-19" type="string" value="screenshooter"/>
     <property name="plugin-20" type="string" value="weather">
-      <property name="location" type="empty">
-        <property name="name" type="string" value="Hyderabad, India"/>
-        <property name="latitude" type="string" value="17.425400"/>
-        <property name="longitude" type="string" value="78.507500"/>
-      </property>
       <property name="msl" type="int" value="529"/>
-      <property name="timezone" type="string" value="Asia/Kolkata"/>
-      <property name="offset" type="string" value="+05:30"/>
       <property name="cache-max-age" type="int" value="172800"/>
       <property name="power-saving" type="bool" value="true"/>
       <property name="units" type="empty">
@@ -153,7 +145,7 @@
         <property name="layout" type="int" value="1"/>
         <property name="days" type="int" value="5"/>
       </property>
-      <property name="theme-dir" type="string" value="/nix/store/qrb3nm6l6mz283ifjchn2idw2d7l8mi5-xfce4-weather-plugin-0.11.0/share/xfce4/weather/icons/liquid"/>
+      <property name="theme-dir" type="string" value="/run/current-system/sw/share/xfce4/weather/icons/liquid"/>
       <property name="scrollbox" type="empty">
         <property name="show" type="bool" value="true"/>
         <property name="animate" type="bool" value="true"/>

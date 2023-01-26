@@ -4,7 +4,7 @@
   description = "PC - Dell Inspiron 11 3000";
 
   timezone = "Asia/Kolkata";
-  locale = "en_IN.UTF-8";
+  locale = "IN";
   update = "weekly";
 
   kernel = "5_4";

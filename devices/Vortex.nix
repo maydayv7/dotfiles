@@ -5,7 +5,7 @@
   channel = "stable";
 
   timezone = "Asia/Kolkata";
-  locale = "en_IN.UTF-8";
+  locale = "IN";
 
   kernel = "lqx";
   kernelModules = ["nvme" "thunderbolt"];
