@@ -5,6 +5,7 @@
   files,
   ...
 }: let
+  inherit (config.user) groups home settings;
   inherit (builtins) all attrNames attrValues mapAttrs pathExists;
   inherit
     (lib)
@@ -17,8 +18,6 @@
     types
     util
     ;
-
-  inherit (config.user) groups home settings;
 in {
   imports = util.map.module ./. ++ [inputs.home.nixosModules.home-manager];
 
@@ -28,7 +27,7 @@ in {
       type = types.attrsOf (types.submoduleWith {
         modules =
           if (all (value: value.minimal) (attrValues settings))
-          then []
+          then [{home.stateVersion = config.system.stateVersion;}]
           else home;
       });
     };

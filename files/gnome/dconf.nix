@@ -501,13 +501,15 @@ in {
         "aggregateMenu"
         "drive-menu"
         "color-picker@tuberry"
+        "GTileStatusButton"
         "Caffeine"
+        "pano@elhan.io"
         "vitalsMenu"
         "dwellClick"
         "lockkeys"
-        "pano@elhan.io"
         "a11y"
         "keyboard"
+        "screenSharing"
         "screenRecording"
       ];
     };

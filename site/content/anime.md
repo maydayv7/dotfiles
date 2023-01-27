@@ -61,6 +61,7 @@ comments = true
 - Tomodachi Game <sup>\*</sup>
 - Tonikawa: To the Moon! <sup>\*</sup>
 - ToraDora!
+- Tsuki ga Kirei
 - Tsurezure Children
 - Uzaki-chan wa Asobitai! <sup>\*</sup> <sup>#</sup>
 - Violet Evergarden <sup>#</sup>

@@ -168,8 +168,10 @@ in {
         ++ (with pkgs; [
           # GNOME Circle
           apostrophe
-          drawing
+          curtail
           deja-dup
+          dialect
+          drawing
           fractal
           fragments
           giara
@@ -177,9 +179,9 @@ in {
           gnome-podcasts
           gnome-secrets
           gthumb
-          kooha
           lollypop
           pitivi
+          video-trimmer
           wike
 
           # Utilities
