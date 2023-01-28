@@ -37,6 +37,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
 - Support for `source` Filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
+- Declaratively Configured [Flatpak](./modules/apps/flatpak.nix) applications using [`declarative-nix-flatpak`](https://github.com/yawnt/declarative-nix-flatpak)
 - Declaratively Configured [Windows VM](./modules/hardware/virtualisation/windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 
 ## Programs
@@ -424,6 +425,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Drop `cod`, `nix-linter` and `mutter-rounded`
 - Fix GNOME Extensions
 - Improve XFCE Configuration Handling
+- Declaratively Configure Flatpak applications using [`declarative-nix-flatpak`](https://github.com/yawnt/declarative-nix-flatpak)
 
 ### 22.11 (v11)
 

@@ -147,6 +147,12 @@
       inputs.flake-compat.follows = "compatibility";
     };
 
+    # Declarative Flatpak Wrapper
+    flatpak = {
+      url = "github:yawnt/declarative-nix-flatpak/simple";
+      inputs.nixpkgs.follows = "stable";
+    };
+
     # VS Code Server Support
     vscode = {
       url = "github:msteen/nixos-vscode-server";

@@ -16,6 +16,7 @@ with inputs; let
     {
       deploy = deploy.lib;
       filters = ignore.lib // {inherit (filter.lib) filter matchExt;};
+      flatpak = flatpak.lib.flatpak;
       hooks = hooks.lib;
       image = generators.nixosGenerate;
       wine = wine.lib;

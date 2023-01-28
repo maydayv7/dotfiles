@@ -27,6 +27,9 @@ in rec {
   # Firefox Web Browser
   firefox.theme = readFile ./firefox/userContent.css;
 
+  # Flatpak Apps
+  flatpak.repos = readFile ./flatpak/repos;
+
   # Custom Fonts
   fonts = {
     path = ./fonts/proprietary;

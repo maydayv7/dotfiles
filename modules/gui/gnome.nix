@@ -227,7 +227,6 @@ in {
           ".local/share/clipboard"
           ".local/share/epiphany"
           ".local/share/evolution"
-          ".local/share/flatpak"
           ".local/share/geary"
           ".local/share/gnome-boxes"
           ".local/share/gnome-builder"

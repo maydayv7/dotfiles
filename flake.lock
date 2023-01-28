@@ -73,6 +73,27 @@
         "type": "github"
       }
     },
+    "flatpak": {
+      "inputs": {
+        "nixpkgs": [
+          "stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1673290874,
+        "narHash": "sha256-3+1bSZduJNuRimgs4H33XgptxrRE9p0oriR9YtyuMRM=",
+        "owner": "yawnt",
+        "repo": "declarative-nix-flatpak",
+        "rev": "4a84fbf8f9935aa9e1c7262d48077198157fa5ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yawnt",
+        "ref": "simple",
+        "repo": "declarative-nix-flatpak",
+        "type": "github"
+      }
+    },
     "gaming": {
       "inputs": {
         "nixpkgs": [
@@ -277,6 +298,7 @@
         "compatibility": "compatibility",
         "deploy": "deploy",
         "filter": "filter",
+        "flatpak": "flatpak",
         "gaming": "gaming",
         "generators": "generators",
         "hardware": "hardware",
