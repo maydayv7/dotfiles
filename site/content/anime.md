@@ -1,6 +1,6 @@
 +++
 title = "My Anime List"
-description = "A list of all anime that have interested me"
+description = "A curated list of eastern pop culture that has interested me"
 
 [extra]
 ToC = true
@@ -31,6 +31,7 @@ comments = true
 - Golden Time
 - Horimiya
 - I Can't Understand What My Husband Is Saying
+- I Want To Eat Your Pancreas
 - Ijinaraide, Nagatoro-san <sup>\*</sup> <sup>#</sup>
 - Kaguya-sama: Love is War <sup>#</sup>
 - Kakkou no Iinazuke
@@ -71,6 +72,10 @@ comments = true
 - Yosuga no Sora
 - Your Lie in April
 
+# Ongoing
+
+- [x] Tomo-chan wa Onnanoko!
+
 # Manhua
 
 - Solo Leveling
@@ -78,21 +83,25 @@ comments = true
 
 # Manga
 
-- Fuufu Ijou, Koibito Miman
+- Classroom of the Elite <sup>\*</sup>
+- Fuufu Ijou, Koibito Miman <sup>\*</sup>
 - Kaguya-sama: Love is War
 - Kawaii dake ja nai Shikimori-san
-- The Beginning after the End
+- Kubo-San Doesn't Leave Me Be <sup>\*</sup>
 - Tonikawa: To the Moon!
 
-# Ongoing
+# Web Comic
 
-- [x] Chainsaw Man
+- The Beginning after the End <sup>\*</sup>
 
 # Wishlist
 
-- [x] Hyouka
+- [ ] Hyouka
 - [ ] One Outs
+- [x] Chainsaw Man
 - [ ] Jujutsu Kaisen
+- [x] Tokyo Revengers
+- [ ] Attack on Titan
 - [ ] A Place Further than the Universe
 
 ---

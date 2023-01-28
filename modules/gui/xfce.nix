@@ -92,7 +92,7 @@ in {
             # Desktop Settings
             ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
           }
-          // mapAttrs' (name: value: nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml" {"text" = value;}) files.xfce.settings;
+          // mapAttrs' (name: value: nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml" {text = value;}) files.xfce.settings;
       };
 
       # Plugins
