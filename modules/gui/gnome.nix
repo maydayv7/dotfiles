@@ -7,9 +7,10 @@
 }:
 with files; let
   inherit (builtins) elem;
-  inherit (lib) mkIf mkForce mkMerge util;
   inherit (config.gui) desktop;
   apps = config.environment.systemPackages;
+  inherit (lib) mkIf mkForce mkMerge recursiveUpdate util;
+  flatpak = (mkIf (config ? apps) (recursiveUpdate config.apps.flatpak lib.flatpak)).content;
 in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
@@ -58,6 +59,47 @@ in {
           sushi.enable = true;
         };
       };
+
+      # Flatpak Apps
+      apps.flatpak = with flatpak;
+        mkIf (config ? apps) {
+          # Required Runtimes
+          runtimes.gnome = {
+            locale = fetchRuntimeFromFlatHub {
+              name = "org.gnome.Platform.Locale";
+              branch = "43";
+              commit = "4fbaaaa735433be40205ca5f79159b67e39ba61d8ab3383f08023eb6280c5c91";
+              sha256 = "sha256-VGWxGFBK5b//6GEDog2A15BhewKcbIiSPQwc6l9DnIA=";
+            };
+            platform = fetchRuntimeFromFlatHub {
+              name = "org.gnome.Platform";
+              branch = "43";
+              runtime = with runtimes; [freedesktop.platform gnome.locale];
+              commit = "ff25bb0c5f8225e73b43cf40669f5935f68bbde67b00871e13f6c1261d6dc966";
+              sha256 = "sha256-VOKendIOlCgkUtEMnsnD+DlIlYZ7ZoHKdj2V80l57JQ=";
+            };
+            theme = fetchRuntimeFromFlatHub {
+              name = "org.gtk.Gtk3theme.adw-gtk3-dark";
+              branch = "3.22";
+              commit = "316ef706db3530374b4053cad491f80610094b8512d055bc9de7eb703f794cd9";
+              sha256 = "sha256-9+RKdQZay+ILp33ddjTYZsTUdtyW0CIwDMRfvU0W5tM=";
+            };
+          };
+
+          programs = with runtimes; {
+            flatseal = {
+              name = "Flatseal";
+              exec = "com.github.tchx84.Flatseal";
+              description = "Manage Flatpak Permissions";
+              install = {
+                name = "com.github.tchx84.Flatseal";
+                runtime = [freedesktop.platform gnome.platform gnome.theme];
+                commit = "7e76ba71421b243359a3bf168a8d5a1010575c7041ff135c163e73d7d50f0a96";
+                sha256 = "sha256-Vx4joOwGJM5Jkpo/rmKlJ/4BvcxugvpOCwTMf/p3gMc=";
+              };
+            };
+          };
+        };
 
       # User Configuration
       user.home = {
