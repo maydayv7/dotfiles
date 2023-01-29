@@ -6,7 +6,13 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 
 - [`apps`](./apps): Module that configures various apps and/or environments -
 
-  - `list`: List of all enabled applications - `[ "discord" "firefox" "git" "office" "wine" ]`
+  - `list`: List of all enabled applications - `[ "discord" "firefox" "flatpak" "git" "office" "wine" ]`
+  - `flatpak` -
+    - `runtimes`: Declaratively configured Flatpak Runtimes
+    - `programs`: Declaratively managed Flatpak Applications -
+      - `name`, `description`
+      - `exec`: Application Executable command/path
+      - `install`: Application Derivation created using `lib.flatpak`
   - `git` -
     - `hosting` -
       - `enable`: Enable Gitea Code Hosting - `true / false`

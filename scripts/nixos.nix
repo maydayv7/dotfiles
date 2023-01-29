@@ -43,6 +43,7 @@ with files; let
 
     apply = ''
       # Usage #
+        --activate                  - Activates Current Configuration
         --boot                      - Applies Configuration on boot
         --check                     - Checks Configuration Build
         --deploy [ 'device' ]       - Automatically Deploy via SSH
@@ -114,6 +115,10 @@ in
         "")
           echo "Applying Configuration..."
           sudo nixos-rebuild switch --flake ${path.system}#
+        ;;
+        "--activate")
+          echo "Activating Configuration..."
+          sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
         ;;
         "--boot")
           echo "Applying Configuration..."
