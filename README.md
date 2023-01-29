@@ -602,6 +602,14 @@ You can navigate to the `README`'s present in the various directories to know mo
 - It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
 - Need to completely transition to Wayland
 
+## Manually Packaged Apps
+
+- **GNOME Extensions**:
+  - Fly Pie
+  - Top Bar Organizer
+- [Wine](./packages/wine) Applications
+- [Flatpak](./modules/apps/flatpak.nix) Applications
+
 </details>
 
 > Last Updated: **July** 2022

@@ -7,12 +7,12 @@
 }: let
   cfg = config.apps.flatpak;
   enable = builtins.elem "flatpak" config.apps.list;
-  inherit (lib) flatpak mapAttrs' mapAttrsToList mkIf mkOption nameValuePair types;
   inherit (flatpak) fetchAppFromFlatHub fetchRuntimeFromFlatHub;
+  inherit (lib) flatpak mapAttrs' mapAttrsToList mkIf mkOption nameValuePair recursiveUpdate types;
 
   ## Runtimes
   # Use `flatpak remote-info --log` to find commit revisions
-  runtimes = with runtimes; {
+  runtimes = rec {
     # Default Runtimes
     freedesktop = {
       locale = fetchRuntimeFromFlatHub {
@@ -71,7 +71,7 @@ in {
     # Program Declaration
     programs = mkOption {
       type = with types;
-        attrsOf (attrsOf (submodule ({options, ...}: {
+        attrsOf (submodule ({options, ...}: {
           options = {
             name = mkOption {
               description = "Application Long Name";
@@ -90,7 +90,7 @@ in {
               type = package;
             };
           };
-        })));
+        }));
     };
   };
 
@@ -116,11 +116,26 @@ in {
     user = {
       persist.dirs = [".cache/flatpak" ".local/share/flatpak"];
       home = {
-        # Repositories
-        home.file.".local/share/flatpak/repo/config".text = files.flatpak.repos;
+        home =
+          recursiveUpdate
+          # Runtime Wrapper
+          (mapAttrs' (_: program:
+            nameValuePair "file"
+            (mapAttrs' (_: value:
+              with value;
+                nameValuePair ".local/share/flatpak/runtime/${name}"
+                {source = "${outPath}/${name}";})
+            program))
+          runtimes)
+          {
+            # Repositories
+            file.".local/share/flatpak/repo/config".text = files.flatpak.repos;
+
+            # Application Installer
+            packages = mapAttrsToList (_: name: name.install) cfg.programs;
+          };
 
         # Application Wrapper
-        home.packages = mapAttrsToList (_: name: name.install) cfg.programs;
         xdg.desktopEntries = mapAttrs' (app: value:
           with value;
             nameValuePair app {

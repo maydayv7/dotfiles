@@ -14,9 +14,9 @@ with inputs; let
   inherit (lib.util) build map pack;
   lib = library.lib.extend (final: prev:
     {
+      inherit (flatpak.lib) flatpak;
       deploy = deploy.lib;
       filters = ignore.lib // {inherit (filter.lib) filter matchExt;};
-      flatpak = flatpak.lib.flatpak;
       hooks = hooks.lib;
       image = generators.nixosGenerate;
       wine = wine.lib;

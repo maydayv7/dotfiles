@@ -30,7 +30,6 @@ gpg-verify=false
 gpg-verify-summary=false
 xa.description=The latest GNOME flatpak runtimes/apps directly from the gitlab CI. This is highly unstable stuff aimed at GNOME developers/designers to test 
 xa.homepage=https://gnome.org/
-xa.gpg-keys-hash=18651a8e0151750586051c872d38670d30fbc7382ecf93d90a7bd4df6b9b803e
 
 [remote "kdeapps"]
 url=http://distribute.kde.org/flatpak-apps-testing/

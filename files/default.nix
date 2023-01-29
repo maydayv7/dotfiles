@@ -96,10 +96,12 @@ in rec {
   # XFCE Desktop
   xfce = {
     css = readFile ./xfce/gtk.css;
+    terminal = readFile ./xfce/terminalrc;
     settings =
       map.files ./xfce/settings
-      (file: replaceStrings ["@system" "@desktop"] ["/etc/nixos" "${pkgs.xfce.xfdesktop.outPath}"] (readFile file)) ".xml";
-    terminal = readFile ./xfce/terminalrc;
+      (file:
+        replaceStrings ["@system" "@desktop"]
+        [path.system pkgs.xfce.xfdesktop.outPath] (readFile file)) ".xml";
   };
 
   # My Personal Website
