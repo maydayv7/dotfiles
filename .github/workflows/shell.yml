@@ -13,7 +13,7 @@ jobs:
         shell: [cc, format, go, java, lisp, lua, python, rust, video, website]
     steps:
       - name: Install Nix
-        uses: cachix/install-nix-action@v18
+        uses: cachix/install-nix-action@v19
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
