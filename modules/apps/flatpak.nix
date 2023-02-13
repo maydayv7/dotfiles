@@ -31,7 +31,7 @@ in {
             };
             install = mkOption {
               description = "Application Derivation";
-              apply = url: fetchAppFromFlatHub url;
+              apply = fetchAppFromFlatHub;
             };
           };
         }));

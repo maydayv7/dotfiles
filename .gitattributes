@@ -1,1 +1,2 @@
 *.secret binary
+files/discord/plugins/* linguist-vendored

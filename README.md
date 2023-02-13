@@ -612,7 +612,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 </details>
 
-> Last Updated: **January** 2023
+> Last Updated: **February** 2023
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 

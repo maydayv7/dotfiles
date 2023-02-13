@@ -9,7 +9,6 @@
  * @patreon https://www.patreon.com/MircoWittrien
  * @website https://mwittrien.github.io/
  * @source https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/CreationDate/
- * @updateUrl https://mwittrien.github.io/BetterDiscordAddons/Plugins/CreationDate/CreationDate.plugin.js
  */
 
 module.exports = (_ => {

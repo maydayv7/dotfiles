@@ -54,6 +54,7 @@ comments = true
 - Rent-a-Girlfriend <sup>\*</sup>
 - RikeKoi <sup>#</sup>
 - Scums Wish <sup>\*</sup>
+- Senryu Girl
 - Spy X Family <sup>\*</sup> <sup>#</sup>
 - Steins;Gate <sup>#</sup>
 - Sword Art Online <sup>#</sup>
@@ -74,7 +75,9 @@ comments = true
 
 # Ongoing
 
+- [x] BLUE LOCK
 - [x] Tomo-chan wa Onnanoko!
+- [x] Koori Zokusei Danshi to Cool na Douryou Joshi
 
 # Manhua
 
@@ -99,9 +102,9 @@ comments = true
 - [ ] Hyouka
 - [ ] One Outs
 - [x] Chainsaw Man
-- [ ] Jujutsu Kaisen
-- [x] Tokyo Revengers
-- [ ] Attack on Titan
+- [ ] Jujutsu Kaisen <sup>#</sup>
+- [x] Tokyo Revengers <sup>#</sup>
+- [ ] Attack on Titan <sup>#</sup>
 - [ ] A Place Further than the Universe
 
 ---
