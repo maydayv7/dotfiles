@@ -6,6 +6,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`ascii`](./ascii) - Personal Collection of beautiful Ascii Art
 - [`discord`](./discord) - `discord` Chat Theming and Plugins
 - [`firefox`](./firefox) - `firefox` Web Browser Theming
+- [`flatpak`](./flatpak) - `flatpak` Package Manager Settings
 - [`fonts`](./fonts) - Proprietary Fonts and Configuration
 - [`git`](./git) - Configuration for `git` Version Control
 - [`gnome`](./gnome) - Configuration Files for GNOME Desktop

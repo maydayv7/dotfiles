@@ -28,7 +28,7 @@ in rec {
   firefox.theme = readFile ./firefox/userContent.css;
 
   # Flatpak Apps
-  flatpak.repos = readFile ./flatpak/repos;
+  flatpak = map.files ./flatpak readFile "";
 
   # Custom Fonts
   fonts = {

@@ -54,6 +54,7 @@ comments = true
 - Rent-a-Girlfriend <sup>\*</sup>
 - RikeKoi <sup>#</sup>
 - Scums Wish <sup>\*</sup>
+- Sekai Saikou no Ansatsusha, Isekai Kizoku ni Tensei suru <sup>\*</sup>
 - Senryu Girl
 - Spy X Family <sup>\*</sup> <sup>#</sup>
 - Steins;Gate <sup>#</sup>
@@ -68,6 +69,7 @@ comments = true
 - Uzaki-chan wa Asobitai! <sup>\*</sup> <sup>#</sup>
 - Violet Evergarden <sup>#</sup>
 - Vermeil in Gold <sup>\*</sup>
+- Weathering With You
 - When will Ayumu make his Move <sup>\*</sup>
 - Wotaku ni Koi wa Muzukashii
 - Yosuga no Sora
@@ -81,11 +83,12 @@ comments = true
 
 # Manhua
 
-- Solo Leveling
+- Solo Leveling <sup>\*</sup>
 - Something between Us
 
 # Manga
 
+- Aishiteru Game wo Owarasetai <sup>\*</sup>
 - Classroom of the Elite <sup>\*</sup>
 - Fuufu Ijou, Koibito Miman <sup>\*</sup>
 - Kaguya-sama: Love is War

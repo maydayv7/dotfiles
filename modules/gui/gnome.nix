@@ -86,16 +86,17 @@ in {
             };
           };
 
-          programs = with runtimes; {
-            flatseal = {
-              name = "Flatseal";
-              exec = "com.github.tchx84.Flatseal";
-              description = "Manage Flatpak Permissions";
+          programs = with runtimes; let
+            default = [freedesktop.platform gnome.platform gnome.theme];
+          in rec {
+            gradience = {
+              name = "Gradience";
+              description = "Customize Libadwaita Applications";
               install = {
-                name = "com.github.tchx84.Flatseal";
-                runtime = [freedesktop.platform gnome.platform gnome.theme];
-                commit = "7e76ba71421b243359a3bf168a8d5a1010575c7041ff135c163e73d7d50f0a96";
-                sha256 = "sha256-Vx4joOwGJM5Jkpo/rmKlJ/4BvcxugvpOCwTMf/p3gMc=";
+                name = "com.github.GradienceTeam.Gradience";
+                runtime = default;
+                commit = "1ec65403c361229f5233a6e5a0e61a2d1352bf97f1d024a766f15359052d6cee";
+                sha256 = "sha256-usaAtliXSAxVqepLltwJU9PW+GIkulR9v/7//I8N53o=";
               };
             };
           };
@@ -265,6 +266,8 @@ in {
           ".config/gnome-boxes"
           ".config/gnome-builder"
           ".config/GIMP"
+          ".config/gtk-3.0"
+          ".config/gtk-4.0"
           ".config/pitivi"
           ".local/share/clipboard"
           ".local/share/epiphany"

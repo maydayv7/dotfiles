@@ -87,15 +87,31 @@ in {
     };
 
     user = {
-      persist.dirs = [".cache/flatpak" ".local/share/flatpak"];
+      persist.dirs =
+        [".cache/flatpak" ".local/share/flatpak"]
+        ++ mapAttrsToList (_: app: ".var/app/${app.install.name}") cfg.programs;
+
       home = {
-        # Repositories
-        home.file.".local/share/flatpak/repo/config".text = files.flatpak.repos;
+        # Flatpak Settings
+        home.file = with files.flatpak; {
+          ".local/share/flatpak/repo/config".text = repos;
+          ".local/share/flatpak/overrides/global".text = overrides;
+        };
 
         # Application Wrapper
-        home.packages = mapAttrsToList (_: name: name.install) cfg.programs;
+        home.packages = [
+          (
+            pkgs.buildEnv
+            {
+              name = "FlatPakEnv";
+              paths = mapAttrsToList (_: name: name.install) cfg.programs;
+            }
+          )
+        ];
         xdg.desktopEntries = mapAttrs' (app: value:
-          with value;
+          with value; let
+            exec = value.install.name;
+          in
             nameValuePair app {
               inherit name exec;
               comment = mkIf (value ? description) description;

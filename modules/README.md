@@ -11,7 +11,6 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
     - `runtimes`: Declaratively configured Flatpak Runtimes
     - `programs`: Declaratively managed Flatpak Applications -
       - `name`, `description`
-      - `exec`: Application Executable command/path
       - `install`: Application Derivation created using `lib.flatpak`
   - `git` -
     - `hosting` -
