@@ -7,9 +7,9 @@ skip-meta = true
 
 # Who am I?
 
-I am **Vishrut Gurrala**, a 16 year old student studying at Vibgyor High, Bengaluru, India. I am a tech enthusiast (_read:_ live and breath technology) and try wacky ideas which cause endless fun!
+I am **Vishrut Gurrala**, a 17 year old student in Bengaluru, India
 
-I also am an avid reader and am passionate about playing the guitar, which I hope will inevitably make an appearance on my blog
+Tech Enthusiast (_read:_ live and breath technology) and avid reader
 
 # Digital Presence
 
