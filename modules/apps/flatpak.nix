@@ -45,6 +45,14 @@ in {
   };
 
   config = mkIf enable {
+    warnings = [
+      ''
+        Flatpak Configuration is Enabled
+        - This may Sacrifice Performance and Increase Build Time
+      ''
+    ];
+
+    # Environment
     services.flatpak.enable = true;
     xdg.portal.enable = true;
 

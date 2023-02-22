@@ -425,6 +425,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Drop `cod`, `nix-linter` and `mutter-rounded`
 - Fix GNOME Extensions
 - Improve XFCE Configuration Handling
+- Improve Automatic Package Update Script
 - Declaratively Configure Flatpak applications using [`declarative-nix-flatpak`](https://github.com/yawnt/declarative-nix-flatpak)
 
 ### 22.11 (v11)
@@ -606,7 +607,6 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 - **GNOME Extensions**:
   - Fly Pie
-  - Top Bar Organizer
 - [Wine](./packages/wine) Applications
 - [Flatpak](./modules/apps/flatpak.nix) Applications
 

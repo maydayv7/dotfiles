@@ -1,11 +1,13 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p coreutils jq
 # shellcheck shell=bash
+set -euo pipefail
 
 # Script to Automatically Update Packages #
 
-set -euo pipefail
+# Preset Variables
 unset NIX_PATH
+fakeHash="0000000000000000000000000000000000000000000000000000000000000000"
 
 # Logic
 update() {
@@ -24,11 +26,13 @@ update() {
     fi
 
     # Extraction
+    # Include ${pkg}/metadata.nix according to spec
     nix eval -f "${metadata}" --json > "${t}" 2>/dev/null
-    branch="$(cat "${t}" | jq -r .branch)"
     rev="$(cat "${t}" | jq -r .rev)"
     sha256="$(cat "${t}" | jq -r .sha256)"
-    repo="$(cat "${t}" | jq -r .repo)"                 # Optional
+    repo="$(cat "${t}" | jq -r .repo)"
+    branch="$(cat "${t}" | jq -r .branch)"             # Optional
+    release="$(cat "${t}" | jq -r .release)"           # Optional
     cargoSha256="$(cat "${t}" | jq -r .cargoSha256)"   # Optional
     vendorSha256="$(cat "${t}" | jq -r .vendorSha256)" # Optional
     skip="$(cat "${t}" | jq -r .skip)"                 # Optional
@@ -47,7 +51,16 @@ update() {
     # Latest Revision
     if [[ "${repo}" != "null" ]]
     then
-      newrev="$(git ls-remote "${repo}" "refs/heads/${branch}" | awk '{ print $1}')"
+      if [[ "${release}" == "true" ]]
+      then
+        newrev="$(git ls-remote --refs --sort="version:refname" --tags ${repo} | cut -d/ -f3-|tail -n1)"
+      else
+        if [ -z "${branch}" ]
+        then
+          branch="main"
+        fi
+        newrev="$(git ls-remote "${repo}" "refs/heads/${branch}" | awk '{ print $1}')"
+      fi
     fi
 
     # Early Quit
@@ -62,7 +75,7 @@ update() {
 
     # Sha256
     sed -i "s|${rev}|${newrev}|" "${metadata}"
-    sed -i "s|${sha256}|0000000000000000000000000000000000000000000000000000|" "${metadata}"
+    sed -i "s|${sha256}|${fakeHash}|" "${metadata}"
     nix build --no-link "..#${upattr}" &> "${l}" || true
     newsha256="$(cat "${l}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
     if [[ "${newsha256}" == "sha256" ]]
@@ -71,12 +84,12 @@ update() {
     fi
 
     newsha256="$(nix hash to-sri --type sha256 "${newsha256}")"
-    sed -i "s|0000000000000000000000000000000000000000000000000000|${newsha256}|" "${metadata}"
+    sed -i "s|${fakeHash}|${newsha256}|" "${metadata}"
 
     # CargoSha256
     if [[ "${cargoSha256}" != "null" ]]
     then
-      sed -i "s|${cargoSha256}|0000000000000000000000000000000000000000000000000000|" "${metadata}"
+      sed -i "s|${cargoSha256}|${fakeHash}|" "${metadata}"
       nix build --no-link "..#${upattr}" &> "${l}" || true
       newcargoSha256="$(cat "${l}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
       if [[ "${newcargoSha256}" == "sha256" ]]
@@ -84,13 +97,13 @@ update() {
         newcargoSha256="$(cat "${l}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
       fi
       newcargoSha256="$(nix hash to-sri --type sha256 "${newcargoSha256}")"
-      sed -i "s|0000000000000000000000000000000000000000000000000000|${newcargoSha256}|" "${metadata}"
+      sed -i "s|${fakeHash}|${newcargoSha256}|" "${metadata}"
     fi
 
     # VendorSha256
     if [[ "${vendorSha256}" != "null" ]]
     then
-      sed -i "s|${vendorSha256}|0000000000000000000000000000000000000000000000000000|" "${metadata}"
+      sed -i "s|${vendorSha256}|${fakeHash}|" "${metadata}"
       nix build --no-link "..#${upattr}" &> "${l}" || true
       newvendorSha256="$(cat "${l}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
       if [[ "${newvendorSha256}" == "sha256" ]]
@@ -98,7 +111,7 @@ update() {
         newvendorSha256="$(cat "${l}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
       fi
       newvendorSha256="$(nix hash to-sri --type sha256 "${newvendorSha256}")"
-      sed -i "s|0000000000000000000000000000000000000000000000000000|${newvendorSha256}|" "${metadata}"
+      sed -i "s|${fakeHash}|${newvendorSha256}|" "${metadata}"
     fi
 
     # Commit

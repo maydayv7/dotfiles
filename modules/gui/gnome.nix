@@ -87,7 +87,7 @@ in {
           };
 
           programs = with runtimes; let
-            default = [freedesktop.platform gnome.platform gnome.theme];
+            default = [gnome.platform gnome.theme];
           in rec {
             gradience = {
               name = "Gradience";
@@ -252,7 +252,7 @@ in {
             lock-screen-message
             unstable.gnomeExtensions.pano
             timepp
-            custom.top-bar-organizer
+            top-bar-organizer
             vitals
             worksapce-dry-names
             x11-gestures

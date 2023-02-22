@@ -12,10 +12,10 @@ in
   mkWindowsApp rec {
     inherit wine;
     pname = "7zip";
-    version = "1900";
+    version = "2201";
     src = fetchurl {
-      url = "https://www.7-zip.org/a/7z1900.exe";
-      sha256 = "107gnx5rimmyr0kndxblkhrwlqn9x1aga7d07ghyxsq3bd6s16km";
+      url = "https://www.7-zip.org/a/7z${version}.exe";
+      sha256 = "sha256-jI+8+A8EhLSKB70g5RKxA5aZktv4G2WIgysIIF46G0M=";
     };
 
     dontUnpack = true;
