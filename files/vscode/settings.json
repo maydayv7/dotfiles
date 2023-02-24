@@ -34,7 +34,9 @@
   "terminal.integrated.enableBell": true,
   "terminal.integrated.tabs.separator": " / ",
   "update.mode": "none",
+  "window.autoDetectColorScheme": true,
   "window.closeWhenEmpty": true,
+  "window.commandCenter": true,
   "window.dialogStyle": "custom",
   "window.doubleClickIconToClose": true,
   "window.menuBarVisibility": "toggle",
@@ -42,7 +44,6 @@
   "window.zoomLevel": 1,
   "workbench.commandPalette.preserveInput": true,
   "workbench.editor.highlightModifiedTabs": true,
-  "workbench.iconTheme": "file-icons",
   "workbench.list.horizontalScrolling": true,
   "workbench.list.smoothScrolling": true,
   "workbench.startupEditor": "readme"

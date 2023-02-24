@@ -1,14 +1,10 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p coreutils jq
 # shellcheck shell=bash
+unset NIX_PATH
 set -euo pipefail
 
 # Script to Automatically Update Packages #
-
-# Preset Variables
-unset NIX_PATH
-fakeHash="0000000000000000000000000000000000000000000000000000000000000000"
-
 # Logic
 update() {
   if [[ "${1:-""}" != "" ]]
@@ -53,9 +49,9 @@ update() {
     then
       if [[ "${release}" == "true" ]]
       then
-        newrev="$(git ls-remote --refs --sort="version:refname" --tags ${repo} | cut -d/ -f3-|tail -n1)"
+        newrev="$(git ls-remote --refs --sort="version:refname" --tags ${repo} | cut -d/ -f3- | tail -n1)"
       else
-        if [ -z "${branch}" ]
+        if [[ "${branch}" == "null" ]]
         then
           branch="main"
         fi
@@ -74,6 +70,7 @@ update() {
     echo "Bumping '${rev}' ---> '${newrev}'"
 
     # Sha256
+    fakeHash="0000000000000000000000000000000000000000000000000000000000000000"
     sed -i "s|${rev}|${newrev}|" "${metadata}"
     sed -i "s|${sha256}|${fakeHash}|" "${metadata}"
     nix build --no-link "..#${upattr}" &> "${l}" || true

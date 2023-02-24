@@ -64,20 +64,20 @@ in {
               {
                 name = "better-comments";
                 publisher = "aaron-bond";
-                version = "2.1.0";
-                sha256 = "sha256-l7MG2bpfTgVgC+xLal6ygbxrrRoNONzOWjs3fZeZtU4=";
+                version = "3.0.2";
+                sha256 = "sha256-hQmA8PWjf2Nd60v5EAuqqD8LIEu7slrNs8luc3ePgZc=";
               }
               {
                 name = "org-mode";
                 publisher = "vscode-org-mode";
                 version = "1.0.0";
-                sha256 = "1dp6mz1rb8awrrpig1j8y6nyln0186gkmrflfr8hahaqr668il53";
+                sha256 = "sha256-o9CIjMlYQQVRdtTlOp9BAVjqrfFIhhdvzlyhlcOv5rY=";
               }
               {
                 name = "vscode-html-css";
                 publisher = "ecmel";
-                version = "1.11.0";
-                sha256 = "sha256-xwzfTFSBonGcfyhE0fs1ZRHlRbPFLGgshw1NLLyFypI=";
+                version = "1.13.1";
+                sha256 = "sha256-gBfcizgn+thCqpTa8bubh6S77ynBC/Vpc+7n4XOfqzE=";
               }
             ];
         };

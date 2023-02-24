@@ -20,7 +20,6 @@ in {
         desktopManager.gnome.enable = true;
         displayManager = {
           gdm.enable = true;
-          defaultSession = "gnome-xorg";
         };
       };
 
@@ -137,19 +136,14 @@ in {
 
         # Code Editor Settings
         programs.vscode = mkIf (elem pkgs.vscode apps) {
+          extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
           userSettings = {
-            "workbench.colorTheme" = "GNOME dark";
+            "workbench.preferredDarkColorTheme" = "Adwaita Dark";
+            "workbench.preferredLightColorTheme" = "Adwaita Light";
+            "workbench.productIconTheme" = "adwaita";
+            "window.titleBarStyle" = "custom";
             "terminal.external.linuxExec" = "gnome-console";
           };
-
-          extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-            {
-              name = "vscode-gnome-theme";
-              publisher = "rafaelmardojai";
-              version = "0.4.1";
-              sha256 = "sha256-J4WEa6VVPks6rhzjE5oD88RwqaRjTjn/gPeZKaCS6RM=";
-            }
-          ];
         };
 
         home.file = {
@@ -192,8 +186,16 @@ in {
         };
       };
 
-      environment.systemPackages = with pkgs.gnome;
-        [
+      # QT Theme
+      environment.variables."QT_STYLE_OVERRIDE" = mkForce "kvantum";
+      environment.etc."xdg/Kvantum/kvantum.kvconfig".text = ''
+        [General]
+        theme=KvLibadwaitaDark
+      '';
+
+      environment.systemPackages = with pkgs;
+        [libsForQt5.qtstyleplugin-kvantum custom.kvlibadwaita]
+        ++ (with pkgs.gnome; [
           # GNOME Apps
           gedit
           gnome-boxes
@@ -207,7 +209,7 @@ in {
           gnome-chess
           gnome-mines
           quadrapassel
-        ]
+        ])
         ++ (with pkgs; [
           # GNOME Circle
           apostrophe
@@ -251,6 +253,7 @@ in {
             lock-keys
             lock-screen-message
             unstable.gnomeExtensions.pano
+            rounded-window-corners
             timepp
             top-bar-organizer
             vitals

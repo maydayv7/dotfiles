@@ -362,6 +362,8 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 - [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel): GNOME Shell Extension providing a highly customizable icon taskbar for maximized productivity
 - [DNOME](https://github.com/GeopJr/DNOME) Discord Theme: Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
 - [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration
+- [VS Code Adwaita Theme](https://github.com/piousdeer/vscode-adwaita): Integrates Visual Studio Code with GNOME Desktop
+- [KvLibadwaita Kvantum Theme](https://github.com/GabePoel/KvLibadwaita): Integrates QT Apps with GNOME Desktop
 
 ### Important Links
 
@@ -603,10 +605,11 @@ You can navigate to the `README`'s present in the various directories to know mo
 - It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
 - Need to completely transition to Wayland
 
-## Manually Packaged Apps
+#### Manually Packaged Apps
 
 - **GNOME Extensions**:
   - Fly Pie
+- VS Code Themes and Plugins
 - [Wine](./packages/wine) Applications
 - [Flatpak](./modules/apps/flatpak.nix) Applications
 

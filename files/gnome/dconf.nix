@@ -105,7 +105,7 @@ in {
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      button-layout = "appmenu:minimize,close";
+      button-layout = "appmenu:minimize,maximize,close";
       titlebar-font = "Product Sans Bold 11";
       visual-bell = false;
       num-workspaces = 4;
@@ -299,6 +299,7 @@ in {
         "lock-screen-message@advendradeswanta.gitlab.com"
         "lockkeys@vaina.lt"
         "pano@elhan.io"
+        "rounded-window-corners@yilozt"
         "timepp@zagortenay333"
         "top-bar-organizer@julian.gse.jsts.xyz"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
@@ -479,6 +480,15 @@ in {
       global-shortcut = ["<Super>v"];
       history-length = 250;
       incognito-shortcut = ["<Ctrl><Super>v"];
+    };
+
+    "org/gnome/shell/extensions/rounded-window-corners" = {
+      custom-rounded-corner-settings = "@a{sv} {}";
+      focused-shadow = "{'vertical_offset': 4, 'horizontal_offset': 0, 'blur_offset': 28, 'spread_radius': 4, 'opacity': 60}";
+      global-rounded-corner-settings = "{'padding': <{'left': <uint32 1>, 'right': <uint32 1>, 'top': <uint32 1>, 'bottom': <uint32 1>}>, 'keep_rounded_corners': <{'maximized': <true>, 'fullscreen': <false>}>, 'border_radius': <uint32 12>, 'smoothing': <uint32 0>, 'enabled': <true>}";
+      settings-version = mkUint32 5;
+      skip-libhandy-app = true;
+      unfocused-shadow = "{'horizontal_offset': 0, 'vertical_offset': 2, 'blur_offset': 12, 'spread_radius': -1, 'opacity': 65}";
     };
 
     "org/gnome/shell/extensions/timepp" = {
