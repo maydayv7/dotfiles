@@ -39,7 +39,7 @@ jobs:
           git checkout stable
           cd packages && ./update.sh
       - name: Create PR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           branch: update_packages
           delete-branch: true
