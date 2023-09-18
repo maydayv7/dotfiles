@@ -13,14 +13,10 @@ in {
   ## Z Shell Configuration ##
   config = lib.mkIf enable {
     # Shell Environment
+    programs.zsh.enable = true;
     user.persist = {
       files = [".zsh_history"];
       dirs = [".cache/zsh"];
-    };
-
-    environment = {
-      shells = [pkgs.zsh];
-      pathsToLink = ["/share/zsh"];
     };
 
     # Settings

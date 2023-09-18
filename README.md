@@ -44,7 +44,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 
 | Type                 |                                                            Programs                                                            |
 | :------------------- | :----------------------------------------------------------------------------------------------------------------------------: |
-| Editors              | [gEdit](https://wiki.gnome.org/Apps/Gedit), [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)  |
+| Editors              |                       [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                        |
 | Shells               |                           [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                           |
 | Terminal             | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
 | Browser              |                                       [Firefox](https://www.mozilla.org/en-US/firefox/)                                        |

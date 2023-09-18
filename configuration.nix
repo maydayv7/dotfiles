@@ -62,7 +62,7 @@ in
       gaming = gaming.packages."${system}";
       apps = {
         deploy = deploy.defaultPackage."${system}";
-        generators = generators.defaultPackage."${system}";
+        generators = generators.packages."${system}".default;
       };
     };
 
@@ -96,7 +96,7 @@ in
     ## Virtual Machines ##
     vmConfigurations =
       map.modules ./devices/vm (name:
-        import name (head platforms) inputs self.channels."${head platforms}".stable);
+        import name windows.lib self.channels."${head platforms}".stable);
 
     ## Install Media Configuration ##
     installMedia = {

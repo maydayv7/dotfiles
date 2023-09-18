@@ -99,8 +99,10 @@ with {inherit (lib) mkAfter mkForce;}; {
     # SSH
     services.openssh = {
       enable = true;
-      passwordAuthentication = true;
-      permitRootLogin = mkForce "no";
+      settings = {
+        PasswordAuthentication = true;
+        PermitRootLogin = mkForce "no";
+      };
       hostKeys = [
         {
           comment = "Host SSH Key";

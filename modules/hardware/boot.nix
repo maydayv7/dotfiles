@@ -23,23 +23,25 @@ in {
     // mkIf (loader != null) (mkMerge [
       {
         boot = {
-          tmpOnTmpfs = true;
-          cleanTmpDir = !config.boot.tmpOnTmpfs;
+          tmp = rec {
+            useTmpfs = true;
+            cleanOnBoot = !useTmpfs;
+          };
 
           # Plymouth
           consoleLogLevel = 0;
           initrd.verbose = false;
-          plymouth.enable = false;
-          #kernelParams = [
-          #  "quiet"
-          #  "splash"
-          #  "boot.shell_on_fail"
-          #  "i915.fastboot=1"
-          #  "loglevel=3"
-          #  "rd.systemd.show_status=false"
-          #  "rd.udev.log_level=3"
-          #  "udev.log_priority=3"
-          #];
+          plymouth.enable = true;
+          kernelParams = [
+            "quiet"
+            "splash"
+            "boot.shell_on_fail"
+            "i915.fastboot=1"
+            "loglevel=3"
+            "rd.systemd.show_status=false"
+            "rd.udev.log_level=3"
+            "udev.log_priority=3"
+          ];
 
           # Boot Loader
           loader = {

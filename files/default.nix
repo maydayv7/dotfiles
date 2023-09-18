@@ -46,8 +46,6 @@ in rec {
   gnome = {
     dconf = ./gnome/dconf.nix;
     iso = readFile ./gnome/iso;
-    syntax = readFile ./gnome/nix.lang;
-    theme = readFile ./gnome/tango-dark.xml;
   };
 
   # GPG Keys Directory

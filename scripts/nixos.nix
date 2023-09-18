@@ -262,12 +262,12 @@ in
 
         echo "Preparing ${path.system}..."
         DIR=/mnt$DIR
-        rm -rf $DIR && mkdir $DIR
+        rm -rf "$DIR" && mkdir "$DIR"
         newline
 
         echo "Cloning Repository..."
-        git clone --recurse-submodules ${path.repo} $DIR
-        chgrp -R keys $DIR && chmod g+rwx $DIR -R
+        git clone --recurse-submodules ${path.repo} "$DIR"
+        chgrp -R keys "$DIR" && chmod g+rwx "$DIR" -R
         newline
 
         unmount_all

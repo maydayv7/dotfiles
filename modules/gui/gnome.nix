@@ -18,9 +18,7 @@ in {
       # Session
       services.xserver = {
         desktopManager.gnome.enable = true;
-        displayManager = {
-          gdm.enable = true;
-        };
+        displayManager.gdm.enable = true;
       };
 
       # Excluded Packages
@@ -130,7 +128,7 @@ in {
           mail = ["org.gnome.Geary.desktop"];
           markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
           pdf = ["org.gnome.Evince.desktop"];
-          text = ["org.gnome.gedit.desktop"];
+          text = ["org.gnome.gnome-text-editor.desktop"];
           video = ["io.github.celluloid_player.Celluloid.desktop"];
         };
 
@@ -164,12 +162,6 @@ in {
             Exec=${pkgs.gnome.gnome-tweaks}/libexec/gnome-tweak-tool-lid-inhibitor
           '';
 
-          # gEdit Color Scheme
-          ".local/share/gtksourceview-4/styles/tango-dark.xml".text =
-            gnome.theme;
-          ".local/share/gtksourceview-4/language-specs/nix.lang".text =
-            gnome.syntax;
-
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" =
             mkIf (elem pkgs.discord apps) {text = discord.theme;};
@@ -197,11 +189,11 @@ in {
         [libsForQt5.qtstyleplugin-kvantum custom.kvlibadwaita]
         ++ (with pkgs.gnome; [
           # GNOME Apps
-          gedit
           gnome-boxes
           gnome-dictionary
           gnome-notes
           gnome-sound-recorder
+          gnome-text-editor
           gnome-tweaks
           polari
 
@@ -242,8 +234,6 @@ in {
             avatar
             caffeine
             color-picker
-            compiz-windows-effect
-            compiz-alike-magic-lamp-effect
             custom-hot-corners-extended
             dash-to-panel
             desktop-cube
@@ -257,7 +247,6 @@ in {
             timepp
             top-bar-organizer
             vitals
-            worksapce-dry-names
             x11-gestures
           ]);
 
@@ -309,8 +298,8 @@ in {
       # Essential Utilities
       environment.systemPackages = with pkgs.gnome; [
         epiphany
-        gedit
         pkgs.gnome-console
+        pkgs.gnome-text-editor
         gnome-system-monitor
         nautilus
       ];
