@@ -240,7 +240,7 @@ in
           URL=${path.flake}
         fi
         echo "Installing System from '$URL'..."
-        nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST" --impure
+        nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST"
         newline
 
         read -rp "Enter Path to GPG Keys (path/.git): " KEY
