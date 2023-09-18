@@ -70,13 +70,6 @@ in {
             device = "/dev/disk/by-partlabel/ESP";
             fsType = "vfat";
           };
-
-          # DATA Partition
-          "/data/files" = {
-            device = "/dev/disk/by-partlabel/Files";
-            fsType = "ntfs";
-            options = ["rw" "uid=1000"];
-          };
         };
 
         # SWAP Partition
