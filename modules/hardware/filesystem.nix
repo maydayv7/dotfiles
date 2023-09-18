@@ -123,6 +123,7 @@ in {
 
         # Boot Settings
         boot = {
+          initrd.systemd.enable = true;
           supportedFilesystems = ["zfs"];
           kernelParams = ["elevator=none" "nohibernate"];
           zfs = {

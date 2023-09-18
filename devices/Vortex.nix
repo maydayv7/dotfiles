@@ -21,7 +21,7 @@
 
   gui.desktop = "gnome";
   shell.utilities = true;
-  apps.list = ["discord" "firefox" "flatpak" "git" "office" "vscode" "wine"];
+  apps.list = ["discord" "firefox" "git" "office" "vscode" "wine"];
 
   # User V7
   user = {
