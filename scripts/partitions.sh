@@ -12,6 +12,7 @@ partition_disk() {
   echo "Creating Partitions..."
   parted /dev/"$DISK" -- mkpart ESP fat32 1MiB 1024MiB
   parted /dev/"$DISK" -- set 1 esp on
+  parted /dev/"$DISK" -- name 1 ESP
   mkfs.fat -F 32 /dev/disk/by-partlabel/ESP
   parted /dev/"$DISK" -- mkpart primary 1025MiB -8GiB
   parted /dev/"$DISK" -- name 2 System
