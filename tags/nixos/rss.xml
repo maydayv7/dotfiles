@@ -2,18 +2,19 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
       <title>maydayv7 - NixOS</title>
-        <link>/</link>
-        <description>My Personal Website</description>
-        <generator>Zola</generator>
-        <language>en</language>
-        <atom:link href="/tags/nixos/rss.xml" rel="self" type="application/rss+xml"/>
-        <lastBuildDate>Sun, 20 Feb 2022 00:00:00 +0000</lastBuildDate>
-        <item>
-            <title>The Nix Cheat Sheet</title>
-            <pubDate>Sun, 20 Feb 2022 00:00:00 +0000</pubDate>
-            <link>/blog/nix/</link>
-            <guid>/blog/nix/</guid>
-            <description>&lt;h1 id=&quot;under-construction&quot;&gt;Under Construction!&lt;a class=&quot;zola-anchor&quot; href=&quot;#under-construction&quot; aria-label=&quot;Anchor link for: under-construction&quot;
+      <link>/</link>
+      <description>My Personal Website</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="/tags/nixos/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Sun, 20 Feb 2022 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>The Nix Cheat Sheet</title>
+          <pubDate>Sun, 20 Feb 2022 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/nix/</link>
+          <guid>/blog/nix/</guid>
+          <description>&lt;h1 id=&quot;under-construction&quot;&gt;Under Construction!&lt;a class=&quot;zola-anchor&quot; href=&quot;#under-construction&quot; aria-label=&quot;Anchor link for: under-construction&quot;
   &gt;§&lt;&#x2F;a
 &gt;
 &lt;&#x2F;h1&gt;
@@ -47,6 +48,6 @@
 &lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#2&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;: Evaluation of expressions is delayed until their values are actually needed. For more information, see &lt;a rel=&quot;noopener nofollow noreferrer&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Lazy_evaluation&quot;&gt;this&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;div&gt;
 </description>
-        </item>
+      </item>
     </channel>
 </rss>
