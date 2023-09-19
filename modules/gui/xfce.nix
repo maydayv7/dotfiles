@@ -96,11 +96,14 @@ in {
       };
 
       # Plugins
-      programs.thunar.plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-dropbox-plugin
-        thunar-volman
-      ];
+      programs = {
+        xfconf.enable = true;
+        thunar.plugins = with pkgs.xfce; [
+          thunar-archive-plugin
+          thunar-dropbox-plugin
+          thunar-volman
+        ];
+      };
 
       # Utilities
       environment.systemPackages = with pkgs.xfce // pkgs; [

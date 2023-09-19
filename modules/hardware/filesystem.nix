@@ -70,13 +70,6 @@ in {
             device = "/dev/disk/by-partlabel/ESP";
             fsType = "vfat";
           };
-
-          # DATA Partition
-          "/data/files" = {
-            device = "/dev/disk/by-partlabel/Files";
-            fsType = "ntfs";
-            options = ["rw" "uid=1000"];
-          };
         };
 
         # SWAP Partition
@@ -123,6 +116,7 @@ in {
 
         # Boot Settings
         boot = {
+          initrd.systemd.enable = true;
           supportedFilesystems = ["zfs"];
           kernelParams = ["elevator=none" "nohibernate"];
           zfs = {

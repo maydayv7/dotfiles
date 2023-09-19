@@ -23,8 +23,10 @@ in {
     // mkIf (loader != null) (mkMerge [
       {
         boot = {
-          tmpOnTmpfs = true;
-          cleanTmpDir = !config.boot.tmpOnTmpfs;
+          tmp = rec {
+            useTmpfs = true;
+            cleanOnBoot = !useTmpfs;
+          };
 
           # Plymouth
           consoleLogLevel = 0;

@@ -287,8 +287,6 @@ in {
         "avatar@pawel.swiszcz.com"
         "caffeine@patapon.info"
         "color-picker@tuberry"
-        "compiz-alike-magic-lamp-effect@hermes83.github.com"
-        "compiz-windows-effect@hermes83.github.com"
         "custom-hot-corners-extended@G-dH.github.com"
         "dash-to-panel@jderose9.github.com"
         "desktop-cube@schneegans.github.com"
@@ -304,7 +302,6 @@ in {
         "top-bar-organizer@julian.gse.jsts.xyz"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "Vitals@CoreCoding.com"
-        "workspace-dry-names@benmoussatmouad.github.io"
         "x11gestures@joseexposito.github.io"
       ];
       favorite-apps = [
@@ -378,7 +375,6 @@ in {
     };
 
     # Shell Extensions
-    "org/gnome/shell/extensions/workspace-dry-names".name-option = "countries";
     "org/gnome/shell/extensions/user-theme".name = "Adwaita";
     "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position = "start";
     "org/gnome/shell/extensions/lock-screen-message".message = "Welcome, ${config.credentials.fullname}!";
@@ -402,14 +398,6 @@ in {
       nightlight-control = "never";
       show-notifications = false;
       user-enabled = true;
-    };
-
-    "org/gnome/shell/extensions/com/github/hermes83/compiz-windows-effect" = {
-      friction = 6.0;
-      mass = 50.0;
-      resize-effect = true;
-      speedup-factor-divider = 10.0;
-      spring-k = 5.0;
     };
 
     "org/gnome/shell/extensions/color-picker" = {

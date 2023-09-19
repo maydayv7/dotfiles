@@ -27,9 +27,6 @@ in rec {
   # Firefox Web Browser
   firefox.theme = readFile ./firefox/userContent.css;
 
-  # Flatpak Apps
-  flatpak = map.files ./flatpak readFile "";
-
   # Custom Fonts
   fonts = {
     path = ./fonts/proprietary;
@@ -46,8 +43,6 @@ in rec {
   gnome = {
     dconf = ./gnome/dconf.nix;
     iso = readFile ./gnome/iso;
-    syntax = readFile ./gnome/nix.lang;
-    theme = readFile ./gnome/tango-dark.xml;
   };
 
   # GPG Keys Directory

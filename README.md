@@ -37,14 +37,13 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
 - Support for `source` Filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
-- Declaratively Configured [Flatpak](./modules/apps/flatpak.nix) applications using [`declarative-nix-flatpak`](https://github.com/yawnt/declarative-nix-flatpak)
 - Declaratively Configured [Windows VM](./modules/hardware/virtualisation/windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 
 ## Programs
 
 | Type                 |                                                            Programs                                                            |
 | :------------------- | :----------------------------------------------------------------------------------------------------------------------------: |
-| Editors              | [gEdit](https://wiki.gnome.org/Apps/Gedit), [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)  |
+| Editors              |                       [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                        |
 | Shells               |                           [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                           |
 | Terminal             | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
 | Browser              |                                       [Firefox](https://www.mozilla.org/en-US/firefox/)                                        |
@@ -428,7 +427,6 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Fix GNOME Extensions
 - Improve XFCE Configuration Handling
 - Improve Automatic Package Update Script
-- Declaratively Configure Flatpak applications using [`declarative-nix-flatpak`](https://github.com/yawnt/declarative-nix-flatpak)
 
 ### 22.11 (v11)
 
@@ -611,7 +609,6 @@ You can navigate to the `README`'s present in the various directories to know mo
   - Fly Pie
 - VS Code Themes and Plugins
 - [Wine](./packages/wine) Applications
-- [Flatpak](./modules/apps/flatpak.nix) Applications
 
 </details>
 

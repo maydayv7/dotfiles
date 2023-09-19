@@ -23,7 +23,7 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> 23.xy (v12)                  #
+#     Version -> 23.05 (v12)                  #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The Very Heart of my 'dotfiles'       #
@@ -63,7 +63,7 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Stable Release
-    stable.url = "github:NixOS/nixpkgs?ref=nixos-22.11";
+    stable.url = "github:NixOS/nixpkgs?ref=nixos-23.05";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -72,10 +72,7 @@
     nur.url = "github:nix-community/NUR";
 
     # Packaged Games
-    gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "unstable";
-    };
+    gaming.url = "github:fufexan/nix-gaming";
 
     ## Configuration Modules ##
     # Nix Library Functions
@@ -84,7 +81,7 @@
       owner = "nix-community";
       repo = "nixpkgs.lib";
       ref = "master";
-      rev = "af5239f892ae6e1c8bb560b11ed874cebbd10696";
+      rev = "819180647f428a3826bfc917a54449da1e532ce0";
     };
 
     # Flake Compatibility Library
@@ -108,26 +105,18 @@
 
     # User Home Manager
     home = {
-      url = "github:nix-community/home-manager?ref=release-22.11";
+      url = "github:nix-community/home-manager?ref=release-23.05";
       inputs.nixpkgs.follows = "stable";
-      inputs.utils.follows = "utils/flake-utils";
     };
 
     # Authentication Credentials Manager
-    sops = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "stable";
-    };
+    sops.url = "github:Mic92/sops-nix";
 
     # File System Persistent State Handler
     impermanence.url = "github:nix-community/impermanence";
 
     # System Image Generators
-    generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "stable";
-      inputs.nixlib.follows = "library";
-    };
+    generators.url = "github:nix-community/nixos-generators";
 
     # Pre-Commit Hooks
     hooks = {
@@ -140,18 +129,7 @@
     };
 
     # Automatic Deployment Tool
-    deploy = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "stable";
-      inputs.utils.follows = "utils/flake-utils";
-      inputs.flake-compat.follows = "compatibility";
-    };
-
-    # Declarative Flatpak Wrapper
-    flatpak = {
-      url = "github:yawnt/declarative-nix-flatpak/simple";
-      inputs.nixpkgs.follows = "stable";
-    };
+    deploy.url = "github:serokell/deploy-rs";
 
     # VS Code Server Support
     vscode = {
@@ -162,7 +140,7 @@
     # Windows VM Creator
     windows = {
       url = "git+https://git.m-labs.hk/M-Labs/wfvm";
-      flake = false;
+      inputs.nixpkgs.follows = "stable";
     };
 
     # Wine Apps Wrapper

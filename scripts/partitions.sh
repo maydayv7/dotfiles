@@ -12,6 +12,7 @@ partition_disk() {
   echo "Creating Partitions..."
   parted /dev/"$DISK" -- mkpart ESP fat32 1MiB 1024MiB
   parted /dev/"$DISK" -- set 1 esp on
+  parted /dev/"$DISK" -- name 1 ESP
   mkfs.fat -F 32 /dev/disk/by-partlabel/ESP
   parted /dev/"$DISK" -- mkpart primary 1025MiB -8GiB
   parted /dev/"$DISK" -- name 2 System
@@ -33,7 +34,8 @@ mount_ext4() {
 
 create_zfs() {
   echo "Creating 'ZFS' Volumes..."
-  zpool create -f fspool -o compression=zstd /dev/disk/by-partlabel/System
+  read -rp "Enter Password for Pool Encryption: " PASS
+  echo "$PASS" | zpool create -f fspool -O compression=zstd -O encryption=on -O keyformat=passphrase /dev/disk/by-partlabel/System
   zfs create -p -o mountpoint=legacy -o xattr=sa -o acltype=posixacl fspool/system/root
   zfs snapshot fspool/system/root@blank
   zfs create -o mountpoint=legacy -o atime=off fspool/system/nix

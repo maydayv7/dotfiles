@@ -10,7 +10,6 @@ with files; let
   inherit (config.gui) desktop;
   apps = config.environment.systemPackages;
   inherit (lib) mkIf mkForce mkMerge recursiveUpdate util;
-  flatpak = (mkIf (config ? apps) (recursiveUpdate config.apps.flatpak lib.flatpak)).content;
 in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
@@ -18,9 +17,7 @@ in {
       # Session
       services.xserver = {
         desktopManager.gnome.enable = true;
-        displayManager = {
-          gdm.enable = true;
-        };
+        displayManager.gdm.enable = true;
       };
 
       # Excluded Packages
@@ -34,6 +31,7 @@ in {
     (mkIf (desktop == "gnome") {
       # Desktop Integration
       gui.fonts.enable = true;
+      xdg.portal.enable = true;
       nixpkgs.config.firefox.enableGnomeExtensions =
         mkIf (elem pkgs.firefox apps) true;
 
@@ -58,48 +56,6 @@ in {
           sushi.enable = true;
         };
       };
-
-      # Flatpak Apps
-      apps.flatpak = with flatpak;
-        mkIf (config ? apps) {
-          # Required Runtimes
-          runtimes.gnome = {
-            locale = fetchRuntimeFromFlatHub {
-              name = "org.gnome.Platform.Locale";
-              branch = "43";
-              commit = "4fbaaaa735433be40205ca5f79159b67e39ba61d8ab3383f08023eb6280c5c91";
-              sha256 = "sha256-VGWxGFBK5b//6GEDog2A15BhewKcbIiSPQwc6l9DnIA=";
-            };
-            platform = fetchRuntimeFromFlatHub {
-              name = "org.gnome.Platform";
-              branch = "43";
-              runtime = with runtimes; [freedesktop.platform gnome.locale];
-              commit = "ff25bb0c5f8225e73b43cf40669f5935f68bbde67b00871e13f6c1261d6dc966";
-              sha256 = "sha256-VOKendIOlCgkUtEMnsnD+DlIlYZ7ZoHKdj2V80l57JQ=";
-            };
-            theme = fetchRuntimeFromFlatHub {
-              name = "org.gtk.Gtk3theme.adw-gtk3-dark";
-              branch = "3.22";
-              commit = "316ef706db3530374b4053cad491f80610094b8512d055bc9de7eb703f794cd9";
-              sha256 = "sha256-9+RKdQZay+ILp33ddjTYZsTUdtyW0CIwDMRfvU0W5tM=";
-            };
-          };
-
-          programs = with runtimes; let
-            default = [gnome.platform gnome.theme];
-          in rec {
-            gradience = {
-              name = "Gradience";
-              description = "Customize Libadwaita Applications";
-              install = {
-                name = "com.github.GradienceTeam.Gradience";
-                runtime = default;
-                commit = "1ec65403c361229f5233a6e5a0e61a2d1352bf97f1d024a766f15359052d6cee";
-                sha256 = "sha256-usaAtliXSAxVqepLltwJU9PW+GIkulR9v/7//I8N53o=";
-              };
-            };
-          };
-        };
 
       # User Configuration
       user.home = {
@@ -130,7 +86,7 @@ in {
           mail = ["org.gnome.Geary.desktop"];
           markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
           pdf = ["org.gnome.Evince.desktop"];
-          text = ["org.gnome.gedit.desktop"];
+          text = ["org.gnome.gnome-text-editor.desktop"];
           video = ["io.github.celluloid_player.Celluloid.desktop"];
         };
 
@@ -164,12 +120,6 @@ in {
             Exec=${pkgs.gnome.gnome-tweaks}/libexec/gnome-tweak-tool-lid-inhibitor
           '';
 
-          # gEdit Color Scheme
-          ".local/share/gtksourceview-4/styles/tango-dark.xml".text =
-            gnome.theme;
-          ".local/share/gtksourceview-4/language-specs/nix.lang".text =
-            gnome.syntax;
-
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" =
             mkIf (elem pkgs.discord apps) {text = discord.theme;};
@@ -197,11 +147,11 @@ in {
         [libsForQt5.qtstyleplugin-kvantum custom.kvlibadwaita]
         ++ (with pkgs.gnome; [
           # GNOME Apps
-          gedit
           gnome-boxes
           gnome-dictionary
           gnome-notes
           gnome-sound-recorder
+          gnome-text-editor
           gnome-tweaks
           polari
 
@@ -221,6 +171,7 @@ in {
           fragments
           giara
           gimp
+          gradience
           gnome-podcasts
           gnome-secrets
           gthumb
@@ -242,8 +193,6 @@ in {
             avatar
             caffeine
             color-picker
-            compiz-windows-effect
-            compiz-alike-magic-lamp-effect
             custom-hot-corners-extended
             dash-to-panel
             desktop-cube
@@ -257,7 +206,6 @@ in {
             timepp
             top-bar-organizer
             vitals
-            worksapce-dry-names
             x11-gestures
           ]);
 
@@ -309,8 +257,8 @@ in {
       # Essential Utilities
       environment.systemPackages = with pkgs.gnome; [
         epiphany
-        gedit
         pkgs.gnome-console
+        pkgs.gnome-text-editor
         gnome-system-monitor
         nautilus
       ];
