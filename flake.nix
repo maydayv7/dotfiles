@@ -131,12 +131,6 @@
     # Automatic Deployment Tool
     deploy.url = "github:serokell/deploy-rs";
 
-    # Declarative Flatpak Wrapper
-    flatpak = {
-      url = "github:yawnt/declarative-nix-flatpak/simple";
-      inputs.nixpkgs.follows = "stable";
-    };
-
     # VS Code Server Support
     vscode = {
       url = "github:msteen/nixos-vscode-server";

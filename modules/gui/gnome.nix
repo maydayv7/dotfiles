@@ -10,7 +10,6 @@ with files; let
   inherit (config.gui) desktop;
   apps = config.environment.systemPackages;
   inherit (lib) mkIf mkForce mkMerge recursiveUpdate util;
-  flatpak = (mkIf (config ? apps) (recursiveUpdate config.apps.flatpak lib.flatpak)).content;
 in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
@@ -32,6 +31,7 @@ in {
     (mkIf (desktop == "gnome") {
       # Desktop Integration
       gui.fonts.enable = true;
+      xdg.portal.enable = true;
       nixpkgs.config.firefox.enableGnomeExtensions =
         mkIf (elem pkgs.firefox apps) true;
 
@@ -56,48 +56,6 @@ in {
           sushi.enable = true;
         };
       };
-
-      # Flatpak Apps
-      apps.flatpak = with flatpak;
-        mkIf (config ? apps) {
-          # Required Runtimes
-          runtimes.gnome = {
-            locale = fetchRuntimeFromFlatHub {
-              name = "org.gnome.Platform.Locale";
-              branch = "43";
-              commit = "4fbaaaa735433be40205ca5f79159b67e39ba61d8ab3383f08023eb6280c5c91";
-              sha256 = "sha256-VGWxGFBK5b//6GEDog2A15BhewKcbIiSPQwc6l9DnIA=";
-            };
-            platform = fetchRuntimeFromFlatHub {
-              name = "org.gnome.Platform";
-              branch = "43";
-              runtime = with runtimes; [freedesktop.platform gnome.locale];
-              commit = "ff25bb0c5f8225e73b43cf40669f5935f68bbde67b00871e13f6c1261d6dc966";
-              sha256 = "sha256-VOKendIOlCgkUtEMnsnD+DlIlYZ7ZoHKdj2V80l57JQ=";
-            };
-            theme = fetchRuntimeFromFlatHub {
-              name = "org.gtk.Gtk3theme.adw-gtk3-dark";
-              branch = "3.22";
-              commit = "316ef706db3530374b4053cad491f80610094b8512d055bc9de7eb703f794cd9";
-              sha256 = "sha256-9+RKdQZay+ILp33ddjTYZsTUdtyW0CIwDMRfvU0W5tM=";
-            };
-          };
-
-          programs = with runtimes; let
-            default = [gnome.platform gnome.theme];
-          in rec {
-            gradience = {
-              name = "Gradience";
-              description = "Customize Libadwaita Applications";
-              install = {
-                name = "com.github.GradienceTeam.Gradience";
-                runtime = default;
-                commit = "1ec65403c361229f5233a6e5a0e61a2d1352bf97f1d024a766f15359052d6cee";
-                sha256 = "sha256-usaAtliXSAxVqepLltwJU9PW+GIkulR9v/7//I8N53o=";
-              };
-            };
-          };
-        };
 
       # User Configuration
       user.home = {
@@ -213,6 +171,7 @@ in {
           fragments
           giara
           gimp
+          gradience
           gnome-podcasts
           gnome-secrets
           gthumb
