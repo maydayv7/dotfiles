@@ -1,6 +1,6 @@
 {
   "better-comments.highlightPlainText": true,
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "line-thin",
   "editor.formatOnSave": true,
   "editor.smoothScrolling": true,

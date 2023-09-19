@@ -5,14 +5,13 @@ pkgs: {
     python39
     ipython
     pip
-    poetry
+    poetry-core
     pylint
     setuptools
   ];
 
   shellHook = ''
     echo "## Python Development Shell ##"
-
     PYTHON_DIR="$XDG_DATA_HOME/python"
     export PYTHONSTARTUP="$PYTHON_DIR/pythonrc";
     export PIP_CONFIG_FILE="$PYTHON_DIR/pip/pip.conf";

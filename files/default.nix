@@ -33,9 +33,6 @@ in rec {
     config = readFile ./fonts/fontconfig.xml;
   };
 
-  # X11 Gestures
-  gestures = readFile ./touchegg/touchegg.conf;
-
   # 'git' Version Control
   git.hooks = ./git/hooks;
 

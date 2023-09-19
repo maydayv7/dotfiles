@@ -118,6 +118,7 @@ in {
 
     "org/gnome/mutter" = {
       attach-modal-dialogs = true;
+      center-new-windows = true;
       dynamic-workspaces = false;
       edge-tiling = true;
       focus-change-on-pointer-rest = true;
@@ -129,7 +130,7 @@ in {
       clock-show-weekday = true;
       document-font-name = "Product Sans 11";
       enable-animations = true;
-      enable-hot-corners = false;
+      enable-hot-corners = true;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
       font-name = "Product Sans Medium, Medium 11";
@@ -229,6 +230,7 @@ in {
       enable-mouse-gestures = true;
     };
 
+    "org/gtk/gtk4/settings/file-chooser".sort-directories-first = true;
     "org/gnome/nautilus/icon-view" = {
       captions = ["size" "date_modified" "none"];
       default-zoom-level = "medium";
@@ -242,6 +244,14 @@ in {
       search-view = "list-view";
       show-create-link = true;
       show-delete-permanently = true;
+    };
+
+    "org/gnome/TextEditor" = {
+      highlight-current-line = true;
+      indent-style = "tab";
+      show-line-numbers = true;
+      show-map = true;
+      tab-width = mkUint32 4;
     };
 
     "com/github/hugolabe/Wike" = {
@@ -262,13 +272,6 @@ in {
       style-scheme-name = "builder-dark";
     };
 
-    "org/gnome/gedit/preferences/ui".show-tabs-mode = "auto";
-    "org/gnome/gedit/preferences/editor" = {
-      scheme = "tango-dark";
-      wrap-last-split-mode = "word";
-      ensure-trailing-newline = false;
-    };
-
     "org/gnome/gnome-screenshot" = {
       delay = 0;
       include-pointer = true;
@@ -284,32 +287,36 @@ in {
       enabled-extensions = [
         "AlphabeticalAppGrid@stuarthayhurst"
         "appindicatorsupport@rgcjonas.gmail.com"
-        "avatar@pawel.swiszcz.com"
         "caffeine@patapon.info"
-        "color-picker@tuberry"
-        "custom-hot-corners-extended@G-dH.github.com"
-        "dash-to-panel@jderose9.github.com"
-        "desktop-cube@schneegans.github.com"
+        "CoverflowAltTab@palatis.blogspot.com"
         "drive-menu@gnome-shell-extensions.gcampax.github.com"
         "flypie@schneegans.github.com"
+        "gestureImprovements@gestures"
+        "gnome-ui-tune@itstime.tech"
         "gTile@vibou"
+        "guillotine@fopdoodle.net"
         "just-perfection-desktop@just-perfection"
         "lock-screen-message@advendradeswanta.gitlab.com"
         "lockkeys@vaina.lt"
         "pano@elhan.io"
+        "quick-settings-avatar@d-go"
+        "quick-settings-tweaks@qwreey"
         "rounded-window-corners@yilozt"
+        "space-bar@luchrioh"
+        "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
         "timepp@zagortenay333"
         "top-bar-organizer@julian.gse.jsts.xyz"
+        "transparent-top-bar@ftpix.com"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "Vitals@CoreCoding.com"
-        "x11gestures@joseexposito.github.io"
+        "weatheroclock@CleoMenezesJr.github.io"
       ];
       favorite-apps = [
         "google-chrome.desktop"
         "org.gnome.Geary.desktop"
         "org.gnome.Nautilus.desktop"
         "org.gnome.Console.desktop"
-        "org.gnome.gedit.desktop"
+        "org.gnome.gnome-text-editor.desktop"
         "org.gnome.Settings.desktop"
       ];
     };
@@ -377,67 +384,34 @@ in {
     # Shell Extensions
     "org/gnome/shell/extensions/user-theme".name = "Adwaita";
     "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position = "start";
-    "org/gnome/shell/extensions/lock-screen-message".message = "Welcome, ${config.credentials.fullname}!";
+    "org/gnome/shell/extensions/gestureImprovements".allow-minimize-window = true;
+    "org/gnome/shell/extensions/gnome-ui-tune".hide-search = false;
     "org/gnome/shell/extensions/lockkeys".style = "show-hide";
-
-    "org/gnome/shell/extensions/avatar" = {
-      avatar-shadow = true;
-      avatar-shadow-user-name = false;
-      buttons-icon-size = 20;
-      buttons-position = 50;
-      name-style-dark = false;
-      set-custom-panel-menu-width = 0;
-      show-buttons = false;
-      show-media-center = false;
-      show-system-name = false;
-      show-top-image = false;
-    };
+    "org/gnome/shell/extensions/lock-screen-message".message = "Welcome, ${config.credentials.fullname}!";
+    "org/gnome/shell/extensions/status-area-horizontal-spacing".hpadding = 4;
+    "com/ftpix/transparentbar".transparency = 0;
 
     "org/gnome/shell/extensions/caffeine" = {
+      indicator-position = 0;
       inhibit-apps = ["teams.desktop" "startcenter.desktop"];
       nightlight-control = "never";
+      show-indicator = "always";
       show-notifications = false;
-      user-enabled = true;
     };
 
-    "org/gnome/shell/extensions/color-picker" = {
-      color-picker-shortcut = ["<Super>c"];
-      enable-shortcut = true;
-      enable-systray = true;
-      menu-size = "uint32 8";
-      notify-style = "uint32 1";
-      persistent-mode = true;
+    "org/gnome/shell/extensions/coverflowalttab" = {
+      animation-time = 0.256;
+      easing-function = "ease-in-sine";
+      hide-panel = false;
+      icon-has-shadow = false;
+      icon-style = "Overlay";
     };
 
     "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
       ws-switch-wrap = true;
       ws-switch-ignore-last = true;
       ws-switch-indicator-mode = 1;
-    };
-
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0".action = "toggle-overview";
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-left-0".action = "show-applications";
-
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-right-0" = {
-      action = "show-desktop";
-      ctrl = true;
-    };
-
-    "org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-right-0" = {
-      action = "next-workspace";
-      ctrl = true;
-    };
-
-    "org/gnome/shell/extensions/desktop-cube" = {
-      active-workpace-opacity = 195;
-      depth-separation = 25;
-      enable-desktop-edge-switch = false;
-      horizontal-stretch = 100;
-      inactive-workpace-opacity = 224;
-      overview-transition-time = 0;
-      unfold-to-desktop = false;
-      workpace-separation = 25;
-      workspace-transition-time = 250;
+      show-osd-monitor-indexes = false;
     };
 
     "org/gnome/shell/extensions/gtile" = {
@@ -453,7 +427,6 @@ in {
       aggregate-menu = true;
       animation = 4;
       app-menu-icon = false;
-      dash = false;
       hot-corner = false;
       notification-banner-position = 2;
       show-prefs-intro = false;
@@ -468,6 +441,25 @@ in {
       global-shortcut = ["<Super>v"];
       history-length = 250;
       incognito-shortcut = ["<Ctrl><Super>v"];
+      play-audio-on-copy = false;
+      send-notification-on-copy = false;
+    };
+
+    "org/gnome/shell/extensions/quick-settings-avatar" = {
+      avatar-position = 1;
+      avatar-realname = false;
+      avatar-size = 56;
+    };
+
+    "org/gnome/shell/extensions/quick-settings-tweaks" = {
+      add-dnd-quick-toggle-enabled = false;
+      add-unsafe-quick-toggle-enabled = false;
+      datemenu-remove-notifications = false;
+      media-control-compact-mode = true;
+      media-control-enabled = true;
+      notifications-enabled = false;
+      volume-mixer-enabled = false;
+      volume-mixer-position = "bottom";
     };
 
     "org/gnome/shell/extensions/rounded-window-corners" = {
@@ -477,6 +469,12 @@ in {
       settings-version = mkUint32 5;
       skip-libhandy-app = true;
       unfocused-shadow = "{'horizontal_offset': 0, 'vertical_offset': 2, 'blur_offset': 12, 'spread_radius': -1, 'opacity': 65}";
+    };
+
+    "org/gnome/shell/extensions/space-bar/behavior" = {
+      scroll-wheel = "disabled";
+      show-empty-workspaces = true;
+      smart-workspace-names = true;
     };
 
     "org/gnome/shell/extensions/timepp" = {
@@ -494,21 +492,20 @@ in {
 
     "org/gnome/shell/extensions/top-bar-organizer" = {
       center-box-order = ["dateMenu"];
-      left-box-order = ["workspace-name-indicator" "timepp" "appMenu" "activities"];
+      left-box-order = ["Space Bar" "activities" "timepp" "guillotine" "appMenu"];
       right-box-order = [
+        "a11y"
         "aggregateMenu"
         "drive-menu"
-        "color-picker@tuberry"
         "GTileStatusButton"
-        "Caffeine"
         "pano@elhan.io"
         "vitalsMenu"
         "dwellClick"
         "lockkeys"
-        "a11y"
         "keyboard"
         "screenSharing"
         "screenRecording"
+        "quickSettings"
       ];
     };
 
@@ -516,81 +513,6 @@ in {
       hot-sensors = ["_default_icon_"];
       show-battery = true;
       show-storage = false;
-    };
-
-    "org/gnome/shell/extensions/dash-to-panel" = {
-      animate-appicon-hover = true;
-      animate-appicon-hover-animation-convexity = "{'RIPPLE': 2.2000000000000002, 'PLANK': 1.0, 'SIMPLE': 0.0}";
-      animate-appicon-hover-animation-extent = "{'RIPPLE': 6, 'PLANK': 4, 'SIMPLE': 1}";
-      animate-appicon-hover-animation-rotation = "{'SIMPLE': 7, 'RIPPLE': 10, 'PLANK': 0}";
-      animate-appicon-hover-animation-travel = "{'SIMPLE': 0.16, 'RIPPLE': 0.27000000000000002, 'PLANK': 0.0}";
-      animate-appicon-hover-animation-type = "RIPPLE";
-      animate-appicon-hover-animation-zoom = "{'SIMPLE': 1.0900000000000001, 'RIPPLE': 1.1399999999999999, 'PLANK': 2.0}";
-      appicon-margin = 6;
-      appicon-padding = 4;
-      available-monitors = [0];
-      desktop-line-custom-color = "rgb(138,180,248)";
-      desktop-line-use-custom-color = false;
-      dot-color-dominant = true;
-      dot-color-override = false;
-      dot-position = "BOTTOM";
-      dot-size = 3;
-      dot-style-focused = "CILIORA";
-      dot-style-unfocused = "CILIORA";
-      enter-peek-mode-timeout = 1100;
-      focus-highlight = true;
-      focus-highlight-color = "#eeeeee";
-      focus-highlight-dominant = false;
-      focus-highlight-opacity = 20;
-      hide-overview-on-startup = false;
-      hot-keys = true;
-      hotkeys-overlay-combo = "TEMPORARILY";
-      intellihide = false;
-      isolate-workspaces = true;
-      leftbox-padding = -1;
-      middle-click-action = "LAUNCH";
-      overview-click-to-exit = false;
-      panel-anchors = ''{"0":"MIDDLE"}'';
-      panel-element-positions = ''
-        {"0":[{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"dateMenu","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'';
-      panel-element-positions-monitors-sync = true;
-      panel-lengths = ''{"0":100}'';
-      panel-positions = ''{"0":"BOTTOM"}'';
-      panel-sizes = ''{"0":48}'';
-      scroll-panel-delay = 10;
-      scroll-panel-show-ws-popup = true;
-      secondarymenu-contains-appmenu = true;
-      secondarymenu-contains-showdetails = true;
-      shift-click-action = "QUIT";
-      shift-middle-click-action = "RAISE";
-      shortcut-previews = true;
-      show-appmenu = true;
-      show-apps-icon-file = "";
-      show-showdesktop-hover = true;
-      show-tooltip = true;
-      showdesktop-button-width = 3;
-      status-icon-padding = -1;
-      stockgs-keep-dash = false;
-      stockgs-keep-top-panel = false;
-      stockgs-panelbtn-click-only = false;
-      taskbar-locked = false;
-      trans-bg-color = "#232323";
-      trans-dynamic-anim-target = 1.0;
-      trans-dynamic-anim-time = 200;
-      trans-dynamic-behavior = "MAXIMIZED_WINDOWS";
-      trans-dynamic-distance = 0;
-      trans-gradient-bottom-color = "#8ab4f8";
-      trans-gradient-bottom-opacity = 5.0e-2;
-      trans-panel-opacity = 0.0;
-      trans-use-custom-bg = true;
-      trans-use-custom-gradient = false;
-      trans-use-custom-opacity = false;
-      trans-use-dynamic-opacity = false;
-      tray-padding = 1;
-      tray-size = 0;
-      window-preview-show-title = true;
-      window-preview-size = 150;
-      window-preview-title-position = "TOP";
     };
 
     "org/gnome/shell/extensions/flypie" = {

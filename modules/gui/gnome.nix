@@ -45,7 +45,6 @@ in {
       services = {
         dbus.packages = [pkgs.dconf];
         udev.packages = [pkgs.gnome.gnome-settings-daemon];
-        touchegg.enable = true;
         telepathy.enable = true;
         gnome = {
           core-developer-tools.enable = true;
@@ -108,9 +107,6 @@ in {
 
           # GTK+ Bookmarks
           ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
-
-          # X11 Gestures
-          ".config/touchegg/touchegg.conf".text = gestures;
 
           # Prevent Suspension on lid close
           ".config/autostart/ignore-lid-switch-tweak.desktop".text = ''
@@ -190,23 +186,27 @@ in {
             # GNOME Shell Extensions
             alphabetical-app-grid
             appindicator
-            avatar
             caffeine
-            color-picker
-            custom-hot-corners-extended
-            dash-to-panel
-            desktop-cube
+            coverflow-alt-tab
             custom.fly-pie
+            gesture-improvements
+            gnome-40-ui-improvements
+            guillotine
             gtile
             just-perfection
             lock-keys
             lock-screen-message
-            unstable.gnomeExtensions.pano
+            pano
+            quick-settings-tweaker
             rounded-window-corners
+            space-bar
+            status-area-horizontal-spacing
             timepp
+            transparent-top-bar
             top-bar-organizer
+            user-avatar-in-quick-settings
             vitals
-            x11-gestures
+            weather-oclock
           ]);
 
       # Persisted Files

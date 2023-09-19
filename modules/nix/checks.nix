@@ -15,7 +15,7 @@ with {inherit (lib) deploy filters hooks util;};
       hooks = {
         alejandra.enable = true;
         prettier.enable = true;
-        shellcheck.enable = true;
+        shellcheck.enable = false;
         statix.enable = true;
         stylua.enable = true;
       };

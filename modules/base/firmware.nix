@@ -88,7 +88,6 @@ with {inherit (lib) mkAfter mkForce;}; {
       enable = true;
       enableSSHSupport = true;
     };
-
     user.persist.dirs = [
       {
         directory = ".gnupg";

@@ -9,9 +9,9 @@ set -euo pipefail
 update() {
   if [[ "${1:-""}" != "" ]]
   then
-    t="$(mktemp)"; trap "rm ${t}" EXIT;
-    m="$(mktemp)"; trap "rm ${m}" EXIT;
-    l="$(mktemp)"; trap "rm ${l}" EXIT;
+    t="$(mktemp)"; trap 'rm ${t}' EXIT;
+    m="$(mktemp)"; trap 'rm ${m}' EXIT;
+    l="$(mktemp)"; trap 'rm ${l}' EXIT;
     pkg="${1}"
     metadata="${pkg}/metadata.nix"
     pkgname="$(basename "${pkg}")"
@@ -49,7 +49,7 @@ update() {
     then
       if [[ "${release}" == "true" ]]
       then
-        newrev="$(git ls-remote --refs --sort="version:refname" --tags ${repo} | cut -d/ -f3- | tail -n1)"
+        newrev="$(git ls-remote --refs --sort="version:refname" --tags "${repo}" | cut -d/ -f3- | tail -n1)"
       else
         if [[ "${branch}" == "null" ]]
         then
