@@ -17,6 +17,7 @@
     security = true;
     support = ["mobile" "printer" "virtualisation"];
     modules = ["dell-inspiron-5509"];
+    vm.android.enable = true;
   };
 
   gui.desktop = "gnome";

@@ -85,7 +85,7 @@ in {
           mail = ["org.gnome.Geary.desktop"];
           markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
           pdf = ["org.gnome.Evince.desktop"];
-          text = ["org.gnome.gnome-text-editor.desktop"];
+          text = ["org.gnome.TextEditor.desktop"];
           video = ["io.github.celluloid_player.Celluloid.desktop"];
         };
 
@@ -107,6 +107,9 @@ in {
 
           # GTK+ Bookmarks
           ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
+
+          # Action Menu
+          ".config/guillotine.json".text = gnome.menu;
 
           # Prevent Suspension on lid close
           ".config/autostart/ignore-lid-switch-tweak.desktop".text = ''
@@ -202,7 +205,7 @@ in {
             space-bar
             status-area-horizontal-spacing
             timepp
-            transparent-top-bar
+            transparent-top-bar-adjustable-transparency
             top-bar-organizer
             user-avatar-in-quick-settings
             vitals

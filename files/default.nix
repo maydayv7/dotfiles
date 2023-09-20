@@ -40,6 +40,7 @@ in rec {
   gnome = {
     dconf = ./gnome/dconf.nix;
     iso = readFile ./gnome/iso;
+    menu = readFile ./gnome/menu.json;
   };
 
   # GPG Keys Directory

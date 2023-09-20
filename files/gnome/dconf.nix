@@ -316,7 +316,7 @@ in {
         "org.gnome.Geary.desktop"
         "org.gnome.Nautilus.desktop"
         "org.gnome.Console.desktop"
-        "org.gnome.gnome-text-editor.desktop"
+        "org.gnome.TextEditor.desktop"
         "org.gnome.Settings.desktop"
       ];
     };

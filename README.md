@@ -37,6 +37,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
 - Support for `source` Filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
+- Support for Android Virtualization using [Waydroid](https://waydro.id/)
 - Declaratively Configured [Windows VM](./modules/hardware/virtualisation/windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 
 ## Programs
@@ -342,7 +343,7 @@ This repository makes use of [`GitHub Actions`](./.github/workflows) in order to
 
 ### File System
 
-The system may be set up using either a `simple` or `advanced` filesystem layout. The advanced ZFS opt-in state filesystem configuration allows for a vastly improved experience, preventing formation of cruft and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
+The system may be set up using either a `simple` or `advanced` filesystem layout. The advanced ZFS encrypted opt-in state filesystem configuration allows for a vastly improved experience, preventing formation of cruft and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
 
 #### Data Storage
 
@@ -424,9 +425,11 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 - Upgrade to NixOS v23.05 (Stoat)!
 - Drop `cod`, `nix-linter` and `mutter-rounded`
+- Support Android Virtualization using Waydroid
 - Fix GNOME Extensions
 - Improve XFCE Configuration Handling
 - Improve Automatic Package Update Script
+- Use ZFS encryption
 - Drop `touchegg` Support
 
 ### 22.11 (v11)
