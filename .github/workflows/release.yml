@@ -19,7 +19,7 @@ jobs:
       - name: Build Default Install Media
         run: nix build github:maydayv7/dotfiles#installMedia.xfce.config.system.build.isoImage -L --show-trace
       - name: Draft Release
-        uses: ncipollo/release-action@v1.12.0
+        uses: ncipollo/release-action@v1.13.0
         with:
           allowUpdates: true
           artifactErrorsFailBuild: true
