@@ -6,7 +6,7 @@
   "menu": [
     {
       "type": "submenu",
-      "title": "Virtualization",
+      "title": "Virtualisation",
       "icon": "computer-symbolic",
       "items": [
         {

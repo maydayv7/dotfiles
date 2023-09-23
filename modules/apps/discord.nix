@@ -12,7 +12,7 @@ in {
     environment.systemPackages = with pkgs; [betterdiscordctl discord];
 
     user = {
-      persist.dirs = [".config/BetterDiscord" ".config/discord"];
+      persist.directories = [".config/BetterDiscord" ".config/discord"];
       home.home = {
         # Plugins
         file.".config/BetterDiscord/plugins" = {

@@ -13,7 +13,7 @@ _Then execute:_
 `sudo chown root:root /usr/sbin/update-grub`  
 `sudo chmod 755 /usr/sbin/update-grub`
 
-#### Virtualization
+#### Virtualisation
 
 `sudo usermod -a -G libvirt $(whoami)`  
 `newgrp libvirt`  

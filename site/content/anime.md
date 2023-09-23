@@ -19,8 +19,8 @@ comments = true
 - Bunny Girl Senpai
 - Chuunibyou demo Koi ga Shitai! <sup>#</sup>
 - Clannad <sup>#</sup>
-- Classroom of the Elite <sup>\*</sup>
-- Daily Life of an Immortal King <sup>\*</sup> <sup>#</sup>
+- Classroom of the Elite <sup>#</sup> <sup>\*</sup>
+- Daily Life of an Immortal King <sup>#</sup>
 - Date a Live <sup>\*</sup> <sup>#</sup>
 - Death Note
 - Demon Slayer
@@ -37,7 +37,7 @@ comments = true
 - I Got a Cheat Skill in Another World and Became Unrivaled in The Real World, Too
 - I Want To Eat Your Pancreas
 - Ijinaraide, Nagatoro-san <sup>\*</sup> <sup>#</sup>
-- Insomniacs after School <sup>\*</sup>
+- Insomniacs after School
 - Kaguya-sama: Love is War <sup>#</sup>
 - Kakkou no Iinazuke
 - Kawaii dake ja nai Shikimori-san
@@ -49,7 +49,7 @@ comments = true
 - Konosuba <sup>\*</sup> <sup>#</sup>
 - Koori Zokusei Danshi to Cool na Douryou Joshi
 - Liar Liar <sup>\*</sup>
-- Link Click <sup>\*]</sup> <sup>#</sup>
+- Link Click <sup>\*</sup> <sup>#</sup>
 - Lycoris Recoil <sup>\*</sup>
 - My Dress Up Darling <sup>\*</sup>
 - My Senpai is Annoying
@@ -66,6 +66,7 @@ comments = true
 - Senryu Girl
 - Spy X Family <sup>\*</sup> <sup>#</sup>
 - Steins;Gate <sup>#</sup>
+- Suzume's Door Locking
 - Sword Art Online <sup>#</sup>
 - The Ancient Magus' Bride <sup>\*</sup> <sup>#</sup>
 - The Dangers in My Heart <sup>\*</sup>
@@ -95,6 +96,7 @@ comments = true
 
 - Solo Leveling <sup>\*</sup>
 - Something between Us
+- Tomb Raider King
 
 # Manga
 
@@ -103,12 +105,13 @@ comments = true
 - Classroom of the Elite <sup>\*</sup>
 - Fuufu Ijou, Koibito Miman <sup>\*</sup>
 - Horimiya
-- I want to end the game I love
+- I want to end the game I love <sup>\*</sup>
 - Kaguya-sama: Love is War
 - Kawaii dake ja nai Shikimori-san
 - Kubo-San Doesn't Leave Me Be <sup>\*</sup>
 - Oshi no Ko <sup>\*</sup>
 - The Dangers in My Heart <sup>\*</sup>
+- Tokidoki Bosotto Russia-go de Dereru Tonari no Aalya-san <sup>\*</sup>
 - Tonikawa: To the Moon! <sup>\*</sup>
 - Watashi no Shiawase na Kekkon <sup>\*</sup>
 - Yamada-kun to Lv999 no Koi wo Suru <sup>\*</sup>

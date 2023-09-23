@@ -55,7 +55,7 @@ in {
     };
 
     # NGINX Secured Reverse Proxy
-    environment.persist.dirs = ["/srv"];
+    environment.persist.directories = ["/srv"];
     networking.firewall = {
       allowedUDPPorts = [7000];
       allowedTCPPorts = [80 443 7000];

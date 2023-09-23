@@ -22,7 +22,7 @@ in {
     };
 
     user = {
-      persist.dirs = [".cache/mozilla/firefox" ".mozilla/firefox"];
+      persist.directories = [".cache/mozilla/firefox" ".mozilla/firefox"];
       home = {
         # File Associations
         xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {

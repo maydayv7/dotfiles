@@ -27,7 +27,7 @@ in {
 
     # Settings
     user = {
-      persist.dirs = [".config/gh"];
+      persist.directories = [".config/gh"];
       home = {
         imports = [./user.nix];
 

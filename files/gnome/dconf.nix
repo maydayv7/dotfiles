@@ -7,6 +7,7 @@
 }:
 with lib.hm.gvariant; let
   homeDir = config.home.homeDirectory;
+  android = sys.hardware.vm.android.enable;
 in {
   # Home Directory
   home.file = {
@@ -43,8 +44,10 @@ in {
       move-to-workspace-up = [];
       panel-main-menu = [];
       panel-run-dialog = ["<Super>F2"];
-      switch-group = [];
-      switch-group-backward = [];
+      switch-applications = ["<Alt>Tab"];
+      switch-applications-backward = ["<Shift><Alt>Tab"];
+      switch-group = ["<Super>Tab"];
+      switch-group-backward = ["<Shift><Super>Tab"];
       switch-to-workspace-down = ["<Primary><Super>Down" "<Primary><Super>j"];
       switch-to-workspace-left = ["<Super>Left"];
       switch-to-workspace-right = ["<Super>Right"];
@@ -109,7 +112,7 @@ in {
       titlebar-font = "Product Sans Bold 11";
       visual-bell = false;
       num-workspaces = 4;
-      workspace-names = ["Desktop" "School" "Work" "Play"];
+      workspace-names = ["Home" "School" "Work" "Play"];
     };
 
     # Core Settings
@@ -322,12 +325,14 @@ in {
     };
 
     "org/gnome/desktop/app-folders" = {
-      folder-children = [
-        "a136187d-1d93-4d35-8423-082f15957be9"
-        "b79e9b82-2127-459b-9e82-11bd3be09d04"
-        "4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff"
-        "1c3e59e4-a571-4ada-af1d-ed1ced384cfb"
-      ];
+      folder-children =
+        [
+          "1c3e59e4-a571-4ada-af1d-ed1ced384cfb"
+          "4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff"
+          "a136187d-1d93-4d35-8423-082f15957be9"
+          "b79e9b82-2127-459b-9e82-11bd3be09d04"
+        ]
+        ++ lib.optionals android ["cb1c8797-b52e-4df5-80d6-2c46e8f7ef22"];
     };
 
     "org/gnome/desktop/app-folders/folders/4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff" = {
@@ -379,6 +384,27 @@ in {
         "playonlinux.desktop"
         "net.lutris.Lutris.desktop"
       ];
+    };
+
+    "org/gnome/desktop/app-folders/folders/cb1c8797-b52e-4df5-80d6-2c46e8f7ef22" = {
+      apps = [
+        "waydroid.com.android.inputmethod.latin.desktop"
+        "waydroid.org.lineageos.jelly.desktop"
+        "waydroid.com.android.calculator2.desktop"
+        "waydroid.org.lineageos.etar.desktop"
+        "waydroid.com.android.camera2.desktop"
+        "waydroid.com.android.deskclock.desktop"
+        "waydroid.com.android.contacts.desktop"
+        "waydroid.com.android.documentsui.desktop"
+        "waydroid.com.android.gallery3d.desktop"
+        "waydroid.com.android.vending.desktop"
+        "waydroid.org.lineageos.eleven.desktop"
+        "waydroid.org.lineageos.recorder.desktop"
+        "waydroid.com.android.settings.desktop"
+        "Waydroid.desktop"
+      ];
+      name = "Android";
+      translate = false;
     };
 
     # Shell Extensions

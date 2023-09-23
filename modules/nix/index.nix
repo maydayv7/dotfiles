@@ -10,7 +10,7 @@
   ## Package Indexer ##
   config = lib.mkIf config.nix.index {
     user = {
-      persist.dirs = [".cache/nix-index"];
+      persist.directories = [".cache/nix-index"];
       home = {
         programs.nix-index.enable = true;
         systemd.user = {

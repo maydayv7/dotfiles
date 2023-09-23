@@ -11,7 +11,7 @@ with {inherit (lib) mkForce util;}; {
   ## Authentication Credentials Management ##
   config = {
     environment = {
-      persist.dirs = [files.gpg];
+      persist.directories = [files.gpg];
       systemPackages = [pkgs.sops];
     };
 

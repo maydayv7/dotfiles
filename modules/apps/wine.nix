@@ -24,7 +24,7 @@ in {
     hardware.opengl.driSupport32Bit = true;
 
     # Utilities
-    user.persist.dirs = [
+    user.persist.directories = [
       ".cache/lutris"
       ".config/lutris"
       ".config/notepad++"

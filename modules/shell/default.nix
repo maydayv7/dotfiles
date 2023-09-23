@@ -55,7 +55,7 @@ with {inherit (lib) mkEnableOption mkIf mkMerge util;}; {
       };
 
       user = {
-        persist.dirs = [".local/share/direnv"];
+        persist.directories = [".local/share/direnv"];
         home = {
           programs = {
             # DirENV Support

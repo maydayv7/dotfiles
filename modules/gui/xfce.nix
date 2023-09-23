@@ -124,7 +124,7 @@ in {
 
       # Persisted Files
       user.persist = {
-        dirs = [
+        directories = [
           ".config/autostart"
           ".config/dconf"
           ".config/Mousepad"

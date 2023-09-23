@@ -15,6 +15,7 @@
     mkIf
     mkEnableOption
     mkOption
+    optionals
     types
     util
     ;
@@ -61,10 +62,7 @@ in {
               autologin = mkEnableOption "Enable Automatic User Login";
               minimal = mkEnableOption "Enable Minimal User Configuration";
               extraGroups = mkOption {
-                apply = group:
-                  if config.isNormalUser
-                  then groups ++ group
-                  else group;
+                apply = group: group ++ optionals config.isNormalUser groups;
               };
               shells = mkOption {
                 description = "List of Additional Supported Shells";

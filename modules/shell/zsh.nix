@@ -16,7 +16,7 @@ in {
     programs.zsh.enable = true;
     user.persist = {
       files = [".zsh_history"];
-      dirs = [".cache/zsh"];
+      directories = [".cache/zsh"];
     };
 
     # Settings

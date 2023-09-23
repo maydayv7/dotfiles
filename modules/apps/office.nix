@@ -42,7 +42,7 @@ in {
     user = {
       # Persisted Files
       persist.files = [".config/gscan2pdfrc" ".config/zoomus.conf"];
-      persist.dirs = [
+      persist.directories = [
         ".bluej"
         ".thunderbird"
         ".zoom"

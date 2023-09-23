@@ -196,8 +196,8 @@ in
       ;;
       explore)
         case $2 in
-        "") nix repl --arg host true --arg path ${path.system} ${repl};;
-        *) nix repl --arg path "$(readlink -f "$2" | sed 's|/flake.nix||')" ${repl};;
+        "") nix repl --arg host true --arg path ${path.system} --file ${repl};;
+        *) nix repl --arg path "$(readlink -f "$2" | sed 's|/flake.nix||')" --file ${repl};;
         esac
       ;;
       install)

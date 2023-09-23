@@ -215,7 +215,7 @@ in {
       # Persisted Files
       user.persist = {
         files = [".config/org.gabmus.giara.json"];
-        dirs = [
+        directories = [
           ".config/dconf"
           ".config/gnome-boxes"
           ".config/gnome-builder"

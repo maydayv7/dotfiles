@@ -23,7 +23,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 
 - Multiple Shell Configurations
 - Support for Multiple Desktop Environments
-- Cutting Edge Software - PipeWire, Wayland, ...and many more!
+- Cutting Edge Software - PipeWire, Wayland, ...!
 - Interactive [`repl`](./repl.nix) to explore Syntax and Configuration
 - Automatically Builds and Deploys my [Website](./site)
 - Authentication Credentials Management using the [`sops`](https://github.com/Mic92/sops-nix) Module and [`gnupg`](https://gnupg.org/) Keys
@@ -37,8 +37,8 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
 - Support for `source` Filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
-- Support for Android Virtualization using [Waydroid](https://waydro.id/)
-- Declaratively Configured [Windows VM](./modules/hardware/virtualisation/windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
+- Support for Android Virtualisation using [Waydroid](https://waydro.id/)
+- Declaratively Configured [Windows VM](./devices/vm/Windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 
 ## Programs
 
@@ -424,13 +424,12 @@ You can navigate to the `README`'s present in the various directories to know mo
 ### 23.05 (v12)
 
 - Upgrade to NixOS v23.05 (Stoat)!
-- Drop `cod`, `nix-linter` and `mutter-rounded`
-- Support Android Virtualization using Waydroid
-- Fix GNOME Extensions
+- Drop `cod`, `nix-linter`, `gedit`, `touchegg` and `mutter-rounded`
+- Support Android Virtualisation using Waydroid
+- Refactor GNOME Experience
 - Improve XFCE Configuration Handling
 - Improve Automatic Package Update Script
-- Use ZFS encryption
-- Drop `touchegg` Support
+- Enable ZFS encryption
 
 ### 22.11 (v11)
 
@@ -612,11 +611,12 @@ You can navigate to the `README`'s present in the various directories to know mo
 - **GNOME Extensions**:
   - Fly Pie
 - VS Code Themes and Plugins
+- Discord Plugins
 - [Wine](./packages/wine) Applications
 
 </details>
 
-> Last Updated: **February** 2023
+> Last Updated: **September** 2023
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 

@@ -74,7 +74,7 @@ in
     overlays = map.modules ./packages/overlays import;
 
     ## Custom Library Functions ##
-    lib = lib.util;
+    lib = lib.util // {nixpkgs = library.lib;};
 
     ## Program Configuration and 'dotfiles' ##
     files = import ./files lib self.legacyPackages."${head platforms}";

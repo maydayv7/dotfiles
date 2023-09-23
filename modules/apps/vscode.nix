@@ -17,7 +17,7 @@ in {
     environment.systemPackages = with pkgs; [rnix-lsp vscode];
 
     user = {
-      persist.dirs = [".config/Code" ".vscode"];
+      persist.directories = [".config/Code" ".vscode"];
       home = {
         imports = ["${inputs.vscode}/modules/vscode-server/home.nix"];
 

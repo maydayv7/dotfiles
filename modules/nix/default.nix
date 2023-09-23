@@ -10,7 +10,7 @@ with {inherit (lib.util.map) array;}; {
   ## Nix Settings ##
   config = {
     # Utilities
-    user.persist.dirs = [".cache/nix" ".cache/manix"];
+    user.persist.directories = [".cache/nix" ".cache/manix"];
     environment.systemPackages = [pkgs.cachix] ++ array (import ./format.nix) pkgs;
 
     # Settings

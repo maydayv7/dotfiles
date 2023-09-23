@@ -66,7 +66,7 @@ with {inherit (lib) mkAfter mkForce;}; {
 
     # Network Settings
     user.groups = ["networkmanager"];
-    environment.persist.dirs = [
+    environment.persist.directories = [
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
       "/var/lib/bluetooth"
@@ -88,7 +88,7 @@ with {inherit (lib) mkAfter mkForce;}; {
       enable = true;
       enableSSHSupport = true;
     };
-    user.persist.dirs = [
+    user.persist.directories = [
       {
         directory = ".gnupg";
         mode = "0700";

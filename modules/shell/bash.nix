@@ -16,7 +16,7 @@ in {
     environment.shells = [pkgs.bashInteractive];
     user.persist = {
       files = [".bash_history"];
-      dirs = [".local/share/bash"];
+      directories = [".local/share/bash"];
     };
 
     # Settings
