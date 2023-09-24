@@ -1,13 +1,7 @@
 <picture>
-  <source
-    srcset="~/files/images/logo/light.png"
-    media="(prefers-color-scheme: light)"
-  />
-  <source
-    srcset="~/files/images/logo/dark.png"
-    media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)"
-  />
-  <img src="" />
+  <source media="(prefers-color-scheme: light)" srcset="files/images/logo/light.png"/>
+  <source media="(prefers-color-scheme: dark)" srcset="files/images/logo/dark.png"/>
+  <img alt="Desktop" src="files/images/logo/dark.png">
 </picture>
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v23.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
