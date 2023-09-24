@@ -102,7 +102,7 @@ in
       # GNOME Desktop
       gnome = build.iso {
         timezone = "Asia/Kolkata";
-        locale = "en_IN.UTF-8";
+        locale = "IN";
         kernel = "zfs";
         gui.desktop = "gnome";
       };
@@ -110,7 +110,7 @@ in
       # XFCE Desktop
       xfce = build.iso {
         timezone = "Asia/Kolkata";
-        locale = "en_IN.UTF-8";
+        locale = "IN";
         kernel = "zfs";
         gui.desktop = "xfce";
       };
