@@ -268,7 +268,7 @@ in {
 
       # Additional Excluded Packages
       xdg.portal.enable = mkForce false;
-      qt5.enable = mkForce false;
+      qt.enable = mkForce false;
       services.gnome.core-utilities.enable = mkForce false;
       environment.gnome.excludePackages = with pkgs.gnome; [
         gnome-backgrounds

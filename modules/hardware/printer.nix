@@ -15,7 +15,16 @@ in {
     # Printing
     services.printing = {
       enable = true;
-      drivers = with pkgs; [gutenprint cnijfilter2];
+      drivers = with pkgs; [gutenprint brlaser cnijfilter2];
+      extraConf = ''
+        DefaultPaperSize A4
+      '';
+    };
+
+    # Network Print
+    services.avahi = {
+      enable = true;
+      openFirewall = true;
     };
   };
 }

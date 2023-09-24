@@ -435,6 +435,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Improve XFCE Configuration and Handling
 - Improve Automatic Package Update Script
 - Enable ZFS encryption
+- Support Network Printing
 
 ### 22.11 (v11)
 

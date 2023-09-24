@@ -149,7 +149,11 @@ in {
           "${files.persist}" = {
             files = ["/etc/machine-id"];
             directories = [
-              "/etc/nixos"
+              {
+                directory = "/etc/nixos";
+                group = "keys";
+                mode = "774";
+              }
               "/var/log"
               "/var/lib/AccountsService"
               "/var/lib/nixos"
