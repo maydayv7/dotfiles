@@ -12,7 +12,6 @@ in {
     # Applications
     environment.systemPackages = with pkgs; [
       # Productivity
-      bluej
       gscan2pdf
       handbrake
       hunspell
@@ -23,7 +22,6 @@ in {
 
       # Internet
       google-chrome
-      megasync
       teams
       thunderbird
       whatsapp-for-linux
@@ -43,7 +41,6 @@ in {
       # Persisted Files
       persist.files = [".config/gscan2pdfrc" ".config/zoomus.conf"];
       persist.directories = [
-        ".bluej"
         ".thunderbird"
         ".zoom"
         ".config/google-chrome"

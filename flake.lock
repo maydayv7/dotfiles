@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "compatibility": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1673956053,
-        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "deploy": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -59,6 +43,38 @@
         "owner": "edolstra",
         "repo": "flake-compat",
         "rev": "009399224d5e398d03b22badca40a37ac85412a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_3": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
         "type": "github"
       },
       "original": {
@@ -176,9 +192,7 @@
     },
     "hooks": {
       "inputs": {
-        "flake-compat": [
-          "compatibility"
-        ],
+        "flake-compat": "flake-compat_2",
         "flake-utils": [
           "utils",
           "flake-utils"
@@ -389,7 +403,6 @@
     },
     "root": {
       "inputs": {
-        "compatibility": "compatibility",
         "deploy": "deploy",
         "filter": "filter",
         "gaming": "gaming",
@@ -405,7 +418,6 @@
         "stable": "stable",
         "unstable": "unstable",
         "utils": "utils_2",
-        "vscode": "vscode",
         "windows": "windows",
         "wine": "wine"
       }
@@ -494,22 +506,6 @@
         "type": "github"
       }
     },
-    "vscode": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1684517665,
-        "narHash": "sha256-SaAr66uCQ8CF75jIr23FZjk1+9Kfwm5sQnwV25206Gs=",
-        "owner": "msteen",
-        "repo": "nixos-vscode-server",
-        "rev": "1e1358493df6529d4c7bc4cc3066f76fd16d4ae6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "msteen",
-        "repo": "nixos-vscode-server",
-        "type": "github"
-      }
-    },
     "windows": {
       "inputs": {
         "nixpkgs": [
@@ -532,9 +528,7 @@
     },
     "wine": {
       "inputs": {
-        "flake-compat": [
-          "compatibility"
-        ],
+        "flake-compat": "flake-compat_3",
         "nixpkgs": [
           "unstable"
         ]

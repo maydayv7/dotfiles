@@ -32,5 +32,3 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
 - [`types`](./types.nix): Custom Module Option Types for advanced configuration -
 
   - `mergedAttrs`: Type specifier for merged `attrsets`
-
-The [`compat`](./compat) directory consists of compatibility libraries which enable you to run legacy Nix commands such as `nix-build`, `nix-shell`, and so on...

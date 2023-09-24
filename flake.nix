@@ -84,12 +84,6 @@
       rev = "819180647f428a3826bfc917a54449da1e532ce0";
     };
 
-    # Flake Compatibility Library
-    compatibility = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-
     # Source Filter Functions
     filter.url = "github:numtide/nix-filter";
     ignore = {
@@ -123,19 +117,12 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "stable";
       inputs.nixpkgs-stable.follows = "stable";
-      inputs.flake-compat.follows = "compatibility";
       inputs.flake-utils.follows = "utils/flake-utils";
       inputs.gitignore.follows = "ignore";
     };
 
     # Automatic Deployment Tool
     deploy.url = "github:serokell/deploy-rs";
-
-    # VS Code Server Support
-    vscode = {
-      url = "github:msteen/nixos-vscode-server";
-      flake = false;
-    };
 
     # Windows VM Creator
     windows = {
@@ -147,7 +134,6 @@
     wine = {
       url = "github:emmanuelrosa/erosanix";
       inputs.nixpkgs.follows = "unstable";
-      inputs.flake-compat.follows = "compatibility";
     };
   };
 

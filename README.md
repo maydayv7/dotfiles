@@ -182,7 +182,6 @@ github:maydayv7/dotfiles
 - [`packages`](./packages/README.md): locally built custom packages
 - `overlays`: overrides for pre-built packages
 - [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
-- [`compat`](./lib/compat): compatibility library for older Nix versions
 - [`modules`](./modules/README.md): custom configuration modules for additional functionality
 
 ## Installation
@@ -424,8 +423,9 @@ You can navigate to the `README`'s present in the various directories to know mo
 ### 23.05 (v12)
 
 - Upgrade to NixOS v23.05 (Stoat)!
-- Drop `cod`, `nix-linter`, `gedit`, `touchegg` and `mutter-rounded`
+- Drop `cod`, `nix-linter`, `gedit`, `touchegg`, `vscode-server` and `mutter-rounded`
 - Support Android Virtualisation using Waydroid
+- Drop `compat` Libraries
 - Refactor GNOME Experience
 - Improve XFCE Configuration Handling
 - Improve Automatic Package Update Script

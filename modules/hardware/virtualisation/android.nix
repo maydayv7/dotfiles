@@ -11,14 +11,21 @@
     virtualisation.waydroid.enable = true;
     environment.systemPackages = [pkgs.wl-clipboard];
 
+    #!# Run the following command to install the image:
+    #!# sudo waydroid init -s GAPPS -f
+
     # Environment Setup
     user.groups = ["android"];
+    users.groups.android = {
+      name = "android";
+      gid = 1000;
+    };
     user.persist.directories = [".local/share/waydroid"];
     environment.persist.directories = [
       {
         directory = "/var/lib/waydroid";
         group = "android";
-        mode = "664";
+        mode = "774";
       }
     ];
   };
