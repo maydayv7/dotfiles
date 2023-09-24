@@ -9,13 +9,12 @@
       <property name="autohide-behavior" type="uint" value="1"/>
       <property name="background-alpha" type="uint" value="80"/>
       <property name="background-rgba" type="array">
-        <value type="double" value="1.000000"/>
-        <value type="double" value="1.000000"/>
-        <value type="double" value="1.000000"/>
+        <value type="double" value="1"/>
+        <value type="double" value="1"/>
+        <value type="double" value="1"/>
         <value type="double" value="0.477966"/>
       </property>
       <property name="background-style" type="uint" value="0"/>
-      <property name="disable-struts" type="bool" value="false"/>
       <property name="enter-opacity" type="uint" value="100"/>
       <property name="icon-size" type="uint" value="0"/>
       <property name="leave-opacity" type="uint" value="95"/>
@@ -27,9 +26,10 @@
         <value type="int" value="1"/>
         <value type="int" value="15"/>
         <value type="int" value="22"/>
+        <value type="int" value="12"/>
+        <value type="int" value="16"/>
         <value type="int" value="18"/>
         <value type="int" value="3"/>
-        <value type="int" value="16"/>
         <value type="int" value="4"/>
         <value type="int" value="19"/>
         <value type="int" value="17"/>
@@ -49,6 +49,7 @@
       <property name="position-locked" type="bool" value="true"/>
       <property name="size" type="uint" value="27"/>
       <property name="span-monitors" type="bool" value="false"/>
+      <property name="enable-struts" type="bool" value="true"/>
     </property>
   </property>
   <property name="plugins" type="empty">
@@ -113,6 +114,9 @@
       <property name="size-max" type="uint" value="22"/>
       <property name="style" type="uint" value="0"/>
       <property name="tooltip-format" type="string" value="%A %d %B %Y"/>
+      <property name="digital-time-format" type="string" value="%a %I:%M %p"/>
+      <property name="digital-layout" type="uint" value="3"/>
+      <property name="digital-time-font" type="string" value="Sans 11"/>
     </property>
     <property name="plugin-9" type="string" value="separator">
       <property name="expand" type="bool" value="false"/>
@@ -155,13 +159,18 @@
       </property>
     </property>
     <property name="plugin-22" type="string" value="separator">
-      <property name="style" type="uint" value="0"/>
+      <property name="style" type="uint" value="2"/>
     </property>
     <property name="clipman" type="empty">
       <property name="tweaks" type="empty">
         <property name="paste-on-activate" type="uint" value="2"/>
         <property name="popup-at-pointer" type="bool" value="true"/>
       </property>
+    </property>
+    <property name="plugin-12" type="string" value="pager"/>
+    <property name="plugin-16" type="string" value="separator">
+      <property name="style" type="uint" value="2"/>
+      <property name="expand" type="bool" value="false"/>
     </property>
   </property>
 </channel>

@@ -16,4 +16,5 @@
   <property name="log-level-apps" type="uint" value="0"/>
   <property name="do-fadeout" type="bool" value="true"/>
   <property name="do-slideout" type="bool" value="true"/>
+  <property name="log-max-size-enabled" type="bool" value="true"/>
 </channel>

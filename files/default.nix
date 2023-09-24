@@ -89,6 +89,7 @@ in rec {
   # XFCE Desktop
   xfce = {
     css = readFile ./xfce/gtk.css;
+    panel = ./xfce/panel;
     terminal = readFile ./xfce/terminalrc;
     settings =
       map.files ./xfce/settings

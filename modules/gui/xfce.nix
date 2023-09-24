@@ -6,7 +6,9 @@
   ...
 }:
 with files; let
+  inherit (builtins) elem;
   inherit (config.gui) desktop;
+  apps = config.environment.systemPackages;
   inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair util;
 
   # GTK+ Theme
@@ -58,6 +60,47 @@ in {
       programs.gnupg.agent.pinentryFlavor =
         mkIf config.programs.gnupg.agent.enable "gtk2";
 
+      # Plugins
+      programs = {
+        xfconf.enable = true;
+        thunar.plugins = with pkgs.xfce; [
+          thunar-archive-plugin
+          thunar-dropbox-plugin
+          thunar-volman
+        ];
+      };
+
+      # Utilities
+      environment.systemPackages = with pkgs.xfce // pkgs; [
+        pavucontrol
+        plank
+        orage
+        xarchiver
+        mate.atril
+        xfce4-clipman-plugin
+        xfce4-eyes-plugin
+        xfce4-notes-plugin
+        xfce4-panel-profiles
+        xfce4-pulseaudio-plugin
+        xfce4-sensors-plugin
+        xfce4-timer-plugin
+        xfce4-weather-plugin
+        xfce4-whiskermenu-plugin
+      ];
+
+      # Persisted Files
+      user.persist = {
+        directories = [
+          ".config/autostart"
+          ".config/dconf"
+          ".config/Mousepad"
+          ".config/plank"
+          ".config/Thunar"
+          ".config/xfce4"
+          ".cache/xfce4"
+        ];
+      };
+
       # User Configuration
       user.home = {
         # GTK+ Theming
@@ -91,48 +134,31 @@ in {
 
             # Desktop Settings
             ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
+            ".config/xfce4/panel" = {
+              source = xfce.panel;
+              recursive = true;
+            };
           }
-          // mapAttrs' (name: value: nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml" {text = value;}) files.xfce.settings;
-      };
+          // mapAttrs' (name: value:
+            nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml"
+            {text = value;})
+          files.xfce.settings;
 
-      # Plugins
-      programs = {
-        xfconf.enable = true;
-        thunar.plugins = with pkgs.xfce; [
-          thunar-archive-plugin
-          thunar-dropbox-plugin
-          thunar-volman
-        ];
-      };
-
-      # Utilities
-      environment.systemPackages = with pkgs.xfce // pkgs; [
-        plank
-        orage
-        xarchiver
-        mate.atril
-        xfce4-clipman-plugin
-        xfce4-eyes-plugin
-        xfce4-notes-plugin
-        xfce4-panel-profiles
-        xfce4-pulseaudio-plugin
-        xfce4-sensors-plugin
-        xfce4-timer-plugin
-        xfce4-weather-plugin
-        xfce4-whiskermenu-plugin
-      ];
-
-      # Persisted Files
-      user.persist = {
-        directories = [
-          ".config/autostart"
-          ".config/dconf"
-          ".config/Mousepad"
-          ".config/plank"
-          ".config/Thunar"
-          ".config/xfce4"
-          ".cache/xfce4"
-        ];
+        # Code Editor Settings
+        programs.vscode = mkIf (elem pkgs.vscode apps) {
+          extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "arc-dark";
+              publisher = "alvesvaren";
+              version = "0.4.0";
+              sha256 = "sha256-DM4sY4NsQdlhF+sLLgYuCrNcdmUBRO5c458GpMhF5xg=";
+            }
+          ];
+          userSettings = {
+            "workbench.colorTheme" = "Arc Dark Theme";
+            "terminal.external.linuxExec" = "xfce4-terminal";
+          };
+        };
       };
     })
 

@@ -1,11 +1,22 @@
-![Logo](./files/images/logo/dark.png#gh-dark-mode-only)
-![Logo](./files/images/logo/light.png#gh-light-mode-only)
+<picture>
+  <source
+    srcset="~/files/images/logo/light.png"
+    media="(prefers-color-scheme: light)"
+  />
+  <source
+    srcset="~/files/images/logo/dark.png"
+    media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)"
+  />
+  <img src="" />
+</picture>
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v23.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.tk](https://maydayv7.tk). You can follow along with my [NixOS Desktop](https://maydayv7.tk/series/nixos-desktop/) Series
 
-[![Desktop](./files/images/desktop.png)](https://www.reddit.com/r/unixporn/comments/ssb7mf/gnome_my_dream/)
+[![GNOME Desktop](./files/images/desktop/gnome.png)](https://www.reddit.com/r/unixporn/comments/ssb7mf/gnome_my_dream/)
+
+![XFCE Desktop](./files/images/desktop/xfce.png)
 
 ## Features
 
@@ -427,7 +438,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Support Android Virtualisation using Waydroid
 - Drop `compat` Libraries
 - Refactor GNOME Experience
-- Improve XFCE Configuration Handling
+- Improve XFCE Configuration and Handling
 - Improve Automatic Package Update Script
 - Enable ZFS encryption
 
