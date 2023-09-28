@@ -53,6 +53,8 @@ comments = true
 - Liar Liar <sup>\*</sup>
 - Link Click <sup>\*</sup> <sup>#</sup>
 - Lycoris Recoil <sup>\*</sup>
+- Mahoutsukai no Yome <sup>#</sup> <sup>\*</sup>
+- Masamune's Revenge <sup>#</sup>
 - My Dress Up Darling <sup>\*</sup>
 - My Senpai is Annoying
 - NieR:Automata Ver1.1a <sup>\*</sup>
@@ -66,6 +68,7 @@ comments = true
 - Scums Wish <sup>\*</sup>
 - Sekai Saikou no Ansatsusha, Isekai Kizoku ni Tensei suru <sup>\*</sup>
 - Senryu Girl
+- Snow White with Red Hair <sup>#</sup>
 - Spy X Family <sup>\*</sup> <sup>#</sup>
 - Steins;Gate <sup>#</sup>
 - Suzume's Door Locking
