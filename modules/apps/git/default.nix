@@ -4,17 +4,11 @@
   pkgs,
   files,
   ...
-}: let
-  inherit (lib) mkIf util;
-  enable = builtins.elem "git" config.apps.list;
-in {
+}: {
   imports = [./hosting.nix ./runner.nix];
 
   ## 'git' Configuration ##
-  config = mkIf enable {
-    # Secrets
-    sops.secrets = util.map.secrets ./secrets false;
-
+  config = lib.mkIf (builtins.elem "git" config.apps.list) {
     # Utilities
     environment.systemPackages = with pkgs; [
       gitFull

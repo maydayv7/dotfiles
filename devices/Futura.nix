@@ -7,7 +7,7 @@
   locale = "IN";
   update = "weekly";
 
-  kernel = "5_4";
+  kernel = "6_5";
   hardware = {
     boot = "efi";
     cores = 4;
@@ -15,7 +15,7 @@
     modules = ["common-cpu-intel" "common-pc" "common-pc-laptop"];
   };
 
-  gui.desktop = "gnome";
+  gui.desktop = "xfce";
   apps.list = ["firefox" "office"];
 
   # User Navya

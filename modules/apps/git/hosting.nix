@@ -4,9 +4,8 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf mkOption types;
-  inherit (config.apps.git.hosting) enable domain;
-  opt = config.apps.git.hosting.domain;
-  inherit (config.sops) secrets;
+  inherit (config.apps.git.hosting) enable domain secret;
+  opt = config.apps.git.hosting;
 in {
   options.apps.git.hosting = {
     enable = lib.mkEnableOption "Enable Gitea Code Hosting";
@@ -16,13 +15,22 @@ in {
       default = "";
       example = "maydayv7.io";
     };
+    secret = mkOption {
+      description = "Path to Cloudfare Authentication Credentials";
+      type = types.str;
+      default = "";
+    };
   };
 
   config = mkIf enable {
     assertions = [
       {
         assertion = domain != "";
-        message = opt + " must be set";
+        message = opt.domain.description + " must be set";
+      }
+      {
+        assertion = secret != "";
+        message = opt.secret.description + " must be set";
       }
     ];
 
@@ -68,7 +76,7 @@ in {
         group = "nginx";
         email = "admin@${domain}";
         dnsProvider = "cloudflare";
-        credentialsFile = secrets."cloudflare.secret".path;
+        credentialsFile = secret;
         extraLegoFlags = ["--dns.resolvers=8.8.8.8:53"];
       };
     };

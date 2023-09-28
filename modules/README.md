@@ -11,7 +11,10 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
     - `hosting` -
       - `enable`: Enable Gitea Code Hosting - `true / false`
       - `domain`: Website Domain Name - Ex. `maydayv7.io`
-    - `runner`: Enable Support for `git` Runners - `"github" / "gitlab"`
+      - `secret`: Path to Cloudfare Authentication Credentials
+    - `runner` -
+      - `support`: Enable Support for `git` Runners - `"github" / "gitlab"`
+      - `secret`: Path to Secret for `git` Runner
   - `wine.package`: Package to use for `wine` - Ex. `pkgs.wineWowPackages.staging`
 
 - [`base`](./base): Module that contains the base common/shared configuration

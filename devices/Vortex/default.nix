@@ -10,6 +10,8 @@
   kernel = "lqx";
   kernelModules = ["nvme" "thunderbolt"];
 
+  imports = [./secrets];
+
   hardware = {
     boot = "efi";
     cores = 8;

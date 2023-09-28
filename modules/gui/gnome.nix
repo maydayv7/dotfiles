@@ -66,7 +66,7 @@ in {
           enable = true;
           theme = {
             name = "adw-gtk3-dark";
-            package = pkgs.custom.adw-gtk3;
+            package = pkgs.adw-gtk3;
           };
 
           iconTheme = {

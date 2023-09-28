@@ -31,6 +31,7 @@ comments = true
 - Fuufu Ijou, Koibito Miman <sup>\*</sup>
 - Gekkan Shoujo Nozaki-kun
 - Golden Time
+- Heavenly Delusion <sup>\*</sup>
 - Higehiro
 - Horimiya
 - I Can't Understand What My Husband Is Saying
@@ -39,6 +40,7 @@ comments = true
 - Ijinaraide, Nagatoro-san <sup>\*</sup> <sup>#</sup>
 - Insomniacs after School
 - Kaguya-sama: Love is War <sup>#</sup>
+- Kakegurui <sup>#</sup>
 - Kakkou no Iinazuke
 - Kawaii dake ja nai Shikimori-san
 - Kimi ni Todoke
@@ -87,6 +89,7 @@ comments = true
 - Yamada-kun to Lv999 no Koi wo Suru <sup>\*</sup>
 - Yosuga no Sora
 - Your Lie in April
+- Yuri on Ice!
 
 # Ongoing
 

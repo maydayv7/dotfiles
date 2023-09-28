@@ -8,9 +8,9 @@ These are the options that can be used in addition to the ones exposed by the `n
 
 - `description`: System Description (to add to `config.system.nixos.label`)
 - `timezone`: System Time Zone - Ex. `"Asia/Kolkata"`
-- `locale`: Default Locale - Ex. `"en_IN.UTF-8"`
+- `locale`: Default Locale - Ex. `"IN"`
 - `channel`: System Package Repository to use (from `self.channels.${system}`) - `"stable" / "unstable"`
-- `kernel`: Linux Kernel to use (from `pkgs.linuxKernel.packages.${kernel}`) - Ex. `linux_zfs`
+- `kernel`: Linux Kernel to use (from `pkgs.linuxKernel.packages.linux_${kernel}`) - Ex. `zfs`
 - `kernelModules`: Additional Kernel Modules (to add to `config.boot.initrd.availableKernelModules`) - Ex. `[ "nvme" ]`
 - `imports`: Additional Configuration Files to import - Ex. `[ ./hardware-configuration.nix ]`
 - `format`: Generates Output for Specified Target Format (See [this](https://github.com/nix-community/nixos-generators#supported-formats) for the list of supported formats)

@@ -5,7 +5,7 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Stable Release
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-23.05";
 
     ## Configuration Modules ##
     # My PC Dotfiles
@@ -25,9 +25,9 @@
       imports = [./configuration.nix ./hardware-configuration.nix];
 
       timezone = "Asia/Kolkata";
-      locale = "en_IN.UTF-8";
+      locale = "IN";
 
-      kernel = "linux_zen";
+      kernel = "zen";
       kernelModules = ["xhci_pci" "ahci" "usb_storage" "sd_mod"];
 
       hardware = {

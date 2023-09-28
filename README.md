@@ -155,7 +155,6 @@ github:maydayv7/dotfiles
 ├── packages
 │   └── overlays
 ├── lib
-│   ├── compat
 │   ├── build.nix
 │   ├── map.nix
 │   ├── pack.nix
@@ -326,7 +325,7 @@ All the files and scripts in this repository are licensed under the very permiss
 
 ### Branches
 
-There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used. Releases are always made from the `stable` branch after extensive testing
+There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used
 
 ### Build
 
@@ -351,7 +350,7 @@ The system may be set up using either a `simple` or `advanced` filesystem layout
 
 #### Data Storage
 
-All important, persisted user files are stored at `/data`. Personal files and media are stored on an NTFS partition mounted to `/data/files`
+All important, persisted user files are stored at `/data`, while persisted system files are stored at `/nix/state`. Personal files and media are stored at `/data/files`
 
 ### Home Manager
 
@@ -399,8 +398,7 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 Here are some repositories that I may have shamelessly rummaged through for building my `dotfiles`:  
 _Thanks a lot! ;)_
 
-- Over-Engineered [Configuration](https://github.com/divnix/devos) to scare off Beginners
-- Minimalistic [Configuration](https://github.com/colemickens/nixos-flake-example) for scared Beginners
+- Example [Configuration](https://github.com/srid/nixos-flake)
 - User Configurations -
   - [balsoft](https://code.balsoft.ru/balsoft/nixos-config)
   - [bbigras](https://github.com/bbigras/nix-config)
