@@ -25,6 +25,7 @@ in {
 
     # Utilities
     user.persist.directories = [
+      "Games"
       ".cache/lutris"
       ".config/lutris"
       ".config/notepad++"

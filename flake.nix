@@ -112,6 +112,12 @@
     # System Image Generators
     generators.url = "github:nix-community/nixos-generators";
 
+    # Nix Index Database
+    index = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "stable";
+    };
+
     # Pre-Commit Hooks
     hooks = {
       url = "github:cachix/pre-commit-hooks.nix";

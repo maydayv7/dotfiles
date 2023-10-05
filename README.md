@@ -94,7 +94,7 @@ github:maydayv7/dotfiles
 │       └───website: development environment 'Website'
 ├───files: 'dotfiles' and program configuration
 ├───formatter
-│   └───x86_64-linux: package 'treefmt-0.4.1'
+│   └───x86_64-linux: package 'treefmt'
 ├───installMedia: device install media
 ├───legacyPackages
 │   └───x86_64-linux: omitted (use '--legacy' to show)
@@ -119,7 +119,6 @@ github:maydayv7/dotfiles
 │   └───miscellaneous: Nixpkgs overlay
 ├───packages
 │   └───x86_64-linux
-│       ├───adw-gtk3: package 'adw-gtk3-v4.2'
 │       ├───dotfiles: package 'Dotfiles-v12.0'
 │       ├───fonts: package 'fonts-7'
 │       ├───nixos: package 'nixos'
@@ -173,7 +172,7 @@ github:maydayv7/dotfiles
 - `configuration.nix`: main system configuration file
 - `flake.nix`: repository version control using `inputs`
 - `.version`: system state version
-- [`.templates`](./templates/README.md): custom Flakes configuration templates
+- `.templates`: custom Flakes configuration templates
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 - `shells`: sand-boxed shells for development purposes

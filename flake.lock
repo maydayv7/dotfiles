@@ -256,6 +256,26 @@
         "type": "github"
       }
     },
+    "index": {
+      "inputs": {
+        "nixpkgs": [
+          "stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1696131323,
+        "narHash": "sha256-Y47r8Jo+9rs+XUWHcDPZtkQs6wFeZ24L4CQTfVwE+vY=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "031d4b22505fdea47bd53bfafad517cd03c26a4f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "library": {
       "locked": {
         "lastModified": 1694911725,
@@ -412,6 +432,7 @@
         "hooks": "hooks",
         "ignore": "ignore",
         "impermanence": "impermanence",
+        "index": "index",
         "library": "library",
         "nur": "nur",
         "sops": "sops",

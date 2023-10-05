@@ -55,7 +55,7 @@ in
 
     # Channels
     channels = {
-      stable = (build.channel stable [] ./packages/patches)."${system}";
+      stable = (build.channel stable [deploy.overlay] ./packages/patches)."${system}";
       unstable = (build.channel unstable [nur.overlay] [])."${system}";
       wine = wine.packages."${system}";
       gaming = gaming.packages."${system}";

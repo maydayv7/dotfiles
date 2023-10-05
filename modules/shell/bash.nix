@@ -62,12 +62,6 @@ in {
           historyIgnore = ["rm" "pkill"];
           historyControl = ["erasedups" "ignoredups" "ignorespace"];
         };
-
-        # Command Not Found Integration
-        programs.nix-index.enableBashIntegration = true;
-
-        # DirENV Integration
-        programs.direnv.enableBashIntegration = true;
       })
     settings;
   };

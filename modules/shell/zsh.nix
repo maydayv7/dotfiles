@@ -88,12 +88,6 @@ in {
 
         # Prompt
         home.file.".p10k.zsh".text = zsh.prompt;
-
-        # Command Not Found Integration
-        programs.nix-index.enableZshIntegration = true;
-
-        # DirENV Integration
-        programs.direnv.enableZshIntegration = true;
       })
     settings;
   };

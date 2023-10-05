@@ -60,7 +60,7 @@ with {inherit (lib) mkEnableOption mkIf mkMerge util;}; {
           programs = {
             # DirENV Support
             direnv = {
-              enable = true;
+              enable = true; # Load Shell Variables from '.envrc'
               nix-direnv.enable = true;
             };
 
