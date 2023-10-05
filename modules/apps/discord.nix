@@ -16,7 +16,7 @@ in {
       home.home = {
         # Plugins
         file.".config/BetterDiscord/plugins" = {
-          source = files.discord.plugins;
+          source = files.proprietary.discord;
           recursive = true;
         };
 

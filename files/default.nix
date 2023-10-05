@@ -1,4 +1,4 @@
-lib: pkgs: let
+lib: inputs: pkgs: let
   inherit (lib.util) build map;
   inherit (builtins) fromJSON readFile replaceStrings;
 in rec {
@@ -15,12 +15,6 @@ in rec {
   # ASCII Art
   ascii = map.files' ./ascii lib.id "";
 
-  # Discord Chat
-  discord = {
-    plugins = ./discord/plugins;
-    theme = readFile ./discord/theme.css;
-  };
-
   # Neofetch
   fetch = readFile ./neofetch/config.conf;
 
@@ -28,10 +22,7 @@ in rec {
   firefox.theme = readFile ./firefox/userContent.css;
 
   # Custom Fonts
-  fonts = {
-    path = ./fonts/proprietary;
-    config = readFile ./fonts/fontconfig.xml;
-  };
+  fonts.config = readFile ./fonts/fontconfig.xml;
 
   # 'git' Version Control
   git.hooks = ./git/hooks;
@@ -50,10 +41,7 @@ in rec {
   gtk.bookmarks = readFile ./gtk/bookmarks;
 
   # Pictures
-  images = {
-    profile = ./images/Profile.png;
-    wallpapers = ./images/wallpapers;
-  };
+  images.profile = ./images/Profile.png;
 
   # Persisted Files
   persist = "/nix/state";
@@ -64,6 +52,9 @@ in rec {
     launchers = ./plank/launchers;
     theme = readFile ./plank/dock.theme;
   };
+
+  # Custom Proprietary Files
+  proprietary = inputs.proprietary.files;
 
   # Nano Text Editor
   nano = readFile ./nano/nanorc;

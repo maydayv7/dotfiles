@@ -121,7 +121,8 @@ in {
 
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" =
-            mkIf (elem pkgs.discord apps) {text = discord.theme;};
+            mkIf (elem pkgs.discord apps)
+            {text = ''@import "https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css";'';};
 
           # Firefox GNOME Theme
           ".mozilla/firefox/default/chrome/userChrome.css".text =

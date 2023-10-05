@@ -63,7 +63,7 @@ in {
 
         # Font Rendering
         ".local/share/fonts" = {
-          source = files.fonts.path;
+          source = "${pkgs.custom.fonts}/share/fonts";
           recursive = true;
         };
       };

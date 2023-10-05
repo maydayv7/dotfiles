@@ -67,17 +67,26 @@ in
 
     # Custom Packages
     apps = map.modules ./scripts (name: lib.mkApp {drv = call name;}) // {default = self.apps."${system}".nixos;};
-    packages = map.modules ./packages call // map.modules ./scripts call // {default = self.packages."${system}".dotfiles;};
+    packages =
+      map.modules ./packages call
+      // map.modules ./scripts call
+      // {default = self.packages."${system}".dotfiles;}
+      // proprietary.packages."${system}";
   })
   // {
     # Overrides
     overlays = map.modules ./packages/overlays import;
 
     ## Custom Library Functions ##
-    lib = lib.util // {nixpkgs = library.lib;};
+    lib =
+      lib.util
+      // {
+        inherit platforms;
+        nixpkgs = library.lib;
+      };
 
     ## Program Configuration and 'dotfiles' ##
-    files = import ./files lib self.legacyPackages."${head platforms}";
+    files = import ./files lib inputs self.legacyPackages."${head platforms}";
 
     ## Custom Configuration Modules ##
     nixosModules =

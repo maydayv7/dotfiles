@@ -71,6 +71,9 @@
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
 
+    # Proprietary Software
+    proprietary.url = "github:maydayv7/proprietary";
+
     # Packaged Games
     gaming.url = "github:fufexan/nix-gaming";
 

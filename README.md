@@ -614,7 +614,6 @@ You can navigate to the `README`'s present in the various directories to know mo
 - **GNOME Extensions**:
   - Fly Pie
 - VS Code Themes and Plugins
-- Discord Plugins
 - [Wine](./packages/wine) Applications
 
 </details>

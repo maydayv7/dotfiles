@@ -12,7 +12,7 @@ in {
   # Home Directory
   home.file = {
     # Wallpapers
-    ".local/share/backgrounds".source = files.images.wallpapers;
+    ".local/share/backgrounds".source = files.proprietary.wallpapers;
 
     # GTK+ Bookmarks
     ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
@@ -601,8 +601,6 @@ in {
       grandchild-offset-hover = 31.0;
       grandchild-size = 17.0;
       grandchild-size-hover = 27.0;
-      menu-configuration = ''
-        [{"name":"Navigation","icon":"application-menu","shortcut":"F9","centered":false,"id":0,"children":[{"name":"Sound","icon":"audio-speakers","children":[{"name":"Mute","icon":"discord-tray-muted","type":"Shortcut","data":"AudioMute","angle":-1},{"name":"Play / Pause","icon":"exaile-play","type":"Shortcut","data":"AudioPlay","angle":-1},{"name":"Next","icon":"go-next-symbolic","type":"Shortcut","data":"AudioNext","angle":90},{"name":"Previous","icon":"go-next-symbolic-rtl","type":"Shortcut","data":"AudioPrev","angle":270}],"type":"CustomMenu","data":{},"angle":-1},{"name":"Menu","type":"Command","icon":"gnome-menu","data":{"command":"gnome-extensions prefs flypie@schneegans.github.com"},"angle":-1},{"name":"Tasks","type":"Command","icon":"gnome-system-monitor","data":{"command":"gnome-system-monitor"},"angle":-1},{"name":"System","type":"System","icon":"system-log-out","angle":-1,"data":{}},{"name":"Previous","icon":"go-previous","type":"Shortcut","data":{"shortcut":"<Super>Left"},"angle":270},{"name":"Close","icon":"window-close","type":"Shortcut","data":"<Alt>F4","angle":-1},{"name":"Switcher","icon":"preferences-system-windows","type":"RunningApps","data":{"activeWorkspaceOnly":false,"appGrouping":true,"hoverPeeking":true,"nameRegex":""},"angle":-1},{"name":"Favorites","icon":"emblem-favorite","type":"Favorites","data":{},"angle":-1},{"name":"Maximize","icon":"view-fullscreen","type":"Shortcut","data":{"shortcut":"<Super>Up"},"angle":-1},{"name":"Next","icon":"go-next","type":"Shortcut","data":{"shortcut":"<Super>Right"},"angle":-1}],"type":"CustomMenu","data":{}}]'';
       preview-on-right-side = true;
       stashed-items = "[ ]";
       stats-abortions = mkUint32 38;

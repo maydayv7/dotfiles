@@ -4,9 +4,8 @@ The `files` directory is used to store all my plain-text program configuration f
 
 - [`archive`](./archive) - Old, Archived Files
 - [`ascii`](./ascii) - Personal Collection of beautiful Ascii Art
-- [`discord`](./discord) - `discord` Chat Theming and Plugins
 - [`firefox`](./firefox) - `firefox` Web Browser Theming
-- [`fonts`](./fonts) - Proprietary Fonts and Configuration
+- [`fonts`](./fonts) - Font Configuration
 - [`git`](./git) - Configuration for `git` Version Control
 - [`gnome`](./gnome) - Configuration Files for GNOME Desktop
 - [`gpg`](./gpg) - Encrypted GPG Keys
@@ -15,6 +14,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`nano`](./nano) - `nano` Text Editor Global Configuration
 - [`neofetch`](./neofetch) - `neofetch` CLI Theming
 - [`plank`](./plank) - `plank` Dock Theming
+- [`proprietary`](https://github.com/maydayv7/proprietary) - Custom Proprietary Files
 - [`templates`](./templates) - Document Templates
 - [`vscode`](./vscode) - Visual Studio Code Editor Configuration
 - [`wine`](./wine) - Configuration and Theming for `wine` applications
