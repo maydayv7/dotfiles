@@ -41,7 +41,7 @@
               o,
               function (t) {
                 return e[t];
-              }.bind(null, o)
+              }.bind(null, o),
             );
         return n;
       }),
@@ -145,7 +145,7 @@
                   "KaTeX auto-render: Failed to parse `" +
                     r[a].data +
                     "` with ",
-                  e
+                  e,
                 ),
                   n.appendChild(document.createTextNode(r[a].rawData));
                 continue;

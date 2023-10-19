@@ -12,7 +12,7 @@ in {
   # Home Directory
   home.file = {
     # Wallpapers
-    ".local/share/backgrounds".source = files.proprietary.wallpapers;
+    ".local/share/backgrounds".source = files.proprietary.wallpapers.path;
 
     # GTK+ Bookmarks
     ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
@@ -129,17 +129,17 @@ in {
     };
 
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
+      #color-scheme = "prefer-dark";
       clock-show-weekday = true;
-      document-font-name = "Product Sans 11";
+      #document-font-name = "Product Sans 11";
       enable-animations = true;
       enable-hot-corners = true;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
-      font-name = "Product Sans Medium, Medium 11";
+      #font-name = "Product Sans Medium, Medium 11";
       gtk-im-module = "gtk-im-context-simple";
       locate-pointer = true;
-      monospace-font-name = "MesloLGS NF 10";
+      #monospace-font-name = "MesloLGS NF 10";
       show-battery-percentage = true;
       toolkit-accessibility = false;
     };
@@ -408,7 +408,7 @@ in {
     };
 
     # Shell Extensions
-    "org/gnome/shell/extensions/user-theme".name = "Adwaita";
+    #"org/gnome/shell/extensions/user-theme".name = "Adwaita";
     "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position = "start";
     "org/gnome/shell/extensions/gestureImprovements".allow-minimize-window = true;
     "org/gnome/shell/extensions/gnome-ui-tune".hide-search = false;

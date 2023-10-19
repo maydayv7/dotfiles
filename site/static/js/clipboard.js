@@ -15,7 +15,7 @@ function addCopyButtons(clipboard) {
         },
         function (error) {
           button.innerText = "Error";
-        }
+        },
       );
     });
 

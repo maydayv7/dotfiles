@@ -118,6 +118,7 @@ in {
 
         # Boot Settings
         boot = {
+          resumeDevice = "/dev/disk/by-partlabel/swap";
           supportedFilesystems = ["zfs"];
           kernelParams = ["elevator=none" "nohibernate"];
           zfs = {

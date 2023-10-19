@@ -20,11 +20,11 @@ in {
       then (mkForce {})
       else util.map.secrets ./passwords true;
 
-    users.extraUsers.root.passwordFile =
+    users.extraUsers.root.hashedPasswordFile =
       mkIf (hasAttr "root.secret" secrets) secrets."root.secret".path;
     users.users =
       mapAttrs (name: value: {
-        passwordFile = mkIf (!value.minimal) secrets."${name}.secret".path;
+        hashedPasswordFile = mkIf (!value.minimal) secrets."${name}.secret".path;
       })
       settings;
 

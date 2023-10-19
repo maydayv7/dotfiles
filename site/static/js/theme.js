@@ -28,7 +28,7 @@
     }
     updateThemeSelect(
       document.querySelectorAll(`.${STYLESHEET_CLASSNAME}`)[0].id,
-      true
+      true,
     );
     showBody();
   };

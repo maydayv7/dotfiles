@@ -35,8 +35,7 @@ in {
             settings // {"editor.fontFamily" = "'${font}', 'monospace', monospace";};
 
           # Useful Extensions
-          extensions = with pkgs;
-          with unstable.vscode-extensions // vscode-extensions;
+          extensions = with pkgs.vscode-extensions;
             [
               dotjoshjohnson.xml
               eamodio.gitlens

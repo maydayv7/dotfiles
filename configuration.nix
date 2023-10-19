@@ -51,12 +51,12 @@ in
     formatter = pkgs.treefmt;
 
     ## Package Configuration ##
-    legacyPackages = self.channels."${system}".stable;
+    legacyPackages = self.channels."${system}".unstable;
 
     # Channels
     channels = {
       stable = (build.channel stable [deploy.overlay] ./packages/patches)."${system}";
-      unstable = (build.channel unstable [nur.overlay] [])."${system}";
+      unstable = (build.channel unstable [deploy.overlay nur.overlay] [])."${system}";
       wine = wine.packages."${system}";
       gaming = gaming.packages."${system}";
       apps = {

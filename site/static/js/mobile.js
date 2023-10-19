@@ -8,7 +8,7 @@
     menu_more = document.querySelector(".menu-inner-list-more"),
     page_form = document.querySelector(".pagination__form"),
     phone_width = getComputedStyle(document.body).getPropertyValue(
-      "--phoneWidth"
+      "--phoneWidth",
     ),
     is_phone = function () {
       return window.matchMedia(phone_width).matches;

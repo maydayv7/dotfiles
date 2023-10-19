@@ -32,8 +32,6 @@ in {
       # Desktop Integration
       gui.fonts.enable = true;
       xdg.portal.enable = true;
-      nixpkgs.config.firefox.enableGnomeExtensions =
-        mkIf (elem pkgs.firefox apps) true;
 
       programs = {
         dconf.enable = true;
@@ -64,10 +62,12 @@ in {
         # GTK+ Theming
         gtk = {
           enable = true;
-          theme = {
+          /*
+            *theme = {
             name = "adw-gtk3-dark";
             package = pkgs.adw-gtk3;
           };
+          */
 
           iconTheme = {
             name = "Papirus-Dark";
@@ -125,15 +125,16 @@ in {
             {text = ''@import "https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css";'';};
 
           # Firefox GNOME Theme
-          ".mozilla/firefox/default/chrome/userChrome.css".text =
-            mkIf (elem pkgs.firefox apps)
-            ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
-          ".mozilla/firefox/default/chrome/userContent.css".text =
-            mkIf (elem pkgs.firefox apps) firefox.theme;
-          ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source =
-            mkIf (elem pkgs.firefox apps)
-            "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
+          ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
+          ".mozilla/firefox/default/chrome/userContent.css".text = firefox.theme;
+          ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
         };
+      };
+
+      # Color Scheme
+      stylix = {
+        image = files.proprietary.wallpapers.Sunset;
+        targets.gnome.enable = true;
       };
 
       # QT Theme
@@ -184,34 +185,43 @@ in {
           celluloid
           dconf2nix
           gnuchess
+          (firefox.override (args:
+            args
+            // {
+              cfg =
+                args.cfg
+                or {}
+                // {
+                  enableGnomeExtensions = true;
+                };
+            }))
         ])
-        ++ (with pkgs;
-          with unstable.gnomeExtensions // gnomeExtensions; [
-            # GNOME Shell Extensions
-            alphabetical-app-grid
-            appindicator
-            caffeine
-            coverflow-alt-tab
-            custom.fly-pie
-            gesture-improvements
-            gnome-40-ui-improvements
-            guillotine
-            gtile
-            just-perfection
-            lock-keys
-            lock-screen-message
-            pano
-            quick-settings-tweaker
-            rounded-window-corners
-            space-bar
-            status-area-horizontal-spacing
-            timepp
-            transparent-top-bar-adjustable-transparency
-            top-bar-organizer
-            user-avatar-in-quick-settings
-            vitals
-            weather-oclock
-          ]);
+        ++ (with pkgs.gnomeExtensions; [
+          # GNOME Shell Extensions
+          alphabetical-app-grid
+          appindicator
+          caffeine
+          coverflow-alt-tab
+          custom.fly-pie
+          gesture-improvements
+          gnome-40-ui-improvements
+          guillotine
+          gtile
+          just-perfection
+          lock-keys
+          lock-screen-message
+          pano
+          quick-settings-tweaker
+          rounded-window-corners
+          space-bar
+          status-area-horizontal-spacing
+          timepp
+          transparent-top-bar-adjustable-transparency
+          top-bar-organizer
+          user-avatar-in-quick-settings
+          vitals
+          weather-oclock
+        ]);
 
       # Persisted Files
       user.persist = {

@@ -4,7 +4,7 @@
   <img alt="Desktop" src="files/images/logo/dark.png">
 </picture>
 
-![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-v23.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-unstable-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.tk](https://maydayv7.tk). You can follow along with my [NixOS Desktop](https://maydayv7.tk/series/nixos-desktop/) Series
 
@@ -119,8 +119,7 @@ github:maydayv7/dotfiles
 │   └───miscellaneous: Nixpkgs overlay
 ├───packages
 │   └───x86_64-linux
-│       ├───dotfiles: package 'Dotfiles-v12.0'
-│       ├───fonts: package 'fonts-7'
+│       ├───dotfiles: package 'Dotfiles-v13.0'
 │       ├───nixos: package 'nixos'
 │       └───website: package 'website-stable'
 ├───templates
@@ -139,7 +138,6 @@ github:maydayv7/dotfiles
 ┌── configuration.nix
 ├── flake.nix
 ├── flake.lock
-├── .version
 ├── .templates
 ├── files
 ├── secrets
@@ -171,7 +169,6 @@ github:maydayv7/dotfiles
 
 - `configuration.nix`: main system configuration file
 - `flake.nix`: repository version control using `inputs`
-- `.version`: system state version
 - `.templates`: custom Flakes configuration templates
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
@@ -421,6 +418,13 @@ You can navigate to the `README`'s present in the various directories to know mo
 
 <details>
 <summary><b>Changelog</b></summary>
+
+### v13
+
+- Follow NixOS Unstable
+- Improve `nix-index`
+- Move out proprietary files
+- Refactor Secrets
 
 ### 23.05 (v12)
 

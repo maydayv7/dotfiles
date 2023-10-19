@@ -22,7 +22,6 @@ in {
 
       # Internet
       google-chrome
-      teams
       thunderbird
       whatsapp-for-linux
       zoom-us
@@ -45,7 +44,6 @@ in {
         ".zoom"
         ".config/google-chrome"
         ".config/libreoffice"
-        ".config/Microsoft"
         ".config/onlyoffice"
         ".local/share/data"
         ".local/share/onlyoffice"
