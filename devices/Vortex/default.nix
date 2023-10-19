@@ -2,7 +2,6 @@
   system = "x86_64-linux";
   name = "Vortex";
   description = "PC - Dell Inspiron 15 5000";
-  channel = "stable";
 
   timezone = "Asia/Kolkata";
   locale = "IN";
@@ -24,7 +23,7 @@
 
   gui.desktop = "gnome";
   shell.utilities = true;
-  apps.list = ["discord" "firefox" "git" "office" "vscode" "wine"];
+  apps.list = ["discord" "git" "office" "vscode" "wine"];
 
   # User V7
   user = {

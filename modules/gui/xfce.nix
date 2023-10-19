@@ -101,6 +101,9 @@ in {
         ];
       };
 
+      # Color Scheme
+      stylix.image = files.proprietary.wallpapers.Sunset;
+
       # User Configuration
       user.home = {
         # GTK+ Theming

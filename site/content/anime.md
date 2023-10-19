@@ -15,6 +15,7 @@ comments = true
 - Aharen-san wa Hakarenai
 - Akudama Drive
 - Ao can't Study
+- Assassination Classroom <sup>#</sup>
 - BLUE LOCK <sup>\*</sup>
 - Bunny Girl Senpai
 - Chuunibyou demo Koi ga Shitai! <sup>#</sup>
@@ -109,6 +110,7 @@ comments = true
 - Aishiteru Game wo Owarasetai <sup>\*</sup>
 - Ako to Bambi <sup>\*</sup>
 - Classroom of the Elite <sup>\*</sup>
+- Fetiple
 - Fuufu Ijou, Koibito Miman <sup>\*</sup>
 - Horimiya
 - I want to end the game I love <sup>\*</sup>
@@ -124,6 +126,9 @@ comments = true
 
 # Web Comic
 
+- Down to Earth <sup>\*</sup>
+- Maybe Meant to Be <sup>\*</sup>
+- SubZero <sup>\*</sup>
 - The Beginning after the End <sup>\*</sup>
 
 # Wishlist

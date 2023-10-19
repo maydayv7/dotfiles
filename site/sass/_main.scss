@@ -8,8 +8,14 @@ html {
 body {
   background-color: var(--background);
   color: var(--color);
-  font-family: "JetBrainsMono", Menlo, DejaVu Sans Mono, Monaco, Consolas,
-    Ubuntu Mono, monospace;
+  font-family:
+    "JetBrainsMono",
+    Menlo,
+    DejaVu Sans Mono,
+    Monaco,
+    Consolas,
+    Ubuntu Mono,
+    monospace;
   font-feature-settings: "liga";
   font-size: $font-size;
   line-height: 1.54;

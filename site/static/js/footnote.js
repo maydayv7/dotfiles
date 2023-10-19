@@ -6,7 +6,7 @@ window.addEventListener("load", function () {
   }
 
   for (const footnote of document.getElementsByClassName(
-    "footnote-definition"
+    "footnote-definition",
   )) {
     const hash = footnote.id;
     const refhash = "ref:" + hash;

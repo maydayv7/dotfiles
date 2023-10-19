@@ -41,7 +41,7 @@
               n,
               function (e) {
                 return t[e];
-              }.bind(null, n)
+              }.bind(null, n),
             );
         return a;
       }),
@@ -207,7 +207,7 @@
               (this.macros = t.macros || {}),
               (this.minRuleThickness = Math.max(
                 0,
-                c.deflt(t.minRuleThickness, 0)
+                c.deflt(t.minRuleThickness, 0),
               )),
               (this.colorIsTextColor = c.deflt(t.colorIsTextColor, !1)),
               (this.strict = c.deflt(t.strict, "warn")),
@@ -231,7 +231,7 @@
                       " [" +
                       t +
                       "]",
-                    r
+                    r,
                   );
                 "warn" === a
                   ? "undefined" != typeof console &&
@@ -240,7 +240,7 @@
                         e +
                         " [" +
                         t +
-                        "]"
+                        "]",
                     )
                   : "undefined" != typeof console &&
                     console.warn(
@@ -250,7 +250,7 @@
                         e +
                         " [" +
                         t +
-                        "]"
+                        "]",
                     );
               }
             }),
@@ -273,7 +273,7 @@
                             e +
                             " [" +
                             t +
-                            "]"
+                            "]",
                         ),
                       !1)
                     : ("undefined" != typeof console &&
@@ -284,7 +284,7 @@
                             e +
                             " [" +
                             t +
-                            "]"
+                            "]",
                         ),
                       !1)))
               );
@@ -738,7 +738,7 @@
                   this.italic + "em"),
               this.classes.length > 0 &&
                 ((e = e || document.createElement("span")).className = T(
-                  this.classes
+                  this.classes,
                 )),
               this.style))
                 this.style.hasOwnProperty(r) &&
@@ -779,7 +779,7 @@
             (e.toNode = function () {
               var t = document.createElementNS(
                 "http://www.w3.org/2000/svg",
-                "svg"
+                "svg",
               );
               for (var e in this.attributes)
                 Object.prototype.hasOwnProperty.call(this.attributes, e) &&
@@ -813,7 +813,7 @@
             (e.toNode = function () {
               var t = document.createElementNS(
                 "http://www.w3.org/2000/svg",
-                "path"
+                "path",
               );
               return (
                 this.alternate
@@ -839,7 +839,7 @@
             (e.toNode = function () {
               var t = document.createElementNS(
                 "http://www.w3.org/2000/svg",
-                "line"
+                "line",
               );
               for (var e in this.attributes)
                 Object.prototype.hasOwnProperty.call(this.attributes, e) &&
@@ -4002,7 +4002,7 @@
                   e +
                   "' and mode '" +
                   r +
-                  "'"
+                  "'",
               ),
               (i = new E(t, 0, 0, 0, 0, 0, n));
           if (a) {
@@ -4120,7 +4120,7 @@
             return (
               (a.height = Math.max(
                 r || e.fontMetrics().defaultRuleThickness,
-                e.minRuleThickness
+                e.minRuleThickness,
               )),
               (a.style.borderBottomWidth = a.height + "em"),
               (a.maxFontSize = 1),
@@ -4178,7 +4178,7 @@
                     else {
                       if ("firstBaseline" !== t.positionType)
                         throw new Error(
-                          "Invalid positionType " + t.positionType + "."
+                          "Invalid positionType " + t.positionType + ".",
                         );
                       l = -u.elem.depth;
                     }
@@ -4295,7 +4295,7 @@
                   v,
                   a,
                   e,
-                  i.concat("amsrm", e.fontWeight, e.fontShape)
+                  i.concat("amsrm", e.fontWeight, e.fontShape),
                 );
               }
               if ("main" !== x && x) {
@@ -4487,7 +4487,7 @@
               },
               { node: m },
               u,
-              p
+              p,
             ),
             re(
               n,
@@ -4504,7 +4504,7 @@
               },
               { node: m },
               u,
-              p
+              p,
             ),
             n
           );
@@ -4647,7 +4647,7 @@
             (e.toNode = function () {
               var t = document.createElementNS(
                 "http://www.w3.org/1998/Math/MathML",
-                this.type
+                this.type,
               );
               for (var e in this.attributes)
                 Object.prototype.hasOwnProperty.call(this.attributes, e) &&
@@ -4730,7 +4730,7 @@
                   return document.createTextNode(this.character);
                 var t = document.createElementNS(
                   "http://www.w3.org/1998/Math/MathML",
-                  "mspace"
+                  "mspace",
                 );
                 return t.setAttribute("width", this.width + "em"), t;
               }),
@@ -5043,7 +5043,7 @@
                   x2: "100%",
                   y2: "100%",
                   "stroke-width": "0.046em",
-                })
+                }),
               ),
               /^x?cancel$/.test(e) &&
                 s.push(
@@ -5053,7 +5053,7 @@
                     x2: "100%",
                     y2: "0",
                     "stroke-width": "0.046em",
-                  })
+                  }),
                 );
             var l = new L(s, { width: "100%", height: i + "em" });
             n = Dt.makeSvgSpan([], [l], a);
@@ -5122,7 +5122,7 @@
                   throw new Error(
                     "Correct katexImagesData or update code here to support\n                    " +
                       y +
-                      " children."
+                      " children.",
                   );
                 (u = ["brace-left", "brace-center", "brace-right"]),
                   (p = ["xMinYMin", "xMidYMin", "xMaxYMin"]);
@@ -5161,7 +5161,7 @@
             "Expected node of type " +
               e +
               ", but got " +
-              (t ? "node of type " + t.type : String(t))
+              (t ? "node of type " + t.type : String(t)),
           );
         return t;
       }
@@ -5170,7 +5170,7 @@
         if (!e)
           throw new Error(
             "Expected node of symbol group type, but got " +
-              (t ? "node of type " + t.type : String(t))
+              (t ? "node of type " + t.type : String(t)),
           );
         return e;
       }
@@ -5185,7 +5185,7 @@
               (n = (function (t) {
                 if (t instanceof N) return t;
                 throw new Error(
-                  "Expected span<HtmlDomNode> but got " + String(t) + "."
+                  "Expected span<HtmlDomNode> but got " + String(t) + ".",
                 );
               })(oe(t, e))),
               (t.base = a))
@@ -5219,7 +5219,7 @@
                     },
                   ],
                 },
-                e
+                e,
               ));
           else {
             var m, u;
@@ -5229,8 +5229,8 @@
                   (m = Dt.makeOrd(
                     { mode: a.mode, text: a.label },
                     e,
-                    "textord"
-                  ))
+                    "textord",
+                  )),
                 )).italic = 0),
                 (u = m.width)),
               (l = Dt.makeSpan(["accent-body"], [m]));
@@ -5249,7 +5249,7 @@
                     { type: "elem", elem: l },
                   ],
                 },
-                e
+                e,
               ));
           }
           var f = Dt.makeSpan(["mord", "accent"], [l], e);
@@ -5284,7 +5284,7 @@
             .map(function (t) {
               return "\\" + t;
             })
-            .join("|")
+            .join("|"),
         );
       _t({
         type: "accent",
@@ -5395,7 +5395,7 @@
                     { type: "elem", elem: r },
                   ],
                 },
-                e
+                e,
               );
             return Dt.makeSpan(["mord", "accentunder"], [i], e);
           },
@@ -5460,7 +5460,7 @@
             t.below &&
               ((n = e.havingStyle(a.sub())),
               (r = Dt.wrapFragment(oe(t.below, n, e), e)).classes.push(
-                "x-arrow-pad"
+                "x-arrow-pad",
               ));
           var o,
             s = Be(t, e),
@@ -5482,7 +5482,7 @@
                   { type: "elem", elem: r, shift: m },
                 ],
               },
-              e
+              e,
             );
           } else
             o = Dt.makeVList(
@@ -5493,7 +5493,7 @@
                   { type: "elem", elem: s, shift: l },
                 ],
               },
-              e
+              e,
             );
           return (
             o.children[0].children[0].children[1].classes.push("svg-align"),
@@ -5605,7 +5605,7 @@
                   !a.settings.displayMode ||
                   !a.settings.useStrictBehavior(
                     "newLineInDisplayMode",
-                    "In LaTeX, \\\\ or \\newline does nothing in display mode"
+                    "In LaTeX, \\\\ or \\newline does nothing in display mode",
                   )),
               {
                 type: "cr",
@@ -5702,7 +5702,7 @@
             ) {
               if (1 !== (a = e.gullet.consumeArgs(1)[0]).length)
                 throw new o(
-                  'Invalid argument number length "' + a.length + '"'
+                  'Invalid argument number length "' + a.length + '"',
                 );
               if (!/^[1-9]$/.test(a[0].text))
                 throw new o('Invalid argument number "' + a[0].text + '"');
@@ -5764,7 +5764,7 @@
           var a = G((j.math[t] && j.math[t].replace) || t, e, r);
           if (!a)
             throw new Error(
-              "Unsupported symbol " + t + " and font size " + e + "."
+              "Unsupported symbol " + t + " and font size " + e + ".",
             );
           return a;
         },
@@ -5797,7 +5797,7 @@
               Dt.makeSpan(["delimsizing", "size" + e], [o], a),
               w.TEXT,
               a,
-              i
+              i,
             );
           return r && Ge(s, a, w.TEXT), s;
         },
@@ -5809,7 +5809,7 @@
               type: "elem",
               elem: Dt.makeSpan(
                 ["delimsizinginner", a],
-                [Dt.makeSpan([], [Dt.makeSymbol(t, e, r)])]
+                [Dt.makeSpan([], [Dt.makeSymbol(t, e, r)])],
               ),
             }
           );
@@ -5935,7 +5935,7 @@
           var R = a.havingBaseStyle(w.TEXT),
             E = Dt.makeVList(
               { positionType: "bottom", positionData: z, children: T },
-              R
+              R,
             );
           return Ue(Dt.makeSpan(["delimsizing", "mult"], [E], R), w.TEXT, a, i);
         },
@@ -6208,7 +6208,7 @@
             o = n.sizeMultiplier,
             s = Math.max(
               0,
-              e.minRuleThickness - e.fontMetrics().sqrtRuleThickness
+              e.minRuleThickness - e.fontMetrics().sqrtRuleThickness,
             ),
             l = 0,
             h = 0,
@@ -6222,7 +6222,7 @@
                   (l = (1 + s + 0.08) / o),
                   (m = 1e3 + 1e3 * s + 80),
                   s,
-                  e
+                  e,
                 )).style.minWidth = "0.853em"),
                 (a = 0.833 / o))
               : "large" === i.type
@@ -6346,7 +6346,7 @@
           r
             ? "Invalid delimiter '" + r.text + "' after '" + e.funcName + "'"
             : "Invalid delimiter type '" + t.type + "'",
-          t
+          t,
         );
       }
       function ur(t) {
@@ -6566,7 +6566,7 @@
                       { type: "elem", elem: n, shift: 0 },
                     ],
                   },
-                  e
+                  e,
                 )
               : Dt.makeVList(
                   {
@@ -6581,7 +6581,7 @@
                       },
                     ],
                   },
-                  e
+                  e,
                 )),
             /cancel/.test(i) && ((a.height = n.height), (a.depth = n.depth)),
             /cancel/.test(i) && !l
@@ -6593,7 +6593,7 @@
           var r = 0,
             a = new ue.MathNode(
               t.label.indexOf("colorbox") > -1 ? "mpadded" : "menclose",
-              [ve(t.body, e)]
+              [ve(t.body, e)],
             );
           switch (t.label) {
             case "\\cancel":
@@ -6621,7 +6621,7 @@
                 var n = Math.max(e.fontMetrics().fboxrule, e.minRuleThickness);
                 a.setAttribute(
                   "style",
-                  "border: " + n + "em solid " + String(t.borderColor)
+                  "border: " + n + "em solid " + String(t.borderColor),
                 );
               }
               break;
@@ -6903,7 +6903,7 @@
               }
               (H = Dt.makeVList(
                 { positionType: "individualShift", children: H },
-                e
+                e,
               )),
                 (H = Dt.makeSpan(["col-align-" + (R.align || "c")], [H])),
                 O.push(H),
@@ -6930,7 +6930,7 @@
             }
             l = Dt.makeVList(
               { positionType: "individualShift", children: W },
-              e
+              e,
             );
           }
           return Dt.makeSpan(["mord"], [l], e);
@@ -6944,9 +6944,9 @@
                   "mtr",
                   t.map(function (t) {
                     return new ue.MathNode("mtd", [ve(t, e)]);
-                  })
+                  }),
                 );
-              })
+              }),
             ),
             a =
               0.5 === t.arraystretch
@@ -6995,13 +6995,13 @@
             "" !== n &&
               (r = new ue.MathNode("menclose", [r])).setAttribute(
                 "notation",
-                n.trim()
+                n.trim(),
               ),
             t.arraystretch &&
               t.arraystretch < 1 &&
               (r = new ue.MathNode("mstyle", [r])).setAttribute(
                 "scriptlevel",
-                "1"
+                "1",
               ),
             r
           );
@@ -7030,7 +7030,7 @@
               if (r < n)
                 throw new o(
                   "Too many math in a row: expected " + r + ", but got " + n,
-                  t[0]
+                  t[0],
                 );
             }
           });
@@ -7048,15 +7048,15 @@
         props: { numArgs: 1 },
         handler: function (t, e) {
           var r = {
-            cols: (Ne(e[0]) ? [e[0]] : Ce(e[0], "ordgroup").body).map(function (
-              t
-            ) {
-              var e = qe(t).text;
-              if (-1 !== "lcr".indexOf(e)) return { type: "align", align: e };
-              if ("|" === e) return { type: "separator", separator: "|" };
-              if (":" === e) return { type: "separator", separator: ":" };
-              throw new o("Unknown column alignment: " + e, t);
-            }),
+            cols: (Ne(e[0]) ? [e[0]] : Ce(e[0], "ordgroup").body).map(
+              function (t) {
+                var e = qe(t).text;
+                if (-1 !== "lcr".indexOf(e)) return { type: "align", align: e };
+                if ("|" === e) return { type: "separator", separator: "|" };
+                if (":" === e) return { type: "separator", separator: ":" };
+                throw new o("Unknown column alignment: " + e, t);
+              },
+            ),
             hskipBeforeAndAfter: !0,
           };
           return vr(t.parser, r, br(t.envName));
@@ -7120,7 +7120,7 @@
                 var e = qe(t).text;
                 if (-1 !== "lc".indexOf(e)) return { type: "align", align: e };
                 throw new o("Unknown column alignment: " + e, t);
-              }
+              },
             );
             if (r.length > 1)
               throw new o("{subarray} can contain only one column");
@@ -7149,7 +7149,7 @@
                   { type: "align", align: "l", pregap: 0, postgap: 0 },
                 ],
               },
-              br(t.envName)
+              br(t.envName),
             );
             return {
               type: "leftright",
@@ -7179,7 +7179,7 @@
             return vr(
               t.parser,
               { cols: [{ type: "align", align: "c" }], addJot: !0 },
-              "display"
+              "display",
             );
           },
           htmlBuilder: yr,
@@ -7228,7 +7228,7 @@
             if (f.name !== i)
               throw new o(
                 "Mismatch: \\begin{" + i + "} matched by \\end{" + f.name + "}",
-                d
+                d,
               );
             return p;
           }
@@ -7509,7 +7509,7 @@
                   { type: "elem", elem: o, shift: -u },
                 ],
               },
-              e
+              e,
             );
           } else {
             var S = u - o.depth - (b.height - d);
@@ -7522,7 +7522,7 @@
                     { type: "elem", elem: o, shift: -u },
                   ],
                 },
-                e
+                e,
               ));
           }
           return (
@@ -7545,7 +7545,7 @@
             Dt.makeSpan(
               ["mord"].concat(r.sizingClasses(e)),
               [x, Dt.makeSpan(["mfrac"], [f]), v],
-              e
+              e,
             )
           );
         },
@@ -7810,7 +7810,7 @@
                     { type: "elem", elem: s },
                   ],
                 },
-                e
+                e,
               )).children[0].children[0].children[1].classes.push("svg-align")
             : (i = Dt.makeVList(
                 {
@@ -7822,7 +7822,7 @@
                     { type: "elem", elem: o },
                   ],
                 },
-                e
+                e,
               )).children[0].children[0].children[0].classes.push("svg-align"),
           r)
         ) {
@@ -7837,7 +7837,7 @@
                     { type: "elem", elem: r },
                   ],
                 },
-                e
+                e,
               )
             : Dt.makeVList(
                 {
@@ -7849,7 +7849,7 @@
                     { type: "elem", elem: l },
                   ],
                 },
-                e
+                e,
               );
         }
         return Dt.makeSpan(["mord", a.isOver ? "mover" : "munder"], [i], e);
@@ -7942,7 +7942,7 @@
             a.settings.strict &&
               a.settings.reportNonstrict(
                 "htmlExtension",
-                "HTML extension is disabled on strict mode"
+                "HTML extension is disabled on strict mode",
               );
             var l = {};
             switch (n) {
@@ -8056,7 +8056,7 @@
                     break;
                   default:
                     throw new o(
-                      "Invalid key: '" + c[0] + "' in \\includegraphics."
+                      "Invalid key: '" + c[0] + "' in \\includegraphics.",
                     );
                 }
               }
@@ -8066,7 +8066,7 @@
             "" === l &&
               (l = (l = (l = p).replace(/^.*[\\/]/, "")).substring(
                 0,
-                l.lastIndexOf(".")
+                l.lastIndexOf("."),
               )),
             a.settings.isTrusted({ command: "\\includegraphics", url: p })
               ? {
@@ -8130,17 +8130,17 @@
                         a +
                         " supports only mu units, not " +
                         n.value.unit +
-                        " units"
+                        " units",
                     ),
                   "math" !== r.mode &&
                     r.settings.reportNonstrict(
                       "mathVsTextUnits",
-                      "LaTeX's " + a + " works only in math mode"
+                      "LaTeX's " + a + " works only in math mode",
                     ))
                 : o &&
                   r.settings.reportNonstrict(
                     "mathVsTextUnits",
-                    "LaTeX's " + a + " doesn't support mu units"
+                    "LaTeX's " + a + " doesn't support mu units",
                   );
             }
             return { type: "kern", mode: r.mode, dimension: n.value };
@@ -8266,7 +8266,7 @@
               elem: m,
               kern: Math.max(
                 a.fontMetrics().bigOpSpacing1,
-                a.fontMetrics().bigOpSpacing3 - m.depth
+                a.fontMetrics().bigOpSpacing3 - m.depth,
               ),
             };
           }
@@ -8276,7 +8276,7 @@
               elem: c,
               kern: Math.max(
                 a.fontMetrics().bigOpSpacing2,
-                a.fontMetrics().bigOpSpacing4 - c.height
+                a.fontMetrics().bigOpSpacing4 - c.height,
               ),
             };
           }
@@ -8302,7 +8302,7 @@
                   { type: "kern", size: a.fontMetrics().bigOpSpacing5 },
                 ],
               },
-              a
+              a,
             );
           } else if (s) {
             var p = t.height - o;
@@ -8317,7 +8317,7 @@
                   { type: "elem", elem: t },
                 ],
               },
-              a
+              a,
             );
           } else {
             if (!l) return t;
@@ -8333,7 +8333,7 @@
                   { type: "kern", size: a.fontMetrics().bigOpSpacing5 },
                 ],
               },
-              a
+              a,
             );
           }
           return Dt.makeSpan(["mop", "op-limits"], [h], a);
@@ -8380,7 +8380,7 @@
                     { type: "elem", elem: p, shift: l ? 0.08 : 0 },
                   ],
                 },
-                e
+                e,
               )),
                 (n.name = "\\" + m),
                 o.classes.unshift("mop"),
@@ -8776,7 +8776,7 @@
                     { type: "kern", size: n },
                   ],
                 },
-                e
+                e,
               );
             return Dt.makeSpan(["mord", "overline"], [i], e);
           },
@@ -8825,7 +8825,7 @@
                   positionType: "firstBaseline",
                   children: [{ type: "elem", elem: r }],
                 },
-                e
+                e,
               )),
               Dt.makeSpan(["mord"], [r], e)
             );
@@ -8879,7 +8879,7 @@
                 positionData: -a,
                 children: [{ type: "elem", elem: r }],
               },
-              e
+              e,
             );
           },
           mathmlBuilder: function (t, e) {
@@ -9029,7 +9029,7 @@
                 positionType: "firstBaseline",
                 children: [{ type: "elem", elem: r }],
               },
-              e
+              e,
             );
             return Dt.makeSpan(["mord"], [i], e);
           },
@@ -9080,7 +9080,7 @@
                   { type: "kern", size: h },
                 ],
               },
-              e
+              e,
             );
             if (t.index) {
               var d = e.havingStyle(w.SCRIPTSCRIPT),
@@ -9092,7 +9092,7 @@
                     positionData: -g,
                     children: [{ type: "elem", elem: f }],
                   },
-                  e
+                  e,
                 ),
                 v = Dt.makeSpan(["root"], [x]);
               return Dt.makeSpan(["mord", "sqrt"], [v, p], e);
@@ -9243,14 +9243,14 @@
             ];
             x = Dt.makeVList(
               { positionType: "individualShift", children: z },
-              e
+              e,
             );
           } else if (n) {
             p = Math.max(p, m.sub1, n.height - 0.8 * m.xHeight);
             var A = [{ type: "elem", elem: n, marginLeft: y, marginRight: b }];
             x = Dt.makeVList(
               { positionType: "shift", positionData: p, children: A },
-              e
+              e,
             );
           } else {
             if (!a) throw new Error("supsub must have either sup or sub.");
@@ -9261,7 +9261,7 @@
                   positionData: -u,
                   children: [{ type: "elem", elem: a, marginRight: b }],
                 },
-                e
+                e,
               ));
           }
           var T = ne(h, "right") || "mord";
@@ -9399,7 +9399,7 @@
             return Dt.makeSpan(
               ["mspace", r],
               [Dt.mathsym(t.text, t.mode, e)],
-              e
+              e,
             );
           }
           if (Kr.hasOwnProperty(t.text))
@@ -9508,7 +9508,7 @@
                     { type: "elem", elem: r },
                   ],
                 },
-                e
+                e,
               );
             return Dt.makeSpan(["mord", "underline"], [i], e);
           },
@@ -9525,7 +9525,7 @@
           props: { numArgs: 0, allowedInText: !0 },
           handler: function (t, e, r) {
             throw new o(
-              "\\verb ended by end of line instead of matching delimiter"
+              "\\verb ended by end of line instead of matching delimiter",
             );
           },
           htmlBuilder: function (t, e) {
@@ -9540,13 +9540,13 @@
                   Dt.makeSymbol(o, "Typewriter-Regular", t.mode, n, [
                     "mord",
                     "texttt",
-                  ])
+                  ]),
                 );
             }
             return Dt.makeSpan(
               ["mord", "text"].concat(n.sizingClasses(e)),
               Dt.tryCombineChars(a),
-              n
+              n,
             );
           },
           mathmlBuilder: function (t, e) {
@@ -9587,7 +9587,7 @@
               if (null === r || r.index !== e)
                 throw new o(
                   "Unexpected character: '" + t[e] + "'",
-                  new n(t[e], new a(this, e, e + 1))
+                  new n(t[e], new a(this, e, e + 1)),
                 );
               var i = r[2] || " ";
               if (14 === this.catcodes[i]) {
@@ -9597,7 +9597,7 @@
                     ? ((this.tokenRegex.lastIndex = t.length),
                       this.settings.reportNonstrict(
                         "commentAtEnd",
-                        "% comment has no terminating newline; LaTeX would fail because of commenting the end of math mode (e.g. $)"
+                        "% comment has no terminating newline; LaTeX would fail because of commenting the end of math mode (e.g. $)",
                       ))
                     : (this.tokenRegex.lastIndex = s + 1),
                   this.lex()
@@ -9631,7 +9631,7 @@
             (e.endGroup = function () {
               if (0 === this.undefStack.length)
                 throw new o(
-                  "Unbalanced namespace destruction: attempt to pop global namespace; please report this as a bug"
+                  "Unbalanced namespace destruction: attempt to pop global namespace; please report this as a bug",
                 );
               var t = this.undefStack.pop();
               for (var e in t)
@@ -9760,7 +9760,7 @@
               n +
               "} attempting to redefine " +
               n +
-              "; use \\renewcommand"
+              "; use \\renewcommand",
           );
         if (!i && !r)
           throw new o(
@@ -9768,7 +9768,7 @@
               n +
               "} when command " +
               n +
-              " does not yet exist; use \\newcommand"
+              " does not yet exist; use \\newcommand",
           );
         var s = 0;
         if (1 === (a = t.consumeArgs(1)[0]).length && "[" === a[0].text) {
@@ -9802,7 +9802,7 @@
                 .map(function (t) {
                   return t.text;
                 })
-                .join("")
+                .join(""),
             ),
             ""
           );
@@ -9816,7 +9816,7 @@
                 .map(function (t) {
                   return t.text;
                 })
-                .join("")
+                .join(""),
             ),
             ""
           );
@@ -9837,11 +9837,11 @@
         pa("\\textcopyright", "\\html@mathml{\\textcircled{c}}{\\char`\xa9}"),
         pa(
           "\\copyright",
-          "\\TextOrMath{\\textcopyright}{\\text{\\textcopyright}}"
+          "\\TextOrMath{\\textcopyright}{\\text{\\textcopyright}}",
         ),
         pa(
           "\\textregistered",
-          "\\html@mathml{\\textcircled{\\scriptsize R}}{\\char`\xae}"
+          "\\html@mathml{\\textcircled{\\scriptsize R}}{\\char`\xae}",
         ),
         pa("\u212c", "\\mathscr{B}"),
         pa("\u2130", "\\mathscr{E}"),
@@ -9862,42 +9862,42 @@
         pa("\\not", '\\html@mathml{\\mathrel{\\mathrlap\\@not}}{\\char"338}'),
         pa(
           "\\neq",
-          "\\html@mathml{\\mathrel{\\not=}}{\\mathrel{\\char`\u2260}}"
+          "\\html@mathml{\\mathrel{\\not=}}{\\mathrel{\\char`\u2260}}",
         ),
         pa("\\ne", "\\neq"),
         pa("\u2260", "\\neq"),
         pa(
           "\\notin",
-          "\\html@mathml{\\mathrel{{\\in}\\mathllap{/\\mskip1mu}}}{\\mathrel{\\char`\u2209}}"
+          "\\html@mathml{\\mathrel{{\\in}\\mathllap{/\\mskip1mu}}}{\\mathrel{\\char`\u2209}}",
         ),
         pa("\u2209", "\\notin"),
         pa(
           "\u2258",
-          "\\html@mathml{\\mathrel{=\\kern{-1em}\\raisebox{0.4em}{$\\scriptsize\\frown$}}}{\\mathrel{\\char`\u2258}}"
+          "\\html@mathml{\\mathrel{=\\kern{-1em}\\raisebox{0.4em}{$\\scriptsize\\frown$}}}{\\mathrel{\\char`\u2258}}",
         ),
         pa(
           "\u2259",
-          "\\html@mathml{\\stackrel{\\tiny\\wedge}{=}}{\\mathrel{\\char`\u2258}}"
+          "\\html@mathml{\\stackrel{\\tiny\\wedge}{=}}{\\mathrel{\\char`\u2258}}",
         ),
         pa(
           "\u225a",
-          "\\html@mathml{\\stackrel{\\tiny\\vee}{=}}{\\mathrel{\\char`\u225a}}"
+          "\\html@mathml{\\stackrel{\\tiny\\vee}{=}}{\\mathrel{\\char`\u225a}}",
         ),
         pa(
           "\u225b",
-          "\\html@mathml{\\stackrel{\\scriptsize\\star}{=}}{\\mathrel{\\char`\u225b}}"
+          "\\html@mathml{\\stackrel{\\scriptsize\\star}{=}}{\\mathrel{\\char`\u225b}}",
         ),
         pa(
           "\u225d",
-          "\\html@mathml{\\stackrel{\\tiny\\mathrm{def}}{=}}{\\mathrel{\\char`\u225d}}"
+          "\\html@mathml{\\stackrel{\\tiny\\mathrm{def}}{=}}{\\mathrel{\\char`\u225d}}",
         ),
         pa(
           "\u225e",
-          "\\html@mathml{\\stackrel{\\tiny\\mathrm{m}}{=}}{\\mathrel{\\char`\u225e}}"
+          "\\html@mathml{\\stackrel{\\tiny\\mathrm{m}}{=}}{\\mathrel{\\char`\u225e}}",
         ),
         pa(
           "\u225f",
-          "\\html@mathml{\\stackrel{\\tiny?}{=}}{\\mathrel{\\char`\u225f}}"
+          "\\html@mathml{\\stackrel{\\tiny?}{=}}{\\mathrel{\\char`\u225f}}",
         ),
         pa("\u27c2", "\\perp"),
         pa("\u203c", "\\mathclose{!\\mkern-0.8mu!}"),
@@ -9929,7 +9929,7 @@
         pa("\\substack", "\\begin{subarray}{c}#1\\end{subarray}"),
         pa(
           "\\colon",
-          "\\nobreak\\mskip2mu\\mathpunct{}\\mathchoice{\\mkern-3mu}{\\mkern-3mu}{}{}{:}\\mskip6mu"
+          "\\nobreak\\mskip2mu\\mathpunct{}\\mathchoice{\\mkern-3mu}{\\mkern-3mu}{}{}{:}\\mskip6mu",
         ),
         pa("\\boxed", "\\fbox{$\\displaystyle{#1}$}"),
         pa("\\iff", "\\DOTSB\\;\\Longleftrightarrow\\;"),
@@ -10060,25 +10060,25 @@
         }),
         pa(
           "\\bmod",
-          "\\mathchoice{\\mskip1mu}{\\mskip1mu}{\\mskip5mu}{\\mskip5mu}\\mathbin{\\rm mod}\\mathchoice{\\mskip1mu}{\\mskip1mu}{\\mskip5mu}{\\mskip5mu}"
+          "\\mathchoice{\\mskip1mu}{\\mskip1mu}{\\mskip5mu}{\\mskip5mu}\\mathbin{\\rm mod}\\mathchoice{\\mskip1mu}{\\mskip1mu}{\\mskip5mu}{\\mskip5mu}",
         ),
         pa(
           "\\pod",
-          "\\allowbreak\\mathchoice{\\mkern18mu}{\\mkern8mu}{\\mkern8mu}{\\mkern8mu}(#1)"
+          "\\allowbreak\\mathchoice{\\mkern18mu}{\\mkern8mu}{\\mkern8mu}{\\mkern8mu}(#1)",
         ),
         pa("\\pmod", "\\pod{{\\rm mod}\\mkern6mu#1}"),
         pa(
           "\\mod",
-          "\\allowbreak\\mathchoice{\\mkern18mu}{\\mkern12mu}{\\mkern12mu}{\\mkern12mu}{\\rm mod}\\,\\,#1"
+          "\\allowbreak\\mathchoice{\\mkern18mu}{\\mkern12mu}{\\mkern12mu}{\\mkern12mu}{\\rm mod}\\,\\,#1",
         ),
         pa(
           "\\pmb",
-          "\\html@mathml{\\@binrel{#1}{\\mathrlap{#1}\\kern0.5px#1}}{\\mathbf{#1}}"
+          "\\html@mathml{\\@binrel{#1}{\\mathrlap{#1}\\kern0.5px#1}}{\\mathbf{#1}}",
         ),
         pa("\\\\", "\\newline"),
         pa(
           "\\TeX",
-          "\\textrm{\\html@mathml{T\\kern-.1667em\\raisebox{-.5ex}{E}\\kern-.125emX}{TeX}}"
+          "\\textrm{\\html@mathml{T\\kern-.1667em\\raisebox{-.5ex}{E}\\kern-.125emX}{TeX}}",
         );
       var va =
         F["Main-Regular"]["T".charCodeAt(0)][1] -
@@ -10088,13 +10088,13 @@
         "\\LaTeX",
         "\\textrm{\\html@mathml{L\\kern-.36em\\raisebox{" +
           va +
-          "}{\\scriptstyle A}\\kern-.15em\\TeX}{LaTeX}}"
+          "}{\\scriptstyle A}\\kern-.15em\\TeX}{LaTeX}}",
       ),
         pa(
           "\\KaTeX",
           "\\textrm{\\html@mathml{K\\kern-.17em\\raisebox{" +
             va +
-            "}{\\scriptstyle A}\\kern-.15em\\TeX}{KaTeX}}"
+            "}{\\scriptstyle A}\\kern-.15em\\TeX}{KaTeX}}",
         ),
         pa("\\hspace", "\\@ifstar\\@hspacer\\@hspace"),
         pa("\\@hspace", "\\hskip #1\\relax"),
@@ -10103,55 +10103,55 @@
         pa("\\vcentcolon", "\\mathrel{\\mathop\\ordinarycolon}"),
         pa(
           "\\dblcolon",
-          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-.9mu}\\vcentcolon}}{\\mathop{\\char"2237}}'
+          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-.9mu}\\vcentcolon}}{\\mathop{\\char"2237}}',
         ),
         pa(
           "\\coloneqq",
-          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-1.2mu}=}}{\\mathop{\\char"2254}}'
+          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-1.2mu}=}}{\\mathop{\\char"2254}}',
         ),
         pa(
           "\\Coloneqq",
-          '\\html@mathml{\\mathrel{\\dblcolon\\mathrel{\\mkern-1.2mu}=}}{\\mathop{\\char"2237\\char"3d}}'
+          '\\html@mathml{\\mathrel{\\dblcolon\\mathrel{\\mkern-1.2mu}=}}{\\mathop{\\char"2237\\char"3d}}',
         ),
         pa(
           "\\coloneq",
-          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-1.2mu}\\mathrel{-}}}{\\mathop{\\char"3a\\char"2212}}'
+          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-1.2mu}\\mathrel{-}}}{\\mathop{\\char"3a\\char"2212}}',
         ),
         pa(
           "\\Coloneq",
-          '\\html@mathml{\\mathrel{\\dblcolon\\mathrel{\\mkern-1.2mu}\\mathrel{-}}}{\\mathop{\\char"2237\\char"2212}}'
+          '\\html@mathml{\\mathrel{\\dblcolon\\mathrel{\\mkern-1.2mu}\\mathrel{-}}}{\\mathop{\\char"2237\\char"2212}}',
         ),
         pa(
           "\\eqqcolon",
-          '\\html@mathml{\\mathrel{=\\mathrel{\\mkern-1.2mu}\\vcentcolon}}{\\mathop{\\char"2255}}'
+          '\\html@mathml{\\mathrel{=\\mathrel{\\mkern-1.2mu}\\vcentcolon}}{\\mathop{\\char"2255}}',
         ),
         pa(
           "\\Eqqcolon",
-          '\\html@mathml{\\mathrel{=\\mathrel{\\mkern-1.2mu}\\dblcolon}}{\\mathop{\\char"3d\\char"2237}}'
+          '\\html@mathml{\\mathrel{=\\mathrel{\\mkern-1.2mu}\\dblcolon}}{\\mathop{\\char"3d\\char"2237}}',
         ),
         pa(
           "\\eqcolon",
-          '\\html@mathml{\\mathrel{\\mathrel{-}\\mathrel{\\mkern-1.2mu}\\vcentcolon}}{\\mathop{\\char"2239}}'
+          '\\html@mathml{\\mathrel{\\mathrel{-}\\mathrel{\\mkern-1.2mu}\\vcentcolon}}{\\mathop{\\char"2239}}',
         ),
         pa(
           "\\Eqcolon",
-          '\\html@mathml{\\mathrel{\\mathrel{-}\\mathrel{\\mkern-1.2mu}\\dblcolon}}{\\mathop{\\char"2212\\char"2237}}'
+          '\\html@mathml{\\mathrel{\\mathrel{-}\\mathrel{\\mkern-1.2mu}\\dblcolon}}{\\mathop{\\char"2212\\char"2237}}',
         ),
         pa(
           "\\colonapprox",
-          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-1.2mu}\\approx}}{\\mathop{\\char"3a\\char"2248}}'
+          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-1.2mu}\\approx}}{\\mathop{\\char"3a\\char"2248}}',
         ),
         pa(
           "\\Colonapprox",
-          '\\html@mathml{\\mathrel{\\dblcolon\\mathrel{\\mkern-1.2mu}\\approx}}{\\mathop{\\char"2237\\char"2248}}'
+          '\\html@mathml{\\mathrel{\\dblcolon\\mathrel{\\mkern-1.2mu}\\approx}}{\\mathop{\\char"2237\\char"2248}}',
         ),
         pa(
           "\\colonsim",
-          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-1.2mu}\\sim}}{\\mathop{\\char"3a\\char"223c}}'
+          '\\html@mathml{\\mathrel{\\vcentcolon\\mathrel{\\mkern-1.2mu}\\sim}}{\\mathop{\\char"3a\\char"223c}}',
         ),
         pa(
           "\\Colonsim",
-          '\\html@mathml{\\mathrel{\\dblcolon\\mathrel{\\mkern-1.2mu}\\sim}}{\\mathop{\\char"2237\\char"223c}}'
+          '\\html@mathml{\\mathrel{\\dblcolon\\mathrel{\\mkern-1.2mu}\\sim}}{\\mathop{\\char"2237\\char"223c}}',
         ),
         pa("\u2237", "\\dblcolon"),
         pa("\u2239", "\\eqcolon"),
@@ -10172,19 +10172,19 @@
         pa("\\coloncolonsim", "\\Colonsim"),
         pa(
           "\\simcolon",
-          "\\mathrel{\\sim\\mathrel{\\mkern-1.2mu}\\vcentcolon}"
+          "\\mathrel{\\sim\\mathrel{\\mkern-1.2mu}\\vcentcolon}",
         ),
         pa(
           "\\simcoloncolon",
-          "\\mathrel{\\sim\\mathrel{\\mkern-1.2mu}\\dblcolon}"
+          "\\mathrel{\\sim\\mathrel{\\mkern-1.2mu}\\dblcolon}",
         ),
         pa(
           "\\approxcolon",
-          "\\mathrel{\\approx\\mathrel{\\mkern-1.2mu}\\vcentcolon}"
+          "\\mathrel{\\approx\\mathrel{\\mkern-1.2mu}\\vcentcolon}",
         ),
         pa(
           "\\approxcoloncolon",
-          "\\mathrel{\\approx\\mathrel{\\mkern-1.2mu}\\dblcolon}"
+          "\\mathrel{\\approx\\mathrel{\\mkern-1.2mu}\\dblcolon}",
         ),
         pa("\\notni", "\\html@mathml{\\not\\ni}{\\mathrel{\\char`\u220c}}"),
         pa("\\limsup", "\\DOTSB\\operatorname*{lim\\,sup}"),
@@ -10207,27 +10207,27 @@
         pa("\\jmath", "\\html@mathml{\\@jmath}{\u0237}"),
         pa(
           "\\llbracket",
-          "\\html@mathml{\\mathopen{[\\mkern-3.2mu[}}{\\mathopen{\\char`\u27e6}}"
+          "\\html@mathml{\\mathopen{[\\mkern-3.2mu[}}{\\mathopen{\\char`\u27e6}}",
         ),
         pa(
           "\\rrbracket",
-          "\\html@mathml{\\mathclose{]\\mkern-3.2mu]}}{\\mathclose{\\char`\u27e7}}"
+          "\\html@mathml{\\mathclose{]\\mkern-3.2mu]}}{\\mathclose{\\char`\u27e7}}",
         ),
         pa("\u27e6", "\\llbracket"),
         pa("\u27e7", "\\rrbracket"),
         pa(
           "\\lBrace",
-          "\\html@mathml{\\mathopen{\\{\\mkern-3.2mu[}}{\\mathopen{\\char`\u2983}}"
+          "\\html@mathml{\\mathopen{\\{\\mkern-3.2mu[}}{\\mathopen{\\char`\u2983}}",
         ),
         pa(
           "\\rBrace",
-          "\\html@mathml{\\mathclose{]\\mkern-3.2mu\\}}}{\\mathclose{\\char`\u2984}}"
+          "\\html@mathml{\\mathclose{]\\mkern-3.2mu\\}}}{\\mathclose{\\char`\u2984}}",
         ),
         pa("\u2983", "\\lBrace"),
         pa("\u2984", "\\rBrace"),
         pa(
           "\\minuso",
-          "\\mathbin{\\html@mathml{{\\mathrlap{\\mathchoice{\\kern{0.145em}}{\\kern{0.145em}}{\\kern{0.1015em}}{\\kern{0.0725em}}\\circ}{-}}}{\\char`\u29b5}}"
+          "\\mathbin{\\html@mathml{{\\mathrlap{\\mathchoice{\\kern{0.145em}}{\\kern{0.145em}}{\\kern{0.1015em}}{\\kern{0.0725em}}\\circ}{-}}}{\\char`\u29b5}}",
         ),
         pa("\u29b5", "\\minuso"),
         pa("\\darr", "\\downarrow"),
@@ -10450,7 +10450,7 @@
                 this.expansionCount > this.settings.maxExpand)
               )
                 throw new o(
-                  "Too many expansions: infinite loop or need to increase maxExpand setting"
+                  "Too many expansions: infinite loop or need to increase maxExpand setting",
                 );
               var n = a.tokens;
               if (a.numArgs)
@@ -10465,7 +10465,7 @@
                     if (0 === s)
                       throw new o(
                         "Incomplete placeholder at end of macro body",
-                        l
+                        l,
                       );
                     if ("#" === (l = n[--s]).text) n.splice(s + 1, 1);
                     else {
@@ -10912,7 +10912,7 @@
               if ((void 0 === e && (e = !0), this.fetch().text !== t))
                 throw new o(
                   "Expected '" + t + "', got '" + this.fetch().text + "'",
-                  this.fetch()
+                  this.fetch(),
                 );
               e && this.consume();
             }),
@@ -10962,7 +10962,7 @@
                   if (-1 !== r)
                     throw new o(
                       "only one infix operator per group",
-                      t[a].token
+                      t[a].token,
                     );
                   (r = a), (e = t[a].replaceWith);
                 }
@@ -10999,7 +10999,7 @@
                 t.SUPSUB_GREEDINESS,
                 void 0,
                 void 0,
-                !0
+                !0,
               );
               if (!n) throw new o("Expected group after '" + a + "'", r);
               return n;
@@ -11035,7 +11035,7 @@
                     )
                       throw new o(
                         "Limit controls must follow a math operator",
-                        n
+                        n,
                       );
                     var s = "\\limits" === n.text;
                     a.limits = s;
@@ -11074,7 +11074,7 @@
                     n +
                     "' with no arguments" +
                     (e ? " as " + e : ""),
-                  a
+                  a,
                 );
               if ("text" === this.mode && !i.allowedInText)
                 throw new o("Can't use function '" + n + "' in text mode", a);
@@ -11108,7 +11108,7 @@
                     l,
                     h,
                     a,
-                    m
+                    m,
                   );
                 if (!c) {
                   if (h) {
@@ -11181,7 +11181,7 @@
                   case "EOF":
                     throw new o(
                       "Unexpected end of input in " + t,
-                      m.range(u, h)
+                      m.range(u, h),
                     );
                   case a:
                     c++;
@@ -11226,7 +11226,7 @@
                     ? this.parseStringGroup("size", t)
                     : this.parseRegexGroup(
                         /^[-+]? *(?:$|\d+|\d+\.\d*|\.\d*) *[a-z]{0,2} *$/,
-                        "size"
+                        "size",
                       ))
               )
                 return null;
@@ -11322,7 +11322,7 @@
                   r.length < 2 || r.charAt(0) !== r.slice(-1))
                 )
                   throw new o(
-                    "\\verb assertion failed --\n                    please report what input caused this bug"
+                    "\\verb assertion failed --\n                    please report what input caused this bug",
                   );
                 return {
                   type: "verb",
@@ -11340,7 +11340,7 @@
                     'Accented Unicode text character "' +
                       e[0] +
                       '" used in math mode',
-                    t
+                    t,
                   ),
                 (e = ka[e[0]] + e.substr(1)));
               var i,
@@ -11360,7 +11360,7 @@
                     'Latin-1/Unicode text character "' +
                       e[0] +
                       '" used in math mode',
-                    t
+                    t,
                   );
                 var l,
                   h = j[this.mode][e].group,
@@ -11386,7 +11386,7 @@
                         'Unicode text character "' +
                           e[0] +
                           '" used in math mode',
-                        t
+                        t,
                       )
                     : this.settings.reportNonstrict(
                         "unknownSymbol",
@@ -11395,7 +11395,7 @@
                           '" (' +
                           e.charCodeAt(0) +
                           ")",
-                        t
+                        t,
                       )),
                   (i = {
                     type: "textord",
@@ -11412,7 +11412,7 @@
                   if (!d)
                     throw new o(
                       "Accent " + p + " unsupported in " + this.mode + " mode",
-                      t
+                      t,
                     );
                   i = {
                     type: "accent",
@@ -11455,7 +11455,7 @@
         "CSS1Compat" !== document.compatMode &&
         ("undefined" != typeof console &&
           console.warn(
-            "Warning: KaTeX doesn't work in quirks mode. Make sure your website has a suitable doctype."
+            "Warning: KaTeX doesn't work in quirks mode. Make sure your website has a suitable doctype.",
           ),
         (za = function () {
           throw new o("KaTeX doesn't work in quirks mode.");

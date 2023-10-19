@@ -16,32 +16,45 @@ in {
   ## Font Configuration ##
   config = mkIf enable {
     fonts = {
-      enableDefaultFonts = true;
+      enableDefaultPackages = true;
       fontDir.enable = true;
       enableGhostscriptFonts = true;
       fontconfig = {
         enable = true;
         localConf = files.fonts.config;
-        defaultFonts = {
-          monospace = ["MesloLGS NF"];
-          sansSerif = ["Product Sans"];
-          serif = ["Noto Serif"];
-          emoji = ["Noto Color Emoji"];
-        };
+      };
+    };
+
+    stylix.fonts = {
+      serif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
+      };
+
+      sansSerif = {
+        package = pkgs.custom.fonts;
+        name = "Product Sans";
+      };
+
+      monospace = {
+        package = pkgs.meslo-lgs-nf;
+        name = "MesloLGS NF";
+      };
+
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
       };
     };
 
     # Font Packages
-    fonts.fonts = with pkgs; [
+    fonts.packages = with pkgs; [
       corefonts
       dejavu_fonts
       fira
       fira-code
       fira-mono
       liberation_ttf
-      meslo-lgs-nf
-      noto-fonts
-      noto-fonts-emoji
       roboto
       roboto-slab
       source-code-pro
@@ -59,9 +72,6 @@ in {
           "SourceCodePro"
         ];
       })
-
-      # Custom Fonts
-      custom.fonts
     ];
 
     ## Font Compatibility
@@ -69,7 +79,7 @@ in {
       x11Fonts = runCommand "X11-fonts" {preferLocalBuild = true;} ''
         mkdir -p "$out"
         font_regexp='.*\.\(ttf\|ttc\|otf\|pcf\|pfa\|pfb\|bdf\)\(\.gz\)?'
-        find ${toString config.fonts.fonts} -regex "$font_regexp" \
+        find ${toString config.fonts.packages} -regex "$font_regexp" \
           -exec cp '{}' "$out" \;
         cd "$out"
         ${gzip}/bin/gunzip -f *.gz

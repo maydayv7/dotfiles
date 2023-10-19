@@ -29,7 +29,7 @@ with {inherit (lib) mkEnableOption mkIf mkMerge util;}; {
       environment.systemPackages = with pkgs; [
         bat
         etcher
-        exa
+        eza
         fd
         file
         lolcat
@@ -90,7 +90,7 @@ with {inherit (lib) mkEnableOption mkIf mkMerge util;}; {
             colors = "${scripts.colors}";
             edit = "sudo $EDITOR";
             l = "ls --color --group-directories-first";
-            ls = "exa -b -h -l -F --octal-permissions --icons --time-style iso";
+            ls = "eza -b -h -l -F --octal-permissions --icons --time-style iso";
             sike = "neofetch";
             nixos-option = "nixos-option -I nixpkgs=${path.system}/lib/compat";
           };

@@ -16,7 +16,7 @@
   };
 
   gui.desktop = "xfce";
-  apps.list = ["firefox" "office"];
+  apps.list = ["office"];
 
   # User Navya
   user = {

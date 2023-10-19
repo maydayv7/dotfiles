@@ -23,7 +23,7 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> 23.05 (v12)                  #
+#     Version -> unstable (v13)               #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The Very Heart of my 'dotfiles'       #
@@ -87,6 +87,12 @@
       rev = "819180647f428a3826bfc917a54449da1e532ce0";
     };
 
+    # User Home Manager
+    home = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "unstable";
+    };
+
     # Source Filter Functions
     filter.url = "github:numtide/nix-filter";
     ignore = {
@@ -100,12 +106,6 @@
     # PC Hardware Module
     hardware.url = "github:nixos/nixos-hardware";
 
-    # User Home Manager
-    home = {
-      url = "github:nix-community/home-manager?ref=release-23.05";
-      inputs.nixpkgs.follows = "stable";
-    };
-
     # Authentication Credentials Manager
     sops.url = "github:Mic92/sops-nix";
 
@@ -114,6 +114,13 @@
 
     # System Image Generators
     generators.url = "github:nix-community/nixos-generators";
+
+    # Base16 Theming
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "unstable";
+      inputs.home-manager.follows = "home";
+    };
 
     # Nix Index Database
     index = {

@@ -24,7 +24,6 @@ in {
     system ? "x86_64-linux",
     name ? "nixos",
     description ? "",
-    channel ? "stable",
     format ? null,
     imports ? [],
     timezone,
@@ -40,8 +39,8 @@ in {
     users ? null,
   }: let
     # Default Package Channel
-    input = inputs."${channel}";
-    pkgs = self.channels."${system}"."${channel}";
+    input = inputs.unstable;
+    pkgs = self.legacyPackages."${system}";
 
     # System Libraries
     inherit (lib') util;
@@ -77,7 +76,6 @@ in {
   in
     # Assertions
     assert (user == null) -> (users != null);
-    assert any (name: name == channel) (attrNames self.channels."${system}");
     ## Device Configuration ##
       (makeOverridable lib'.nixosSystem) {
         inherit system;
