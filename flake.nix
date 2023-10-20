@@ -131,7 +131,7 @@
     # Pre-Commit Hooks
     hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "unstable";
       inputs.nixpkgs-stable.follows = "stable";
       inputs.flake-utils.follows = "utils/flake-utils";
       inputs.gitignore.follows = "ignore";

@@ -37,19 +37,21 @@ in {
     environment.systemPackages = with pkgs; [libguestfs virt-manager];
 
     # VM Utilities
-    virtualisation.kvmgt.enable = true;
-    virtualisation.spiceUSBRedirection.enable = true;
-    virtualisation.libvirtd = {
-      enable = true;
-      onBoot = "ignore";
-      onShutdown = "shutdown";
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = false;
-        swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [pkgs.OVMFFull];
+    virtualisation = {
+      kvmgt.enable = true;
+      spiceUSBRedirection.enable = true;
+      libvirtd = {
+        enable = true;
+        onBoot = "ignore";
+        onShutdown = "shutdown";
+        qemu = {
+          package = pkgs.qemu_kvm;
+          runAsRoot = false;
+          swtpm.enable = true;
+          ovmf = {
+            enable = true;
+            packages = [pkgs.OVMFFull];
+          };
         };
       };
     };

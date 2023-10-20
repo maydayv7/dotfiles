@@ -62,12 +62,10 @@ in {
         # GTK+ Theming
         gtk = {
           enable = true;
-          /*
-            *theme = {
+          theme = {
             name = "adw-gtk3-dark";
             package = pkgs.adw-gtk3;
           };
-          */
 
           iconTheme = {
             name = "Papirus-Dark";
@@ -76,7 +74,7 @@ in {
         };
 
         # Default Applications
-        xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
+        xdg.mimeApps.defaultApplications = util.build.mime xdg.mime {
           audio = ["org.gnome.Lollypop.desktop"];
           calendar = ["org.gnome.Calendar.desktop"];
           directory = ["org.gnome.Nautilus.desktop"];
@@ -133,95 +131,98 @@ in {
 
       # Color Scheme
       stylix = {
-        image = files.proprietary.wallpapers.Sunset;
-        targets.gnome.enable = true;
+        base16Scheme = colors.adwaita-dark;
+        targets.gnome.enable = false;
       };
 
-      # QT Theme
-      environment.variables."QT_STYLE_OVERRIDE" = mkForce "kvantum";
-      environment.etc."xdg/Kvantum/kvantum.kvconfig".text = ''
-        [General]
-        theme=KvLibadwaitaDark
-      '';
+      environment = {
+        # QT Theme
+        variables."QT_STYLE_OVERRIDE" = mkForce "kvantum";
+        etc."xdg/Kvantum/kvantum.kvconfig".text = ''
+          [General]
+          theme=KvLibadwaitaDark
+        '';
 
-      environment.systemPackages = with pkgs;
-        [libsForQt5.qtstyleplugin-kvantum custom.kvlibadwaita]
-        ++ (with pkgs.gnome; [
-          # GNOME Apps
-          gnome-boxes
-          gnome-dictionary
-          gnome-notes
-          gnome-sound-recorder
-          gnome-text-editor
-          gnome-tweaks
-          polari
+        # Package List
+        systemPackages = with pkgs;
+          [libsForQt5.qtstyleplugin-kvantum custom.kvlibadwaita]
+          ++ (with pkgs.gnome; [
+            # GNOME Apps
+            gnome-boxes
+            gnome-dictionary
+            gnome-notes
+            gnome-sound-recorder
+            gnome-text-editor
+            gnome-tweaks
+            polari
 
-          # GNOME Games
-          gnome-chess
-          gnome-mines
-          quadrapassel
-        ])
-        ++ (with pkgs; [
-          # GNOME Circle
-          apostrophe
-          curtail
-          deja-dup
-          dialect
-          drawing
-          fractal
-          fragments
-          giara
-          gimp
-          gradience
-          gnome-podcasts
-          gnome-secrets
-          gthumb
-          lollypop
-          pitivi
-          video-trimmer
-          wike
+            # GNOME Games
+            gnome-chess
+            gnome-mines
+            quadrapassel
+          ])
+          ++ (with pkgs; [
+            # GNOME Circle
+            apostrophe
+            curtail
+            deja-dup
+            dialect
+            drawing
+            fractal
+            fragments
+            giara
+            gimp
+            gradience
+            gnome-podcasts
+            gnome-secrets
+            gthumb
+            lollypop
+            pitivi
+            video-trimmer
+            wike
 
-          # Utilities
-          celluloid
-          dconf2nix
-          gnuchess
-          (firefox.override (args:
-            args
-            // {
-              cfg =
-                args.cfg
-                or {}
-                // {
-                  enableGnomeExtensions = true;
-                };
-            }))
-        ])
-        ++ (with pkgs.gnomeExtensions; [
-          # GNOME Shell Extensions
-          alphabetical-app-grid
-          appindicator
-          caffeine
-          coverflow-alt-tab
-          custom.fly-pie
-          gesture-improvements
-          gnome-40-ui-improvements
-          guillotine
-          gtile
-          just-perfection
-          lock-keys
-          lock-screen-message
-          pano
-          quick-settings-tweaker
-          rounded-window-corners
-          space-bar
-          status-area-horizontal-spacing
-          timepp
-          transparent-top-bar-adjustable-transparency
-          top-bar-organizer
-          user-avatar-in-quick-settings
-          vitals
-          weather-oclock
-        ]);
+            # Utilities
+            celluloid
+            dconf2nix
+            gnuchess
+
+            (firefox.override (args:
+              args
+              // {
+                cfg =
+                  args.cfg
+                  or {}
+                  // {
+                    enableGnomeExtensions = true;
+                  };
+              }))
+          ])
+          ++ (with pkgs.gnomeExtensions; [
+            # GNOME Shell Extensions
+            alphabetical-app-grid
+            appindicator
+            caffeine
+            coverflow-alt-tab
+            gesture-improvements
+            gnome-40-ui-improvements
+            guillotine
+            gtile
+            just-perfection
+            lock-keys
+            lock-screen-message
+            pano
+            quick-settings-tweaker
+            rounded-window-corners
+            space-bar
+            status-area-horizontal-spacing
+            timepp
+            transparent-top-bar-adjustable-transparency
+            top-bar-organizer
+            user-avatar-in-quick-settings
+            vitals
+            weather-oclock
+          ]);
+      };
 
       # Persisted Files
       user.persist = {

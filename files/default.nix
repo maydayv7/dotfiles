@@ -15,6 +15,9 @@ in rec {
   # ASCII Art
   ascii = map.files' ./ascii lib.id "";
 
+  # Base16 Color Schemes
+  colors = map.files ./colors lib.id ".yaml";
+
   # Neofetch
   fetch = readFile ./neofetch/config.conf;
 

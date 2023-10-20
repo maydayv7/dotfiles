@@ -20,24 +20,29 @@ in {
       then (mkForce {})
       else util.map.secrets ./passwords true;
 
-    users.extraUsers.root.hashedPasswordFile =
-      mkIf (hasAttr "root.secret" secrets) secrets."root.secret".path;
-    users.users =
-      mapAttrs (name: value: {
-        hashedPasswordFile = mkIf (!value.minimal) secrets."${name}.secret".path;
-      })
-      settings;
+    users = {
+      users =
+        mapAttrs (name: value: {
+          hashedPasswordFile = mkIf (!value.minimal) secrets."${name}.secret".path;
+        })
+        settings;
 
-    # Recovery Account
-    users.extraUsers.recovery = mkIf recovery {
-      name = "recovery";
-      description = "Recovery Account";
-      isNormalUser = true;
-      uid = 1100;
-      group = "users";
-      extraGroups = ["wheel"];
-      useDefaultShell = true;
-      initialHashedPassword = readFile ./passwords/default;
+      extraUsers = {
+        root.hashedPasswordFile =
+          mkIf (hasAttr "root.secret" secrets) secrets."root.secret".path;
+
+        # Recovery Account
+        recovery = mkIf recovery {
+          name = "recovery";
+          description = "Recovery Account";
+          isNormalUser = true;
+          uid = 1100;
+          group = "users";
+          extraGroups = ["wheel"];
+          useDefaultShell = true;
+          initialHashedPassword = readFile ./passwords/default;
+        };
+      };
     };
 
     # Authentication
