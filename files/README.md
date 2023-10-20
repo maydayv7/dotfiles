@@ -4,6 +4,7 @@ The `files` directory is used to store all my plain-text program configuration f
 
 - [`archive`](./archive) - Old, Archived Files
 - [`ascii`](./ascii) - Personal Collection of beautiful Ascii Art
+- [`colors`](./colors) - Base16 Color Schemes
 - [`firefox`](./firefox) - `firefox` Web Browser Theming
 - [`fonts`](./fonts) - Font Configuration
 - [`git`](./git) - Configuration for `git` Version Control

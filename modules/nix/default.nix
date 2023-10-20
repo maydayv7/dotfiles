@@ -32,12 +32,14 @@ with {inherit (lib.util.map) array;}; {
       generateRegistryFromInputs = true;
 
       # User Permissions
-      settings.allowed-users = ["root" "@wheel"];
-      settings.trusted-users = ["root" "@wheel"];
+      settings = {
+        allowed-users = ["root" "@wheel"];
+        trusted-users = ["root" "@wheel"];
 
-      # Additional Features
-      settings.sandbox = true;
-      settings.system-features = ["kvm" "recursive-nix"];
+        # Additional Features
+        sandbox = true;
+        system-features = ["kvm" "recursive-nix"];
+      };
       extraOptions = ''
         accept-flake-config = true
         warn-dirty = false

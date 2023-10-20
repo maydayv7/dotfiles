@@ -102,11 +102,15 @@ in {
       };
 
       # Color Scheme
-      stylix.image = files.proprietary.wallpapers.Sunset;
+      stylix = {
+        image = proprietary.wallpapers.Sunset;
+        base16Scheme = colors.arc-dark;
+      };
 
       # User Configuration
       user.home = {
         # GTK+ Theming
+        stylix.targets.xfce.enable = true;
         gtk =
           {
             enable = true;
@@ -145,7 +149,7 @@ in {
           // mapAttrs' (name: value:
             nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml"
             {text = value;})
-          files.xfce.settings;
+          xfce.settings;
 
         # Code Editor Settings
         programs.vscode = mkIf (elem pkgs.vscode apps) {

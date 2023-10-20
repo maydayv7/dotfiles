@@ -41,19 +41,20 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Automatic [Deployment](./modules/nix/deploy.nix) using the [`deploy-rs`](https://github.com/serokell/deploy-rs) Tool
 - Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
 - Support for `source` Filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
+- Support for Base16 Color Theming using [`stylix`](https://github.com/danth/stylix)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
 - Support for Android Virtualisation using [Waydroid](https://waydro.id/)
 - Declaratively Configured [Windows VM](./devices/vm/Windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
 
 ## Programs
 
-| Type                 |                                                            Programs                                                            |
-| :------------------- | :----------------------------------------------------------------------------------------------------------------------------: |
-| Editors              |                       [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                        |
-| Shells               |                           [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                           |
-| Terminal             | [GNOME Terminal](https://gitlab.gnome.org/GNOME/gnome-terminal), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
-| Browser              |                                       [Firefox](https://www.mozilla.org/en-US/firefox/)                                        |
-| Desktop Environments |                                   [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/)                                    |
+| Type                 |                                                     Programs                                                     |
+| :------------------- | :--------------------------------------------------------------------------------------------------------------: |
+| Editors              |                [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                 |
+| Shells               |                    [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                    |
+| Terminal             | [Console](https://gitlab.gnome.org/GNOME/console), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
+| Browser              |                                [Firefox](https://www.mozilla.org/en-US/firefox/)                                 |
+| Desktop Environments |                            [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/)                             |
 
 ## Structure
 
@@ -138,6 +139,7 @@ github:maydayv7/dotfiles
 ┌── configuration.nix
 ├── flake.nix
 ├── flake.lock
+├── .version
 ├── .templates
 ├── files
 ├── secrets
@@ -169,6 +171,7 @@ github:maydayv7/dotfiles
 
 - `configuration.nix`: main system configuration file
 - `flake.nix`: repository version control using `inputs`
+- `.version`: system state version
 - `.templates`: custom Flakes configuration templates
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
@@ -611,18 +614,17 @@ You can navigate to the `README`'s present in the various directories to know mo
 <summary><b>Known Limitations</b></summary>
 
 - It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
-- Need to completely transition to Wayland
+- Secure Boot isn't supported yet
+- Home Configuration can't be decoupled from System
 
-#### Manually Packaged Apps
+#### Manually Managed Packages
 
-- **GNOME Extensions**:
-  - Fly Pie
 - VS Code Themes and Plugins
 - [Wine](./packages/wine) Applications
 
 </details>
 
-> Last Updated: **September** 2023
+> Last Updated: **October** 2023
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 

@@ -17,7 +17,10 @@ in {
     default = null;
   };
 
-  config.assertions =
-    optional (config.gui.desktop == null)
-    (options.gui.desktop.description + " must be set");
+  config.assertions = [
+    {
+      assertion = config.gui.desktop != null;
+      message = options.gui.desktop.description + " must be set";
+    }
+  ];
 }
