@@ -194,7 +194,7 @@ github:maydayv7/dotfiles
 
 In case you want to use my configuration as-is for a fresh NixOS install, you can try the following steps:
 
-**_Note:_** You can run `nix develop` or `nix-shell ./lib/compat/shell.nix` in the repository to install all required dependencies
+**_Note:_** You can run `nix develop` in the repository to install all required dependencies
 
 1. Prepare `/etc/nixos`: <pre><code>sudo mkdir /etc/nixos
    sudo chown $USER /etc/nixos && sudo chmod ugo+rw /etc/nixos
@@ -264,12 +264,15 @@ _Replace_ **_DEVICE_** _with the name of Device to build_
 
 _Note that the `install` script automatically creates and labels all the required partitions, so it is recommended that only the partition table on the disk be created and have enough free space_
 
-| Name           | Label  |   Format   | Size (minimum) |
-| :------------- | :----: | :--------: | :------------: |
-| BOOT Partition |  ESP   |    vfat    |      500M      |
-| ROOT Partition | System | ext4/BTRFS |      25G       |
-| SWAP Area      |  swap  |    swap    |       8G       |
-| DATA Partition | Files  |    NTFS    |      10G       |
+| Name           | Label  | Format | Size (minimum) |
+| :------------- | :----: | :----: | :------------: |
+| BOOT Partition |  ESP   |  vfat  |      500M      |
+| ROOT Partition | System |  ZFS   |      25G       |
+| SWAP Area      |  swap  |  swap  |       4G       |
+| DATA Partition | Files  |  ZFS   |      10G       |
+
+> **Note**
+> For the `advanced` filesystem scheme only
 
 #### Procedure
 

@@ -3,8 +3,7 @@
   inputs,
   pkgs,
   ...
-}:
-with {inherit (lib) mkAfter mkForce;}; {
+}: {
   imports = [inputs.gaming.nixosModules.pipewireLowLatency];
 
   ## Device Firmware ##
@@ -14,7 +13,7 @@ with {inherit (lib) mkAfter mkForce;}; {
       opengl.enable = true;
       cpu.intel.updateMicrocode = true;
       enableRedistributableFirmware = true;
-      pulseaudio.enable = mkForce false;
+      pulseaudio.enable = lib.mkForce false;
     };
 
     services = {
@@ -99,7 +98,7 @@ with {inherit (lib) mkAfter mkForce;}; {
       enable = true;
       settings = {
         PasswordAuthentication = true;
-        PermitRootLogin = mkForce "no";
+        PermitRootLogin = lib.mkForce "no";
       };
       hostKeys = [
         {

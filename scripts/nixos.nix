@@ -145,7 +145,7 @@ in
           ;;
           list)
             echo "# System Generations #"
-            sudo nix-env --list-generations -p "$profile"
+            nixos-rebuild list-generations
           ;;
           *)
             echo "Rolling Back to Generation '$3'..."

@@ -59,10 +59,9 @@ in {
       shells ? [],
       home ? {},
       minimal ? false,
-      recovery ? true,
     }: {
       user.settings."${name}" = {
-        inherit name description uid autologin minimal recovery;
+        inherit name description uid autologin minimal;
         homeConfig = home;
         extraGroups = groups;
         initialHashedPassword = password;

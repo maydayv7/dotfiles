@@ -12,7 +12,6 @@
     (lib)
     filterAttrs
     hasPrefix
-    mkAfter
     mkAliasOptionModule
     mkIf
     mkMerge

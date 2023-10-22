@@ -6,7 +6,7 @@
   timezone = "Asia/Kolkata";
   locale = "IN";
 
-  kernel = "lqx";
+  kernel = "zen";
   kernelModules = ["nvme" "thunderbolt"];
 
   imports = [./secrets];
@@ -33,6 +33,5 @@
     uid = 1000;
     shell = "zsh";
     shells = ["bash"];
-    recovery = true;
   };
 }

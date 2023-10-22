@@ -56,7 +56,6 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   - `settings`: User Settings (Alias for `users.users.${username}`) -
     - `autologin`: Enable Automatic User Login - `"true" / "false"`
     - `minimal`: Enable Minimal User Configuration - `"true" / "false"`
-    - `recovery`: Enable User Recovery Settings - `"true" / "false"`
     - `homeConfig`: User Specific Home Configuration
 
 - [`shell`](./shell): Module that contains User Shell Environment Configuration -

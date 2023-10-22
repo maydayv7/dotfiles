@@ -8,9 +8,7 @@
 with lib.hm.gvariant; let
   inherit (builtins) head elem;
   homeDir = config.home.homeDirectory;
-  android = sys.hardware.vm.android.enable;
   fonts = sys.fonts.fontconfig.defaultFonts;
-  wine = elem "wine" sys.apps.list;
 in {
   # Home Directory
   home.file = {
@@ -320,14 +318,13 @@ in {
     };
 
     "org/gnome/desktop/app-folders" = {
-      folder-children =
-        [
-          "4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff"
-          "a136187d-1d93-4d35-8423-082f15957be9"
-          "b79e9b82-2127-459b-9e82-11bd3be09d04"
-        ]
-        ++ lib.optionals android ["cb1c8797-b52e-4df5-80d6-2c46e8f7ef22"]
-        ++ lib.optionals wine ["1c3e59e4-a571-4ada-af1d-ed1ced384cfb"];
+      folder-children = [
+        "1c3e59e4-a571-4ada-af1d-ed1ced384cfb"
+        "4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff"
+        "a136187d-1d93-4d35-8423-082f15957be9"
+        "b79e9b82-2127-459b-9e82-11bd3be09d04"
+        "cb1c8797-b52e-4df5-80d6-2c46e8f7ef22"
+      ];
     };
 
     "org/gnome/desktop/app-folders/folders/4f9e09f6-cbd8-4a4a-beb3-9ec7b3e672ff" = {
