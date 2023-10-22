@@ -45,7 +45,7 @@ in {
 
           # Boot Loader
           loader = {
-            timeout = lib.mkDefault 0;
+            timeout = mkDefault 0;
             grub.enable = mkDefault false;
             efi.canTouchEfiVariables = true;
           };
@@ -53,7 +53,7 @@ in {
       }
 
       ## GRUB MBR Boot Loader ##
-      (mkIf (config.hardware.boot == "mbr") {
+      (mkIf (loader == "mbr") {
         boot.loader.grub = {
           enable = mkForce true;
           device = "nodev";
@@ -66,7 +66,7 @@ in {
       })
 
       ## SystemD EFI Boot Loader ##
-      (mkIf (config.hardware.boot == "efi") {
+      (mkIf (loader == "efi") {
         boot.loader.systemd-boot = {
           enable = true;
           editor = false;

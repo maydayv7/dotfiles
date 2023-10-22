@@ -69,11 +69,6 @@ in {
                 type = listOf (enum (util.map.module' ../shell));
                 default = ["bash"];
               };
-              recovery = mkOption {
-                description = "Enable User Recovery Settings";
-                type = bool;
-                default = false;
-              };
               homeConfig = mkOption {
                 description = "User Specific Home Configuration";
                 type = util.types.mergedAttrs;
