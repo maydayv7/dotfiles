@@ -157,7 +157,7 @@ function initSearch() {
         item.innerHTML = formatSearchResultItem(results[i], term.split(" "));
         $searchResultsItems.appendChild(item);
       }
-    }, 150)
+    }, 150),
   );
 
   window.addEventListener("click", function (e) {
