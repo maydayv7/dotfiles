@@ -2,13 +2,14 @@
   config,
   lib,
   ...
-}:
-with {inherit (lib) mkEnableOption mkOverride;}; {
+}: let
+  inherit (lib) mkEnableOption mkIf mkOverride;
+in {
   options.hardware.security =
     mkEnableOption "Enable Additional Security and Hardening Settings";
 
   ## Security Settings ##
-  config = lib.mkIf config.hardware.security {
+  config = mkIf config.hardware.security {
     warnings = [
       ''
         Additional Security Settings are Enabled

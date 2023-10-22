@@ -38,7 +38,6 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Auto-Magic using [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) Helper Functions
 - Automatic `packages` Updates using [`update.sh`](./packages/update.sh)
 - Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) Image Generation Modules
-- Automatic [Deployment](./modules/nix/deploy.nix) using the [`deploy-rs`](https://github.com/serokell/deploy-rs) Tool
 - Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
 - Support for `source` Filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
 - Support for Base16 Color Theming using [`stylix`](https://github.com/danth/stylix)
@@ -75,10 +74,8 @@ github:maydayv7/dotfiles
 │   └───x86_64-linux
 │       ├───Device-gnome: derivation 'nixos-rebuild'
 │       ├───Device-xfce: derivation 'nixos-rebuild'
-│       ├───activate: derivation 'deploy-rs-check-activate'
 │       ├───commit: derivation 'pre-commit-run'
 │       └───schema: derivation 'jsonschema-deploy-system'
-├───deploy: automatc deployments
 ├───devShells
 │   └───x86_64-linux
 │       ├───cc: development environment 'C'
@@ -284,18 +281,6 @@ _In case you are using the `advanced` filesystem scheme, you may need to set the
 </details>
 
 <details>
-<summary><b>Automatic Deploy</b></summary>
-
-The `nixosConfigurations` support automatic deployments using [deploy-rs](https://github.com/serokell/deploy-rs)
-
-To deploy a Device, simply run the following command:  
-_Replace_ **_DEVICE_** _with the name of Device to deploy_
-
-<pre><code>nix run github:serokell/deploy -- github:maydayv7/dotfiles#<b><i>DEVICE</i></b></code></pre>
-
-</details>
-
-<details>
 <summary><b>Build It Yourself</b></summary>
 
 If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. For starters, you can run `nix flake init -t github:maydayv7/dotfiles` in `/etc/nixos` for a basic Flakes-compatible system configuration. If you have any doubts, feel free to open an issue. You can check out the list of links below to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
@@ -431,6 +416,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Improve `nix-index`
 - Move out proprietary files
 - Refactor Secrets
+- Drop `deploy-rs` Support
 
 ### 23.05 (v12)
 

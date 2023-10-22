@@ -46,7 +46,6 @@ with files; let
         --activate                  - Activates Current Configuration
         --boot                      - Applies Configuration on boot
         --check                     - Checks Configuration Build
-        --deploy [ 'device' ]       - Automatically Deploy via SSH
         --rollback [ 'generation' ] - Reverts to Last [ or Specified ] Build Generation
         --test                      - Tests Configuration Build
     '';
@@ -81,7 +80,6 @@ in
       [
         cachix
         coreutils
-        apps.deploy
         apps.generators
         git
         gnupg
@@ -127,10 +125,6 @@ in
         "--check")
           echo "Checking Configuration..."
           nixos-rebuild dry-activate --flake ${path.system}#
-        ;;
-        "--deploy")
-          echo "Deploying Configuration..."
-          deploy -s ${path.system}#"$3"
         ;;
         "--test")
           echo "Testing Configuration..."
