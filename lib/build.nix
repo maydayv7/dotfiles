@@ -4,8 +4,8 @@
   lib,
   ...
 }: let
-  inherit (lib) flatten hasPrefix mapAttrsToList nameValuePair recursiveUpdate splitString util;
-  inherit (builtins) any attrValues concatStringsSep filter hasAttr isPath listToAttrs map readFile;
+  inherit (lib) flatten hasPrefix mapAttrsToList nameValuePair recursiveUpdate splitString;
+  inherit (builtins) attrValues concatStringsSep filter hasAttr listToAttrs map readFile;
 in rec {
   ## Builder Functions ##
   each = attr: func:
@@ -32,21 +32,11 @@ in rec {
       });
 
   # Package Channels Builder
-  channel = src: overlays: patch: let
-    patches = util.map.patches patch;
-  in
+  channel = src: overlays:
     each platforms (system: let
       pkgs = src.legacyPackages."${system}";
     in
-      (
-        if !(any isPath patches)
-        then import src
-        else
-          import (pkgs.applyPatches {
-            inherit src patches;
-            name = "Patched-Input_${src.shortRev}";
-          })
-      ) {
+      import src {
         inherit system;
         config = import ../modules/nix/config.nix;
         overlays =

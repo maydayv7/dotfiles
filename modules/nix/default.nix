@@ -12,7 +12,7 @@ in {
   config = {
     # Utilities
     user.persist.directories = [".cache/nix" ".cache/manix"];
-    environment.systemPackages = [pkgs.cachix] ++ array (import ./format.nix) pkgs;
+    environment.systemPackages = [pkgs.cachix] ++ array (import ./tools.nix) pkgs;
 
     # Settings
     nix = {

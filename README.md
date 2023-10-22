@@ -417,6 +417,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Move out proprietary files
 - Refactor Secrets
 - Drop `deploy-rs` Support
+- Remove `inputs` patching Support
 
 ### 23.05 (v12)
 
