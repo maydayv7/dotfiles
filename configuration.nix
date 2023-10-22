@@ -14,7 +14,6 @@ with inputs; let
   inherit (lib.util) build map pack;
   lib = library.lib.extend (final: prev:
     {
-      deploy = deploy.lib;
       filters = ignore.lib // {inherit (filter.lib) filter matchExt;};
       hooks = hooks.lib;
       image = generators.nixosGenerate;
@@ -55,14 +54,11 @@ in
 
     # Channels
     channels = {
-      stable = (build.channel stable [deploy.overlay] ./packages/patches)."${system}";
-      unstable = (build.channel unstable [deploy.overlay nur.overlay] [])."${system}";
+      stable = (build.channel stable [] ./packages/patches)."${system}";
+      unstable = (build.channel unstable [nur.overlay] [])."${system}";
       wine = wine.packages."${system}";
       gaming = gaming.packages."${system}";
-      apps = {
-        deploy = deploy.defaultPackage."${system}";
-        generators = generators.packages."${system}".default;
-      };
+      apps.generators = generators.packages."${system}".default;
     };
 
     # Custom Packages
@@ -97,7 +93,6 @@ in
     templates = import ./.templates lib;
 
     ## Device Configuration ##
-    deploy = import ./modules/nix/deploy.nix {inherit self lib;};
     nixosConfigurations =
       map.modules ./devices (name: build.device (import name));
 

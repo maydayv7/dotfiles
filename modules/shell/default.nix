@@ -5,8 +5,9 @@
   files,
   ...
 }:
-with files;
-with {inherit (lib) mkEnableOption mkIf mkMerge util;}; {
+with files; let
+  inherit (lib) mkEnableOption mkIf mkMerge util;
+in {
   imports = util.map.module ./.;
 
   options.shell.utilities = mkEnableOption "Enable Additional Shell Utilities";

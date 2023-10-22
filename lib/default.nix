@@ -2,8 +2,9 @@
   self,
   platforms,
   lib,
-} @ args:
-with {inherit (lib) makeExtensible attrValues foldr;};
+} @ args: let
+  inherit (lib) makeExtensible attrValues foldr;
+in
   (makeExtensible (final:
     with final;
       (import ./map.nix args).modules ./. (file: import file args)))

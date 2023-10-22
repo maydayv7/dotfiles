@@ -1,5 +1,6 @@
-{lib, ...}:
-with {inherit (lib) mkOption types util;}; {
+{lib, ...}: let
+  inherit (lib) mkOption types util;
+in {
   imports = util.map.module ./.;
 
   options.hardware = with types; {

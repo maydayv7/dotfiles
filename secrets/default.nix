@@ -4,8 +4,9 @@
   pkgs,
   files,
   ...
-}:
-with {inherit (lib) mkForce util;}; {
+}: let
+  inherit (lib) mkForce util;
+in {
   imports = [inputs.sops.nixosModules.sops];
 
   ## Authentication Credentials Management ##

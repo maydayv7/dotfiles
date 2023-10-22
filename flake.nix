@@ -137,9 +137,6 @@
       inputs.gitignore.follows = "ignore";
     };
 
-    # Automatic Deployment Tool
-    deploy.url = "github:serokell/deploy-rs";
-
     # Windows VM Creator
     windows = {
       url = "git+https://git.m-labs.hk/M-Labs/wfvm";

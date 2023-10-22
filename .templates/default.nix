@@ -1,5 +1,6 @@
-lib:
-with {inherit (lib.filters) filter matchExt;}; {
+lib: let
+  inherit (lib.filters) filter matchExt;
+in {
   ## Configuration Templates ##
   default = {
     description = "Simple, Minimal NixOS Configuration";

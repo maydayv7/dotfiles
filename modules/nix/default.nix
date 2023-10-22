@@ -3,8 +3,9 @@
   inputs,
   pkgs,
   ...
-}:
-with {inherit (lib.util.map) array;}; {
+}: let
+  inherit (lib.util.map) array;
+in {
   imports = [./index.nix inputs.utils.nixosModules.autoGenFromInputs];
 
   ## Nix Settings ##
