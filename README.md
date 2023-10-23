@@ -136,7 +136,6 @@ github:maydayv7/dotfiles
 ┌── configuration.nix
 ├── flake.nix
 ├── flake.lock
-├── .version
 ├── .templates
 ├── files
 ├── secrets
@@ -168,7 +167,6 @@ github:maydayv7/dotfiles
 
 - `configuration.nix`: main system configuration file
 - `flake.nix`: repository version control using `inputs`
-- `.version`: system state version
 - `.templates`: custom Flakes configuration templates
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
@@ -275,7 +273,7 @@ _Note that the `install` script automatically creates and labels all the require
 
 To install the OS, just boot the Live USB and run `sudo nixos install`  
 _If the image doesn't boot, try disabling the `secure boot` and `RAID` options from `BIOS`_  
-After the reboot, run `nixos setup` in the newly installed system to finish setup  
+After the reboot, run `nixos install --first-boot` to finish the install  
 _In case you are using the `advanced` filesystem scheme, you may need to set the boot flag `zfs_force=1` on first boot_
 
 </details>
@@ -317,6 +315,10 @@ There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree
 ### Build
 
 While rebuilding system with Flakes, make sure that any file with unstaged changes will not be included. Use `git add .` in cases where the `git` tree is dirty
+
+#### Boot
+
+To boot into a different build generation, hold down the Spacebar (for `efi`) or the `Shift`/`Esc` key (for `mbr`) upon startup to access the boot menu
 
 #### Cache
 

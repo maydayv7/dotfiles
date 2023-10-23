@@ -195,78 +195,82 @@ in
         esac
       ;;
       install)
-        internet
-        if [ "$EUID" -ne 0 ]
-        then
-          error "This Command must be Executed as 'root'"
-        fi
-        read -rp "Enter Name of Device to Install: " HOST
-        read -rp "Do you want to Automatically Create the Partitions? (Y/N): " choice
-          case $choice in
-            [Yy]*) warn "Assuming Disk is Completely Empty"; partition_disk;;
-            *) warn "You must Create, Format and Label the Partitions on your own"; gparted > /dev/null;;
-          esac
-        newline
-        read -rp "Select Filesystem to use for Disk (simple/advanced): " choice
-          case $choice in
-            1|[Ss]*)
-              read -rp "Do you want to Create and Format the EXT4 Partitions? (Y/N): " choice
-                case $choice in
-                  [Yy]*) DIR=${path.system}; create_ext4; mount_ext4;;
-                  *) warn "Assuming that Required EXT4 Partition has already been Created"; mount_ext4;;
-                esac
-            ;;
-            2|[Aa]*)
-              read -rp "Do you want to Create the ZFS Pool and Datasets? (Y/N): " choice
-                case $choice in
-                  [Yy]*) DIR=${persist}${path.system}; create_zfs; mount_zfs;;
-                  *) warn "Assuming that Required ZFS Pool and Datasets have already been Created"; mount_zfs;;
-                esac
-            ;;
-            *) error "Choose (1)simple or (2)advanced";;
-          esac
-        newline
-        mount_other
-        newline
-        read -rp "Enter Path to Repository (path/URL): " URL
-        if [ -z "$URL" ]
-        then
-          URL=${path.flake}
-        fi
-        echo "Installing System from '$URL'..."
-        nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST"
-        newline
+        case $2 in
+        "--first-boot")
+          if [ -d ${persist} ]; then
+            DIR=${persist}${path.system}
+          else
+            DIR=${path.system}
+          fi
+          git clone --recurse-submodules ${path.repo} "$DIR"
+          nixos apply --activate
+        ;;
+        "")
+          internet
+          if [ "$EUID" -ne 0 ]
+          then
+            error "This Command must be Executed as 'root'"
+          fi
+          read -rp "Enter Name of Device to Install: " HOST
+          read -rp "Do you want to Automatically Create the Partitions? (Y/N): " choice
+            case $choice in
+              [Yy]*) warn "Assuming Disk is Completely Empty"; partition_disk;;
+              *) warn "You must Create, Format and Label the Partitions on your own"; gparted > /dev/null;;
+            esac
+          newline
+          read -rp "Select Filesystem to use for Disk (simple/advanced): " choice
+            case $choice in
+              1|[Ss]*)
+                read -rp "Do you want to Create and Format the EXT4 Partitions? (Y/N): " choice
+                  case $choice in
+                    [Yy]*) DIR=${path.system}; create_ext4; mount_ext4;;
+                    *) warn "Assuming that Required EXT4 Partition has already been Created"; mount_ext4;;
+                  esac
+              ;;
+              2|[Aa]*)
+                read -rp "Do you want to Create the ZFS Pool and Datasets? (Y/N): " choice
+                  case $choice in
+                    [Yy]*) DIR=${persist}${path.system}; create_zfs; mount_zfs;;
+                    *) warn "Assuming that Required ZFS Pool and Datasets have already been Created"; mount_zfs;;
+                  esac
+              ;;
+              *) error "Choose (1)simple or (2)advanced";;
+            esac
+          newline
+          mount_other
+          newline
+          read -rp "Enter Path to Repository (path/URL): " URL
+          if [ -z "$URL" ]
+          then
+            URL=${path.flake}
+          fi
+          echo "Installing System from '$URL'..."
+          nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST"
+          newline
 
-        read -rp "Enter Path to GPG Keys (path/.git): " KEY
-        LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-        if [ -z "$KEY" ]
-        then
-          error "Path to GPG Keys cannot be empty"
-        elif [[ $KEY =~ $LINK ]]
-        then
-          echo "Cloning Keys..."
-          git clone "$KEY" keys --progress
-        else
-          cp -r "$KEY"/. ./keys
-        fi
-        echo "Importing Keys..."
-        find ./keys -name '*.gpg' -exec gpg --homedir /mnt${files.gpg} --import {} \+
-        rm -rf ./keys
-        newline
+          read -rp "Enter Path to GPG Keys (path/.git): " KEY
+          LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+          if [ -z "$KEY" ]
+          then
+            error "Path to GPG Keys cannot be empty"
+          elif [[ $KEY =~ $LINK ]]
+          then
+            echo "Cloning Keys..."
+            git clone "$KEY" keys --progress
+          else
+            cp -r "$KEY"/. ./keys
+          fi
+          echo "Importing Keys..."
+          find ./keys -name '*.gpg' -exec gpg --homedir /mnt${files.gpg} --import {} \+
+          rm -rf ./keys
+          newline
 
-        echo "Preparing ${path.system}..."
-        DIR=/mnt$DIR
-        rm -rf "$DIR" && mkdir "$DIR"
-        newline
-
-        echo "Cloning Repository..."
-        git clone --recurse-submodules ${path.repo} "$DIR"
-        chgrp -R keys "$DIR" && chmod g+rwx "$DIR" -R
-        newline
-
-        unmount_all
-        newline
-        restart
+          unmount_all
+          newline
+          info "Run 'nixos install --first-boot' after rebooting to finish the install"
+          restart
+        ;;
+        esac
       ;;
       iso)
         case $2 in

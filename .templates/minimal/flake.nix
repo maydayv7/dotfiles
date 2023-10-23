@@ -4,8 +4,8 @@
   ## System Repositories ##
   inputs = {
     ## Package Repositories ##
-    # NixOS Stable Release
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-23.05";
+    # NixOS Package Repository
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
     ## Configuration Modules ##
     # My PC Dotfiles
@@ -19,7 +19,6 @@
     nixosConfigurations.host = lib.build.device {
       name = "HOST_NAME";
       system = "x86_64-linux";
-      channel = "stable";
 
       # Generate these files using 'nixos-generate-config'
       imports = [./configuration.nix ./hardware-configuration.nix];

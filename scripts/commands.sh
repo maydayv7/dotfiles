@@ -64,6 +64,14 @@ up () {
   cd "$P" || exit
 }
 
+info() {
+  echo -e "\n\033[0;35minfo:\033[0m $1"
+  if [ -n "$2" ]
+  then
+    echo -e "\n$2"
+  fi
+}
+
 warn() {
   echo -e "\n\033[0;35mwarning:\033[0m $1"
   if [ -n "$2" ]
