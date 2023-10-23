@@ -1,6 +1,6 @@
 {
   self,
-  platforms,
+  systems,
   lib,
 } @ args: let
   inherit (lib) makeExtensible attrValues foldr;

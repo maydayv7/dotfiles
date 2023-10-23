@@ -23,7 +23,7 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> unstable (v13)               #
+#     Version -> v13                          #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The Very Heart of my 'dotfiles'       #
@@ -62,11 +62,8 @@
   ## System Repositories ##
   inputs = {
     ## Package Repositories ##
-    # NixOS Stable Release
-    stable.url = "github:NixOS/nixpkgs?ref=nixos-23.05";
-
-    # Unstable Packages Repository
-    unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
+    # NixOS Packages Repository
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
@@ -78,32 +75,42 @@
     gaming.url = "github:fufexan/nix-gaming";
 
     ## Configuration Modules ##
-    # Nix Library Functions
-    library = {
-      type = "github";
-      owner = "nix-community";
-      repo = "nixpkgs.lib";
-      ref = "master";
-      rev = "819180647f428a3826bfc917a54449da1e532ce0";
+    ## Language Addendum
+    # Supported Architectures
+    systems = {
+      url = "path:./systems.nix";
+      flake = false;
     };
 
-    # User Home Manager
-    home = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "unstable";
+    # Flake Utility Functions
+    utils = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.inputs.systems.follows = "systems";
     };
 
     # Source Filter Functions
     filter.url = "github:numtide/nix-filter";
     ignore = {
       url = "github:hercules-ci/gitignore.nix";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Flake Utility Functions
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    # Pre-Commit Hooks
+    hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "utils/flake-utils";
+      inputs.gitignore.follows = "ignore";
+    };
 
-    # PC Hardware Module
+    ## Feature Modules
+    # User Home Manager
+    home = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Hardware Support
     hardware.url = "github:nixos/nixos-hardware";
 
     # Authentication Credentials Manager
@@ -115,38 +122,29 @@
     # System Image Generators
     generators.url = "github:nix-community/nixos-generators";
 
-    # Base16 Theming
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "unstable";
-      inputs.home-manager.follows = "home";
-    };
-
     # Nix Index Database
     index = {
       url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Pre-Commit Hooks
-    hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "unstable";
-      inputs.nixpkgs-stable.follows = "stable";
-      inputs.flake-utils.follows = "utils/flake-utils";
-      inputs.gitignore.follows = "ignore";
+    # Base16 Theming
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home";
     };
 
     # Windows VM Creator
     windows = {
       url = "git+https://git.m-labs.hk/M-Labs/wfvm";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Wine Apps Wrapper
     wine = {
       url = "github:emmanuelrosa/erosanix";
-      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

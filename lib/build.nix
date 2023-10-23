@@ -1,6 +1,6 @@
 {
   self,
-  platforms,
+  systems,
   lib,
   ...
 }: let
@@ -33,7 +33,7 @@ in rec {
 
   # Package Channels Builder
   channel = src: overlays:
-    each platforms (system: let
+    each systems (system: let
       pkgs = src.legacyPackages."${system}";
     in
       import src {

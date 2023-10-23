@@ -1,32 +1,28 @@
-{self, ...} @ inputs:
-with inputs; let
+{self, ...} @ inputs: let
   ## Variable Declaration ##
   # Supported Architectures
-  platforms = ["x86_64-linux"];
-
-  # NixOS Version
-  version = readFile ./.version;
+  systems = import inputs.systems;
 
   # System Libraries
   inherit (self) files;
-  inherit (lib) eachSystem filters;
   inherit (builtins) head readFile;
   inherit (lib.util) build map pack;
-  lib = library.lib.extend (final: prev:
-    {
-      filters = ignore.lib // {inherit (filter.lib) filter matchExt;};
-      hooks = hooks.lib;
-      image = generators.nixosGenerate;
-      wine = wine.lib;
-      util = import ./lib {
-        inherit self platforms;
-        lib = final;
-      };
-    }
-    // home.lib
-    // utils.lib);
+  lib = with inputs;
+    nixpkgs.lib.extend (final: prev:
+      {
+        filters = ignore.lib // {inherit (filter.lib) filter matchExt;};
+        hooks = hooks.lib;
+        image = generators.nixosGenerate;
+        wine = wine.lib;
+        util = import ./lib {
+          inherit self systems;
+          lib = final;
+        };
+      }
+      // home.lib
+      // utils.lib);
 in
-  eachSystem platforms (system: let
+  lib.eachSystem systems (system: let
     # Default Package Channel
     pkgs = self.legacyPackages."${system}";
 
@@ -50,12 +46,11 @@ in
     formatter = pkgs.treefmt;
 
     ## Package Configuration ##
-    legacyPackages = self.channels."${system}".unstable;
+    legacyPackages = self.channels."${system}".nixpkgs;
 
     # Channels
-    channels = {
-      stable = (build.channel stable [])."${system}";
-      unstable = (build.channel unstable [nur.overlay])."${system}";
+    channels = with inputs; {
+      nixpkgs = (build.channel nixpkgs [nur.overlay])."${system}";
       wine = wine.packages."${system}";
       gaming = gaming.packages."${system}";
       apps.generators = generators.packages."${system}".default;
@@ -67,9 +62,11 @@ in
       map.modules ./packages call
       // map.modules ./scripts call
       // {default = self.packages."${system}".dotfiles;}
-      // proprietary.packages."${system}";
+      // inputs.proprietary.packages."${system}";
   })
-  // {
+  // (let
+    defaultPkgs = self.legacyPackages."${head systems}";
+  in {
     # Overrides
     overlays = map.modules ./packages/overlays import;
 
@@ -77,17 +74,17 @@ in
     lib =
       lib.util
       // {
-        inherit platforms;
-        nixpkgs = library.lib;
+        inherit systems;
+        nixpkgs = inputs.nixpkgs.lib;
       };
 
     ## Program Configuration and 'dotfiles' ##
-    files = import ./files lib inputs self.legacyPackages."${head platforms}";
+    files = import ./files lib inputs defaultPkgs;
 
     ## Custom Configuration Modules ##
     nixosModules =
       map.modules ./modules import
-      // {default = import ./modules {inherit version lib inputs files;};};
+      // {default = import ./modules {inherit lib inputs files;};};
 
     ## Configuration Templates ##
     templates = import ./.templates lib;
@@ -98,8 +95,7 @@ in
 
     ## Virtual Machines ##
     vmConfigurations =
-      map.modules ./devices/vm (name:
-        import name windows.lib self.channels."${head platforms}".stable);
+      map.modules ./devices/vm (name: import name inputs.windows.lib defaultPkgs);
 
     ## Install Media Configuration ##
     installMedia = {
@@ -119,4 +115,4 @@ in
         gui.desktop = "xfce";
       };
     };
-  }
+  })

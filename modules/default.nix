@@ -1,15 +1,12 @@
 {
-  version,
   lib,
   inputs,
   files,
 }: let
   inherit (inputs) self generators;
-  inherit (lib) extend makeOverridable mkForce mkIf;
+  inherit (lib) extend fileContents makeOverridable mkIf;
   inherit
     (builtins)
-    any
-    attrNames
     attrValues
     getAttr
     hashString
@@ -39,13 +36,12 @@ in {
     users ? null,
   }: let
     # Default Package Channel
-    input = inputs.unstable;
     pkgs = self.legacyPackages."${system}";
 
     # System Libraries
     inherit (lib') util;
     lib' =
-      extend (final: prev: with input.lib; {inherit nixosSystem trivial;});
+      extend (final: prev: with inputs.nixpkgs.lib; {inherit nixosSystem trivial;});
 
     # User Build Function
     user' = {
@@ -129,8 +125,6 @@ in {
             nix = {
               settings.max-jobs = hardware.cores or 4;
               index = mkIf (update == "") true;
-              nixPath = ["nixpkgs=${input}"];
-              registry.nixpkgs.flake = mkForce input;
             };
 
             system = {
@@ -142,7 +136,7 @@ in {
               };
 
               # Version
-              stateVersion = version;
+              stateVersion = fileContents "${inputs.nixpkgs}/.version";
               configurationRevision =
                 if (self ? rev)
                 then self.rev

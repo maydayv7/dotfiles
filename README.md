@@ -420,6 +420,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Refactor Secrets
 - Drop `deploy-rs` Support
 - Remove `inputs` patching Support
+- Fix first boot installation
 
 ### 23.05 (v12)
 
