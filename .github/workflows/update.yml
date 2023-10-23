@@ -22,6 +22,8 @@ jobs:
             experimental-features = nix-command flakes
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Fix Relative Flake Inputs
+        run: nix flake lock --update-input systems
       - name: Update Flake Lock File
         uses: DeterminateSystems/update-flake-lock@v20
         with:

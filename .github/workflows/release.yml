@@ -9,6 +9,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: Clone Repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       - name: Install Nix
         uses: cachix/install-nix-action@v23
         with:
@@ -16,8 +21,10 @@ jobs:
             experimental-features = nix-command flakes
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Fix Relative Flake Inputs
+        run: nix flake lock --update-input systems
       - name: Build Default Install Media
-        run: nix build github:maydayv7/dotfiles#installMedia.xfce.config.system.build.isoImage -L --show-trace
+        run: nix build .#installMedia.xfce.config.system.build.isoImage -L --show-trace
       - name: Draft Release
         uses: ncipollo/release-action@v1.13.0
         with:

@@ -12,6 +12,11 @@ jobs:
       matrix:
         shell: [cc, format, go, java, lisp, lua, python, rust, video, website]
     steps:
+      - name: Clone Repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       - name: Install Nix
         uses: cachix/install-nix-action@v23
         with:
@@ -24,5 +29,7 @@ jobs:
         with:
           name: maydayv7-dotfiles
           authToken: "${{ secrets.CACHIX_TOKEN }}"
+      - name: Fix Relative Flake Inputs
+        run: nix flake lock --update-input systems
       - name: Check Shells
-        run: nix develop github:maydayv7/dotfiles#${{ matrix.shell }}
+        run: nix develop .#${{ matrix.shell }}

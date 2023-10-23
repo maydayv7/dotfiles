@@ -33,6 +33,11 @@ jobs:
           sudo rm -rf /opt/ghc
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+      - name: Clone Repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       - name: Install Nix
         uses: cachix/install-nix-action@v23
         with:
@@ -45,5 +50,7 @@ jobs:
         with:
           name: maydayv7-dotfiles
           authToken: "${{ secrets.CACHIX_TOKEN }}"
+      - name: Fix Relative Flake Inputs
+        run: nix flake lock --update-input systems
       - name: Build Configuration
-        run: nix build github:maydayv7/dotfiles#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel -L --show-trace
+        run: nix build .#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel -L --show-trace

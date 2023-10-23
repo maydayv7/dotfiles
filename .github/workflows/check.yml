@@ -20,6 +20,11 @@ jobs:
           sudo rm -rf /opt/ghc
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+      - name: Clone Repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       - name: Install Nix
         uses: cachix/install-nix-action@v23
         with:
@@ -27,5 +32,7 @@ jobs:
             experimental-features = nix-command flakes
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Fix Relative Flake Inputs
+        run: nix flake lock --update-input systems
       - name: Check Syntax
-        run: nix flake check github:maydayv7/dotfiles --keep-going
+        run: nix flake check . --keep-going
