@@ -26,7 +26,7 @@ with files; let
       # Usage #
         apply [ --'option' ]        - Applies Device and User Configuration
         cache 'command'             - Pushes Binary Cache Output to Cachix
-        check [ --trace | --fast ]  - Checks System Configuration [ Displays Error to Trace ]
+        check [ --trace ]           - Checks System Configuration [ Displays Error to Trace ]
         clean [ --all ]             - Garbage Collects and Optimises Nix Store
         explore                     - Opens Interactive Shell to explore Syntax and Configuration
         install                     - Installs NixOS onto System
@@ -80,7 +80,7 @@ in
       [
         cachix
         coreutils
-        apps.generators
+        generators
         git
         gnupg
         gnused
@@ -166,7 +166,6 @@ in
         case $2 in
         "") nix flake check ${path.system} --keep-going;;
         "--trace") nix flake check ${path.system} --keep-going --show-trace;;
-        "--fast") nix build -L --no-link ${path.system}#checks.${system}.activate;;
         *) nix flake check "$2" --keep-going;;
         esac
       ;;

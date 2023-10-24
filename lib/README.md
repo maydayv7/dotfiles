@@ -30,7 +30,3 @@ The `lib` directory contains custom-made pure Flakes-compatible utility function
 
   - `device`: Pack desired system derivations into individual packages
   - `user`: Pack `self.homeConfigurations` derivations into individual packages
-
-- [`types`](./types.nix): Custom Module Option Types for advanced configuration -
-
-  - `mergedAttrs`: Type specifier for merged `attrsets`

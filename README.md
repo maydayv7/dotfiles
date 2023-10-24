@@ -151,8 +151,7 @@ github:maydayv7/dotfiles
 ├── lib
 │   ├── build.nix
 │   ├── map.nix
-│   ├── pack.nix
-│   └── types.nix
+│   └── pack.nix
 └── modules
     ├── apps
     ├── base

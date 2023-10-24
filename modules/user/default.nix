@@ -12,13 +12,21 @@
     filterAttrs
     findFirst
     findSingle
+    getValues
     mkIf
     mkEnableOption
     mkOption
+    mkOptionType
     optionals
     types
     util
     ;
+
+  # Merged Sets Type
+  mergedAttrs = mkOptionType {
+    name = "mergedAttrs";
+    merge = _: getValues;
+  };
 in {
   imports = util.map.module ./. ++ [inputs.home.nixosModules.home-manager];
 
@@ -37,7 +45,7 @@ in {
     user = {
       home = mkOption {
         description = "User Home Configuration";
-        type = util.types.mergedAttrs;
+        type = mergedAttrs;
         default = {};
       };
 
@@ -71,7 +79,7 @@ in {
               };
               homeConfig = mkOption {
                 description = "User Specific Home Configuration";
-                type = util.types.mergedAttrs;
+                type = mergedAttrs;
                 default = {};
               };
             };

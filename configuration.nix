@@ -5,7 +5,6 @@
 
   # System Libraries
   inherit (self) files;
-  inherit (builtins) head readFile;
   inherit (lib.util) build map pack;
   lib = with inputs;
     nixpkgs.lib.extend (final: prev:
@@ -14,6 +13,8 @@
         hooks = hooks.lib;
         image = generators.nixosGenerate;
         wine = wine.lib;
+      }
+      // {
         util = import ./lib {
           inherit self systems;
           lib = final;
@@ -48,12 +49,12 @@ in
     ## Package Configuration ##
     legacyPackages = self.channels."${system}".nixpkgs;
 
-    # Channels
+    # Package Channels
     channels = with inputs; {
       nixpkgs = (build.channel nixpkgs [nur.overlay])."${system}";
       wine = wine.packages."${system}";
       gaming = gaming.packages."${system}";
-      apps.generators = generators.packages."${system}".default;
+      generators = generators.packages."${system}".default;
     };
 
     # Custom Packages
@@ -67,7 +68,7 @@ in
       // inputs.proprietary.packages."${system}";
   })
   // (let
-    defaultPkgs = self.legacyPackages."${head systems}";
+    defaultPkgs = self.legacyPackages."${builtins.head systems}";
   in {
     # Overrides
     overlays = map.modules ./packages/overlays import;
