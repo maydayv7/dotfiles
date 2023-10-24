@@ -78,7 +78,7 @@
     ## Language Addendum
     # Supported Architectures
     systems = {
-      url = "path:./systems.nix";
+      url = "path:devices/systems.nix";
       flake = false;
     };
 
@@ -98,9 +98,11 @@
     # Pre-Commit Hooks
     hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "utils/flake-utils";
-      inputs.gitignore.follows = "ignore";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "utils/flake-utils";
+        gitignore.follows = "ignore";
+      };
     };
 
     ## Feature Modules
@@ -131,8 +133,10 @@
     # Base16 Theming
     stylix = {
       url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home";
+      };
     };
 
     # Windows VM Creator

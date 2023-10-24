@@ -57,7 +57,9 @@ in
     };
 
     # Custom Packages
-    apps = map.modules ./scripts (name: lib.mkApp {drv = call name;}) // {default = self.apps."${system}".nixos;};
+    apps =
+      map.modules ./scripts (name: lib.mkApp {drv = call name;})
+      // {default = self.apps."${system}".nixos;};
     packages =
       map.modules ./packages call
       // map.modules ./scripts call
@@ -90,8 +92,7 @@ in
     templates = import ./.templates lib;
 
     ## Device Configuration ##
-    nixosConfigurations =
-      map.modules ./devices (name: build.device (import name));
+    nixosConfigurations = map.modules ./devices (name: build.device (import name));
 
     ## Virtual Machines ##
     vmConfigurations =

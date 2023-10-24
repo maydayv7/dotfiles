@@ -8,6 +8,7 @@
     pathExists
     readDir
     toString
+    typeOf
     ;
 
   inherit
@@ -33,14 +34,15 @@ in rec {
 
   ## Files Map
   # Top Level
-  files = dir: func: extension:
+  files = dir: func: ext: file dir func ext (_: true);
+  file = dir: func: ext: cond:
     filter (name: type: type != null && !(hasPrefix "_" name)) (name: type: let
       path = "${toString dir}/${name}";
     in
       if
         (type == "directory" || type == "symlink")
         && (
-          if (extension == ".nix")
+          if (ext == ".nix")
           then pathExists "${path}/default.nix"
           else true
         )
@@ -49,16 +51,18 @@ in rec {
         type
         == "regular"
         && (
-          if (extension == ".nix")
+          if (ext == ".nix")
           then name != "default.nix"
           else true
         )
-        && hasSuffix extension name
-      then nameValuePair (removeSuffix extension name) (func path)
+        && hasSuffix ext name
+        && (cond path)
+      then nameValuePair (removeSuffix ext name) (func path)
       else nameValuePair "" null) (readDir dir);
 
   # Recursive
-  files' = dir: func: extension:
+  files' = dir: func: ext: file' dir func ext (_: true);
+  file' = dir: func: ext: cond:
     filter (name: type: type != null && !(hasPrefix "_" name)) (name: type: let
       path = "${toString dir}/${name}";
     in
@@ -68,12 +72,13 @@ in rec {
         type
         == "regular"
         && (
-          if (extension == ".nix")
+          if (ext == ".nix")
           then name != "default.nix"
           else true
         )
-        && hasSuffix extension name
-      then nameValuePair (removeSuffix extension name) (func path)
+        && hasSuffix ext name
+        && (cond path)
+      then nameValuePair (removeSuffix ext name) (func path)
       else nameValuePair "" null) (readDir dir);
 
   # Package Patches
@@ -90,10 +95,14 @@ in rec {
     else patch;
 
   # Module Imports
+  checkAttr = name: let
+    file = import name;
+  in
+    typeOf file == "set" || typeOf file == "lambda";
   module = dir: attrValues (modules dir id);
   module' = dir: attrNames (modules dir id);
-  modules = dir: func: files dir func ".nix";
-  modules' = dir: func: files' dir func ".nix";
+  modules = dir: func: file dir func ".nix" checkAttr;
+  modules' = dir: func: file' dir func ".nix" checkAttr;
 
   # 'sops' Encrypted Secrets
   secrets = dir: neededForUsers:

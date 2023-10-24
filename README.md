@@ -144,6 +144,7 @@ github:maydayv7/dotfiles
 ├── repl.nix
 ├── users
 ├── devices
+│   ├── systems.nix
 │   └── vm
 ├── scripts
 │   └── nixos.nix
@@ -175,6 +176,7 @@ github:maydayv7/dotfiles
 - `repl.nix`: interactive shell to explore syntax and configuration
 - [`users`](./users/README.md): individual user-specific configuration
 - [`devices`](./devices/README.md): system configuration for various devices
+- `systems.nix`: list of supported system architectures
 - [`vm`](./devices/vm/README.md): declarative configuration to build multiple virtual machines
 - [`scripts`](./scripts/README.md): useful system management scripts
 - [`packages`](./packages/README.md): locally built custom packages

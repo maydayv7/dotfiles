@@ -673,11 +673,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-yJg569/Wc8hgG64XgA72/nLsZthk+InI5N+Hhmcc+kA=",
-        "path": "./systems.nix",
+        "path": "devices/systems.nix",
         "type": "path"
       },
       "original": {
-        "path": "./systems.nix",
+        "path": "devices/systems.nix",
         "type": "path"
       }
     },
