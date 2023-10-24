@@ -13,7 +13,7 @@ in {
   options.gui.desktop = mkOption {
     description = "GUI Desktop Choice";
     type = with types;
-      nullOr (enum ((module' ./.) ++ map (x: x + "-minimal") (module' ./.)));
+      nullOr (enum ((module' ./desktop) ++ map (x: x + "-minimal") (module' ./desktop)));
     default = null;
   };
 
