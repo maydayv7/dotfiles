@@ -16,34 +16,32 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 
 <img alt="Built with Nix" src="https://raw.githubusercontent.com/nix-community/builtwithnix.org/62897617ceefe428f135e82c3a87ea093e29e045/img/built_with_nix.svg" width="130" height="50"/>
 
-- Self-Contained
 - Device-Agnostic
 - Convenient and Automated
 - Hermetically Reproducible
 - Declarative and Derivational
 - Atomic, Generational and Immutable
-- Configures Multiple Users and Devices
 
 #### Notable Features
 
-- Multiple Shell Configurations
-- Support for Multiple Desktop Environments
-- Cutting Edge Software - PipeWire, Wayland, ...!
-- Interactive [`repl`](./repl.nix) to explore Syntax and Configuration
-- Automatically Builds and Deploys my [Website](./site)
+- Supports multiple users and devices
+- Configuration for multiple Desktop Environments
+- Incorporates PipeWire, Wayland, ...!
+- Interactive [`repl`](./repl.nix) to explore syntax and configuration
+- Automatically builds and deploys my [Website](./site)
 - Authentication Credentials Management using the [`sops`](https://github.com/Mic92/sops-nix) Module and [`gnupg`](https://gnupg.org/) Keys
-- Comprehensive User Configuration using the tightly integrated [`home-manager`](https://github.com/nix-community/home-manager) Module, with [Support](./modules/user/default.nix) for Configuring Shared User Configuration, Global Conditionals and User-Specific Configuration
+- Comprehensive User Configuration using the tightly integrated [`home-manager`](https://github.com/nix-community/home-manager) module, with [support](./modules/user/default.nix) for configuring shared user configuration, global conditionals and user-specific configuration
 - Support for Multiple Programming Language Development [`shells`](./shells) integrated with [`direnv`](https://direnv.net/) and [`lorri`](https://github.com/nix-community/lorri)
-- Ephemeral, Opt-In File System State using the [`impermanence`](https://github.com/nix-community/impermanence) Module and [ZFS](https://zfsonlinux.org/)
-- Auto-Magic using [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) Helper Functions
+- Ephemeral, Opt-In File System State using the [`impermanence`](https://github.com/nix-community/impermanence) module and [ZFS](https://zfsonlinux.org/)
+- Auto-Magic using [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) helper functions
 - Automatic `packages` Updates using [`update.sh`](./packages/update.sh)
-- Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) Image Generation Modules
-- Advanced Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
-- Support for `source` Filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
-- Support for Base16 Color Theming using [`stylix`](https://github.com/danth/stylix)
+- Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) image generation modules
+- Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
+- Support for `source` filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
+- Support for Base16 color theming using [`stylix`](https://github.com/danth/stylix)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
 - Support for Android Virtualisation using [Waydroid](https://waydro.id/)
-- Declaratively Configured [Windows VM](./devices/vm/Windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) Module
+- Declaratively Configured [Windows VM](./devices/vm/Windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) module
 
 ## Programs
 
@@ -283,7 +281,7 @@ _In case you are using the `advanced` filesystem scheme, you may need to set the
 <details>
 <summary><b>Build It Yourself</b></summary>
 
-If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. For starters, you can run `nix flake init -t github:maydayv7/dotfiles` in `/etc/nixos` for a basic Flakes-compatible system configuration. If you have any doubts, feel free to open an issue. You can check out the list of links below to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
+If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. For starters, you can run `nix flake init -t github:maydayv7/dotfiles` in `/etc/nixos` for a basic Flakes-compatible system configuration. You can check out the list of links below to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
 
 **Welcome** to the Nix Community! ;)
 
@@ -296,8 +294,6 @@ If you really want to get dirty with Nix and decide to invest oodles of your tim
 I am pretty new to Nix, and my configuration is still _WIP_ and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.7)
 
 It is not recommended to use NixOS if you are a beginner just starting out, without acquaintance with either the command-line or functional programming languages, since the learning curve is steep, debugging issues is difficult, documentation is shallow, and the effort required/time spent isn't worth the hassle for a novice/casual user
-
-If you have any doubts or suggestions, feel free to open an [issue](../../issues/new/choose)
 
 ### Requirements
 
@@ -312,7 +308,7 @@ All the files and scripts in this repository are licensed under the very permiss
 
 ### Branches
 
-There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch can be used at any time, and consists of configuration that builds without failure, but the `develop` branch is a bleeding-edge testbed, and is not recommended to be used
+There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch consists of configuration that builds without failure, and the `develop` branch is a bleeding-edge testbed
 
 ### Build
 
@@ -409,7 +405,7 @@ _Thanks a lot! ;)_
 
 ---
 
-You can navigate to the `README`'s present in the various directories to know more about them
+You can navigate to the `README`s present in the various directories to know more about them
 
 <details>
 <summary><b>Changelog</b></summary>
@@ -423,6 +419,7 @@ You can navigate to the `README`'s present in the various directories to know mo
 - Drop `deploy-rs` Support
 - Remove `inputs` patching Support
 - Fix first boot installation
+- Add conditional to `lib.map.files`
 
 ### 23.05 (v12)
 
