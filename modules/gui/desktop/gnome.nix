@@ -134,7 +134,7 @@ in {
 
       # Color Scheme
       stylix = {
-        base16Scheme = colors.adwaita-dark;
+        base16Scheme = colors.adwaita;
         targets.gnome.enable = false;
       };
 

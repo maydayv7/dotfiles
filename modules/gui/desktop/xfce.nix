@@ -107,7 +107,7 @@ in {
       # Color Scheme
       stylix = {
         image = proprietary.wallpapers.Sunset;
-        base16Scheme = colors.arc-dark;
+        base16Scheme = colors.arc;
       };
 
       # User Configuration
