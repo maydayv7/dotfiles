@@ -34,19 +34,22 @@ in {
           enableXfwm = true;
         };
 
-        displayManager.lightdm.greeters.gtk = {
-          clock-format = "%H:%M";
-          indicators = [
-            "~a11y"
-            "~language"
-            "~spacer"
-            "~clock"
-            "~spacer"
-            "~host"
-            "~spacer"
-            "~session"
-            "~power"
-          ];
+        displayManager = {
+          defaultSession = "xfce";
+          lightdm.greeters.gtk = {
+            clock-format = "%H:%M";
+            indicators = [
+              "~a11y"
+              "~language"
+              "~spacer"
+              "~clock"
+              "~spacer"
+              "~host"
+              "~spacer"
+              "~session"
+              "~power"
+            ];
+          };
         };
       };
     }

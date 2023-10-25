@@ -60,7 +60,8 @@ in {
         inherit name description uid autologin minimal;
         homeConfig = home;
         extraGroups = groups;
-        initialHashedPassword = password;
+        hashedPassword = mkIf (password != "") password;
+        initialHashedPassword = mkIf (password == "") "";
         shell = pkgs."${shell}";
         shells =
           if (shells == null)

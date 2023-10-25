@@ -9,7 +9,7 @@ with files; let
   inherit (builtins) elem;
   inherit (config.gui) desktop;
   apps = config.environment.systemPackages;
-  inherit (lib) mkIf mkForce mkMerge recursiveUpdate util;
+  inherit (lib) mkIf mkForce mkMerge util;
 in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
@@ -17,7 +17,10 @@ in {
       # Session
       services.xserver = {
         desktopManager.gnome.enable = true;
-        displayManager.gdm.enable = true;
+        displayManager = {
+          gdm.enable = true;
+          defaultSession = "gnome";
+        };
       };
 
       # Excluded Packages

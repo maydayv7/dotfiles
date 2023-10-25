@@ -67,7 +67,7 @@ in rec {
       path = "${toString dir}/${name}";
     in
       if (type == "directory" || type == "symlink")
-      then nameValuePair name (files' path func)
+      then nameValuePair name (file' path func)
       else if
         type
         == "regular"

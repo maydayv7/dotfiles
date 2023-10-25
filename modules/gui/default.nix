@@ -8,18 +8,17 @@
   inherit (util.map) module module';
   inherit (lib) mkOption optional types util;
 in {
-  imports = module ./.;
+  imports = module ./. ++ module ./desktop;
 
   options.gui.desktop = mkOption {
     description = "GUI Desktop Choice";
-    type = with types;
-      nullOr (enum ((module' ./desktop) ++ map (x: x + "-minimal") (module' ./desktop)));
-    default = null;
+    type = types.enum ((module' ./desktop) ++ map (x: x + "-minimal") (module' ./desktop) ++ [""]);
+    default = "";
   };
 
   config.assertions = [
     {
-      assertion = config.gui.desktop != null;
+      assertion = config.gui.desktop != "";
       message = options.gui.desktop.description + " must be set";
     }
   ];

@@ -29,6 +29,7 @@
       kernel = "zen";
       kernelModules = ["xhci_pci" "ahci" "usb_storage" "sd_mod"];
 
+      gui = {};
       hardware = {
         boot = "efi";
         cores = 4;
@@ -39,6 +40,7 @@
       user = {
         name = "nixos";
         description = "Default User";
+        minimal = true;
         password = "HASHED_PASSWORD"; # Generate using 'mkpasswd -m sha-512'
       };
     };
