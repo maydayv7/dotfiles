@@ -1,6 +1,6 @@
-lib: inputs: pkgs: let
+lib: inputs: let
   inherit (lib.util) build map;
-  inherit (builtins) fromJSON readFile replaceStrings;
+  inherit (builtins) fromJSON readFile;
 in rec {
   ## Dotfiles ##
   # File Paths
@@ -58,6 +58,7 @@ in rec {
 
   # Custom Proprietary Files
   proprietary = inputs.proprietary.files;
+  inherit (proprietary) wallpapers;
 
   # Nano Text Editor
   nano = readFile ./nano/nanorc;
@@ -85,11 +86,7 @@ in rec {
     css = readFile ./xfce/gtk.css;
     panel = ./xfce/panel;
     terminal = readFile ./xfce/terminalrc;
-    settings =
-      map.files ./xfce/settings
-      (file:
-        replaceStrings ["@system" "@desktop"]
-        [path.system pkgs.xfce.xfdesktop.outPath] (readFile file)) ".xml";
+    settings = ./xfce/settings;
   };
 
   # My Personal Website

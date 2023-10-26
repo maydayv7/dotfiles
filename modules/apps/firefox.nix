@@ -12,12 +12,6 @@
       sessionVariables.MOZ_USE_XINPUT2 = "1";
     };
 
-    # Desktop Integration
-    xdg.portal = {
-      enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-wlr];
-    };
-
     user = {
       persist.directories = [".cache/mozilla/firefox" ".mozilla/firefox"];
       home = {

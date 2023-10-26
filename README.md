@@ -391,6 +391,7 @@ _Thanks a lot! ;)_
   - [cole-h](https://github.com/cole-h/nixos-config/)
   - [colemickens](https://github.com/cole-mickens/nixcfg)
   - [davidtwco](https://github.com/davidtwco/veritas)
+  - [fufexan](https://github.com/fufexan/dotfiles)
   - [gvolpe](https://github.com/gvolpe/nix-config)
   - [hlissner](https://github.com/hlissner/dotfiles)
   - [jordanisaacs](https://github.com/jordanisaacs/dotfiles)
@@ -399,6 +400,7 @@ _Thanks a lot! ;)_
   - [lucasew](https://github.com/lucasew/nixcfg)
   - [nobbz](https://github.com/NobbZ/nixos-config)
   - [rasendubi](https://github.com/rasendubi/dotfiles)
+  - [tejing1](https://github.com/tejing1/nixos-config)
   - [vlaci](https://github.com/vlaci/nixos-config)
   - [wiltaylor](https://github.com/wiltaylor/dotfiles)
 
@@ -419,6 +421,8 @@ You can navigate to the `README`s present in the various directories to know mor
 - Remove `inputs` patching Support
 - Fix first boot installation
 - Add conditional to `lib.map.files`
+- Add `gui.{wallpaper,wayland}`
+- Enable `firefox` by default
 
 ### 23.05 (v12)
 

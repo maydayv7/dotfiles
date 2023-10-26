@@ -21,7 +21,11 @@
     vm.android.enable = true;
   };
 
-  gui.desktop = "gnome";
+  gui = {
+    desktop = "gnome";
+    wallpaper = "Sunrise";
+  };
+
   shell.utilities = true;
   apps.list = ["discord" "git" "office" "vscode" "wine"];
 

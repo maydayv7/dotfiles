@@ -33,12 +33,13 @@ in {
     # Full-Fledged GNOME Desktop Configuration
     (mkIf (desktop == "gnome") {
       # Desktop Integration
-      gui.fonts.enable = true;
-      xdg.portal.enable = true;
+      gui = {
+        fonts.enable = true;
+        wayland.enable = true;
+      };
 
       programs = {
         dconf.enable = true;
-        xwayland.enable = true;
         gnupg.agent.pinentryFlavor =
           mkIf config.programs.gnupg.agent.enable "gnome3";
       };
@@ -153,11 +154,9 @@ in {
             # GNOME Apps
             gnome-boxes
             gnome-dictionary
-            gnome-notes
             gnome-sound-recorder
             gnome-text-editor
             gnome-tweaks
-            polari
 
             # GNOME Games
             gnome-chess
@@ -173,7 +172,6 @@ in {
             drawing
             fractal
             fragments
-            giara
             gimp
             gradience
             gnome-podcasts
@@ -228,32 +226,28 @@ in {
       };
 
       # Persisted Files
-      user.persist = {
-        files = [".config/org.gabmus.giara.json"];
-        directories = [
-          ".config/dconf"
-          ".config/gnome-boxes"
-          ".config/gnome-builder"
-          ".config/GIMP"
-          ".config/gtk-3.0"
-          ".config/gtk-4.0"
-          ".config/pitivi"
-          ".local/share/clipboard"
-          ".local/share/epiphany"
-          ".local/share/evolution"
-          ".local/share/geary"
-          ".local/share/gnome-boxes"
-          ".local/share/gnome-builder"
-          ".local/share/lollypop"
-          ".local/share/nautilus"
-          ".local/share/polari"
-          ".local/share/telepathy"
-          ".local/share/webkitgtk"
-          ".cache/fractal"
-          ".cache/gnome-builder"
-          ".cache/timepp_gnome_shell_extension"
-        ];
-      };
+      user.persist.directories = [
+        ".config/dconf"
+        ".config/gnome-boxes"
+        ".config/gnome-builder"
+        ".config/GIMP"
+        ".config/gtk-3.0"
+        ".config/gtk-4.0"
+        ".config/pitivi"
+        ".local/share/clipboard"
+        ".local/share/epiphany"
+        ".local/share/evolution"
+        ".local/share/geary"
+        ".local/share/gnome-boxes"
+        ".local/share/gnome-builder"
+        ".local/share/lollypop"
+        ".local/share/nautilus"
+        ".local/share/telepathy"
+        ".local/share/webkitgtk"
+        ".cache/fractal"
+        ".cache/gnome-builder"
+        ".cache/timepp_gnome_shell_extension"
+      ];
     })
 
     # Minimal GNOME Desktop Configuration

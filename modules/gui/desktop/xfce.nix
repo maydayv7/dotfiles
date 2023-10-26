@@ -6,10 +6,10 @@
   ...
 }:
 with files; let
-  inherit (builtins) elem;
-  inherit (config.gui) desktop;
+  inherit (builtins) elem readFile;
+  inherit (config.gui) desktop wallpaper;
   apps = config.environment.systemPackages;
-  inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair util;
+  inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair replaceStrings util;
 
   # GTK+ Theme
   theme = {
@@ -66,11 +66,14 @@ in {
       # Plugins
       programs = {
         xfconf.enable = true;
-        thunar.plugins = with pkgs.xfce; [
-          thunar-archive-plugin
-          thunar-dropbox-plugin
-          thunar-volman
-        ];
+        thunar = {
+          enable = true;
+          plugins = with pkgs.xfce; [
+            thunar-archive-plugin
+            thunar-dropbox-plugin
+            thunar-volman
+          ];
+        };
       };
 
       # Utilities
@@ -105,15 +108,19 @@ in {
       };
 
       # Color Scheme
-      stylix = {
-        image = proprietary.wallpapers.Sunset;
-        base16Scheme = colors.arc;
+      stylix.base16Scheme = colors.arc;
+
+      # QT Theme
+      qt = {
+        enable = true;
+        platformTheme = "gtk2";
+        style = "gtk2";
       };
 
       # User Configuration
       user.home = {
         # GTK+ Theming
-        stylix.targets.xfce.enable = true;
+        stylix.targets.xfce.enable = false;
         gtk =
           {
             enable = true;
@@ -152,7 +159,10 @@ in {
           // mapAttrs' (name: value:
             nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml"
             {text = value;})
-          xfce.settings;
+          (util.map.files xfce.settings
+            (file:
+              replaceStrings ["@system" "@wallpaper"]
+              [path.system wallpaper] (readFile file)) ".xml");
 
         # Code Editor Settings
         programs.vscode = mkIf (elem pkgs.vscode apps) {

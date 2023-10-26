@@ -16,10 +16,7 @@ in {
     default = "";
   };
 
-  config.assertions = [
-    {
-      assertion = config.gui.desktop != "";
-      message = options.gui.desktop.description + " must be set";
-    }
-  ];
+  config.warnings =
+    optional (config.gui.desktop == "")
+    (options.gui.desktop.description + " is unset");
 }

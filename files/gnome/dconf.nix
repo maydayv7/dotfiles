@@ -9,11 +9,12 @@ with lib.hm.gvariant; let
   inherit (builtins) head elem;
   homeDir = config.home.homeDirectory;
   fonts = sys.fonts.fontconfig.defaultFonts;
+  inherit (sys.gui) wallpaper;
 in {
   # Home Directory
   home.file = {
     # Wallpapers
-    ".local/share/backgrounds".source = files.proprietary.wallpapers.path;
+    ".local/share/backgrounds".source = files.wallpapers.path;
 
     # GTK+ Bookmarks
     ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
@@ -191,8 +192,8 @@ in {
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      primary-color = "#000000000000";
-      secondary-color = "#000000000000";
+      picture-uri = "file://${wallpaper}";
+      picture-uri-dark = "file://${wallpaper}";
     };
 
     "org/gnome/desktop/screensaver" = {

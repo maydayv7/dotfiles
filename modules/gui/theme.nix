@@ -4,24 +4,34 @@
   inputs,
   files,
   ...
-}:
-with files.proprietary.wallpapers; {
+}: let
+  inherit (lib) attrNames hasSuffix mkOption types;
+  cfg = config.gui;
+in {
   imports = [inputs.stylix.nixosModules.stylix];
+
+  options.gui.wallpaper = mkOption {
+    description = "Desktop Wallpaper Choice";
+    type = types.enum (attrNames files.wallpapers);
+    default = "Beauty";
+    apply = image: files.wallpapers."${image}";
+  };
 
   ## Base16 Color Theming ##
   config = {
     stylix =
-      {autoEnable = false;}
+      {
+        autoEnable = false;
+        image = cfg.wallpaper;
+      }
       // (
-        if (lib.hasSuffix "-minimal" config.gui.desktop)
+        if (cfg.desktop == "" || hasSuffix "-minimal" cfg.desktop)
         then {
           homeManagerIntegration.autoImport = false;
-          image = Beauty;
         }
         else {
           homeManagerIntegration.autoImport = true;
           polarity = "dark";
-          image = lib.mkDefault Sunrise;
           targets = {
             console.enable = true;
             kmscon.enable = true;

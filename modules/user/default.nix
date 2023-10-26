@@ -128,16 +128,18 @@ in {
       find =
         findSingle (value: value.autologin || value.minimal) "0" "1"
         (attrValues settings);
-    in {
+    in rec {
       enable =
         if (find == "0")
         then false
+        else if (config.services.xserver.displayManager.defaultSession == null)
+        then throw "Graphical Environment must be present for Automatic Log-In"
         else if (find == "1")
         then throw "Only one User can be Automatically Logged-In"
         else true;
 
       user =
-        mkIf config.services.xserver.displayManager.autoLogin.enable
+        mkIf enable
         (findFirst (name: with settings."${name}"; autologin || minimal) "nixos"
           (attrNames settings));
     };

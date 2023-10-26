@@ -67,9 +67,7 @@ in
       // {default = self.packages."${system}".dotfiles;}
       // inputs.proprietary.packages."${system}";
   })
-  // (let
-    defaultPkgs = self.legacyPackages."${builtins.head systems}";
-  in {
+  // {
     # Overrides
     overlays = map.modules ./packages/overlays import;
 
@@ -82,7 +80,7 @@ in
       };
 
     ## Program Configuration and 'dotfiles' ##
-    files = import ./files lib inputs defaultPkgs;
+    files = import ./files lib inputs;
 
     ## Custom Configuration Modules ##
     nixosModules =
@@ -97,7 +95,8 @@ in
 
     ## Virtual Machines ##
     vmConfigurations =
-      map.modules ./devices/vm (name: import name inputs.windows.lib defaultPkgs);
+      map.modules ./devices/vm
+      (name: import name inputs.windows.lib self.legacyPackages."${builtins.head systems}");
 
     ## Install Media Configuration ##
     installMedia = {
@@ -117,4 +116,4 @@ in
         gui.desktop = "xfce";
       };
     };
-  })
+  }
