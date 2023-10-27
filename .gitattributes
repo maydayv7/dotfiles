@@ -1,2 +1,2 @@
 *.secret binary
-site/static/math/* linguist-vendored
+site/static/js/* linguist-vendored
