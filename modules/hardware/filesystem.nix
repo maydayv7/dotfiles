@@ -64,6 +64,7 @@ in {
         ## Partitions ##
         # Common Partitions
         boot.supportedFilesystems = ["ntfs" "vfat"];
+        programs.fuse.userAllowOther = true;
         fileSystems = {
           # EFI System Partition
           "/boot" = {

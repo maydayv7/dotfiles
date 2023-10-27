@@ -121,6 +121,7 @@ in
         "--boot")
           echo "Applying Configuration..."
           sudo nixos-rebuild boot --flake ${path.system}#
+          restart
         ;;
         "--check")
           echo "Checking Configuration..."
