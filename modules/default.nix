@@ -28,9 +28,10 @@ in {
     update ? "",
     kernel,
     kernelModules ? [],
-    gui ? {},
     apps ? {},
+    gui ? {},
     hardware ? {},
+    nix ? {},
     shell ? {},
     user ? null,
     users ? null,
@@ -123,10 +124,11 @@ in {
 
             # Package Configuration
             nixpkgs = {inherit pkgs;};
-            nix = {
-              settings.max-jobs = hardware.cores or 4;
-              index = mkIf (update == "") true;
-            };
+            nix =
+              {
+                settings.max-jobs = hardware.cores or 4;
+              }
+              // nix;
 
             system = {
               # Updates

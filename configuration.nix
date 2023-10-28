@@ -99,21 +99,15 @@ in
       (name: import name inputs.windows.lib self.legacyPackages."${builtins.head systems}");
 
     ## Install Media Configuration ##
-    installMedia = {
-      # GNOME Desktop
-      gnome = build.iso {
+    installMedia = let
+      config = {
         timezone = "Asia/Kolkata";
         locale = "IN";
         kernel = "zfs";
-        gui.desktop = "gnome";
       };
-
-      # XFCE Desktop
-      xfce = build.iso {
-        timezone = "Asia/Kolkata";
-        locale = "IN";
-        kernel = "zfs";
-        gui.desktop = "xfce";
-      };
+    in rec {
+      default = xfce;
+      gnome = build.iso (config // {gui.desktop = "gnome";});
+      xfce = build.iso (config // {gui.desktop = "xfce";});
     };
   }

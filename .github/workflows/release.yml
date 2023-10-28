@@ -24,7 +24,7 @@ jobs:
       - name: Fix Relative Flake Inputs
         run: nix flake lock --update-input systems
       - name: Build Default Install Media
-        run: nix build .#installMedia.xfce.config.system.build.isoImage -L --show-trace
+        run: nix build .#installMedia.default.config.system.build.isoImage -L --show-trace
       - name: Draft Release
         uses: ncipollo/release-action@v1.13.0
         with:

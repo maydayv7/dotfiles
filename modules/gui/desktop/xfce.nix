@@ -185,7 +185,7 @@ in {
     # Minimal XFCE Desktop Configuration
     (mkIf (desktop == "xfce-minimal") {
       # Utilities
-      environment.systemPackages = [pkgs.firefox];
+      environment.systemPackages = [pkgs.epiphany];
 
       # Disabled Services
       services.tumbler.enable = mkForce false;

@@ -26,8 +26,13 @@
     wallpaper = "Sunrise";
   };
 
+  nix = {
+    index = true;
+    tools = true;
+  };
+
   shell.utilities = true;
-  apps.list = ["discord" "git" "office" "vscode" "wine"];
+  apps.list = ["discord" "firefox" "git" "office" "vscode" "wine"];
 
   # User V7
   user = {

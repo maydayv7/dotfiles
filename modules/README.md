@@ -45,6 +45,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 - [`nix`](./nix): Module that configures the Nix Package Manager -
 
   - `index`: Enable Package Indexer - `"true" / "false"`
+  - `tools`: Enable Additional Nix Tools - `"true" / "false"`
 
 - [`user`](./user): Module that controls User Creation and Security Settings -
 

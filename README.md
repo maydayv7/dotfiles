@@ -423,7 +423,6 @@ You can navigate to the `README`s present in the various directories to know mor
 - Fix first boot installation
 - Add conditional to `lib.map.files`
 - Add `gui.{wallpaper,wayland}`
-- Enable `firefox` by default
 
 ### 23.05 (v12)
 

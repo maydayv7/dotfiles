@@ -4,8 +4,8 @@
   lib,
   ...
 }: let
-  inherit (lib) flatten hasPrefix mapAttrsToList nameValuePair recursiveUpdate splitString;
   inherit (builtins) attrValues concatStringsSep filter hasAttr listToAttrs map readFile;
+  inherit (lib) flatten hasPrefix mapAttrsToList mkForce nameValuePair recursiveUpdate splitString;
 in rec {
   ## Builder Functions ##
   each = attr: func:
@@ -22,6 +22,7 @@ in rec {
         gui.desktop = config.gui.desktop + "-minimal";
 
         # Default User
+        imports = [{user.home = mkForce {};}];
         user = {
           name = "nixos";
           description = "Default User";

@@ -35,7 +35,6 @@ in {
         file
         lolcat
         neofetch
-        nixos-option
         shellcheck
         stylua
         tree
@@ -71,7 +70,6 @@ in {
               config = {
                 style = "full";
                 italic-text = "always";
-                theme = "Monokai Extended Bright";
                 map-syntax = [".ignore:Git Ignore"];
               };
             };
@@ -90,10 +88,8 @@ in {
             cat = "bat";
             colors = "${scripts.colors}";
             edit = "sudo $EDITOR";
-            l = "ls --color --group-directories-first";
             ls = "eza -b -h -l -F --octal-permissions --icons --time-style iso";
             sike = "neofetch";
-            nixos-option = "nixos-option -I nixpkgs=${path.system}/lib/compat";
           };
         };
       };

@@ -1,18 +1,24 @@
 {
+  config,
   lib,
   inputs,
   pkgs,
   ...
 }: let
-  inherit (lib.util.map) array;
+  inherit (lib) mkEnableOption optionals util;
+  inherit (config.nix) tools;
 in {
   imports = [./index.nix inputs.utils.nixosModules.autoGenFromInputs];
+
+  options.nix.tools = mkEnableOption "Enable Additional Nix Tools";
 
   ## Nix Settings ##
   config = {
     # Utilities
-    user.persist.directories = [".cache/nix" ".cache/manix"];
-    environment.systemPackages = [pkgs.cachix] ++ array (import ./tools.nix) pkgs;
+    user.persist.directories = [".cache/nix"] ++ optionals tools [".cache/manix"];
+    environment.systemPackages =
+      [pkgs.cachix]
+      ++ optionals tools (util.map.array (import ./tools.nix) pkgs);
 
     # Settings
     nix = {
@@ -41,6 +47,7 @@ in {
         sandbox = true;
         system-features = ["kvm" "recursive-nix"];
       };
+
       extraOptions = ''
         accept-flake-config = true
         warn-dirty = false
