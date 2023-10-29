@@ -50,11 +50,11 @@ in {
       switch-applications-backward = ["<Shift><Alt>Tab"];
       switch-group = ["<Super>Tab"];
       switch-group-backward = ["<Shift><Super>Tab"];
-      switch-to-workspace-down = ["<Primary><Super>Down" "<Primary><Super>j"];
+      switch-to-workspace-down = [];
       switch-to-workspace-left = ["<Super>Left"];
       switch-to-workspace-right = ["<Super>Right"];
-      switch-to-workspace-up = ["<Primary><Super>Up" "<Primary><Super>k"];
-      toggle-maximized = ["<Super>m"];
+      switch-to-workspace-up = [];
+      toggle-maximized = ["F11"];
       unmaximize = [];
     };
 
@@ -90,7 +90,7 @@ in {
       volume-up = ["AudioRaiseVolume"];
       window-screenshot = ["<Primary>Print"];
       window-screenshot-clip = [];
-      www = ["<Super>w"];
+      www = ["<Super>grave"];
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
@@ -105,7 +105,7 @@ in {
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
       binding = "<Super>t";
-      command = "kgx";
+      command = "blackbox";
       name = "Terminal";
     };
 
@@ -141,7 +141,7 @@ in {
       font-name = "${head fonts.sansSerif} Medium, Medium 11";
       gtk-im-module = "gtk-im-context-simple";
       locate-pointer = true;
-      monospace-font-name = "${head fonts.monospace} 10";
+      monospace-font-name = "${head fonts.monospace} 11";
       show-battery-percentage = true;
       toolkit-accessibility = false;
     };
@@ -163,7 +163,7 @@ in {
       night-light-schedule-automatic = false;
       night-light-schedule-from = 19.0;
       night-light-schedule-to = 7.0;
-      night-light-temperature = "uint32 3700";
+      night-light-temperature = mkUint32 3700;
     };
 
     "org/gnome/desktop/a11y/magnifier" = {
@@ -177,7 +177,7 @@ in {
 
     "org/gnome/desktop/privacy" = {
       disable-microphone = false;
-      old-files-age = "uint32 7";
+      old-files-age = mkUint32 7;
       remember-recent-files = false;
       remove-old-temp-files = true;
       remove-old-trash-files = true;
@@ -198,7 +198,7 @@ in {
 
     "org/gnome/desktop/screensaver" = {
       color-shading-type = "solid";
-      lock-delay = "uint32 0";
+      lock-delay = mkUint32 0;
       lock-enabled = false;
       picture-options = "zoom";
       primary-color = "#000000000000";
@@ -208,8 +208,15 @@ in {
     # GTK+ Apps
     "org/gnome/desktop/calendar".show-weekdate = true;
     "ca/desrt/dconf-editor".show-warning = false;
-    "io/github/seadve/Kooha".video-format = "mp4";
     "org/gnome/shell/world-clocks".locations = "[<(uint32 2, <('Coordinated Universal Time (UTC)', '@UTC', false, @a(dd) [], @a(dd) [])>)>]";
+
+    "org/gnome/desktop/search-providers" = {
+      sort-order = [
+        "org.gnome.Contacts.desktop"
+        "org.gnome.Documents.desktop"
+        "org.gnome.Nautilus.desktop"
+      ];
+    };
 
     "org/gnome/Geary" = {
       ask-open-attachment = true;
@@ -220,18 +227,18 @@ in {
       startup-notifications = true;
     };
 
+    "org/gnome/epiphany/sync".sync-device-name = sys.networking.hostName;
+    "org/gnome/epiphany/web" = {
+      default-zoom-level = 1.0;
+      enable-mouse-gestures = true;
+    };
+
     "org/gnome/epiphany" = {
       active-clear-data-items = 391;
       ask-for-default = false;
       default-search-engine = "Google";
       restore-session-policy = "crashed";
       use-google-search-suggestions = true;
-    };
-
-    "org/gnome/epiphany/sync".sync-device-name = sys.networking.hostName;
-    "org/gnome/epiphany/web" = {
-      default-zoom-level = 1.0;
-      enable-mouse-gestures = true;
     };
 
     "org/gtk/gtk4/settings/file-chooser".sort-directories-first = true;
@@ -250,18 +257,24 @@ in {
       show-delete-permanently = true;
     };
 
+    "com/raggesilver/BlackBox" = {
+      font = "${head fonts.monospace} 11";
+      headerbar-drag-area = true;
+      notify-process-completion = true;
+      opacity = mkUint32 90;
+      remember-window-size = true;
+      show-headerbar = true;
+      show-menu-button = true;
+      terminal-bell = false;
+      pretty = true;
+    };
+
     "org/gnome/TextEditor" = {
       highlight-current-line = true;
       indent-style = "tab";
       show-line-numbers = true;
       show-map = true;
       tab-width = mkUint32 4;
-    };
-
-    "com/github/hugolabe/Wike" = {
-      custom-font = true;
-      dark-mode = true;
-      font-family = head fonts.sansSerif;
     };
 
     "org/gnome/builder/editor" = {
@@ -276,9 +289,14 @@ in {
       style-scheme-name = "builder-dark";
     };
 
+    "com/github/hugolabe/Wike" = {
+      custom-font = true;
+      dark-mode = true;
+      font-family = head fonts.sansSerif;
+    };
+
     # App Grid
     "org/gnome/shell" = {
-      command-history = ["rt" "r"];
       disable-user-extensions = false;
       disable-extension-version-validation = true;
       disabled-extensions = ["workspace-indicator@gnome-shell-extensions.gcampax.github.com"];
@@ -288,9 +306,9 @@ in {
         "caffeine@patapon.info"
         "CoverflowAltTab@palatis.blogspot.com"
         "drive-menu@gnome-shell-extensions.gcampax.github.com"
+        "forge@jmmaranan.com"
         "gestureImprovements@gestures"
         "gnome-ui-tune@itstime.tech"
-        "gTile@vibou"
         "guillotine@fopdoodle.net"
         "just-perfection-desktop@just-perfection"
         "lock-screen-message@advendradeswanta.gitlab.com"
@@ -299,6 +317,7 @@ in {
         "quick-settings-avatar@d-go"
         "quick-settings-tweaks@qwreey"
         "rounded-window-corners@yilozt"
+        "Shortcuts@kyle.aims.ac.za"
         "space-bar@luchrioh"
         "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
         "timepp@zagortenay333"
@@ -312,7 +331,7 @@ in {
         "google-chrome.desktop"
         "org.gnome.Geary.desktop"
         "org.gnome.Nautilus.desktop"
-        "org.gnome.Console.desktop"
+        "com.raggesilver.BlackBox.desktop"
         "org.gnome.TextEditor.desktop"
         "org.gnome.Settings.desktop"
       ];
@@ -341,31 +360,32 @@ in {
     "org/gnome/desktop/app-folders/folders/a136187d-1d93-4d35-8423-082f15957be9" = {
       name = "Office";
       apps = [
-        "Code.desktop"
-        "startcenter.desktop"
-        "writer.desktop"
-        "impress.desktop"
-        "draw.desktop"
         "base.desktop"
         "calc.desktop"
+        "Code.desktop"
+        "draw.desktop"
+        "impress.desktop"
         "math.desktop"
-        "onlyoffice-desktopeditors.desktop"
         "net.sourceforge.gscan2pdf.desktop"
+        "onlyoffice-desktopeditors.desktop"
+        "startcenter.desktop"
         "virt-manager.desktop"
+        "writer.desktop"
       ];
     };
 
     "org/gnome/desktop/app-folders/folders/b79e9b82-2127-459b-9e82-11bd3be09d04" = {
       name = "Utilities";
       apps = [
-        "org.gnome.Logs.desktop"
-        "org.gnome.Devhelp.desktop"
-        "org.gnome.Tour.desktop"
         "cups.desktop"
         "nixos-manual.desktop"
-        "yelp.desktop"
         "org.gnome.baobab.desktop"
+        "org.gnome.Console.desktop"
+        "org.gnome.Devhelp.desktop"
+        "org.gnome.Logs.desktop"
+        "org.gnome.Tour.desktop"
         "xterm.desktop"
+        "yelp.desktop"
       ];
     };
 
@@ -402,13 +422,14 @@ in {
 
     # Shell Extensions
     "org/gnome/shell/extensions/user-theme".name = "Adwaita";
+    "org/gnome/shell/extensions/lock-screen-message".message = "Welcome, ${config.credentials.fullname}!";
+
+    "com/ftpix/transparentbar".transparency = 0;
     "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position = "start";
     "org/gnome/shell/extensions/gestureImprovements".allow-minimize-window = true;
     "org/gnome/shell/extensions/gnome-ui-tune".hide-search = false;
     "org/gnome/shell/extensions/lockkeys".style = "show-hide";
-    "org/gnome/shell/extensions/lock-screen-message".message = "Welcome, ${config.credentials.fullname}!";
     "org/gnome/shell/extensions/status-area-horizontal-spacing".hpadding = 4;
-    "com/ftpix/transparentbar".transparency = 0;
 
     "org/gnome/shell/extensions/caffeine" = {
       indicator-position = 0;
@@ -433,12 +454,57 @@ in {
       show-osd-monitor-indexes = false;
     };
 
-    "org/gnome/shell/extensions/gtile" = {
-      show-icon = true;
-      target-presets-to-monitor-of-mouse = true;
-      theme = "Minimal Dark";
-      window-margin = 2;
-      window-margin-fullscreen-enabled = true;
+    "org/gnome/shell/extensions/forge" = {
+      auto-split-enabled = true;
+      focus-border-toggle = false;
+      stacked-tiling-mode-enabled = true;
+      tabbed-tiling-mode-enabled = true;
+      tiling-mode-enabled = false;
+      window-gap-hidden-on-single = false;
+    };
+
+    "org/gnome/shell/extensions/forge/keybindings" = {
+      con-split-horizontal = [];
+      con-split-layout-toggle = [];
+      con-split-vertical = [];
+      con-stacked-layout-toggle = ["<Shift><Super>s"];
+      con-tabbed-layout-toggle = ["<Shift><Super>t"];
+      con-tabbed-showtab-decoration-toggle = [];
+      focus-border-toggle = [];
+      mod-mask-mouse-tile = "Super";
+      prefs-open = [];
+      prefs-tiling-toggle = ["<Super>z"];
+      window-focus-down = ["<Super>s"];
+      window-focus-left = ["<Super>a"];
+      window-focus-right = ["<Super>d"];
+      window-focus-up = ["<Super>w"];
+      window-gap-size-decrease = ["<Primary><Super>minus"];
+      window-gap-size-increase = ["<Primary><Super>plus"];
+      window-move-down = ["<Primary><Super>s"];
+      window-move-left = ["<Primary><Super>a"];
+      window-move-right = ["<Primary><Super>d"];
+      window-move-up = ["<Primary><Super>w"];
+      window-resize-bottom-decrease = ["<Alt><Primary><Super>Down"];
+      window-resize-bottom-increase = ["<Alt><Super>Down"];
+      window-resize-left-decrease = ["<Alt><Primary><Super>Left"];
+      window-resize-left-increase = ["<Alt><Super>Left"];
+      window-resize-right-decrease = ["<Alt><Primary><Super>Right"];
+      window-resize-right-increase = ["<Alt><Super>Right"];
+      window-resize-top-decrease = ["<Alt><Primary><Super>Up"];
+      window-resize-top-increase = ["<Alt><Super>Up"];
+      window-snap-center = ["<Super>c"];
+      window-snap-one-third-left = [];
+      window-snap-one-third-right = [];
+      window-snap-two-third-left = [];
+      window-snap-two-third-right = [];
+      window-swap-down = ["<Shift><Super>s"];
+      window-swap-last-active = [];
+      window-swap-left = ["<Shift><Super>a"];
+      window-swap-right = ["<Shift><Super>d"];
+      window-swap-up = ["<Shift><Super>w"];
+      window-toggle-always-float = [];
+      window-toggle-float = ["<Super>p"];
+      workspace-active-tile-toggle = ["<Shift><Super>z"];
     };
 
     "org/gnome/shell/extensions/just-perfection" = {
@@ -490,6 +556,14 @@ in {
       unfocused-shadow = "{'horizontal_offset': 0, 'vertical_offset': 2, 'blur_offset': 12, 'spread_radius': -1, 'opacity': 65}";
     };
 
+    "org/gnome/shell/extensions/shortcuts" = {
+      shortcuts-file = files.gnome.shortcuts;
+      shortcuts-toggle-overview = ["<Super>slash"];
+      use-custom-shortcuts = true;
+      use-transparency = true;
+      visibility = 50;
+    };
+
     "org/gnome/shell/extensions/space-bar/behavior" = {
       scroll-wheel = "disabled";
       show-empty-workspaces = true;
@@ -511,12 +585,11 @@ in {
 
     "org/gnome/shell/extensions/top-bar-organizer" = {
       center-box-order = ["dateMenu"];
-      left-box-order = ["Space Bar" "activities" "timepp" "guillotine" "appMenu"];
+      left-box-order = ["Space Bar" "activities" "timepp" "guillotine@fopdoodle.net" "appMenu"];
       right-box-order = [
         "a11y"
         "aggregateMenu"
         "drive-menu"
-        "GTileStatusButton"
         "pano@elhan.io"
         "vitalsMenu"
         "dwellClick"

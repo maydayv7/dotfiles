@@ -1,0 +1,245 @@
+[
+  {
+    "name": "Window Navigation",
+    "shortcuts": [
+      {
+        "key": "Super",
+        "description": "Enter Overview"
+      },
+      {
+        "key": "Alt + F4 / Super + Q",
+        "description": "Close window"
+      },
+      {
+        "key": "Super + Mouse Drag",
+        "description": "Move window"
+      },
+      {
+        "key": "F11",
+        "description": "Make Full screen/Restore"
+      },
+      {
+        "key": "Super + Up/Down",
+        "description": "Maximize/Minimize window"
+      },
+      {
+        "key": "Alt + Tab",
+        "description": "Switches between Application"
+      },
+      {
+        "key": "Super + Tab",
+        "description": "Switches between Windows of current application"
+      },
+      {
+        "key": "Super + Left/Right",
+        "description": "Switch to the left/right Workspace"
+      },
+      {
+        "key": "Super + Home/End",
+        "description": "Switch to first/last Workspace"
+      },
+      {
+        "key": "Super + Ctrl + Left/Right",
+        "description": "Move window to left/right Workspace"
+      },
+      {
+        "key": "Super + Shift + Left/Right",
+        "description": "Move window to left/right Monitor"
+      }
+    ]
+  },
+  {
+    "name": "Tiling",
+    "shortcuts": [
+      {
+        "key": "Super + Z",
+        "description": "Toggle window Tiling"
+      },
+      {
+        "key": "Super + Shift + Z",
+        "description": "Toggle automatic window tiling"
+      },
+      {
+        "key": "Super + Shift + S",
+        "description": "Toggle stacked layout"
+      },
+      {
+        "key": "Super + Shift + T",
+        "description": "Toggle tabbed layout"
+      },
+      {
+        "key": "Super + W/A/S/D",
+        "description": "Focus up/left/down/right window"
+      },
+      {
+        "key": "Super + Ctrl + W/A/S/D",
+        "description": "Move window up/left/down/right"
+      },
+      {
+        "key": "Super + Shift + W/A/S/D",
+        "description": "Swap window up/left/down/right"
+      },
+      {
+        "key": "Super + C",
+        "description": "Snap window to center"
+      },
+      {
+        "key": "Super + P",
+        "description": "Pin window above all others (or unpin)"
+      },
+      {
+        "key": "Super + Alt + Up/Left/Down/Right",
+        "description": "Increase top/left/bottom/right window size"
+      },
+      {
+        "key": "Super + Ctrl + Alt + Up/Left/Down/Right",
+        "description": "Decrease top/left/bottom/right window size"
+      }
+    ]
+  },
+  {
+    "name": "Run and Close Applications",
+    "shortcuts": [
+      {
+        "key": "Super + F2",
+        "description": "Run Dialog"
+      },
+      {
+        "key": "Super + 1,2,3,...",
+        "description": "Run app by Position in the Launcher"
+      },
+      {
+        "key": "Super + I",
+        "description": "Open Settings"
+      },
+      {
+        "key": "Super + F",
+        "description": "Open Files"
+      },
+      {
+        "key": "Super + V",
+        "description": "Open Clipboard (Use 'Ctrl' for incognito)"
+      },
+      {
+        "key": "Super + T",
+        "description": "Open Terminal"
+      },
+      {
+        "key": "Super + `",
+        "description": "Open Browser"
+      },
+      {
+        "key": "Ctrl + Alt + Return",
+        "description": "Opens Task Manager"
+      },
+      {
+        "key": "Super + /",
+        "description": "Show shortcuts menu"
+      }
+    ]
+  },
+  {
+    "name": "System Shortcuts",
+    "shortcuts": [
+      {
+        "key": "Super + Space",
+        "description": "Switch keyboard layout"
+      },
+      {
+        "key": "Ctrl + Alt + Del",
+        "description": "Opens the shutdown menu"
+      },
+      {
+        "key": "Super + L",
+        "description": "Locks the screen"
+      },
+      {
+        "key": "Super + X",
+        "description": "Toggle zoom"
+      },
+      {
+        "key": "Super + =",
+        "description": "Zoom in"
+      },
+      {
+        "key": "Super + -",
+        "description": "Zoom out"
+      }
+    ]
+  },
+  {
+    "name": "Application Shortcuts",
+    "shortcuts": [
+      {
+        "key": "Ctrl + W",
+        "description": "Close tab in tab enabled apps"
+      },
+      {
+        "key": "Ctrl + T",
+        "description": "Opens new tab in tab enabled apps"
+      },
+      {
+        "key": "Ctrl + Shift + T",
+        "description": "Reopen last closed tab in web browser"
+      },
+      {
+        "key": "F5",
+        "description": "Document Viewer presentation mode"
+      },
+      {
+        "key": "F9",
+        "description": "LibreOffice presentation mode"
+      }
+    ]
+  },
+  {
+    "name": "Screenshot Shortcuts",
+    "shortcuts": [
+      {
+        "key": "Print",
+        "description": "Take a screenshot of a region"
+      },
+      {
+        "key": "Shift + Print",
+        "description": "Take a full screenshot"
+      },
+      {
+        "key": "Ctrl + Print",
+        "description": "Take a screenshot of a window"
+      },
+      {
+        "key": "Alt + Print",
+        "description": "Video capture desktop"
+      }
+    ]
+  },
+  {
+    "name": "Gestures",
+    "shortcuts": [
+      {
+        "key": "3 Finger Horizontal Swipe",
+        "description": "Switch windows"
+      },
+      {
+        "key": "4 Finger Horizontal Swipe (2/3 in overview)",
+        "description": "Switch workspaces"
+      },
+      {
+        "key": "4 Finger Vertical Swipe",
+        "description": "Desktop/Overview/App Grid navigation"
+      },
+      {
+        "key": "3 Finger Vertical Swipe",
+        "description": "Maximize/minimize/fullscreen a window"
+      },
+      {
+        "key": "3/4 Finger Pinch",
+        "description": "Show desktop"
+      },
+      {
+        "key": "2/3 Finger Horizontal Swipe in App Grid",
+        "description": "Switch app pages"
+      }
+    ]
+  }
+]

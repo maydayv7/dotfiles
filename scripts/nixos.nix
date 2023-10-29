@@ -20,25 +20,25 @@ with files; let
     script = ''
       # Legend #
         xxx - Command
-        [ ] - Optional              - Command Description
+        [ ] - Optional                  - Command Description
         ' ' - Variable
 
       # Usage #
-        apply [ --'option' ]        - Applies Device and User Configuration
-        cache 'command'             - Pushes Binary Cache Output to Cachix
-        check [ --trace ]           - Checks System Configuration [ Displays Error to Trace ]
-        clean [ --all ]             - Garbage Collects and Optimises Nix Store
-        explore                     - Opens Interactive Shell to explore Syntax and Configuration
-        install                     - Installs NixOS onto System
-        iso 'variant' [ --burn ]    - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
-        list [ 'pattern' ]          - Lists all Installed Packages [ Returns Matches ]
-        locate 'package'            - Locates Installed Package
-        run [ 'path' ] 'command'    - Runs Specified Command [ from 'path' ] (Wraps 'nix run')
-        save                        - Saves Configuration State to Repository
-        search 'term' [ 'source' ]  - Searches for Packages [ Providing 'term' ] or Configuration Options
-        secret 'choice' [ 'path' ]  - Manages 'sops' Encrypted Secrets
-        shell [ 'name' ]            - Opens desired Nix Developer Shell
-        update [ 'repository' ]     - Updates System Repositories
+        apply [ --'option' ]            - Applies Device and User Configuration
+        cache 'command'                 - Pushes Binary Cache Output to Cachix
+        check [ --trace ]               - Checks System Configuration [ Displays Error to Trace ]
+        clean [ --all ]                 - Garbage Collects and Optimises Nix Store
+        explore                         - Opens Interactive Shell to explore Syntax and Configuration
+        install                         - Installs NixOS onto System
+        iso 'variant' [ --burn ]        - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
+        list [ 'pattern' ]              - Lists all Installed Packages [ Returns Matches ]
+        locate 'package'                - Locates Installed Package
+        run [ 'path' ] 'command'        - Runs Specified Command [ from 'path' ] (Wraps 'nix run')
+        save                            - Saves Configuration State to Repository
+        search 'term' [ 'source' ]      - Searches for Packages [ Providing 'term' ] or Configuration Options
+        secret 'choice' [ 'path' ]      - Manages 'sops' Encrypted Secrets
+        shell [ 'name' ]                - Opens desired Nix Developer Shell
+        update [ 'repository' ['rev'] ] - Updates System Repositories
     '';
 
     apply = ''
@@ -144,7 +144,7 @@ in
           ;;
           *)
             echo "Rolling Back to Generation '$3'..."
-            sudo nix-env --switch-generation "$3" -p "$profile" && sudo $profile/bin/switch-to-configuration switch
+            sudo nix-env --switch-generation "$3" -p "$profile" && nixos apply --activate
           ;;
           esac
         ;;

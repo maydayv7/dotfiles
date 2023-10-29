@@ -45,13 +45,13 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 
 ## Programs
 
-| Type                 |                                                     Programs                                                     |
-| :------------------- | :--------------------------------------------------------------------------------------------------------------: |
-| Editors              |                [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                 |
-| Shells               |                    [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                    |
-| Terminal             | [Console](https://gitlab.gnome.org/GNOME/console), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
-| Browser              |                                [Firefox](https://www.mozilla.org/en-US/firefox/)                                 |
-| Desktop Environments |                            [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/)                             |
+| Type                 |                                                         Programs                                                         |
+| :------------------- | :----------------------------------------------------------------------------------------------------------------------: |
+| Editors              |                    [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                     |
+| Shells               |                        [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                        |
+| Terminal             | [Blackbox](https://gitlab.gnome.org/raggesilver/blackbox), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
+| Browser              |                                    [Firefox](https://www.mozilla.org/en-US/firefox/)                                     |
+| Desktop Environments |                                [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/)                                 |
 
 ## Structure
 
@@ -348,7 +348,7 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 
 - [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
 - [Powerlevel10K](https://github.com/romkatv/powerlevel10k) Theme: ZSH Theme for the fancy-looking prompt with immense customization capabilities
-- [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel): GNOME Shell Extension providing a highly customizable icon taskbar for maximized productivity
+- [Arc Theme](https://github.com/jnsh/arc-theme): Flat GTK theme with transparent elements for various desktop shells, window managers and applications
 - [DNOME](https://github.com/GeopJr/DNOME) Discord Theme: Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
 - [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration
 - [VS Code Adwaita Theme](https://github.com/piousdeer/vscode-adwaita): Integrates Visual Studio Code with GNOME Desktop
@@ -431,6 +431,9 @@ You can navigate to the `README`s present in the various directories to know mor
 - Support Android Virtualisation using Waydroid
 - Drop `compat` Libraries
 - Refactor GNOME Experience
+  - Use `blackbox` as default terminal
+  - Use [`forge`](https://github.com/forge-ext/forge) for tiling
+  - Add keyboard shortcuts window using []`shortcuts`](https://gitlab.com/paddatrapper/shortcuts-gnome-extension)
 - Improve XFCE Configuration and Handling
 - Improve Automatic Package Update Script
 - Enable ZFS encryption
@@ -611,6 +614,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
 - Secure Boot isn't supported yet
 - Home Configuration can't be decoupled from System
+- Lack of automatic script checking
 
 #### Manually Managed Packages
 

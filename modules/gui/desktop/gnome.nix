@@ -99,7 +99,7 @@ in {
             "workbench.preferredLightColorTheme" = "Adwaita Light";
             "workbench.productIconTheme" = "adwaita";
             "window.titleBarStyle" = "custom";
-            "terminal.external.linuxExec" = "gnome-console";
+            "terminal.external.linuxExec" = "blackbox";
           };
         };
 
@@ -111,7 +111,10 @@ in {
           ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
 
           # Action Menu
-          ".config/guillotine.json".text = gnome.menu;
+          ".config/guillotine.json".source = gnome.menu;
+
+          # Window Tiling Stylesheet
+          ".config/forge/stylesheet/forge/stylesheet.css".source = gnome.tiling;
 
           # Prevent Suspension on lid close
           ".config/autostart/ignore-lid-switch-tweak.desktop".text = ''
@@ -166,6 +169,7 @@ in {
           ++ (with pkgs; [
             # GNOME Circle
             apostrophe
+            blackbox-terminal
             curtail
             deja-dup
             dialect
@@ -204,16 +208,17 @@ in {
             appindicator
             caffeine
             coverflow-alt-tab
+            forge
             gesture-improvements
             gnome-40-ui-improvements
             guillotine
-            gtile
             just-perfection
             lock-keys
             lock-screen-message
             pano
             quick-settings-tweaker
             rounded-window-corners
+            shortcuts
             space-bar
             status-area-horizontal-spacing
             timepp
@@ -228,6 +233,7 @@ in {
       # Persisted Files
       user.persist.directories = [
         ".config/dconf"
+        ".config/forge"
         ".config/gnome-boxes"
         ".config/gnome-builder"
         ".config/GIMP"

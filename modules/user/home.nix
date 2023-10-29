@@ -15,7 +15,7 @@
 
       # Package Configuration
       home = {
-        stateVersion = config.system.stateVersion;
+        inherit (config.system) stateVersion;
         file = {
           ".config/nixpkgs/config.nix".source = ../nix/config.nix;
           ".config/nix/nix.conf".source =

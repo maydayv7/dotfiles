@@ -31,11 +31,13 @@ in rec {
   git.hooks = ./git/hooks;
 
   # GNOME Desktop
-  gnome = {
-    dconf = ./gnome/dconf.nix;
-    iso = readFile ./gnome/iso;
-    menu = readFile ./gnome/menu.json;
-  };
+  gnome =
+    {
+      dconf = ./gnome/dconf.nix;
+      iso = readFile ./gnome/iso;
+      tiling = ./gnome/tiling.css;
+    }
+    // map.files ./gnome lib.id ".json";
 
   # GPG Keys Directory
   gpg = "/etc/gpg";
