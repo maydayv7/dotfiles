@@ -12,6 +12,7 @@ in {
     # Applications
     environment.systemPackages = with pkgs; [
       # Productivity
+      easyeffects
       gscan2pdf
       handbrake
       hunspell

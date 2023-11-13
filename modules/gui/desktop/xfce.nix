@@ -54,7 +54,7 @@ in {
       };
     }
 
-    # Full-Fledged XFCE Desktop Configuration
+    ## Full-Fledged XFCE Desktop Configuration
     (mkIf (desktop == "xfce") {
       # Desktop Integration
       gui.fonts.enable = true;
@@ -117,7 +117,7 @@ in {
         style = "gtk2";
       };
 
-      # User Configuration
+      ## User Configuration
       user.home = {
         # GTK+ Theming
         stylix.targets.xfce.enable = false;
@@ -164,7 +164,8 @@ in {
               replaceStrings ["@system" "@wallpaper"]
               [path.system wallpaper] (readFile file)) ".xml");
 
-        # Code Editor Settings
+        ## 3rd Party Apps Configuration
+        # Code Editor
         programs.vscode = mkIf (elem pkgs.vscode apps) {
           extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
@@ -182,7 +183,7 @@ in {
       };
     })
 
-    # Minimal XFCE Desktop Configuration
+    ## Minimal XFCE Desktop Configuration
     (mkIf (desktop == "xfce-minimal") {
       # Utilities
       environment.systemPackages = [pkgs.epiphany];

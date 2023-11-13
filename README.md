@@ -412,6 +412,11 @@ You can navigate to the `README`s present in the various directories to know mor
 <details>
 <summary><b>Changelog</b></summary>
 
+### vNEXT
+
+- Fix Emoji Support
+- Miscellaneous Updates
+
 ### v13
 
 - Follow NixOS Unstable
@@ -623,7 +628,7 @@ You can navigate to the `README`s present in the various directories to know mor
 
 </details>
 
-> Last Updated: **October** 2023
+> Last Updated: **November** 2023
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 

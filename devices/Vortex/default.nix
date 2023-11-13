@@ -6,7 +6,7 @@
   timezone = "Asia/Kolkata";
   locale = "IN";
 
-  kernel = "zen";
+  kernel = "lqx";
   kernelModules = ["nvme" "thunderbolt"];
 
   imports = [./secrets];

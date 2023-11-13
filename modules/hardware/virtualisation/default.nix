@@ -34,7 +34,8 @@ in {
     };
 
     # VM Packages
-    environment.systemPackages = with pkgs; [libguestfs virt-manager];
+    environment.systemPackages = [pkgs.libguestfs];
+    programs.virt-manager.enable = true;
 
     # VM Utilities
     virtualisation = {
