@@ -23,6 +23,10 @@
         "description": "Maximize/Minimize window"
       },
       {
+        "key": "Alt + Space",
+        "description": "Activate Window Menu"
+      },
+      {
         "key": "Alt + Tab",
         "description": "Switches between Application"
       },
@@ -84,8 +88,12 @@
         "description": "Snap window to center"
       },
       {
-        "key": "Super + P",
-        "description": "Pin window above all others (or unpin)"
+        "key": "Super + Shift + F",
+        "description": "Toggle window floating state"
+      },
+      {
+        "key": "Alt + Space + Always on Top",
+        "description": "Pin window above all others"
       },
       {
         "key": "Super + Alt + Up/Left/Down/Right",
@@ -127,6 +135,10 @@
       {
         "key": "Super + `",
         "description": "Open Browser"
+      },
+      {
+        "key": "Super + .",
+        "description": "Open emoji picker"
       },
       {
         "key": "Ctrl + Alt + Return",

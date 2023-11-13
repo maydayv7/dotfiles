@@ -25,7 +25,6 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
   - `fonts` -
     - `enable`: Enable Fonts Configuration - `true / false`
-    - `usrshare`: Create`/usr/share/fonts` and fill it with the system fonts - `true / false`
   - `wayland` -
     - `enable`: Enable Wayland Configuration - `true / false`
 

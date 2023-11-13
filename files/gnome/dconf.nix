@@ -306,6 +306,7 @@ in {
         "caffeine@patapon.info"
         "CoverflowAltTab@palatis.blogspot.com"
         "drive-menu@gnome-shell-extensions.gcampax.github.com"
+        "emoji-copy@felipeftn"
         "forge@jmmaranan.com"
         "gestureImprovements@gestures"
         "gnome-ui-tune@itstime.tech"
@@ -447,11 +448,11 @@ in {
       icon-style = "Overlay";
     };
 
-    "org/gnome/shell/extensions/custom-hot-corners-extended/misc" = {
-      ws-switch-wrap = true;
-      ws-switch-ignore-last = true;
-      ws-switch-indicator-mode = 1;
-      show-osd-monitor-indexes = false;
+    "org/gnome/shell/extensions/emoji-copy" = {
+      always-show = false;
+      emoji-keybinding = ["<Super>period"];
+      paste-on-select = true;
+      use-keybinding = true;
     };
 
     "org/gnome/shell/extensions/forge" = {
@@ -503,7 +504,7 @@ in {
       window-swap-right = ["<Shift><Super>d"];
       window-swap-up = ["<Shift><Super>w"];
       window-toggle-always-float = [];
-      window-toggle-float = ["<Super>p"];
+      window-toggle-float = ["<Shift><Super>F"];
       workspace-active-tile-toggle = ["<Shift><Super>z"];
     };
 
@@ -584,8 +585,15 @@ in {
     };
 
     "org/gnome/shell/extensions/top-bar-organizer" = {
-      center-box-order = ["dateMenu"];
-      left-box-order = ["Space Bar" "activities" "timepp" "guillotine@fopdoodle.net" "appMenu"];
+      center-box-order = ["dateMenu" "EmojisMenu"];
+      left-box-order = [
+        "Space Bar"
+        "activities"
+        "timepp"
+        "guillotine"
+        "guillotine@fopdoodle.net"
+        "appMenu"
+      ];
       right-box-order = [
         "a11y"
         "aggregateMenu"

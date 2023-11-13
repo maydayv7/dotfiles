@@ -24,9 +24,6 @@ in rec {
   # Firefox Web Browser
   firefox.theme = readFile ./firefox/userContent.css;
 
-  # Custom Fonts
-  fonts.config = readFile ./fonts/fontconfig.xml;
-
   # 'git' Version Control
   git.hooks = ./git/hooks;
 

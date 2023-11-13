@@ -208,6 +208,7 @@ in {
             appindicator
             caffeine
             coverflow-alt-tab
+            emoji-copy
             forge
             gesture-improvements
             gnome-40-ui-improvements

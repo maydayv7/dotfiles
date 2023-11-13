@@ -27,9 +27,6 @@ in {
       zoom-us
     ];
 
-    # Fonts
-    gui.fonts.usrshare = true;
-
     # Dictionaries
     environment = {
       pathsToLink = ["/share/hunspell" "/share/myspell" "/share/hyphen"];

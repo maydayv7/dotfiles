@@ -6,7 +6,6 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`ascii`](./ascii) - Personal Collection of beautiful Ascii Art
 - [`colors`](./colors) - Base16 Color Schemes
 - [`firefox`](./firefox) - `firefox` Web Browser Theming
-- [`fonts`](./fonts) - Font Configuration
 - [`git`](./git) - Configuration for `git` Version Control
 - [`gnome`](./gnome) - Configuration Files for GNOME Desktop
 - [`gpg`](./gpg) - Encrypted GPG Keys

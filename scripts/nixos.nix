@@ -369,10 +369,12 @@ in
         pushd ${path.system} > /dev/null
         git stash
         git pull --rebase
+        git branch save
+        git checkout save
         git stash pop
         git add .
         git commit
-        git push --force
+        git push --set-upstream origin save --force
         popd > /dev/null
       ;;
       search)
