@@ -5,6 +5,6 @@ export NP_GIT=$(which git)
 wget -nv https://github.com/DavHau/nix-portable/releases/latest/download/nix-portable
 chmod +x nix-portable
 ./nix-portable nix flake lock --update-input systems
-./nix-portable nix build --expr "with import ./.; callPackage ./site { site = ${DEPLOY_PRIME_URL}; }"
+./nix-portable nix build --impure --expr "with import ./.; callPackage ./site { site = ${DEPLOY_PRIME_URL}; }"
 ./nix-portable nix shell nixpkgs#bash -c "bash" -c "cp -rL result build"
 """
