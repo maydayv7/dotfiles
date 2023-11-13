@@ -2,6 +2,7 @@
   config,
   lib,
   inputs,
+  pkgs,
   files,
   ...
 }: let
@@ -23,6 +24,11 @@ in {
       {
         autoEnable = false;
         image = cfg.wallpaper;
+        cursor = {
+          package = pkgs.bibata-cursors;
+          name = "Bibata-Original-Classic";
+          size = 28;
+        };
       }
       // (
         if (cfg.desktop == "" || hasSuffix "-minimal" cfg.desktop)

@@ -138,6 +138,11 @@ in {
                 inherit (files.path) flake;
               };
 
+              switch.enable =
+                if (format != null)
+                then false
+                else true;
+
               # Version
               stateVersion = fileContents "${inputs.nixpkgs}/.version";
               configurationRevision =

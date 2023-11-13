@@ -30,7 +30,7 @@ in {
       ];
     }
 
-    # Full-Fledged GNOME Desktop Configuration
+    ## Full-Fledged GNOME Desktop Configuration
     (mkIf (desktop == "gnome") {
       # Desktop Integration
       gui = {
@@ -40,6 +40,7 @@ in {
 
       programs = {
         dconf.enable = true;
+        firefox.enable = true;
         gnupg.agent.pinentryFlavor =
           mkIf config.programs.gnupg.agent.enable "gnome3";
       };
@@ -58,7 +59,7 @@ in {
         };
       };
 
-      # User Configuration
+      ## User Configuration
       user.home = {
         # Dconf Keys
         imports = [gnome.dconf];
@@ -91,18 +92,6 @@ in {
           video = ["io.github.celluloid_player.Celluloid.desktop"];
         };
 
-        # Code Editor Settings
-        programs.vscode = mkIf (elem pkgs.vscode apps) {
-          extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
-          userSettings = {
-            "workbench.preferredDarkColorTheme" = "Adwaita Dark";
-            "workbench.preferredLightColorTheme" = "Adwaita Light";
-            "workbench.productIconTheme" = "adwaita";
-            "window.titleBarStyle" = "custom";
-            "terminal.external.linuxExec" = "blackbox";
-          };
-        };
-
         home.file = {
           # Initial Setup
           ".config/gnome-initial-setup-done".text = "yes";
@@ -132,11 +121,23 @@ in {
           # Firefox GNOME Theme
           ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
           ".mozilla/firefox/default/chrome/userContent.css".text = firefox.theme;
-          ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
+        };
+
+        ## 3rd Party Apps Configuration
+        # Code Editor
+        programs.vscode = mkIf (elem pkgs.vscode apps) {
+          extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
+          userSettings = {
+            "workbench.preferredDarkColorTheme" = "Adwaita Dark";
+            "workbench.preferredLightColorTheme" = "Adwaita Light";
+            "workbench.productIconTheme" = "adwaita";
+            "window.titleBarStyle" = "custom";
+            "terminal.external.linuxExec" = "blackbox";
+          };
         };
       };
 
-      # Color Scheme
+      ## Color Scheme
       stylix = {
         base16Scheme = colors.adwaita;
         targets.gnome.enable = false;
@@ -150,7 +151,7 @@ in {
           theme=KvLibadwaitaDark
         '';
 
-        # Package List
+        ## Package List
         systemPackages = with pkgs;
           [libsForQt5.qtstyleplugin-kvantum custom.kvlibadwaita]
           ++ (with pkgs.gnome; [
@@ -190,17 +191,6 @@ in {
             celluloid
             dconf2nix
             gnuchess
-
-            (firefox.override (args:
-              args
-              // {
-                cfg =
-                  args.cfg
-                  or {}
-                  // {
-                    enableGnomeExtensions = true;
-                  };
-              }))
           ])
           ++ (with pkgs.gnomeExtensions; [
             # GNOME Shell Extensions
@@ -257,7 +247,7 @@ in {
       ];
     })
 
-    # Minimal GNOME Desktop Configuration
+    ## Minimal GNOME Desktop Configuration
     (mkIf (desktop == "gnome-minimal") {
       # Disable Suspension
       services.xserver = {

@@ -1,11 +1,11 @@
 final: prev: {
   # Update Discord to Latest Version
   discord = prev.discord.overrideAttrs (_: rec {
-    version = "0.0.24";
+    version = "0.0.34";
 
     src = prev.fetchzip {
       url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-      sha256 = "sha256-qPK+A3zvmoemWF+FL0VJSZO+s/zbkgZvUs4zNMpH9yA=";
+      sha256 = "sha256-cLkc3ezMABO7y62HFyuxB0nTs0M0sg0S0oxiTsO2IYE=";
     };
   });
 }
