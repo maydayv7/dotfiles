@@ -145,6 +145,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Declarative Flatpak Wrapper
+    flatpak.url = "github:gmodena/nix-flatpak";
+
     # Wine Apps Wrapper
     wine = {
       url = "github:emmanuelrosa/erosanix";

@@ -39,6 +39,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
 - Support for `source` filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
 - Support for Base16 color theming using [`stylix`](https://github.com/danth/stylix)
+- Support for declaratively installing [Flatpak](./modules/apps/flatpak.nix) applications using [`nix-flatpak`](https://github.com/gmodena/nix-flatpak)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
 - Support for Android Virtualisation using [Waydroid](https://waydro.id/)
 - Declaratively Configured [Windows VM](./devices/vm/Windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) module
@@ -416,6 +417,7 @@ You can navigate to the `README`s present in the various directories to know mor
 
 - Fix Emoji Support
 - Miscellaneous Updates
+- Support declarative [Flatpak](https://flatpak.org/) application install
 
 ### v13
 

@@ -229,6 +229,21 @@
         "type": "github"
       }
     },
+    "flatpak": {
+      "locked": {
+        "lastModified": 1699990197,
+        "narHash": "sha256-zsmELy+imDzoMTxAKhPRT2I7zJ3YGMP+yT0slgZZSxI=",
+        "owner": "gmodena",
+        "repo": "nix-flatpak",
+        "rev": "9b7e536b6e6ca41dd53d93a697470636f9d3ae56",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gmodena",
+        "repo": "nix-flatpak",
+        "type": "github"
+      }
+    },
     "fromYaml": {
       "flake": false,
       "locked": {
@@ -583,6 +598,7 @@
     "root": {
       "inputs": {
         "filter": "filter",
+        "flatpak": "flatpak",
         "gaming": "gaming",
         "generators": "generators",
         "hardware": "hardware",

@@ -137,6 +137,23 @@ in {
         };
       };
 
+      # Flatpak Apps
+      services.flatpak = mkIf config.services.flatpak.enable {
+        remotes = [
+          {
+            name = "gnome-nightly";
+            location = "https://nightly.gnome.org/gnome-nightly.flatpakrepo";
+          }
+        ];
+
+        packages = [
+          {
+            appId = "com.github.tchx84.Flatseal";
+            origin = "flathub";
+          }
+        ];
+      };
+
       ## Color Scheme
       stylix = {
         base16Scheme = colors.adwaita;
