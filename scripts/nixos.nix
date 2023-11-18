@@ -1,6 +1,7 @@
 {
   system ? builtins.currentSystem,
   lib,
+  util,
   inputs,
   pkgs,
   files,
@@ -9,7 +10,7 @@
 with files; let
   inherit (inputs) self;
   inherit (util.map) array list;
-  inherit (lib) licenses recursiveUpdate util;
+  inherit (lib) licenses recursiveUpdate;
 
   devShells = list self.devShells."${system}";
   installMedia = list self.installMedia;

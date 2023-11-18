@@ -1,19 +1,19 @@
 {
   config,
   lib,
+  util,
   inputs,
   pkgs,
   files,
   ...
 }:
 with files.vscode; let
-  inherit (lib) mkIf util;
   inherit (builtins) elem head;
   enable = elem "vscode" config.apps.list;
   font = head config.fonts.fontconfig.defaultFonts.monospace;
 in {
   ## Visual Studio Code Editor Configuration ##
-  config = mkIf enable {
+  config = lib.mkIf enable {
     environment.systemPackages = with pkgs; [rnix-lsp vscode];
 
     user = {

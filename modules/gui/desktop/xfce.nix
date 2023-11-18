@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  util,
   pkgs,
   files,
   ...
@@ -9,7 +10,7 @@ with files; let
   inherit (builtins) elem readFile;
   inherit (config.gui) desktop wallpaper;
   apps = config.environment.systemPackages;
-  inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair replaceStrings util;
+  inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair replaceStrings;
 
   # GTK+ Theme
   theme = {

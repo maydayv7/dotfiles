@@ -1,8 +1,9 @@
 {
-  self,
   lib,
+  inputs,
   ...
 }: let
+  inherit (inputs) self;
   inherit (builtins) attrNames;
   inherit (lib) genAttrs id mapAttrs';
 in rec {

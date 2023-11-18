@@ -1,11 +1,13 @@
 {
   config,
   lib,
+  util,
+  inputs,
   pkgs,
   ...
 }: let
   inherit (builtins) attrValues elem map;
-  inherit (lib) mkIf mkOption types util;
+  inherit (lib) mkIf mkOption types;
   enable = elem "wine" config.apps.list;
   wine = config.apps.wine.package;
 in {
@@ -45,6 +47,10 @@ in {
       ]
       # Wrapped Packages
       ++ attrValues (util.map.modules ../../packages/wine
-        (name: pkgs.callPackage name {inherit lib pkgs wine;}));
+        (name:
+          pkgs.callPackage name {
+            inherit lib pkgs wine;
+            build = inputs.wine.lib."${system}";
+          }));
   };
 }

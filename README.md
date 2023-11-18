@@ -110,13 +110,10 @@ github:maydayv7/dotfiles
 │   ├───shell: NixOS module
 │   └───user: NixOS module
 ├───overlays
-│   ├───discord: Nixpkgs overlay
-│   ├───gnome-terminal: Nixpkgs overlay
-│   ├───google-chrome: Nixpkgs overlay
 │   └───miscellaneous: Nixpkgs overlay
 ├───packages
 │   └───x86_64-linux
-│       ├───dotfiles: package 'Dotfiles-v13.0'
+│       ├───dotfiles: package 'Dotfiles-v15.0'
 │       ├───nixos: package 'nixos'
 │       └───website: package 'website-stable'
 ├───templates
@@ -132,8 +129,7 @@ github:maydayv7/dotfiles
 </details>
 
 ```
-┌── configuration.nix
-├── flake.nix
+┌── flake.nix
 ├── flake.lock
 ├── .templates
 ├── files
@@ -154,6 +150,7 @@ github:maydayv7/dotfiles
 │   ├── map.nix
 │   └── pack.nix
 └── modules
+    ├── configuration.nix
     ├── apps
     ├── base
     ├── gui
@@ -164,8 +161,9 @@ github:maydayv7/dotfiles
         └── passwords
 ```
 
-- `configuration.nix`: main system configuration file
-- `flake.nix`: repository version control using `inputs`
+- `flake.nix`: toplevel configuration file and repository version control  
+  [`flake-parts`](https://github.com/hercules-ci/flake-parts) is used for modularization
+
 - `.templates`: custom Flakes configuration templates
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
@@ -181,6 +179,7 @@ github:maydayv7/dotfiles
 - `overlays`: overrides for pre-built packages
 - [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
 - [`modules`](./modules/README.md): custom configuration modules for additional functionality
+- `configuration.nix`: builds system configuration as part of `lib.build`
 
 ## Installation
 
@@ -350,6 +349,7 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 - [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
 - [Powerlevel10K](https://github.com/romkatv/powerlevel10k) Theme: ZSH Theme for the fancy-looking prompt with immense customization capabilities
 - [Arc Theme](https://github.com/jnsh/arc-theme): Flat GTK theme with transparent elements for various desktop shells, window managers and applications
+- [Bibata Cursor](https://github.com/ful1e5/Bibata_Cursor): Compact and material designed cursor set
 - [DNOME](https://github.com/GeopJr/DNOME) Discord Theme: Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
 - [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration
 - [VS Code Adwaita Theme](https://github.com/piousdeer/vscode-adwaita): Integrates Visual Studio Code with GNOME Desktop
@@ -413,8 +413,9 @@ You can navigate to the `README`s present in the various directories to know mor
 <details>
 <summary><b>Changelog</b></summary>
 
-### vNEXT
+### v15
 
+- Use the [`flake-parts`](https://flake.parts/) Flakes framework
 - Fix Emoji Support
 - Miscellaneous Updates
 - Support declarative [Flatpak](https://flatpak.org/) application install

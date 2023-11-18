@@ -1,10 +1,11 @@
 {
   config,
   lib,
+  util,
   files,
   ...
 }: let
-  inherit (lib) filterAttrs mkAfter mkForce mkIf util;
+  inherit (lib) filterAttrs mkAfter mkForce mkIf;
   inherit (builtins) all attrNames attrValues hasAttr mapAttrs readFile;
   inherit (config.sops) secrets;
   inherit (config.user) settings;

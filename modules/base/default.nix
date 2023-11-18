@@ -1,9 +1,9 @@
 {
-  lib,
+  util,
   pkgs,
   ...
 }: {
-  imports = lib.util.map.module ./.;
+  imports = util.map.module ./.;
 
   ## Base Configuration ##
   config.documentation.nixos.enable = false;

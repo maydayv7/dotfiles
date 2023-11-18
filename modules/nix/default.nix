@@ -1,11 +1,12 @@
 {
   config,
   lib,
+  util,
   inputs,
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption optionals util;
+  inherit (lib) mkEnableOption optionals;
   inherit (config.nix) tools;
 in {
   imports = [./index.nix inputs.utils.nixosModules.autoGenFromInputs];

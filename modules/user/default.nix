@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  util,
   inputs,
   files,
   ...
@@ -19,7 +20,6 @@
     mkOptionType
     optionals
     types
-    util
     ;
 
   # Merged Sets Type
@@ -150,7 +150,7 @@ in {
       useUserPackages = true;
       backupFileExtension = "bak";
       extraSpecialArgs = {
-        inherit lib inputs files;
+        inherit util inputs files;
         sys = config;
       };
       users = mapAttrs (_: value: {imports = value.homeConfig;}) settings;

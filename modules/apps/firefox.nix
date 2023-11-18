@@ -1,15 +1,15 @@
 {
   config,
   lib,
+  util,
   pkgs,
   files,
   ...
 }: let
-  inherit (lib) mkIf util;
   enable = builtins.elem "firefox" config.apps.list;
 in {
   ## Firefox Browser Configuration ##
-  config = mkIf enable {
+  config = lib.mkIf enable {
     environment = {
       systemPackages = [pkgs.firefox];
       sessionVariables.MOZ_USE_XINPUT2 = "1";

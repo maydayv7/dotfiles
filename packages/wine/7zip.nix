@@ -1,13 +1,13 @@
 {
-  system ? builtins.currentSystem,
   lib,
+  build,
   pkgs,
   wine,
   ...
 }: let
   inherit (builtins) concatLists map;
   inherit (pkgs) copyDesktopItems fetchurl makeDesktopItem;
-  inherit (lib.wine."${system}") copyDesktopIcons makeDesktopIcon mkWindowsApp;
+  inherit (build) copyDesktopIcons makeDesktopIcon mkWindowsApp;
 in
   mkWindowsApp rec {
     inherit wine;

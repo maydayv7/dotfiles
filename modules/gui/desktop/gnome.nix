@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  util,
   pkgs,
   files,
   ...
@@ -9,7 +10,7 @@ with files; let
   inherit (builtins) elem;
   inherit (config.gui) desktop;
   apps = config.environment.systemPackages;
-  inherit (lib) mkIf mkForce mkMerge util;
+  inherit (lib) mkIf mkForce mkMerge;
 in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [

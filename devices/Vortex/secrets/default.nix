@@ -1,4 +1,4 @@
-{lib, ...}: {
+{util, ...}: {
   ## System Secrets ##
-  config.sops.secrets = lib.util.map.secrets ./. false;
+  config.sops.secrets = util.map.secrets ./. false;
 }

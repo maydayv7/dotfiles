@@ -1,12 +1,11 @@
 {
   lib,
+  util,
   inputs,
   pkgs,
   files,
   ...
-}: let
-  inherit (lib) mkForce util;
-in {
+}: {
   imports = [inputs.sops.nixosModules.sops];
 
   ## Authentication Credentials Management ##
@@ -23,7 +22,7 @@ in {
       # GPG Key Import
       gnupg = {
         home = files.gpg;
-        sshKeyPaths = mkForce [];
+        sshKeyPaths = lib.mkForce [];
       };
     };
   };

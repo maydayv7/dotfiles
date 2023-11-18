@@ -1,12 +1,13 @@
 {
   config,
   lib,
+  util,
   pkgs,
   files,
   ...
 }:
 with files; let
-  inherit (lib) mkEnableOption mkIf mkMerge util;
+  inherit (lib) mkEnableOption mkIf mkMerge;
 in {
   imports = util.map.module ./.;
 

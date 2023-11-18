@@ -2,11 +2,12 @@
   config,
   options,
   lib,
+  util,
   ...
 }: let
   inherit (builtins) map;
   inherit (util.map) module module';
-  inherit (lib) mkOption optional types util;
+  inherit (lib) mkOption optional types;
 in {
   imports = module ./. ++ module ./desktop;
 

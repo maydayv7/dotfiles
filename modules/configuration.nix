@@ -1,9 +1,11 @@
 {
   lib,
   inputs,
-  files,
 }: let
-  inherit (inputs) self generators;
+  inherit (inputs) self;
+  util = self.lib;
+  inherit (self) files;
+
   inherit (lib) extend fileContents makeOverridable mkIf;
   inherit
     (builtins)
@@ -17,7 +19,7 @@
     ;
 in {
   ## Configuration Build Function ##
-  config = {
+  build = {
     system ? "x86_64-linux",
     name ? "nixos",
     description ? "",
@@ -38,11 +40,6 @@ in {
   }: let
     # Default Package Channel
     pkgs = self.legacyPackages."${system}";
-
-    # System Libraries
-    inherit (lib') util;
-    lib' =
-      extend (final: prev: with inputs.nixpkgs.lib; {inherit nixosSystem trivial;});
 
     # User Build Function
     user' = {
@@ -74,12 +71,9 @@ in {
     # Assertions
     assert (user == null) -> (users != null);
     ## Device Configuration ##
-      (makeOverridable lib'.nixosSystem) {
+      (makeOverridable lib.nixosSystem) {
         inherit system;
-        specialArgs = {
-          inherit system inputs files;
-          lib = lib';
-        };
+        specialArgs = {inherit system util inputs files;};
 
         modules = [
           {
@@ -94,7 +88,7 @@ in {
               )
               ++ (
                 if (format != null)
-                then [(getAttr format generators.nixosModules)]
+                then [(getAttr format inputs.generators.nixosModules)]
                 else []
               )
               ++ util.map.array (hardware.modules or []) inputs.hardware.nixosModules;

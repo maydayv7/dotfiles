@@ -1,18 +1,17 @@
 {
-  self,
-  systems,
   lib,
+  inputs,
   ...
 }: let
-  inherit (builtins) attrValues concatStringsSep filter hasAttr listToAttrs map readFile;
-  inherit (lib) flatten hasPrefix mapAttrsToList mkForce nameValuePair recursiveUpdate splitString;
+  inherit (lib) flatten hasPrefix mapAttrsToList mkForce nameValuePair splitString;
+  inherit (builtins) concatStringsSep filter hasAttr listToAttrs map readFile;
 in rec {
   ## Builder Functions ##
   each = attr: func:
     listToAttrs (map (name: nameValuePair name (func name)) attr);
 
   # Configuration Builders
-  device = self.nixosModules.default.config;
+  device = (import ../modules/configuration.nix {inherit lib inputs;}).build;
   iso = config:
     device (config
       // {
@@ -30,24 +29,6 @@ in rec {
           shells = null;
           password = readFile ../modules/user/passwords/default;
         };
-      });
-
-  # Package Channels Builder
-  channel = src: overlays:
-    each systems (system: let
-      pkgs = src.legacyPackages."${system}";
-    in
-      import src {
-        inherit system;
-        config = import ../modules/nix/config.nix;
-        overlays =
-          overlays
-          ++ (attrValues self.overlays or {})
-          ++ [
-            (final: prev:
-              recursiveUpdate {custom = self.packages."${system}";}
-              self.channels."${system}")
-          ];
       });
 
   # Mime Types Handler

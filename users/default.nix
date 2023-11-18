@@ -1,10 +1,11 @@
 {
   config,
   lib,
+  util,
   ...
 }: let
   inherit (builtins) attrValues map;
-  inherit (lib) id mkIf mkOption types util;
+  inherit (lib) id mkIf mkOption types;
   cfg = config.credentials.key;
 in {
   options.credentials = {

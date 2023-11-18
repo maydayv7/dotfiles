@@ -36,7 +36,7 @@ in rec {
   # Top Level
   files = dir: func: ext: file dir func ext (_: true);
   file = dir: func: ext: cond:
-    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type: let
+    filter checkName (name: type: let
       path = "${toString dir}/${name}";
     in
       if
@@ -52,7 +52,7 @@ in rec {
         == "regular"
         && (
           if (ext == ".nix")
-          then name != "default.nix"
+          then name != "default.nix" && name != "flake.nix"
           else true
         )
         && hasSuffix ext name
@@ -63,7 +63,7 @@ in rec {
   # Recursive
   files' = dir: func: ext: file' dir func ext (_: true);
   file' = dir: func: ext: cond:
-    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type: let
+    filter checkName (name: type: let
       path = "${toString dir}/${name}";
     in
       if (type == "directory" || type == "symlink")
@@ -73,13 +73,20 @@ in rec {
         == "regular"
         && (
           if (ext == ".nix")
-          then name != "default.nix"
+          then name != "default.nix" && name != "flake.nix"
           else true
         )
         && hasSuffix ext name
         && (cond path)
       then nameValuePair (removeSuffix ext name) (func path)
       else nameValuePair "" null) (readDir dir);
+
+  # Import Checks
+  checkName = name: type: type != null && !(hasPrefix "_" name);
+  checkAttr = name: let
+    file = import name;
+  in
+    typeOf file == "set" || typeOf file == "lambda";
 
   # Package Patches
   patches = patch:
@@ -94,11 +101,18 @@ in rec {
         else null) (readDir patch))
     else patch;
 
+  # Flake Imports
+  flake = dir:
+    attrValues (filter checkName (name: type: let
+      path = "${toString dir}/${name}";
+    in
+      if
+        (type == "directory" || type == "symlink")
+        && (pathExists "${path}/flake.nix")
+      then nameValuePair name "${path}/flake.nix"
+      else nameValuePair "" null) (readDir dir));
+
   # Module Imports
-  checkAttr = name: let
-    file = import name;
-  in
-    typeOf file == "set" || typeOf file == "lambda";
   module = dir: attrValues (modules dir id);
   module' = dir: attrNames (modules dir id);
   modules = dir: func: file dir func ".nix" checkAttr;
@@ -106,7 +120,7 @@ in rec {
 
   # 'sops' Encrypted Secrets
   secrets = dir: neededForUsers:
-    filter (name: type: type != null && !(hasPrefix "_" name)) (name: type:
+    filter checkName (name: type:
       if type == "regular" && hasSuffix ".secret" name
       then
         nameValuePair name {
