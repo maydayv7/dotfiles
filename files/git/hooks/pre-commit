@@ -2,14 +2,8 @@
 error() { echo -e "\033[0;31merror:\033[0m $1"; exit 7; }
 
 ## Pre-Commit Checks ##
-# Code Format
-if [ -f "treefmt.toml" ]
-then
-  treefmt
-fi
-
 # Nix Syntax
-if [ "$(find . -name '*.nix' 2>/dev/null | wc -l)" != 0 ] && [ "$(git branch --show-current)" == "stable" ]
+if [ "$(find . -name '*.nix' 2>/dev/null | wc -l)" != 0 ]
 then
   nix flake check || error "Invalid Syntax"
 fi

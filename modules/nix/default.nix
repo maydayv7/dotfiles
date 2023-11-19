@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  util,
   inputs,
   pkgs,
   ...
@@ -19,7 +18,13 @@ in {
     user.persist.directories = [".cache/nix"] ++ optionals tools [".cache/manix"];
     environment.systemPackages =
       [pkgs.cachix]
-      ++ optionals tools (util.map.array (import ./tools.nix) pkgs);
+      ++ optionals tools (with pkgs; [
+        alejandra
+        manix
+        nodePackages.prettier
+        shellcheck
+        statix
+      ]);
 
     # Settings
     nix = {

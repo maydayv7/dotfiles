@@ -1,19 +1,20 @@
-{util, ...}: let
-  inherit (util) map;
-in {
+{
+  config,
+  util,
+  ...
+}: {
   ## Developer Shells ##
   perSystem = {
-    self',
+    system,
     pkgs,
     ...
   }: {
     devShells =
-      map.modules' ./. (file: pkgs.mkShell (import file pkgs))
+      util.map.modules' ./. (file: pkgs.mkShell (import file pkgs))
       // {
         default = import ./. {inherit pkgs;};
         website = import ../site/shell.nix {inherit pkgs;};
-        commit =
-          pkgs.mkShell {inherit (self'.checks.commit) shellHook;};
+        format = config.allSystems."${system}".treefmt.build.devShell;
       };
   };
 }

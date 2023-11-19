@@ -74,19 +74,11 @@
 
     # Source Filter Functions
     filters.url = "github:numtide/nix-filter";
-    ignore = {
-      url = "github:hercules-ci/gitignore.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
-    # Pre-Commit Hooks
-    hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils/flake-utils";
-        gitignore.follows = "ignore";
-      };
+    # Syntax Formatter
+    formatter = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ## Feature Modules
@@ -148,7 +140,9 @@
       debug = false;
 
       _module.args = {util = self.lib;};
-      imports = (import ./lib/map.nix {inherit lib;}).flake ./.;
+      imports =
+        (import ./lib/map.nix {inherit lib;}).flake ./.
+        ++ [modules/nix/format.nix];
 
       flake = {
         # Supported Architectures
@@ -157,30 +151,6 @@
         ## Custom Library Functions
         lib = import ./lib {
           inherit lib inputs;
-        };
-      };
-
-      perSystem = {
-        system,
-        pkgs,
-        ...
-      }: {
-        # Code Formatter
-        formatter = pkgs.treefmt;
-
-        # Pre-Commit Hooks
-        checks = with inputs; {
-          commit = hooks.lib."${system}".run {
-            src = ignore.lib.gitignoreSource ./.;
-            settings.statix.ignore = ["_*"];
-            hooks = {
-              alejandra.enable = true;
-              prettier.enable = true;
-              shellcheck.enable = false;
-              statix.enable = true;
-              stylua.enable = true;
-            };
-          };
         };
       };
     };

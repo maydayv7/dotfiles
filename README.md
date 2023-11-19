@@ -36,8 +36,8 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Auto-Magic using [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) helper functions
 - Automatic `packages` Updates using [`update.sh`](./packages/update.sh)
 - Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) image generation modules
-- Configuration [Checks](./modules/nix/checks.nix) using [`pre-commit-hooks.nix`](https://github.com/cachix/pre-commit-hooks.nix)
-- Support for `source` filters with [`nix-filter`](https://github.com/numtide/nix-filter) and [`gitignore.nix`](https://github.com/hercules-ci/gitignore.nix)
+- Syntax [Formatting](./modules/nix/format.nix) using [`treefmt`](https://github.com/numtide/treefmt) and [`treefmt-nix`](https://github.com/numtide/treefmt-nix)
+- Support for `source` filters with [`nix-filter`](https://github.com/numtide/nix-filter)
 - Support for Base16 color theming using [`stylix`](https://github.com/danth/stylix)
 - Support for declaratively installing [Flatpak](./modules/apps/flatpak.nix) applications using [`nix-flatpak`](https://github.com/gmodena/nix-flatpak)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
@@ -73,8 +73,7 @@ github:maydayv7/dotfiles
 │   └───x86_64-linux
 │       ├───Device-gnome: derivation 'nixos-rebuild'
 │       ├───Device-xfce: derivation 'nixos-rebuild'
-│       ├───commit: derivation 'pre-commit-run'
-│       └───schema: derivation 'jsonschema-deploy-system'
+│       └───treefmt: derivation 'treefmt-check'
 ├───devShells
 │   └───x86_64-linux
 │       ├───cc: development environment 'C'
@@ -110,7 +109,6 @@ github:maydayv7/dotfiles
 │   ├───shell: NixOS module
 │   └───user: NixOS module
 ├───overlays
-│   └───miscellaneous: Nixpkgs overlay
 ├───packages
 │   └───x86_64-linux
 │       ├───dotfiles: package 'Dotfiles-v15.0'
@@ -416,9 +414,10 @@ You can navigate to the `README`s present in the various directories to know mor
 ### v15
 
 - Use the [`flake-parts`](https://flake.parts/) Flakes framework
+- Improve Syntax Formatting with `treefmt-nix` and drop `pre-commit-hooks`
 - Fix Emoji Support
-- Miscellaneous Updates
 - Support declarative [Flatpak](https://flatpak.org/) application install
+- Miscellaneous Updates
 
 ### v13
 
