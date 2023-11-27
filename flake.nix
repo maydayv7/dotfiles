@@ -95,7 +95,11 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     # Authentication Credentials Manager
-    sops.url = "github:Mic92/sops-nix";
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
 
     # File System Persistent State Handler
     impermanence.url = "github:nix-community/impermanence";
