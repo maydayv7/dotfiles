@@ -9,9 +9,8 @@ set -euo pipefail
 update() {
   if [[ "${1:-""}" != "" ]]
   then
-    t="$(mktemp)"; trap 'rm ${t}' EXIT;
-    m="$(mktemp)"; trap 'rm ${m}' EXIT;
-    l="$(mktemp)"; trap 'rm ${l}' EXIT;
+    t1="$(mktemp)"; trap 'rm ${t1}' EXIT;
+    t2="$(mktemp)"; trap 'rm ${t2}' EXIT;
     pkg="${1}"
     metadata="${pkg}/metadata.nix"
     pkgname="$(basename "${pkg}")"
@@ -23,16 +22,16 @@ update() {
 
     # Extraction
     # Include ${pkg}/metadata.nix according to spec
-    nix eval -f "${metadata}" --json > "${t}" 2>/dev/null
-    rev="$(cat "${t}" | jq -r .rev)"
-    sha256="$(cat "${t}" | jq -r .sha256)"
-    repo="$(cat "${t}" | jq -r .repo)"
-    branch="$(cat "${t}" | jq -r .branch)"             # Optional
-    release="$(cat "${t}" | jq -r .release)"           # Optional
-    cargoSha256="$(cat "${t}" | jq -r .cargoSha256)"   # Optional
-    vendorSha256="$(cat "${t}" | jq -r .vendorSha256)" # Optional
-    skip="$(cat "${t}" | jq -r .skip)"                 # Optional
-    upattr="$(cat "${t}" | jq -r .upattr)";            # Optional
+    nix eval -f "${metadata}" --json > "${t1}" 2>/dev/null
+    rev="$(cat "${t1}" | jq -r .rev)"
+    sha256="$(cat "${t1}" | jq -r .sha256)"
+    repo="$(cat "${t1}" | jq -r .repo)"
+    branch="$(cat "${t1}" | jq -r .branch)"             # Optional
+    release="$(cat "${t1}" | jq -r .release)"           # Optional
+    cargoSha256="$(cat "${t1}" | jq -r .cargoSha256)"   # Optional
+    vendorSha256="$(cat "${t1}" | jq -r .vendorSha256)" # Optional
+    skip="$(cat "${t1}" | jq -r .skip)"                 # Optional
+    upattr="$(cat "${t1}" | jq -r .upattr)";            # Optional
     if [[ "${upattr}" == "null" ]]
     then
       upattr="${pkgname}"
@@ -69,52 +68,52 @@ update() {
     echo "Updating '${pkgname}'..."
     echo "Bumping '${rev}' ---> '${newrev}'"
 
-    # Sha256
+    # SHA
     fakeHash="0000000000000000000000000000000000000000000000000000000000000000"
     sed -i "s|${rev}|${newrev}|" "${metadata}"
     sed -i "s|${sha256}|${fakeHash}|" "${metadata}"
-    nix build --no-link "..#${upattr}" &> "${l}" || true
-    newsha256="$(cat "${l}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
+    nix build --no-link "..#${upattr}" &> "${t2}" || true
+    newsha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
     if [[ "${newsha256}" == "sha256" ]]
     then
-      newsha256="$(cat "${l}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
+      newsha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
     fi
 
     newsha256="$(nix hash to-sri --type sha256 "${newsha256}")"
     sed -i "s|${fakeHash}|${newsha256}|" "${metadata}"
 
-    # CargoSha256
+    # Cargo SHA
     if [[ "${cargoSha256}" != "null" ]]
     then
       sed -i "s|${cargoSha256}|${fakeHash}|" "${metadata}"
-      nix build --no-link "..#${upattr}" &> "${l}" || true
-      newcargoSha256="$(cat "${l}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
+      nix build --no-link "..#${upattr}" &> "${t2}" || true
+      newcargoSha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
       if [[ "${newcargoSha256}" == "sha256" ]]
         then
-        newcargoSha256="$(cat "${l}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
+        newcargoSha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
       fi
       newcargoSha256="$(nix hash to-sri --type sha256 "${newcargoSha256}")"
       sed -i "s|${fakeHash}|${newcargoSha256}|" "${metadata}"
     fi
 
-    # VendorSha256
+    # Vendor SHA
     if [[ "${vendorSha256}" != "null" ]]
     then
       sed -i "s|${vendorSha256}|${fakeHash}|" "${metadata}"
-      nix build --no-link "..#${upattr}" &> "${l}" || true
-      newvendorSha256="$(cat "${l}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
+      nix build --no-link "..#${upattr}" &> "${t2}" || true
+      newvendorSha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
       if [[ "${newvendorSha256}" == "sha256" ]]
       then
-        newvendorSha256="$(cat "${l}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
+        newvendorSha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
       fi
       newvendorSha256="$(nix hash to-sri --type sha256 "${newvendorSha256}")"
       sed -i "s|${fakeHash}|${newvendorSha256}|" "${metadata}"
     fi
 
     # Commit
-    prefix="chore(packages):"
+    prefix="chore(packages): Update"
     git diff-index --quiet HEAD "${pkg}" || \
-      git commit -q -n "${pkg}" -m "${prefix} ${pkgname} (${rev} ---> ${newrev})"
+      git commit -q -n "${pkg}" -m "${prefix} \`${pkgname}\`" -m "${rev} ---> ${newrev}"
     echo -e "Finished Updating '${pkgname}' ('${rev}' ---> '${newrev}')\n"
     exit 0
   fi

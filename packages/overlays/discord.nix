@@ -1,5 +1,5 @@
 final: prev: {
-  # Update Discord to Latest Version
+  # Update Discord to latest version
   discord = prev.discord.overrideAttrs (_: rec {
     version = "0.0.34";
 

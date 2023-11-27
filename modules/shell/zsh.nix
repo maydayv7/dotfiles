@@ -30,6 +30,7 @@ in {
           enableAutosuggestions = true;
           enableCompletion = true;
           enableVteIntegration = true;
+          syntaxHighlighting.enable = true;
 
           # Initialization
           initExtraBeforeCompInit = ''
@@ -74,11 +75,6 @@ in {
               name = "zsh-autopair";
               src = pkgs.zsh-autopair;
               file = "share/zsh/zsh-autopair/autopair.zsh";
-            }
-            {
-              name = "zsh-syntax-highlighting";
-              src = pkgs.zsh-syntax-highlighting;
-              file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
             }
           ];
         };

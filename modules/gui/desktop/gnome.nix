@@ -16,12 +16,17 @@ in {
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
     {
       # Session
-      services.xserver = {
-        desktopManager.gnome.enable = true;
-        displayManager = {
-          gdm.enable = true;
-          defaultSession = "gnome";
+      services = {
+        xserver = {
+          desktopManager.gnome.enable = true;
+          displayManager = {
+            gdm.enable = true;
+            defaultSession = "gnome";
+          };
         };
+
+        # Initial Setup
+        gnome.gnome-initial-setup.enable = mkForce false;
       };
 
       # Excluded Packages
@@ -52,8 +57,6 @@ in {
         telepathy.enable = true;
         gnome = {
           core-developer-tools.enable = true;
-          gnome-browser-connector.enable = true;
-          gnome-initial-setup.enable = true;
           gnome-keyring.enable = true;
           gnome-remote-desktop.enable = true;
           sushi.enable = true;
@@ -84,7 +87,7 @@ in {
           audio = ["org.gnome.Lollypop.desktop"];
           calendar = ["org.gnome.Calendar.desktop"];
           directory = ["org.gnome.Nautilus.desktop"];
-          image = ["org.gnome.eog.desktop"];
+          image = ["org.gnome.Loupe.desktop"];
           magnet = ["transmission-gtk.desktop"];
           mail = ["org.gnome.Geary.desktop"];
           markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
@@ -94,9 +97,6 @@ in {
         };
 
         home.file = {
-          # Initial Setup
-          ".config/gnome-initial-setup-done".text = "yes";
-
           # GTK+ Bookmarks
           ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
 
@@ -122,6 +122,9 @@ in {
           # Firefox GNOME Theme
           ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
           ".mozilla/firefox/default/chrome/userContent.css".text = firefox.theme;
+
+          # Workaround for https://github.com/NixOS/nixpkgs/issues/47340
+          ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
         };
 
         ## 3rd Party Apps Configuration
@@ -210,33 +213,29 @@ in {
             dconf2nix
             gnuchess
           ])
-          ++ (with pkgs.gnomeExtensions; [
-            # GNOME Shell Extensions
-            alphabetical-app-grid
-            appindicator
-            caffeine
-            coverflow-alt-tab
-            emoji-copy
-            forge
-            gesture-improvements
-            gnome-40-ui-improvements
-            guillotine
-            just-perfection
-            lock-keys
-            lock-screen-message
-            pano
-            quick-settings-tweaker
-            rounded-window-corners
-            shortcuts
-            space-bar
-            status-area-horizontal-spacing
-            timepp
-            transparent-top-bar-adjustable-transparency
-            top-bar-organizer
-            user-avatar-in-quick-settings
-            vitals
-            weather-oclock
-          ]);
+          ++ (with pkgs;
+            with unstable.gnomeExtensions // gnomeExtensions; [
+              # GNOME Shell Extensions
+              alphabetical-app-grid
+              appindicator
+              caffeine
+              coverflow-alt-tab
+              emoji-copy
+              forge
+              guillotine
+              just-perfection
+              lock-keys
+              pano
+              #!#rounded-window-corners --> Wait for upstream
+              shortcuts
+              status-area-horizontal-spacing
+              transparent-top-bar-adjustable-transparency
+              top-bar-organizer
+              user-avatar-in-quick-settings
+              vitals
+              window-gestures
+              window-title-is-back
+            ]);
       };
 
       # Persisted Files
@@ -261,7 +260,6 @@ in {
         ".local/share/webkitgtk"
         ".cache/fractal"
         ".cache/gnome-builder"
-        ".cache/timepp_gnome_shell_extension"
       ];
     })
 
@@ -271,13 +269,12 @@ in {
       services.xserver = {
         displayManager.gdm.autoSuspend = false;
         desktopManager.gnome = {
+          extraGSettingsOverrides = gnome.iso;
+          extraGSettingsOverridePackages = [pkgs.gnome.gnome-settings-daemon];
           favoriteAppsOverride = ''
             [org.gnome.shell]
             favorite-apps=[ 'org.gnome.Epiphany.desktop', 'nixos-manual.desktop', 'org.gnome.Console.desktop', 'org.gnome.Nautilus.desktop', 'gparted.desktop' ]
           '';
-
-          extraGSettingsOverrides = gnome.iso;
-          extraGSettingsOverridePackages = [pkgs.gnome.gnome-settings-daemon];
         };
       };
 
@@ -293,7 +290,14 @@ in {
       # Additional Excluded Packages
       xdg.portal.enable = mkForce false;
       qt.enable = mkForce false;
-      services.gnome.core-utilities.enable = mkForce false;
+
+      services.gnome = {
+        core-utilities.enable = mkForce false;
+        gnome-browser-connector.enable = mkForce false;
+        gnome-remote-desktop.enable = mkForce false;
+        gnome-user-share.enable = mkForce false;
+      };
+
       environment.gnome.excludePackages = with pkgs.gnome; [
         gnome-backgrounds
         gnome-shell-extensions

@@ -7,6 +7,10 @@
         "description": "Enter Overview"
       },
       {
+        "key": "Super * 2",
+        "description": "Enter App Grid"
+      },
+      {
         "key": "Alt + F4 / Super + Q",
         "description": "Close window"
       },
@@ -19,7 +23,7 @@
         "description": "Make Full screen/Restore"
       },
       {
-        "key": "Super + Up/Down",
+        "key": "Super + ↑/↓",
         "description": "Maximize/Minimize window"
       },
       {
@@ -35,25 +39,75 @@
         "description": "Switches between Windows of current application"
       },
       {
-        "key": "Super + Left/Right",
-        "description": "Switch to the left/right Workspace"
+        "key": "Super + ←/→",
+        "description": "Switch Workspace"
       },
       {
         "key": "Super + Home/End",
         "description": "Switch to first/last Workspace"
       },
       {
-        "key": "Super + Ctrl + Left/Right",
-        "description": "Move window to left/right Workspace"
+        "key": "Super + Ctrl + ←/→",
+        "description": "Move window to specified Workspace"
       },
       {
-        "key": "Super + Shift + Left/Right",
-        "description": "Move window to left/right Monitor"
+        "key": "Super + Shift + ←/→",
+        "description": "Move window to specified Monitor"
       }
     ]
   },
   {
-    "name": "Tiling",
+    "name": "System Shortcuts",
+    "shortcuts": [
+      {
+        "key": "Super + Space",
+        "description": "Switch keyboard layout"
+      },
+      {
+        "key": "Ctrl + Alt + Del",
+        "description": "Opens the shutdown menu"
+      },
+      {
+        "key": "Super + L",
+        "description": "Locks the screen"
+      },
+      {
+        "key": "Super + X",
+        "description": "Toggle zoom"
+      },
+      {
+        "key": "Super + =",
+        "description": "Zoom in"
+      },
+      {
+        "key": "Super + -",
+        "description": "Zoom out"
+      }
+    ]
+  },
+  {
+    "name": "Screenshot Shortcuts",
+    "shortcuts": [
+      {
+        "key": "Print",
+        "description": "Take a screenshot of a region"
+      },
+      {
+        "key": "Shift + Print",
+        "description": "Take a full screenshot"
+      },
+      {
+        "key": "Ctrl + Print",
+        "description": "Take a screenshot of a window"
+      },
+      {
+        "key": "Alt + Print",
+        "description": "Video capture desktop"
+      }
+    ]
+  },
+  {
+    "name": "Tiling Shortcuts",
     "shortcuts": [
       {
         "key": "Super + Z",
@@ -73,15 +127,15 @@
       },
       {
         "key": "Super + W/A/S/D",
-        "description": "Focus up/left/down/right window"
+        "description": "Focus specified window"
       },
       {
         "key": "Super + Ctrl + W/A/S/D",
-        "description": "Move window up/left/down/right"
+        "description": "Move window in specified direction"
       },
       {
         "key": "Super + Shift + W/A/S/D",
-        "description": "Swap window up/left/down/right"
+        "description": "Swap window in specified direction"
       },
       {
         "key": "Super + C",
@@ -96,12 +150,12 @@
         "description": "Pin window above all others"
       },
       {
-        "key": "Super + Alt + Up/Left/Down/Right",
-        "description": "Increase top/left/bottom/right window size"
+        "key": "Super + Alt + ↑/←/↓/→",
+        "description": "Increase window size in specified direction"
       },
       {
-        "key": "Super + Ctrl + Alt + Up/Left/Down/Right",
-        "description": "Decrease top/left/bottom/right window size"
+        "key": "Super + Ctrl + Alt + ↑/←/↓/→",
+        "description": "Decrease window size in specified direction"
       }
     ]
   },
@@ -146,36 +200,7 @@
       },
       {
         "key": "Super + /",
-        "description": "Show shortcuts menu"
-      }
-    ]
-  },
-  {
-    "name": "System Shortcuts",
-    "shortcuts": [
-      {
-        "key": "Super + Space",
-        "description": "Switch keyboard layout"
-      },
-      {
-        "key": "Ctrl + Alt + Del",
-        "description": "Opens the shutdown menu"
-      },
-      {
-        "key": "Super + L",
-        "description": "Locks the screen"
-      },
-      {
-        "key": "Super + X",
-        "description": "Toggle zoom"
-      },
-      {
-        "key": "Super + =",
-        "description": "Zoom in"
-      },
-      {
-        "key": "Super + -",
-        "description": "Zoom out"
+        "description": "Show this shortcuts menu"
       }
     ]
   },
@@ -195,6 +220,10 @@
         "description": "Reopen last closed tab in web browser"
       },
       {
+        "key": "Ctrl + /",
+        "description": "Code Editor command palette"
+      },
+      {
         "key": "F5",
         "description": "Document Viewer presentation mode"
       },
@@ -205,52 +234,47 @@
     ]
   },
   {
-    "name": "Screenshot Shortcuts",
+    "name": "Navigation Gestures",
     "shortcuts": [
       {
-        "key": "Print",
-        "description": "Take a screenshot of a region"
+        "key": "4F ↑ Swipe (←/→)",
+        "description": "Maximize/fullscreen/restore(/snap) a window"
       },
       {
-        "key": "Shift + Print",
-        "description": "Take a full screenshot"
+        "key": "3F ↑ Swipe",
+        "description": "Show overview/apps grid"
       },
       {
-        "key": "Ctrl + Print",
-        "description": "Take a screenshot of a window"
+        "key": "3F ↓ Swipe",
+        "description": "Minimize window"
       },
       {
-        "key": "Alt + Print",
-        "description": "Video capture desktop"
-      }
-    ]
-  },
-  {
-    "name": "Gestures",
-    "shortcuts": [
-      {
-        "key": "3 Finger Horizontal Swipe",
-        "description": "Switch windows"
-      },
-      {
-        "key": "4 Finger Horizontal Swipe (2/3 in overview)",
+        "key": "3F ←/→ Swipe",
         "description": "Switch workspaces"
       },
       {
-        "key": "4 Finger Vertical Swipe",
-        "description": "Desktop/Overview/App Grid navigation"
+        "key": "4F Hold then Swipe",
+        "description": "Move window"
       },
       {
-        "key": "3 Finger Vertical Swipe",
-        "description": "Maximize/minimize/fullscreen a window"
+        "key": "3F ↓ Swipe then ←/→",
+        "description": "Switch to previous/next window"
       },
       {
-        "key": "3/4 Finger Pinch",
+        "key": "4F ↓ Swipe",
+        "description": "Show notification center"
+      },
+      {
+        "key": "4F Pinch Out",
         "description": "Show desktop"
       },
       {
-        "key": "2/3 Finger Horizontal Swipe in App Grid",
-        "description": "Switch app pages"
+        "key": "4F Pinch In",
+        "description": "Mute audio"
+      },
+      {
+        "key": "2F ←/→ Swipe",
+        "description": "Switch pages or move backward/forward"
       }
     ]
   }

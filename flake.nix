@@ -38,7 +38,10 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Packages Repository
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=release-23.11";
+
+    # Unstable Packages Repository
+    unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
@@ -84,7 +87,7 @@
     ## Feature Modules
     # User Home Manager
     home = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager?ref=release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -124,10 +127,10 @@
     # Declarative Flatpak Wrapper
     flatpak.url = "github:gmodena/nix-flatpak";
 
-    # Wine Apps Wrapper
+    # Windows Apps Wrapper
     wine = {
       url = "github:emmanuelrosa/erosanix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
   };
 

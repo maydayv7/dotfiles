@@ -1,5 +1,5 @@
 final: prev: {
-  # Patch Google Chrome Dark Mode
+  # Patch Google Chrome dark mode
   google-chrome = prev.google-chrome.overrideAttrs (old: {
     installPhase =
       old.installPhase

@@ -66,6 +66,7 @@ in {
     "org/gnome/shell/keybindings" = {
       focus-active-notification = [];
       open-application-menu = [];
+      toggle-application-view = [];
       toggle-message-tray = [];
       toggle-overview = [];
     };
@@ -113,8 +114,6 @@ in {
       button-layout = "appmenu:minimize,maximize,close";
       titlebar-font = "${head fonts.sansSerif} Bold 11";
       visual-bell = false;
-      num-workspaces = 4;
-      workspace-names = ["Home" "School" "Work" "Play"];
     };
 
     # Core Settings
@@ -124,7 +123,7 @@ in {
     "org/gnome/mutter" = {
       attach-modal-dialogs = true;
       center-new-windows = true;
-      dynamic-workspaces = false;
+      dynamic-workspaces = true;
       edge-tiling = true;
       focus-change-on-pointer-rest = true;
       workspaces-only-on-primary = true;
@@ -297,6 +296,15 @@ in {
 
     # App Grid
     "org/gnome/shell" = {
+      favorite-apps = [
+        "google-chrome.desktop"
+        "org.gnome.Geary.desktop"
+        "org.gnome.Nautilus.desktop"
+        "com.raggesilver.BlackBox.desktop"
+        "org.gnome.TextEditor.desktop"
+        "org.gnome.Settings.desktop"
+      ];
+
       disable-user-extensions = false;
       disable-extension-version-validation = true;
       disabled-extensions = ["workspace-indicator@gnome-shell-extensions.gcampax.github.com"];
@@ -308,33 +316,20 @@ in {
         "drive-menu@gnome-shell-extensions.gcampax.github.com"
         "emoji-copy@felipeftn"
         "forge@jmmaranan.com"
-        "gestureImprovements@gestures"
-        "gnome-ui-tune@itstime.tech"
         "guillotine@fopdoodle.net"
         "just-perfection-desktop@just-perfection"
-        "lock-screen-message@advendradeswanta.gitlab.com"
         "lockkeys@vaina.lt"
         "pano@elhan.io"
         "quick-settings-avatar@d-go"
-        "quick-settings-tweaks@qwreey"
         "rounded-window-corners@yilozt"
         "Shortcuts@kyle.aims.ac.za"
-        "space-bar@luchrioh"
         "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
-        "timepp@zagortenay333"
         "top-bar-organizer@julian.gse.jsts.xyz"
         "transparent-top-bar@ftpix.com"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "Vitals@CoreCoding.com"
-        "weatheroclock@CleoMenezesJr.github.io"
-      ];
-      favorite-apps = [
-        "google-chrome.desktop"
-        "org.gnome.Geary.desktop"
-        "org.gnome.Nautilus.desktop"
-        "com.raggesilver.BlackBox.desktop"
-        "org.gnome.TextEditor.desktop"
-        "org.gnome.Settings.desktop"
+        "windowgestures@extension.amarullz.com"
+        "window-title-is-back@fthx"
       ];
     };
 
@@ -423,12 +418,8 @@ in {
 
     # Shell Extensions
     "org/gnome/shell/extensions/user-theme".name = "Adwaita";
-    "org/gnome/shell/extensions/lock-screen-message".message = "Welcome, ${config.credentials.fullname}!";
-
     "com/ftpix/transparentbar".transparency = 0;
     "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position = "start";
-    "org/gnome/shell/extensions/gestureImprovements".allow-minimize-window = true;
-    "org/gnome/shell/extensions/gnome-ui-tune".hide-search = false;
     "org/gnome/shell/extensions/lockkeys".style = "show-hide";
     "org/gnome/shell/extensions/status-area-horizontal-spacing".hpadding = 4;
 
@@ -510,14 +501,11 @@ in {
 
     "org/gnome/shell/extensions/just-perfection" = {
       accessibility-menu = true;
-      aggregate-menu = true;
-      animation = 4;
-      app-menu-icon = false;
-      hot-corner = false;
+      animation = 1;
       notification-banner-position = 2;
-      show-prefs-intro = false;
-      workspace-switcher-should-show = true;
-      workspace-background-corner-size = 58;
+      osd-position = 6;
+      window-menu-take-screenshot-button = false;
+      workspace-popup = false;
       workspace-switcher-size = 7;
       workspace-wrap-around = true;
     };
@@ -537,17 +525,6 @@ in {
       avatar-size = 56;
     };
 
-    "org/gnome/shell/extensions/quick-settings-tweaks" = {
-      add-dnd-quick-toggle-enabled = false;
-      add-unsafe-quick-toggle-enabled = false;
-      datemenu-remove-notifications = false;
-      media-control-compact-mode = true;
-      media-control-enabled = true;
-      notifications-enabled = false;
-      volume-mixer-enabled = false;
-      volume-mixer-position = "bottom";
-    };
-
     "org/gnome/shell/extensions/rounded-window-corners" = {
       custom-rounded-corner-settings = "@a{sv} {}";
       focused-shadow = "{'vertical_offset': 4, 'horizontal_offset': 0, 'blur_offset': 28, 'spread_radius': 4, 'opacity': 60}";
@@ -558,6 +535,7 @@ in {
     };
 
     "org/gnome/shell/extensions/shortcuts" = {
+      maxcolumns = 3;
       shortcuts-file = files.gnome.shortcuts;
       shortcuts-toggle-overview = ["<Super>slash"];
       use-custom-shortcuts = true;
@@ -565,36 +543,17 @@ in {
       visibility = 50;
     };
 
-    "org/gnome/shell/extensions/space-bar/behavior" = {
-      scroll-wheel = "disabled";
-      show-empty-workspaces = true;
-      smart-workspace-names = true;
-    };
-
-    "org/gnome/shell/extensions/timepp" = {
-      alarms-separate-menu = false;
-      panel-item-position = "Left";
-      pomodoro-panel-mode = "Dynamic";
-      pomodoro-show-seconds = true;
-      stopwatch-panel-mode = "Dynamic";
-      timer-panel-mode = "Dynamic";
-      timer-show-seconds = true;
-      todo-panel-mode = "Icon";
-      todo-separate-menu = true;
-      unicon-mode = true;
-    };
-
     "org/gnome/shell/extensions/top-bar-organizer" = {
-      center-box-order = ["dateMenu" "EmojisMenu"];
+      center-box-order = ["dateMenu"];
       left-box-order = [
-        "Space Bar"
         "activities"
-        "timepp"
         "guillotine"
         "guillotine@fopdoodle.net"
         "appMenu"
       ];
+
       right-box-order = [
+        "emoji-copy@felipeftn"
         "a11y"
         "aggregateMenu"
         "drive-menu"
@@ -613,6 +572,29 @@ in {
       hot-sensors = ["_default_icon_"];
       show-battery = true;
       show-storage = false;
+    };
+
+    "org/gnome/shell/extensions/windowgestures" = {
+      fn-fullscreen = true;
+      fn-maximized-snap = true;
+      fn-move = true;
+      fn-move-snap = true;
+      fn-resize = true;
+      pinch-enable = true;
+      pinch3-in = 0;
+      pinch3-out = 0;
+      pinch4-in = 14;
+      pinch4-out = 3;
+      swipe3-down = 1;
+      swipe4-updown = 22;
+      taphold-move = true;
+      three-finger = false;
+      use-active-window = true;
+    };
+
+    "org/gnome/shell/extensions/window-title-is-back" = {
+      colored-icon = true;
+      show-title = false;
     };
   };
 }

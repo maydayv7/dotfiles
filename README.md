@@ -417,6 +417,8 @@ You can navigate to the `README`s present in the various directories to know mor
 - Improve Syntax Formatting with `treefmt-nix` and drop `pre-commit-hooks`
 - Fix Emoji Support
 - Support declarative [Flatpak](https://flatpak.org/) application install
+- Allow patching Default Package Channel
+- Upgrade to GNOME 45
 - Miscellaneous Updates
 
 ### v13
@@ -622,6 +624,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Secure Boot isn't supported yet
 - Home Configuration can't be decoupled from System
 - Lack of automatic script checking
+- Currently using a workaround for CI due to [NixOS/nix#3978](https://github.com/NixOS/nix/issues/3978)
 
 #### Manually Managed Packages
 

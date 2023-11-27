@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   pkgs,
   files,
   ...
@@ -8,8 +9,11 @@
   enable = builtins.elem "office" config.apps.list;
 in {
   ## Office Environment Configuration ##
+  imports = [inputs.wine.nixosModules.onlyoffice];
+
   config = lib.mkIf enable {
     # Applications
+    programs.onlyoffice.enable = true;
     environment.systemPackages = with pkgs; [
       # Productivity
       easyeffects
@@ -19,7 +23,6 @@ in {
       hunspellDicts.en_US-large
       hyphen
       libreoffice
-      onlyoffice-bin
 
       # Internet
       google-chrome
