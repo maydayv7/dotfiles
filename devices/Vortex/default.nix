@@ -32,7 +32,10 @@
   };
 
   shell.utilities = true;
-  apps.list = ["discord" "firefox" "git" "office" "vscode" "wine"];
+  apps = {
+    list = ["discord" "firefox" "git" "office" "vscode" "wine"];
+    wine.utilities = true;
+  };
 
   # User V7
   user = {

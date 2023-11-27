@@ -7,10 +7,9 @@
   ...
 }:
 with files; let
-  inherit (builtins) elem;
   inherit (config.gui) desktop;
-  apps = config.environment.systemPackages;
-  inherit (lib) mkIf mkForce mkMerge;
+  inherit (lib) mkIf mkForce mkMerge optional;
+  exists = app: builtins.elem app config.environment.systemPackages;
 in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
@@ -116,7 +115,7 @@ in {
 
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" =
-            mkIf (elem pkgs.discord apps)
+            mkIf (exists pkgs.discord)
             {text = ''@import "https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css";'';};
 
           # Firefox GNOME Theme
@@ -129,7 +128,7 @@ in {
 
         ## 3rd Party Apps Configuration
         # Code Editor
-        programs.vscode = mkIf (elem pkgs.vscode apps) {
+        programs.vscode = mkIf (exists pkgs.vscode) {
           extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
           userSettings = {
             "workbench.preferredDarkColorTheme" = "Adwaita Dark";
@@ -231,6 +230,7 @@ in {
               status-area-horizontal-spacing
               transparent-top-bar-adjustable-transparency
               top-bar-organizer
+              unmess
               user-avatar-in-quick-settings
               vitals
               window-gestures
@@ -256,6 +256,7 @@ in {
         ".local/share/gnome-builder"
         ".local/share/lollypop"
         ".local/share/nautilus"
+        ".local/share/sounds"
         ".local/share/telepathy"
         ".local/share/webkitgtk"
         ".cache/fractal"

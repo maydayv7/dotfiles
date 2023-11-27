@@ -7,9 +7,8 @@
   ...
 }:
 with files; let
-  inherit (builtins) elem readFile;
   inherit (config.gui) desktop wallpaper;
-  apps = config.environment.systemPackages;
+  exists = app: builtins.elem app config.environment.systemPackages;
   inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair replaceStrings;
 
   # GTK+ Theme
@@ -163,11 +162,11 @@ in {
           (util.map.files xfce.settings
             (file:
               replaceStrings ["@system" "@wallpaper"]
-              [path.system wallpaper] (readFile file)) ".xml");
+              [path.system wallpaper] (builtins.readFile file)) ".xml");
 
         ## 3rd Party Apps Configuration
         # Code Editor
-        programs.vscode = mkIf (elem pkgs.vscode apps) {
+        programs.vscode = mkIf (exists pkgs.vscode) {
           extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
               name = "arc-dark";

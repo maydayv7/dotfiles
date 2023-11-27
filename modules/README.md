@@ -6,7 +6,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 
 - [`apps`](./apps): Module that configures various apps and/or environments -
 
-  - `list`: List of all enabled applications - `[ "discord" "firefox" "flatpak" "git" "office" "wine" ]`
+  - `list`: List of all enabled applications - `[ "discord" "firefox" "flatpak" "games" "git" "office" "wine" ]`
   - `git` -
     - `hosting` -
       - `enable`: Enable Gitea Code Hosting - `true / false`
@@ -15,7 +15,9 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
     - `runner` -
       - `support`: Enable Support for `git` Runners - `"github" / "gitlab"`
       - `secret`: Path to Secret for `git` Runner
-  - `wine.package`: Package to use for `wine` - Ex. `pkgs.wineWowPackages.staging`
+  - `wine` -
+    - `enable`: Install Utility Windows apps - `true / false`
+    - `package`: Package to use for `wine` - Ex. `pkgs.winePackages.staging`
 
 - [`base`](./base): Module that contains the base common/shared configuration
 

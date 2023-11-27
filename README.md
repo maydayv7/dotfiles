@@ -419,6 +419,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Support declarative [Flatpak](https://flatpak.org/) application install
 - Allow patching Default Package Channel
 - Upgrade to GNOME 45
+- Separate `games` module
 - Miscellaneous Updates
 
 ### v13

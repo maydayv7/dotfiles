@@ -185,7 +185,7 @@ in {
     "org/gnome/desktop/sound" = {
       allow-volume-above-100-percent = true;
       event-sounds = true;
-      theme-name = "freedesktop";
+      theme-name = "__custom";
     };
 
     "org/gnome/desktop/background" = {
@@ -326,6 +326,7 @@ in {
         "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
         "top-bar-organizer@julian.gse.jsts.xyz"
         "transparent-top-bar@ftpix.com"
+        "unmess@ezix.org"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "Vitals@CoreCoding.com"
         "windowgestures@extension.amarullz.com"
@@ -389,8 +390,8 @@ in {
       name = "Wine";
       apps = [
         "7zip.desktop"
+        "com.usebottles.bottles.desktop"
         "Notepad++.desktop"
-        "playonlinux.desktop"
         "net.lutris.Lutris.desktop"
       ];
     };
@@ -517,6 +518,13 @@ in {
       incognito-shortcut = ["<Ctrl><Super>v"];
       play-audio-on-copy = false;
       send-notification-on-copy = false;
+      window-position = mkUint32 2;
+      item-date-font-family = head fonts.sansSerif;
+      item-date-font-size = 11;
+      item-title-font-family = head fonts.sansSerif;
+      item-title-font-size = 20;
+      search-bar-font-family = head fonts.sansSerif;
+      search-bar-font-size = 14;
     };
 
     "org/gnome/shell/extensions/quick-settings-avatar" = {

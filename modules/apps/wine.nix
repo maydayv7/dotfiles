@@ -7,15 +7,18 @@
   ...
 }: let
   inherit (builtins) attrValues elem map;
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) mkIf mkEnableOption mkOption optionals types;
+  cfg = config.apps.wine;
   enable = elem "wine" config.apps.list;
-  wine = config.apps.wine.package;
 in {
-  options.apps.wine.package = mkOption {
-    description = "Package to use for 'wine'";
-    type = types.package;
-    default = pkgs.wineWowPackages.stable;
-    example = pkgs.gaming.wine-tkg;
+  options.apps.wine = {
+    utilities = mkEnableOption "Install Utility Windows apps";
+    package = mkOption {
+      description = "Package to use for 'wine'";
+      type = types.package;
+      default = pkgs.winePackages.stable;
+      example = pkgs.gaming.wine-tkg;
+    };
   };
 
   ## Wine Configuration ##
@@ -26,31 +29,20 @@ in {
     hardware.opengl.driSupport32Bit = true;
 
     # Utilities
-    user.persist.directories = [
-      "Games"
-      ".cache/lutris"
-      ".config/lutris"
-      ".config/notepad++"
-      ".local/share/lutris"
-      ".wine"
-    ];
-
+    user.persist.directories = [".wine"] ++ optionals cfg.utilities [".config/notepad++"];
     environment.systemPackages = with pkgs.wine // pkgs;
       map (name:
         if (name.override.__functionArgs ? wine)
-        then name.override {inherit wine;}
-        else name) [
-        lutris
-        playonlinux
-        mkwindowsapp-tools
-        notepad-plus-plus
-      ]
+        then name.override {wine = cfg.package;}
+        else name) ([mkwindowsapp-tools]
+        ++ optionals cfg.utilities [notepad-plus-plus])
       # Wrapped Packages
-      ++ attrValues (util.map.modules ../../packages/wine
+      ++ optionals cfg.utilities (attrValues (util.map.modules ../../packages/wine
         (name:
           pkgs.callPackage name {
-            inherit lib pkgs wine;
+            inherit lib pkgs;
+            wine = cfg.package;
             build = inputs.wine.lib."${system}";
-          }));
+          })));
   };
 }
