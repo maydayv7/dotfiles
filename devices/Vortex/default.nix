@@ -23,7 +23,7 @@
 
   gui = {
     desktop = "gnome";
-    wallpaper = "Sunrise";
+    wallpaper = "Tomorrow";
   };
 
   nix = {
