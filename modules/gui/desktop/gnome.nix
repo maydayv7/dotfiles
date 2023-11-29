@@ -68,6 +68,7 @@ in {
         imports = [gnome.dconf];
 
         # GTK+ Theming
+        stylix.targets.gnome.enable = true;
         gtk = {
           enable = true;
           theme = {
@@ -105,14 +106,6 @@ in {
           # Window Tiling Stylesheet
           ".config/forge/stylesheet/forge/stylesheet.css".source = gnome.tiling;
 
-          # Prevent Suspension on lid close
-          ".config/autostart/ignore-lid-switch-tweak.desktop".text = ''
-            [Desktop Entry]
-            Type=Application
-            Name=ignore-lid-switch-tweak
-            Exec=${pkgs.gnome.gnome-tweaks}/libexec/gnome-tweak-tool-lid-inhibitor
-          '';
-
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" =
             mkIf (exists pkgs.discord)
@@ -122,7 +115,7 @@ in {
           ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
           ".mozilla/firefox/default/chrome/userContent.css".text = firefox.theme;
 
-          # Workaround for https://github.com/NixOS/nixpkgs/issues/47340
+          # Workaround for NixOS/nixpkgs/47340
           ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
         };
 
@@ -131,8 +124,7 @@ in {
         programs.vscode = mkIf (exists pkgs.vscode) {
           extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
           userSettings = {
-            "workbench.preferredDarkColorTheme" = "Adwaita Dark";
-            "workbench.preferredLightColorTheme" = "Adwaita Light";
+            "workbench.colorTheme" = "Adwaita Dark";
             "workbench.productIconTheme" = "adwaita";
             "window.titleBarStyle" = "custom";
             "terminal.external.linuxExec" = "blackbox";

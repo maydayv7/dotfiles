@@ -39,6 +39,7 @@
     };
 
     stylix.fonts = {
+      # Default Fonts
       serif = {
         package = pkgs.noto-fonts;
         name = "Noto Serif";
@@ -57,6 +58,14 @@
       emoji = {
         package = pkgs.noto-fonts-color-emoji;
         name = "Noto Color Emoji";
+      };
+
+      # Font Size
+      sizes = {
+        applications = 11;
+        desktop = 11;
+        popups = 10;
+        terminal = 12;
       };
     };
 

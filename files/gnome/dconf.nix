@@ -7,6 +7,7 @@
 }:
 with lib.hm.gvariant; let
   inherit (builtins) head elem;
+  inherit (lib) mkBefore mkForce;
   homeDir = config.home.homeDirectory;
   fonts = sys.fonts.fontconfig.defaultFonts;
   inherit (sys.gui) wallpaper;
@@ -17,7 +18,7 @@ in {
     ".local/share/backgrounds".source = files.wallpapers.path;
 
     # GTK+ Bookmarks
-    ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+    ".config/gtk-3.0/bookmarks".text = mkBefore ''
       file://${homeDir}/Documents/TBD TBD
     '';
   };
@@ -132,15 +133,12 @@ in {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       clock-show-weekday = true;
-      document-font-name = "${head fonts.sansSerif} 11";
       enable-animations = true;
       enable-hot-corners = true;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
-      font-name = "${head fonts.sansSerif} Medium, Medium 11";
       gtk-im-module = "gtk-im-context-simple";
       locate-pointer = true;
-      monospace-font-name = "${head fonts.monospace} 11";
       show-battery-percentage = true;
       toolkit-accessibility = false;
     };
@@ -186,13 +184,6 @@ in {
       allow-volume-above-100-percent = true;
       event-sounds = true;
       theme-name = "__custom";
-    };
-
-    "org/gnome/desktop/background" = {
-      color-shading-type = "solid";
-      picture-options = "zoom";
-      picture-uri = "file://${wallpaper}";
-      picture-uri-dark = "file://${wallpaper}";
     };
 
     "org/gnome/desktop/screensaver" = {
@@ -418,7 +409,7 @@ in {
     };
 
     # Shell Extensions
-    "org/gnome/shell/extensions/user-theme".name = "Adwaita";
+    "org/gnome/shell/extensions/user-theme".name = mkForce "Adwaita";
     "com/ftpix/transparentbar".transparency = 0;
     "org/gnome/shell/extensions/alphabetical-app-grid".folder-order-position = "start";
     "org/gnome/shell/extensions/lockkeys".style = "show-hide";

@@ -47,7 +47,10 @@
     nur.url = "github:nix-community/NUR";
 
     # Proprietary Software
-    proprietary.url = "github:maydayv7/proprietary";
+    proprietary = {
+      url = "github:maydayv7/proprietary";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Packaged Games
     gaming = {

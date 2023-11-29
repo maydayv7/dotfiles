@@ -6,6 +6,21 @@
   "menu": [
     {
       "type": "submenu",
+      "title": "File Management",
+      "icon": "fileopen",
+      "items": [
+        {
+          "type": "command",
+          "title": "iPhone",
+          "command": "systemctl restart usbmuxd.service",
+          "instancing": "singleInstance",
+          "icon": "smartphone-symbolic",
+          "killOnDisable": false
+        }
+      ]
+    },
+    {
+      "type": "submenu",
       "title": "Virtualisation",
       "icon": "computer-symbolic",
       "items": [

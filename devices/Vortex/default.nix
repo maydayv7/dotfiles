@@ -16,14 +16,14 @@
     cores = 8;
     filesystem = "advanced";
     security = true;
-    support = ["mobile" "printer" "virtualisation"];
+    support = ["laptop" "mobile" "printer" "virtualisation"];
     modules = ["dell-inspiron-5509"];
     vm.android.enable = true;
   };
 
   gui = {
     desktop = "gnome";
-    wallpaper = "Tomorrow";
+    wallpaper = "Nix";
   };
 
   nix = {

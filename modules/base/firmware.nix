@@ -16,26 +16,8 @@
       pulseaudio.enable = lib.mkForce false;
     };
 
-    services = {
-      fwupd.enable = true;
-      logind.extraConfig = "HandleLidSwitch=ignore";
-    };
-
-    # Touchpad
-    services.xserver.libinput = {
-      enable = true;
-      touchpad = {
-        tapping = true;
-        tappingDragLock = true;
-        middleEmulation = true;
-        naturalScrolling = false;
-        disableWhileTyping = true;
-        scrollMethod = "twofinger";
-        accelSpeed = "0.7";
-      };
-    };
-
     # Driver Packages
+    services.fwupd.enable = true;
     hardware.opengl.extraPackages = with pkgs; [
       intel-media-driver
       libvdpau-va-gl
@@ -80,6 +62,22 @@
       firewall.enable = true;
     };
 
+    # Power Management
+    services.thermald.enable = true;
+    powerManagement = {
+      enable = true;
+      cpuFreqGovernor = "powersave";
+    };
+
+    # Memory
+    systemd.oomd.enable = false;
+    services.earlyoom = {
+      enable = true;
+      enableNotifications = true;
+      freeMemThreshold = 5;
+      freeSwapThreshold = 15;
+    };
+
     ## Encryption
     # GPG
     programs.gnupg.agent = {
@@ -108,21 +106,6 @@
           path = "/etc/ssh/ssh_key";
         }
       ];
-    };
-
-    # Power Management
-    services.thermald.enable = true;
-    powerManagement = {
-      enable = true;
-      cpuFreqGovernor = "powersave";
-    };
-
-    systemd.oomd.enable = false;
-    services.earlyoom = {
-      enable = true;
-      enableNotifications = true;
-      freeMemThreshold = 5;
-      freeSwapThreshold = 15;
     };
   };
 }
