@@ -26,7 +26,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - name: Install Nix
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v24
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
