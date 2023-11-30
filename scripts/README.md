@@ -26,5 +26,5 @@ $ nixos -h
   search 'term' [ 'source' ]      - Searches for Packages [ Providing 'term' ] or Configuration Options
   secret 'choice' [ 'path' ]      - Manages 'sops' Encrypted Secrets
   shell [ 'name' ]                - Opens desired Nix Developer Shell
-  update [ 'repository' ['rev'] ] - Updates System Repositories
+  update [ 'repo' / --'option' ]  - Manages System Package Updates
 ```

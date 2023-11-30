@@ -4,4 +4,3 @@ builds
 .direnv
 result
 *.wiki
-.pre-commit-config.yaml

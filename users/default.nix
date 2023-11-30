@@ -38,6 +38,8 @@ in {
 
   ## Home Configuration ##
   config = {
+    systemd.user.startServices = true;
+
     # GPG Settings
     programs.gpg = {
       settings = mkIf (cfg.key != "") {

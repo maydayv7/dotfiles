@@ -29,7 +29,7 @@ in {
     # Settings
     nix = {
       # Version
-      package = pkgs.nix;
+      package = pkgs.nixFlakes;
 
       # Garbage Collection
       settings.auto-optimise-store = true;

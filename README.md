@@ -197,7 +197,7 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
    git init
    </code></pre>
 
-3. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`.sops.yaml`](./secrets/.sops.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
+3. Install `gnupg` and generate a GPG Key for yourself (if you don't already have one), and include it in the [`secrets.yaml`](./secrets/secrets.yaml) file (using `gpg --list-keys`). You can use the following commands to generate the GPG key (Ultimate trust and w/o passphrase is preferred):  
    _Replace_ **_USER_** _,_ **_EMAIL_** _and_ **_COMMENT_** <pre><code>gpg --full-generate-key
    1
    4096
@@ -214,8 +214,8 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
 
 4. Import all required GPG Keys into a convenient location (like `/etc/gpg`) using <code>gpg --homedir <i>DIR</i> import</code> and specify it at `config.sops.gnupg.home` (Required for decryption of `secrets` on boot, can also be on an external drive)
 
-5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `.sops.yaml` and then using the following command (The [`nixos`](./scripts/README.md) script can be used to simplify the process):  
-   _Replace_ **_PATH_** _with the path to the `secret`_ <pre><code>sops --config <i>/path/to/<b>.sops.yaml</b></i> -i <b><i>PATH</i></b></code></pre>
+5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `secrets.yaml` and then using the following command (The [`nixos`](./scripts/README.md) script can be used to simplify the process):  
+   _Replace_ **_PATH_** _with the path to the `secret`_ <pre><code>sops --config <i>/path/to/<b>secrets.yaml</b></i> -i <b><i>PATH</i></b></code></pre>
 
 6. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
 
@@ -288,7 +288,7 @@ If you really want to get dirty with Nix and decide to invest oodles of your tim
 
 ### Caution
 
-I am pretty new to Nix, and my configuration is still _WIP_ and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.7)
+I am pretty new to Nix, and my configuration is still _WIP_ and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.19)
 
 It is not recommended to use NixOS if you are a beginner just starting out, without acquaintance with either the command-line or functional programming languages, since the learning curve is steep, debugging issues is difficult, documentation is shallow, and the effort required/time spent isn't worth the hassle for a novice/casual user
 
@@ -415,11 +415,13 @@ You can navigate to the `README`s present in the various directories to know mor
 
 - Use the [`flake-parts`](https://flake.parts/) Flakes framework
 - Improve Syntax Formatting with `treefmt-nix` and drop `pre-commit-hooks`
-- Fix Emoji Support
 - Support declarative [Flatpak](https://flatpak.org/) application install
 - Allow patching Default Package Channel
-- Upgrade to GNOME 45
 - Separate `games` and `laptop` module
+- Show package delta using [`nvd`](https://gitlab.com/khumba/nvd)
+- Upgrade to GNOME 45
+  - Fix Emoji Support
+  - Update Extension
 - Miscellaneous Updates
 
 ### v13

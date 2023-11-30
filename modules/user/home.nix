@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   ## User Home Configuration ##
   config = {
     # Environment Settings
@@ -10,8 +14,16 @@
     };
 
     user.home = {
-      imports = [../../users];
-      systemd.user.startServices = true;
+      imports = [
+        ../../users
+
+        # Package Delta
+        ({lib, ...}: {
+          home.activation.delta = lib.hm.dag.entryAnywhere ''
+            ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
+          '';
+        })
+      ];
 
       # Package Configuration
       home = {

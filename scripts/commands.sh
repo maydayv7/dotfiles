@@ -1,5 +1,5 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bzip2 coreutils git gnupg gnutar gzip p7zip unzip
+#! /usr/bin/env nix
+#! nix shell nixpkgs#{bash,bzip2,coreutils,git,gnupg,gnutar,gzip,p7zip,unzip} -c bash
 
 # Useful Commands #
 

@@ -75,7 +75,7 @@
     scripts = map.files ../scripts build.script ".sh";
 
     # 'sops' Encrypted Secrets
-    sops = ../secrets/.sops.yaml;
+    sops = ../secrets/secrets.yaml;
 
     # Document Templates
     templates = ./templates;

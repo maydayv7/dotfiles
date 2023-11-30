@@ -39,32 +39,40 @@ with files; let
         search 'term' [ 'source' ]      - Searches for Packages [ Providing 'term' ] or Configuration Options
         secret 'choice' [ 'path' ]      - Manages 'sops' Encrypted Secrets
         shell [ 'name' ]                - Opens desired Nix Developer Shell
-        update [ 'repository' ['rev'] ] - Updates System Repositories
+        update [ 'repo' / --'option' ]  - Manages System Package Updates
     '';
 
     apply = ''
       # Usage #
-        --activate                  - Activates Current Configuration
-        --boot                      - Applies Configuration on boot
-        --check                     - Checks Configuration Build
-        --rollback [ 'generation' ] - Reverts to Last [ or Specified ] Build Generation
-        --test                      - Tests Configuration Build
+        --activate                   - Activates Current Configuration
+        --boot                       - Applies Configuration on boot
+        --check                      - Checks Configuration Build
+        --delta                      - Shows Package Delta for Build
+        --rollback [ 'generation' ]  - Reverts to Last [ or Specified ] Build Generation
+        --test                       - Tests Configuration Build
     '';
 
     search = ''
       # Usage #
-        cmd.'command'               - Searches for Package providing 'command'
-        pkgs.'package' [ 'repo' ]   - Searches for Package 'package' [ In Repository ]
-        'term'                      - Searches for Packages and Configuration Options and matching 'term'
+        cmd.'command'              - Searches for Package providing 'command'
+        pkgs.'package' [ 'repo' ]  - Searches for Package 'package' [ In Repository ]
+        'term'                     - Searches for Packages and Configuration Options and matching 'term'
     '';
 
     secret = ''
       # Usage #
-        create 'path'              - Creates desired Secret
-        edit 'name'                - Edits desired Secret
-        list                       - Lists all 'sops' Encrypted Secrets
-        show 'name'                - Shows desired Secret
-        update                     - Updates Secrets to defined Keys
+        create 'path'  - Creates desired Secret
+        edit 'name'    - Edits desired Secret
+        list           - Lists all 'sops' Encrypted Secrets
+        show 'name'    - Shows desired Secret
+        update         - Updates Secrets to defined Keys
+    '';
+
+    update = ''
+      # Usage #
+        --pkgs             - Automatically updates manually packaged apps
+        --commit           - Updates 'inputs' and commits changes
+        'repo' ['source']  - Updates 'repo' input [ To specified 'source' ]
     '';
   };
 in
@@ -88,6 +96,7 @@ in
       jq
       manix
       nixFlakes
+      nvd
       parted
       sops
       tree
@@ -110,6 +119,7 @@ in
       help|--help|-h) echo -e "## Tool for NixOS System Management ##\n${usage.script}";;
       apply)
         case $2 in
+        help|--help|-h) echo "${usage.apply}";;
         "")
           echo "Applying Configuration..."
           sudo nixos-rebuild switch --flake ${path.system}#
@@ -127,12 +137,26 @@ in
           echo "Checking Configuration..."
           nixos-rebuild dry-activate --flake ${path.system}#
         ;;
+        "--delta")
+          rm -rf /tmp/build && mkdir /tmp/build
+          pushd /tmp/build &> /dev/null
+          echo "Building Configuration..."
+          info "This may take a while..."
+          if nixos-rebuild build --flake ${path.system}# &> /dev/null
+          then
+            echo "Processing Delta..."
+            nvd diff /run/current-system result
+          else
+            error "Couldn't build generation successfully"
+          fi
+          popd &> /dev/null
+          rm -rf /tmp/build
+        ;;
         "--test")
           echo "Testing Configuration..."
           sudo nixos-rebuild test --no-build-nix --show-trace --flake ${path.system}#
         ;;
         "--rollback")
-          profile="/nix/var/nix/profiles/system"
           case $3 in
           "")
             echo "Applying Rollback..."
@@ -144,7 +168,7 @@ in
           ;;
           *)
             echo "Rolling Back to Generation '$3'..."
-            sudo nix-env --switch-generation "$3" -p "$profile" && nixos apply --activate
+            sudo nix-env --switch-generation "$3" -p "/nix/var/nix/profiles/system" && nixos apply --activate
           ;;
           esac
         ;;
@@ -163,7 +187,7 @@ in
       ;;
       check)
         echo "Formatting Code..."
-        pushd ${path.system} > /dev/null; nix fmt; popd > /dev/null
+        pushd ${path.system} &> /dev/null; nix fmt; popd &> /dev/null
         case $2 in
         "") nix flake check ${path.system} --keep-going;;
         "--trace") nix flake check ${path.system} --keep-going --show-trace;;
@@ -215,7 +239,7 @@ in
           read -rp "Do you want to Automatically Create the Partitions? (Y/N): " choice
             case $choice in
               [Yy]*) warn "Assuming Disk is Completely Empty"; partition_disk;;
-              *) warn "You must Create, Format and Label the Partitions on your own"; gparted > /dev/null;;
+              *) warn "You must Create, Format and Label the Partitions on your own"; gparted &> /dev/null;;
             esac
           newline
           read -rp "Select Filesystem to use for Disk (simple/advanced): " choice
@@ -366,7 +390,7 @@ in
       ;;
       save)
         echo "Saving Changes..."
-        pushd ${path.system} > /dev/null
+        pushd ${path.system} &> /dev/null
         git stash
         git pull --rebase
         git branch save
@@ -375,7 +399,7 @@ in
         git add .
         git commit
         git push --set-upstream origin save --force
-        popd > /dev/null
+        popd &> /dev/null
       ;;
       search)
         case $2 in
@@ -460,27 +484,29 @@ in
       ;;
       update)
         case $2 in
-        "")
-          echo "Updating Flake Inputs..."
-          nix flake update ${path.system}
+        help|--help|-h) echo "${usage.update}";;
+        "--pkgs")
+          echo "Updating Packages..."
+          pushd ${path.system}/packages &> /dev/null
+          bash ${./packages.sh}
+          popd &> /dev/null
         ;;
         "--commit")
           echo "Updating Flake Inputs..."
-          nix flake update ${path.system} --commit-lock-file
+          nix flake update --flake ${path.system} --commit-lock-file
         ;;
-        "--pkgs")
-          echo "Updating Packages..."
-          pushd ${path.system}/packages > /dev/null
-          bash ${./packages.sh}
-          popd > /dev/null
+        "")
+          echo "Updating Flake Inputs..."
+          nix flake update --flake ${path.system}
         ;;
         *)
           echo "Updating Flake Input '$2'..."
           if [ -z "$3" ]
           then
-            nix flake lock ${path.system} --update-input "$2"
+            nix flake update --flake ${path.system} "$2"
           else
-            nix flake lock ${path.system} --override-input "$2" "$3"
+
+            nix flake update --flake ${path.system} "$2" --override-input "$2" "$3"
           fi
         ;;
         esac

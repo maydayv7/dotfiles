@@ -1,5 +1,5 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p dosfstools ntfs3g parted util-linux zfs
+#! /usr/bin/env nix
+#! nix shell nixpkgs#{bash,dosfstools,ntfs3g,parted,util-linux,zfs} -c bash
 
 # Script to automatically Create, Label, Format and Mount Partitions #
 

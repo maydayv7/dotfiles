@@ -1,5 +1,5 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash
+#! /usr/bin/env nix
+#! nix shell nixpkgs#bash -c bash
 
 # Print Color Map #
 

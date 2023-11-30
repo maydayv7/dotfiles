@@ -1,5 +1,5 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p coreutils gnused libpst
+#! /usr/bin/env nix
+#! nix shell nixpkgs#{bash,coreutils,gnused,libpst} -c bash
 
 # Script to convert '.pst' Files to '.mbox' #
 

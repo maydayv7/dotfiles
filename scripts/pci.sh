@@ -1,5 +1,5 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p coreutils
+#! /usr/bin/env nix
+#! nix shell nixpkgs#{bash,coreutils} -c bash
 
 # Shows PCI Devices mapped to IOMMU Groups #
 
