@@ -14,7 +14,7 @@ with files.vscode; let
 in {
   ## Visual Studio Code Editor Configuration ##
   config = lib.mkIf enable {
-    environment.systemPackages = with pkgs; [rnix-lsp vscode];
+    environment.systemPackages = with pkgs; [nil vscode];
 
     user = {
       persist.directories = [".config/Code" ".vscode"];

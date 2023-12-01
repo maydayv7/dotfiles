@@ -24,6 +24,7 @@
   "gitlens.advanced.commitOrdering": "date",
   "gitlens.advanced.fileHistoryFollowsRenames": true,
   "nix.enableLanguageServer": true,
+  "nix.serverPath": "nil",
   "nix.formatterPath": "alejandra",
   "scm.repositories.visible": 7,
   "search.showLineNumbers": true,
