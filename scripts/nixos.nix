@@ -138,8 +138,8 @@ in
           nixos-rebuild dry-activate --flake ${path.system}#
         ;;
         "--delta")
-          rm -rf /tmp/build && mkdir /tmp/build
-          pushd /tmp/build &> /dev/null
+          DIR=/tmp/nixos/build
+          mkdir "$DIR" && pushd "$DIR" &> /dev/null
           echo "Building Configuration..."
           info "This may take a while..."
           if nixos-rebuild build --flake ${path.system}# &> /dev/null
@@ -147,10 +147,10 @@ in
             echo "Processing Delta..."
             nvd diff /run/current-system result
           else
-            error "Couldn't build generation successfully"
+            rm -rf "$DIR" && error "Couldn't build generation successfully"
           fi
           popd &> /dev/null
-          rm -rf /tmp/build
+          rm -rf "$DIR"
         ;;
         "--test")
           echo "Testing Configuration..."

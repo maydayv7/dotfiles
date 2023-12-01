@@ -1,4 +1,4 @@
-{lib, ...}: let
+lib: let
   inherit
     (builtins)
     attrNames
@@ -26,6 +26,13 @@
     nameValuePair
     removeSuffix
     ;
+
+  # Import Checks
+  checkName = name: type: type != null && !(hasPrefix "_" name);
+  checkAttr = name: let
+    file = import name;
+  in
+    typeOf file == "set" || typeOf file == "lambda";
 in rec {
   ## Mapping Functions ##
   array = list: func: forEach list (name: getAttrFromPath [name] func);
@@ -80,13 +87,6 @@ in rec {
         && (cond path)
       then nameValuePair (removeSuffix ext name) (func path)
       else nameValuePair "" null) (readDir dir);
-
-  # Import Checks
-  checkName = name: type: type != null && !(hasPrefix "_" name);
-  checkAttr = name: let
-    file = import name;
-  in
-    typeOf file == "set" || typeOf file == "lambda";
 
   # Package Patches
   patches = patch:

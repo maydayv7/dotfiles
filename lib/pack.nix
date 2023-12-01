@@ -1,9 +1,4 @@
-{
-  lib,
-  inputs,
-  ...
-}: let
-  inherit (inputs) self;
+lib: let
   inherit (builtins) attrNames;
   inherit (lib) genAttrs id mapAttrs';
 in rec {
@@ -16,9 +11,9 @@ in rec {
     }) (genAttrs (attrNames attrs) id);
 
   # User Home Configurations
-  user = user:
+  user = attrs: user:
     mapAttrs' (_: name: {
       name = "User-${name}";
-      value = self.homeConfigurations."${user}".activationPackage;
-    }) (genAttrs (attrNames self.homeConfigurations) id);
+      value = attrs."${user}".activationPackage;
+    }) (genAttrs (attrNames attrs) id);
 }

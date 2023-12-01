@@ -6,17 +6,12 @@ The `lib` directory contains custom-made utility functions (exposed as `util`), 
 
 - [`build`](./build.nix): Configuration building functions for efficient system management and declaration -
 
-  - `device`: Main system configuration building function, used to build the entire configuration for devices (`nixosConfigurations`) as per provided parameters
-  - `iso`: configuration building function used to build the entire configuration for install media (`installMedia`) as per provided parameters
-  - `each`: Maps function for each `attr` as passed
   - `mime`: Builds and sets `mimetype` values according to specified application and types
   - `script`: Builds script from specified file by removing `shebangs` and exporting as a _string_
 
 - [`map`](./map.nix): Mapping functions primarily aimed at shortening code complexity -
 
   - `array`: Maps required parameter to all elements present in `list`
-  - `checkAttr`: Checks if file contains an attrset
-  - `checkName`: Checks if file to be mapped has a valid name
   - `filter`: Filters out unneeded `attrs` and maps required ones to specified function
   - `list`: Lists all toplevel `attrs` of `attrset` and returns a space-separated string
   - `file`: Maps all files with a particular extension adhering to a particular condition stored in a directory as an `attrset` acted upon by specified function. Use `file'` in order to recursively search inside directories

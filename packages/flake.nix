@@ -60,7 +60,6 @@ in {
     packages =
       map.modules ./. call
       // map.modules ../scripts call
-      // {default = self'.packages.dotfiles;}
       // inputs'.proprietary.packages;
   });
 

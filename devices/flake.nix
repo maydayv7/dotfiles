@@ -1,15 +1,17 @@
 {
+  lib,
   util,
   inputs,
   ...
 }: let
   inherit (inputs) self;
-  inherit (util) build map pack;
-  inherit (builtins) head;
+  inherit (util) map pack;
+  inherit (builtins) head readFile;
+  inherit (import ../modules/configuration.nix {inherit lib inputs;}) build;
 in {
   flake = {
     ## Device Configuration ##
-    nixosConfigurations = map.modules ./. (name: build.device (import name));
+    nixosConfigurations = map.modules ./. (name: build (import name));
 
     ## Virtual Machines ##
     vmConfigurations = with self;
@@ -18,15 +20,35 @@ in {
 
     ## Install Media Configuration ##
     installMedia = let
-      config = {
+      iso = config:
+        build (config
+          // {
+            format = "iso";
+            description = "Install Media";
+
+            kernelModules = ["nvme"];
+            kernel = "zfs";
+            gui.desktop = config.gui.desktop + "-minimal";
+
+            # Default User
+            imports = [{user.home = lib.mkForce {};}];
+            user = {
+              name = "nixos";
+              description = "Default User";
+              minimal = true;
+              shells = null;
+              password = readFile ../modules/user/passwords/default;
+            };
+          });
+
+      region = {
         timezone = "Asia/Kolkata";
         locale = "IN";
-        kernel = "zfs";
       };
     in rec {
       default = xfce;
-      gnome = build.iso (config // {gui.desktop = "gnome";});
-      xfce = build.iso (config // {gui.desktop = "xfce";});
+      gnome = iso (region // {gui.desktop = "gnome";});
+      xfce = iso (region // {gui.desktop = "xfce";});
     };
   };
 

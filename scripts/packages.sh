@@ -1,5 +1,5 @@
 #! /usr/bin/env nix
-#! nix shell nixpkgs#{bash,coreutils,jq} -c bash
+#! nix shell nixpkgs#bash nixpkgs#coreutils nixpkgs#jq -c bash
 # shellcheck shell=bash
 unset NIX_PATH
 set -euo pipefail

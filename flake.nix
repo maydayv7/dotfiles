@@ -144,23 +144,35 @@
   ## Configuration ##
   outputs = {self, ...} @ inputs: let
     inherit (inputs.nixpkgs) lib;
+    map = import ./lib/map.nix lib;
   in
     inputs.framework.lib.mkFlake {inherit inputs;} {
       inherit (self) systems;
       debug = false;
 
       _module.args = {util = self.lib;};
-      imports =
-        (import ./lib/map.nix {inherit lib;}).flake ./.
-        ++ [modules/nix/format.nix];
+      imports = map.flake ./. ++ [modules/nix/format.nix];
 
       flake = {
         # Supported Architectures
         systems = import inputs.systems;
 
-        ## Custom Library Functions
-        lib = import ./lib {
-          inherit lib inputs;
+        ## Custom Library Functions ##
+        lib = map.modules ./lib (file: import file lib);
+
+        ## Configuration Template ##
+        templates.default = with inputs.filters.lib; {
+          description = "My NixOS Configuration";
+          path = filter {
+            root = ./.;
+            exclude = [
+              ./.github
+              ./.gitlab
+              ./site
+              (matchExt "md")
+              (matchExt "secret")
+            ];
+          };
         };
       };
     };

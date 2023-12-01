@@ -115,8 +115,7 @@ github:maydayv7/dotfiles
 │       ├───nixos: package 'nixos'
 │       └───website: package 'website-stable'
 ├───templates
-│   ├───default: template: Simple, Minimal NixOS Configuration
-│   └───extensive: template: My Complete, Extensive NixOS Configuration
+│   └───default: template: My NixOS Configuration
 └───vmConfigurations
     └───Windows: Virtual Machine
 ```
@@ -129,7 +128,6 @@ github:maydayv7/dotfiles
 ```
 ┌── flake.nix
 ├── flake.lock
-├── .templates
 ├── files
 ├── secrets
 ├── shells
@@ -162,7 +160,6 @@ github:maydayv7/dotfiles
 - `flake.nix`: toplevel configuration file and repository version control  
   [`flake-parts`](https://github.com/hercules-ci/flake-parts) is used for modularization
 
-- `.templates`: custom Flakes configuration templates
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 - `shells`: sand-boxed shells for development purposes
@@ -177,7 +174,7 @@ github:maydayv7/dotfiles
 - `overlays`: overrides for pre-built packages
 - [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
 - [`modules`](./modules/README.md): custom configuration modules for additional functionality
-- `configuration.nix`: builds system configuration as part of `lib.build`
+- `configuration.nix`: builds system configuration
 
 ## Installation
 
@@ -193,7 +190,7 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
    cd /etc/nixos
    </code></pre>
 
-2. Clone this repository (and preferably initialize it using `git`): <pre><code>nix flake init -t github:maydayv7/dotfiles#extensive
+2. Clone this repository (and preferably initialize it using `git`): <pre><code>nix flake init -t github:maydayv7/dotfiles
    git init
    </code></pre>
 
@@ -278,7 +275,7 @@ _In case you are using the `advanced` filesystem scheme, you may need to set the
 <details>
 <summary><b>Build It Yourself</b></summary>
 
-If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. For starters, you can run `nix flake init -t github:maydayv7/dotfiles` in `/etc/nixos` for a basic Flakes-compatible system configuration. You can check out the list of links below to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
+If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration. You can check out the list of links below to resourceful Nix documentation/tutorials/projects that may be helpful in your endeavour
 
 **Welcome** to the Nix Community! ;)
 
@@ -416,13 +413,15 @@ You can navigate to the `README`s present in the various directories to know mor
 - Use the [`flake-parts`](https://flake.parts/) Flakes framework
 - Improve Syntax Formatting with `treefmt-nix` and drop `pre-commit-hooks`
 - Support declarative [Flatpak](https://flatpak.org/) application install
+- Update Nix to version 2.19
 - Allow patching Default Package Channel
 - Separate `games` and `laptop` module
 - Show package delta using [`nvd`](https://gitlab.com/khumba/nvd)
 - Upgrade to GNOME 45
   - Fix Emoji Support
   - Update Extension
-- Miscellaneous Updates
+- Drop `.templates`
+- Multiple Refactors
 
 ### v13
 
