@@ -6,7 +6,7 @@
   util = self.lib;
   inherit (self) files;
 
-  inherit (lib) extend fileContents makeOverridable mkIf;
+  inherit (lib) fileContents makeOverridable mkIf;
   inherit
     (builtins)
     attrValues
@@ -73,7 +73,10 @@ in {
     ## Device Configuration ##
       (makeOverridable lib.nixosSystem) {
         inherit system;
-        specialArgs = {inherit system util inputs files;};
+        specialArgs = {
+          inherit system util inputs files;
+          lib = with inputs; nixpkgs.lib // {inherit (home.lib) hm;};
+        };
 
         modules = [
           {

@@ -13,22 +13,18 @@ in {
 
     user = {
       persist.directories = [".config/BetterDiscord" ".config/discord"];
-      home = {
+      home.home = {
         # Plugins
-        home.file.".config/BetterDiscord/plugins" = {
+        file.".config/BetterDiscord/plugins" = {
           source = files.proprietary.discord;
           recursive = true;
         };
 
         # Discord Activation
-        imports = [
-          ({lib, ...}: {
-            home.activation.discordSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
-              echo "Setting up Discord..."
-              $DRY_RUN_CMD /usr/bin/env betterdiscordctl $VERBOSE_ARG install || true
-            '';
-          })
-        ];
+        activation.discordSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          echo "Setting up Discord..."
+          $DRY_RUN_CMD /usr/bin/env betterdiscordctl $VERBOSE_ARG install || true
+        '';
       };
     };
   };

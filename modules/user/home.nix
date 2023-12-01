@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -14,16 +15,7 @@
     };
 
     user.home = {
-      imports = [
-        ../../users
-
-        # Package Delta
-        ({lib, ...}: {
-          home.activation.delta = lib.hm.dag.entryAnywhere ''
-            ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
-          '';
-        })
-      ];
+      imports = [../../users];
 
       # Package Configuration
       home = {
@@ -33,6 +25,11 @@
           ".config/nix/nix.conf".source =
             config.environment.etc."nix/nix.conf".source;
         };
+
+        # Package Delta
+        activation.delta = lib.hm.dag.entryAnywhere ''
+          ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
+        '';
       };
     };
   };
