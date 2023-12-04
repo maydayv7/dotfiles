@@ -28,7 +28,7 @@
     merge = _: getValues;
   };
 in {
-  imports = util.map.module ./. ++ [inputs.home.nixosModules.home-manager];
+  imports = util.map.module ./. ++ [inputs.home-manager.nixosModules.home-manager];
 
   options = {
     # Global Home Manager Configuration

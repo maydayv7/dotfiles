@@ -37,7 +37,6 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
   - `filesystem`: Disk File System Choice - `"simple" / "advanced"` -
     - `persist`: System Files to Preserve across Reboots (while using `advanced` File System Layout)
   - `modules`: List of Hardware Configuration Modules imported from [`inputs.hardware`](https://github.com/nixos/nixos-hardware) - Ex. `[ "common-pc" ]`
-  - `security`: Enable Additional Security and Hardening Settings - `true / false`
   - `support`: List of Additional Supported Hardware - `[ "laptop" "mobile" "printer" "virtualisation" ]`
   - `vm`: Configure Virtualisation Support -
     - `android`: Enable Android Virtualisation

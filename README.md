@@ -423,12 +423,13 @@ You can navigate to the `README`s present in the various directories to know mor
 - Improve Syntax Formatting with `treefmt-nix` and drop `pre-commit-hooks`
 - Support declarative [Flatpak](https://flatpak.org/) application install
 - Update Nix to version 2.19
+- Enable Security & Hardening settings by default
 - Allow patching Default Package Channel
 - Separate `games` and `laptop` module
 - Show package delta using [`nvd`](https://gitlab.com/khumba/nvd)
 - Upgrade to GNOME 45
-  - Fix Emoji Support
-  - Update Extension
+  - Update Extensions
+- Fix Emoji Support
 - Drop `.templates`
 - Multiple Refactors
 

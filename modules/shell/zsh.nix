@@ -33,10 +33,7 @@ in {
           syntaxHighlighting.enable = true;
 
           # Initialization
-          initExtraBeforeCompInit = ''
-            source ~/.p10k.zsh
-            eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")
-          '';
+          initExtraBeforeCompInit = "source ~/.p10k.zsh";
 
           # Keybindings
           initExtra = ''

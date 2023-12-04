@@ -9,7 +9,7 @@
   enable = builtins.elem "office" config.apps.list;
 in {
   ## Office Environment Configuration ##
-  imports = [inputs.wine.nixosModules.onlyoffice];
+  imports = [inputs.windows.nixosModules.onlyoffice];
 
   config = lib.mkIf enable {
     # Applications

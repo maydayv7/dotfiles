@@ -164,11 +164,11 @@
     "flake-compat_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1673956053,
-        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
         "type": "github"
       },
       "original": {
@@ -237,11 +237,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1698882062,
-        "narHash": "sha256-HkhafUayIqxXyHH1X8d9RDl1M2CkFgZLjKD3MzabiEo=",
+        "lastModified": 1701473968,
+        "narHash": "sha256-YcVE5emp1qQ8ieHUnxt1wCZCC3ZfAS+SRRWZ2TMda7E=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "8c9fa2545007b49a5db5f650ae91f227672c3877",
+        "rev": "34fed993f1674c8d06d58b37ce1e0fe5eebcb9f5",
         "type": "github"
       },
       "original": {
@@ -321,7 +321,7 @@
         "type": "github"
       }
     },
-    "home": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -364,11 +364,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1700968077,
-        "narHash": "sha256-Lax+2g7G3Fe+ckMrHLYTl+97unbmNDmN1qS9MLBkxr4=",
+        "lastModified": 1701572887,
+        "narHash": "sha256-oCPwQZT0Inis4zcYhtFHUp7Rym1zglKPLDcRird35q8=",
         "owner": "Mic92",
         "repo": "nix-index-database",
-        "rev": "bd3aec0ecb0fdde863a7ed2c6caa220c47e22c07",
+        "rev": "41afa8d1c061beda68502bcc67f2788f3a77042b",
         "type": "github"
       },
       "original": {
@@ -485,7 +485,7 @@
         "gaming": "gaming",
         "generators": "generators",
         "hardware": "hardware",
-        "home": "home",
+        "home-manager": "home-manager",
         "impermanence": "impermanence",
         "index": "index",
         "nixpkgs": "nixpkgs_3",
@@ -496,8 +496,8 @@
         "systems": "systems_2",
         "unstable": "unstable",
         "utils": "utils_2",
-        "windows": "windows",
-        "wine": "wine"
+        "wfvm": "wfvm",
+        "windows": "windows"
       }
     },
     "sops": {
@@ -510,11 +510,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1700967639,
-        "narHash": "sha256-uuUwD/O1QcVk+TWPZFwl4ioUkC8iACj0jEXSyE/wGPI=",
+        "lastModified": 1701572436,
+        "narHash": "sha256-0anfOQqDend6kSuF8CmOSAZsiAS1nwOsin5VQukh6Q4=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "4be58d802693d7def8622ff34d36714f8db40371",
+        "rev": "8bca48cb9a12bbd8766f359ad00336924e91b7f7",
         "type": "github"
       },
       "original": {
@@ -535,7 +535,7 @@
         "base16-vim": "base16-vim",
         "flake-compat": "flake-compat",
         "home-manager": [
-          "home"
+          "home-manager"
         ],
         "nixpkgs": [
           "nixpkgs"
@@ -650,7 +650,7 @@
         "type": "github"
       }
     },
-    "windows": {
+    "wfvm": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -670,7 +670,7 @@
         "url": "https://git.m-labs.hk/M-Labs/wfvm"
       }
     },
-    "wine": {
+    "windows": {
       "inputs": {
         "flake-compat": "flake-compat_2",
         "nixpkgs": [
@@ -678,11 +678,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1700931377,
-        "narHash": "sha256-99FrZnODbFF8LLWtYIeeomzknLaoR3QJVt/nUTZfdag=",
+        "lastModified": 1701473854,
+        "narHash": "sha256-yXQAHNaGxW48de95RP8HkOOyaaz7zP6JR3VM5YEH4rc=",
         "owner": "emmanuelrosa",
         "repo": "erosanix",
-        "rev": "2bf473495dcedbad0591ffb0ed08a2aaf8dab9b2",
+        "rev": "8cbe76f6417869794981eaf073e73bd2eda650af",
         "type": "github"
       },
       "original": {

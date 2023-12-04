@@ -7,7 +7,8 @@
   ...
 }:
 with files; let
-  inherit (lib) mkEnableOption mkIf mkMerge;
+  inherit (builtins) listToAttrs map;
+  inherit (lib) mkEnableOption mkBefore mkIf mkMerge nameValuePair;
 in {
   imports = util.map.module ./.;
 
@@ -42,39 +43,44 @@ in {
       ];
 
       ## Program Configuration
-      # Faster 'nix-shell'
-      services.lorri.enable = true;
+      services.lorri.enable = true; # Faster 'nix shell'
       programs = {
-        # Command Not Found Search
-        command-not-found.enable = true;
+        command-not-found.enable = true; # Command Not Found Search
 
         # Command Correction Helper
         thefuck = {
           enable = true;
-          alias = "fix";
+          alias = "fix"; # Use 'fix' to correct previous command
         };
       };
 
       user = {
         persist.directories = [".local/share/direnv"];
         home = {
-          programs = {
-            # DirENV Support
-            direnv = {
-              enable = true; # Load Shell Variables from '.envrc'
-              nix-direnv.enable = true;
-            };
+          programs =
+            listToAttrs (map (shell:
+              nameValuePair shell
+              {initExtra = mkBefore ''eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")'';})
+            (util.map.module' ./.))
+            // {
+              hstr.enable = true; # Command History Browser
 
-            # Bat Configuration
-            bat = {
-              enable = true;
-              config = {
-                style = "full";
-                italic-text = "always";
-                map-syntax = [".ignore:Git Ignore"];
+              # DirENV Support
+              direnv = {
+                enable = true; # Load Shell Variables from '.envrc'
+                nix-direnv.enable = true;
+              };
+
+              # Bat Configuration
+              bat = {
+                enable = true;
+                config = {
+                  style = "full";
+                  italic-text = "always";
+                  map-syntax = [".ignore:Git Ignore"];
+                };
               };
             };
-          };
 
           # Neofetch
           home.file.".config/neofetch/config.conf".text = fetch;
@@ -88,8 +94,9 @@ in {
             # Programs
             cat = "bat";
             colors = "${scripts.colors}";
+            grep = "grep --color";
             edit = "sudo $EDITOR";
-            ls = "eza -b -h -l -F --octal-permissions --icons --time-style iso";
+            l = "eza -b -h -l -F --octal-permissions --icons --time-style iso";
             sike = "neofetch";
           };
         };

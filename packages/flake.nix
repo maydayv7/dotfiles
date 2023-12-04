@@ -46,9 +46,9 @@ in {
                 custom = self.packages."${system}";
                 unstable = import unstable {inherit system;};
 
-                wine = wine.packages."${system}";
                 gaming = gaming.packages."${system}";
                 generators = generators.packages."${system}".default;
+                wine = windows.packages."${system}";
               })
             ];
         };

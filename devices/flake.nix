@@ -16,7 +16,7 @@ in {
     ## Virtual Machines ##
     vmConfigurations = with self;
       map.modules ./vm
-      (name: import name inputs.windows.lib legacyPackages."${head systems}");
+      (name: import name inputs.wfvm.lib legacyPackages."${head systems}");
 
     ## Install Media Configuration ##
     installMedia = let

@@ -75,7 +75,7 @@ in {
         inherit system;
         specialArgs = {
           inherit system util inputs files;
-          lib = with inputs; nixpkgs.lib // {inherit (home.lib) hm;};
+          lib = with inputs; nixpkgs.lib // {inherit (home-manager.lib) hm;};
         };
 
         modules = [

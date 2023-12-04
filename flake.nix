@@ -89,7 +89,7 @@
 
     ## Feature Modules
     # User Home Manager
-    home = {
+    home-manager = {
       url = "github:nix-community/home-manager?ref=release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -121,21 +121,21 @@
       url = "github:danth/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home";
+        home-manager.follows = "home-manager";
       };
-    };
-
-    # Windows VM Creator
-    windows = {
-      url = "git+https://git.m-labs.hk/M-Labs/wfvm";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Declarative Flatpak Wrapper
     flatpak.url = "github:gmodena/nix-flatpak";
 
+    # Windows VM Creator
+    wfvm = {
+      url = "git+https://git.m-labs.hk/M-Labs/wfvm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Windows Apps Wrapper
-    wine = {
+    windows = {
       url = "github:emmanuelrosa/erosanix";
       inputs.nixpkgs.follows = "unstable";
     };

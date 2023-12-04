@@ -1,23 +1,10 @@
 {
-  config,
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) mkEnableOption mkIf mkOverride;
-in {
-  options.hardware.security =
-    mkEnableOption "Enable Additional Security and Hardening Settings";
-
-  ## Security Settings ##
-  config = mkIf config.hardware.security {
-    warnings = [
-      ''
-        Additional Security Settings are Enabled
-        - These may cause Instability Issues or Sacrifice Performance
-      ''
-    ];
-
+}: {
+  ## Security & Hardening Settings ##
+  config = {
     # Protocols
     programs.firejail.enable = true;
     security = {
@@ -37,9 +24,9 @@ in {
       kernel.sysctl = {
         # Kernel
         "kernel.ftrace_enabled" = false;
-        "kernel.kptr_restrict" = mkOverride 500 2;
+        "kernel.kptr_restrict" = lib.mkOverride 500 2;
         "kernel.sysrq" = 0;
-        "kernel.yama.ptrace_scope" = mkOverride 500 1;
+        "kernel.yama.ptrace_scope" = lib.mkOverride 500 1;
 
         # Network
         "net.core.bpf_jit_enable" = false;

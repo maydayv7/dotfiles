@@ -15,7 +15,6 @@
     boot = "efi";
     cores = 8;
     filesystem = "advanced";
-    security = true;
     support = ["laptop" "mobile" "printer" "virtualisation"];
     modules = ["dell-inspiron-5509"];
     vm.android.enable = true;

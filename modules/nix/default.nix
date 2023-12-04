@@ -14,18 +14,6 @@ in {
 
   ## Nix Settings ##
   config = {
-    # Utilities
-    user.persist.directories = [".cache/nix"] ++ optionals tools [".cache/manix"];
-    environment.systemPackages =
-      [pkgs.cachix]
-      ++ optionals tools (with pkgs; [
-        alejandra
-        manix
-        nodePackages.prettier
-        shellcheck
-        statix
-      ]);
-
     # Settings
     nix = {
       # Version
@@ -62,5 +50,17 @@ in {
         max-free = ${toString (10 * 1024 * 1024 * 1024)}
       '';
     };
+
+    # Utilities
+    user.persist.directories = [".cache/nix"] ++ optionals tools [".cache/manix"];
+    environment.systemPackages =
+      [pkgs.cachix]
+      ++ optionals tools (with pkgs; [
+        alejandra
+        manix
+        nodePackages.prettier
+        shellcheck
+        statix
+      ]);
   };
 }

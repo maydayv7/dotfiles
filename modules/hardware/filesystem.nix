@@ -20,6 +20,7 @@
     optional
     types
     ;
+
   inherit (config.hardware) filesystem;
 in {
   imports =
