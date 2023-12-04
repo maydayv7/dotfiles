@@ -15,6 +15,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`neofetch`](./neofetch) - `neofetch` CLI Theming
 - [`plank`](./plank) - `plank` Dock Theming
 - [`proprietary`](https://github.com/maydayv7/proprietary) - Custom Proprietary Files
+- [`repl.nix`](./repl.nix): Interactive Nix Shell to explore syntax and configuration
 - [`templates`](./templates) - Document Templates
 - [`vscode`](./vscode) - Visual Studio Code Editor Configuration
 - [`wine`](./wine) - Configuration and Theming for `wine` applications

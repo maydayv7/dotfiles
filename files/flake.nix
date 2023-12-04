@@ -69,7 +69,7 @@
     nano = readFile ./nano/nanorc;
 
     # Interactive Nix Shell
-    repl = ../repl.nix;
+    repl = ./repl.nix;
 
     # Bash Scripts
     scripts = map.files ../scripts build.script ".sh";

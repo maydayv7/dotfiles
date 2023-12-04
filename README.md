@@ -36,7 +36,6 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Supports multiple users and devices
 - Configuration for multiple Desktop Environments
 - Incorporates PipeWire, Wayland, ...!
-- Interactive [`repl`](./repl.nix) to explore syntax and configuration
 - Automatically builds and deploys my [Website](./site)
 - Authentication Credentials Management using the [`sops`](https://github.com/Mic92/sops-nix) Module and [`gnupg`](https://gnupg.org/) Keys
 - Comprehensive User Configuration using the tightly integrated [`home-manager`](https://github.com/nix-community/home-manager) module, with [support](./modules/user/default.nix) for configuring shared user configuration, global conditionals and user-specific configuration
@@ -140,7 +139,6 @@ github:maydayv7/dotfiles
 ├── secrets
 ├── shells
 ├── site
-├── repl.nix
 ├── users
 ├── devices
 │   ├── systems.nix
@@ -172,7 +170,6 @@ github:maydayv7/dotfiles
 - [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
 - `shells`: sand-boxed shells for development purposes
 - [`site`](./site/README.md): personal website generated using [`zola`](https://www.getzola.org/)
-- `repl.nix`: interactive shell to explore syntax and configuration
 - [`users`](./users/README.md): individual user-specific configuration
 - [`devices`](./devices/README.md): system configuration for various devices
 - `systems.nix`: list of supported system architectures

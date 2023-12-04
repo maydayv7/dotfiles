@@ -147,15 +147,18 @@ in {
         };
 
         # Persisted Files
+        system.activationScripts.dotfiles = let
+          dir = with files; "${persist}/${path.system}";
+        in ''
+          chown root:keys ${dir}
+          chmod 774 -R ${dir}
+        '';
+
         environment.persistence = {
           "${files.persist}" = {
             files = ["/etc/machine-id"];
             directories = [
-              {
-                directory = "/etc/nixos";
-                group = "keys";
-                mode = "774";
-              }
+              files.path.system
               "/var/log"
               "/var/lib/AccountsService"
               "/var/lib/nixos"

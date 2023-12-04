@@ -79,8 +79,12 @@
 
             # Additional Parameters
             extraConfig = {
+              core = {
+                hooksPath = "~/.git-hooks";
+                fileMode = "false";
+              };
+
               color.ui = "auto";
-              core.hooksPath = "~/.git-hooks";
               credential.helper = "libsecret";
               diff.colorMoved = "default";
               init.defaultBranch = "main";
