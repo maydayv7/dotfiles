@@ -304,29 +304,15 @@ _May change according to available hardware_
 - UEFI Compatible System
 - Intel CPU + iGPU
 
-### Branches
-
-There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch consists of configuration that builds without failure, and the `develop` branch is a bleeding-edge testbed
+See [this](./modules/hardware/README.md) for additional hardware information
 
 ### Build
 
 While rebuilding system with Flakes, make sure that any file with unstaged changes will not be included. Use `git add .` in cases where the `git` tree is dirty
 
-#### Boot
+#### Branches
 
-To boot into a different build generation, hold down the Spacebar (for `efi`) or the `Shift`/`Esc` key (for `mbr`) upon startup to access the boot menu
-
-<details>
-<summary>Secure Boot</summary>
-
-To configure Secure Boot, first install the system by using the `efi` loader, then follow [these](https://github.com/nix-community/lanzaboote/blob/v0.3.0/docs/QUICK_START.md) instructions and set `hardware.boot.loader` to `secure`
-
-_If the `advanced` filesystem scheme is used, the keys need to be created after `/etc/secureboot` is persisted_
-
-> **Note:**
-> Secure Boot is only supported in EFI Mode
-
-</details>
+There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch consists of configuration that builds without failure, and the `develop` branch is a bleeding-edge testbed
 
 #### Cache
 
@@ -340,14 +326,6 @@ This repository makes use of [`GitHub Actions`](./.github/workflows) in order to
 
 - [`ACCESS_TOKEN`](./modules/apps/git/secrets/gitlab-token.secret): Personal Access Token (To create one - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))
 - [`CACHIX_TOKEN`](./secrets/cachix-token.secret): Cachix Authentication Token
-
-### File System
-
-The system may be set up using either a `simple` or `advanced` filesystem layout. The advanced ZFS encrypted opt-in state filesystem configuration allows for a vastly improved experience, preventing formation of cruft and exerting total control over the device state, by erasing the system at every boot, keeping only what's required
-
-#### Data Storage
-
-All important, persisted user files are stored at `/data`, while persisted system files are stored at `/nix/state`. Personal files and media are stored at `/data/files`
 
 ### Home Manager
 
