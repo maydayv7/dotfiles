@@ -40,8 +40,9 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Automatically builds and deploys my [Website](./site)
 - Authentication Credentials Management using the [`sops`](https://github.com/Mic92/sops-nix) Module and [`gnupg`](https://gnupg.org/) Keys
 - Comprehensive User Configuration using the tightly integrated [`home-manager`](https://github.com/nix-community/home-manager) module, with [support](./modules/user/default.nix) for configuring shared user configuration, global conditionals and user-specific configuration
-- Support for Multiple Programming Language Development [`shells`](./shells) integrated with [`direnv`](https://direnv.net/) and [`lorri`](https://github.com/nix-community/lorri)
 - Ephemeral, Opt-In File System State using the [`impermanence`](https://github.com/nix-community/impermanence) module and [ZFS](https://zfsonlinux.org/)
+- Support for Secure Boot using [`lanzaboote`](https://github.com/nix-community/lanzaboote)
+- Support for Multiple Programming Language Development [`shells`](./shells) integrated with [`direnv`](https://direnv.net/) and [`lorri`](https://github.com/nix-community/lorri)
 - Auto-Magic using [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) helper functions
 - Automatic `packages` Updates using [`update.sh`](./packages/update.sh)
 - Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) image generation modules
@@ -120,9 +121,7 @@ github:maydayv7/dotfiles
 ├───overlays
 ├───packages
 │   └───x86_64-linux
-│       ├───dotfiles: package 'Dotfiles-v15.0'
-│       ├───nixos: package 'nixos'
-│       └───website: package 'website-stable'
+│       └───nixos: package 'nixos'
 ├───templates
 │   └───default: template: My NixOS Configuration
 └───vmConfigurations
@@ -269,7 +268,7 @@ _Note that the `install` script automatically creates and labels all the require
 | SWAP Area      |  swap  |  swap  |       4G       |
 | DATA Partition | Files  |  ZFS   |      10G       |
 
-> **Note**
+> **Note:**
 > For the `advanced` filesystem scheme only
 
 #### Procedure
@@ -305,10 +304,6 @@ _May change according to available hardware_
 - UEFI Compatible System
 - Intel CPU + iGPU
 
-### License
-
-All the files and scripts in this repository are licensed under the very permissive MIT [License](./LICENSE), allowing you to freely use, modify, copy, distribute, sell or give away the software, only requirement being that the license and copyright notice must be provided with it
-
 ### Branches
 
 There are two branches, [`stable`](../../tree/stable) and [`develop`](../../tree/develop) (when required). The `stable` branch consists of configuration that builds without failure, and the `develop` branch is a bleeding-edge testbed
@@ -320,6 +315,18 @@ While rebuilding system with Flakes, make sure that any file with unstaged chang
 #### Boot
 
 To boot into a different build generation, hold down the Spacebar (for `efi`) or the `Shift`/`Esc` key (for `mbr`) upon startup to access the boot menu
+
+<details>
+<summary>Secure Boot</summary>
+
+To configure Secure Boot, first install the system by using the `efi` loader, then follow [these](https://github.com/nix-community/lanzaboote/blob/v0.3.0/docs/QUICK_START.md) instructions and set `hardware.boot.loader` to `secure`
+
+_If the `advanced` filesystem scheme is used, the keys need to be created after `/etc/secureboot` is persisted_
+
+> **Note:**
+> Secure Boot is only supported in EFI Mode
+
+</details>
 
 #### Cache
 
@@ -424,6 +431,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Support declarative [Flatpak](https://flatpak.org/) application install
 - Update Nix to version 2.19
 - Enable Security & Hardening settings by default
+- Support Secure Boot using [`lanzaboote`](https://github.com/nix-community/lanzaboote)
 - Allow patching Default Package Channel
 - Separate `games` and `laptop` module
 - Show package delta using [`nvd`](https://gitlab.com/khumba/nvd)
@@ -633,7 +641,6 @@ You can navigate to the `README`s present in the various directories to know mor
 <summary><b>Known Limitations</b></summary>
 
 - It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
-- Secure Boot isn't supported yet
 - Home Configuration can't be decoupled from System
 - Lack of automatic script checking
 - Currently using a workaround for CI due to NixOS/nix#3978

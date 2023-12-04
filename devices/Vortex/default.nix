@@ -12,7 +12,7 @@
   imports = [./secrets];
 
   hardware = {
-    boot = "efi";
+    boot = "secure";
     cores = 8;
     filesystem = "advanced";
     support = ["laptop" "mobile" "printer" "virtualisation"];

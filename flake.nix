@@ -97,6 +97,12 @@
     # Hardware Support
     hardware.url = "github:nixos/nixos-hardware";
 
+    # Secure Boot
+    boot = {
+      url = "github:nix-community/lanzaboote/v0.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Authentication Credentials Manager
     sops = {
       url = "github:Mic92/sops-nix";

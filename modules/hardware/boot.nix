@@ -2,15 +2,19 @@
   config,
   options,
   lib,
+  inputs,
+  pkgs,
   ...
 }: let
   inherit (lib) mkDefault mkForce mkIf mkMerge mkOption optional types;
   loader = config.hardware.boot;
 in {
+  imports = [inputs.boot.nixosModules.lanzaboote];
+
   options.hardware.boot = mkOption {
     description = "Supported Boot Firmware";
-    type = types.nullOr (types.enum ["mbr" "efi"]);
-    default = "mbr";
+    type = types.nullOr (types.enum ["mbr" "efi" "secure"]);
+    default = "efi";
   };
 
   ## Boot Configuration ##
@@ -46,8 +50,10 @@ in {
           # Boot Loader
           loader = {
             timeout = mkDefault 0;
-            grub.enable = mkDefault false;
             efi.canTouchEfiVariables = true;
+
+            grub.enable = mkDefault false;
+            systemd-boot.enable = mkDefault false;
           };
         };
       }
@@ -68,9 +74,23 @@ in {
       ## SystemD EFI Boot Loader ##
       (mkIf (loader == "efi") {
         boot.loader.systemd-boot = {
-          enable = true;
+          enable = mkForce true;
           editor = false;
-          configurationLimit = 100;
+          configurationLimit = 15;
+        };
+      })
+
+      ## Secure Boot (EFI Only) ##
+      (mkIf (loader == "secure") rec {
+        boot.lanzaboote = {
+          enable = true;
+          pkiBundle = "/etc/secureboot";
+          configurationLimit = 15;
+        };
+
+        environment = {
+          systemPackages = [pkgs.sbctl];
+          persist.directories = [boot.lanzaboote.pkiBundle];
         };
       })
     ]);

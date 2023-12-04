@@ -32,7 +32,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 
 - [`hardware`](./hardware): Module that configures device and additional hardware -
 
-  - `boot`: Supported Boot Firmware - `"mbr" / "efi"`
+  - `boot`: Supported Boot Firmware - `"mbr" / "efi" / "secure"`
   - `cores`: Number of CPU Cores - Ex. `4`
   - `filesystem`: Disk File System Choice - `"simple" / "advanced"` -
     - `persist`: System Files to Preserve across Reboots (while using `advanced` File System Layout)
