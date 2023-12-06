@@ -136,21 +136,22 @@ github:maydayv7/dotfiles
 ┌── flake.nix
 ├── flake.lock
 ├── files
-├── secrets
-├── shells
 ├── site
-├── users
 ├── devices
 │   ├── systems.nix
 │   └── vm
-├── scripts
-│   └── nixos.nix
-├── packages
-│   └── overlays
+├── users
+├── secrets
+├── shells
+├── checks
 ├── lib
 │   ├── build.nix
 │   ├── map.nix
 │   └── pack.nix
+├── scripts
+│   └── nixos.nix
+├── packages
+│   └── overlays
 └── modules
     ├── configuration.nix
     ├── apps
@@ -167,17 +168,18 @@ github:maydayv7/dotfiles
   [`flake-parts`](https://github.com/hercules-ci/flake-parts) is used for modularization
 
 - [`files`](./files/README.md): `dotfiles` and program configuration
-- [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
-- `shells`: sand-boxed shells for development purposes
 - [`site`](./site/README.md): personal website generated using [`zola`](https://www.getzola.org/)
-- [`users`](./users/README.md): individual user-specific configuration
 - [`devices`](./devices/README.md): system configuration for various devices
 - `systems.nix`: list of supported system architectures
 - [`vm`](./devices/vm/README.md): declarative configuration to build multiple virtual machines
+- [`users`](./users/README.md): individual user-specific configuration
+- [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
+- `shells`: sand-boxed shells for development purposes
+- `checks`: configuration checks and continuous integration
+- [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
 - [`scripts`](./scripts/README.md): useful system management scripts
 - [`packages`](./packages/README.md): locally built custom packages
 - `overlays`: overrides for pre-built packages
-- [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
 - [`modules`](./modules/README.md): custom configuration modules for additional functionality
 - `configuration.nix`: builds system configuration
 
@@ -317,11 +319,11 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 
 #### Continuous Integration
 
-This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax on every commit (using and [`statix`](https://github.com/nerdypepper/statix)) and format it (using [`treefmt`](https://github.com/numtide/treefmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./.gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
+This repository makes use of [`GitHub Actions`](./checks/github/workflows) in order to automatically check the configuration syntax on every commit (using and [`statix`](https://github.com/nerdypepper/statix)) and format it (using [`treefmt`](https://github.com/numtide/treefmt)), update the `inputs` every week, build the configuration and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) as well as publish the Install Media `.iso` to a draft Release upon creation of a tag (You can also find `GitLab CI/CD` configuration in [`.gitlab`](./checks/gitlab/.gitlab-ci.yml)). A `git` [hook](./.git-hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ###### Variables
 
-- [`ACCESS_TOKEN`](./modules/apps/git/secrets/gitlab-token.secret): Personal Access Token (To create one - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))
+- [`ACCESS_TOKEN`](./devices/Vortex/secrets/github-token.secret): Personal Access Token (To create one - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))
 - [`CACHIX_TOKEN`](./secrets/cachix-token.secret): Cachix Authentication Token
 
 ### Home Manager
@@ -437,7 +439,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Refactor GNOME Experience
   - Use `blackbox` as default terminal
   - Use [`forge`](https://github.com/forge-ext/forge) for tiling
-  - Add keyboard shortcuts window using []`shortcuts`](https://gitlab.com/paddatrapper/shortcuts-gnome-extension)
+  - Add keyboard shortcuts window using [`shortcuts`](https://gitlab.com/paddatrapper/shortcuts-gnome-extension)
 - Improve XFCE Configuration and Handling
 - Improve Automatic Package Update Script
 - Enable ZFS encryption

@@ -7,10 +7,11 @@
   ...
 }:
 with files; let
+  inherit (util.map) modules;
   inherit (builtins) listToAttrs map;
   inherit (lib) mkEnableOption mkBefore mkIf mkMerge nameValuePair;
 in {
-  imports = util.map.module ./.;
+  imports = modules.list ./.;
 
   options.shell.utilities = mkEnableOption "Enable Additional Shell Utilities";
 
@@ -55,13 +56,17 @@ in {
       };
 
       user = {
-        persist.directories = [".local/share/direnv"];
+        persist = {
+          files = [".hstr_favorites"];
+          directories = [".local/share/direnv"];
+        };
+
         home = {
           programs =
             listToAttrs (map (shell:
               nameValuePair shell
               {initExtra = mkBefore ''eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")'';})
-            (util.map.module' ./.))
+            (modules.name ./.))
             // {
               hstr.enable = true; # Command History Browser
 
@@ -96,6 +101,7 @@ in {
             colors = "${scripts.colors}";
             grep = "grep --color";
             edit = "sudo $EDITOR";
+            history = "hstr";
             l = "eza -b -h -l -F --octal-permissions --icons --time-style iso";
             sike = "neofetch";
           };

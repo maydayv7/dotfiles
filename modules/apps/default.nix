@@ -3,13 +3,14 @@
   util,
   ...
 }: let
+  inherit (util.map) modules;
   inherit (lib) mkOption types;
 in {
-  imports = util.map.module ./.;
+  imports = modules.list ./.;
 
   options.apps.list = mkOption {
     description = "List of Enabled Applications";
-    type = types.listOf (types.enum (util.map.module' ./.));
+    type = types.listOf (types.enum (modules.name ./.));
     default = [];
   };
 }

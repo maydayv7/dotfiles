@@ -23,7 +23,7 @@ To build the site, run `nix build`. In order to override the Base URL, <code>nix
 
 #### Continuous Integration
 
-[`GitHub Actions`](../.github/workflows/website.yml) is used in order to automatically build the site and publish it to the main domain using GitHub Pages. [Netlify](https://netlify.com) automatically deploys to [maydayv7.netlify.app](https://maydayv7.netlify.app) on every commit and allows for PR previews
+[`GitHub Actions`](../checks/github/workflows/website.yml) is used in order to automatically build the site and publish it to the main domain using GitHub Pages. [Netlify](https://netlify.com) automatically deploys to [maydayv7.netlify.app](https://maydayv7.netlify.app) on every commit and allows for PR previews
 
 ### Features
 

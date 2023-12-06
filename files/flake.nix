@@ -1,5 +1,4 @@
 {
-  lib,
   util,
   inputs,
   ...
@@ -19,10 +18,17 @@
     };
 
     # ASCII Art
-    ascii = map.files' ./ascii lib.id "";
+    ascii = map.files {
+      directory = ./ascii;
+      extension = "";
+      recursive = true;
+    };
 
     # Base16 Color Schemes
-    colors = map.files ./colors lib.id ".yaml";
+    colors = map.files {
+      directory = ./colors;
+      extension = ".yaml";
+    };
 
     # Neofetch
     fetch = readFile ./neofetch/config.conf;
@@ -40,7 +46,10 @@
         iso = readFile ./gnome/iso;
         tiling = ./gnome/tiling.css;
       }
-      // map.files ./gnome lib.id ".json";
+      // map.files {
+        directory = ./gnome;
+        extension = ".json";
+      };
 
     # GPG Keys Directory
     gpg = "/etc/gpg";
@@ -72,7 +81,11 @@
     repl = ./repl.nix;
 
     # Bash Scripts
-    scripts = map.files ../scripts build.script ".sh";
+    scripts = map.files {
+      directory = ../scripts;
+      apply = build.script;
+      extension = ".sh";
+    };
 
     # 'sops' Encrypted Secrets
     sops = ../secrets/secrets.yaml;
@@ -81,7 +94,11 @@
     templates = ./templates;
 
     # Visual Studio Code Editor
-    vscode = map.files ./vscode (file: fromJSON (readFile file)) ".json";
+    vscode = map.files {
+      directory = ./vscode;
+      apply = file: fromJSON (readFile file);
+      extension = ".json";
+    };
 
     # XDG Settings
     xdg.mime = import ./xdg/mime.nix;

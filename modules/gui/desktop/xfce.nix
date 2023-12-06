@@ -159,10 +159,13 @@ in {
           // mapAttrs' (name: value:
             nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml"
             {text = value;})
-          (util.map.files xfce.settings
-            (file:
+          (util.map.files {
+            directory = xfce.settings;
+            extension = ".xml";
+            apply = file:
               replaceStrings ["@system" "@wallpaper"]
-              [path.system wallpaper] (builtins.readFile file)) ".xml");
+              [path.system wallpaper] (builtins.readFile file);
+          });
 
         ## 3rd Party Apps Configuration
         # Code Editor

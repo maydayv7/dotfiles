@@ -3,9 +3,10 @@
   util,
   ...
 }: let
+  inherit (util.map) modules;
   inherit (lib) mkOption types;
 in {
-  imports = util.map.module ./.;
+  imports = modules.list ./.;
 
   options.hardware = with types; {
     cores = mkOption {
@@ -22,7 +23,7 @@ in {
 
     support = mkOption {
       description = "List of Additional Supported Hardware";
-      type = listOf (enum (util.map.module' ./.));
+      type = listOf (enum (modules.name ./.));
       default = [];
     };
   };

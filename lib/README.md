@@ -14,12 +14,12 @@ The `lib` directory contains custom-made utility functions (exposed as `util`), 
   - `array`: Maps required parameter to all elements present in `list`
   - `filter`: Filters out unneeded `attrs` and maps required ones to specified function
   - `list`: Lists all toplevel `attrs` of `attrset` and returns a space-separated string
-  - `file`: Maps all files with a particular extension adhering to a particular condition stored in a directory as an `attrset` acted upon by specified function. Use `file'` in order to recursively search inside directories
-  - `files`: Same as `file` but without additional conditional
-  - `patches`: Maps all file patches stored in a directory, if available
+  - `file`: Maps all files with a particular extension adhering to a particular condition stored in a directory as an `attrset` acted upon by specified function. Enable `recursive` in order to recursively search inside directories
+  - `modules`: Maps all configuration modules stored in a directory as an `attrset` acted upon by specified function
+    - `list`: Maps all configuration files stored in a directory into a list for easy import
+    - `name`: Same as `list`, but maps file names instead of paths
   - `flake`: Maps all subflakes stored in a directory into a list for easy import
-  - `module`: Maps all configuration files stored in a directory into a list for easy import. Use `module'` in order to map file names instead of paths
-  - `modules`: Maps all configuration modules stored in a directory as an `attrset` acted upon by specified function. Use `modules'` in order to recursively search inside directories
+  - `patches`: Maps all file patches stored in a directory, if available
   - `secrets`: Maps binary `sops` encrypted secrets stored in a directory
 
 - [`pack`](./pack.nix): Utility packager functions used to conveniently perform package management functions -

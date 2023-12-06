@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  imports = util.map.module ./.;
+  imports = util.map.modules.list ./.;
 
   ## Base Configuration ##
   config = {

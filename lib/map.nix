@@ -22,7 +22,6 @@ lib: let
     id
     mapAttrs'
     mapAttrsToList
-    mkIf
     nameValuePair
     removeSuffix
     ;
@@ -40,53 +39,62 @@ in rec {
   list = func: foldl' (x: y: x + y + " ") "" (attrNames func);
 
   ## Files Map
-  # Top Level
-  files = dir: func: ext: file dir func ext (_: true);
-  file = dir: func: ext: cond:
+  files = {
+    directory,
+    recursive ? false,
+    apply ? id,
+    extension,
+    check ? (_: true),
+  }:
     filter checkName (name: type: let
-      path = "${toString dir}/${name}";
+      path = "${toString directory}/${name}";
     in
-      if
+      if (type == "directory" || type == "symlink") && recursive
+      then nameValuePair name (files {inherit path apply;})
+      else if
         (type == "directory" || type == "symlink")
         && (
-          if (ext == ".nix")
+          if (extension == ".nix")
           then pathExists "${path}/default.nix"
           else true
         )
-      then nameValuePair name (func path)
+      then nameValuePair name (apply path)
       else if
         type
         == "regular"
         && (
-          if (ext == ".nix")
+          if (extension == ".nix")
           then name != "default.nix" && name != "flake.nix"
           else true
         )
-        && hasSuffix ext name
-        && (cond path)
-      then nameValuePair (removeSuffix ext name) (func path)
-      else nameValuePair "" null) (readDir dir);
+        && hasSuffix extension name
+        && (check path)
+      then nameValuePair (removeSuffix extension name) (apply path)
+      else nameValuePair "" null) (readDir directory);
 
-  # Recursive
-  files' = dir: func: ext: file' dir func ext (_: true);
-  file' = dir: func: ext: cond:
-    filter checkName (name: type: let
-      path = "${toString dir}/${name}";
+  # Module Imports
+  modules = {
+    __functor = _: directory: apply:
+      files {
+        inherit directory apply;
+        extension = ".nix";
+        check = checkAttr;
+      };
+
+    list = path: attrValues (modules path id);
+    name = path: attrNames (modules path id);
+  };
+
+  # Flake Imports
+  flake = directory:
+    attrValues (filter checkName (name: type: let
+      path = "${toString directory}/${name}";
     in
-      if (type == "directory" || type == "symlink")
-      then nameValuePair name (file' path func)
-      else if
-        type
-        == "regular"
-        && (
-          if (ext == ".nix")
-          then name != "default.nix" && name != "flake.nix"
-          else true
-        )
-        && hasSuffix ext name
-        && (cond path)
-      then nameValuePair (removeSuffix ext name) (func path)
-      else nameValuePair "" null) (readDir dir);
+      if
+        (type == "directory" || type == "symlink")
+        && (pathExists "${path}/flake.nix")
+      then nameValuePair name "${path}/flake.nix"
+      else nameValuePair "" null) (readDir directory));
 
   # Package Patches
   patches = patch:
@@ -101,32 +109,15 @@ in rec {
         else null) (readDir patch))
     else patch;
 
-  # Flake Imports
-  flake = dir:
-    attrValues (filter checkName (name: type: let
-      path = "${toString dir}/${name}";
-    in
-      if
-        (type == "directory" || type == "symlink")
-        && (pathExists "${path}/flake.nix")
-      then nameValuePair name "${path}/flake.nix"
-      else nameValuePair "" null) (readDir dir));
-
-  # Module Imports
-  module = dir: attrValues (modules dir id);
-  module' = dir: attrNames (modules dir id);
-  modules = dir: func: file dir func ".nix" checkAttr;
-  modules' = dir: func: file' dir func ".nix" checkAttr;
-
   # 'sops' Encrypted Secrets
-  secrets = dir: neededForUsers:
+  secrets = directory: neededForUsers:
     filter checkName (name: type:
       if type == "regular" && hasSuffix ".secret" name
       then
         nameValuePair name {
-          sopsFile = dir + "/${name}";
+          sopsFile = directory + "/${name}";
           format = "binary";
           inherit neededForUsers;
         }
-      else nameValuePair "" null) (readDir dir);
+      else nameValuePair "" null) (readDir directory);
 }

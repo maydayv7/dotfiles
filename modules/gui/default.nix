@@ -6,14 +6,14 @@
   ...
 }: let
   inherit (builtins) map;
-  inherit (util.map) module module';
+  inherit (util.map.modules) list name;
   inherit (lib) mkOption optional types;
 in {
-  imports = module ./. ++ module ./desktop;
+  imports = list ./. ++ list ./desktop;
 
   options.gui.desktop = mkOption {
     description = "GUI Desktop Choice";
-    type = types.enum ((module' ./desktop) ++ map (x: x + "-minimal") (module' ./desktop) ++ [""]);
+    type = types.enum ((name ./desktop) ++ map (x: x + "-minimal") (name ./desktop) ++ [""]);
     default = "";
   };
 

@@ -6,7 +6,7 @@
   files,
   ...
 }: let
-  inherit (config.user) groups home settings;
+  inherit (util.map) modules;
   inherit (builtins) all attrNames attrValues mapAttrs pathExists;
   inherit
     (lib)
@@ -22,13 +22,15 @@
     types
     ;
 
+  inherit (config.user) groups home settings;
+
   # Merged Sets Type
   mergedAttrs = mkOptionType {
     name = "mergedAttrs";
     merge = _: getValues;
   };
 in {
-  imports = util.map.module ./. ++ [inputs.home-manager.nixosModules.home-manager];
+  imports = modules.list ./. ++ [inputs.home-manager.nixosModules.home-manager];
 
   options = {
     # Global Home Manager Configuration
@@ -74,7 +76,7 @@ in {
               };
               shells = mkOption {
                 description = "List of Additional Supported Shells";
-                type = listOf (enum (util.map.module' ../shell));
+                type = listOf (enum (modules.name ../shell));
                 default = ["bash"];
               };
               homeConfig = mkOption {

@@ -157,7 +157,7 @@
       debug = false;
 
       _module.args = {util = self.lib;};
-      imports = map.flake ./. ++ [modules/nix/format.nix];
+      imports = map.flake ./.;
 
       flake = {
         # Supported Architectures
@@ -172,8 +172,7 @@
           path = filter {
             root = ./.;
             exclude = [
-              ./.github
-              ./.gitlab
+              ./checks
               ./site
               (matchExt "md")
               (matchExt "secret")

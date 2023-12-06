@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) attrValues map;
-  inherit (lib) id mkIf mkOption types;
+  inherit (lib) mkIf mkOption types;
   cfg = config.credentials.key;
 in {
   options.credentials = {
@@ -52,10 +52,14 @@ in {
         keyserver-options = "honor-keyserver-url";
       };
 
-      publicKeys = map (source: {
-        inherit source;
-        trust = "ultimate";
-      }) (attrValues (util.map.files ../secrets/keys id ".gpg"));
+      publicKeys =
+        map (source: {
+          inherit source;
+          trust = "ultimate";
+        }) (attrValues (util.map.files {
+          directory = ../secrets/keys;
+          extension = ".gpg";
+        }));
     };
 
     # XDG Configuration

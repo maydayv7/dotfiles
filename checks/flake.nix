@@ -1,12 +1,13 @@
 {inputs, ...}: {
-  ## Code Formatter ##
+  ## Configuration Checks ##
   imports = [inputs.formatter.flakeModule];
 
   perSystem = {pkgs, ...}: {
+    ## Code Formatter
     treefmt.config = rec {
       package = pkgs.treefmt;
 
-      projectRoot = ../../.;
+      projectRoot = ../.;
       projectRootFile = "${projectRoot}/flake.nix";
       settings.global.excludes = [
         "_*"
@@ -14,7 +15,6 @@
         "flake.lock"
       ];
 
-      # Formatters
       programs = {
         alejandra.enable = true;
         statix.enable = true;

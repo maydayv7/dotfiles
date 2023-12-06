@@ -10,7 +10,7 @@
     ...
   }: {
     devShells =
-      util.map.modules' ./. (file: pkgs.mkShell (import file pkgs))
+      util.map.modules ./. (file: pkgs.mkShell (import file pkgs))
       // {
         default = import ./. {inherit pkgs;};
         website = import ../site/shell.nix {inherit pkgs;};
