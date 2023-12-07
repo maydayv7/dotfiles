@@ -184,7 +184,7 @@
 
   ## Nix Configuration ##
   nixConfig = {
-    commit-lockfile-summary = "chore(flake.lock): Update `inputs`";
+    commit-lockfile-summary = "chore(flake): Update `inputs`";
 
     # Binary Caches
     substituters = [

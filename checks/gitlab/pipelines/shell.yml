@@ -14,5 +14,5 @@ shell:
   parallel:
     matrix:
       - DEVSHELL:
-          [cc, format, go, java, lisp, lua, python, rust, video, website]
+          [cc, format, java, lua, python, rust, video, website]
   script: cachix watch-exec $CACHIX_CACHE_NAME nix develop .#$DEVSHELL

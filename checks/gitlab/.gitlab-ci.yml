@@ -13,4 +13,4 @@ stages:
   - publish
 
 # CI Imports
-include: ".gitlab/pipelines/*.yml"
+include: "checks/gitlab/pipelines/*.yml"
