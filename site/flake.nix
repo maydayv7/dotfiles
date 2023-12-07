@@ -4,6 +4,9 @@ _: {
     # Package
     packages.website = pkgs.callPackage ./. {inherit pkgs;};
 
+    # Development Shell
+    devShells.website = import ./shell.nix {inherit pkgs;};
+
     # Formatting Errors
     treefmt.config.programs.prettier.excludes = [
       "site/templates/macros/edit.html"

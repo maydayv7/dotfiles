@@ -17,7 +17,7 @@
 
     sops = {
       # Encrypted Secrets
-      secrets = util.map.secrets ./. false;
+      secrets = util.map.secrets {directory = ./.;};
 
       # GPG Key Import
       gnupg = {

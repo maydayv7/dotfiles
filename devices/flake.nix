@@ -31,7 +31,6 @@ in {
             gui.desktop = config.gui.desktop + "-minimal";
 
             # Default User
-            imports = [{user.home = lib.mkForce {};}];
             user = {
               name = "nixos";
               description = "Default User";
@@ -39,6 +38,14 @@ in {
               shells = null;
               password = readFile ../modules/user/passwords/default;
             };
+
+            # Disabled Modules
+            imports = [
+              {
+                user.home = lib.mkForce {};
+                sops.secrets = lib.mkForce {};
+              }
+            ];
           });
 
       region = {

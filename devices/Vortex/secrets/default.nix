@@ -1,4 +1,4 @@
 {util, ...}: {
   ## System Secrets ##
-  config.sops.secrets = util.map.secrets ./. false;
+  config.sops.secrets = util.map.secrets {directory = ./.;};
 }

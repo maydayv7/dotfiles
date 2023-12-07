@@ -227,6 +227,7 @@ in
             DIR=${path.system}
           fi
           git clone --recurse-submodules ${path.repo} "$DIR"
+          pushd "$DIR" &> /dev/null; git config core.fileMode false; popd &> /dev/null
           nixos apply --activate
         ;;
         "")

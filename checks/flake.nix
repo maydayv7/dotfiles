@@ -1,8 +1,16 @@
-{inputs, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: {
   ## Configuration Checks ##
   imports = [inputs.formatter.flakeModule];
 
-  perSystem = {pkgs, ...}: {
+  perSystem = {
+    system,
+    pkgs,
+    ...
+  }: {
     ## Code Formatter
     treefmt.config = rec {
       package = pkgs.treefmt;
@@ -26,5 +34,8 @@
         };
       };
     };
+
+    # Formatting Shell
+    devShells.format = config.allSystems."${system}".treefmt.build.devShell;
   };
 }

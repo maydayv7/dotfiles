@@ -18,7 +18,11 @@ in {
     sops.secrets =
       if enable
       then (mkForce {})
-      else util.map.secrets ./passwords true;
+      else
+        util.map.secrets {
+          directory = ./passwords;
+          neededForUsers = true;
+        };
 
     users = {
       users =

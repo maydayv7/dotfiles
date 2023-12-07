@@ -110,7 +110,10 @@ in rec {
     else patch;
 
   # 'sops' Encrypted Secrets
-  secrets = directory: neededForUsers:
+  secrets = {
+    directory,
+    neededForUsers ? false,
+  }:
     filter checkName (name: type:
       if type == "regular" && hasSuffix ".secret" name
       then

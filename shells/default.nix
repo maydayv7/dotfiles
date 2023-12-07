@@ -1,4 +1,4 @@
-{pkgs ? import ../., ...}:
+{pkgs ? import ../packages, ...}:
 with pkgs;
   mkShell {
     name = "devShell";
