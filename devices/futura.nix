@@ -1,6 +1,6 @@
 {
   system = "x86_64-linux";
-  name = "Futura";
+  name = "futura";
   description = "PC - Dell Inspiron 11 3000";
 
   timezone = "Asia/Kolkata";

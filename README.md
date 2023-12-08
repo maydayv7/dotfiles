@@ -105,8 +105,8 @@ github:maydayv7/dotfiles
 │   └───x86_64-linux: omitted (use '--legacy' to show)
 ├───lib: utility library functions
 ├───nixosConfigurations
-│   ├───Futura: NixOS configuration
-│   └───Vortex: NixOS configuration
+│   ├───futura: NixOS configuration
+│   └───vortex: NixOS configuration
 ├───nixosModule: NixOS module
 ├───nixosModules
 │   ├───apps: NixOS module
@@ -323,7 +323,7 @@ This repository makes use of [`GitHub Actions`](./checks/github/workflows) in or
 
 ###### Variables
 
-- [`ACCESS_TOKEN`](./devices/Vortex/secrets/github-token.secret): Personal Access Token (To create one - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))
+- [`ACCESS_TOKEN`](./secrets/github-token.secret): Personal Access Token (To create one - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))
 - [`CACHIX_TOKEN`](./secrets/cachix-token.secret): Cachix Authentication Token
 
 ### Home Manager

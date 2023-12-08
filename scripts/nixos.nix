@@ -301,11 +301,11 @@ in
         case $2 in
         "") error "Expected a Variant of Install Media or Device";;
         *)
-          if grep -wq "$2" <<<"${installMedia}"
+          if grep -wq "$2" <<<"${installMedia}" &> /dev/null
           then
             echo "Building '$2' Install Media Image..."
             nix build ${path.system}#installMedia."$2".config.system.build.isoImage && echo "The Image is located at './result/iso/nixos.iso'"
-          elif grep -wq "$2" <<<"${nixosConfigurations}"
+          elif grep -wq "$2" <<<"${nixosConfigurations}" &> /dev/null
           then
             echo "Building '$2' Device Image..."
             nixos-generate -f iso --flake ${path.system}#"$2"
@@ -450,8 +450,13 @@ in
           case $3 in
           "") error "Expected 'name' of Secret";;
           *)
-            echo "Editing Secret '$3'..."
-            find ${path.system} -name "$3".secret -exec sops --config ${sops} -i {} \+ || error "Unknown Secret '$3'"
+            if find ${path.system} -name "$3".secret | grep "secret" &> /dev/null
+            then
+              echo "Editing Secret '$3'..."
+              find ${path.system} -name "$3".secret -exec sops --config ${sops} -i {} \+
+            else
+              error "Unknown Secret '$3'"
+            fi
           ;;
           esac
         ;;
@@ -460,8 +465,13 @@ in
           grep / ${sops} | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path.system}/|' | xargs tree -C --noreport -P '*.secret' -I '_*' | sed 's/\.secret//'
         ;;
         show)
-          echo "Showing Secret '$3'..."
-          find ${path.system} -name "$3".secret -exec sops --config ${sops} -d {} \+ || error "Unknown Secret '$3'"
+          if find ${path.system} -name "$3".secret | grep "secret" &> /dev/null
+          then
+            echo "Showing Secret '$3'..."
+            find ${path.system} -name "$3".secret -exec sops --config ${sops} -d {} \+
+          else
+            error "Unknown Secret '$3'"
+          fi
         ;;
         update)
           echo "Updating Secrets..."
@@ -474,7 +484,7 @@ in
         case $2 in
         "") nix develop ${path.system} --command "$SHELL";;
         *)
-          if grep -wq "$2" <<<"${devShells}"
+          if grep -wq "$2" <<<"${devShells}" &> /dev/null
           then
             nix develop ${path.system}#"$2" --command "$SHELL"
           else

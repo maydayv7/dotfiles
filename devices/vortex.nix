@@ -1,6 +1,6 @@
 {
   system = "x86_64-linux";
-  name = "Vortex";
+  name = "vortex";
   description = "PC - Dell Inspiron 15 5000";
 
   timezone = "Asia/Kolkata";
@@ -8,8 +8,6 @@
 
   kernel = "lqx";
   kernelModules = ["nvme" "thunderbolt"];
-
-  imports = [./secrets];
 
   hardware = {
     boot = "secure";

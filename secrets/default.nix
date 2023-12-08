@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   util,
   inputs,
@@ -17,7 +18,15 @@
 
     sops = {
       # Encrypted Secrets
-      secrets = util.map.secrets {directory = ./.;};
+      secrets = let
+        directory = ./. + "/${config.networking.hostName}";
+      in
+        util.map.secrets {directory = ./.;}
+        // (
+          if (builtins.pathExists directory)
+          then util.map.secrets {inherit directory;}
+          else {}
+        );
 
       # GPG Key Import
       gnupg = {
