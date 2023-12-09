@@ -86,12 +86,9 @@ github:maydayv7/dotfiles
 ├───devShells
 │   └───x86_64-linux
 │       ├───cc: development environment 'C'
-│       ├───commit: development environment 'nix-shell'
 │       ├───default: development environment 'devShell'
 │       ├───format: development environment 'Formatter'
-│       ├───go: development environment 'Go'
 │       ├───java: development environment 'Java'
-│       ├───lisp: development environment 'Lisp'
 │       ├───lua: development environment 'Lua'
 │       ├───python: development environment 'Python'
 │       ├───rust: development environment 'Rust'

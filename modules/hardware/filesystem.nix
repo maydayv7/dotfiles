@@ -12,7 +12,9 @@
     (lib)
     filterAttrs
     hasPrefix
+    mkAfter
     mkAliasOptionModule
+    mkForce
     mkIf
     mkMerge
     mkOption
@@ -90,8 +92,12 @@ in {
         };
       })
 
-      ## Advanced File System Configuration using BTRFS ##
-      (mkIf (filesystem == "advanced") {
+      ## Advanced File System Configuration using ZFS ##
+      (mkIf (filesystem == "advanced") (let
+        rollback = ''
+          zfs rollback -r fspool/system/root@blank && echo "Rollback Complete!"
+        '';
+      in {
         fileSystems =
           {
             # ROOT Partition
@@ -128,7 +134,6 @@ in {
             devNodes = "/dev/disk/by-partlabel/System";
           };
 
-          # Opt-In State
           initrd.systemd = {
             enable = true;
             services.rollback = {
@@ -139,10 +144,16 @@ in {
               path = [pkgs.zfs];
               unitConfig.DefaultDependencies = "no";
               serviceConfig.Type = "oneshot";
-              script = ''
-                zfs rollback -r fspool/system/root@blank && echo "Rollback Complete!"
-              '';
+              script = rollback;
             };
+          };
+        };
+
+        # Debug
+        specialisation.recovery.configuration = {
+          boot.initrd = {
+            systemd.enable = mkForce false;
+            postDeviceCommands = mkAfter rollback;
           };
         };
 
@@ -169,7 +180,7 @@ in {
           "/data" = {
             hideMounts = true;
             users =
-              mapAttrs (name: _: {
+              mapAttrs (_: _: {
                 inherit (config.user.persist) files;
                 directories =
                   [
@@ -205,6 +216,6 @@ in {
             monthly = 1;
           };
         };
-      })
+      }))
     ]);
 }

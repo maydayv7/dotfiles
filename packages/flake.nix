@@ -16,11 +16,15 @@ in {
     ...
   }: (let
     # Package Calling Function
-    call = name:
-      pkgs.callPackage name {
-        inherit lib util inputs pkgs;
-        inherit (inputs.self) files;
-      };
+    call = rec {
+      __functor = _: name: pkg name {};
+      pkg = name: args: pkgs.callPackage name ({inherit lib util pkgs;} // args);
+      script = name:
+        pkg name {
+          inherit inputs;
+          inherit (inputs.self) files;
+        };
+    };
   in rec {
     # Default Package Channel
     _module.args.pkgs = legacyPackages;
@@ -55,11 +59,11 @@ in {
 
     # Custom Packages
     apps =
-      map.modules ../scripts (name: inputs.utils.lib.mkApp {drv = call name;})
+      map.modules ../scripts (name: inputs.utils.lib.mkApp {drv = call.script name;})
       // {default = self'.apps.nixos;};
     packages =
       map.modules ./. call
-      // map.modules ../scripts call
+      // map.modules ../scripts call.script
       // inputs'.proprietary.packages;
   });
 

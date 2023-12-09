@@ -2,6 +2,8 @@
 
 To boot into a different build generation, hold down the Spacebar (for `efi`) or the `Shift`/`Esc` key (for `mbr`) upon startup to access the boot menu
 
+To access recovery settings, open the boot menu and select the `recovery` Specialisation
+
 #### Secure Boot
 
 To configure Secure Boot, first install the system by using the `efi` loader, then follow [these](https://github.com/nix-community/lanzaboote/blob/v0.3.0/docs/QUICK_START.md) instructions and set `hardware.boot.loader` to `secure`

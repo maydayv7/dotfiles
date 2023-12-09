@@ -56,6 +56,14 @@ in {
             systemd-boot.enable = mkDefault false;
           };
         };
+
+        # Debug
+        specialisation.recovery.configuration = {
+          boot = {
+            initrd.verbose = mkForce true;
+            plymouth.enable = mkForce false;
+          };
+        };
       }
 
       ## GRUB MBR Boot Loader ##
