@@ -6,11 +6,10 @@
   ...
 }:
 with lib.hm.gvariant; let
-  inherit (builtins) head elem;
+  inherit (builtins) head;
   inherit (lib) mkBefore mkForce;
   homeDir = config.home.homeDirectory;
   fonts = sys.fonts.fontconfig.defaultFonts;
-  inherit (sys.gui) wallpaper;
 in {
   # Home Directory
   home.file = {

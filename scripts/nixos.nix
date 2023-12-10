@@ -226,8 +226,29 @@ in
           else
             DIR=${path.system}
           fi
+
+          echo "Cloning Repository..."
           git clone --recurse-submodules ${path.repo} "$DIR"
           pushd "$DIR" &> /dev/null; git config core.fileMode false; popd &> /dev/null
+          newline
+
+          read -rp "Enter Path to GPG Keys (path/.git): " KEY
+          LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+          if [ -z "$KEY" ]
+          then
+            error "Path to GPG Keys cannot be empty"
+          elif [[ $KEY =~ $LINK ]]
+          then
+            echo "Cloning Keys..."
+            git clone "$KEY" keys --progress
+          else
+            cp -r "$KEY"/. ./keys
+          fi
+          echo "Importing Keys..."
+          find ./keys -name '*.gpg' -exec gpg --homedir ${files.gpg} --import {} \+
+          rm -rf ./keys
+          newline
+
           nixos apply --activate
         ;;
         "")
@@ -236,6 +257,7 @@ in
           then
             error "This Command must be Executed as 'root'"
           fi
+
           read -rp "Enter Name of Device to Install: " HOST
           read -rp "Do you want to Automatically Create the Partitions? (Y/N): " choice
             case $choice in
@@ -262,8 +284,10 @@ in
               *) error "Choose (1)simple or (2)advanced";;
             esac
           newline
+
           mount_other
           newline
+
           read -rp "Enter Path to Repository (path/URL): " URL
           if [ -z "$URL" ]
           then
@@ -273,25 +297,9 @@ in
           nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST"
           newline
 
-          read -rp "Enter Path to GPG Keys (path/.git): " KEY
-          LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-          if [ -z "$KEY" ]
-          then
-            error "Path to GPG Keys cannot be empty"
-          elif [[ $KEY =~ $LINK ]]
-          then
-            echo "Cloning Keys..."
-            git clone "$KEY" keys --progress
-          else
-            cp -r "$KEY"/. ./keys
-          fi
-          echo "Importing Keys..."
-          find ./keys -name '*.gpg' -exec gpg --homedir /mnt${files.gpg} --import {} \+
-          rm -rf ./keys
-          newline
-
           unmount_all
           newline
+
           info "Run 'nixos install --first-boot' after rebooting to finish the install"
           restart
         ;;

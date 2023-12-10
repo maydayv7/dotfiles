@@ -2,7 +2,6 @@
   config,
   lib,
   inputs,
-  pkgs,
   ...
 }: {
   options.nix.index = lib.mkEnableOption "Enable Package Indexer";

@@ -2,6 +2,6 @@
   allowAliases = true;
   allowBroken = false;
   allowUnfree = true;
-  allowInsecurePredicate = x: true;
+  allowInsecurePredicate = _: true;
   pulseAudio = true;
 }

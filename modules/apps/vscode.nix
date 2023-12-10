@@ -2,7 +2,6 @@
   config,
   lib,
   util,
-  inputs,
   pkgs,
   files,
   ...

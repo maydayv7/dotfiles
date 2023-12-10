@@ -8,7 +8,7 @@
 }:
 with files; let
   inherit (config.gui) desktop;
-  inherit (lib) mkIf mkForce mkMerge optional;
+  inherit (lib) mkIf mkForce mkMerge;
   exists = app: builtins.elem app config.environment.systemPackages;
 in {
   ## GNOME Desktop Configuration ##

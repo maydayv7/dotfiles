@@ -28,6 +28,10 @@
         statix.enable = true;
         shellcheck.enable = false;
         stylua.enable = true;
+        deadnix = {
+          enable = true;
+          no-lambda-arg = true;
+        };
         prettier = {
           enable = true;
           settings.bracketSameLine = true;

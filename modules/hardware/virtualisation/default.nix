@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) concatStringsSep elem;
-  inherit (lib) mkIf mkOption optionals types;
+  inherit (lib) mkIf mkOption types;
   enable = elem "virtualisation" config.hardware.support;
 in {
   imports = [./android.nix];

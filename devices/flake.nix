@@ -60,7 +60,7 @@ in {
   };
 
   # Install Media Checks
-  perSystem = {system, ...}: {
+  perSystem = _: {
     checks = pack.device self.installMedia "nixos-rebuild";
   };
 }

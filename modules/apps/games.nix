@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkAfter mkIf;
+  inherit (lib) mkIf;
   enable = builtins.elem "games" config.apps.list;
   wine = builtins.elem "wine" config.apps.list;
 in {
