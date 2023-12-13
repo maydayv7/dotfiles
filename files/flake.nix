@@ -11,7 +11,10 @@
     # File Paths
     path = {
       toplevel = ./.;
-      system = "/etc/nixos";
+
+      system = "/etc/nixos"; # Configuration Directory
+      persist = "/nix/state"; # Persisted Files
+
       cache = "maydayv7-dotfiles";
       flake = "github:maydayv7/dotfiles";
       repo = "https://github.com/maydayv7/dotfiles";
@@ -59,9 +62,6 @@
 
     # Pictures
     images.profile = ./images/Profile.png;
-
-    # Persisted Files
-    persist = "/nix/state";
 
     # Plank Dock
     plank = {

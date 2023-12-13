@@ -30,7 +30,6 @@ with files; let
         check [ --trace ]               - Checks System Configuration [ Displays Error to Trace ]
         clean [ --all ]                 - Garbage Collects and Optimises Nix Store
         explore                         - Opens Interactive Shell to explore Syntax and Configuration
-        install                         - Installs NixOS onto System
         iso 'variant' [ --burn ]        - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
         list [ 'pattern' ]              - Lists all Installed Packages [ Returns Matches ]
         locate 'package'                - Locates Installed Package
@@ -38,6 +37,7 @@ with files; let
         save                            - Saves Configuration State to Repository
         search 'term' [ 'source' ]      - Searches for Packages [ Providing 'term' ] or Configuration Options
         secret 'choice' [ 'path' ]      - Manages 'sops' Encrypted Secrets
+        setup                           - Sets up NixOS System (on First Boot)
         shell [ 'name' ]                - Opens desired Nix Developer Shell
         update [ 'repo' / --'option' ]  - Manages System Package Updates
     '';
@@ -92,22 +92,18 @@ in
       git
       gnupg
       gnused
-      gparted
       jq
       manix
       nixFlakes
       nvd
-      parted
       sops
       tree
       wine.mkwindowsapp-tools
-      zfs
     ];
 
     text = ''
       set +eu
       ${scripts.commands}
-      ${scripts.partitions}
 
       if [[ -n $IN_NIX_SHELL ]]
       then
@@ -117,7 +113,7 @@ in
       case $1 in
       "") error "Expected an Option" "${usage.script}";;
       help|--help|-h) echo -e "## Tool for NixOS System Management ##\n${usage.script}";;
-      apply)
+      "apply")
         case $2 in
         help|--help|-h) echo "${usage.apply}";;
         "")
@@ -162,7 +158,7 @@ in
             echo "Applying Rollback..."
             sudo nixos-rebuild switch --rollback
           ;;
-          list)
+          "list")
             echo "# System Generations #"
             nixos-rebuild list-generations
           ;;
@@ -175,7 +171,7 @@ in
         *) error "Unknown Option '$2'" "${usage.apply}";;
         esac
       ;;
-      cache)
+      "cache")
         if [ -z "$2" ]
           then
             error "Expected a Build Command"
@@ -185,7 +181,7 @@ in
             cachix watch-exec ${path.cache} "''${@:2}"
         fi
       ;;
-      check)
+      "check")
         echo "Formatting Code..."
         pushd ${path.system} &> /dev/null; nix fmt; popd &> /dev/null
         case $2 in
@@ -194,7 +190,7 @@ in
         *) nix flake check "$2" --keep-going;;
         esac
       ;;
-      clean)
+      "clean")
         echo "Running Garbage Collection..."
         mkwindows-tools-gc
         nix-collect-garbage -d
@@ -212,100 +208,13 @@ in
         echo "Running De-Duplication..."
         nix store optimise
       ;;
-      explore)
+      "explore")
         case $2 in
         "") nix repl --arg host true --arg path ${path.system} --file ${repl};;
         *) nix repl --arg path "$(readlink -f "$2" | sed 's|/flake.nix||')" --file ${repl};;
         esac
       ;;
-      install)
-        case $2 in
-        "--first-boot")
-          if [ -d ${persist} ]; then
-            DIR=${persist}${path.system}
-          else
-            DIR=${path.system}
-          fi
-
-          echo "Cloning Repository..."
-          git clone --recurse-submodules ${path.repo} "$DIR"
-          pushd "$DIR" &> /dev/null; git config core.fileMode false; popd &> /dev/null
-          newline
-
-          read -rp "Enter Path to GPG Keys (path/.git): " KEY
-          LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-          if [ -z "$KEY" ]
-          then
-            error "Path to GPG Keys cannot be empty"
-          elif [[ $KEY =~ $LINK ]]
-          then
-            echo "Cloning Keys..."
-            git clone "$KEY" keys --progress
-          else
-            cp -r "$KEY"/. ./keys
-          fi
-          echo "Importing Keys..."
-          find ./keys -name '*.gpg' -exec gpg --homedir ${files.gpg} --import {} \+
-          rm -rf ./keys
-          newline
-
-          nixos apply --activate
-        ;;
-        "")
-          internet
-          if [ "$EUID" -ne 0 ]
-          then
-            error "This Command must be Executed as 'root'"
-          fi
-
-          read -rp "Enter Name of Device to Install: " HOST
-          read -rp "Do you want to Automatically Create the Partitions? (Y/N): " choice
-            case $choice in
-              [Yy]*) warn "Assuming Disk is Completely Empty"; partition_disk;;
-              *) warn "You must Create, Format and Label the Partitions on your own"; gparted &> /dev/null;;
-            esac
-          newline
-          read -rp "Select Filesystem to use for Disk (simple/advanced): " choice
-            case $choice in
-              1|[Ss]*)
-                read -rp "Do you want to Create and Format the EXT4 Partitions? (Y/N): " choice
-                  case $choice in
-                    [Yy]*) DIR=${path.system}; create_ext4; mount_ext4;;
-                    *) warn "Assuming that Required EXT4 Partition has already been Created"; mount_ext4;;
-                  esac
-              ;;
-              2|[Aa]*)
-                read -rp "Do you want to Create the ZFS Pool and Datasets? (Y/N): " choice
-                  case $choice in
-                    [Yy]*) DIR=${persist}${path.system}; create_zfs; mount_zfs;;
-                    *) warn "Assuming that Required ZFS Pool and Datasets have already been Created"; mount_zfs;;
-                  esac
-              ;;
-              *) error "Choose (1)simple or (2)advanced";;
-            esac
-          newline
-
-          mount_other
-          newline
-
-          read -rp "Enter Path to Repository (path/URL): " URL
-          if [ -z "$URL" ]
-          then
-            URL=${path.flake}
-          fi
-          echo "Installing System from '$URL'..."
-          nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST"
-          newline
-
-          unmount_all
-          newline
-
-          info "Run 'nixos install --first-boot' after rebooting to finish the install"
-          restart
-        ;;
-        esac
-      ;;
-      iso)
+      "iso")
         case $2 in
         "") error "Expected a Variant of Install Media or Device";;
         *)
@@ -389,7 +298,7 @@ in
         ;;
         esac
       ;;
-      run)
+      "run")
         if [[ "$2" == *[:/]* ]] || grep -wq "$2" <<<"${list inputs + "nixpkgs"}"
         then
           nix run "$2"#"$3" -- "''${@:4}"
@@ -397,7 +306,7 @@ in
           nix run ${path.system}#"$2" -- "''${@:3}"
         fi
       ;;
-      save)
+      "save")
         echo "Saving Changes..."
         pushd ${path.system} &> /dev/null
         git stash
@@ -410,7 +319,7 @@ in
         git push --set-upstream origin save --force
         popd &> /dev/null
       ;;
-      search)
+      "search")
         case $2 in
         "") error "Expected an Option" "${usage.search}";;
         help|--help|-h) echo "${usage.search}";;
@@ -441,11 +350,11 @@ in
         ;;
         esac
       ;;
-      secret)
+      "secret")
         case $2 in
         "") error "Expected an Option" "${usage.secret}";;
         help|--help|-h) echo "${usage.secret}";;
-        create)
+        "create")
           case $3 in
           "") error "Expected 'name' of Secret";;
           *)
@@ -454,7 +363,7 @@ in
           ;;
           esac
         ;;
-        edit)
+        "edit")
           case $3 in
           "") error "Expected 'name' of Secret";;
           *)
@@ -468,11 +377,11 @@ in
           ;;
           esac
         ;;
-        list)
+        "list")
           echo "## Secrets in ${path.system} ##"
           grep / ${sops} | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path.system}/|' | xargs tree -C --noreport -P '*.secret' -I '_*' | sed 's/\.secret//'
         ;;
-        show)
+        "show")
           if find ${path.system} -name "$3".secret | grep "secret" &> /dev/null
           then
             echo "Showing Secret '$3'..."
@@ -481,14 +390,45 @@ in
             error "Unknown Secret '$3'"
           fi
         ;;
-        update)
+        "update")
           echo "Updating Secrets..."
           find ${path.system} -name '*.secret' ! -name '_*' -exec sops --config ${sops} updatekeys {} \;
         ;;
         *) error "Unknown Option '$2'" "${usage.secret}";;
         esac
       ;;
-      shell)
+      "setup")
+        if [ -d ${path.persist} ]; then
+          DIR=${path.persist}${path.system}
+        else
+          DIR=${path.system}
+        fi
+
+        echo "Cloning Repository..."
+        git clone --recurse-submodules ${path.repo} "$DIR"
+        pushd "$DIR" &> /dev/null; git config core.fileMode false; popd &> /dev/null
+        newline
+
+        read -rp "Enter Path to GPG Keys (path/.git): " KEY
+        LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+        if [ -z "$KEY" ]
+        then
+          error "Path to GPG Keys cannot be empty"
+        elif [[ $KEY =~ $LINK ]]
+        then
+          echo "Cloning Keys..."
+          git clone "$KEY" keys --progress
+        else
+          cp -r "$KEY"/. ./keys
+        fi
+        echo "Importing Keys..."
+        find ./keys -name '*.gpg' -exec gpg --homedir ${files.gpg} --import {} \+
+        rm -rf ./keys
+        newline
+
+        nixos apply --activate
+      ;;
+      "shell")
         case $2 in
         "") nix develop ${path.system} --command "$SHELL";;
         *)
@@ -501,7 +441,7 @@ in
         ;;
         esac
       ;;
-      update)
+      "update")
         case $2 in
         help|--help|-h) echo "${usage.update}";;
         "--pkgs")

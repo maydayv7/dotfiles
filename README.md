@@ -146,6 +146,7 @@ github:maydayv7/dotfiles
 │   ├── map.nix
 │   └── pack.nix
 ├── scripts
+│   ├── install.nix
 │   └── nixos.nix
 ├── packages
 │   └── overlays
@@ -242,8 +243,8 @@ _Replace_ **_VARIANT_** _with the name of Install Media to create_
 You can also download the NixOS `.iso` from [here](https://nixos.org/download.html) and run the `install` script using the following command:
 
 ```
-nix build github:maydayv7/dotfiles#nixos
-sudo ./result/bin/nixos install
+nix build github:maydayv7/dotfiles#install
+sudo ./result/bin/os-install
 ```
 
 If you want to create an `.iso` image of the entire system, run the following command:  
@@ -269,9 +270,9 @@ _Note that the `install` script automatically creates and labels all the require
 
 #### Procedure
 
-To install the OS, just boot the Live USB and run `sudo nixos install`  
+To install the OS, just boot the Live USB and run `sudo os-install`  
 _If the image doesn't boot, try disabling the `secure boot` and `RAID` options from `BIOS`_  
-After the reboot, run `nixos install --first-boot` to finish the install  
+After the reboot, run `nixos setup` to finish the install  
 _In case you are using the `advanced` filesystem scheme, you may need to set the boot flag `zfs_force=1` on first boot_
 
 </details>
@@ -408,6 +409,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Support Secure Boot using [`lanzaboote`](https://github.com/nix-community/lanzaboote)
 - Allow patching Default Package Channel
 - Separate `games` and `laptop` module
+- Separate `install` Script
 - Show package delta using [`nvd`](https://gitlab.com/khumba/nvd)
 - Upgrade to GNOME 45
   - Update Extensions

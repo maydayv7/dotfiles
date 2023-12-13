@@ -24,25 +24,5 @@ in {
         font-size=14
       '';
     };
-
-    # Essential Utilities
-    environment.systemPackages = with pkgs; [
-      cryptsetup
-      gparted
-      inxi
-      killall
-      mkpasswd
-      custom.nixos
-      ntfsprogs
-      parted
-      pciutils
-      rsync
-      sdparm
-      smartmontools
-      unrar
-      unzip
-      usbutils
-      wget
-    ];
   };
 }

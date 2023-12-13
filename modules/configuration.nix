@@ -13,7 +13,6 @@
     getAttr
     hashString
     map
-    removeAttrs
     replaceStrings
     substring
     ;
@@ -83,7 +82,7 @@ in {
             # Modulated Configuration Imports
             imports =
               imports
-              ++ (attrValues (removeAttrs self.nixosModules ["default"]))
+              ++ (attrValues self.nixosModules)
               ++ map user' (
                 if (user != null)
                 then [user]
@@ -94,7 +93,23 @@ in {
                 then [(getAttr format inputs.generators.nixosModules)]
                 else []
               )
-              ++ util.map.array (hardware.modules or []) inputs.hardware.nixosModules;
+              ++ util.map.array (hardware.modules or []) inputs.hardware.nixosModules
+              ++ (
+                if (format == "iso")
+                then [
+                  {
+                    environment.systemPackages = [pkgs.custom.install];
+
+                    # Disabled Modules
+                    user.home = lib.mkForce {};
+                    sops.secrets = lib.mkForce {};
+                  }
+                ]
+                else if (format != "iso")
+                then [{environment.systemPackages = [pkgs.custom.nixos];}]
+                else []
+              );
+
             inherit apps gui hardware shell;
 
             # Device Name

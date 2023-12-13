@@ -8,10 +8,29 @@
   ## Base Configuration ##
   config = {
     # Documentation
-    environment.systemPackages = [pkgs.man-pages];
     documentation = {
       dev.enable = true;
       man.enable = true;
     };
+
+    # Essential Utilities
+    environment.systemPackages = with pkgs; [
+      cryptsetup
+      gparted
+      inxi
+      killall
+      man-pages
+      mkpasswd
+      ntfsprogs
+      parted
+      pciutils
+      rsync
+      sdparm
+      smartmontools
+      unrar
+      unzip
+      usbutils
+      wget
+    ];
   };
 }

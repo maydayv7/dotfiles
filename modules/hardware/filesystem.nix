@@ -28,7 +28,7 @@ in {
   imports =
     [inputs.impermanence.nixosModule]
     ++ [
-      (mkAliasOptionModule ["environment" "persist"] ["environment" "persistence" files.persist])
+      (mkAliasOptionModule ["environment" "persist"] ["environment" "persistence" files.path.persist])
     ];
 
   options = with types; {
@@ -159,14 +159,14 @@ in {
 
         # Persisted Files
         system.activationScripts.dotfiles = let
-          dir = with files; "${persist}/${path.system}";
+          dir = with files.path; "${persist}/${system}";
         in ''
           chown root:keys ${dir}
           chmod 774 -R ${dir}
         '';
 
         environment.persistence = {
-          "${files.persist}" = {
+          "${files.path.persist}" = {
             files = ["/etc/machine-id"];
             directories = [
               files.path.system
