@@ -13,7 +13,6 @@ in {
 
   config = lib.mkIf enable {
     # Applications
-    programs.onlyoffice.enable = true;
     environment.systemPackages = with pkgs; [
       # Productivity
       easyeffects
@@ -30,6 +29,11 @@ in {
       whatsapp-for-linux
       zoom-us
     ];
+
+    programs.onlyoffice = {
+      enable = true;
+      package = pkgs.onlyoffice-bin_latest;
+    };
 
     # Dictionaries
     environment = {
