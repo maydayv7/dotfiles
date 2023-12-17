@@ -5,7 +5,6 @@
   inherit (inputs) self;
   util = self.lib;
   inherit (self) files;
-
   inherit (lib) fileContents makeOverridable mkIf;
   inherit
     (builtins)
@@ -13,6 +12,7 @@
     getAttr
     hashString
     map
+    removeAttrs
     replaceStrings
     substring
     ;
@@ -50,12 +50,11 @@ in {
       autologin ? false,
       shell ? "bash",
       shells ? [],
-      home ? {},
+      homeConfig ? {},
       minimal ? false,
     }: {
       user.settings."${name}" = {
-        inherit name description uid autologin minimal;
-        homeConfig = home;
+        inherit name description uid autologin minimal homeConfig;
         extraGroups = groups;
         hashedPassword = mkIf (password != "") password;
         initialHashedPassword = mkIf (password == "") "";
@@ -82,7 +81,7 @@ in {
             # Modulated Configuration Imports
             imports =
               imports
-              ++ (attrValues self.nixosModules)
+              ++ attrValues (removeAttrs (util.map.modules ./. import) ["configuration"])
               ++ map user' (
                 if (user != null)
                 then [user]
@@ -101,7 +100,7 @@ in {
                     environment.systemPackages = [pkgs.custom.install];
 
                     # Disabled Modules
-                    user.home = lib.mkForce {};
+                    user.homeConfig = lib.mkForce {};
                     sops.secrets = lib.mkForce {};
                   }
                 ]

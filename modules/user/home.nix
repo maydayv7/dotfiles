@@ -14,7 +14,7 @@
       XDG_BIN_HOME = "$HOME/.local/bin";
     };
 
-    user.home = {
+    user.homeConfig = {
       imports = [../../users];
 
       # Package Configuration

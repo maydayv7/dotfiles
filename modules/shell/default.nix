@@ -61,7 +61,7 @@ in {
           directories = [".local/share/direnv"];
         };
 
-        home = {
+        homeConfig = {
           programs =
             listToAttrs (map (shell:
               nameValuePair shell

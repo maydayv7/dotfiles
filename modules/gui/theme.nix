@@ -46,7 +46,7 @@ in {
         }
       );
 
-    user.home.stylix.targets = {
+    user.homeConfig.stylix.targets = {
       bat.enable = true;
       vscode.enable = false;
     };

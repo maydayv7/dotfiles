@@ -164,7 +164,7 @@
         systems = import inputs.systems;
 
         ## Custom Library Functions ##
-        lib = map.modules ./lib (file: import file lib);
+        lib = map.modules ./lib (file: import file lib) // {nixpkgs = lib;};
 
         ## Configuration Template ##
         templates.default = with inputs.filters.lib; {

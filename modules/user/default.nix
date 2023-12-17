@@ -22,7 +22,7 @@
     types
     ;
 
-  inherit (config.user) groups home settings;
+  inherit (config.user) groups homeConfig settings;
 
   # Merged Sets Type
   mergedAttrs = mkOptionType {
@@ -39,14 +39,14 @@ in {
         modules =
           if (all (value: value.minimal) (attrValues settings))
           then [{home.stateVersion = config.system.stateVersion;}]
-          else home;
+          else homeConfig;
       });
     };
 
     # Configuration Options
     user = {
-      home = mkOption {
-        description = "User Home Configuration";
+      homeConfig = mkOption {
+        description = "Shared User Home Configuration";
         type = mergedAttrs;
         default = {};
       };

@@ -9,7 +9,7 @@
 with files; let
   inherit (config.gui) desktop;
   inherit (lib) mkIf mkForce mkMerge;
-  exists = app: builtins.elem app config.environment.systemPackages;
+  exists = app: builtins.elem app config.apps.list;
 in {
   ## GNOME Desktop Configuration ##
   config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
@@ -63,7 +63,7 @@ in {
       };
 
       ## User Configuration
-      user.home = {
+      user.homeConfig = {
         # Dconf Keys
         imports = [gnome.dconf];
 
@@ -96,32 +96,34 @@ in {
           video = ["io.github.celluloid_player.Celluloid.desktop"];
         };
 
-        home.file = {
-          # GTK+ Bookmarks
-          ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
+        home.file =
+          {
+            # GTK+ Bookmarks
+            ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
 
-          # Action Menu
-          ".config/guillotine.json".source = gnome.menu;
+            # Action Menu
+            ".config/guillotine.json".source = gnome.menu;
 
-          # Window Tiling Stylesheet
-          ".config/forge/stylesheet/forge/stylesheet.css".source = gnome.tiling;
+            # Window Tiling Stylesheet
+            ".config/forge/stylesheet/forge/stylesheet.css".source = gnome.tiling;
 
-          # Discord DNOME Theme
-          ".config/BetterDiscord/data/stable/custom.css" =
-            mkIf (exists pkgs.discord)
-            {text = ''@import "https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css";'';};
+            # Firefox GNOME Theme
+            ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
+            ".mozilla/firefox/default/chrome/userContent.css".text = firefox.theme;
 
-          # Firefox GNOME Theme
-          ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
-          ".mozilla/firefox/default/chrome/userContent.css".text = firefox.theme;
+            # Workaround for NixOS/nixpkgs/47340
+            ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
+          }
+          //
+          ## 3rd Party Apps Configuration
+          {
+            # Discord DNOME Theme
+            ".config/BetterDiscord/data/stable/custom.css" =
+              mkIf (exists "discord") {text = ''@import "https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css";'';};
+          };
 
-          # Workaround for NixOS/nixpkgs/47340
-          ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
-        };
-
-        ## 3rd Party Apps Configuration
         # Code Editor
-        programs.vscode = mkIf (exists pkgs.vscode) {
+        programs.vscode = mkIf (exists "vscode") {
           extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
           userSettings = {
             "workbench.colorTheme" = "Adwaita Dark";

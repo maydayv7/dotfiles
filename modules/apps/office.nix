@@ -57,7 +57,7 @@ in {
         ".cache/zoom"
       ];
 
-      home.home.file = {
+      homeConfig.home.file = {
         # Document Templates
         "Templates" = {
           source = files.templates;

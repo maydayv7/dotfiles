@@ -17,7 +17,7 @@ in {
 
     user = {
       persist.directories = [".cache/mozilla/firefox" ".mozilla/firefox"];
-      home = {
+      homeConfig = {
         # File Associations
         xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
           browser = ["firefox.desktop"];

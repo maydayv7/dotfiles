@@ -17,7 +17,7 @@ in {
 
     user = {
       persist.directories = [".config/Code" ".vscode"];
-      home = {
+      homeConfig = {
         xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
           text = ["code.desktop"];
         };

@@ -16,7 +16,7 @@ in {
     '';
 
     # Audio
-    user.home.home.file.".config/autostart/audio-tweaks.desktop".text = ''
+    user.homeConfig.home.file.".config/autostart/audio-tweaks.desktop".text = ''
       [Desktop Entry]
       Type=Application
       Name=audio-tweaks

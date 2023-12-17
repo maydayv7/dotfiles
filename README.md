@@ -76,8 +76,8 @@ github:maydayv7/dotfiles
 ├───apps
 │   └───x86_64-linux
 │       ├───default: app
+│       ├───install: app
 │       └───nixos: app
-├───channels: package repositories
 ├───checks
 │   └───x86_64-linux
 │       ├───Device-gnome: derivation 'nixos-rebuild'
@@ -104,28 +104,16 @@ github:maydayv7/dotfiles
 ├───nixosConfigurations
 │   ├───futura: NixOS configuration
 │   └───vortex: NixOS configuration
-├───nixosModule: NixOS module
-├───nixosModules
-│   ├───apps: NixOS module
-│   ├───base: NixOS module
-│   ├───gui: NixOS module
-│   ├───hardware: NixOS module
-│   ├───nix: NixOS module
-│   ├───secrets: NixOS module
-│   ├───shell: NixOS module
-│   └───user: NixOS module
 ├───overlays
 ├───packages
 │   └───x86_64-linux
+│       ├───install: package 'install'
 │       └───nixos: package 'nixos'
 ├───templates
 │   └───default: template: My NixOS Configuration
 └───vmConfigurations
     └───Windows: Virtual Machine
 ```
-
-- `checks`: custom configuration checks
-- `channels`: configured system package repositories
 
 </details>
 
@@ -138,6 +126,7 @@ github:maydayv7/dotfiles
 │   ├── systems.nix
 │   └── vm
 ├── users
+│   └── passwords
 ├── secrets
 ├── shells
 ├── checks
@@ -159,7 +148,6 @@ github:maydayv7/dotfiles
     ├── nix
     ├── shell
     └── user
-        └── passwords
 ```
 
 - `flake.nix`: toplevel configuration file and repository version control  
@@ -265,7 +253,7 @@ _Note that the `install` script automatically creates and labels all the require
 | SWAP Area      |  swap  |  swap  |       4G       |
 | DATA Partition | Files  |  ZFS   |      10G       |
 
-> **Note:**
+> [!Note]
 > For the `advanced` filesystem scheme only
 
 #### Procedure
@@ -326,7 +314,7 @@ This repository makes use of [`GitHub Actions`](./checks/github/workflows) in or
 
 ### Home Manager
 
-The [`home-manager`](https://github.com/nix-community/home-manager) module is used in tandem with the system configuration in order to define user-specific configuration. The `config.user.home` option has been declared in [`modules/user/default.nix`](./modules/user/default.nix) independent of the original module, from which the final configuration is built, in order to prevent infinite recursion while configuring multiple users per system. The system `config` can be accessed using the `sys` parameter in `home-manager` modules
+The [`home-manager`](https://github.com/nix-community/home-manager) module is used in tandem with the system configuration in order to define user-specific configuration. The `config.user.homeConfig` option has been declared in [`modules/user/default.nix`](./modules/user/default.nix) independent of the original module, from which the final configuration is built, in order to prevent infinite recursion while configuring multiple users per system. The system `config` can be accessed using the `sys` parameter in `home-manager` modules
 
 ## Links
 

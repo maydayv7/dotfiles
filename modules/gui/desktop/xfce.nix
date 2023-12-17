@@ -8,7 +8,7 @@
 }:
 with files; let
   inherit (config.gui) desktop wallpaper;
-  exists = app: builtins.elem app config.environment.systemPackages;
+  exists = app: builtins.elem app config.app.list;
   inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair replaceStrings;
 
   # GTK+ Theme
@@ -118,7 +118,7 @@ in {
       };
 
       ## User Configuration
-      user.home = {
+      user.homeConfig = {
         # GTK+ Theming
         stylix.targets.xfce.enable = false;
         gtk =
@@ -169,7 +169,7 @@ in {
 
         ## 3rd Party Apps Configuration
         # Code Editor
-        programs.vscode = mkIf (exists pkgs.vscode) {
+        programs.vscode = mkIf (exists "vscode") {
           extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
               name = "arc-dark";

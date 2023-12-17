@@ -22,7 +22,7 @@
     # Settings
     user = {
       persist.directories = [".config/gh"];
-      home = {
+      homeConfig = {
         imports = [./user.nix];
 
         # Hooks

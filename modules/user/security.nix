@@ -10,6 +10,7 @@
   inherit (config.sops) secrets;
   inherit (config.user) settings;
   enable = all (value: value.minimal) (attrValues settings);
+  directory = ../../users/passwords;
 in {
   ## Security Settings ##
   config = {
@@ -20,7 +21,7 @@ in {
       then (mkForce {})
       else
         util.map.secrets {
-          directory = ./passwords;
+          inherit directory;
           neededForUsers = true;
         };
 
@@ -69,7 +70,7 @@ in {
           group = "users";
           extraGroups = ["wheel"];
           useDefaultShell = true;
-          initialHashedPassword = readFile ./passwords/default;
+          initialHashedPassword = readFile (directory + "/default");
         };
       };
   };

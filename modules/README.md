@@ -1,8 +1,8 @@
 ### Custom Configuration Modules
 
-The `modules` directory contains custom-made pure Flakes-compatible configuration modules, which form the very core of my configuration for multiple PCs and various use-cases (If you have a working NixOS install, you can check it out using `github:maydayv7/dotfiles#nixosModules`). The following is a summary of all the present configuration options exposed by the particular module:
+The `modules` directory contains custom-made pure Flakes-compatible configuration modules, which form the very core of my configuration for multiple PCs and various use-cases. The following is a summary of all the present configuration options exposed by the particular module:
 
-[`nixosModules`](./default.nix) -
+Configuration [Builder](./configuration.nix)
 
 - [`apps`](./apps): Module that configures various apps and/or environments -
 
@@ -51,7 +51,7 @@ The `modules` directory contains custom-made pure Flakes-compatible configuratio
 
   - `groups`: Additional User Groups - Ex. `[ "wheel" ]`
   - `persist`: User Files to Preserve across Reboots (while using `advanced` File System Layout)
-  - `home`: User Home Configuration (Alias for `home-manager.users.${username}`) -
+  - `homeConfig`: Shared User Home Configuration (Alias for `home-manager.users.${username}`) -
     - `credentials`: Individual User Credentials -
       - `name`: Alternative (Work) User Name
       - `fulname`: Full User Name

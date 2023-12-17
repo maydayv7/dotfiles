@@ -34,7 +34,7 @@ in {
             description = "Default User";
             minimal = true;
             shells = null;
-            password = readFile ../modules/user/passwords/default;
+            password = readFile ../users/passwords/default;
           };
         })) (map.modules.name ../modules/gui/desktop))
       // {default = self.installMedia.xfce;};

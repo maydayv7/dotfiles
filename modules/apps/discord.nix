@@ -13,7 +13,7 @@ in {
 
     user = {
       persist.directories = [".config/BetterDiscord" ".config/discord"];
-      home.home = {
+      homeConfig.home = {
         # Plugins
         file.".config/BetterDiscord/plugins" = {
           source = files.proprietary.discord;
