@@ -33,29 +33,30 @@ in {
       patches = map.patches ./patches;
       pkgs' = import src {inherit system;};
     in
-      if !(any isPath patches)
-      then import src
-      else
-        import (pkgs'.applyPatches {
-          inherit src patches;
-          name = "nixpkgs-patched-${src.shortRev}";
-        }) {
-          inherit system;
-          config = import ../modules/nix/config.nix;
-          overlays =
-            [nur.overlay]
-            ++ (attrValues self.overlays or {})
-            ++ [
-              (final: prev: {
-                custom = self.packages."${system}";
-                unstable = import unstable {inherit system;};
+      (
+        if !(any isPath patches)
+        then import src
+        else
+          import (pkgs'.applyPatches {
+            inherit src patches;
+            name = "nixpkgs-patched-${src.shortRev}";
+          })
+      ) {
+        inherit system;
+        config = import ../modules/nix/config.nix;
+        overlays =
+          [nur.overlay]
+          ++ (attrValues self.overlays or {})
+          ++ [
+            (final: prev: {
+              custom = self.packages."${system}";
+              unstable = import unstable {inherit system;};
 
-                gaming = gaming.packages."${system}";
-                generators = generators.packages."${system}".default;
-                wine = windows.packages."${system}";
-              })
-            ];
-        };
+              gaming = gaming.packages."${system}";
+              wine = windows.packages."${system}";
+            })
+          ];
+      };
 
     # Custom Packages
     apps =

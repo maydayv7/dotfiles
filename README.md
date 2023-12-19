@@ -238,7 +238,7 @@ sudo ./result/bin/os-install
 If you want to create an `.iso` image of the entire system, run the following command:  
 _Replace_ **_DEVICE_** _with the name of Device to build_
 
-<pre><code>nix run github:nix-community/nixos-generators -- -f iso --flake github:maydayv7/dotfiles#<b><i>DEVICE</i></b></code></pre>
+<pre><code>nix build github:maydayv7/dotfiles#nixosConfigurations.<b><i>DEVICE</i></b>.config.formats.iso</code></pre>
 
 </details>
 
@@ -253,7 +253,7 @@ _Note that the `install` script automatically creates and labels all the require
 | SWAP Area      |  swap  |  swap  |       4G       |
 | DATA Partition | Files  |  ZFS   |      10G       |
 
-> [!Note]
+> [!NOTE]
 > For the `advanced` filesystem scheme only
 
 #### Procedure
@@ -394,16 +394,19 @@ You can navigate to the `README`s present in the various directories to know mor
 - Support declarative [Flatpak](https://flatpak.org/) application install
 - Update Nix to version 2.19
 - Enable Security & Hardening settings by default
+- Add Boot Recovery Settings
 - Support Secure Boot using [`lanzaboote`](https://github.com/nix-community/lanzaboote)
 - Allow patching Default Package Channel
-- Separate `games` and `laptop` module
-- Separate `install` Script
 - Show package delta using [`nvd`](https://gitlab.com/khumba/nvd)
 - Upgrade to GNOME 45
   - Update Extensions
 - Fix Emoji Support
 - Drop `.templates`
 - Multiple Refactors
+  - Separate `games` and `laptop` module
+  - Separate `install` Script
+  - Stop exposing `nixosModules`
+  - Fix `user.homeConfig`
 
 ### v13
 
