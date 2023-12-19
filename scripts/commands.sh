@@ -3,16 +3,7 @@
 
 # Useful Commands #
 
-error() {
-  echo -e "\n\033[0;31merror:\033[0m $1"
-  if [ -n "$2" ]
-  then
-    echo -e "\n$2"
-  fi
-  exit 7
-}
-
-extract () {
+extract() {
   if [ -f "$1" ]
   then
     case $1 in
@@ -42,8 +33,24 @@ internet() {
   fi
 }
 
+up() {
+  LIMIT=$1
+  P=$PWD/..
+  for ((i=1; i < LIMIT; i++))
+  do
+    P=$P/..
+  done
+  cd "$P" || exit
+}
+
 newline() {
   echo -e "\n";
+}
+
+temp(){
+  TEMP=/tmp/script
+  rm -rf "$TEMP"
+  mkdir -p "$TEMP"
 }
 
 restart() {
@@ -54,14 +61,14 @@ restart() {
     esac
 }
 
-up () {
-  LIMIT=$1
-  P=$PWD/..
-  for ((i=1; i < LIMIT; i++))
-  do
-    P=$P/..
-  done
-  cd "$P" || exit
+
+error() {
+  echo -e "\n\033[0;31merror:\033[0m $1"
+  if [ -n "$2" ]
+  then
+    echo -e "\n$2"
+  fi
+  exit 7
 }
 
 info() {

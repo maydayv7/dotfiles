@@ -46,7 +46,6 @@ with files; let
       # Usage #
         --activate                   - Activates Current Configuration
         --boot                       - Applies Configuration on boot
-        --check                      - Checks Configuration Build
         --delta                      - Shows Package Delta for Build
         --rollback [ 'generation' ]  - Reverts to Last [ or Specified ] Build Generation
         --test                       - Tests Configuration Build
@@ -88,7 +87,6 @@ in
     runtimeInputs = with pkgs; [
       cachix
       coreutils
-      generators
       git
       gnupg
       gnused
@@ -129,24 +127,18 @@ in
           sudo nixos-rebuild boot --flake ${path.system}#
           restart
         ;;
-        "--check")
-          echo "Checking Configuration..."
-          nixos-rebuild dry-activate --flake ${path.system}#
-        ;;
         "--delta")
-          DIR=/tmp/nixos/build
-          mkdir "$DIR" && pushd "$DIR" &> /dev/null
+          temp
+          pushd "$TEMP" &> /dev/null
           echo "Building Configuration..."
-          info "This may take a while..."
-          if nixos-rebuild build --flake ${path.system}# &> /dev/null
+          if nixos-rebuild build --flake ${path.system}#
           then
             echo "Processing Delta..."
             nvd diff /run/current-system result
           else
-            rm -rf "$DIR" && error "Couldn't build generation successfully"
+            error "Couldn't build generation successfully"
           fi
           popd &> /dev/null
-          rm -rf "$DIR"
         ;;
         "--test")
           echo "Testing Configuration..."
@@ -225,7 +217,7 @@ in
           elif grep -wq "$2" <<<"${nixosConfigurations}" &> /dev/null
           then
             echo "Building '$2' Device Image..."
-            nixos-generate -f iso --flake ${path.system}#"$2"
+            nix build  ${path.system}#nixosConfigurations."$2".config.formats.iso
           else
             error "Unknown Variant '$2'" "# Available Variants #\n  Install Media: ${installMedia}\n  Devices: ${nixosConfigurations}"
           fi

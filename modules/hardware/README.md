@@ -10,7 +10,7 @@ To configure Secure Boot, first install the system by using the `efi` loader, th
 
 _If the `advanced` filesystem scheme is used, the keys need to be created after `/etc/secureboot` is persisted_
 
-> [!Note]
+> [!NOTE]
 > Secure Boot is only supported in EFI Mode
 
 ### File System

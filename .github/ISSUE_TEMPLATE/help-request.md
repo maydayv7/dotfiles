@@ -24,9 +24,9 @@ Add any other context about the problem
 
 ### Metadata
 
-Please run `nix-shell -p nix-info --run "nix-info -m"` and paste the result.
+Please run `nix shell nixpkgs#nix-info --command sh -c "nix-info -m"` and paste the result.
 
 ```console
-[user@system:~]$ nix-shell -p nix-info --run "nix-info -m"
+[user@system:~]$ nix shell nixpkgs#nix-info --command sh -c "nix-info -m"
 output here
 ```

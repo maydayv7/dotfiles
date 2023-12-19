@@ -1,9 +1,10 @@
 {
   util,
+  inputs,
   pkgs,
   ...
 }: {
-  imports = util.map.modules.list ./.;
+  imports = util.map.modules.list ./. ++ [inputs.generators.nixosModules.all-formats];
 
   ## Base Configuration ##
   config = {

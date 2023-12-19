@@ -30,7 +30,7 @@ jobs:
           branch: update_flake
           pr-labels: dependencies
           pr-title: >
-            chore(flake.lock): Update `inputs`
+            chore(flake): Update `inputs`
       - name: Update Packages
         env:
           GIT_AUTHOR_NAME: github-actions[bot]

@@ -7,7 +7,7 @@ skip-meta = true
 
 # Who am I?
 
-I am **Vishrut Gurrala**, a 17 year old student in Bengaluru, India
+I am **Vishrut Gurrala**, a 18 year old student in Bengaluru, India
 
 Tech Enthusiast (_read:_ live and breath technology) and avid reader
 
