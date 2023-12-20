@@ -19,7 +19,7 @@ zola -r site serve
 
 Then click [here](http://localhost:1111)
 
-To build the site, run `nix build`. In order to override the Base URL, <code>nix-build -E "with import ./.; callPackage ./site { site = <b><i>URL</i></b>; }"</code> can be used
+To build the site, run `nix build`. In order to override the Base URL, <code>nix-build -E "with import ../packages; callPackage ./site { site = <b><i>URL</i></b>; }"</code> can be used
 
 #### Continuous Integration
 

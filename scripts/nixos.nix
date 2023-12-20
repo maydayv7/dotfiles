@@ -194,7 +194,7 @@ in
           sudo nix-collect-garbage -d
           sudo rm -rf /run/secrets/*
           sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system
-          sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+          nixos apply --activate
         fi
         newline
         echo "Running De-Duplication..."
