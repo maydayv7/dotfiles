@@ -157,5 +157,8 @@ in {
       };
       users = mapAttrs (_: value: {imports = value.homeConfig;}) settings;
     };
+
+    # Debug
+    specialisation.recovery.configuration.home-manager.verbose = true;
   };
 }

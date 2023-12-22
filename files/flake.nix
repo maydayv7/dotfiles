@@ -47,7 +47,7 @@
       {
         dconf = ./gnome/dconf.nix;
         iso = readFile ./gnome/iso;
-        tiling = ./gnome/tiling.css;
+        tiling = readFile ./gnome/tiling.css;
       }
       // map.files {
         directory = ./gnome;

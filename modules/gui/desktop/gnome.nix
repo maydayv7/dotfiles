@@ -105,7 +105,7 @@ in {
             ".config/guillotine.json".source = gnome.menu;
 
             # Window Tiling Stylesheet
-            ".config/forge/stylesheet/forge/stylesheet.css".source = gnome.tiling;
+            ".config/forge/stylesheet/forge/stylesheet.css".text = gnome.tiling;
 
             # Firefox GNOME Theme
             ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
@@ -209,23 +209,20 @@ in {
           ++ (with pkgs;
             with unstable.gnomeExtensions // gnomeExtensions; [
               # GNOME Shell Extensions
-              alphabetical-app-grid
+              alttab-mod
               appindicator
               caffeine
-              coverflow-alt-tab
               emoji-copy
               forge
               guillotine
-              just-perfection
               lock-keys
               pano
-              #!#rounded-window-corners --> Wait for upstream
               shortcuts
               status-area-horizontal-spacing
-              transparent-top-bar-adjustable-transparency
               top-bar-organizer
-              unmess
+              transparent-top-bar
               user-avatar-in-quick-settings
+              vertical-workspaces
               vitals
               window-gestures
               window-title-is-back

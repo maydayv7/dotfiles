@@ -3,10 +3,13 @@ pkgs: {
   packages = with pkgs;
   with python39Packages; [
     python39
-    ipython
     pip
-    poetry-core
+
+    autopep8
     pylint
+
+    ipython
+    poetry-core
     setuptools
   ];
 
