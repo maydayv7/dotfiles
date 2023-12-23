@@ -211,6 +211,7 @@ in {
               # GNOME Shell Extensions
               alttab-mod
               appindicator
+              auto-activities
               caffeine
               emoji-copy
               forge

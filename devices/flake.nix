@@ -5,19 +5,18 @@
   ...
 }: let
   inherit (inputs) self;
-  inherit (util) map pack;
+  inherit (util) build map pack;
   inherit (builtins) head readFile;
   inherit (lib) listToAttrs nameValuePair;
-  build = util.build.device {inherit lib inputs;};
 in {
   flake = {
     ## Device Configuration ##
-    nixosConfigurations = map.modules ./. (name: build (import name));
+    nixosConfigurations = map.modules ./. (name: build.device (import name));
 
     ## Install Media Configuration ##
     installMedia =
       listToAttrs (builtins.map (name:
-        nameValuePair name (build {
+        nameValuePair name (build.device {
           format = "iso";
           description = "Install Media";
 

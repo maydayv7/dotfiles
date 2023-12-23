@@ -168,7 +168,7 @@
           lib.recursiveUpdate (map.modules ./lib (file: import file lib))
           {
             nixpkgs = lib;
-            build.device = args: import ./modules/configuration.nix args;
+            build.device = import ./modules/configuration.nix {inherit lib inputs;};
           };
 
         ## Configuration Template ##

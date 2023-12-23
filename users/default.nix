@@ -2,6 +2,7 @@
   config,
   lib,
   util,
+  files,
   ...
 }: let
   inherit (builtins) attrValues map;
@@ -39,6 +40,9 @@ in {
   ## Home Configuration ##
   config = {
     systemd.user.startServices = true;
+
+    # Wallpapers
+    home.file.".local/share/backgrounds".source = files.wallpapers.path;
 
     # GPG Settings
     programs.gpg = {

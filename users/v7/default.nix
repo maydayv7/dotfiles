@@ -1,10 +1,10 @@
 {
   config,
+  lib,
   pkgs,
   files,
   ...
-}:
-with files; {
+}: {
   # Personal Credentials
   credentials = {
     name = "maydayv7";
@@ -18,7 +18,7 @@ with files; {
     packages = [pkgs.home-manager];
 
     # Directory Symlinks
-    file = {
+    file = with files; {
       # Profile Picture
       ".face".source = images.profile;
 
@@ -28,6 +28,11 @@ with files; {
       # Dotfiles
       "Projects/dotfiles".source =
         config.lib.file.mkOutOfStoreSymlink path.system;
+
+      # GTK+ Bookmarks
+      ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+        file://${config.home.homeDirectory}/Documents/TBD TBD
+      '';
     };
   };
 }
