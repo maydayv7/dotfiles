@@ -8,7 +8,7 @@
   inherit (util) map pack;
   inherit (builtins) head readFile;
   inherit (lib) listToAttrs nameValuePair;
-  inherit (import ../modules/configuration.nix {inherit lib inputs;}) build;
+  build = util.build.device {inherit lib inputs;};
 in {
   flake = {
     ## Device Configuration ##

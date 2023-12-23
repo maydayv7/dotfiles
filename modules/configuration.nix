@@ -16,9 +16,9 @@
     replaceStrings
     substring
     ;
-in {
+in
   ## Configuration Build Function ##
-  build = {
+  {
     system ? "x86_64-linux",
     name ? "nixos",
     description ? "",
@@ -170,5 +170,4 @@ in {
             };
           }
         ];
-      };
-}
+      }

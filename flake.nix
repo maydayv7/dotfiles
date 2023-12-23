@@ -164,7 +164,12 @@
         systems = import inputs.systems;
 
         ## Custom Library Functions ##
-        lib = map.modules ./lib (file: import file lib) // {nixpkgs = lib;};
+        lib =
+          lib.recursiveUpdate (map.modules ./lib (file: import file lib))
+          {
+            nixpkgs = lib;
+            build.device = args: import ./modules/configuration.nix args;
+          };
 
         ## Configuration Template ##
         templates.default = with inputs.filters.lib; {
