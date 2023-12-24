@@ -215,6 +215,8 @@ in {
               caffeine
               emoji-copy
               forge
+              fullscreen-avoider
+              gamemode-indicator-in-system-settings
               guillotine
               lock-keys
               pano
@@ -227,6 +229,7 @@ in {
               vitals
               window-gestures
               window-title-is-back
+              xlanguagetray
             ]);
       };
 

@@ -20,6 +20,7 @@ in {
       }
     ];
 
+    # Directories
     user.persist.directories = [
       "Games"
       ".cache/lutris"
@@ -34,5 +35,9 @@ in {
       bottles
       lutris
     ];
+
+    # Game Mode
+    # See https://github.com/FeralInteractive/gamemode
+    programs.gamemode.enable = true;
   };
 }

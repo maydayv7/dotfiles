@@ -24,7 +24,10 @@ in {
         "drive-menu@gnome-shell-extensions.gcampax.github.com"
         "emoji-copy@felipeftn"
         "forge@jmmaranan.com"
+        "fullscreen-avoider@noobsai.github.com"
+        "gmind@tungstnballon.gitlab.com"
         "guillotine@fopdoodle.net"
+        "langTray@a7medkhalaf"
         "lockkeys@vaina.lt"
         "pano@elhan.io"
         "quick-settings-avatar@d-go"
@@ -123,6 +126,11 @@ in {
       window-toggle-always-float = [];
       window-toggle-float = ["<Shift><Super>F"];
       workspace-active-tile-toggle = ["<Shift><Super>z"];
+    };
+
+    "org/gnome/shell/extensions/fullscreen-avoider" = {
+      move-hot-corners = true;
+      move-notifications = true;
     };
 
     "org/gnome/shell/extensions/lockkeys".style = "show-hide";
