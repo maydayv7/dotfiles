@@ -51,27 +51,11 @@ in {
               redhat.vscode-yaml
               yzhang.markdown-all-in-one
             ]
-            # Custom Extensions
-            ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-              {
-                name = "better-comments";
-                publisher = "aaron-bond";
-                version = "3.0.2";
-                sha256 = "sha256-hQmA8PWjf2Nd60v5EAuqqD8LIEu7slrNs8luc3ePgZc=";
-              }
-              {
-                name = "org-mode";
-                publisher = "vscode-org-mode";
-                version = "1.0.0";
-                sha256 = "sha256-o9CIjMlYQQVRdtTlOp9BAVjqrfFIhhdvzlyhlcOv5rY=";
-              }
-              {
-                name = "vscode-html-css";
-                publisher = "ecmel";
-                version = "1.13.1";
-                sha256 = "sha256-gBfcizgn+thCqpTa8bubh6S77ynBC/Vpc+7n4XOfqzE=";
-              }
-            ];
+            ++ (with pkgs.code.vscode-marketplace; [
+              aaron-bond.better-comments
+              ecmel.vscode-html-css
+              vscode-org-mode.org-mode
+            ]);
         };
       };
     };

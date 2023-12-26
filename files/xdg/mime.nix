@@ -1,6 +1,8 @@
 {
   audio = [
     "audio/aac"
+    "audio/flac"
+    "audio/mp3"
     "audio/mpeg"
     "audio/ogg"
     "audio/opus"

@@ -19,7 +19,8 @@ in {
   };
 
   ## Base16 Color Theming ##
-  config = {
+  config = rec {
+    environment.systemPackages = [stylix.cursor.package];
     stylix =
       {
         autoEnable = false;

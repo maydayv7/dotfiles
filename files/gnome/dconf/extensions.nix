@@ -43,6 +43,57 @@ in {
       ];
     };
 
+    "org/gnome/shell/extensions/top-bar-organizer" = {
+      center-box-order = ["dateMenu"];
+      left-box-order = [
+        "activities"
+        "guillotine"
+        "guillotine@fopdoodle.net"
+        "appMenu"
+      ];
+
+      right-box-order = [
+        "emoji-copy@felipeftn"
+        "a11y"
+        "aggregateMenu"
+        "drive-menu"
+        "pano@elhan.io"
+        "vitalsMenu"
+        "dwellClick"
+        "lockkeys"
+        "keyboard"
+        "screenSharing"
+        "screenRecording"
+        "quickSettings"
+      ];
+    };
+
+    "org/gnome/shell/extensions/lockkeys".style = "show-hide";
+    "org/gnome/shell/extensions/status-area-horizontal-spacing".hpadding = 4;
+    "org/gnome/shell/extensions/user-theme".name = lib.mkForce "Adwaita";
+
+    "org/gnome/shell/extensions/fullscreen-avoider" = {
+      move-hot-corners = true;
+      move-notifications = true;
+    };
+
+    "org/gnome/shell/extensions/window-title-is-back" = {
+      colored-icon = true;
+      show-title = false;
+    };
+
+    "org/gnome/shell/extensions/quick-settings-avatar" = {
+      avatar-position = 1;
+      avatar-realname = false;
+      avatar-size = 56;
+    };
+
+    "org/gnome/shell/extensions/vitals" = {
+      hot-sensors = ["_default_icon_"];
+      show-battery = true;
+      show-storage = false;
+    };
+
     "org/gnome/shell/extensions/altTab-mod" = {
       current-monitor-only = true;
       current-monitor-only-window = true;
@@ -56,7 +107,7 @@ in {
       detect-minimized = true;
       hide-on-new-window = true;
       show-apps = false;
-      skip-last-workspace = false;
+      skip-last-workspace = true;
       skip-taskbar = true;
     };
 
@@ -73,6 +124,31 @@ in {
       emoji-keybinding = ["<Super>period"];
       paste-on-select = true;
       use-keybinding = true;
+    };
+
+    "org/gnome/shell/extensions/shortcuts" = {
+      maxcolumns = 3;
+      shortcuts-file = files.gnome.shortcuts;
+      shortcuts-toggle-overview = ["<Super>slash"];
+      use-custom-shortcuts = true;
+      use-transparency = true;
+      visibility = 50;
+    };
+
+    "org/gnome/shell/extensions/pano" = {
+      database-location = "${homeDir}/.local/share/clipboard";
+      global-shortcut = ["<Super>v"];
+      history-length = 250;
+      incognito-shortcut = ["<Ctrl><Super>v"];
+      play-audio-on-copy = false;
+      send-notification-on-copy = false;
+      window-position = mkUint32 2;
+      item-date-font-family = head fonts.sansSerif;
+      item-date-font-size = 11;
+      item-title-font-family = head fonts.sansSerif;
+      item-title-font-size = 20;
+      search-bar-font-family = head fonts.sansSerif;
+      search-bar-font-size = 14;
     };
 
     "org/gnome/shell/extensions/forge" = {
@@ -128,72 +204,23 @@ in {
       workspace-active-tile-toggle = ["<Shift><Super>z"];
     };
 
-    "org/gnome/shell/extensions/fullscreen-avoider" = {
-      move-hot-corners = true;
-      move-notifications = true;
+    "org/gnome/shell/extensions/windowgestures" = {
+      fn-fullscreen = true;
+      fn-maximized-snap = true;
+      fn-move = true;
+      fn-move-snap = true;
+      fn-resize = true;
+      pinch-enable = true;
+      pinch3-in = 0;
+      pinch3-out = 0;
+      pinch4-in = 14;
+      pinch4-out = 3;
+      swipe3-down = 1;
+      swipe4-updown = 22;
+      taphold-move = true;
+      three-finger = false;
+      use-active-window = true;
     };
-
-    "org/gnome/shell/extensions/lockkeys".style = "show-hide";
-
-    "org/gnome/shell/extensions/pano" = {
-      database-location = "${homeDir}/.local/share/clipboard";
-      global-shortcut = ["<Super>v"];
-      history-length = 250;
-      incognito-shortcut = ["<Ctrl><Super>v"];
-      play-audio-on-copy = false;
-      send-notification-on-copy = false;
-      window-position = mkUint32 2;
-      item-date-font-family = head fonts.sansSerif;
-      item-date-font-size = 11;
-      item-title-font-family = head fonts.sansSerif;
-      item-title-font-size = 20;
-      search-bar-font-family = head fonts.sansSerif;
-      search-bar-font-size = 14;
-    };
-
-    "org/gnome/shell/extensions/quick-settings-avatar" = {
-      avatar-position = 1;
-      avatar-realname = false;
-      avatar-size = 56;
-    };
-
-    "org/gnome/shell/extensions/shortcuts" = {
-      maxcolumns = 3;
-      shortcuts-file = files.gnome.shortcuts;
-      shortcuts-toggle-overview = ["<Super>slash"];
-      use-custom-shortcuts = true;
-      use-transparency = true;
-      visibility = 50;
-    };
-
-    "org/gnome/shell/extensions/status-area-horizontal-spacing".hpadding = 4;
-
-    "org/gnome/shell/extensions/top-bar-organizer" = {
-      center-box-order = ["dateMenu"];
-      left-box-order = [
-        "activities"
-        "guillotine"
-        "guillotine@fopdoodle.net"
-        "appMenu"
-      ];
-
-      right-box-order = [
-        "emoji-copy@felipeftn"
-        "a11y"
-        "aggregateMenu"
-        "drive-menu"
-        "pano@elhan.io"
-        "vitalsMenu"
-        "dwellClick"
-        "lockkeys"
-        "keyboard"
-        "screenSharing"
-        "screenRecording"
-        "quickSettings"
-      ];
-    };
-
-    "org/gnome/shell/extensions/user-theme".name = lib.mkForce "Adwaita";
 
     "org/gnome/shell/extensions/vertical-workspaces" = {
       aaa-loading-profile = true;
@@ -319,35 +346,6 @@ in {
       ws-thumbnails-full = false;
       ws-thumbnails-position = 5;
       wst-position-adjust = 0;
-    };
-
-    "org/gnome/shell/extensions/vitals" = {
-      hot-sensors = ["_default_icon_"];
-      show-battery = true;
-      show-storage = false;
-    };
-
-    "org/gnome/shell/extensions/windowgestures" = {
-      fn-fullscreen = true;
-      fn-maximized-snap = true;
-      fn-move = true;
-      fn-move-snap = true;
-      fn-resize = true;
-      pinch-enable = true;
-      pinch3-in = 0;
-      pinch3-out = 0;
-      pinch4-in = 14;
-      pinch4-out = 3;
-      swipe3-down = 1;
-      swipe4-updown = 22;
-      taphold-move = true;
-      three-finger = false;
-      use-active-window = true;
-    };
-
-    "org/gnome/shell/extensions/window-title-is-back" = {
-      colored-icon = true;
-      show-title = false;
     };
   };
 }

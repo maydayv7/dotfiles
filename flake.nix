@@ -100,21 +100,33 @@
     # Secure Boot
     boot = {
       url = "github:nix-community/lanzaboote/v0.3.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "framework";
+        flake-utils.follows = "utils/flake-utils";
+      };
     };
 
     # Authentication Credentials Manager
     sops = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "unstable";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "unstable";
+        nixpkgs-stable.follows = "nixpkgs";
+      };
     };
 
     # File System Persistent State Handler
     impermanence.url = "github:nix-community/impermanence";
 
     # System Image Generators
-    generators.url = "github:nix-community/nixos-generators";
+    generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs = {
+        nixlib.follows = "nixpkgs";
+        nixpkgs.follows = "unstable";
+      };
+    };
 
     # Nix Index Database
     index = {
@@ -133,6 +145,15 @@
 
     # Declarative Flatpak Wrapper
     flatpak.url = "github:gmodena/nix-flatpak";
+
+    # VS Code Extensions
+    vscode = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "utils/flake-utils";
+      };
+    };
 
     # Windows VM Creator
     wfvm = {
@@ -197,7 +218,6 @@
       "https://nix-community.cachix.org"
       "https://nixpkgs-unfree.cachix.org"
       "https://nix-gaming.cachix.org"
-      "https://pre-commit-hooks.cachix.org"
       "https://maydayv7-dotfiles.cachix.org"
     ];
 
@@ -207,7 +227,6 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
       "maydayv7-dotfiles.cachix.org-1:dpECO0Z2ZMttY6JgWHuAR5M7cqeyfFjUsvHdnMz+j6U="
     ];
   };

@@ -170,14 +170,7 @@ in {
         ## 3rd Party Apps Configuration
         # Code Editor
         programs.vscode = mkIf (exists "vscode") {
-          extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-            {
-              name = "arc-dark";
-              publisher = "alvesvaren";
-              version = "0.4.0";
-              sha256 = "sha256-DM4sY4NsQdlhF+sLLgYuCrNcdmUBRO5c458GpMhF5xg=";
-            }
-          ];
+          extensions = [pkgs.code.vscode-marketplace.alvesvaren.arc-dark];
           userSettings = {
             "workbench.colorTheme" = "Arc Dark Theme";
             "terminal.external.linuxExec" = "xfce4-terminal";

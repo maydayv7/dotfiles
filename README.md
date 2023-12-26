@@ -611,11 +611,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Home Configuration can't be decoupled from System
 - Lack of automatic script checking
 - Currently using a workaround for CI due to NixOS/nix#3978
-
-#### Manually Managed Packages
-
-- VS Code Themes and Plugins
-- [Wine](./packages/wine) Applications
+- [Wine](./packages/wine) Applications have to be manually updated
 
 </details>
 

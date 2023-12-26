@@ -8,7 +8,7 @@
 }:
 with files; let
   inherit (config.gui) desktop;
-  inherit (lib) mkIf mkForce mkMerge;
+  inherit (lib) gvariant mkIf mkForce mkMerge;
   exists = app: builtins.elem app config.apps.list;
 in {
   ## GNOME Desktop Configuration ##
@@ -32,6 +32,21 @@ in {
       environment.gnome.excludePackages = with pkgs; [
         gnome.totem
         gnome.gnome-music
+      ];
+
+      # Dconf Settings
+      programs.dconf.profiles.gdm.databases = [
+        {
+          settings = {
+            "org/gnome/desktop/peripherals/touchpad" = {
+              tap-to-click = true;
+            };
+            "org/gnome/desktop/interface" = {
+              cursor-theme = config.stylix.cursor.name;
+              cursor-size = gvariant.mkInt32 config.stylix.cursor.size;
+            };
+          };
+        }
       ];
     }
 
