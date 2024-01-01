@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        shell: [cc, format, java, lua, python, rust, video, website]
+        shell: [cc, format, java, lua, python, rust, sql, video, website]
     steps:
       - name: Clone Repo
         uses: actions/checkout@v4

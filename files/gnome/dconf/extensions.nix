@@ -70,7 +70,7 @@ in {
 
     "org/gnome/shell/extensions/lockkeys".style = "show-hide";
     "org/gnome/shell/extensions/status-area-horizontal-spacing".hpadding = 4;
-    "org/gnome/shell/extensions/user-theme".name = lib.mkForce "Adwaita";
+    "org/gnome/shell/extensions/user-theme".name = lib.mkForce "custom";
 
     "org/gnome/shell/extensions/fullscreen-avoider" = {
       move-hot-corners = true;

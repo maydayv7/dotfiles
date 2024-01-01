@@ -47,6 +47,7 @@
       {
         dconf = ./gnome/dconf;
         iso = readFile ./gnome/iso;
+        shell = readFile ./gnome/shell.css;
         tiling = readFile ./gnome/tiling.css;
       }
       // map.files {

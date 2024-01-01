@@ -119,6 +119,9 @@ in {
             # Action Menu
             ".config/guillotine.json".source = gnome.menu;
 
+            # Shell Theme
+            ".local/share/themes/custom/gnome-shell/gnome-shell.css".text = gnome.shell;
+
             # Window Tiling Stylesheet
             ".config/forge/stylesheet/forge/stylesheet.css".text = gnome.tiling;
 
