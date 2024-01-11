@@ -4,7 +4,6 @@ pkgs: {
   shellHook = ''
     MYSQL_BASEDIR=${pkgs.mariadb}
     MYSQL_HOME=$HOME/.mysql
-    mkdir -p $MYSQL_HOME
     MYSQL_DATADIR=$MYSQL_HOME/data
     export MYSQL_UNIX_PORT=$MYSQL_HOME/mysql.sock
     MYSQL_PID_FILE=$MYSQL_HOME/mysql.pid
@@ -12,7 +11,7 @@ pkgs: {
 
     if [ ! -d "$MYSQL_HOME" ]; then
       # Make sure to use normal authentication method otherwise we can only
-      # connect with unix account. But users do not actually exist in NixOS
+      # connect with unix account, but users do not actually exist in NixOS
       mysql_install_db --auth-root-authentication-method=normal \
         --datadir=$MYSQL_DATADIR --basedir=$MYSQL_BASEDIR \
         --pid-file=$MYSQL_PID_FILE

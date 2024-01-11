@@ -19,7 +19,10 @@ Configuration [Builder](./configuration.nix)
     - `enable`: Install Utility Windows apps - `true / false`
     - `package`: Package to use for `wine` - Ex. `pkgs.winePackages.staging`
 
-- [`base`](./base): Module that contains the base common/shared configuration
+- [`base`](./base): Module that contains the base common/shared configuration -
+
+  - `kernel`: Linux Kernel Variant to be used - `"zfs" / "lts" / "variant"`
+  - `kernelModules`: Linux Kernel Modules to load
 
 - [`gui`](./gui): Module that configures GUI Desktops/Environments and the like -
 

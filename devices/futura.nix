@@ -7,7 +7,7 @@
   locale = "IN";
   update = "weekly";
 
-  kernel = "6_5";
+  kernel = "lts";
   hardware = {
     boot = "efi";
     cores = 4;

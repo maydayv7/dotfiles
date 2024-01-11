@@ -110,6 +110,7 @@ in
               );
 
             inherit apps gui hardware shell;
+            base = {inherit kernel kernelModules;};
 
             # Device Name
             networking = {
@@ -120,18 +121,6 @@ in
             # Localization
             time.timeZone = timezone;
             i18n.defaultLocale = "en_${locale}";
-
-            # Kernel Configuration
-            boot = {
-              initrd.availableKernelModules =
-                if (kernelModules != null)
-                then kernelModules ++ ["ahci" "sd_mod" "usbhid" "usb_storage" "xhci_pci"]
-                else [];
-              kernelPackages =
-                if (kernel == "zfs")
-                then pkgs.zfs.latestCompatibleLinuxPackages
-                else pkgs.linuxKernel.packages."${"linux_" + kernel}";
-            };
 
             # Package Configuration
             nixpkgs = {inherit pkgs;};

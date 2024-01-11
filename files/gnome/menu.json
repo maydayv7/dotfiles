@@ -50,8 +50,16 @@
         },
         {
           "type": "command",
+          "title": "Documentation",
+          "command": "xdg-open /run/current-system/sw/share/gnome-shell/extensions/guillotine@fopdoodle.net/README.md",
+          "instancing": "singleInstance",
+          "icon": "guillotine-symbolic",
+          "killOnDisable": false
+        },
+        {
+          "type": "command",
           "title": "Log",
-          "command": "gnome-terminal -e 'journalctl -f GNOME_SHELL_EXTENSION_UUID=guillotine@fopdoodle.net' ",
+          "command": "kgx -e 'journalctl -f GNOME_SHELL_EXTENSION_UUID=guillotine@fopdoodle.net' ",
           "instancing": "singleInstance",
           "icon": "emblem-documents-symbolic",
           "killOnDisable": false
@@ -59,7 +67,7 @@
         {
           "type": "command",
           "title": "Log gnome-shell",
-          "command": "gnome-terminal -e 'journalctl -f _COMM=gnome-shell' ",
+          "command": "kgx -e 'journalctl -f _COMM=gnome-shell' ",
           "instancing": "singleInstance",
           "icon": "emblem-documents-symbolic",
           "killOnDisable": false

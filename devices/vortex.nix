@@ -6,7 +6,7 @@
   timezone = "Asia/Kolkata";
   locale = "IN";
 
-  kernel = "lqx";
+  kernel = "xanmod";
   kernelModules = ["nvme" "thunderbolt"];
 
   hardware = {
@@ -15,12 +15,13 @@
     filesystem = "advanced";
     support = ["laptop" "mobile" "printer" "virtualisation"];
     modules = ["dell-inspiron-5509"];
-    vm.android.enable = true;
+    vm.android.enable = false;
   };
 
-  gui = {
-    desktop = "gnome";
-    wallpaper = "Nix";
+  shell.utilities = true;
+  apps = {
+    list = ["discord" "firefox" "git" "office" "vscode" "wine"];
+    wine.utilities = true;
   };
 
   nix = {
@@ -28,10 +29,9 @@
     tools = true;
   };
 
-  shell.utilities = true;
-  apps = {
-    list = ["discord" "firefox" "git" "office" "vscode" "wine"];
-    wine.utilities = true;
+  gui = {
+    desktop = "gnome";
+    wallpaper = "Nix";
   };
 
   # User V7
