@@ -17,6 +17,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`proprietary`](https://github.com/maydayv7/proprietary) - Custom Proprietary Files
 - [`repl.nix`](./repl.nix): Interactive Nix Shell to explore syntax and configuration
 - [`templates`](./templates) - Document Templates
+- [`touchegg`](./touchegg) - Touchegg X11 Touchpad Gestures
 - [`vscode`](./vscode) - Visual Studio Code Editor Configuration
 - [`wine`](./wine) - Configuration and Theming for `wine` applications
 - [`xdg`](./xdg) - XDG Desktop Utilities Configuration

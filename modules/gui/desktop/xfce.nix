@@ -8,7 +8,7 @@
 }:
 with files; let
   inherit (config.gui) desktop wallpaper;
-  exists = app: builtins.elem app config.app.list;
+  exists = app: builtins.elem app config.apps.list;
   inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair replaceStrings;
 
   # GTK+ Theme
@@ -58,14 +58,17 @@ in {
     (mkIf (desktop == "xfce") {
       # Desktop Integration
       gui.fonts.enable = true;
-      services.bamf.enable = true;
-      services.xserver.displayManager.lightdm.greeters.gtk = theme;
-      programs.gnupg.agent.pinentryFlavor =
-        mkIf config.programs.gnupg.agent.enable "gtk2";
+      services = {
+        bamf.enable = true;
+        touchegg.enable = true;
+        gnome.gnome-keyring.enable = true;
+        xserver.displayManager.lightdm.greeters.gtk = theme;
+      };
 
       # Plugins
       programs = {
         xfconf.enable = true;
+        seahorse.enable = true;
         thunar = {
           enable = true;
           plugins = with pkgs.xfce; [
@@ -74,6 +77,8 @@ in {
             thunar-volman
           ];
         };
+
+        gnupg.agent.pinentryFlavor = mkIf config.programs.gnupg.agent.enable "gtk2";
       };
 
       # Utilities
@@ -144,10 +149,17 @@ in {
             # GTK+ Bookmarks
             ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
 
+            # Touchpad Gestures
+            ".config/touchegg/touchegg.conf".text = gestures;
+
             # Plank Dock
             ".config/autostart/Dock.desktop".text = plank.autostart;
-            ".config/plank/dock1/launchers".source = plank.launchers;
             ".local/share/plank/themes/default/dock.theme".text = plank.theme;
+            ".config/plank/dock1/launchers" = {
+              source = plank.launchers;
+              recursive = true;
+              force = true;
+            };
 
             # Desktop Settings
             ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
@@ -158,14 +170,37 @@ in {
           }
           // mapAttrs' (name: value:
             nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml"
-            {text = value;})
+            {
+              text = value;
+              force = true;
+            })
           (util.map.files {
             directory = xfce.settings;
             extension = ".xml";
             apply = file:
-              replaceStrings ["@system" "@wallpaper"]
-              [path.system wallpaper] (builtins.readFile file);
+              replaceStrings [
+                "@system"
+                "@wallpaper"
+                "@theme"
+                "@icons"
+                "@cursor"
+              ]
+              [
+                path.system
+                wallpaper
+                theme.theme.name
+                theme.iconTheme.name
+                config.stylix.cursor.name
+              ] (builtins.readFile file);
           });
+
+        # Dock Settings
+        dconf.settings."net/launchpad/plank/docks/dock1" = {
+          current-workspace-only = true;
+          icon-size = 60;
+          pressure-reveal = true;
+          theme = "default";
+        };
 
         ## 3rd Party Apps Configuration
         # Code Editor

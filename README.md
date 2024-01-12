@@ -375,7 +375,7 @@ _Thanks a lot! ;)_
   - [lucasew](https://github.com/lucasew/nixcfg)
   - [nobbz](https://github.com/NobbZ/nixos-config)
   - [rasendubi](https://github.com/rasendubi/dotfiles)
-  - [sloodmy](https://github.com/sioodmy/dotfiles)
+  - [sioodmy](https://github.com/sioodmy/dotfiles)
   - [tejing1](https://github.com/tejing1/nixos-config)
   - [vlaci](https://github.com/vlaci/nixos-config)
   - [wiltaylor](https://github.com/wiltaylor/dotfiles)

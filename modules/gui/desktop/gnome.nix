@@ -124,17 +124,17 @@ in {
 
             # Window Tiling Stylesheet
             ".config/forge/stylesheet/forge/stylesheet.css".text = gnome.tiling;
-
+          }
+          //
+          ## 3rd Party Apps Configuration
+          {
             # Firefox GNOME Theme
             ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
             ".mozilla/firefox/default/chrome/userContent.css".text = firefox.theme;
 
             # Workaround for NixOS/nixpkgs/47340
             ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
-          }
-          //
-          ## 3rd Party Apps Configuration
-          {
+
             # Discord DNOME Theme
             ".config/BetterDiscord/data/stable/custom.css" =
               mkIf (exists "discord") {text = ''@import "https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css";'';};

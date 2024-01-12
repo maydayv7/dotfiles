@@ -122,7 +122,22 @@
       <property name="expand" type="bool" value="false"/>
       <property name="style" type="uint" value="0"/>
     </property>
-    <property name="plugin-15" type="string" value="whiskermenu"/>
+    <property name="plugin-15" type="string" value="whiskermenu">
+      <property name="button-icon" type="string" value="start-here"/>
+      <property name="launcher-icon-size" type="int" value="3"/>
+      <property name="hover-switch-category" type="bool" value="true"/>
+      <property name="favorites-in-recent" type="bool" value="true"/>
+      <property name="menu-width" type="int" value="858"/>
+      <property name="menu-height" type="int" value="569"/>
+      <property name="menu-opacity" type="int" value="90"/>
+      <property name="command-switchuser" type="string" value="dm-tool switch-to-greeter"/>
+      <property name="favorites" type="array">
+        <value type="string" value="xfce4-web-browser.desktop"/>
+        <value type="string" value="xfce4-mail-reader.desktop"/>
+        <value type="string" value="xfce4-file-manager.desktop"/>
+        <value type="string" value="xfce4-terminal-emulator.desktop"/>
+      </property>
+    </property>
     <property name="plugin-1" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
@@ -131,7 +146,6 @@
     <property name="plugin-18" type="string" value="eyes"/>
     <property name="plugin-19" type="string" value="screenshooter"/>
     <property name="plugin-20" type="string" value="weather">
-      <property name="msl" type="int" value="529"/>
       <property name="cache-max-age" type="int" value="172800"/>
       <property name="power-saving" type="bool" value="true"/>
       <property name="units" type="empty">
@@ -165,9 +179,15 @@
       <property name="tweaks" type="empty">
         <property name="paste-on-activate" type="uint" value="2"/>
         <property name="popup-at-pointer" type="bool" value="true"/>
+        <property name="never-confirm-history-clear" type="bool" value="false"/>
       </property>
     </property>
-    <property name="plugin-12" type="string" value="pager"/>
+    <property name="plugin-12" type="string" value="pager">
+      <property name="rows" type="uint" value="1"/>
+      <property name="wrap-workspaces" type="bool" value="true"/>
+      <property name="miniature-view" type="bool" value="true"/>
+      <property name="numbering" type="bool" value="false"/>
+    </property>
     <property name="plugin-16" type="string" value="separator">
       <property name="style" type="uint" value="2"/>
       <property name="expand" type="bool" value="false"/>

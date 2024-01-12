@@ -30,7 +30,7 @@
   };
 
   gui = {
-    desktop = "gnome";
+    desktop = "xfce";
     wallpaper = "Nix";
   };
 

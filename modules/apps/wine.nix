@@ -42,7 +42,7 @@ in {
           pkgs.callPackage name {
             inherit lib pkgs;
             wine = cfg.package;
-            build = inputs.windows.lib."${system}";
+            build = inputs.windows.lib."${pkgs.system}";
           })));
   };
 }

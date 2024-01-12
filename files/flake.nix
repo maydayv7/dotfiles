@@ -39,6 +39,9 @@
     # Firefox Web Browser
     firefox.theme = readFile ./firefox/userContent.css;
 
+    # X11 Touchpad Gestures
+    gestures = readFile ./touchegg/gestures.xml;
+
     # 'git' Version Control
     git.hooks = ./git/hooks;
 

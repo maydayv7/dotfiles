@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   ## User Home Configuration ##
   config = {
     # Environment Settings
@@ -16,6 +11,7 @@
 
     user.homeConfig = {
       imports = [../../users];
+      systemd.user.startServices = true;
 
       # Package Configuration
       home = {
@@ -25,11 +21,6 @@
           ".config/nix/nix.conf".source =
             config.environment.etc."nix/nix.conf".source;
         };
-
-        # Package Delta
-        activation.delta = lib.hm.dag.entryAnywhere ''
-          ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
-        '';
       };
     };
   };

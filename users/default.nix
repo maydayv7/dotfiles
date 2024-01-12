@@ -39,8 +39,6 @@ in {
 
   ## Home Configuration ##
   config = {
-    systemd.user.startServices = true;
-
     # Wallpapers
     home.file.".local/share/backgrounds".source = files.wallpapers.path;
 

@@ -72,7 +72,7 @@ in
       (makeOverridable lib.nixosSystem) {
         inherit system;
         specialArgs = {
-          inherit system util inputs files;
+          inherit util inputs files;
           lib = with inputs; nixpkgs.lib // {inherit (home-manager.lib) hm;};
         };
 
