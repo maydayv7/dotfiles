@@ -29,6 +29,7 @@
       <property name="&lt;Super&gt;r" type="empty">
         <property name="startup-notify" type="empty"/>
       </property>
+      <property name="&lt;Alt&gt;&lt;Super&gt;s" type="empty"/>
     </property>
     <property name="custom" type="empty">
       <property name="&lt;Alt&gt;F2" type="empty">
@@ -37,17 +38,11 @@
       <property name="&lt;Super&gt;r" type="string" value="xfce4-appfinder -c">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
-      <property name="XF86WWW" type="string" value="exo-open --launch WebBrowser"/>
-      <property name="XF86Mail" type="string" value="exo-open --launch MailReader"/>
       <property name="&lt;Alt&gt;F3" type="empty">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
       <property name="&lt;Primary&gt;Escape" type="string" value="xfdesktop --menu"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;Delete" type="string" value="xfce4-session-logout"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;l" type="string" value="xflock4"/>
-      <property name="&lt;Alt&gt;F1" type="string" value="xfce4-popup-applicationsmenu"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;Escape" type="string" value="xkill"/>
-      <property name="HomePage" type="string" value="exo-open --launch WebBrowser"/>
       <property name="XF86Display" type="string" value="xfce4-display-settings --minimal"/>
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Super&gt;t" type="string" value="exo-open --launch TerminalEmulator"/>
@@ -58,12 +53,17 @@
       <property name="Print" type="string" value="xfce4-screenshooter -r"/>
       <property name="&lt;Shift&gt;Print" type="string" value="xfce4-screenshooter -w"/>
       <property name="&lt;Primary&gt;Print" type="string" value="xfce4-screenshooter"/>
-      <property name="&lt;Primary&gt;&lt;Shift&gt;Return" type="string" value="xfce4-taskmanager"/>
       <property name="&lt;Super&gt;space" type="string" value="xfce4-popup-whiskermenu"/>
       <property name="&lt;Super&gt;v" type="string" value="xfce4-clipman-history"/>
-      <property name="Super_L" type="empty">
+      <property name="&lt;Super&gt;w" type="string" value="exo-open --launch WebBrowser"/>
+      <property name="&lt;Super&gt;l" type="string" value="xflock4"/>
+      <property name="&lt;Super&gt;q" type="string" value="xkill"/>
+      <property name="Calculator" type="string" value="galculator"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;Return" type="string" value="xfce4-taskmanager"/>
+      <property name="&lt;Super&gt;F1" type="string" value="xfce4-popup-applicationsmenu">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
+      <property name="&lt;Super&gt;e" type="string" value="exo-open --launch MailReader"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
@@ -122,8 +122,8 @@
       <property name="&lt;Primary&gt;F12" type="empty"/>
       <property name="&lt;Super&gt;KP_Left" type="empty"/>
       <property name="&lt;Super&gt;KP_Right" type="empty"/>
-      <property name="&lt;Super&gt;KP_Up" type="empty"/>
       <property name="&lt;Super&gt;KP_Down" type="empty"/>
+      <property name="&lt;Super&gt;KP_Up" type="empty"/>
       <property name="&lt;Super&gt;KP_Page_Up" type="empty"/>
       <property name="&lt;Super&gt;KP_Home" type="empty"/>
       <property name="&lt;Super&gt;KP_End" type="empty"/>

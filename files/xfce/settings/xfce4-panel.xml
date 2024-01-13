@@ -28,7 +28,9 @@
         <value type="int" value="22"/>
         <value type="int" value="12"/>
         <value type="int" value="16"/>
+        <value type="int" value="24"/>
         <value type="int" value="18"/>
+        <value type="int" value="21"/>
         <value type="int" value="3"/>
         <value type="int" value="4"/>
         <value type="int" value="19"/>
@@ -192,5 +194,9 @@
       <property name="style" type="uint" value="2"/>
       <property name="expand" type="bool" value="false"/>
     </property>
+    <property name="plugin-24" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-21" type="string" value="windowck-plugin"/>
   </property>
 </channel>

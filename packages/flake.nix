@@ -52,6 +52,7 @@ in {
               custom = self.packages."${system}";
               unstable = import unstable {inherit system;};
 
+              chaotic = chaotic.packages."${system}";
               code = vscode.extensions."${system}";
               gaming = gaming.packages."${system}";
               wine = windows.packages."${system}";

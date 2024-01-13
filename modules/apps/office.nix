@@ -16,6 +16,7 @@ in {
     environment.systemPackages = with pkgs; [
       # Productivity
       easyeffects
+      gimp
       gscan2pdf
       handbrake
       hunspell
@@ -47,6 +48,7 @@ in {
       persist.directories = [
         ".thunderbird"
         ".zoom"
+        ".config/GIMP"
         ".config/google-chrome"
         ".config/libreoffice"
         ".config/onlyoffice"

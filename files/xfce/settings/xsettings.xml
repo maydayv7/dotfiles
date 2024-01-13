@@ -23,8 +23,8 @@
   <property name="Gtk" type="empty">
     <property name="CanChangeAccels" type="empty"/>
     <property name="ColorPalette" type="empty"/>
-    <property name="FontName" type="string" value="Product Sans Medium, Medium 10"/>
-    <property name="MonospaceFontName" type="string" value="MesloLGS NF 10"/>
+    <property name="FontName" type="string" value="@font Medium, Medium 10"/>
+    <property name="MonospaceFontName" type="string" value="@monospace 10"/>
     <property name="IconSizes" type="empty"/>
     <property name="KeyThemeName" type="empty"/>
     <property name="ToolbarStyle" type="empty"/>

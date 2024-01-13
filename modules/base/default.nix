@@ -10,7 +10,12 @@
   inherit (lib) mkOption optionals types;
   cfg = config.base;
 in {
-  imports = util.map.modules.list ./. ++ [inputs.generators.nixosModules.all-formats];
+  imports =
+    util.map.modules.list ./.
+    ++ [
+      inputs.chaotic.nixosModules.default
+      inputs.generators.nixosModules.all-formats
+    ];
 
   options.base = {
     kernel = mkOption {
@@ -35,7 +40,9 @@ in {
         then pkgs.zfs.latestCompatibleLinuxPackages
         else if (cfg.kernel == "lts")
         then options.boot.kernelPackages.default
-        else pkgs.linuxKernel.packages."${"linux_" + cfg.kernel}";
+        else
+          pkgs.linuxKernel.packages."${"linux_" + cfg.kernel}"
+          or pkgs.chaotic."${"linuxPackages_" + cfg.kernel}";
 
       initrd.availableKernelModules =
         optionals (cfg.kernelModules != [])

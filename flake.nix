@@ -46,6 +46,16 @@
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
 
+    # Chaotic Packages Repository
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        systems.follows = "systems";
+      };
+    };
+
     # Proprietary Software
     proprietary = {
       url = "github:maydayv7/proprietary";
@@ -217,6 +227,7 @@
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
       "https://nixpkgs-unfree.cachix.org"
+      "https://nyx.chaotic.cx/"
       "https://nix-gaming.cachix.org"
       "https://maydayv7-dotfiles.cachix.org"
     ];
@@ -226,6 +237,8 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
+      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "maydayv7-dotfiles.cachix.org-1:dpECO0Z2ZMttY6JgWHuAR5M7cqeyfFjUsvHdnMz+j6U="
     ];

@@ -209,7 +209,6 @@ in {
             drawing
             fractal
             fragments
-            gimp
             gradience
             gnome-podcasts
             gnome-secrets
@@ -257,7 +256,6 @@ in {
         ".config/forge"
         ".config/gnome-boxes"
         ".config/gnome-builder"
-        ".config/GIMP"
         ".config/gtk-3.0"
         ".config/gtk-4.0"
         ".config/pitivi"

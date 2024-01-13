@@ -1,0 +1,14 @@
+only_maximized=false
+show_on_desktop=false
+full_name=false
+two_lines=false
+show_tooltips=true
+size_mode=2
+title_size=20
+sync_wm_font=true
+title_font=@font Medium, Medium 11
+subtitle_font=sans 10
+title_alignment=0
+title_padding=10
+inactive_text_alpha=60
+inactive_text_shade=110

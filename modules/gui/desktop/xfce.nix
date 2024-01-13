@@ -11,6 +11,26 @@ with files; let
   exists = app: builtins.elem app config.apps.list;
   inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair replaceStrings;
 
+  # Configuration Folder Creation
+  mkFolder = {
+    directory,
+    path,
+    extension ? "",
+    replace ? {
+      placeholders = {};
+      values = {};
+    },
+  }:
+    mapAttrs' (name: value:
+      nameValuePair "${path}/${name}${extension}" {
+        text = value;
+        force = true;
+      })
+    (util.map.files {
+      inherit directory extension;
+      apply = file: with replace; replaceStrings placeholders values (builtins.readFile file);
+    });
+
   # GTK+ Theme
   theme = {
     theme = {
@@ -58,6 +78,7 @@ in {
     (mkIf (desktop == "xfce") {
       # Desktop Integration
       gui.fonts.enable = true;
+      environment.variables.GTK_THEME = theme.theme.name;
       services = {
         bamf.enable = true;
         touchegg.enable = true;
@@ -66,23 +87,24 @@ in {
       };
 
       # Plugins
-      programs = {
-        xfconf.enable = true;
-        seahorse.enable = true;
-        thunar = {
-          enable = true;
-          plugins = with pkgs.xfce; [
-            thunar-archive-plugin
-            thunar-dropbox-plugin
-            thunar-volman
-          ];
-        };
-
-        gnupg.agent.pinentryFlavor = mkIf config.programs.gnupg.agent.enable "gtk2";
-      };
+      programs =
+        {
+          xfconf.enable = true;
+          seahorse.enable = true;
+          thunar = {
+            enable = true;
+            plugins = with pkgs.xfce; [
+              thunar-archive-plugin
+              thunar-dropbox-plugin
+              thunar-volman
+            ];
+          };
+        }
+        // {gnupg.agent.pinentryFlavor = mkIf config.programs.gnupg.agent.enable "gtk2";};
 
       # Utilities
       environment.systemPackages = with pkgs.xfce // pkgs; [
+        galculator
         pavucontrol
         plank
         orage
@@ -97,6 +119,8 @@ in {
         xfce4-timer-plugin
         xfce4-weather-plugin
         xfce4-whiskermenu-plugin
+        xfce4-windowck-plugin
+        xorg.xkill
       ];
 
       # Persisted Files
@@ -163,36 +187,41 @@ in {
 
             # Desktop Settings
             ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
-            ".config/xfce4/panel" = {
-              source = xfce.panel;
-              recursive = true;
+          }
+          // mkFolder {
+            directory = xfce.panel;
+            path = ".config/xfce4/panel";
+            extension = ".rc";
+            replace = {
+              placeholders = ["@font"];
+              values = [config.stylix.fonts.sansSerif.name];
             };
           }
-          // mapAttrs' (name: value:
-            nameValuePair ".config/xfce4/xfconf/xfce-perchannel-xml/${name}.xml"
-            {
-              text = value;
-              force = true;
-            })
-          (util.map.files {
+          // mkFolder {
             directory = xfce.settings;
+            path = ".config/xfce4/xfconf/xfce-perchannel-xml";
             extension = ".xml";
-            apply = file:
-              replaceStrings [
+            replace = {
+              placeholders = [
                 "@system"
                 "@wallpaper"
                 "@theme"
                 "@icons"
                 "@cursor"
-              ]
-              [
+                "@font"
+                "@monospace"
+              ];
+              values = [
                 path.system
                 wallpaper
                 theme.theme.name
                 theme.iconTheme.name
                 config.stylix.cursor.name
-              ] (builtins.readFile file);
-          });
+                config.stylix.fonts.sansSerif.name
+                config.stylix.fonts.monospace.name
+              ];
+            };
+          };
 
         # Dock Settings
         dconf.settings."net/launchpad/plank/docks/dock1" = {
