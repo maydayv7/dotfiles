@@ -106,12 +106,13 @@ in {
       # Utilities
       environment.systemPackages = with pkgs.xfce // pkgs; [
         galculator
+        mate.atril
+        orage
         pavucontrol
         plank
-        orage
-        xarchiver
-        mate.atril
+        system-config-printer
         transmission-gtk
+        xarchiver
         xfce4-clipman-plugin
         xfce4-eyes-plugin
         xfce4-notes-plugin
@@ -247,8 +248,17 @@ in {
 
     ## Minimal XFCE Desktop Configuration
     (mkIf (desktop == "xfce-minimal") {
-      # Utilities
-      environment.systemPackages = [pkgs.epiphany];
+      environment = {
+        # Utilities
+        systemPackages = [pkgs.epiphany];
+
+        # Excluded Packages
+        xfce.excludePackages = with pkgs; [
+          tango-icon-theme
+          xfce4-icon-theme
+          xfwm4-themes
+        ];
+      };
 
       # Disabled Services
       services.tumbler.enable = mkForce false;
