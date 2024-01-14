@@ -158,13 +158,6 @@ in {
         };
 
         # Persisted Files
-        system.activationScripts.dotfiles = let
-          dir = with files.path; "${persist}/${system}";
-        in ''
-          chown root:keys ${dir}
-          chmod 774 -R ${dir}
-        '';
-
         environment.persistence = {
           "${files.path.persist}" = {
             files = ["/etc/machine-id"];
@@ -192,7 +185,6 @@ in {
                     "Projects"
                     "Public"
                     "Videos"
-                    ".local/share/Trash"
                     {
                       directory = ".local/share/keyrings";
                       mode = "0700";
@@ -201,6 +193,50 @@ in {
                   ++ config.user.persist.directories;
               })
               config.user.settings;
+          };
+        };
+
+        system.activationScripts.dotfiles = let
+          dir = with files.path; "${persist}/${system}";
+        in ''
+          chown root:keys ${dir}
+          chmod 774 -R ${dir}
+        '';
+
+        user.homeConfig.systemd.user.services.persist-trash = {
+          Unit.Description = "Persist Trash Folder";
+          Install.WantedBy = ["default.target"];
+          Service = let
+            dir = ''
+              LOCAL="$HOME/.local/share/Trash"
+              PERSIST="/data/home/$USER/Trash"
+              mkdir -p "$LOCAL"
+            '';
+          in {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            StandardOutput = "journal";
+            ExecStart = "${pkgs.writeShellApplication {
+              name = "retrieve";
+              runtimeInputs = [pkgs.coreutils];
+              text = ''
+                ${dir}
+                if [ -d "$PERSIST" ]
+                then
+                  cp -r "$PERSIST"/. "$LOCAL"
+                  rm -rf "$PERSIST"
+                fi
+              '';
+            }}/bin/retrieve";
+            ExecStop = "${pkgs.writeShellApplication {
+              name = "migrate";
+              runtimeInputs = [pkgs.coreutils];
+              text = ''
+                ${dir}
+                mkdir -p "$PERSIST"
+                cp -r "$LOCAL"/. "$PERSIST"
+              '';
+            }}/bin/migrate";
           };
         };
 

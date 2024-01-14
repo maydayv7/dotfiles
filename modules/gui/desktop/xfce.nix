@@ -81,6 +81,7 @@ in {
       environment.variables.GTK_THEME = theme.theme.name;
       services = {
         bamf.enable = true;
+        blueman.enable = true;
         touchegg.enable = true;
         gnome.gnome-keyring.enable = true;
         xserver.displayManager.lightdm.greeters.gtk = theme;
@@ -110,6 +111,7 @@ in {
         orage
         xarchiver
         mate.atril
+        transmission-gtk
         xfce4-clipman-plugin
         xfce4-eyes-plugin
         xfce4-notes-plugin
