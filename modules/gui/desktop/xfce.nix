@@ -107,7 +107,7 @@ in {
         xorg.xkill
       ];
 
-      # Persisted Files1
+      # Persisted Files
       user.persist = {
         directories = [
           ".config/autostart"

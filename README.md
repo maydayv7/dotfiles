@@ -387,6 +387,17 @@ You can navigate to the `README`s present in the various directories to know mor
 <details>
 <summary><b>Changelog</b></summary>
 
+### vNEXT
+
+- Re-expose `lib.build.device`
+- Refactor GNOME `dconf`
+- Overhaul XFCE Configuration
+  -  Use ULauncher
+- Add VS Code Extensions Repository
+- Fix Android Virtualisation
+- Add `sql` Shell
+- Actually persist `~/.local/share/Trash`
+
 ### v15
 
 - Use the [`flake-parts`](https://flake.parts/) Flakes framework
