@@ -7,6 +7,7 @@ lib: let
     isPath
     pathExists
     readDir
+    readFile
     toString
     typeOf
     ;
@@ -24,6 +25,7 @@ lib: let
     mapAttrsToList
     nameValuePair
     removeSuffix
+    replaceStrings
     ;
 
   # Import Checks
@@ -95,6 +97,24 @@ in rec {
         && (pathExists "${path}/flake.nix")
       then nameValuePair name "${path}/flake.nix"
       else nameValuePair "" null) (readDir directory));
+
+  # Configuration Folder Creation
+  folder = {
+    directory,
+    path,
+    extension ? "",
+    apply,
+    replace ? {
+      placeholders = {};
+      values = {};
+    },
+  }:
+    mapAttrs' (name: value:
+      nameValuePair "${path}/${name}${extension}" (apply value))
+    (files {
+      inherit directory extension;
+      apply = file: with replace; replaceStrings placeholders values (readFile file);
+    });
 
   # Package Patches
   patches = patch:

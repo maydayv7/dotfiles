@@ -16,6 +16,7 @@ The `lib` directory contains custom-made utility functions (exposed as `util`), 
   - `filter`: Filters out unneeded `attrs` and maps required ones to specified function
   - `list`: Lists all toplevel `attrs` of `attrset` and returns a space-separated string
   - `file`: Maps all files with a particular extension adhering to a particular condition stored in a directory as an `attrset` acted upon by specified function. Enable `recursive` in order to recursively search inside directories
+  - `folder`: Maps all files with a particular extension stored in a directory to a given path as an `attrset` acted upon by specified function. Use `replace` in order to modify placeholder text
   - `modules`: Maps all configuration modules stored in a directory as an `attrset` acted upon by specified function
     - `list`: Maps all configuration files stored in a directory into a list for easy import
     - `name`: Same as `list`, but maps file names instead of paths

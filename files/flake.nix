@@ -97,6 +97,18 @@
     # Document Templates
     templates = ./templates;
 
+    # ULauncher Application Launcher
+    ulauncher =
+      map.files {
+        directory = ./ulauncher/settings;
+        apply = readFile;
+        extension = ".json";
+      }
+      // {
+        themes = ./ulauncher/themes;
+        extensions = ./ulauncher/extensions;
+      };
+
     # Visual Studio Code Editor
     vscode = map.files {
       directory = ./vscode;

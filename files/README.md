@@ -18,6 +18,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`repl.nix`](./repl.nix): Interactive Nix Shell to explore syntax and configuration
 - [`templates`](./templates) - Document Templates
 - [`touchegg`](./touchegg) - Touchegg X11 Touchpad Gestures
+- [`ulauncher`](./ulauncher) - ULauncher Application Launcher
 - [`vscode`](./vscode) - Visual Studio Code Editor Configuration
 - [`wine`](./wine) - Configuration and Theming for `wine` applications
 - [`xdg`](./xdg) - XDG Desktop Utilities Configuration

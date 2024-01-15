@@ -64,6 +64,7 @@
         <property name="startup-notify" type="bool" value="true"/>
       </property>
       <property name="&lt;Super&gt;e" type="string" value="exo-open --launch MailReader"/>
+      <property name="&lt;Super&gt;slash" type="string" value="ulauncher-toggle"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

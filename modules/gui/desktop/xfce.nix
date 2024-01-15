@@ -9,27 +9,7 @@
 with files; let
   inherit (config.gui) desktop wallpaper;
   exists = app: builtins.elem app config.apps.list;
-  inherit (lib) mapAttrs' mkIf mkForce mkMerge nameValuePair replaceStrings;
-
-  # Configuration Folder Creation
-  mkFolder = {
-    directory,
-    path,
-    extension ? "",
-    replace ? {
-      placeholders = {};
-      values = {};
-    },
-  }:
-    mapAttrs' (name: value:
-      nameValuePair "${path}/${name}${extension}" {
-        text = value;
-        force = true;
-      })
-    (util.map.files {
-      inherit directory extension;
-      apply = file: with replace; replaceStrings placeholders values (builtins.readFile file);
-    });
+  inherit (lib) mkIf mkForce mkMerge replaceStrings;
 
   # GTK+ Theme
   theme = {
@@ -106,13 +86,14 @@ in {
       # Utilities
       environment.systemPackages = with pkgs.xfce // pkgs; [
         galculator
+        gnome.file-roller
         mate.atril
         orage
         pavucontrol
         plank
         system-config-printer
         transmission-gtk
-        xarchiver
+        ulauncher
         xfce4-clipman-plugin
         xfce4-eyes-plugin
         xfce4-notes-plugin
@@ -126,7 +107,7 @@ in {
         xorg.xkill
       ];
 
-      # Persisted Files
+      # Persisted Files1
       user.persist = {
         directories = [
           ".config/autostart"
@@ -134,8 +115,10 @@ in {
           ".config/Mousepad"
           ".config/plank"
           ".config/Thunar"
+          ".config/ulauncher"
           ".config/xfce4"
           ".cache/xfce4"
+          ".local/share/ulauncher"
         ];
       };
 
@@ -191,19 +174,24 @@ in {
             # Desktop Settings
             ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
           }
-          // mkFolder {
+          // util.map.folder {
             directory = xfce.panel;
             path = ".config/xfce4/panel";
             extension = ".rc";
+            apply = text: {inherit text;};
             replace = {
               placeholders = ["@font"];
               values = [config.stylix.fonts.sansSerif.name];
             };
           }
-          // mkFolder {
+          // util.map.folder {
             directory = xfce.settings;
             path = ".config/xfce4/xfconf/xfce-perchannel-xml";
             extension = ".xml";
+            apply = text: {
+              inherit text;
+              force = true;
+            };
             replace = {
               placeholders = [
                 "@system"
@@ -224,7 +212,39 @@ in {
                 config.stylix.fonts.monospace.name
               ];
             };
-          };
+          }
+          ## 3rd Party Apps Configuration
+          // (with ulauncher; {
+            ## Launcher Settings
+            # Themes
+            ".config/ulauncher/user-themes" = {
+              source = themes;
+              recursive = true;
+            };
+
+            # Extensions
+            ".config/ulauncher/ext_preferences" = {
+              source = extensions;
+              recursive = true;
+              force = true;
+            };
+
+            # Scripts
+            ".config/ulauncher/scripts.json".text = scripts;
+
+            # Settings
+            ".config/ulauncher/extensions.json".text = extension;
+            ".config/ulauncher/settings.json".text =
+              replaceStrings ["@terminal" "@theme"] ["xfce4-terminal" "arc-dark"] settings;
+
+            # Autostart
+            ".config/autostart/ulauncher.desktop".text = ''
+              [Desktop Entry]
+              Type=Application
+              Name=ULauncher
+              Exec=${pkgs.ulauncher}/bin/ulauncher --no-window
+            '';
+          });
 
         # Dock Settings
         dconf.settings."net/launchpad/plank/docks/dock1" = {
@@ -234,7 +254,6 @@ in {
           theme = "default";
         };
 
-        ## 3rd Party Apps Configuration
         # Code Editor
         programs.vscode = mkIf (exists "vscode") {
           extensions = [pkgs.code.vscode-marketplace.alvesvaren.arc-dark];

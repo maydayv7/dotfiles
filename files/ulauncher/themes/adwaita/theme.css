@@ -1,0 +1,98 @@
+/* App Window */
+@define-color bg_color #242424;
+@define-color window_bg @bg_color;
+@define-color window_border_color #3A3A3A;
+@define-color prefs_backgroud #454545;
+
+/* Input */
+@define-color selected_bg_color #4675ab;
+@define-color selected_fg_color #d5eaff;
+@define-color input_color #ddd;
+@define-color caret_color darker(@input_color);
+
+/* Result Items */
+@define-color item_name #ffffff;
+@define-color item_text #999;
+@define-color item_box_selected rgba(255, 255, 255, 0.16);
+@define-color item_text_selected #999;
+@define-color item_name_selected #eee;
+@define-color item_shortcut_color #777;
+@define-color item_shortcut_shadow darker(@bg_color);
+@define-color item_shortcut_color_sel #78aeed;
+@define-color item_shortcut_shadow_sel darker(@item_box_selected);
+
+.app {
+  background-color: @window_bg;
+  border-color: @window_border_color;
+  border-radius: 15px;
+}
+
+.input {
+  caret-color: @caret_color;
+  color: @input_color;
+  border: solid 2px @blue_1;
+  border-radius: 5px;
+}
+
+/* Selected Text in Input */
+.input *:selected,
+.input *:focus,
+*:selected:focus {
+  background-color: alpha (@selected_bg_color, 0.9);
+  color: @selected_fg_color;
+}
+
+.item-text {
+  color: @item_text;
+}
+
+.item-name {
+  color: @item_name;
+  font-weight: bold;
+}
+
+.item-box {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.selected.item-box {
+  background-color: @item_box_selected;
+  border: none;
+}
+
+.selected.item-box .item-text {
+  color: @item_text_selected;
+}
+
+.selected.item-box .item-name {
+  color: @item_name_selected;
+}
+
+.item-shortcut {
+  color: @item_shortcut_color;
+}
+
+.selected.item-box .item-shortcut {
+  color: @item_shortcut_color_sel;
+}
+
+.prefs-btn {
+  opacity: 0.8;
+  padding: 13px;
+  border-radius: 10px;
+  transition: background-color 0.5s;
+}
+
+.prefs-btn * {
+  box-shadow: none;
+}
+
+.prefs-btn:hover {
+  background-color: @prefs_backgroud;
+  padding: 13px;
+  transition: background-color 0.5s;
+}
+
+.no-window-shadow {
+  margin: -20px;
+}

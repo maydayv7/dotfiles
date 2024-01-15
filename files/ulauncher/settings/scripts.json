@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Documentation",
+    "description": "ULauncher Documentation",
+    "icon": "help-about",
+    "script": "xdg-open https://ulauncher.io/"
+  }
+]
