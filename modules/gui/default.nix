@@ -3,7 +3,6 @@
   options,
   lib,
   util,
-  pkgs,
   ...
 }: let
   inherit (builtins) map;
@@ -19,15 +18,19 @@ in {
     default = "";
   };
 
-  config = {
-    # Warning
-    warnings = optional (!enable) (options.gui.desktop.description + " is unset");
+  config =
+    {
+      # Warning
+      warnings = optional (!enable) (options.gui.desktop.description + " is unset");
+    }
+    // (mkIf enable {
+      # Autostart Apps
+      user.persist.directories = [".config/autostart"];
 
-    # Desktop Integration
-    xdg.portal = mkIf enable {
-      enable = true;
-      xdgOpenUsePortal = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
-    };
-  };
+      # Desktop Integration
+      xdg.portal = {
+        enable = true;
+        xdgOpenUsePortal = true;
+      };
+    });
 }

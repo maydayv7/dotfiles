@@ -64,7 +64,16 @@
     </gesture>
 
     <!-- 3 Fingers -->
-    <gesture type="SWIPE" fingers="3" direction="UP">
+    <gesture type="SWIPE" fingers="3" direction="RIGHT">
+      <action type="SEND_KEYS">
+        <repeat>true</repeat>
+        <modifiers>Alt_L</modifiers>
+        <keys>Tab</keys>
+        <decreaseKeys>Shift_L+Tab</decreaseKeys>
+      </action>
+    </gesture>
+
+    <gesture type="SWIPE" fingers="3" direction="LEFT">
       <action type="SEND_KEYS">
         <repeat>true</repeat>
         <modifiers>Alt_L</modifiers>
@@ -73,21 +82,21 @@
       </action>
     </gesture>
 
-    <gesture type="SWIPE" fingers="3" direction="LEFT">
+    <gesture type="SWIPE" fingers="3" direction="UP">
       <action type="CHANGE_DESKTOP">
         <direction>next</direction>
         <animate>true</animate>
         <cyclic>true</cyclic>
-        <animationPosition>right</animationPosition>
+        <animationPosition>down</animationPosition>
       </action>
     </gesture>
 
-    <gesture type="SWIPE" fingers="3" direction="RIGHT">
+    <gesture type="SWIPE" fingers="3" direction="DOWN">
       <action type="CHANGE_DESKTOP">
         <direction>previous</direction>
         <animate>true</animate>
         <cyclic>true</cyclic>
-        <animationPosition>left</animationPosition>
+        <animationPosition>up</animationPosition>
       </action>
     </gesture>
 

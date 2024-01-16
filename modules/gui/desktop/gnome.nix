@@ -8,7 +8,7 @@
 }:
 with files; let
   inherit (config.gui) desktop;
-  inherit (lib) gvariant mkIf mkForce mkMerge;
+  inherit (lib) gvariant mkAfter mkIf mkForce mkMerge;
   exists = app: builtins.elem app config.apps.list;
 in {
   ## GNOME Desktop Configuration ##
@@ -55,18 +55,16 @@ in {
       # Desktop Integration
       gui = {
         fonts.enable = true;
+        gtk.enable = true;
         wayland.enable = true;
       };
 
       programs = {
-        dconf.enable = true;
         firefox.enable = true;
-        gnupg.agent.pinentryFlavor =
-          mkIf config.programs.gnupg.agent.enable "gnome3";
+        gnupg.agent.pinentryFlavor = mkForce "gnome3";
       };
 
       services = {
-        dbus.packages = [pkgs.dconf];
         udev.packages = [pkgs.gnome.gnome-settings-daemon];
         telepathy.enable = true;
         gnome = {
@@ -84,17 +82,9 @@ in {
 
         # GTK+ Theming
         stylix.targets.gnome.enable = true;
-        gtk = {
-          enable = true;
-          theme = {
-            name = "adw-gtk3-dark";
-            package = pkgs.adw-gtk3;
-          };
-
-          iconTheme = {
-            name = "Papirus-Dark";
-            package = pkgs.papirus-icon-theme;
-          };
+        gtk.theme = {
+          name = "adw-gtk3-dark";
+          package = pkgs.adw-gtk3;
         };
 
         # Default Applications
@@ -113,9 +103,6 @@ in {
 
         home.file =
           {
-            # GTK+ Bookmarks
-            ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
-
             # Action Menu
             ".config/guillotine.json".source = gnome.menu;
 
@@ -177,16 +164,11 @@ in {
 
       environment = {
         # QT Theme
-        variables."QT_STYLE_OVERRIDE" = mkForce "kvantum";
-        etc."xdg/Kvantum/kvantum.kvconfig".text = ''
-          [General]
-          theme=KvLibadwaitaDark
-        '';
+        etc."xdg/Kvantum/kvantum.kvconfig".text = mkAfter "theme=KvLibadwaitaDark";
 
         ## Package List
-        systemPackages = with pkgs;
-          [libsForQt5.qtstyleplugin-kvantum custom.kvlibadwaita]
-          ++ (with pkgs.gnome; [
+        systemPackages = with pkgs.gnome;
+          [
             # GNOME Apps
             gnome-boxes
             gnome-dictionary
@@ -198,7 +180,7 @@ in {
             gnome-chess
             gnome-mines
             quadrapassel
-          ])
+          ]
           ++ (with pkgs; [
             # GNOME Circle
             apostrophe
@@ -222,6 +204,7 @@ in {
             celluloid
             dconf2nix
             gnuchess
+            custom.kvlibadwaita
           ])
           ++ (with pkgs;
             with unstable.gnomeExtensions // gnomeExtensions; [
@@ -252,12 +235,9 @@ in {
 
       # Persisted Files
       user.persist.directories = [
-        ".config/dconf"
         ".config/forge"
         ".config/gnome-boxes"
         ".config/gnome-builder"
-        ".config/gtk-3.0"
-        ".config/gtk-4.0"
         ".config/pitivi"
         ".local/share/clipboard"
         ".local/share/epiphany"

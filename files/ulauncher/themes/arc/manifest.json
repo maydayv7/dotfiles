@@ -1,6 +1,6 @@
 {
   "manifest_version": "1",
-  "name": "arc-dark",
+  "name": "Arc-Dark",
   "display_name": "Arc Dark",
   "extend_theme": "dark",
   "css_file": "theme.css",

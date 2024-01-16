@@ -30,6 +30,8 @@ Configuration [Builder](./configuration.nix)
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
   - `fonts` -
     - `enable`: Enable Fonts Configuration - `true / false`
+  - `gtk` -
+    - `enable`: Enable GTK Configuration - `true / false`
   - `wayland` -
     - `enable`: Enable Wayland Configuration - `true / false`
 

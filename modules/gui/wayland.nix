@@ -1,8 +1,12 @@
-{lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   options.gui.wayland.enable = lib.mkEnableOption "Enable Wayland Configuration";
 
   ## Wayland Configuration ##
-  config = {
+  config = lib.mkIf config.gui.wayland.enable {
     # Environment Setup
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";

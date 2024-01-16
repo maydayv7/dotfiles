@@ -31,7 +31,7 @@
 
   gui = {
     desktop = "xfce";
-    wallpaper = "Nix";
+    wallpaper = "Sunset";
   };
 
   # User V7

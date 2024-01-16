@@ -9,19 +9,12 @@
 with files; let
   inherit (config.gui) desktop wallpaper;
   exists = app: builtins.elem app config.apps.list;
-  inherit (lib) mkIf mkForce mkMerge replaceStrings;
+  inherit (lib) mkAfter mkForce mkIf mkMerge replaceStrings;
 
   # GTK+ Theme
   theme = {
-    theme = {
-      name = "Arc-Dark";
-      package = pkgs.arc-theme;
-    };
-
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
+    name = "Arc-Dark";
+    package = pkgs.arc-theme;
   };
 in {
   ## XFCE Desktop Configuration ##
@@ -57,91 +50,86 @@ in {
     ## Full-Fledged XFCE Desktop Configuration
     (mkIf (desktop == "xfce") {
       # Desktop Integration
-      gui.fonts.enable = true;
-      environment.variables.GTK_THEME = theme.theme.name;
+      gui = {
+        fonts.enable = true;
+        gtk.enable = true;
+      };
+
+      environment.variables.GTK_THEME = theme.name;
       services = {
         bamf.enable = true;
         blueman.enable = true;
         touchegg.enable = true;
         gnome.gnome-keyring.enable = true;
-        xserver.displayManager.lightdm.greeters.gtk = theme;
+        xserver.displayManager.lightdm.greeters.gtk = {inherit theme;};
       };
 
       # Plugins
-      programs =
-        {
-          xfconf.enable = true;
-          seahorse.enable = true;
-          thunar = {
-            enable = true;
-            plugins = with pkgs.xfce; [
-              thunar-archive-plugin
-              thunar-dropbox-plugin
-              thunar-volman
-            ];
-          };
-        }
-        // {gnupg.agent.pinentryFlavor = mkIf config.programs.gnupg.agent.enable "gtk2";};
+      programs = {
+        xfconf.enable = true;
+        seahorse.enable = true;
+        thunar = {
+          enable = true;
+          plugins = with pkgs.xfce; [
+            thunar-archive-plugin
+            thunar-dropbox-plugin
+            thunar-volman
+          ];
+        };
+      };
 
-      # Utilities
-      environment.systemPackages = with pkgs.xfce // pkgs; [
-        galculator
-        gnome.file-roller
-        mate.atril
-        orage
-        pavucontrol
-        plank
-        system-config-printer
-        transmission-gtk
-        ulauncher
-        xfce4-clipman-plugin
-        xfce4-eyes-plugin
-        xfce4-notes-plugin
-        xfce4-panel-profiles
-        xfce4-pulseaudio-plugin
-        xfce4-sensors-plugin
-        xfce4-timer-plugin
-        xfce4-weather-plugin
-        xfce4-whiskermenu-plugin
-        xfce4-windowck-plugin
-        xorg.xkill
-      ];
+      environment = {
+        # QT Theme
+        etc."xdg/Kvantum/kvantum.kvconfig".text = mkAfter "theme=KvArcDark";
 
-      # Persisted Files
-      user.persist = {
-        directories = [
-          ".config/autostart"
-          ".config/dconf"
-          ".config/Mousepad"
-          ".config/plank"
-          ".config/Thunar"
-          ".config/ulauncher"
-          ".config/xfce4"
-          ".cache/xfce4"
-          ".local/share/ulauncher"
+        # Utilities
+        systemPackages = with pkgs.xfce // pkgs; [
+          arc-kde-theme
+          galculator
+          gnome.file-roller
+          mate.atril
+          orage
+          pavucontrol
+          plank
+          system-config-printer
+          transmission-gtk
+          ulauncher
+          xfce4-clipman-plugin
+          xfce4-eyes-plugin
+          xfce4-notes-plugin
+          xfce4-panel-profiles
+          xfce4-pulseaudio-plugin
+          xfce4-sensors-plugin
+          xfce4-timer-plugin
+          xfce4-weather-plugin
+          xfce4-whiskermenu-plugin
+          xfce4-windowck-plugin
+          xorg.xkill
         ];
       };
 
+      # Persisted Files
+      user.persist.directories = [
+        ".config/Mousepad"
+        ".config/plank"
+        ".config/Thunar"
+        ".config/ulauncher"
+        ".config/xfce4"
+        ".cache/xfce4"
+        ".local/share/ulauncher"
+      ];
+
       # Color Scheme
       stylix.base16Scheme = colors.arc;
-
-      # QT Theme
-      qt = {
-        enable = true;
-        platformTheme = "gtk2";
-        style = "gtk2";
-      };
 
       ## User Configuration
       user.homeConfig = {
         # GTK+ Theming
         stylix.targets.xfce.enable = false;
-        gtk =
-          {
-            enable = true;
-            gtk3.extraCss = xfce.css;
-          }
-          // theme;
+        gtk = {
+          inherit theme;
+          gtk3.extraCss = xfce.css;
+        };
 
         # Default Applications
         xdg.mimeApps.defaultApplications = util.build.mime xdg.mime {
@@ -156,9 +144,6 @@ in {
 
         home.file =
           {
-            # GTK+ Bookmarks
-            ".config/gtk-3.0/bookmarks".text = gtk.bookmarks;
-
             # Touchpad Gestures
             ".config/touchegg/touchegg.conf".text = gestures;
 
@@ -205,8 +190,8 @@ in {
               values = [
                 path.system
                 wallpaper
-                theme.theme.name
-                theme.iconTheme.name
+                theme.name
+                "Papirus-Dark"
                 config.stylix.cursor.name
                 config.stylix.fonts.sansSerif.name
                 config.stylix.fonts.monospace.name
@@ -235,16 +220,24 @@ in {
             # Settings
             ".config/ulauncher/extensions.json".text = extension;
             ".config/ulauncher/settings.json".text =
-              replaceStrings ["@terminal" "@theme"] ["xfce4-terminal" "arc-dark"] settings;
-
-            # Autostart
-            ".config/autostart/ulauncher.desktop".text = ''
-              [Desktop Entry]
-              Type=Application
-              Name=ULauncher
-              Exec=${pkgs.ulauncher}/bin/ulauncher --no-window
-            '';
+              replaceStrings ["@terminal" "@theme"] ["xfce4-terminal" theme.name] settings;
           });
+
+        # Autostart
+        systemd.user.services.ulauncher = {
+          Unit.Description = "Start ULauncher";
+          Install.WantedBy = ["graphical-session.target"];
+          Service = {
+            Type = "Simple";
+            Restart = "Always";
+            RestartSec = 1;
+            ExecStart = pkgs.writeShellScript "ulauncher-env-wrapper.sh" ''
+              export PATH="''${XDG_BIN_HOME}:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+              export GDK_BACKEND=x11
+              exec ${pkgs.ulauncher}/bin/ulauncher --hide-window
+            '';
+          };
+        };
 
         # Dock Settings
         dconf.settings."net/launchpad/plank/docks/dock1" = {
