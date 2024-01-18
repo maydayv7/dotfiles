@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   util,
   inputs,
   pkgs,
@@ -17,6 +16,9 @@
     };
 
     sops = {
+      # GPG Key Import
+      gnupg.home = files.gpg;
+
       # Encrypted Secrets
       secrets = let
         directory = ./. + "/${config.networking.hostName}";
@@ -27,12 +29,6 @@
           then util.map.secrets {inherit directory;}
           else {}
         );
-
-      # GPG Key Import
-      gnupg = {
-        home = files.gpg;
-        sshKeyPaths = lib.mkForce [];
-      };
     };
   };
 }

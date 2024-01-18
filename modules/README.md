@@ -26,12 +26,16 @@ Configuration [Builder](./configuration.nix)
 
 - [`gui`](./gui): Module that configures GUI Desktops/Environments and the like -
 
-  - `desktop`: Choice of GUI Desktop - `"gnome" / "xfce"`
+  - `desktop`: Choice of GUI Desktop - `"gnome" / "xfce" / "pantheon"`
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
   - `fonts` -
     - `enable`: Enable Fonts Configuration - `true / false`
   - `gtk` -
     - `enable`: Enable GTK Configuration - `true / false`
+  - `launcher` -
+    - `enable`: Enable Application Launcher - `true / false`
+    - `terminal`: Terminal to be used by Launcher
+    - `theme`: Theme to be used by Launcher
   - `wayland` -
     - `enable`: Enable Wayland Configuration - `true / false`
 

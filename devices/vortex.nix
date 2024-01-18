@@ -6,7 +6,7 @@
   timezone = "Asia/Kolkata";
   locale = "IN";
 
-  kernel = "xanmod";
+  kernel = "xanmod_latest";
   kernelModules = ["nvme" "thunderbolt"];
 
   hardware = {
@@ -20,8 +20,15 @@
 
   shell.utilities = true;
   apps = {
-    list = ["discord" "firefox" "git" "office" "vscode" "wine"];
     wine.utilities = true;
+    list = [
+      "discord"
+      "firefox"
+      "git"
+      "office"
+      "vscode"
+      "wine"
+    ];
   };
 
   nix = {
@@ -30,7 +37,7 @@
   };
 
   gui = {
-    desktop = "xfce";
+    desktop = "pantheon";
     wallpaper = "Sunset";
   };
 

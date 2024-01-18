@@ -19,7 +19,14 @@ in {
 
     xdg.portal.enable = true;
     environment.persist.directories = ["/var/lib/flatpak"];
-    user.persist.directories = [".cache/flatpak" ".local/share/flatpak"];
+    user.persist.directories = [".cache/flatpak" ".local/share/flatpak" ".var/app"];
+
+    ## TODO
+    # Use system Dconf Settings
+    /*
+    [Environment]
+    DCONF_USER_CONFIG_DIR=.config/dconf
+    */
 
     services.flatpak = {
       enable = true;
@@ -40,7 +47,7 @@ in {
       # Use `flatpak remote-info --log` to find commit revisions
       packages = [
         /*
-          {
+        {
           appId = "";
           origin = "";
           commit = "";

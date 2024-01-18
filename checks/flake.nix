@@ -35,6 +35,7 @@
         prettier = {
           enable = true;
           settings.bracketSameLine = true;
+          excludes = ["*.css"];
         };
       };
     };

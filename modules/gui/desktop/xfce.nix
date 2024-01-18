@@ -9,7 +9,7 @@
 with files; let
   inherit (config.gui) desktop wallpaper;
   exists = app: builtins.elem app config.apps.list;
-  inherit (lib) mkAfter mkForce mkIf mkMerge replaceStrings;
+  inherit (lib) mkAfter mkForce mkIf mkMerge;
 
   # GTK+ Theme
   theme = {
@@ -53,18 +53,21 @@ in {
       gui = {
         fonts.enable = true;
         gtk.enable = true;
+        launcher = {
+          enable = true;
+          theme = theme.name;
+          terminal = "xfce4-terminal";
+        };
       };
 
-      environment.variables.GTK_THEME = theme.name;
+      # Essential Utilities
       services = {
-        bamf.enable = true;
         blueman.enable = true;
         touchegg.enable = true;
         gnome.gnome-keyring.enable = true;
         xserver.displayManager.lightdm.greeters.gtk = {inherit theme;};
       };
 
-      # Plugins
       programs = {
         xfconf.enable = true;
         seahorse.enable = true;
@@ -79,8 +82,9 @@ in {
       };
 
       environment = {
-        # QT Theme
+        # Theming
         etc."xdg/Kvantum/kvantum.kvconfig".text = mkAfter "theme=KvArcDark";
+        variables."GTK_THEME" = theme.name;
 
         # Utilities
         systemPackages = with pkgs.xfce // pkgs; [
@@ -93,8 +97,8 @@ in {
           plank
           system-config-printer
           transmission-gtk
-          ulauncher
           xfce4-clipman-plugin
+          xfce4-docklike-plugin
           xfce4-eyes-plugin
           xfce4-notes-plugin
           xfce4-panel-profiles
@@ -105,18 +109,28 @@ in {
           xfce4-whiskermenu-plugin
           xfce4-windowck-plugin
           xorg.xkill
+
+          (writeShellApplication {
+            name = "xfce4-panel-toggle";
+            runtimeInputs = [xfce.xfconf];
+            text = ''
+              for num in {0,1}
+              do
+                current=$(xfconf-query -c xfce4-panel -p /panels/panel-"$num"/autohide-behavior)
+                if [[ current -eq 1 ]]; then next=0; else next=1; fi
+                xfconf-query -c xfce4-panel -p /panels/panel-"$num"/autohide-behavior -s $next
+              done
+            '';
+          })
         ];
       };
 
       # Persisted Files
       user.persist.directories = [
         ".config/Mousepad"
-        ".config/plank"
         ".config/Thunar"
-        ".config/ulauncher"
         ".config/xfce4"
         ".cache/xfce4"
-        ".local/share/ulauncher"
       ];
 
       # Color Scheme
@@ -146,15 +160,6 @@ in {
           {
             # Touchpad Gestures
             ".config/touchegg/touchegg.conf".text = gestures;
-
-            # Plank Dock
-            ".config/autostart/Dock.desktop".text = plank.autostart;
-            ".local/share/plank/themes/default/dock.theme".text = plank.theme;
-            ".config/plank/dock1/launchers" = {
-              source = plank.launchers;
-              recursive = true;
-              force = true;
-            };
 
             # Desktop Settings
             ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
@@ -199,53 +204,11 @@ in {
             };
           }
           ## 3rd Party Apps Configuration
-          // (with ulauncher; {
-            ## Launcher Settings
-            # Themes
-            ".config/ulauncher/user-themes" = {
-              source = themes;
-              recursive = true;
-            };
-
-            # Extensions
-            ".config/ulauncher/ext_preferences" = {
-              source = extensions;
-              recursive = true;
-              force = true;
-            };
-
-            # Scripts
-            ".config/ulauncher/scripts.json".text = scripts;
-
-            # Settings
-            ".config/ulauncher/extensions.json".text = extension;
-            ".config/ulauncher/settings.json".text =
-              replaceStrings ["@terminal" "@theme"] ["xfce4-terminal" theme.name] settings;
-          });
-
-        # Autostart
-        systemd.user.services.ulauncher = {
-          Unit.Description = "Start ULauncher";
-          Install.WantedBy = ["graphical-session.target"];
-          Service = {
-            Type = "Simple";
-            Restart = "Always";
-            RestartSec = 1;
-            ExecStart = pkgs.writeShellScript "ulauncher-env-wrapper.sh" ''
-              export PATH="''${XDG_BIN_HOME}:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
-              export GDK_BACKEND=x11
-              exec ${pkgs.ulauncher}/bin/ulauncher --hide-window
-            '';
+          // {
+            # Discord Arc Theme
+            ".config/BetterDiscord/data/stable/custom.css" =
+              mkIf (exists "discord") {text = ''@import url(https://rawcdn.githack.com/orblazer/discord-nordic/f3f6833c70d0b27b1cde986233b7009d61917812/nordic.theme.css);'';};
           };
-        };
-
-        # Dock Settings
-        dconf.settings."net/launchpad/plank/docks/dock1" = {
-          current-workspace-only = true;
-          icon-size = 60;
-          pressure-reveal = true;
-          theme = "default";
-        };
 
         # Code Editor
         programs.vscode = mkIf (exists "vscode") {

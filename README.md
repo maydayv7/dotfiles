@@ -61,7 +61,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 | Shells               |                        [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                        |
 | Terminal             | [Blackbox](https://gitlab.gnome.org/raggesilver/blackbox), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
 | Browser              |                                    [Firefox](https://www.mozilla.org/en-US/firefox/)                                     |
-| Desktop Environments |                                [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/)                                 |
+| Desktop Environments |              [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/), [Pantheon](https://elementary.io/)               |
 
 ## Structure
 
@@ -393,6 +393,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Refactor GNOME `dconf`
 - Overhaul XFCE Configuration
   - Use ULauncher
+- Add Pantheon Desktop Configuration
 - Add VS Code Extensions Repository
 - Fix Android Virtualisation
 - Add AppImage Support

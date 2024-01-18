@@ -65,6 +65,7 @@
       </property>
       <property name="&lt;Super&gt;e" type="string" value="exo-open --launch MailReader"/>
       <property name="&lt;Super&gt;slash" type="string" value="ulauncher-toggle"/>
+      <property name="&lt;Super&gt;p" type="string" value="xfce4-panel-toggle"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

@@ -4,6 +4,7 @@
   <property name="configver" type="int" value="2"/>
   <property name="panels" type="array">
     <value type="int" value="0"/>
+    <value type="int" value="1"/>
     <property name="dark-mode" type="bool" value="true"/>
     <property name="panel-0" type="empty">
       <property name="autohide-behavior" type="uint" value="1"/>
@@ -30,7 +31,6 @@
         <value type="int" value="16"/>
         <value type="int" value="24"/>
         <value type="int" value="18"/>
-        <value type="int" value="21"/>
         <value type="int" value="3"/>
         <value type="int" value="4"/>
         <value type="int" value="19"/>
@@ -52,6 +52,24 @@
       <property name="size" type="uint" value="27"/>
       <property name="span-monitors" type="bool" value="false"/>
       <property name="enable-struts" type="bool" value="true"/>
+    </property>
+    <property name="panel-1" type="empty">
+      <property name="position" type="string" value="p=0;x=961;y=1031"/>
+      <property name="size" type="uint" value="72"/>
+      <property name="plugin-ids" type="array">
+        <value type="int" value="23"/>
+        <value type="int" value="26"/>
+        <value type="int" value="25"/>
+      </property>
+      <property name="mode" type="uint" value="0"/>
+      <property name="length" type="double" value="1"/>
+      <property name="position-locked" type="bool" value="true"/>
+      <property name="autohide-behavior" type="uint" value="1"/>
+      <property name="nrows" type="uint" value="1"/>
+      <property name="length-adjust" type="bool" value="true"/>
+      <property name="icon-size" type="uint" value="16"/>
+      <property name="enter-opacity" type="uint" value="100"/>
+      <property name="leave-opacity" type="uint" value="85"/>
     </property>
   </property>
   <property name="plugins" type="empty">
@@ -84,7 +102,6 @@
       <property name="expand" type="bool" value="false"/>
       <property name="style" type="uint" value="0"/>
     </property>
-    <property name="plugin-26" type="string" value="thunar-tpa"/>
     <property name="plugin-3" type="string" value="separator">
       <property name="expand" type="bool" value="true"/>
       <property name="style" type="uint" value="0"/>
@@ -197,6 +214,13 @@
     <property name="plugin-24" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
-    <property name="plugin-21" type="string" value="windowck-plugin"/>
+    <property name="plugin-23" type="string" value="separator">
+      <property name="expand" type="bool" value="false"/>
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-25" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+    </property>
+    <property name="plugin-26" type="string" value="docklike"/>
   </property>
 </channel>

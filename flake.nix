@@ -223,7 +223,7 @@
     commit-lockfile-summary = "chore(flake): Update `inputs`";
 
     # Binary Caches
-    substituters = [
+    trusted-substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
       "https://nixpkgs-unfree.cachix.org"

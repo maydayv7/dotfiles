@@ -6,8 +6,10 @@
   files,
   ...
 }: let
-  inherit (lib) attrNames hasSuffix mkOption types;
+  inherit (lib) attrNames hasSuffix mkIf mkOption optional types;
   cfg = config.gui;
+  enable = !(cfg.desktop == "" || hasSuffix "-minimal" cfg.desktop);
+  exists = app: builtins.elem app config.apps.list;
 in {
   imports = [inputs.stylix.nixosModules.stylix];
 
@@ -20,7 +22,7 @@ in {
 
   ## Base16 Color Theming ##
   config = rec {
-    environment.systemPackages = [stylix.cursor.package];
+    environment.systemPackages = [stylix.cursor.package] ++ optional enable pkgs.papirus-icon-theme;
     stylix =
       {
         autoEnable = false;
@@ -32,7 +34,7 @@ in {
         };
       }
       // (
-        if (cfg.desktop == "" || hasSuffix "-minimal" cfg.desktop)
+        if (!enable)
         then {
           homeManagerIntegration.autoImport = false;
         }
@@ -49,7 +51,7 @@ in {
 
     user.homeConfig.stylix.targets = {
       bat.enable = true;
-      vscode.enable = false;
+      vscode.enable = mkIf (exists "vscode") false;
     };
   };
 }

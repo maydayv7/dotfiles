@@ -37,7 +37,11 @@
     fetch = readFile ./neofetch/config.conf;
 
     # Firefox Web Browser
-    firefox.theme = readFile ./firefox/userContent.css;
+    firefox = map.files {
+      directory = ./firefox;
+      apply = readFile;
+      extension = ".css";
+    };
 
     # X11 Touchpad Gestures
     gestures = readFile ./touchegg/gestures.xml;
@@ -66,6 +70,9 @@
 
     # Pictures
     images.profile = ./images/Profile.png;
+
+    # Pantheon Desktop
+    pantheon.dconf = ./pantheon/dconf.nix;
 
     # Plank Dock
     plank = {

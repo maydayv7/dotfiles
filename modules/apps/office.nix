@@ -17,6 +17,7 @@ in {
       # Productivity
       easyeffects
       gimp
+      gnome.simple-scan
       gscan2pdf
       handbrake
       hunspell
@@ -54,6 +55,7 @@ in {
         ".config/onlyoffice"
         ".local/share/data"
         ".local/share/onlyoffice"
+        ".local/share/whatsapp-for-linux"
         ".cache/thunderbird"
         ".cache/google-chrome"
         ".cache/zoom"

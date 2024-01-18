@@ -7,6 +7,7 @@
 }: let
   inherit (lib) mkEnableOption optionals;
   inherit (config.nix) tools;
+  flake = (import ../../flake.nix).nixConfig;
 in {
   imports = [./index.nix inputs.utils.nixosModules.autoGenFromInputs];
 
@@ -32,10 +33,13 @@ in {
       generateNixPathFromInputs = true;
       generateRegistryFromInputs = true;
 
-      # User Permissions
       settings = {
+        # User Permissions
         allowed-users = ["root" "@wheel"];
         trusted-users = ["root" "@wheel"];
+
+        # Binary Cache
+        inherit (flake) trusted-substituters trusted-public-keys;
 
         # Additional Features
         sandbox = true;

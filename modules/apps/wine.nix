@@ -29,20 +29,29 @@ in {
     hardware.opengl.driSupport32Bit = true;
 
     # Utilities
-    user.persist.directories = [".wine"] ++ optionals cfg.utilities [".config/notepad++"];
-    environment.systemPackages = with pkgs.wine // pkgs;
+    user.persist.directories =
+      [".wine" ".cache/wine" ".cache/winetricks"]
+      ++ optionals cfg.utilities [".config/notepad++"];
+
+    environment.systemPackages = with pkgs.wine // pkgs; (
       map (name:
         if (name.override.__functionArgs ? wine)
         then name.override {wine = cfg.package;}
-        else name) ([mkwindowsapp-tools]
-        ++ optionals cfg.utilities [notepad-plus-plus])
-      # Wrapped Packages
-      ++ optionals cfg.utilities (attrValues (util.map.modules ../../packages/wine
-        (name:
-          pkgs.callPackage name {
-            inherit lib pkgs;
-            wine = cfg.package;
-            build = inputs.windows.lib."${pkgs.system}";
-          })));
+        else name) ([
+          cfg.package
+          winetricks
+          mkwindowsapp-tools
+          playonlinux
+        ]
+        ++ optionals cfg.utilities ([notepad-plus-plus]
+          # Wrapped Packages
+          ++ (attrValues (util.map.modules ../../packages/wine
+            (name:
+              callPackage name {
+                inherit lib pkgs;
+                wine = cfg.package;
+                build = inputs.windows.lib."${pkgs.system}";
+              })))))
+    );
   };
 }

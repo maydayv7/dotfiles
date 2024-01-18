@@ -117,7 +117,7 @@ in {
           {
             # Firefox GNOME Theme
             ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
-            ".mozilla/firefox/default/chrome/userContent.css".text = firefox.theme;
+            ".mozilla/firefox/default/chrome/userContent.css".text = firefox.gnome;
 
             # Workaround for NixOS/nixpkgs/47340
             ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
@@ -235,6 +235,7 @@ in {
 
       # Persisted Files
       user.persist.directories = [
+        ".config/evolution"
         ".config/forge"
         ".config/gnome-boxes"
         ".config/gnome-builder"
@@ -250,6 +251,7 @@ in {
         ".local/share/sounds"
         ".local/share/telepathy"
         ".local/share/webkitgtk"
+        ".cache/evolution"
         ".cache/fractal"
         ".cache/gnome-builder"
       ];

@@ -44,7 +44,7 @@ with files; let
 
     apply = ''
       # Usage #
-        --activate                   - Activates Current Configuration
+        --activate [ home ]          - Activates Current [ Home ] Configuration
         --boot                       - Applies Configuration on boot
         --delta                      - Shows Package Delta for Build
         --rollback [ 'generation' ]  - Reverts to Last [ or Specified ] Build Generation
@@ -69,9 +69,9 @@ with files; let
 
     update = ''
       # Usage #
-        --pkgs             - Automatically updates manually packaged apps
-        --commit           - Updates 'inputs' and commits changes
-        'repo' ['source']  - Updates 'repo' input [ To specified 'source' ]
+        --pkgs               - Automatically updates manually packaged apps
+        --commit             - Updates 'inputs' and commits changes
+        'repo' [ 'source' ]  - Updates 'repo' input [ To specified 'source' ]
     '';
   };
 in
@@ -119,8 +119,17 @@ in
           sudo nixos-rebuild switch --flake ${path.system}#
         ;;
         "--activate")
-          echo "Activating Configuration..."
-          sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+          case $3 in
+          "")
+            echo "Activating Configuration..."
+            sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+          ;;
+          "home")
+            echo "Applying Home Configuration..."
+            sudo systemctl restart home-manager-"$USER"
+          ;;
+          *) error "Unknown Option '$3'";;
+          esac
         ;;
         "--boot")
           echo "Applying Configuration..."

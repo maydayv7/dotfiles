@@ -48,7 +48,6 @@ in {
             bindkey '^[[C'    forward-char
             bindkey '^[[D'    backward-char
             bindkey '^[[F'    end-of-line
-            bindkey '^H'      backward-kill-word
             bindkey '^[[H'    beginning-of-line
             bindkey '^J'      backward-kill-line
           '';

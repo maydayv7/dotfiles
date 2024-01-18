@@ -5,7 +5,7 @@
   files,
   ...
 }: let
-  inherit (lib) mkEnableOption mkForce mkIf;
+  inherit (lib) mkDefault mkEnableOption mkIf;
 in {
   options.gui.gtk.enable = mkEnableOption "Enable GTK Configuration";
 
@@ -19,7 +19,7 @@ in {
     # Platform Integration
     programs.gnupg.agent.pinentryFlavor = "gtk2";
     environment = {
-      variables."QT_STYLE_OVERRIDE" = mkForce "kvantum";
+      variables."QT_STYLE_OVERRIDE" = mkDefault "kvantum";
       systemPackages = [pkgs.libsForQt5.qtstyleplugin-kvantum];
       etc."xdg/Kvantum/kvantum.kvconfig".text = "[General]";
     };
@@ -43,6 +43,9 @@ in {
             name = "Papirus-Dark";
             package = pkgs.papirus-icon-theme;
           };
+
+          gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+          gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
         };
       };
     };
