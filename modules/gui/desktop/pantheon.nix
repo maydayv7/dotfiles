@@ -40,6 +40,7 @@ in {
       };
 
       programs = {
+        firefox.enable = true;
         pantheon-tweaks.enable = true;
         seahorse.enable = true;
       };
@@ -135,48 +136,48 @@ in {
             x11.enable = true;
           };
 
-          file =
-            {
-              # Plank Dock
-              ".config/autostart/Dock.desktop".text = plank.autostart;
-              ".local/share/plank/themes/default/dock.theme".text = plank.theme;
-              ".config/plank/dock1/launchers" = {
-                source = plank.launchers;
-                recursive = true;
-                force = true;
-              };
+          file = {
+            # Plank Dock
+            ".config/autostart/Dock.desktop".text = plank.autostart;
+            ".local/share/plank/themes/default/dock.theme".text = plank.theme;
+            ".config/plank/dock1/launchers" = {
+              source = plank.launchers;
+              recursive = true;
+              force = true;
+            };
 
-              # Panel Indicators
-              ".config/autostart/ibus-daemon.desktop".text = ''
-                [Desktop Entry]
-                Name=IBus Daemon
-                Type=Application
-                Exec=${pkgs.ibus}/bin/ibus-daemon --daemonize --desktop=pantheon --replace --xim
-                Categories=
-                Terminal=false
-                NoDisplay=true
-                StartupNotify=false
-              '';
+            # Firefox Elementary Theme
+            ".mozilla/firefox/default/chrome/userChrome.css".source = "${pkgs.custom.firefox-elementary-theme}/Windows/userChrome.css";
+            ".mozilla/firefox/default/chrome/userContent.css".source = "${pkgs.custom.firefox-elementary-theme}/userContent.css";
+            ".mozilla/firefox/default/chrome/base.css".source = "${pkgs.custom.firefox-elementary-theme}/base.css";
 
-              ".config/autostart/monitor-background.desktop".text = ''
-                [Desktop Entry]
-                Name=Monitor Indicators
-                Type=Application
-                Exec=/run/current-system/sw/bin/com.github.stsdc.monitor --start-in-background
-                Icon=com.github.stsdc.monitor
-                Categories=
-                Terminal=false
-                NoDisplay=true
-                StartupNotify=false'';
-            }
-            ## 3rd Party Apps Configuration
-            // (mkIf (exists "firefox") {
-              # Firefox Elementary Theme
-              ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-elementary-theme}/Windows/userChrome.css";'';
-              ".mozilla/firefox/default/chrome/userContent.css".text = firefox.elementary;
-            });
+            # Panel Indicators
+            ".config/autostart/ibus-daemon.desktop".text = ''
+              [Desktop Entry]
+              Name=IBus Daemon
+              Type=Application
+              Exec=${pkgs.ibus}/bin/ibus-daemon --daemonize --desktop=pantheon --replace --xim
+              Categories=
+              Terminal=false
+              NoDisplay=true
+              StartupNotify=false
+            '';
+
+            ".config/autostart/monitor-background.desktop".text = ''
+              [Desktop Entry]
+              Name=Monitor Indicators
+              Type=Application
+              Exec=/run/current-system/sw/bin/com.github.stsdc.monitor --start-in-background
+              Icon=com.github.stsdc.monitor
+              Categories=
+              Terminal=false
+              NoDisplay=true
+              StartupNotify=false
+            '';
+          };
         };
 
+        ## 3rd Party Apps Configuration
         # Code Editor
         programs.vscode = mkIf (exists "vscode") {
           extensions = [pkgs.code.vscode-marketplace.sixpounder.elementary-theme];

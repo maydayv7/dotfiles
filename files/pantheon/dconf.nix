@@ -18,7 +18,7 @@ in {
     "io/elementary/desktop/wingpanel/power".show-percentage = true;
     "io/elementary/desktop/wingpanel/bluetooth".bluetooth-enabled = false;
     "io/elementary/switchboard/keyboard".first-launch = false;
-    "io/elementary/files/preferences".singleclick-select = true;
+    "io/elementary/files/preferences".singleclick-select = false;
     "io/elementary/settings-daemon/datetime".show-weeks = true;
 
     "org/gnome/desktop/session".idle-delay = mkUint32 900;
@@ -160,7 +160,7 @@ in {
 
     "com/github/hezral/clips" = {
       first-run = false;
-      hide-on-startup = false;
+      hide-on-startup = true;
       min-column-number = 3;
       persistent-mode = false;
       prefer-dark-style = true;

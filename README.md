@@ -13,6 +13,8 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 <details>
 <summary><i>More...</i></summary>
 
+![Pantheon Desktop](./files/images/desktop/pantheon.png)
+
 ![XFCE Desktop](./files/images/desktop/xfce.png)
 
 ![GNOME 44](./files/images/desktop/old/gnome_44.png)
@@ -324,10 +326,18 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 - [Powerlevel10K](https://github.com/romkatv/powerlevel10k) Theme: ZSH Theme for the fancy-looking prompt with immense customization capabilities
 - [Arc Theme](https://github.com/jnsh/arc-theme): Flat GTK theme with transparent elements for various desktop shells, window managers and applications
 - [Bibata Cursor](https://github.com/ful1e5/Bibata_Cursor): Compact and material designed cursor set
-- [DNOME](https://github.com/GeopJr/DNOME) Discord Theme: Discord theme inspired by Adwaita, designed to integrate Discord with GNOME
+- [DNOME](https://github.com/GeopJr/DNOME) Discord Theme: Discord Theme inspired by Adwaita, designed to integrate Discord with GNOME
+- [Nordic](https://github.com/orblazer/discord-nordic) Discord Theme: Discord Theme using the [Nord](<(https://www.nordtheme.com/)>) color palette
 - [Firefox GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser, used for better desktop integration
+- [Firefox Elementary Theme](https://github.com/Zonnev/elementaryos-firefox-theme): Elementary OS Theme for the Mozilla Firefox Browser, used for better desktop integration
 - [VS Code Adwaita Theme](https://github.com/piousdeer/vscode-adwaita): Integrates Visual Studio Code with GNOME Desktop
+- [VS Code Arc Theme](https://github.com/alvesvaren/arc-dark-vscode): Port of the Arc Dark GTK Theme for Visual Studio Code
+- [VS Code Elementary Theme](https://github.com/sixpounder/vscode-elementary-theme): Integrates Visual Studio Code with Pantheon Desktop
 - [KvLibadwaita Kvantum Theme](https://github.com/GabePoel/KvLibadwaita): Integrates QT Apps with GNOME Desktop
+- [Arc KDE Theme](https://github.com/PapirusDevelopmentTeam/arc-kde): Port of the Arc GTK Theme for Plasma Desktop
+- ULauncher [Adwaita Theme](https://github.com/gabrbrand/adwaita-dark-ulauncher): ULauncher Theme based on GNOME Desktop's Adwaita Dark Theme
+- ULauncher [Arc Theme](https://github.com/tjquillan/Arc-Dark-ULauncher): An Arc Dark Theme for ULauncher
+- ULauncher [Elementary Theme](https://github.com/heidefinnischen/ULauncher-elementary): ULauncher Themes for Elementary OS
 
 ### Important Links
 

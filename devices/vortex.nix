@@ -38,7 +38,7 @@
 
   gui = {
     desktop = "pantheon";
-    wallpaper = "Sunset";
+    wallpaper = "Wave";
   };
 
   # User V7

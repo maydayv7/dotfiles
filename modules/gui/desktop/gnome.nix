@@ -117,7 +117,7 @@ in {
           {
             # Firefox GNOME Theme
             ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
-            ".mozilla/firefox/default/chrome/userContent.css".text = firefox.gnome;
+            ".mozilla/firefox/default/chrome/userContent.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userContent.css";'';
 
             # Workaround for NixOS/nixpkgs/47340
             ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";

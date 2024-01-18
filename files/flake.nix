@@ -36,13 +36,6 @@
     # Neofetch
     fetch = readFile ./neofetch/config.conf;
 
-    # Firefox Web Browser
-    firefox = map.files {
-      directory = ./firefox;
-      apply = readFile;
-      extension = ".css";
-    };
-
     # X11 Touchpad Gestures
     gestures = readFile ./touchegg/gestures.xml;
 
