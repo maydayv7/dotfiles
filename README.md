@@ -8,18 +8,25 @@
 
 This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.tk](https://maydayv7.tk). You can follow along with my [NixOS Desktop](https://maydayv7.tk/series/nixos-desktop/) Series
 
-![GNOME Desktop](./files/images/desktop/gnome.png)
-
 <details>
-<summary><i>More...</i></summary>
+<summary>Desktop Pictures</summary>
+
+![GNOME Desktop](./files/images/desktop/gnome/desktop.png)
+
+![GNOME Overview](./files/images/desktop/gnome/overview.png)
 
 ![Pantheon Desktop](./files/images/desktop/pantheon.png)
 
 ![XFCE Desktop](./files/images/desktop/xfce.png)
 
+<details>
+<summary><i>Older...</i></summary>
+
 ![GNOME 44](./files/images/desktop/old/gnome_44.png)
 
 [![GNOME 41](./files/images/desktop/old/gnome_41.png)](https://www.reddit.com/r/unixporn/comments/ssb7mf/gnome_my_dream/)
+
+</details>
 
 </details>
 
@@ -408,6 +415,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Fix Android Virtualisation
 - Add AppImage Support
 - Add `gui.gtk` Module
+- Refactor and add `hardware.cpu`
 - Add `sql` Shell
 - Actually persist `~/.local/share/Trash`
 

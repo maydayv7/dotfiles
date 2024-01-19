@@ -14,7 +14,6 @@ in {
     # Environment Setup
     programs.dconf.enable = true;
     services.dbus.packages = [pkgs.dconf];
-    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     # Platform Integration
     programs.gnupg.agent.pinentryFlavor = "gtk2";

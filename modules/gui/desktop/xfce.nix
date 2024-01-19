@@ -61,6 +61,7 @@ in {
       };
 
       # Essential Utilities
+      xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
       services = {
         blueman.enable = true;
         touchegg.enable = true;

@@ -11,11 +11,14 @@
 
   hardware = {
     boot = "secure";
-    cores = 8;
     filesystem = "advanced";
     support = ["laptop" "mobile" "printer" "virtualisation"];
     modules = ["dell-inspiron-5509"];
     vm.android.enable = false;
+    cpu = {
+      cores = 8;
+      mode = "performance";
+    };
   };
 
   shell.utilities = true;
@@ -37,7 +40,7 @@
   };
 
   gui = {
-    desktop = "pantheon";
+    desktop = "gnome";
     wallpaper = "Wave";
   };
 

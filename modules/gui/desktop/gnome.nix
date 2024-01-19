@@ -167,7 +167,7 @@ in {
         etc."xdg/Kvantum/kvantum.kvconfig".text = mkAfter "theme=KvLibadwaitaDark";
 
         ## Package List
-        systemPackages = with pkgs.gnome;
+        systemPackages = with pkgs; (with gnome;
           [
             # GNOME Apps
             gnome-boxes
@@ -181,7 +181,7 @@ in {
             gnome-mines
             quadrapassel
           ]
-          ++ (with pkgs; [
+          ++ [
             # GNOME Circle
             apostrophe
             blackbox-terminal
@@ -205,9 +205,9 @@ in {
             dconf2nix
             gnuchess
             custom.kvlibadwaita
-          ])
-          ++ (with pkgs;
-            with unstable.gnomeExtensions // gnomeExtensions; [
+          ]
+          ++ (
+            with unstable.gnomeExtensions; [
               # GNOME Shell Extensions
               alttab-mod
               appindicator
@@ -219,18 +219,20 @@ in {
               gamemode-indicator-in-system-settings
               guillotine
               lock-keys
+              open-bar
+              overview-hover
               pano
               shortcuts
               status-area-horizontal-spacing
               top-bar-organizer
-              transparent-top-bar
               user-avatar-in-quick-settings
               vertical-workspaces
               vitals
               window-gestures
               window-title-is-back
               xlanguagetray
-            ]);
+            ]
+          ));
       };
 
       # Persisted Files
@@ -259,9 +261,8 @@ in {
 
     ## Minimal GNOME Desktop Configuration
     (mkIf (desktop == "gnome-minimal") {
-      # Disable Suspension
       services.xserver = {
-        displayManager.gdm.autoSuspend = false;
+        displayManager.gdm.autoSuspend = false; # Disable Suspension
         desktopManager.gnome = {
           extraGSettingsOverrides = gnome.iso;
           extraGSettingsOverridePackages = [pkgs.gnome.gnome-settings-daemon];
@@ -273,15 +274,16 @@ in {
       };
 
       # Essential Utilities
-      environment.systemPackages = with pkgs.gnome; [
+      environment.systemPackages = with (pkgs.gnome // pkgs); [
         epiphany
-        pkgs.gnome-console
-        pkgs.gnome-text-editor
+        gnome-console
+        gnome-text-editor
         gnome-system-monitor
+        gparted
         nautilus
       ];
 
-      # Additional Excluded Packages
+      # Excluded Packages
       xdg.portal.enable = mkForce false;
       qt.enable = mkForce false;
 

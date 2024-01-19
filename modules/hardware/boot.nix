@@ -33,7 +33,7 @@ in {
           };
 
           # Plymouth
-          consoleLogLevel = 0;
+          consoleLogLevel = 3;
           initrd.verbose = false;
           plymouth.enable = true;
           kernelParams = [
@@ -41,7 +41,6 @@ in {
             "splash"
             "boot.shell_on_fail"
             "i915.fastboot=1"
-            "loglevel=3"
             "rd.systemd.show_status=false"
             "rd.udev.log_level=3"
             "udev.log_priority=3"

@@ -64,10 +64,7 @@
 
     # Power Management
     services.thermald.enable = true;
-    powerManagement = {
-      enable = true;
-      cpuFreqGovernor = "powersave";
-    };
+    powerManagement.enable = true;
 
     # Memory
     systemd.oomd.enable = false;

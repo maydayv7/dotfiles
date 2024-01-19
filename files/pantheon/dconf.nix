@@ -152,10 +152,18 @@ in {
 
     "io/elementary/code/saved-state".outline-visible = true;
     "io/elementary/code/settings" = {
-      strip-trailing-on-save = true;
+      autosave = false;
+      prefer-dark-style = true;
       show-mini-map = true;
       show-right-margin = true;
-      prefer-dark-style = true;
+      strip-trailing-on-save = true;
+      plugins-enabled = [
+        "editorconfig"
+        "word-completion"
+        "brackets-completion"
+        "preserve-indent"
+        "detect-indent"
+      ];
     };
 
     "com/github/hezral/clips" = {
@@ -278,6 +286,25 @@ in {
       binding = "<Super>v";
       command = "gtk-launch com.github.hezral.clips";
       name = "gtk-launch com.github.hezral.clips";
+    };
+
+    # Gestures
+    "org/gnome/shell/extensions/windowgestures" = {
+      fn-fullscreen = true;
+      fn-maximized-snap = true;
+      fn-move = true;
+      fn-move-snap = true;
+      fn-resize = true;
+      pinch-enable = true;
+      pinch3-in = 0;
+      pinch3-out = 0;
+      pinch4-in = 14;
+      pinch4-out = 3;
+      swipe3-down = 1;
+      swipe4-updown = 22;
+      taphold-move = true;
+      three-finger = false;
+      use-active-window = true;
     };
   };
 }

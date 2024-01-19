@@ -109,7 +109,7 @@ in
                 else []
               );
 
-            inherit apps gui hardware shell;
+            inherit apps gui hardware nix shell;
             base = {inherit kernel kernelModules;};
 
             # Device Name
@@ -124,12 +124,6 @@ in
 
             # Package Configuration
             nixpkgs = {inherit pkgs;};
-            nix =
-              {
-                settings.max-jobs = hardware.cores or 4;
-              }
-              // nix;
-
             system = {
               # Updates
               autoUpgrade = {
