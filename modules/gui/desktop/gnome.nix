@@ -207,7 +207,7 @@ in {
             custom.kvlibadwaita
           ]
           ++ (
-            with unstable.gnomeExtensions; [
+            with gnomeExtensions // unstable.gnomeExtensions; [
               # GNOME Shell Extensions
               alttab-mod
               appindicator
@@ -219,12 +219,12 @@ in {
               gamemode-indicator-in-system-settings
               guillotine
               lock-keys
-              open-bar
               overview-hover
               pano
               shortcuts
               status-area-horizontal-spacing
               top-bar-organizer
+              transparent-top-bar
               user-avatar-in-quick-settings
               vertical-workspaces
               vitals

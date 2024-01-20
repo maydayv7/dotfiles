@@ -28,13 +28,13 @@ in {
         "guillotine@fopdoodle.net"
         "langTray@a7medkhalaf"
         "lockkeys@vaina.lt"
-        "openbar@neuromorph"
         "overviewhover@mattdavis90"
         "pano@elhan.io"
         "quick-settings-avatar@d-go"
         "Shortcuts@kyle.aims.ac.za"
         "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
         "top-bar-organizer@julian.gse.jsts.xyz"
+        "transparent-top-bar@zhanghai.me"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "vertical-workspaces@G-dH.github.com"
         "Vitals@CoreCoding.com"
@@ -133,45 +133,6 @@ in {
       use-custom-shortcuts = true;
       use-transparency = true;
       visibility = 50;
-    };
-
-    "org/gnome/shell/extensions/openbar" = {
-      balpha = 1.0;
-      bartype = "Floating";
-      bcolor = ["0.9647058844566345" "0.9607843160629272" "0.95686274766922"];
-      bgalpha = 0.8;
-      bgalpha2 = 0.0;
-      bgcolor = ["0.1411764770746231" "0.1411764770746231" "0.1411764770746231"];
-      bgcolor2 = ["0.10980392247438431" "0.4431372582912445" "0.8470588326454163"];
-      bgpalette = false;
-      bradius = 15.0;
-      bwidth = 1.0;
-      default-font = "${font} 12";
-      fgcolor = ["1" "1" "1"];
-      font = "${font} Bold 15";
-      gradient = false;
-      gradient-direction = "vertical";
-      hcolor = ["0.46666666865348816" "0.4627451002597809" "0.48235294222831726"];
-      heffect = false;
-      height = 32.0;
-      hpad = 0.0;
-      margin = 1.0;
-      mbalpha = 1.0;
-      mbcolor = ["0.9647058844566345" "0.9607843160629272" "0.95686274766922"];
-      mbgalpha = 0.8;
-      mbgcolor = ["0.1411764770746231" "0.1411764770746231" "0.1411764770746231"];
-      menustyle = true;
-      mhcolor = ["0.3843137323856354" "0.6274510025978088" "0.9176470637321472"];
-      mscolor = ["0.10980392247438431" "0.4431372582912445" "0.8470588326454163"];
-      mshalpha = 0.25;
-      mshcolor = ["0.8784313797950745" "0.8980392217636108" "0.9137254953384399"];
-      neon = false;
-      overview = true;
-      reloadstyle = false;
-      removestyle = false;
-      shadow = false;
-      shalpha = 1.0;
-      vpad = 4.0;
     };
 
     "org/gnome/shell/extensions/pano" = {

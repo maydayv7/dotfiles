@@ -39,6 +39,10 @@
         "description": "Switches between Windows of current application"
       },
       {
+        "key": "Space in Overview",
+        "description": "Search open windows"
+      },
+      {
         "key": "Super + ←/→",
         "description": "Switch Workspace"
       },
@@ -167,7 +171,7 @@
         "description": "Run Dialog"
       },
       {
-        "key": "Super + 1,2,3,...",
+        "key": "Super + 1,2,3...",
         "description": "Run app by Position in the Launcher"
       },
       {
