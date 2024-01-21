@@ -10,7 +10,8 @@ in {
   imports = util.map.modules.list ./.;
 
   ## Dconf Keys ##
-  # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
+  # Generated via gvolpe/dconf2nix
+  # Use 'dconf watch /' to record changes
   dconf.settings = {
     # Keyboard Shortcuts
     "org/gnome/desktop/wm/keybindings" = {

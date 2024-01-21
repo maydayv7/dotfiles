@@ -77,8 +77,8 @@ in {
 
       ## User Configuration
       user.homeConfig = {
-        # Dconf Keys
-        imports = [gnome.dconf];
+        # Desktop Settings
+        imports = [gnome.settings];
 
         # GTK+ Theming
         stylix.targets.gnome.enable = true;
@@ -202,47 +202,18 @@ in {
 
             # Utilities
             celluloid
-            dconf2nix
             gnuchess
             custom.kvlibadwaita
-          ]
-          ++ (
-            with gnomeExtensions // unstable.gnomeExtensions; [
-              # GNOME Shell Extensions
-              alttab-mod
-              appindicator
-              auto-activities
-              caffeine
-              emoji-copy
-              forge
-              fullscreen-avoider
-              gamemode-indicator-in-system-settings
-              guillotine
-              lock-keys
-              overview-hover
-              pano
-              shortcuts
-              status-area-horizontal-spacing
-              top-bar-organizer
-              transparent-top-bar
-              user-avatar-in-quick-settings
-              vertical-workspaces
-              vitals
-              window-gestures
-              window-title-is-back
-              xlanguagetray
-            ]
-          ));
+          ]);
       };
 
       # Persisted Files
       user.persist.directories = [
+        # Apps
         ".config/evolution"
-        ".config/forge"
         ".config/gnome-boxes"
         ".config/gnome-builder"
         ".config/pitivi"
-        ".local/share/clipboard"
         ".local/share/epiphany"
         ".local/share/evolution"
         ".local/share/geary"
@@ -256,6 +227,10 @@ in {
         ".cache/evolution"
         ".cache/fractal"
         ".cache/gnome-builder"
+
+        # Extensions
+        ".config/forge"
+        ".local/share/clipboard"
       ];
     })
 

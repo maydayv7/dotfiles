@@ -8,7 +8,8 @@ with lib.hm.gvariant; let
   fonts = sys.fonts.fontconfig.defaultFonts;
 in {
   ## Dconf Keys ##
-  # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
+  # Generated via gvolpe/dconf2nix
+  # Use 'dconf watch /' to record changes
   dconf.settings = {
     # Desktop
     "io/elementary/desktop/agent-geoclue2".location-enabled = true;

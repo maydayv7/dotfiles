@@ -45,8 +45,8 @@
     # GNOME Desktop
     gnome =
       {
-        dconf = ./gnome/dconf;
         iso = readFile ./gnome/iso;
+        settings = ./gnome/settings;
         shell = readFile ./gnome/shell.css;
         tiling = readFile ./gnome/tiling.css;
       }

@@ -378,6 +378,7 @@ _Thanks a lot! ;)_
 
 - Example [Configuration](https://github.com/srid/nixos-flake)
 - User Configurations -
+  - [4JX](https://github.com/4JX/nixos-config)
   - [balsoft](https://code.balsoft.ru/balsoft/nixos-config)
   - [bbigras](https://github.com/bbigras/nix-config)
   - [cole-h](https://github.com/cole-h/nixos-config/)
