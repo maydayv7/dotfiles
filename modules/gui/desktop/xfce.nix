@@ -16,6 +16,9 @@ with files; let
     name = "Arc-Dark";
     package = pkgs.arc-theme;
   };
+
+  # Window Composition
+  compositor = config.hardware.cpu.mode != "powersave";
 in {
   ## XFCE Desktop Configuration ##
   config = mkIf (desktop == "xfce" || desktop == "xfce-minimal") (mkMerge [
@@ -67,6 +70,21 @@ in {
         touchegg.enable = true;
         gnome.gnome-keyring.enable = true;
         xserver.displayManager.lightdm.greeters.gtk = {inherit theme;};
+
+        # Compositor
+        picom = mkIf compositor {
+          enable = true;
+          package = pkgs.picom-allusive;
+          backend = "glx";
+          vSync = true;
+          fade = true;
+          inactiveOpacity = 0.9;
+          opacityRules = ["95:class_g = 'Xfce4-terminal' && focused"];
+          settings = {
+            focus-exclude = ["fullscreen"];
+            corner-radius = 10.0;
+          };
+        };
       };
 
       programs = {
@@ -189,6 +207,7 @@ in {
                 "@cursor"
                 "@font"
                 "@monospace"
+                "@compositor"
               ];
               values = [
                 path.system
@@ -198,6 +217,11 @@ in {
                 config.stylix.cursor.name
                 config.stylix.fonts.sansSerif.name
                 config.stylix.fonts.monospace.name
+                (
+                  if compositor
+                  then "false"
+                  else "true"
+                )
               ];
             };
           }
