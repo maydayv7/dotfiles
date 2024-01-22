@@ -40,8 +40,8 @@
   };
 
   gui = {
-    desktop = "gnome";
-    wallpaper = "Wave";
+    desktop = "xfce";
+    wallpaper = "Sunrise";
   };
 
   # User V7

@@ -95,7 +95,6 @@ in {
           mate.atril
           orage
           pavucontrol
-          plank
           system-config-printer
           transmission-gtk
           xfce4-clipman-plugin
@@ -161,10 +160,8 @@ in {
           {
             # Touchpad Gestures
             ".config/touchegg/touchegg.conf".text = gestures;
-
-            # Desktop Settings
-            ".config/xfce4/terminal/terminalrc".text = xfce.terminal;
           }
+          # Desktop Settings
           // util.map.folder {
             directory = xfce.panel;
             path = ".config/xfce4/panel";
