@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (util) map;
-  inherit (builtins) any attrValues isPath;
+  inherit (builtins) any isPath;
 in {
   ## Package Configuration ##
   perSystem = {
@@ -44,20 +44,20 @@ in {
       ) {
         inherit system;
         config = import ../modules/nix/config.nix;
-        overlays =
-          [nur.overlay]
-          ++ (attrValues self.overlays or {})
-          ++ [
-            (final: prev: {
-              custom = self.packages."${system}";
-              unstable = import unstable {inherit system;};
+        overlays = [
+          nur.overlay
+          (final: prev: {
+            nixFlakes = prev.nixVersions.nix_2_19;
 
-              chaotic = chaotic.packages."${system}";
-              code = vscode.extensions."${system}";
-              gaming = gaming.packages."${system}";
-              wine = windows.packages."${system}";
-            })
-          ];
+            custom = self.packages."${system}";
+            unstable = import unstable {inherit system;};
+
+            chaotic = chaotic.packages."${system}";
+            code = vscode.extensions."${system}";
+            gaming = gaming.packages."${system}";
+            wine = windows.packages."${system}";
+          })
+        ];
       };
 
     # Custom Packages
@@ -69,7 +69,4 @@ in {
       // map.modules ../scripts call.script
       // inputs'.proprietary.packages;
   });
-
-  # Package Overrides
-  flake.overlays = map.modules ./overlays import;
 }

@@ -32,6 +32,8 @@ Configuration [Builder](./configuration.nix)
     - `enable`: Enable Fonts Configuration - `true / false`
   - `gtk` -
     - `enable`: Enable GTK Configuration - `true / false`
+  - `compositor` -
+    - `enable`: Enable Window Compositor - `true / false`
   - `launcher` -
     - `enable`: Enable Application Launcher - `true / false`
     - `terminal`: Terminal to be used by Launcher

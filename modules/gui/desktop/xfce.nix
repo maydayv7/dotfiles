@@ -56,6 +56,7 @@ in {
       gui = {
         fonts.enable = true;
         gtk.enable = true;
+        compositor.enable = compositor;
         launcher = {
           enable = true;
           theme = theme.name;
@@ -70,21 +71,6 @@ in {
         touchegg.enable = true;
         gnome.gnome-keyring.enable = true;
         xserver.displayManager.lightdm.greeters.gtk = {inherit theme;};
-
-        # Compositor
-        picom = mkIf compositor {
-          enable = true;
-          package = pkgs.picom-allusive;
-          backend = "glx";
-          vSync = true;
-          fade = true;
-          inactiveOpacity = 0.9;
-          opacityRules = ["95:class_g = 'Xfce4-terminal' && focused"];
-          settings = {
-            focus-exclude = ["fullscreen"];
-            corner-radius = 10.0;
-          };
-        };
       };
 
       programs = {

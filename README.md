@@ -411,6 +411,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Refactor GNOME `dconf`
 - Overhaul XFCE Configuration
   - Use ULauncher
+  - Use the Picom Compositor
 - Add Pantheon Desktop Configuration
 - Add VS Code Extensions Repository
 - Fix Android Virtualisation
