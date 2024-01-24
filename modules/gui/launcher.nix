@@ -7,6 +7,10 @@
 }: let
   inherit (lib) mkEnableOption mkIf mkOption replaceStrings types;
   cfg = config.gui.launcher;
+  shadow =
+    if config.gui.compositor.enable
+    then "--no-window-shadow"
+    else "";
 in {
   options.gui.launcher = {
     enable = mkEnableOption "Enable Application Launcher";
@@ -68,7 +72,7 @@ in {
             ExecStart = pkgs.writeShellScript "ulauncher-env-wrapper.sh" ''
               export PATH="''${XDG_BIN_HOME}:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
               export GDK_BACKEND=x11
-              exec ${pkgs.ulauncher}/bin/ulauncher --hide-window
+              exec ${pkgs.ulauncher}/bin/ulauncher --hide-window ${shadow}
             '';
           };
         };

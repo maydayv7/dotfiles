@@ -3,11 +3,21 @@
   lib,
   pkgs,
   ...
-}: {
-  options.gui.compositor.enable = lib.mkEnableOption "Enable Window Compositor";
+}: let
+  inherit (lib) mkBefore mkEnableOption mkIf mkOption types;
+  cfg = config.gui.compositor;
+in {
+  options.gui.compositor = {
+    enable = mkEnableOption "Enable Window Compositor";
+    exclude = mkOption {
+      description = "Exclude focus state for specified windows";
+      type = with types; listOf str;
+      example = ["fullscreen"];
+    };
+  };
 
   ## Picom Configuration ##
-  config = lib.mkIf config.gui.compositor.enable {
+  config = mkIf cfg.enable {
     services.picom = {
       enable = true;
 
@@ -17,12 +27,13 @@
 
       # Behaviour
       fade = true;
+      shadow = true;
       settings =
         {
           inactive-dim = 0.2;
           corner-radius = 10.0;
-          focus-exclude = ["fullscreen"];
           detect-client-opacity = true;
+          focus-exclude = ["fullscreen"] ++ cfg.exclude;
         }
         //
         # Animations
@@ -51,6 +62,12 @@
           sha256 = "sha256-KX+/nO/nJlUjsZwVg2/vQy+byYmtnKbtxuhyiq/tWg8=";
         };
       });
+    };
+
+    # Theme Fixes
+    user.homeConfig = {
+      gtk.gtk3.extraCss = mkBefore "decoration { box-shadow: none; }";
+      programs.firefox.profiles.default.settings."browser.tabs.inTitlebar" = 0;
     };
   };
 }

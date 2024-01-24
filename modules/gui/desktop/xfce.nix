@@ -53,16 +53,28 @@ in {
     ## Full-Fledged XFCE Desktop Configuration
     (mkIf (desktop == "xfce") {
       # Desktop Integration
-      gui = {
-        fonts.enable = true;
-        gtk.enable = true;
-        compositor.enable = compositor;
-        launcher = {
-          enable = true;
-          theme = theme.name;
-          terminal = "xfce4-terminal";
+      gui =
+        {
+          fonts.enable = true;
+          gtk.enable = true;
+        }
+        //
+        # Desktop Components
+        {
+          compositor = {
+            enable = compositor;
+            exclude = [
+              "class_g='Xfwm4'"
+              "class_g='Xfce4-panel'"
+            ];
+          };
+
+          launcher = {
+            enable = true;
+            theme = theme.name;
+            terminal = "xfce4-terminal";
+          };
         };
-      };
 
       # Essential Utilities
       xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];

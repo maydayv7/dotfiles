@@ -136,4 +136,9 @@
     # Z Shell
     zsh.prompt = readFile ./zsh/p10k.zsh;
   };
+
+  perSystem = _: {
+    # Formatting Errors
+    treefmt.config.programs.prettier.excludes = ["files/xfce/gtk.css"];
+  };
 }

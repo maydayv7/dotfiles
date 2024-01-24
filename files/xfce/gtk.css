@@ -1,15 +1,6 @@
-.xfce4-panel#XfcePanelWindow {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  -XfcePanelWindow-autohide-size: 0;
-}
+.xfce4-panel#XfcePanelWindow { -XfcePanelWindow-autohide-size: 0; }
 
-wnck-pager:selected {
-  background-color: #5294e2;
-}
-
-wnck-pager:hover {
-  background-color: #7c818c;
+wnck-pager {
+  :hover { background-color: #7c818c; }
+  :selected { background-color: #5294e2; }
 }

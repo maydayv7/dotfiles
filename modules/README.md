@@ -10,7 +10,7 @@ Configuration [Builder](./configuration.nix)
   - `git` -
     - `hosting` -
       - `enable`: Enable Gitea Code Hosting - `true / false`
-      - `domain`: Website Domain Name - Ex. `maydayv7.io`
+      - `domain`: Website Domain Name - Ex. `maydayv7.tk`
       - `secret`: Path to Cloudfare Authentication Credentials
     - `runner` -
       - `support`: Enable Support for `git` Runners - `"github" / "gitlab"`
@@ -34,10 +34,11 @@ Configuration [Builder](./configuration.nix)
     - `enable`: Enable GTK Configuration - `true / false`
   - `compositor` -
     - `enable`: Enable Window Compositor - `true / false`
+    - `exclude`: Exclude focus state for specified windows - Ex. `[ "fullscreen" ]`
   - `launcher` -
     - `enable`: Enable Application Launcher - `true / false`
-    - `terminal`: Terminal to be used by Launcher
-    - `theme`: Theme to be used by Launcher
+    - `terminal`: Terminal to be used by Launcher - Ex. `[ "xterm" ]`
+    - `theme`: Theme to be used by Launcher (Taken from `files.ulauncher.themes`)
   - `wayland` -
     - `enable`: Enable Wayland Configuration - `true / false`
 

@@ -7,7 +7,7 @@
   cfg = config.credentials;
   opt = options.credentials.mail.description;
 in {
-  ## User Credentials @@
+  ## User Credentials ##
   # Warnings
   assertions = [
     {

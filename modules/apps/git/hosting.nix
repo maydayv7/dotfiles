@@ -8,12 +8,12 @@
   opt = config.apps.git.hosting;
 in {
   options.apps.git.hosting = {
-    enable = lib.mkEnableOption "Enable Gitea Code Hosting";
+    enable = mkEnableOption "Enable Gitea Code Hosting";
     domain = mkOption {
       description = "Website Domain Name";
       type = types.str;
       default = "";
-      example = "maydayv7.io";
+      example = "maydayv7.tk";
     };
     secret = mkOption {
       description = "Path to Cloudfare Authentication Credentials";
