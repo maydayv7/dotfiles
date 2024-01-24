@@ -28,9 +28,10 @@ in {
       # Behaviour
       fade = true;
       shadow = true;
+      shadowExclude = ["class_g = 'firefox' && window_type = 'utility'"];
       settings =
         {
-          inactive-dim = 0.2;
+          inactive-dim = 0.15;
           corner-radius = 10.0;
           detect-client-opacity = true;
           focus-exclude = ["fullscreen"] ++ cfg.exclude;

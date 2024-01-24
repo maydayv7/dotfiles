@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="files/images/logo/light.png"/>
   <source media="(prefers-color-scheme: dark)" srcset="files/images/logo/dark.png"/>
-  <img alt="Desktop" src="files/images/logo/dark.png">
+  <img alt="Logo" src="files/images/logo/dark.png">
 </picture>
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-23.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
@@ -11,20 +11,32 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 <details>
 <summary>Desktop Pictures</summary>
 
-![GNOME Desktop](./files/images/desktop/gnome/desktop.png)
+| ![GNOME Desktop](./files/images/desktop/gnome/desktop.png) |
+| :--------------------------------------------------------: |
+|                      _GNOME Desktop_                       |
 
-![GNOME Overview](./files/images/desktop/gnome/overview.png)
+| ![GNOME Overview](./files/images/desktop/gnome/overview.png) |
+| :----------------------------------------------------------: |
+|                       _GNOME Overview_                       |
 
-![Pantheon Desktop](./files/images/desktop/pantheon.png)
+| ![XFCE Desktop](./files/images/desktop/xfce.png) |
+| :----------------------------------------------: |
+|                  _XFCE Desktop_                  |
 
-![XFCE Desktop](./files/images/desktop/xfce.png)
+| ![Pantheon Desktop](./files/images/desktop/pantheon.png) |
+| :------------------------------------------------------: |
+|                    _Pantheon Desktop_                    |
 
 <details>
 <summary><i>Older...</i></summary>
 
-![GNOME 44](./files/images/desktop/old/gnome_44.png)
+| ![GNOME 44](./files/images/desktop/old/gnome_44.png) |
+| :--------------------------------------------------: |
+|                      _GNOME 44_                      |
 
-[![GNOME 41](./files/images/desktop/old/gnome_41.png)](https://www.reddit.com/r/unixporn/comments/ssb7mf/gnome_my_dream/)
+| [![GNOME 41](./files/images/desktop/old/gnome_41.png)](https://www.reddit.com/r/unixporn/comments/ssb7mf/gnome_my_dream/) |
+| :-----------------------------------------------------------------------------------------------------------------------: |
+|                                                        _GNOME 41_                                                         |
 
 </details>
 
