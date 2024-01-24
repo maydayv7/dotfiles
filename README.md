@@ -19,9 +19,11 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 | :----------------------------------------------------------: |
 |                       _GNOME Overview_                       |
 
-| ![XFCE Desktop](./files/images/desktop/xfce.png) |
+| [![](./files/images/desktop/xfce/1.png)](https://www.reddit.com/r/unixporn/comments/19efxry/xfce_functional_and_beautiful/)
+![](./files/images/desktop/xfce/2.png)
+![](./files/images/desktop/xfce/3.png) |
 | :----------------------------------------------: |
-|                  _XFCE Desktop_                  |
+| _XFCE Desktop_ |
 
 | ![Pantheon Desktop](./files/images/desktop/pantheon.png) |
 | :------------------------------------------------------: |
