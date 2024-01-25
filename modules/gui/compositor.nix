@@ -18,23 +18,55 @@ in {
 
   ## Picom Configuration ##
   config = mkIf cfg.enable {
-    services.picom = {
+    services.picom = rec {
       enable = true;
 
       # Driver
       backend = "egl";
       vSync = true;
 
+      # Shadows
+      shadow = true;
+      shadowExclude = [
+        "name = 'cpt_frame_xcb_window'"
+        "class_g ?= 'zoom'"
+        "name *= 'Chrome'"
+        "class_g = 'firefox' && argb"
+        "class_g = 'thunderbird' && argb"
+        "_NET_WM_STATE@[*]:a = '_NET_WM_STATE_HIDDEN'"
+      ];
+
+      # Opacity
+      opacityRules = [
+        "95:class_g = 'Code'"
+        "95:class_g = 'Ulauncher'"
+      ];
+      wintypes = {
+        tooltip = {opacity = 0.8;};
+        popup_menu = {opacity = 0.9;};
+        dropdown_menu = {opacity = 0.9;};
+      };
+
       # Behaviour
       fade = true;
-      shadow = true;
-      shadowExclude = ["class_g = 'firefox' && window_type = 'utility'"];
       settings =
         {
-          inactive-dim = 0.15;
+          inactive-dim = 0.1;
           corner-radius = 10.0;
           detect-client-opacity = true;
-          focus-exclude = ["fullscreen"] ++ cfg.exclude;
+          focus-exclude =
+            [
+              "fullscreen"
+              "_NET_WM_STATE@[*]:a ^= '_NET_WM_STATE_MAXIMIZED'"
+            ]
+            ++ cfg.exclude;
+        }
+        //
+        # Blur
+        {
+          blur-method = "dual_kawase";
+          blur-strength = 3;
+          blur-background-exclude = shadowExclude;
         }
         //
         # Animations

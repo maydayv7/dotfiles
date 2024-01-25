@@ -1,6 +1,4 @@
 .xfce4-panel#XfcePanelWindow { -XfcePanelWindow-autohide-size: 0; }
 
-wnck-pager {
-  :hover { background-color: #7c818c; }
-  :selected { background-color: #5294e2; }
-}
+wnck-pager:hover { background-color: #7c818c; }
+wnck-pager:selected { background-color: #5294e2; }
