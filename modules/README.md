@@ -30,17 +30,27 @@ Configuration [Builder](./configuration.nix)
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
   - `fonts` -
     - `enable`: Enable Fonts Configuration - `true / false`
+  - `theme` -
+    - `name`: GUI Application Theme
+    - `package`: Theme Package
+  - `icons` -
+    - `name`: Application Icons Theme - Ex. `Papirus`
+    - `package`: Icons Package - Ex. `pkgs.papirus-icon-theme`
+  - `cursors` -
+    - `name`: GUI Cursors Theme - Ex. `Bibata`
+    - `package`: Cursors Package - Ex. `pkgs.bibata-cursors`
   - `gtk` -
     - `enable`: Enable GTK Configuration - `true / false`
-  - `compositor` -
-    - `enable`: Enable Window Compositor - `true / false`
-    - `exclude`: Exclude focus state for specified windows - Ex. `[ "fullscreen" ]`
   - `launcher` -
     - `enable`: Enable Application Launcher - `true / false`
+    - `shadow`: Control Launcher Window Shadow - `true / false`
+    - `server`: Display Server to be used by Launcher - `"x11" / "wayland"`
     - `terminal`: Terminal to be used by Launcher - Ex. `[ "xterm" ]`
     - `theme`: Theme to be used by Launcher (Taken from `files.ulauncher.themes`)
   - `wayland` -
     - `enable`: Enable Wayland Configuration - `true / false`
+  - `xorg` -
+    - `enable`: Enable X11 Server Configuration - `true / false`
 
 - [`hardware`](./hardware): Module that configures device and additional hardware -
 

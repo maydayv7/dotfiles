@@ -15,7 +15,6 @@ in {
     # Applications
     environment.systemPackages = with pkgs; [
       # Productivity
-      easyeffects
       gimp
       gnome.simple-scan
       gscan2pdf
@@ -61,17 +60,22 @@ in {
         ".cache/zoom"
       ];
 
-      homeConfig.home.file = {
-        # Document Templates
-        "Templates" = {
-          source = files.templates;
-          recursive = true;
-        };
+      homeConfig = {
+        # Utilities
+        services.easyeffects.enable = true;
 
-        # Font Rendering
-        ".local/share/fonts" = {
-          source = "${pkgs.custom.fonts}/share/fonts";
-          recursive = true;
+        home.file = {
+          # Document Templates
+          "Templates" = {
+            source = files.templates;
+            recursive = true;
+          };
+
+          # Font Rendering
+          ".local/share/fonts" = {
+            source = "${pkgs.custom.fonts}/share/fonts";
+            recursive = true;
+          };
         };
       };
     };

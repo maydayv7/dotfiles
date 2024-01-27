@@ -5,7 +5,7 @@
   pkgs,
   files,
   ...
-}:
+} @ args:
 with files; let
   inherit (config.gui) desktop wallpaper;
   exists = app: builtins.elem app config.apps.list;
@@ -51,43 +51,30 @@ in {
     }
 
     ## Full-Fledged XFCE Desktop Configuration
+    (mkIf (desktop == "xfce" && compositor) (import ./compositor.nix args))
     (mkIf (desktop == "xfce") {
-      # Desktop Integration
-      gui =
-        {
-          fonts.enable = true;
-          gtk.enable = true;
-        }
-        //
-        # Desktop Components
-        {
-          compositor = {
-            enable = compositor;
-            exclude = [
-              "class_g='Xfwm4'"
-              "class_g='Xfce4-panel'"
-            ];
-          };
-
-          launcher = {
-            enable = true;
-            theme = theme.name;
-            terminal = "xfce4-terminal";
-          };
+      # Desktop Components
+      gui = {
+        fonts.enable = true;
+        gtk.enable = true;
+        inherit theme;
+        launcher = {
+          enable = true;
+          theme = theme.name;
+          terminal = "xfce4-terminal";
         };
+      };
 
       # Essential Utilities
       xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
       services = {
         blueman.enable = true;
         touchegg.enable = true;
-        gnome.gnome-keyring.enable = true;
         xserver.displayManager.lightdm.greeters.gtk = {inherit theme;};
       };
 
       programs = {
         xfconf.enable = true;
-        seahorse.enable = true;
         thunar = {
           enable = true;
           plugins = with pkgs.xfce; [
@@ -99,9 +86,8 @@ in {
       };
 
       environment = {
-        # Theming
+        # QT Theme
         etc."xdg/Kvantum/kvantum.kvconfig".text = mkAfter "theme=KvArcDark";
-        variables."GTK_THEME" = theme.name;
 
         # Utilities
         systemPackages = with pkgs.xfce // pkgs; [
@@ -113,6 +99,8 @@ in {
           pavucontrol
           system-config-printer
           transmission-gtk
+          xorg.xkill
+
           xfce4-clipman-plugin
           xfce4-docklike-plugin
           xfce4-eyes-plugin
@@ -124,8 +112,6 @@ in {
           xfce4-weather-plugin
           xfce4-whiskermenu-plugin
           xfce4-windowck-plugin
-          xorg.xkill
-
           (writeShellApplication {
             name = "xfce4-panel-toggle";
             runtimeInputs = [xfce.xfconf];
@@ -156,10 +142,7 @@ in {
       user.homeConfig = {
         # GTK+ Theming
         stylix.targets.xfce.enable = false;
-        gtk = {
-          inherit theme;
-          gtk3.extraCss = xfce.css;
-        };
+        gtk = {gtk3.extraCss = xfce.css;};
 
         # Default Applications
         xdg.mimeApps.defaultApplications = util.build.mime xdg.mime {
@@ -167,6 +150,7 @@ in {
           calendar = ["org.xfce.orage.desktop"];
           directory = ["thunar.desktop"];
           image = ["org.xfce.ristretto.desktop"];
+          magnet = ["transmission-gtk.desktop"];
           pdf = ["atril.desktop"];
           text = ["org.xfce.mousepad.desktop"];
           video = ["org.xfce.Parole.desktop"];
@@ -189,7 +173,7 @@ in {
             };
           }
           // util.map.folder {
-            directory = xfce.settings;
+            inherit (xfce.settings) directory;
             path = ".config/xfce4/xfconf/xfce-perchannel-xml";
             extension = ".xml";
             apply = text: {
@@ -211,7 +195,7 @@ in {
                 path.system
                 wallpaper
                 theme.name
-                "Papirus-Dark"
+                config.gui.icons.name
                 config.stylix.cursor.name
                 config.stylix.fonts.sansSerif.name
                 config.stylix.fonts.monospace.name

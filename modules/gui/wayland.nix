@@ -11,9 +11,11 @@
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       MOZ_ENABLE_WAYLAND = "1";
+      QT_QPA_PLATFORM = "wayland";
     };
 
     # Programs Support
+    gui.launcher.server = "wayland";
     xdg.portal.wlr.enable = true;
     programs.xwayland.enable = true;
   };

@@ -124,7 +124,13 @@
       css = readFile ./xfce/gtk.css;
       panel = ./xfce/panel;
       terminal = readFile ./xfce/terminalrc;
-      settings = ./xfce/settings;
+      settings =
+        {directory = ./xfce/settings;}
+        // map.files {
+          directory = ./xfce/settings;
+          apply = readFile;
+          extension = ".xml";
+        };
     };
 
     # My Personal Website

@@ -40,8 +40,8 @@
   };
 
   gui = {
-    desktop = "xfce";
-    wallpaper = "Sunrise";
+    desktop = "hyprland";
+    wallpaper = "Tetris";
   };
 
   # User V7

@@ -7,8 +7,8 @@
 }: let
   inherit (builtins) map;
   inherit (util.map.modules) list name;
-  inherit (lib) mkIf mkOption optional types;
-  enable = config.gui.desktop != "";
+  inherit (lib) hasSuffix mkIf mkOption optional types;
+  inherit (config.gui) desktop;
 in {
   imports = list ./. ++ list ./desktop;
 
@@ -21,16 +21,24 @@ in {
   config =
     {
       # Warning
-      warnings = optional (!enable) (options.gui.desktop.description + " is unset");
+      warnings = optional (desktop == "") (options.gui.desktop.description + " is unset");
     }
-    // (mkIf enable {
-      # Autostart Apps
-      user.persist.directories = [".config/autostart"];
+    // (mkIf (desktop != "" && !(hasSuffix "-minimal" desktop))
+      {
+        # Autostart Apps
+        user.persist.directories = [".config/autostart"];
 
-      # Desktop Integration
-      xdg.portal = {
-        enable = true;
-        xdgOpenUsePortal = true;
-      };
-    });
+        # Utilities
+        programs.seahorse.enable = true;
+        services = {
+          gvfs.enable = true;
+          gnome.gnome-keyring.enable = true;
+        };
+
+        # Desktop Integration
+        xdg.portal = {
+          enable = true;
+          xdgOpenUsePortal = true;
+        };
+      });
 }

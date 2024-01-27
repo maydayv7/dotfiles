@@ -26,6 +26,17 @@ in {
       gui = {
         fonts.enable = true;
         gtk.enable = true;
+        icons.name = "ePapirus-Dark";
+        theme = {
+          name = "io.elementary.stylesheet.blueberry";
+          package = pkgs.pantheon.elementary-gtk-theme;
+        };
+
+        cursors = {
+          name = "elementary";
+          package = pkgs.pantheon.elementary-icon-theme;
+        };
+
         launcher = {
           enable = true;
           theme = "elementary";
@@ -34,15 +45,10 @@ in {
       };
 
       # Essential Utilities
-      services = {
-        gnome.gnome-keyring.enable = true;
-        pantheon.apps.enable = true;
-      };
-
+      services.pantheon.apps.enable = true;
       programs = {
         firefox.enable = true;
         pantheon-tweaks.enable = true;
-        seahorse.enable = true;
       };
 
       # Panel Indicators
@@ -89,22 +95,6 @@ in {
       user.homeConfig = {
         imports = [pantheon.dconf];
 
-        # GTK+ Theme
-        gtk = {
-          theme = {
-            name = "io.elementary.stylesheet.blueberry";
-            package = pkgs.pantheon.elementary-gtk-theme;
-          };
-
-          # Icons
-          iconTheme.name = mkForce "ePapirus-Dark";
-          cursorTheme = {
-            name = "elementary";
-            package = pkgs.pantheon.elementary-icon-theme;
-            size = 32;
-          };
-        };
-
         # Default Applications
         xdg.mimeApps.defaultApplications = util.build.mime xdg.mime {
           audio = ["io.elementary.files.desktop"];
@@ -127,15 +117,6 @@ in {
         };
 
         home = {
-          # Cursor Theme
-          pointerCursor = mkForce {
-            package = pkgs.pantheon.elementary-icon-theme;
-            name = "elementary";
-            size = 32;
-            gtk.enable = true;
-            x11.enable = true;
-          };
-
           file = {
             # Plank Dock
             ".config/autostart/Dock.desktop".text = plank.autostart;

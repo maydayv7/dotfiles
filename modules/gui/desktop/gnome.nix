@@ -57,6 +57,10 @@ in {
         fonts.enable = true;
         gtk.enable = true;
         wayland.enable = true;
+        theme = {
+          name = "adw-gtk3-dark";
+          package = pkgs.adw-gtk3;
+        };
       };
 
       programs = {
@@ -69,7 +73,6 @@ in {
         telepathy.enable = true;
         gnome = {
           core-developer-tools.enable = true;
-          gnome-keyring.enable = true;
           gnome-remote-desktop.enable = true;
           sushi.enable = true;
         };
@@ -79,13 +82,7 @@ in {
       user.homeConfig = {
         # Desktop Settings
         imports = [gnome.settings];
-
-        # GTK+ Theming
         stylix.targets.gnome.enable = true;
-        gtk.theme = {
-          name = "adw-gtk3-dark";
-          package = pkgs.adw-gtk3;
-        };
 
         # Default Applications
         xdg.mimeApps.defaultApplications = util.build.mime xdg.mime {
@@ -93,7 +90,7 @@ in {
           calendar = ["org.gnome.Calendar.desktop"];
           directory = ["org.gnome.Nautilus.desktop"];
           image = ["org.gnome.Loupe.desktop"];
-          magnet = ["transmission-gtk.desktop"];
+          magnet = ["de.haeckerfelix.Fragments.desktop"];
           mail = ["org.gnome.Geary.desktop"];
           markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
           pdf = ["org.gnome.Evince.desktop"];

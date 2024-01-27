@@ -6,11 +6,12 @@
   ...
 }: let
   inherit (lib) mkDefault mkEnableOption mkIf;
+  cfg = config.gui;
 in {
   options.gui.gtk.enable = mkEnableOption "Enable GTK Configuration";
 
   ## GTK Configuration ##
-  config = mkIf config.gui.gtk.enable {
+  config = mkIf cfg.gtk.enable {
     # Environment Setup
     programs.dconf.enable = true;
     services.dbus.packages = [pkgs.dconf];
@@ -18,9 +19,12 @@ in {
     # Platform Integration
     programs.gnupg.agent.pinentryFlavor = "gtk2";
     environment = {
-      variables."QT_STYLE_OVERRIDE" = mkDefault "kvantum";
       systemPackages = [pkgs.libsForQt5.qtstyleplugin-kvantum];
       etc."xdg/Kvantum/kvantum.kvconfig".text = "[General]";
+      variables = {
+        "GTK_THEME" = cfg.theme.name;
+        "QT_STYLE_OVERRIDE" = mkDefault "kvantum";
+      };
     };
 
     user = {
@@ -38,11 +42,9 @@ in {
         # Theming
         gtk = {
           enable = true;
-          iconTheme = {
-            name = "Papirus-Dark";
-            package = pkgs.papirus-icon-theme;
-          };
-
+          inherit (cfg) theme;
+          iconTheme = cfg.icons;
+          cursorTheme = cfg.cursors;
           gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
           gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
         };

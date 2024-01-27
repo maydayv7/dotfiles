@@ -21,7 +21,7 @@ in {
     environment.persist.directories = ["/var/lib/flatpak"];
     user.persist.directories = [".cache/flatpak" ".local/share/flatpak" ".var/app"];
 
-    ## TODO
+    #!# TODO #!#
     # Use system Dconf Settings
     /*
     [Environment]

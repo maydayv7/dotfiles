@@ -660,11 +660,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1705316233,
-        "narHash": "sha256-HbrIkRykSVox4b5gTNHR4wtxAQSWjMnascQ3x3Ni8hk=",
+        "lastModified": 1706351967,
+        "narHash": "sha256-XYlemN1Icppx88mx9OC458GKGe8Biy7c9yfZmmU3pTk=",
         "owner": "maydayv7",
         "repo": "proprietary",
-        "rev": "e39f389a50d469b55cfde31ff9d28d6d575e405c",
+        "rev": "5126f8e99d61ce698566759c1493b9e8d4fada4f",
         "type": "github"
       },
       "original": {

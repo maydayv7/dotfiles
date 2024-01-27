@@ -85,6 +85,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 | Terminal             | [Blackbox](https://gitlab.gnome.org/raggesilver/blackbox), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
 | Browser              |                                    [Firefox](https://www.mozilla.org/en-US/firefox/)                                     |
 | Desktop Environments |              [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/), [Pantheon](https://elementary.io/)               |
+| Compositors          |                        [Hyprland](https://hyprland.org/), [Picom](https://github.com/yshui/picom)                        |
 
 ## Structure
 
@@ -359,6 +360,7 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 - ULauncher [Adwaita Theme](https://github.com/gabrbrand/adwaita-dark-ulauncher): ULauncher Theme based on GNOME Desktop's Adwaita Dark Theme
 - ULauncher [Arc Theme](https://github.com/tjquillan/Arc-Dark-ULauncher): An Arc Dark Theme for ULauncher
 - ULauncher [Elementary Theme](https://github.com/heidefinnischen/ULauncher-elementary): ULauncher Themes for Elementary OS
+- [Catppuccin](https://github.com/catppuccin) Theme: A community-driven Pastel Theme consisting of 4 soothing warm Flavors with 26 eye-candy Colors each
 
 ### Important Links
 
@@ -426,11 +428,12 @@ You can navigate to the `README`s present in the various directories to know mor
 - Overhaul XFCE Configuration
   - Use ULauncher
   - Use the Picom Compositor
+- Add Hyprland Configuration
 - Add Pantheon Desktop Configuration
 - Add VS Code Extensions Repository
 - Fix Android Virtualisation
-- Add AppImage Support
-- Add `gui.gtk` Module
+- Support running AppImages
+- Add multiple `gui` Modules
 - Refactor and add `hardware.cpu`
 - Add `sql` Shell
 - Actually persist `~/.local/share/Trash`
@@ -663,7 +666,7 @@ You can navigate to the `README`s present in the various directories to know mor
 
 </details>
 
-> Last Updated: **December** 2023
+> Last Updated: **January** 2024
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 
