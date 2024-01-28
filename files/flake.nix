@@ -36,6 +36,13 @@
     # Neofetch
     fetch = readFile ./neofetch/config.conf;
 
+    # Geany Text Editor
+    geany = map.files {
+      directory = ./geany;
+      apply = readFile;
+      extension = ".conf";
+    };
+
     # X11 Touchpad Gestures
     gestures = readFile ./touchegg/gestures.xml;
 

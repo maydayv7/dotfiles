@@ -9,7 +9,7 @@
 with files; let
   inherit (config.gui) desktop;
   exists = app: builtins.elem app config.apps.list;
-  inherit (lib) mkForce mkIf mkMerge;
+  inherit (lib) mkIf mkMerge;
 in {
   ## Pantheon Desktop Configuration ##
   config = mkIf (desktop == "pantheon" || desktop == "pantheon-minimal") (mkMerge [
@@ -25,11 +25,14 @@ in {
       # Desktop Integration
       gui = {
         fonts.enable = true;
-        gtk.enable = true;
         icons.name = "ePapirus-Dark";
-        theme = {
-          name = "io.elementary.stylesheet.blueberry";
-          package = pkgs.pantheon.elementary-gtk-theme;
+
+        gtk = {
+          enable = true;
+          theme = {
+            name = "io.elementary.stylesheet.blueberry";
+            package = pkgs.pantheon.elementary-gtk-theme;
+          };
         };
 
         cursors = {
@@ -59,10 +62,7 @@ in {
 
       environment = {
         # QT Theme
-        variables = {
-          "QT_QPA_PLATFORMTHEME" = "gtk3";
-          "QT_STYLE_OVERRIDE" = mkForce "";
-        };
+        variables."QT_QPA_PLATFORMTHEME" = "gtk3";
 
         # Panel Indicator Compatibility
         pathsToLink = ["/libexec"];

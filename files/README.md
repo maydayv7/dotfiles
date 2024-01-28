@@ -5,6 +5,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`archive`](./archive) - Old, Archived Files
 - [`ascii`](./ascii) - Personal Collection of beautiful Ascii Art
 - [`colors`](./colors) - Base16 Color Schemes
+- [`geany`](./geany) - Configuration for Geany Text Editor
 - [`git`](./git) - Configuration for `git` Version Control
 - [`gnome`](./gnome) - Configuration Files for GNOME Desktop
 - [`gpg`](./gpg) - Encrypted GPG Keys

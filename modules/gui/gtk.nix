@@ -5,27 +5,36 @@
   files,
   ...
 }: let
-  inherit (lib) mkDefault mkEnableOption mkIf;
-  cfg = config.gui;
+  inherit (lib) mkEnableOption mkIf mkOption types;
+  cfg = config.gui.gtk;
 in {
-  options.gui.gtk.enable = mkEnableOption "Enable GTK Configuration";
+  options.gui.gtk = {
+    enable = mkEnableOption "Enable GTK Configuration";
+    theme = {
+      name = mkOption {
+        description = "GTK+ Application Theme";
+        type = types.str;
+      };
+
+      package = mkOption {
+        description = "GTK+ Theme Package";
+        type = types.package;
+      };
+    };
+  };
 
   ## GTK Configuration ##
-  config = mkIf cfg.gtk.enable {
+  config = mkIf cfg.enable {
     # Environment Setup
     programs.dconf.enable = true;
     services.dbus.packages = [pkgs.dconf];
-
-    # Platform Integration
-    programs.gnupg.agent.pinentryFlavor = "gtk2";
     environment = {
-      systemPackages = [pkgs.libsForQt5.qtstyleplugin-kvantum];
-      etc."xdg/Kvantum/kvantum.kvconfig".text = "[General]";
-      variables = {
-        "GTK_THEME" = cfg.theme.name;
-        "QT_STYLE_OVERRIDE" = mkDefault "kvantum";
-      };
+      systemPackages = [cfg.theme.package];
+      variables."GTK_THEME" = cfg.theme.name;
     };
+
+    # Desktop Integration
+    programs.gnupg.agent.pinentryFlavor = "gtk2";
 
     user = {
       # Configuration
@@ -43,8 +52,8 @@ in {
         gtk = {
           enable = true;
           inherit (cfg) theme;
-          iconTheme = cfg.icons;
-          cursorTheme = cfg.cursors;
+          iconTheme = config.gui.icons;
+          cursorTheme = config.gui.cursors;
           gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
           gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
         };

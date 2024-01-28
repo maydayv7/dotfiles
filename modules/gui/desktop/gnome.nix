@@ -8,7 +8,7 @@
 }:
 with files; let
   inherit (config.gui) desktop;
-  inherit (lib) gvariant mkAfter mkIf mkForce mkMerge;
+  inherit (lib) gvariant mkIf mkForce mkMerge;
   exists = app: builtins.elem app config.apps.list;
 in {
   ## GNOME Desktop Configuration ##
@@ -55,17 +55,23 @@ in {
       # Desktop Integration
       gui = {
         fonts.enable = true;
-        gtk.enable = true;
         wayland.enable = true;
-        theme = {
-          name = "adw-gtk3-dark";
-          package = pkgs.adw-gtk3;
-        };
-      };
 
-      programs = {
-        firefox.enable = true;
-        gnupg.agent.pinentryFlavor = mkForce "gnome3";
+        gtk = {
+          enable = true;
+          theme = {
+            name = "adw-gtk3-dark";
+            package = pkgs.adw-gtk3;
+          };
+        };
+
+        qt = {
+          enable = true;
+          theme = {
+            name = "KvLibadwaitaDark";
+            package = pkgs.custom.kvlibadwaita;
+          };
+        };
       };
 
       services = {
@@ -75,6 +81,20 @@ in {
           core-developer-tools.enable = true;
           gnome-remote-desktop.enable = true;
           sushi.enable = true;
+        };
+      };
+
+      programs = {
+        gnupg.agent.pinentryFlavor = mkForce "gnome3";
+        firefox = {
+          enable = true;
+          policies.ExtensionSettings = {
+            name = "gnome-shell-integration";
+            value = {
+              installation_mode = "normal_installed";
+              install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/chrome-gnome-shell@gnome.org/latest.xpi";
+            };
+          };
         };
       };
 
@@ -159,50 +179,44 @@ in {
         targets.gnome.enable = false;
       };
 
-      environment = {
-        # QT Theme
-        etc."xdg/Kvantum/kvantum.kvconfig".text = mkAfter "theme=KvLibadwaitaDark";
+      ## Package List
+      environment. systemPackages = with pkgs; (with gnome;
+        [
+          # GNOME Apps
+          gnome-boxes
+          gnome-dictionary
+          gnome-sound-recorder
+          gnome-text-editor
+          gnome-tweaks
 
-        ## Package List
-        systemPackages = with pkgs; (with gnome;
-          [
-            # GNOME Apps
-            gnome-boxes
-            gnome-dictionary
-            gnome-sound-recorder
-            gnome-text-editor
-            gnome-tweaks
+          # GNOME Games
+          gnome-chess
+          gnome-mines
+          quadrapassel
+        ]
+        ++ [
+          # GNOME Circle
+          apostrophe
+          blackbox-terminal
+          curtail
+          deja-dup
+          dialect
+          drawing
+          fractal
+          fragments
+          gradience
+          gnome-podcasts
+          gnome-secrets
+          gthumb
+          lollypop
+          pitivi
+          video-trimmer
+          wike
 
-            # GNOME Games
-            gnome-chess
-            gnome-mines
-            quadrapassel
-          ]
-          ++ [
-            # GNOME Circle
-            apostrophe
-            blackbox-terminal
-            curtail
-            deja-dup
-            dialect
-            drawing
-            fractal
-            fragments
-            gradience
-            gnome-podcasts
-            gnome-secrets
-            gthumb
-            lollypop
-            pitivi
-            video-trimmer
-            wike
-
-            # Utilities
-            celluloid
-            gnuchess
-            custom.kvlibadwaita
-          ]);
-      };
+          # Utilities
+          celluloid
+          gnuchess
+        ]);
 
       # Persisted Files
       user.persist.directories = [

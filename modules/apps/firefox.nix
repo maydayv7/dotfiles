@@ -26,6 +26,37 @@ in {
         # Profile
         programs.firefox = {
           enable = true;
+          policies = {
+            # Policies
+            DisableTelemetry = true;
+            DisableFirefoxStudies = true;
+            DisablePocket = true;
+            EnableTrackingProtection = {
+              Value = true;
+              Locked = true;
+              Cryptomining = true;
+              Fingerprinting = true;
+            };
+
+            # Extensions
+            ExtensionSettings = let
+              extension = shortId: uuid: {
+                name = uuid;
+                value = {
+                  installation_mode = "normal_installed";
+                  install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
+                };
+              };
+            in
+              builtins.listToAttrs [
+                (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
+                (extension "setupvpn" "@setupvpncom")
+                (extension "tabliss" "extension@tabliss.io")
+                (extension "uaswitcher" "user-agent-switcher@ninetailed.ninja")
+                (extension "ublock-origin" "uBlock0@raymondhill.net")
+              ];
+          };
+
           profiles.default.settings = {
             ## Flags
             # General
@@ -86,35 +117,6 @@ in {
             "datareporting.healthreport.service.enabled" = false;
             "datareporting.healthreport.uploadEnabled" = false;
             "datareporting.policy.dataSubmissionEnabled" = false;
-
-            # Telemetry
-            "app.normandy.api_url" = "";
-            "app.normandy.enabled" = false;
-            "app.shield.optoutstudies.enable" = false;
-            "beacon.enabled" = false;
-            "browser.newtabpage.activity-stream.feeds.telemetry" = false;
-            "browser.newtabpage.activity-stream.telemetry" = false;
-            "browser.ping-centre.telemetry" = false;
-            "browser.send_pings" = false;
-            "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
-            "dom.battery.enabled" = false;
-            "dom.gamepad.enabled" = false;
-            "experiments.enabled" = false;
-            "experiments.manifest.uri" = "";
-            "experiments.supported" = false;
-            "toolkit.coverage.endpoint.base" = "";
-            "toolkit.coverage.opt-out" = true;
-            "toolkit.telemetry.archive.enabled" = false;
-            "toolkit.telemetry.bhrPing.enabled" = false;
-            "toolkit.telemetry.coverage.opt-out" = true;
-            "toolkit.telemetry.enabled" = false;
-            "toolkit.telemetry.firstShutdownPing.enabled" = false;
-            "toolkit.telemetry.newProfilePing.enabled" = false;
-            "toolkit.telemetry.reportingpolicy.firstRun" = false;
-            "toolkit.telemetry.server" = "data:,";
-            "toolkit.telemetry.shutdownPingSender.enabled" = false;
-            "toolkit.telemetry.unified" = false;
-            "toolkit.telemetry.updatePing.enabled" = false;
           };
         };
       };

@@ -14,18 +14,6 @@ in {
   imports = [inputs.stylix.nixosModules.stylix];
 
   options.gui = {
-    theme = {
-      name = mkOption {
-        description = "GUI Application Theme";
-        type = types.str;
-      };
-
-      package = mkOption {
-        description = "Theme Package";
-        type = types.package;
-      };
-    };
-
     icons = {
       name = mkOption {
         description = "Application Icons Theme";
@@ -66,7 +54,7 @@ in {
   config = rec {
     environment.systemPackages =
       [stylix.cursor.package]
-      ++ optionals enable [cfg.theme.package cfg.icons.package cfg.cursors.package];
+      ++ optionals enable [cfg.icons.package cfg.cursors.package];
     stylix =
       {
         autoEnable = false;
@@ -80,6 +68,7 @@ in {
         }
         else {
           homeManagerIntegration.autoImport = true;
+          opacity.popups = 0.9;
           polarity = "dark";
           targets = {
             console.enable = true;
@@ -91,6 +80,7 @@ in {
 
     user.homeConfig.stylix.targets = {
       bat.enable = true;
+      firefox.enable = false;
       vscode.enable = mkIf (exists "vscode") false;
     };
   };

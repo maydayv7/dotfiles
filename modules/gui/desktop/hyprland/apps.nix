@@ -16,18 +16,20 @@ in {
     # Apps
     geany
     gthumb
+    lollypop
     mate.atril
     mission-center
     playerctl
+    qalculate-gtk
     transmission-gtk
     xfce.thunar
-    lollypop
 
     # Utilities
     grim
     grimblast
     slurp
     wev
+    wl-clipboard
     wl-screenrec
     wlr-randr
   ];
@@ -56,6 +58,7 @@ in {
       # Theming
       stylix.targets = {
         hyprland.enable = true;
+        dunst.enable = true;
         swaylock = {
           enable = true;
           useImage = true;
@@ -70,6 +73,13 @@ in {
           wallpaper = , ${wallpaper}
         '';
 
+        # Text Editor
+        ".config/geany/geany.conf".text = geany.settings;
+        ".config/geany/colorschemes/theme.conf".text = geany.catppuccin;
+
+        # Terminal
+        ".config/kitty/search".source = pkgs.custom.kitty-search;
+
         # File Manager
         ".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = xfce.settings.thunar;
       };
@@ -82,7 +92,13 @@ in {
         enable = true;
         font = fonts.monospace // {size = fonts.sizes.terminal;};
         theme = with theme; "${name-alt}-${variant-alt}";
+        keybindings = {
+          "ctrl+c" = "copy_or_interrupt";
+          "kitty_mod+f" = "launch --allow-remote-control kitty +kitten search/search.py @active-kitty-window-id";
+        };
+
         settings = {
+          kitty_mod = "ctrl+shift";
           background_opacity = "0.9";
           placement_strategy = "center";
 
@@ -94,12 +110,54 @@ in {
         };
       };
 
+      # Web Browser
+      programs.firefox = {
+        enable = true;
+        policies.ExtensionSettings = {
+          name = with theme; "${name}-${variant}-${accent}";
+          value = {
+            installation_mode = "normal_installed";
+            install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/{d49033ac-8969-488c-afb0-5cdb73957f41}/latest.xpi";
+          };
+        };
+      };
+
       # Media
-      programs.firefox.enable = true;
       programs.mpv = {
         enable = true;
         defaultProfiles = ["gpu-hq"];
         scripts = [pkgs.mpvScripts.mpris];
+      };
+
+      # Notifications
+      services.dunst = {
+        enable = true;
+        iconTheme = theme.icons;
+        settings = {
+          fullscreen_delay_everything = {fullscreen = "delay";};
+          global = {
+            alignment = "center";
+            corner_radius = 10;
+            follow = "mouse";
+            format = "<b>%s</b>\\n%b";
+            frame_width = 1;
+            offset = "5x5";
+            horizontal_padding = 8;
+            icon_position = "left";
+            indicate_hidden = "yes";
+            markup = "yes";
+            max_icon_size = 64;
+            mouse_left_click = "do_action";
+            mouse_middle_click = "close_all";
+            mouse_right_click = "close_current";
+            padding = 8;
+            plain_text = "no";
+            separator_height = 1;
+            show_indicators = false;
+            shrink = "no";
+            word_wrap = "yes";
+          };
+        };
       };
 
       # Locker
@@ -189,6 +247,7 @@ in {
         userSettings = with theme; {
           "workbench.colorTheme" = "${name-alt} ${variant-alt}";
           "workbench.iconTheme" = "${name}-${variant}";
+          "catppuccin.accentColor" = "${accent}";
           "terminal.external.linuxExec" = "kitty";
         };
       };

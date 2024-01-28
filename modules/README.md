@@ -30,9 +30,6 @@ Configuration [Builder](./configuration.nix)
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
   - `fonts` -
     - `enable`: Enable Fonts Configuration - `true / false`
-  - `theme` -
-    - `name`: GUI Application Theme
-    - `package`: Theme Package
   - `icons` -
     - `name`: Application Icons Theme - Ex. `Papirus`
     - `package`: Icons Package - Ex. `pkgs.papirus-icon-theme`
@@ -41,6 +38,14 @@ Configuration [Builder](./configuration.nix)
     - `package`: Cursors Package - Ex. `pkgs.bibata-cursors`
   - `gtk` -
     - `enable`: Enable GTK Configuration - `true / false`
+    - `theme` -
+    - `name`: GTK+ Application Theme
+    - `package`: GTK+ Theme Package
+  - `qt` -
+    - `enable`: Enable QT Configuration - `true / false`
+    - `theme` -
+    - `name`: QT Application Theme
+    - `package`: QT Theme Package
   - `launcher` -
     - `enable`: Enable Application Launcher - `true / false`
     - `shadow`: Control Launcher Window Shadow - `true / false`

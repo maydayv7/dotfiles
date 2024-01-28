@@ -10,11 +10,12 @@ _: {
         "$mod, W, exec, firefox"
         "$mod, Return, exec, missioncenter"
         "$mod, slash, exec, ulauncher-toggle"
+        ", XF86Calculator, exec, qalculate-gtk"
 
         # Compositor Commands
         "$mod, Q, killactive,"
-        "$mod, grave, fullscreen, 1"
-        "$mod SHIFT, grave, fullscreen,"
+        "$mod, M, fullscreen, 1"
+        "$mod SHIFT, M, fullscreen,"
         "$mod, O, togglefloating,"
         "$mod, P, workspaceopt, allfloat" # Floating Mode
 
@@ -33,6 +34,10 @@ _: {
         # Cycle Workspaces
         "$mod, period, workspace, m-1"
         "$mod, comma, workspace, m+1"
+
+        # Special Workspace
+        "$mod SHIFT, grave, movetoworkspace, special"
+        "$mod, grave, togglespecialworkspace, eDP-1"
 
         # Move Window to Workspace
         "$mod SHIFT, period, movetoworkspace, m-1"
@@ -53,6 +58,10 @@ _: {
         ", Print, exec, grimblast --notify copysave area"
         "CTRL, Print, exec, grimblast --notify --cursor copysave output"
         "SHIFT, Print, exec, grimblast --notify --cursor copysave screen"
+
+        # Magnifier
+        ''$mod, equal, exec, hyprctl keyword misc:cursor_zoom_factor "$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2 + 1}')"''
+        ''$mod, minus, exec, hyprctl keyword misc:cursor_zoom_factor "$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2 - 1}')"''
       ]
       ++
       # Workspaces

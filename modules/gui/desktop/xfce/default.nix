@@ -9,7 +9,7 @@
 with files; let
   inherit (config.gui) desktop wallpaper;
   exists = app: builtins.elem app config.apps.list;
-  inherit (lib) mkAfter mkForce mkIf mkMerge;
+  inherit (lib) mkForce mkIf mkMerge;
 
   # GTK+ Theme
   theme = {
@@ -56,8 +56,19 @@ in {
       # Desktop Components
       gui = {
         fonts.enable = true;
-        gtk.enable = true;
-        inherit theme;
+        gtk = {
+          enable = true;
+          inherit theme;
+        };
+
+        qt = {
+          enable = true;
+          theme = {
+            name = "KvArcDark";
+            package = pkgs.arc-kde-theme;
+          };
+        };
+
         launcher = {
           enable = true;
           theme = theme.name;
@@ -85,47 +96,41 @@ in {
         };
       };
 
-      environment = {
-        # QT Theme
-        etc."xdg/Kvantum/kvantum.kvconfig".text = mkAfter "theme=KvArcDark";
+      # Utilities
+      environment.systemPackages = with pkgs.xfce // pkgs; [
+        galculator
+        gnome.file-roller
+        mate.atril
+        orage
+        pavucontrol
+        system-config-printer
+        transmission-gtk
+        xorg.xkill
 
-        # Utilities
-        systemPackages = with pkgs.xfce // pkgs; [
-          arc-kde-theme
-          galculator
-          gnome.file-roller
-          mate.atril
-          orage
-          pavucontrol
-          system-config-printer
-          transmission-gtk
-          xorg.xkill
-
-          xfce4-clipman-plugin
-          xfce4-docklike-plugin
-          xfce4-eyes-plugin
-          xfce4-notes-plugin
-          xfce4-panel-profiles
-          xfce4-pulseaudio-plugin
-          xfce4-sensors-plugin
-          xfce4-timer-plugin
-          xfce4-weather-plugin
-          xfce4-whiskermenu-plugin
-          xfce4-windowck-plugin
-          (writeShellApplication {
-            name = "xfce4-panel-toggle";
-            runtimeInputs = [xfce.xfconf];
-            text = ''
-              for num in {0,1}
-              do
-                current=$(xfconf-query -c xfce4-panel -p /panels/panel-"$num"/autohide-behavior)
-                if [[ current -eq 1 ]]; then next=0; else next=1; fi
-                xfconf-query -c xfce4-panel -p /panels/panel-"$num"/autohide-behavior -s $next
-              done
-            '';
-          })
-        ];
-      };
+        xfce4-clipman-plugin
+        xfce4-docklike-plugin
+        xfce4-eyes-plugin
+        xfce4-notes-plugin
+        xfce4-panel-profiles
+        xfce4-pulseaudio-plugin
+        xfce4-sensors-plugin
+        xfce4-timer-plugin
+        xfce4-weather-plugin
+        xfce4-whiskermenu-plugin
+        xfce4-windowck-plugin
+        (writeShellApplication {
+          name = "xfce4-panel-toggle";
+          runtimeInputs = [xfce.xfconf];
+          text = ''
+            for num in {0,1}
+            do
+              current=$(xfconf-query -c xfce4-panel -p /panels/panel-"$num"/autohide-behavior)
+              if [[ current -eq 1 ]]; then next=0; else next=1; fi
+              xfconf-query -c xfce4-panel -p /panels/panel-"$num"/autohide-behavior -s $next
+            done
+          '';
+        })
+      ];
 
       # Persisted Files
       user.persist.directories = [

@@ -7,7 +7,7 @@
 } @ args: let
   inherit (config.gui) desktop;
   inherit (config.stylix) cursor fonts;
-  inherit (lib) mkAfter mkIf mkMerge;
+  inherit (lib) mkIf mkMerge;
   theme = import ./theme.nix pkgs;
 in {
   #!# WIP #!#
@@ -24,6 +24,7 @@ in {
         hyprland = {
           enable = true;
           xwayland.enable = true;
+          package = pkgs.unstable.hyprland;
         };
 
         regreet = {
@@ -49,11 +50,20 @@ in {
       };
 
       # Desktop Integration
-      gui = {
+      gui = with theme; {
         fonts.enable = true;
-        gtk.enable = true;
-        theme = theme.gtk;
         inherit (theme) icons;
+
+        gtk = {
+          enable = true;
+          theme = gtk;
+        };
+
+        qt = {
+          enable = true;
+          theme = qt;
+        };
+
         launcher = {
           enable = true;
           shadow = false;
@@ -85,6 +95,7 @@ in {
       };
 
       # Backlight
+      user.groups = ["video"];
       hardware.brillo.enable = true;
       services.clight = {
         enable = true;
@@ -102,25 +113,19 @@ in {
       location.provider = "geoclue2";
       services.geoclue2.enable = true;
 
-      ## Theming
       # Color Scheme
       stylix.base16Scheme = files.colors.catppuccin;
 
-      # QT Theme
-      environment = with theme; {
-        systemPackages = [qt.package];
-        etc."xdg/Kvantum/kvantum.kvconfig".text = mkAfter "theme=${qt.name}";
-      };
-
       ## User Configuration
       user.homeConfig = {
-        imports = [./binds.nix];
+        imports = [./binds.nix ./rules.nix];
 
         ## Settings
         wayland.windowManager.hyprland = {
           enable = true;
           settings = {
             env = ["QT_WAYLAND_DISABLE_WINDOWDECORATION,1"];
+            debug.disable_logs = false;
             exec-once = [
               "hyprctl setcursor ${cursor.name} ${builtins.toString cursor.size}"
               "systemctl --user start clight"
@@ -133,6 +138,7 @@ in {
             input = {
               # Keyboard
               kb_layout = "us";
+              numlock_by_default = true;
 
               # Mouse
               follow_mouse = 1; # Focus on cursor move
@@ -151,9 +157,19 @@ in {
               workspace_swipe_forever = true;
             };
 
+            # Tiling Layout
+            dwindle = {
+              pseudotile = true; # Keep floating dimensions
+              preserve_split = true;
+            };
+
             misc = {
-              disable_autoreload = true;
+              enable_swallow = true;
               force_default_wallpaper = 0;
+
+              # Prevent checking for configuration changes
+              # Use 'hyprctl reload' if required
+              disable_autoreload = true;
 
               # Graphics
               vrr = 1;
