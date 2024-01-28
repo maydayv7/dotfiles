@@ -27,10 +27,7 @@ in {
     // mkIf (loader != null) (mkMerge [
       {
         boot = {
-          tmp = rec {
-            useTmpfs = true;
-            cleanOnBoot = !useTmpfs;
-          };
+          tmp.cleanOnBoot = true;
 
           # Plymouth
           consoleLogLevel = 3;

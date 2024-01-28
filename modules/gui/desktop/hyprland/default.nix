@@ -166,6 +166,7 @@ in {
             misc = {
               enable_swallow = true;
               force_default_wallpaper = 0;
+              disable_hyprland_logo = true;
 
               # Prevent checking for configuration changes
               # Use 'hyprctl reload' if required

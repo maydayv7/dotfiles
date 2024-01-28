@@ -157,6 +157,7 @@
     flatpak.url = "github:gmodena/nix-flatpak";
 
     # VS Code Extensions
+    vscode-catppuccin.url = "github:catppuccin/vscode";
     vscode = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {

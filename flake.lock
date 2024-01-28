@@ -606,6 +606,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1706191920,
+        "narHash": "sha256-eLihrZAPZX0R6RyM5fYAWeKVNuQPYjAkCUBr+JNvtdE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ae5c332cbb5827f6b1f02572496b141021de335f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "locked": {
         "lastModified": 1705486356,
@@ -696,6 +712,7 @@
         "unstable": "unstable",
         "utils": "utils_2",
         "vscode": "vscode",
+        "vscode-catppuccin": "vscode-catppuccin",
         "wfvm": "wfvm",
         "windows": "windows"
       }
@@ -897,6 +914,24 @@
       "original": {
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
+        "type": "github"
+      }
+    },
+    "vscode-catppuccin": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1704923501,
+        "narHash": "sha256-Kz3pymvpNHTlKruepOZ3lbiWxfGhtlK5JiqF0Hk+h6I=",
+        "owner": "catppuccin",
+        "repo": "vscode",
+        "rev": "cf7019fdeba269650940fb0bd2c4e50c7bf498d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "vscode",
         "type": "github"
       }
     },

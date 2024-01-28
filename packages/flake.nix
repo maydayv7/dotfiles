@@ -46,6 +46,7 @@ in {
         config = import ../modules/nix/config.nix;
         overlays = [
           nur.overlay
+          vscode-catppuccin.overlays.default
           (final: prev: {
             nixFlakes = prev.nixVersions.nix_2_19;
 

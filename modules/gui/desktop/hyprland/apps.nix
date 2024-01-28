@@ -88,6 +88,7 @@ in {
       services.playerctld.enable = true;
 
       # Terminal
+      wayland.windowManager.hyprland.settings.misc.swallow_regex = " ^(kitty)$";
       programs.kitty = {
         enable = true;
         font = fonts.monospace // {size = fonts.sizes.terminal;};
@@ -243,11 +244,22 @@ in {
       ## 3rd Party Apps Configuration
       # Code Editor
       programs.vscode = lib.mkIf (exists "vscode") {
-        extensions = with pkgs.vscode-extensions.catppuccin; [catppuccin-vsc catppuccin-vsc-icons];
+        extensions = with pkgs; [
+          vscode-extensions.catppuccin.catppuccin-vsc-icons
+          (catppuccin-vsc.override {
+            inherit (theme) accent;
+            boldKeywords = true;
+            italicComments = true;
+            italicKeywords = true;
+            extraBordersEnabled = false;
+            workbenchMode = "default";
+            bracketMode = "rainbow";
+          })
+        ];
+
         userSettings = with theme; {
           "workbench.colorTheme" = "${name-alt} ${variant-alt}";
           "workbench.iconTheme" = "${name}-${variant}";
-          "catppuccin.accentColor" = "${accent}";
           "terminal.external.linuxExec" = "kitty";
         };
       };
