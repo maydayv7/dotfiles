@@ -38,6 +38,7 @@ in {
         cursors = {
           name = "elementary";
           package = pkgs.pantheon.elementary-icon-theme;
+          size = 32;
         };
 
         launcher = {

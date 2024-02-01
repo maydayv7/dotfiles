@@ -18,6 +18,9 @@
       cache = "maydayv7-dotfiles";
       flake = "github:maydayv7/dotfiles";
       repo = "https://github.com/maydayv7/dotfiles";
+
+      # Set PATH for SystemD Services
+      systemd = ''export PATH="''${XDG_BIN_HOME}:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"'';
     };
 
     # ASCII Art

@@ -1,5 +1,10 @@
 [
   {
+    "name": "Clear Clipboard",
+    "icon": "clipboard",
+    "script": "sh -c 'echo [] | cat > ~/.local/share/clipman.json'"
+  },
+  {
     "name": "Documentation",
     "description": "ULauncher Documentation",
     "icon": "help-about",

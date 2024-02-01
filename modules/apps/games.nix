@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkForce mkIf;
   enable = builtins.elem "games" config.apps.list;
   wine = builtins.elem "wine" config.apps.list;
 in {
@@ -38,6 +38,8 @@ in {
 
     # Game Mode
     # See https://github.com/FeralInteractive/gamemode
+    hardware.cpu.mode = mkForce "performance";
+    gui.fancy = mkForce false;
     programs.gamemode.enable = true;
   };
 }

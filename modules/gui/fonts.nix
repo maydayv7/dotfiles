@@ -76,8 +76,6 @@
       unifont
 
       fira
-      fira-code
-      fira-mono
       roboto
       roboto-slab
       source-code-pro

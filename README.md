@@ -11,6 +11,10 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 <details>
 <summary>Desktop Pictures</summary>
 
+| ![Hyprland](./files/images/desktop/hyprland.png) |
+| :----------------------------------------------: |
+|                    _Hyprland_                    |
+
 | ![GNOME Desktop](./files/images/desktop/gnome/desktop.png) |
 | :--------------------------------------------------------: |
 |                      _GNOME Desktop_                       |

@@ -6,7 +6,7 @@
 with pkgs; let
   metadata = import ./metadata.nix;
 in
-  stdenv.mkDerivation rec {
+  stdenv.mkDerivation {
     pname = "firefox-elementary-theme";
     version = metadata.rev;
 

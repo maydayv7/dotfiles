@@ -4,26 +4,33 @@ _: {
     "$mod" = "SUPER";
     bind =
       [
-        # Apps
-        "$mod, F, exec, thunar"
-        "$mod, T, exec, kitty"
-        "$mod, W, exec, firefox"
-        "$mod, Return, exec, missioncenter"
-        "$mod, slash, exec, ulauncher-toggle"
-        ", XF86Calculator, exec, qalculate-gtk"
-
         # Compositor Commands
         "$mod, Q, killactive,"
         "$mod, M, fullscreen, 1"
         "$mod SHIFT, M, fullscreen,"
-        "$mod, O, togglefloating,"
-        "$mod, P, workspaceopt, allfloat" # Floating Mode
 
         # Focus Change
         "$mod, left, movefocus, l"
         "$mod, right, movefocus, r"
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
+
+        # Window Swap
+        "$mod SHIFT, left, swapwindow, l"
+        "$mod SHIFT, right, swapwindow, r"
+        "$mod SHIFT, up, swapwindow, u"
+        "$mod SHIFT, down, swapwindow, d"
+
+        # Tiling
+        "$mod, Space, togglesplit"
+        "$mod SHIFT, Space, togglegroup"
+        "$mod, Tab, changegroupactive, f"
+        "$mod SHIFT, Tab, changegroupactive, b"
+
+        # Floating Mode
+        "$mod, O, togglefloating,"
+        "$mod, P, workspaceopt, allfloat"
+        "$mod, C, centerwindow"
 
         # Window Switcher
         "ALT, Tab, cyclenext,"
@@ -82,6 +89,7 @@ _: {
       "$mod, mouse:272, movewindow"
       "$mod, mouse:273, resizewindow"
       "$mod CTRL, mouse:272, resizewindow"
+      "$mod SHIFT, mouse:272, moveintogroup"
     ];
 
     # Ignore Locked State
@@ -99,12 +107,12 @@ _: {
     # Repeat on Hold
     bindle = [
       # Volume
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%+"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 6%-"
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 5%+"
+      ", XF86AudioLowerVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 5%-"
 
       # Backlight
-      ", XF86MonBrightnessUp, exec, brillo -q -u 300000 -A 5"
-      ", XF86MonBrightnessDown, exec, brillo -q -u 300000 -U 5"
+      ", XF86MonBrightnessUp, exec, brillo -u 300000 -A 5"
+      ", XF86MonBrightnessDown, exec, brillo -u 300000 -U 5"
     ];
   };
 }

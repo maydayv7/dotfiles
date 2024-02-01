@@ -42,6 +42,7 @@
   gui = {
     desktop = "hyprland";
     wallpaper = "Tetris";
+    fancy = true;
   };
 
   # User V7

@@ -1,12 +1,16 @@
 pkgs: {
   name = "Python";
   packages = with pkgs;
-  with python39Packages; [
-    python39
+  with python311Packages; [
+    python3
     pip
 
     autopep8
     pylint
+
+    matplotlib
+    numpy
+    pandas
 
     ipython
     poetry-core

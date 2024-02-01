@@ -81,7 +81,7 @@
         owner = "FT-Labs";
         repo = "picom";
         rev = "fe5b416ed6f43c31418d21dde7a9f20c12d7dfb0";
-        sha256 = "sha256-KX+/nO/nJlUjsZwVg2/vQy+byYmtnKbtxuhyiq/tWg8=";
+        sha256 = "sha256-jouBx8fqoy/psD/P9dX3Q4/D4IWsLSxA210CKcBbh4I=";
       };
     });
   };

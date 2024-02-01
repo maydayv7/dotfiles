@@ -40,6 +40,12 @@ in {
         type = types.package;
         default = pkgs.bibata-cursors;
       };
+
+      size = mkOption {
+        description = "Cursors Size";
+        type = types.int;
+        default = 28;
+      };
     };
 
     wallpaper = mkOption {
@@ -59,7 +65,7 @@ in {
       {
         autoEnable = false;
         image = cfg.wallpaper;
-        cursor = cfg.cursors // {size = 28;};
+        cursor = cfg.cursors;
       }
       // (
         if (!enable)

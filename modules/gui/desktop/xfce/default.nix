@@ -7,7 +7,7 @@
   ...
 } @ args:
 with files; let
-  inherit (config.gui) desktop wallpaper;
+  inherit (config.gui) desktop fancy wallpaper;
   exists = app: builtins.elem app config.apps.list;
   inherit (lib) mkForce mkIf mkMerge;
 
@@ -16,9 +16,6 @@ with files; let
     name = "Arc-Dark";
     package = pkgs.arc-theme;
   };
-
-  # Window Composition
-  compositor = config.hardware.cpu.mode != "powersave";
 in {
   ## XFCE Desktop Configuration ##
   config = mkIf (desktop == "xfce" || desktop == "xfce-minimal") (mkMerge [
@@ -51,7 +48,7 @@ in {
     }
 
     ## Full-Fledged XFCE Desktop Configuration
-    (mkIf (desktop == "xfce" && compositor) (import ./compositor.nix args))
+    (mkIf (desktop == "xfce" && fancy) (import ./compositor.nix args))
     (mkIf (desktop == "xfce") {
       # Desktop Components
       gui = {
@@ -205,7 +202,7 @@ in {
                 config.stylix.fonts.sansSerif.name
                 config.stylix.fonts.monospace.name
                 (
-                  if compositor
+                  if fancy
                   then "false"
                   else "true"
                 )

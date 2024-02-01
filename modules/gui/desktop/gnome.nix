@@ -84,10 +84,10 @@ in {
         };
       };
 
+      apps.list = ["firefox"];
       programs = {
         gnupg.agent.pinentryFlavor = mkForce "gnome3";
         firefox = {
-          enable = true;
           policies.ExtensionSettings = {
             name = "gnome-shell-integration";
             value = {
@@ -141,7 +141,7 @@ in {
 
             # Discord DNOME Theme
             ".config/BetterDiscord/data/stable/custom.css" =
-              mkIf (exists "discord") {text = ''@import "https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css";'';};
+              mkIf (exists "discord") {text = ''@import url("https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css");'';};
           };
 
         # Code Editor

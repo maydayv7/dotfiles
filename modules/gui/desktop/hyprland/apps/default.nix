@@ -7,11 +7,13 @@
   ...
 }:
 with files; let
-  inherit (config.stylix) fonts;
   inherit (config.gui) wallpaper;
+  inherit (lib) getExe mkIf;
   exists = app: builtins.elem app config.apps.list;
-  theme = import ./theme.nix pkgs;
+  theme = import ../theme.nix pkgs;
 in {
+  apps.list = ["firefox"];
+  gui.launcher.terminal = "kitty";
   environment.systemPackages = with pkgs; [
     # Apps
     geany
@@ -25,6 +27,7 @@ in {
     xfce.thunar
 
     # Utilities
+    blueberry
     grim
     grimblast
     slurp
@@ -44,6 +47,8 @@ in {
     ];
 
     homeConfig = {
+      imports = util.map.modules.list ./.;
+
       # Default Applications
       xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
         audio = ["org.gnome.Lollypop.desktop"];
@@ -55,34 +60,15 @@ in {
         video = ["mpv.desktop"];
       };
 
-      # Theming
-      stylix.targets = {
-        hyprland.enable = true;
-        dunst.enable = true;
-        swaylock = {
-          enable = true;
-          useImage = true;
-        };
-      };
-
-      # Configuration Files
-      home.file = {
-        # Wallpaper
-        ".config/hypr/hyprpaper.conf".text = ''
-          preload = ${wallpaper}
-          wallpaper = , ${wallpaper}
-        '';
-
-        # Text Editor
-        ".config/geany/geany.conf".text = geany.settings;
-        ".config/geany/colorschemes/theme.conf".text = geany.catppuccin;
-
-        # Terminal
-        ".config/kitty/search".source = pkgs.custom.kitty-search;
-
-        # File Manager
-        ".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = xfce.settings.thunar;
-      };
+      # Shortcuts
+      wayland.windowManager.hyprland.settings.bind = [
+        "$mod, F, exec, thunar"
+        "$mod, T, exec, kitty"
+        "$mod, W, exec, firefox"
+        "$mod, Return, exec, missioncenter"
+        "$mod, slash, exec, ulauncher-toggle"
+        ", XF86Calculator, exec, qalculate-gtk"
+      ];
 
       # Utilities
       services.playerctld.enable = true;
@@ -91,7 +77,7 @@ in {
       wayland.windowManager.hyprland.settings.misc.swallow_regex = " ^(kitty)$";
       programs.kitty = {
         enable = true;
-        font = fonts.monospace // {size = fonts.sizes.terminal;};
+        font = with config.stylix.fonts; monospace // {size = sizes.terminal;};
         theme = with theme; "${name-alt}-${variant-alt}";
         keybindings = {
           "ctrl+c" = "copy_or_interrupt";
@@ -113,7 +99,6 @@ in {
 
       # Web Browser
       programs.firefox = {
-        enable = true;
         policies.ExtensionSettings = {
           name = with theme; "${name}-${variant}-${accent}";
           value = {
@@ -131,6 +116,7 @@ in {
       };
 
       # Notifications
+      stylix.targets.dunst.enable = true;
       services.dunst = {
         enable = true;
         iconTheme = theme.icons;
@@ -161,89 +147,48 @@ in {
         };
       };
 
-      # Locker
-      programs.swaylock = {
-        enable = true;
-        package = pkgs.swaylock-effects;
-        settings = {
-          clock = true;
-          indicator = true;
-          font = fonts.sansSerif.name;
-          grace = 10;
-          fade-in = 1;
-          effect-vignette = "0.3:1";
+      # Wallpaper Daemon
+      systemd.user.services.hyprpaper = {
+        Install.WantedBy = ["graphical-session.target"];
+        Unit = {
+          Description = "Hyprland Wallpaper Daemon";
+          PartOf = ["graphical-session.target"];
+        };
+
+        Service = {
+          ExecStart = "${getExe pkgs.hyprpaper}";
+          Restart = "on-failure";
         };
       };
 
-      # Screen Idle
-      services.swayidle = {
-        enable = true;
-        events = [
-          {
-            event = "before-sleep";
-            command = "${pkgs.systemd}/bin/loginctl lock-session";
-          }
-          {
-            event = "lock";
-            command = "${pkgs.swaylock-effects}/bin/swaylock -f";
-          }
-        ];
-        timeouts = [
-          {
-            timeout = 330;
-            command = "${pkgs.writeShellApplication {
-              name = "suspend"; # Only suspend if no audio is playing
-              runtimeInputs = with pkgs; [pipewire ripgrep systemd];
-              text = ''
-                pw-cli i all | rg running
-                if [ $? == 1 ]
-                then
-                  ${pkgs.systemd}/bin/systemctl suspend
-                fi
-              '';
-            }}/bin/suspend";
-          }
-        ];
-      };
+      # Configuration Files
+      home.file =
+        {
+          # Wallpaper
+          ".config/hypr/hyprpaper.conf".text = ''
+            preload = ${wallpaper}
+            wallpaper = , ${wallpaper}
+          '';
 
-      systemd.user.services = {
-        # Wallpaper Daemon
-        hyprpaper = {
-          Install.WantedBy = ["graphical-session.target"];
-          Unit = {
-            Description = "Hyprland Wallpaper Daemon";
-            PartOf = ["graphical-session.target"];
-          };
+          # Text Editor
+          ".config/geany/geany.conf".text = geany.settings;
+          ".config/geany/colorschemes/theme.conf".text = geany.catppuccin;
 
-          Service = {
-            ExecStart = "${lib.getExe pkgs.hyprpaper}";
-            Restart = "on-failure";
-          };
+          # Terminal
+          ".config/kitty/search".source = pkgs.custom.kitty-search;
+
+          # File Manager
+          ".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = xfce.settings.thunar;
+        }
+        ## 3rd Party Apps Configuration
+        // {
+          # Discord Chat
+          ".config/BetterDiscord/data/stable/custom.css" = with theme;
+            mkIf (exists "discord") {text = ''@import url("https://${name}.github.io/discord/dist/${name}-${variant}-${accent}.theme.css");'';};
         };
 
-        # Authorization Agent
-        polkit = {
-          Unit.Description = "polkit-gnome-authentication-agent-1";
-
-          Install = {
-            WantedBy = ["graphical-session.target"];
-            Wants = ["graphical-session.target"];
-            After = ["graphical-session.target"];
-          };
-
-          Service = {
-            Type = "simple";
-            ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-            Restart = "on-failure";
-            RestartSec = 1;
-            TimeoutStopSec = 10;
-          };
-        };
-      };
-
-      ## 3rd Party Apps Configuration
       # Code Editor
-      programs.vscode = lib.mkIf (exists "vscode") {
+      programs.vscode = mkIf (exists "vscode") {
         extensions = with pkgs; [
           vscode-extensions.catppuccin.catppuccin-vsc-icons
           (catppuccin-vsc.override {

@@ -7,15 +7,18 @@
 }: let
   inherit (builtins) map;
   inherit (util.map.modules) list name;
-  inherit (lib) hasSuffix mkIf mkOption optional types;
+  inherit (lib) hasSuffix mkEnableOption mkIf mkOption optional types;
   inherit (config.gui) desktop;
 in {
   imports = list ./. ++ list ./desktop;
 
-  options.gui.desktop = mkOption {
-    description = "GUI Desktop Choice";
-    type = types.enum ((name ./desktop) ++ map (x: x + "-minimal") (name ./desktop) ++ [""]);
-    default = "";
+  options.gui = {
+    fancy = mkEnableOption "Enable Fancy GUI Effects";
+    desktop = mkOption {
+      description = "GUI Desktop Choice";
+      type = types.enum ((name ./desktop) ++ map (x: x + "-minimal") (name ./desktop) ++ [""]);
+      default = "";
+    };
   };
 
   config =

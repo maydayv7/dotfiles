@@ -28,6 +28,7 @@ Configuration [Builder](./configuration.nix)
 
   - `desktop`: Choice of GUI Desktop - `"gnome" / "xfce" / "pantheon"`
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
+  - `fancy`: Enable Fancy GUI Effects - `true / false`
   - `fonts` -
     - `enable`: Enable Fonts Configuration - `true / false`
   - `icons` -
@@ -36,6 +37,7 @@ Configuration [Builder](./configuration.nix)
   - `cursors` -
     - `name`: GUI Cursors Theme - Ex. `Bibata`
     - `package`: Cursors Package - Ex. `pkgs.bibata-cursors`
+    - `size`: Cursors Size - Ex. `28`
   - `gtk` -
     - `enable`: Enable GTK Configuration - `true / false`
     - `theme` -

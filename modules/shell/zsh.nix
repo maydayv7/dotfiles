@@ -13,7 +13,11 @@ in {
   ## Z Shell Configuration ##
   config = lib.mkIf enable {
     # Shell Environment
-    programs.zsh.enable = true;
+    programs.zsh = {
+      enable = true;
+      enableCompletion = false;
+    };
+
     user.persist = {
       files = [".zsh_history"];
       directories = [".cache/zsh"];

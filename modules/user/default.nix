@@ -151,11 +151,11 @@ in {
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "bak";
+      users = mapAttrs (_: value: {imports = value.homeConfig;}) settings;
       extraSpecialArgs = {
         inherit util inputs files;
         sys = config;
       };
-      users = mapAttrs (_: value: {imports = value.homeConfig;}) settings;
     };
 
     # Debug
