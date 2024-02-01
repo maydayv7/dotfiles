@@ -21,13 +21,6 @@ in {
     environment.persist.directories = ["/var/lib/flatpak"];
     user.persist.directories = [".cache/flatpak" ".local/share/flatpak" ".var/app"];
 
-    #!# TODO #!#
-    # Use system Dconf Settings
-    /*
-    [Environment]
-    DCONF_USER_CONFIG_DIR=.config/dconf
-    */
-
     services.flatpak = {
       enable = true;
 
@@ -54,6 +47,19 @@ in {
         }
         */
       ];
+
+      # Platform Integration
+      overrides.global = {
+        Context = {
+          sockets = ["wayland" "!x11" "fallback-x11"];
+          filesystems = ["~/.config/dconf:ro"];
+        };
+
+        Environment = {
+          DCONF_USER_CONFIG_DIR = ".config/dconf";
+          XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
+        };
+      };
 
       # Package Updates
       update = {
