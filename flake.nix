@@ -157,13 +157,17 @@
     flatpak.url = "github:gmodena/nix-flatpak";
 
     # VS Code Extensions
-    vscode-catppuccin.url = "github:catppuccin/vscode";
     vscode = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "utils/flake-utils";
       };
+    };
+
+    vscode-catppuccin = {
+      url = "github:catppuccin/vscode";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Windows VM Creator
