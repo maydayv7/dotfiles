@@ -245,10 +245,7 @@ in rec {
 
       #waybar.empty #window { background: none; }
       #taskbar button.active { background: @base03; }
-      #clock {
-        color: @base00;
-        background-color: @base0A;
-      }
+      .modules-right #clock { background-color: @base0A; }
 
       #custom-logo {
         color: @base00;
