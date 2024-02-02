@@ -38,6 +38,14 @@ _: {
         "ALT CTRL, Tab, cyclenext, prev"
         "ALT CTRL, Tab, bringactivetotop,"
 
+        # Overview
+        "ALT, grave, hycov:toggleoverview"
+        "ALT SHIFT, grave, hycov:toggleoverview, forceall"
+        "ALT, left, hycov:movefocus, l"
+        "ALT, right, hycov:movefocus, r"
+        "ALT, up, hycov:movefocus, u"
+        "ALT, down, hycov:movefocus, d"
+
         # Cycle Workspaces
         "$mod, period, workspace, m-1"
         "$mod, comma, workspace, m+1"

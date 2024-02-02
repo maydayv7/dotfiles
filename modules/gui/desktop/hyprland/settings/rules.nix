@@ -1,22 +1,31 @@
 _: {
-  ## Window Rules
-  wayland.windowManager.hyprland.settings.windowrulev2 = [
-    # PiP Window
-    "float, title:^(Picture-in-Picture)$"
-    "pin, title:^(Picture-in-Picture)$"
+  wayland.windowManager.hyprland.settings = {
+    ## Layer Rules
+    layerrule = [
+      "blur, ^(gtk-layer-shell)$"
+      "xray 1, ^(gtk-layer-shell)$"
+      "ignorealpha 0.2, ^(gtk-layer-shell)$"
+    ];
 
-    # Throw away Sharing Window
-    "workspace special silent, title:^(Firefox — Sharing Indicator)$"
-    "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
+    ## Window Rules
+    windowrulev2 = [
+      # PiP Window
+      "float, title:^(Picture-in-Picture)$"
+      "pin, title:^(Picture-in-Picture)$"
 
-    # Idle Inhibit during media consumption
-    "idleinhibit focus, class:^(mpv|.+exe)$"
-    "idleinhibit focus, class:^(firefox|google-chrome)$, title:^(.*YouTube.*)$"
-    "idleinhibit fullscreen, class:^(firefox|google-chrome)$"
+      # Throw away Sharing Window
+      "workspace special silent, title:^(Firefox — Sharing Indicator)$"
+      "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
 
-    # Prompt Windows
-    "dimaround, class:^(gcr-prompter)$"
-    "dimaround, class:^(xdg-desktop-portal-gtk)$"
-    "dimaround, class:^(polkit-gnome-authentication-agent-1)$"
-  ];
+      # Idle Inhibit during media consumption
+      "idleinhibit focus, class:^(mpv|.+exe)$"
+      "idleinhibit focus, class:^(firefox|google-chrome)$, title:^(.*YouTube.*)$"
+      "idleinhibit fullscreen, class:^(firefox|google-chrome)$"
+
+      # Prompt Windows
+      "dimaround, class:^(gcr-prompter)$"
+      "dimaround, class:^(xdg-desktop-portal-gtk)$"
+      "dimaround, class:^(polkit-gnome-authentication-agent-1)$"
+    ];
+  };
 }

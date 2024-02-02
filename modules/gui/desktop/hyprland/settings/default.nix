@@ -2,6 +2,7 @@
   sys,
   lib,
   util,
+  pkgs,
   ...
 }: {
   ## Hyprland Settings
@@ -9,7 +10,9 @@
   stylix.targets.hyprland.enable = true;
   dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "appmenu";
   wayland.windowManager.hyprland = {
-    enable = true;
+    inherit (sys.programs.hyprland) enable package;
+    plugins = with pkgs.hyprworld; [hycov];
+
     settings = {
       debug.disable_logs = false;
       env = ["QT_WAYLAND_DISABLE_WINDOWDECORATION,1"];
@@ -75,6 +78,13 @@
           border_size = 2;
         };
 
+      group.groupbar = with sys.lib.stylix.colors; {
+        enabled = true;
+        render_titles = false;
+        "col.active" = "rgb(${base06})";
+        "col.locked_active" = "rgb(${base0D})";
+      };
+
       decoration = lib.mkIf sys.gui.fancy {
         rounding = 10;
         drop_shadow = true;
@@ -89,6 +99,17 @@
           contrast = 1.0;
           passes = 2;
         };
+      };
+
+      # Overview
+      plugin.hycov = {
+        overview_gappo = 60;
+        overview_gappi = 24;
+        hotarea_size = 10;
+        enable_hotarea = 1;
+        enable_gesture = 1;
+        swipe_fingers = 4;
+        only_active_workspace = 1;
       };
     };
   };

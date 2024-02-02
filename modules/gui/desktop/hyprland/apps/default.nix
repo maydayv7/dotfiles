@@ -68,6 +68,7 @@ in {
         "$mod, Return, exec, missioncenter"
         "$mod, slash, exec, ulauncher-toggle"
         ", XF86Calculator, exec, qalculate-gtk"
+        "$mod, Escape, exec, wlogout -p layer-shell"
       ];
 
       # Utilities

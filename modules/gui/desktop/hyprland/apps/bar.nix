@@ -16,7 +16,7 @@ in rec {
   };
 
   # Environment Setup
-  home.packages = [pkgs.font-awesome];
+  home.packages = with pkgs; [font-awesome wttrbar];
   systemd.user = {
     # nix-community/home-manager/4099
     services.waybar.Service.ExecStart = lib.mkForce (pkgs.writeShellScript "waybar-wrapper.sh" ''
@@ -48,36 +48,6 @@ in rec {
       };
     });
 
-    style = ''
-      * {
-        font-family: ${sys.stylix.fonts.sansSerif.name}, "Font Awesome 6 Free";
-        font-size: 16px;
-        font-weight: 500;
-        border-radius: 10px;
-      }
-
-      #waybar.empty #window {
-        background: none;
-      }
-
-      #backlight,
-      #battery,
-      #bluetooth,
-      #keyboard-state,
-      #network,
-      #taskbar,
-      #tray,
-      #window,
-      #wireplumber,
-      #workspaces {
-        padding: 1px 6px 1px 6px;
-      }
-
-      #network {
-      	padding-right: 11px;
-      }
-    '';
-
     # Panel
     settings = [
       {
@@ -91,7 +61,7 @@ in rec {
         margin-right = 5;
         margin-bottom = 5;
 
-        modules-left = ["hyprland/workspaces" "hyprland/window"];
+        modules-left = ["custom/logo" "hyprland/workspaces" "hyprland/window"];
         modules-center = ["wlr/taskbar"];
         modules-right = [
           "tray"
@@ -102,7 +72,14 @@ in rec {
           "wireplumber"
           "battery"
           "clock"
+          "custom/weather"
         ];
+
+        "custom/logo" = {
+          format = "";
+          tooltip = false;
+          on-click = "wlogout -p layer-shell";
+        };
 
         "hyprland/workspaces" = {
           all-outputs = true;
@@ -138,6 +115,7 @@ in rec {
             "bash" = "Terminal";
             "zsh" = "Terminal";
             "(.*) - kitty" = "Terminal";
+            "Ulauncher(.*)" = "Launcher";
           };
         };
 
@@ -175,7 +153,7 @@ in rec {
           format-linked = "󰈁 {ifname}";
           tooltip-format = "Network= <big><b>{essid}</b></big>\nStrength= <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency= <b>{frequency}MHz</b>\nInterface= <b>{ifname}</b>\nIP= <b>{ipaddr}/{cidr}</b>\nGateway= <b>{gwaddr}</b>\nNetmask= <b>{netmask}</b>";
           tooltip-format-disconnected = "󰌙 Disconnected";
-          on-click = "nmtui";
+          on-click = "kitty nmtui";
         };
 
         keyboard-state = {
@@ -237,16 +215,64 @@ in rec {
               today = "<span color='#FF6699'><b><u>{}</u></b></span>";
             };
           };
+
+          actions = {
+            on-click-right = "mode";
+            on-click-forward = "tz_up";
+            on-click-backward = "tz_down";
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+          };
         };
 
-        actions = {
-          on-click-right = "mode";
-          on-click-forward = "tz_up";
-          on-click-backward = "tz_down";
-          on-scroll-up = "shift_up";
-          on-scroll-down = "shift_down";
+        "custom/weather" = {
+          format = "{}°";
+          tooltip = true;
+          interval = 3600;
+          exec = "wttrbar";
+          return-type = "json";
         };
       }
     ];
+
+    style = ''
+      * {
+        font-family: ${sys.stylix.fonts.sansSerif.name}, "Font Awesome 6 Free";
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 10px;
+      }
+
+      #waybar.empty #window { background: none; }
+      #taskbar button.active { background: @base03; }
+      #clock {
+        color: @base00;
+        background-color: @base0A;
+      }
+
+      #custom-logo {
+        color: @base00;
+        background-color: @base06;
+      }
+
+      #custom-weather {
+        color: @base00;
+        background-color: @base08;
+      }
+
+      #backlight,
+      #battery,
+      #bluetooth,
+      #clock,
+      #custom-weather,
+      #keyboard-state,
+      #taskbar,
+      #tray,
+      #window,
+      #wireplumber,
+      #workspaces { padding: 3px 6px 3px 6px; }
+      #network,
+      #custom-logo { padding: 3px 11px 3px 6px; }
+    '';
   };
 }

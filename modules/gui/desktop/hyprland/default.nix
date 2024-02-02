@@ -22,7 +22,7 @@ in {
         hyprland = {
           enable = true;
           xwayland.enable = true;
-          package = pkgs.unstable.hyprland;
+          package = pkgs.hyprworld.hyprland;
         };
 
         regreet = {
@@ -44,7 +44,7 @@ in {
       # Boot Splash
       boot.plymouth = {
         theme = with theme; "${name}-${variant}";
-        themePackages = [pkgs.catppuccin-plymouth];
+        themePackages = [(pkgs.catppuccin-plymouth.override {inherit (theme) variant;})];
       };
 
       # Settings
