@@ -200,6 +200,7 @@ in rec {
           format-icons = ["" "" "" "" "" "" "" "" ""];
           on-scroll-down = "${pkgs.brillo}/bin/brillo -u 300000 -A 5";
           on-scroll-up = "${pkgs.brillo}/bin/brillo -u 300000 -U 5";
+          on-click = "nwg-displays";
         };
 
         battery = {

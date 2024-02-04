@@ -14,10 +14,26 @@
     plugins = with pkgs.hyprworld; [hycov];
 
     # Use 'nwg-displays' to configure monitors
-    extraConfig = ''
-      source = ~/.config/hypr/monitors.conf
-      source = ~/.config/hypr/workspaces.conf
-    '';
+    extraConfig =
+      ''
+        source = ~/.config/hypr/monitors.conf
+        source = ~/.config/hypr/workspaces.conf
+      ''
+      +
+      # Overview
+      ''
+        plugin {
+          hycov {
+            enable_gesture=1
+            enable_hotarea=1
+            hotarea_size=10
+            only_active_workspace=1
+            overview_gappi=24
+            overview_gappo=60
+            swipe_fingers=4
+          }
+        }
+      '';
 
     settings = {
       debug.disable_logs = false;
@@ -104,17 +120,6 @@
           contrast = 1.0;
           passes = 2;
         };
-      };
-
-      # Overview
-      plugin.hycov = {
-        overview_gappo = 60;
-        overview_gappi = 24;
-        hotarea_size = 10;
-        enable_hotarea = 1;
-        enable_gesture = 1;
-        swipe_fingers = 4;
-        only_active_workspace = 1;
       };
     };
   };

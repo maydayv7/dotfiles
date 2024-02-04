@@ -16,7 +16,6 @@
       # Package Configuration
       home = {
         inherit (config.system) stateVersion;
-        enableNixpkgsReleaseCheck = false;
         file = {
           ".config/nixpkgs/config.nix".source = ../nix/config.nix;
           ".config/nix/nix.conf".source =
