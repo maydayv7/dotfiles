@@ -10,7 +10,6 @@
 in {
   ## Office Environment Configuration ##
   imports = [inputs.windows.nixosModules.onlyoffice];
-
   config = lib.mkIf enable {
     # Applications
     environment.systemPackages = with pkgs; [
@@ -23,6 +22,7 @@ in {
       hunspellDicts.en_US-large
       hyphen
       libreoffice
+      obs-studio
 
       # Internet
       google-chrome
@@ -39,7 +39,7 @@ in {
     # Dictionaries
     environment = {
       pathsToLink = ["/share/hunspell" "/share/myspell" "/share/hyphen"];
-      variables.DICPATH = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
+      variables."DICPATH" = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
     };
 
     user = {
@@ -51,6 +51,7 @@ in {
         ".config/GIMP"
         ".config/google-chrome"
         ".config/libreoffice"
+        ".config/obs-studio"
         ".config/onlyoffice"
         ".local/share/data"
         ".local/share/onlyoffice"

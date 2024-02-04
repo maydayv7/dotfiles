@@ -133,8 +133,12 @@ in
         ;;
         "--boot")
           echo "Applying Configuration..."
-          sudo nixos-rebuild boot --flake ${path.system}#
-          restart
+          if sudo nixos-rebuild boot --flake ${path.system}#
+          then
+            restart
+          else
+            error "Couldn't build generation successfully"
+          fi
         ;;
         "--delta")
           temp

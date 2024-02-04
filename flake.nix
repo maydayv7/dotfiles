@@ -100,7 +100,7 @@
     ## Feature Modules
     # User Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-23.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -155,7 +155,7 @@
 
     # Hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.34.0";
+      url = "github:hyprwm/Hyprland";
       inputs.systems.follows = "systems";
     };
 

@@ -47,7 +47,7 @@
 
       sansSerif = {
         package = pkgs.custom.fonts;
-        name = "Product Sans";
+        name = "ProductSans Nerd Font";
       };
 
       monospace = {

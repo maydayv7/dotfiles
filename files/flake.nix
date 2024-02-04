@@ -126,6 +126,9 @@
       extension = ".json";
     };
 
+    # Waybar
+    waybar.style = readFile ./waybar/style.css;
+
     # XDG Settings
     xdg.mime = import ./xdg/mime.nix;
 

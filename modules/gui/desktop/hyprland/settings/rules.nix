@@ -26,6 +26,13 @@ _: {
       "dimaround, class:^(gcr-prompter)$"
       "dimaround, class:^(xdg-desktop-portal-gtk)$"
       "dimaround, class:^(polkit-gnome-authentication-agent-1)$"
+
+      # Screen Share
+      "maxsize 1 1, class:^(xwaylandvideobridge)$"
+      "noanim, class:^(xwaylandvideobridge)$"
+      "noblur, class:^(xwaylandvideobridge)$"
+      "noinitialfocus, class:^(xwaylandvideobridge)$"
+      "opacity 0.0 override 0.0 override, class:^(xwaylandvideobridge)$"
     ];
   };
 }

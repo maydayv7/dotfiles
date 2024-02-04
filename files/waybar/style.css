@@ -1,0 +1,81 @@
+* {
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+#waybar.empty #window {
+  background: none;
+}
+
+#taskbar button.active {
+  background: @base03;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+  }
+}
+
+.modules-right #battery.critical:not(.charging) {
+  background-color: @base08;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#tray {
+  background-color: @base08;
+}
+
+.modules-right #clock {
+  background-color: @base0A;
+}
+
+#mpris {
+  color: @base00;
+  background-color: @base05;
+}
+
+.modules-left #user {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.modules-left image {
+  padding-left: 6px;
+  background-color: @base0F;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+#custom-logo {
+  color: @base00;
+  background-color: @base06;
+}
+
+#custom-weather {
+  color: @base00;
+  background-color: @base06;
+}
+
+#backlight,
+#battery,
+#bluetooth,
+#clock,
+#custom-logo,
+#custom-weather,
+#keyboard-state,
+#mpris,
+#network,
+#taskbar,
+#tray,
+#user,
+#window,
+#wireplumber,
+#workspaces {
+  padding: 3px 6px 3px 6px;
+}

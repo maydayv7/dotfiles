@@ -39,8 +39,18 @@ in {
 
   ## Home Configuration ##
   config = {
-    # Wallpapers
-    home.file.".local/share/backgrounds".source = files.wallpapers.path;
+    home.file = let
+      dir = config.home.homeDirectory;
+    in {
+      # Wallpapers
+      ".local/share/backgrounds".source = files.wallpapers.path;
+
+      # GTK+ Bookmarks
+      ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+        file://${dir}/Downloads Downloads
+        file://${dir}/Pictures Pictures
+      '';
+    };
 
     # GPG Settings
     programs.gpg = {

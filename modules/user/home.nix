@@ -3,10 +3,10 @@
   config = {
     # Environment Settings
     environment.sessionVariables = {
-      XDG_CACHE_HOME = "$HOME/.cache";
-      XDG_CONFIG_HOME = "$HOME/.config";
-      XDG_DATA_HOME = "$HOME/.local/share";
-      XDG_BIN_HOME = "$HOME/.local/bin";
+      "XDG_CACHE_HOME" = "$HOME/.cache";
+      "XDG_CONFIG_HOME" = "$HOME/.config";
+      "XDG_DATA_HOME" = "$HOME/.local/share";
+      "XDG_BIN_HOME" = "$HOME/.local/bin";
     };
 
     user.homeConfig = {
@@ -16,6 +16,7 @@
       # Package Configuration
       home = {
         inherit (config.system) stateVersion;
+        enableNixpkgsReleaseCheck = false;
         file = {
           ".config/nixpkgs/config.nix".source = ../nix/config.nix;
           ".config/nix/nix.conf".source =

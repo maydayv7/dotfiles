@@ -14,22 +14,40 @@ with files; let
 in {
   apps.list = ["firefox"];
   gui.launcher.terminal = "kitty";
+
+  # File Manager
+  services.tumbler.enable = true;
+  programs = {
+    xfconf.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-dropbox-plugin
+        thunar-volman
+      ];
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     # Apps
+    font-manager
     geany
-    gthumb
+    gnome.file-roller
     lollypop
     mate.atril
     mission-center
+    nwg-displays
     playerctl
     qalculate-gtk
+    shotwell
     transmission-gtk
-    xfce.thunar
 
     # Utilities
     blueberry
     grim
     grimblast
+    pavucontrol
     slurp
     wev
     wl-clipboard
@@ -42,8 +60,12 @@ in {
     persist.directories = [
       ".config/geany"
       ".config/mpv"
+      ".config/nwg-displays"
+      ".config/shotwell"
       ".config/Thunar"
       ".local/share/lollypop"
+      ".local/share/shotwell"
+      ".cache/shotwell"
     ];
 
     homeConfig = {
@@ -53,7 +75,7 @@ in {
       xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
         audio = ["org.gnome.Lollypop.desktop"];
         directory = ["thunar.desktop"];
-        image = ["org.gnome.gThumb.desktop"];
+        image = ["org.gnome.Shotwell-Viewer.desktop"];
         magnet = ["transmission-gtk.desktop"];
         pdf = ["atril.desktop"];
         text = ["geany.desktop"];
@@ -62,10 +84,12 @@ in {
 
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [
+        "$mod, D, exec, nwg-displays"
         "$mod, F, exec, thunar"
         "$mod, T, exec, kitty"
         "$mod, W, exec, firefox"
         "$mod, Return, exec, missioncenter"
+        "$mod, N, exec, dunstctl history-pop"
         "$mod, slash, exec, ulauncher-toggle"
         ", XF86Calculator, exec, qalculate-gtk"
         "$mod, Escape, exec, wlogout -p layer-shell"
@@ -148,17 +172,29 @@ in {
         };
       };
 
-      # Wallpaper Daemon
-      systemd.user.services.hyprpaper = {
-        Install.WantedBy = ["graphical-session.target"];
-        Unit = {
-          Description = "Hyprland Wallpaper Daemon";
-          PartOf = ["graphical-session.target"];
+      systemd.user.services = {
+        # Wallpaper Daemon
+        hyprpaper = {
+          Install.WantedBy = ["graphical-session.target"];
+          Unit = {
+            Description = "Hyprland Wallpaper Daemon";
+            PartOf = ["graphical-session.target"];
+          };
+
+          Service = {
+            ExecStart = getExe pkgs.hyprpaper;
+            Restart = "on-failure";
+          };
         };
 
-        Service = {
-          ExecStart = "${getExe pkgs.hyprpaper}";
-          Restart = "on-failure";
+        # Screen Share
+        xwaylandvideobridge = {
+          Unit.Description = "Stream Wayland windows to apps running under Xwayland";
+          Install.wantedBy = ["graphical-session.target"];
+          Service = {
+            ExecStart = getExe pkgs.xwaylandvideobridge;
+            Restart = "on-failure";
+          };
         };
       };
 

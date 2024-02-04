@@ -23,7 +23,7 @@ in {
         systemPackages = [pkgs.nano];
 
         # Default Editor
-        variables.EDITOR = "nano";
+        variables."EDITOR" = "nano";
         etc.nanorc.text = files.nano;
       };
     }

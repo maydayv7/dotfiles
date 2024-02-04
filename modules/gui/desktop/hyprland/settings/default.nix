@@ -13,6 +13,12 @@
     inherit (sys.programs.hyprland) enable package;
     plugins = with pkgs.hyprworld; [hycov];
 
+    # Use 'nwg-displays' to configure monitors
+    extraConfig = ''
+      source = ~/.config/hypr/monitors.conf
+      source = ~/.config/hypr/workspaces.conf
+    '';
+
     settings = {
       debug.disable_logs = false;
       env = ["QT_WAYLAND_DISABLE_WINDOWDECORATION,1"];
@@ -50,15 +56,14 @@
       };
 
       misc = {
+        disable_autoreload = false;
+
+        # Window Swallowing
         enable_swallow = true;
 
         # Interfere with wallpaper daemons
         force_default_wallpaper = 0;
         disable_hyprland_logo = true;
-
-        # Prevent checking for configuration changes
-        # Use 'hyprctl reload' if required
-        disable_autoreload = true;
 
         # Graphics
         vrr = 1;

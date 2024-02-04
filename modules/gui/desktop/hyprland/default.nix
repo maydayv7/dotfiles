@@ -16,6 +16,10 @@ in {
       gui = {
         xorg.enable = false;
         wayland.enable = true;
+        launcher = {
+          enable = true;
+          shadow = false;
+        };
       };
 
       programs = {
@@ -48,6 +52,7 @@ in {
       };
 
       # Settings
+      user.persist.directories = [".config/hypr"];
       user.homeConfig.imports = [./settings];
 
       # Desktop Integration
@@ -55,6 +60,7 @@ in {
       gui = with theme; {
         fonts.enable = true;
         inherit (theme) icons;
+        launcher.theme = theme.name;
 
         gtk = {
           enable = true;
@@ -64,12 +70,6 @@ in {
         qt = {
           enable = true;
           theme = qt;
-        };
-
-        launcher = {
-          enable = true;
-          shadow = false;
-          theme = theme.name;
         };
       };
 
