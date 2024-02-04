@@ -215,7 +215,10 @@ in {
           ".config/kitty/search".source = pkgs.custom.kitty-search;
 
           # File Manager
-          ".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = xfce.settings.thunar;
+          ".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml" = {
+            text = xfce.settings.thunar;
+            force = true;
+          };
         }
         ## 3rd Party Apps Configuration
         // {
