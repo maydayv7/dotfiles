@@ -6,8 +6,11 @@ _: {
       [
         # Compositor Commands
         "$mod, Q, killactive,"
+        "$mod, I, pin"
         "$mod, M, fullscreen, 1"
         "$mod SHIFT, M, fullscreen,"
+        "ALT, Q, hych:minimize"
+        "ALT SHIFT, Q, hych:toggle_restore_window"
 
         # Focus Change
         "$mod, left, movefocus, l"
@@ -45,10 +48,6 @@ _: {
         "ALT, right, hycov:movefocus, r"
         "ALT, up, hycov:movefocus, u"
         "ALT, down, hycov:movefocus, d"
-
-        # Window Minimize
-        "ALT, Q, hych:minimize"
-        "ALT SHIFT, Q, hych:toggle_restore_window"
 
         # Cycle Workspaces
         "$mod, period, workspace, m-1"

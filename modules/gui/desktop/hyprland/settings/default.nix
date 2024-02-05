@@ -20,17 +20,24 @@
         source = ~/.config/hypr/workspaces.conf
       ''
       +
-      # Overview
+      # Plugins
       ''
         plugin {
+          # Window Minimize
+          hych {
+            enable_alt_release_exit = 1
+            alt_replace_key = code:64
+          }
+
+          # Overview
           hycov {
-            enable_gesture=1
-            enable_hotarea=1
-            hotarea_size=10
-            only_active_workspace=1
-            overview_gappi=24
-            overview_gappo=60
-            swipe_fingers=4
+            enable_hotarea = 1
+            hotarea_pos = 3
+            only_active_workspace = 1
+            overview_gappi = 24
+            overview_gappo = 60
+            enable_gesture = 1
+            swipe_fingers = 4
           }
         }
       '';
@@ -63,6 +70,7 @@
         workspace_swipe = true;
         workspace_swipe_fingers = 3;
         workspace_swipe_forever = true;
+        workspace_swipe_numbered = true;
       };
 
       # Tiling Layout

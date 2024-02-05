@@ -165,7 +165,7 @@
     };
 
     hych = {
-      url = "github:maydayv7/hych";
+      url = "github:DreamMaoMao/hych";
       inputs.hyprland.follows = "hyprland";
     };
 
