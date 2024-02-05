@@ -2,6 +2,7 @@
   font-size: 16px;
   font-weight: 500;
   border-radius: 10px;
+  min-height: 0;
 }
 
 #waybar.empty #window {
@@ -10,6 +11,14 @@
 
 #taskbar button.active {
   background: @base03;
+}
+
+#taskbar button.minimized {
+  border: 2px solid @base03;
+}
+
+#taskbar button.urgent {
+  border: 2px solid @base08;
 }
 
 @keyframes blink {

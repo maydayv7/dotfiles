@@ -41,13 +41,13 @@ Configuration [Builder](./configuration.nix)
   - `gtk` -
     - `enable`: Enable GTK Configuration - `true / false`
     - `theme` -
-    - `name`: GTK+ Application Theme
-    - `package`: GTK+ Theme Package
+      - `name`: GTK+ Application Theme
+      - `package`: GTK+ Theme Package
   - `qt` -
     - `enable`: Enable QT Configuration - `true / false`
     - `theme` -
-    - `name`: QT Application Theme
-    - `package`: QT Theme Package
+      - `name`: QT Application Theme
+      - `package`: QT Theme Package
   - `launcher` -
     - `enable`: Enable Application Launcher - `true / false`
     - `shadow`: Control Launcher Window Shadow - `true / false`

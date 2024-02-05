@@ -6,10 +6,6 @@
 }: let
   inherit (lib) mkEnableOption mkIf mkOption types;
   cfg = config.gui.qt;
-  kvconfig = ''
-    [General]
-    theme=${cfg.theme.name}
-  '';
 in {
   options.gui.qt = {
     enable = mkEnableOption "Enable QT Configuration";
@@ -31,7 +27,10 @@ in {
     environment = {
       systemPackages = [pkgs.libsForQt5.qtstyleplugin-kvantum cfg.theme.package];
       variables."QT_STYLE_OVERRIDE" = "kvantum";
-      etc."xdg/Kvantum/kvantum.kvconfig".text = kvconfig;
+      etc."xdg/Kvantum/kvantum.kvconfig".text = ''
+        [General]
+        Theme=${cfg.theme.name}
+      '';
     };
 
     user.homeConfig = {
@@ -43,7 +42,10 @@ in {
 
       xdg.configFile = with cfg.theme; {
         "Kvantum/${name}".source = "${package}/share/Kvantum/${name}";
-        "Kvantum/kvantum.kvconfig".text = kvconfig;
+        "Kvantum/kvantum.kvconfig".text = ''
+          [General]
+          theme=${name}
+        '';
       };
     };
   };

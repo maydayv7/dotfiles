@@ -58,7 +58,8 @@ in {
             gaming = gaming.packages."${system}";
             wine = windows.packages."${system}";
             hyprworld =
-              hycov.packages."${system}"
+              hych.packages."${system}"
+              // hycov.packages."${system}"
               // hyprland-plugins.packages."${system}"
               // hyprland.packages."${system}";
           })

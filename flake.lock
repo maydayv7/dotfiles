@@ -540,6 +540,26 @@
         "type": "github"
       }
     },
+    "hych": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ]
+      },
+      "locked": {
+        "lastModified": 1707110314,
+        "narHash": "sha256-vRAlQmJi9uFxxfpPvj0P874wxoCrbm4hDHAyH5jCfLo=",
+        "owner": "maydayv7",
+        "repo": "hych",
+        "rev": "128f0c2469d4387602df01fe0185bbe5e4ae7b5f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "maydayv7",
+        "repo": "hych",
+        "type": "github"
+      }
+    },
     "hycov": {
       "inputs": {
         "hyprland": [
@@ -547,11 +567,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1706930481,
-        "narHash": "sha256-9r8ZBevwA3O6Ysgo/6hBLTninDgSykk9qPa6pW8bWeY=",
+        "lastModified": 1707093208,
+        "narHash": "sha256-IYsoBwEhWxmMfJdxqSLj9hrtBnIhSmaSXtxZutY9BpE=",
         "owner": "DreamMaoMao",
         "repo": "hycov",
-        "rev": "c778aedf0ab678ce7c2ba077caf148cc3c1cbfc5",
+        "rev": "27e8b2679d32c72b1ecf7501c994ff809161c828",
         "type": "github"
       },
       "original": {
@@ -571,11 +591,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1706485369,
-        "narHash": "sha256-FHojTmzX3SrAC+VXu+xdmTPwZtlSQ8KzRfq89c7DrN0=",
+        "lastModified": 1707098342,
+        "narHash": "sha256-dU5m6Cd4+WQZal2ICDVf1kww/dNzo1YUWRxWeCctEig=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "4b4bd90b1450cbfc01d9ac429363cc7cecd6be8b",
+        "rev": "84ab8d11e8951a6551d1e1bf87796a8589da6d47",
         "type": "github"
       },
       "original": {
@@ -829,6 +849,7 @@
         "generators": "generators",
         "hardware": "hardware",
         "home-manager": "home-manager",
+        "hych": "hych",
         "hycov": "hycov",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",

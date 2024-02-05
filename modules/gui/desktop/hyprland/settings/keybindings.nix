@@ -46,6 +46,10 @@ _: {
         "ALT, up, hycov:movefocus, u"
         "ALT, down, hycov:movefocus, d"
 
+        # Window Minimize
+        "ALT, Q, hych:minimize"
+        "ALT SHIFT, Q, hych:toggle_restore_window"
+
         # Cycle Workspaces
         "$mod, period, workspace, m-1"
         "$mod, comma, workspace, m+1"

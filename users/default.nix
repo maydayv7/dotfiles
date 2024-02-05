@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (builtins) attrValues map;
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) mkBefore mkIf mkOption types;
   cfg = config.credentials.key;
 in {
   options.credentials = {
@@ -46,7 +46,7 @@ in {
       ".local/share/backgrounds".source = files.wallpapers.path;
 
       # GTK+ Bookmarks
-      ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+      ".config/gtk-3.0/bookmarks".text = mkBefore ''
         file://${dir}/Downloads Downloads
         file://${dir}/Pictures Pictures
       '';
@@ -96,9 +96,8 @@ in {
 
         # Custom Directories
         extraConfig = {
-          XDG_TBD_DIR = "$HOME/Documents/TBD";
-          XDG_PROJECTS_DIR = "$HOME/Projects";
-          XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
+          "XDG_PROJECTS_DIR" = "$HOME/Projects";
+          "XDG_SCREENSHOTS_DIR" = "$HOME/Pictures/Screenshots";
         };
       };
     };

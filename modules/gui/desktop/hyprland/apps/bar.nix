@@ -55,11 +55,12 @@ in rec {
         layer = "top";
         position = "top";
 
+        height = 30;
         spacing = 3;
         margin-top = 3;
-        margin-left = 5;
         margin-right = 5;
         margin-bottom = 5;
+        margin-left = 5;
 
         modules-left = ["custom/logo" "user" "hyprland/workspaces" "hyprland/window"];
         modules-center = ["wlr/taskbar"];
@@ -133,7 +134,9 @@ in rec {
           icon-theme = theme.icons.name;
           tooltip-format = "{title}";
           on-click = "activate";
-          on-click-middle = "close";
+          on-click-middle = "fullscreen";
+          on-click-right = "close";
+          ignore-list = ["ulauncher"];
         };
 
         tray = {

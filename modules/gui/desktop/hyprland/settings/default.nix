@@ -11,7 +11,7 @@
   dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "appmenu";
   wayland.windowManager.hyprland = {
     inherit (sys.programs.hyprland) enable package;
-    plugins = with pkgs.hyprworld; [hycov];
+    plugins = with pkgs.hyprworld; [hych hycov];
 
     # Use 'nwg-displays' to configure monitors
     extraConfig =
@@ -102,6 +102,8 @@
       group.groupbar = with sys.lib.stylix.colors; {
         enabled = true;
         render_titles = false;
+        height = 7;
+        scrolling = true;
         "col.active" = "rgb(${base0A})";
         "col.locked_active" = "rgb(${base0D})";
       };
