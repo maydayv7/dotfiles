@@ -4,13 +4,13 @@ _: {
     "$mod" = "SUPER";
     bind =
       [
+        ("$mod SHIFT, slash, exec, xdg-open " + ../README.md)
+
         # Compositor Commands
         "$mod, Q, killactive,"
         "$mod, P, pin"
         "$mod, M, fullscreen, 1"
         "$mod SHIFT, M, fullscreen,"
-        "ALT, Q, hych:minimize"
-        "ALT SHIFT, Q, hych:toggle_restore_window"
 
         # Focus Change
         "$mod, left, movefocus, l"
@@ -40,14 +40,6 @@ _: {
         "ALT, Tab, bringactivetotop,"
         "ALT CTRL, Tab, cyclenext, prev"
         "ALT CTRL, Tab, bringactivetotop,"
-
-        # Overview
-        "ALT, grave, hycov:toggleoverview"
-        "ALT SHIFT, grave, hycov:toggleoverview, forceall"
-        "ALT, left, hycov:movefocus, l"
-        "ALT, right, hycov:movefocus, r"
-        "ALT, up, hycov:movefocus, u"
-        "ALT, down, hycov:movefocus, d"
 
         # Cycle Workspaces
         "$mod, period, workspace, m-1"

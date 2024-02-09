@@ -2,7 +2,6 @@
   sys,
   lib,
   util,
-  pkgs,
   ...
 }: {
   ## Hyprland Settings
@@ -11,36 +10,12 @@
   dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "appmenu";
   wayland.windowManager.hyprland = {
     inherit (sys.programs.hyprland) enable package;
-    plugins = with pkgs.hyprworld; [hych hycov];
 
     # Use 'nwg-displays' to configure monitors
-    extraConfig =
-      ''
-        source = ~/.config/hypr/monitors.conf
-        source = ~/.config/hypr/workspaces.conf
-      ''
-      +
-      # Plugins
-      ''
-        plugin {
-          # Window Minimize
-          hych {
-            enable_alt_release_exit = 1
-            alt_replace_key = code:64
-          }
-
-          # Overview
-          hycov {
-            enable_hotarea = 1
-            hotarea_pos = 3
-            only_active_workspace = 1
-            overview_gappi = 24
-            overview_gappo = 60
-            enable_gesture = 1
-            swipe_fingers = 4
-          }
-        }
-      '';
+    extraConfig = ''
+      source = ~/.config/hypr/monitors.conf
+      source = ~/.config/hypr/workspaces.conf
+    '';
 
     settings = {
       debug.disable_logs = false;

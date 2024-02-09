@@ -77,6 +77,7 @@ in {
         directory = ["thunar.desktop"];
         image = ["org.gnome.Shotwell-Viewer.desktop"];
         magnet = ["transmission-gtk.desktop"];
+        markdown = ["geany.desktop"];
         pdf = ["atril.desktop"];
         text = ["geany.desktop"];
         video = ["mpv.desktop"];
