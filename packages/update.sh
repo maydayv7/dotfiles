@@ -1,1 +1,0 @@
-../scripts/packages.sh
