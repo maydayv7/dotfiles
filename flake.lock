@@ -968,14 +968,18 @@
     "systems_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-yJg569/Wc8hgG64XgA72/nLsZthk+InI5N+Hhmcc+kA=",
-        "path": "devices/systems.nix",
-        "type": "path"
+        "lastModified": 1707463813,
+        "narHash": "sha256-qUyPFG6yjwI4b3wya7aEFDYSIxf1fZeapi0dF46+pAk=",
+        "owner": "maydayv7",
+        "repo": "dotfiles",
+        "rev": "5d24bade1fb3e0186e28a33908519f65ec774c2d",
+        "type": "github"
       },
       "original": {
-        "path": "devices/systems.nix",
-        "type": "path"
+        "owner": "maydayv7",
+        "ref": "systems",
+        "repo": "dotfiles",
+        "type": "github"
       }
     },
     "systems_3": {

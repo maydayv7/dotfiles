@@ -32,7 +32,5 @@ jobs:
             experimental-features = nix-command flakes
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Fix Relative Flake Inputs
-        run: nix flake update systems
       - name: Check Syntax
         run: nix flake check . --keep-going

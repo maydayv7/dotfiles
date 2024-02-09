@@ -62,6 +62,7 @@ with files.path; let
       mount -t zfs fspool/system/root /mnt
       mkdir -p /mnt/{nix,data}
       mount -t zfs fspool/system/nix /mnt/nix
+      mkdir -p /mnt/nix/state
       mount -t zfs fspool/data /mnt/data
     }
 
@@ -140,6 +141,7 @@ in
       newline
 
       mount_other
+      systemd-machine-id-setup --root=/mnt
       newline
 
       read -rp "Enter Path to Repository (path/URL): " URL
@@ -155,6 +157,7 @@ in
       newline
 
       info "Run 'nixos setup' after rebooting to finish the install"
+      info "Select the (Recovery) boot menu option and run the above script as the 'recovery' user"
       restart
     '';
   })

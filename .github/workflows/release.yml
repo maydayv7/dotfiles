@@ -21,8 +21,6 @@ jobs:
             experimental-features = nix-command flakes
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Fix Relative Flake Inputs
-        run: nix flake update systems
       - name: Build Default Install Media
         run: nix build .#installMedia.default.config.system.build.isoImage -L --show-trace
       - name: Draft Release

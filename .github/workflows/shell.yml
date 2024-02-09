@@ -29,7 +29,5 @@ jobs:
         with:
           name: maydayv7-dotfiles
           authToken: "${{ secrets.CACHIX_TOKEN }}"
-      - name: Fix Relative Flake Inputs
-        run: nix flake update systems
       - name: Check Shells
         run: nix develop .#${{ matrix.shell }}

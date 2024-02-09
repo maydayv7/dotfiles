@@ -6,7 +6,7 @@ _: {
       [
         # Compositor Commands
         "$mod, Q, killactive,"
-        "$mod, I, pin"
+        "$mod, P, pin"
         "$mod, M, fullscreen, 1"
         "$mod SHIFT, M, fullscreen,"
         "ALT, Q, hych:minimize"
@@ -31,8 +31,8 @@ _: {
         "$mod SHIFT, Tab, changegroupactive, b"
 
         # Floating Mode
-        "$mod, O, togglefloating,"
-        "$mod, P, workspaceopt, allfloat"
+        "$mod, semicolon, togglefloating,"
+        "$mod, apostrophe, workspaceopt, allfloat"
         "$mod, C, centerwindow"
 
         # Window Switcher

@@ -72,7 +72,7 @@
     ## Language Addendum
     # Supported Architectures
     systems = {
-      url = "path:devices/systems.nix";
+      url = "github:maydayv7/dotfiles?ref=systems";
       flake = false;
     };
 
