@@ -35,6 +35,7 @@ in {
   config = {
     # Kernel Configuration
     boot = {
+      supportedFilesystems = optionals (cfg.kernel == "zfs") ["zfs"];
       kernelPackages =
         if (cfg.kernel == "zfs")
         then pkgs.zfs.latestCompatibleLinuxPackages

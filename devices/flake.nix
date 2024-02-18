@@ -26,7 +26,7 @@ in {
 
           kernelModules = ["nvme"];
           kernel = "zfs";
-          gui.desktop = name + "-minimal";
+          gui.desktop = name + "-iso";
 
           user = {
             name = "nixos";
@@ -35,7 +35,7 @@ in {
             shells = null;
             password = readFile ../users/passwords/default;
           };
-        })) (map.modules.name ../modules/gui/desktop))
+        })) (import ../modules/gui/desktop/iso.nix))
       // {default = self.installMedia.xfce;};
 
     ## Virtual Machines ##

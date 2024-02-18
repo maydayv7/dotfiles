@@ -31,6 +31,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     # Apps
+    celluloid
     font-manager
     geany
     gnome.file-roller
@@ -84,7 +85,7 @@ in {
         markdown = ["geany.desktop"];
         pdf = ["atril.desktop"];
         text = ["geany.desktop"];
-        video = ["mpv.desktop"];
+        video = ["io.github.celluloid_player.Celluloid.desktop"];
       };
 
       # Shortcuts

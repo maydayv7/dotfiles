@@ -195,7 +195,7 @@ in rec {
           scroll-step = 1;
           reverse-scrolling = 1;
           format = "{icon}";
-          tooltip-format = "Volume: {volume}\nDevice: {node_name}";
+          tooltip-format = "Volume: {volume}%\nDevice: {node_name}";
           format-muted = " Mute";
           format-icons = ["" "" "󰕾" ""];
           on-click = "pavucontrol";

@@ -16,7 +16,7 @@ in {
     fancy = mkEnableOption "Enable Fancy GUI Effects";
     desktop = mkOption {
       description = "GUI Desktop Choice";
-      type = types.enum ((name ./desktop) ++ map (x: x + "-minimal") (name ./desktop) ++ [""]);
+      type = types.enum ((name ./desktop) ++ map (x: x + "-iso") (import ./desktop/iso.nix) ++ [""]);
       default = "";
     };
   };
@@ -26,7 +26,7 @@ in {
       # Warning
       warnings = optional (desktop == "") (options.gui.desktop.description + " is unset");
     }
-    // (mkIf (desktop != "" && !(hasSuffix "-minimal" desktop))
+    // (mkIf (desktop != "" && !(hasSuffix "-iso" desktop))
       {
         # Autostart Apps
         user.persist.directories = [".config/autostart"];

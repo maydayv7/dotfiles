@@ -10,7 +10,8 @@
   theme = import ./theme.nix pkgs;
 in {
   ## Hyprland Configuration ##
-  config = mkIf (desktop == "hyprland" || desktop == "hyprland-minimal") (mkMerge [
+  config = mkIf (desktop == "hyprland") (mkMerge [
+    ## Environment Setup
     {
       # Session
       gui = {
@@ -43,14 +44,24 @@ in {
       };
     }
 
-    (mkIf (desktop == "hyprland") (import ./apps args))
-    (mkIf (desktop == "hyprland") {
+    {
       # Boot Splash
       boot.plymouth = {
         theme = with theme; "${name}-${variant}";
         themePackages = [(pkgs.catppuccin-plymouth.override {inherit (theme) variant;})];
       };
 
+      # Greeter
+      programs.regreet.settings.GTK = with config.stylix; {
+        application_prefer_dark_theme = true;
+        cursor_theme_name = cursor.name;
+        font_name = "${fonts.sansSerif.name} 16";
+        icon_theme_name = theme.icons.name;
+        theme_name = theme.gtk.name;
+      };
+    }
+
+    {
       # Settings
       user.persist.directories = [".config/hypr"];
       user.homeConfig.imports = [./settings];
@@ -85,15 +96,6 @@ in {
       };
       location.provider = "geoclue2";
 
-      # Greeter
-      programs.regreet.settings.GTK = with config.stylix; {
-        application_prefer_dark_theme = true;
-        cursor_theme_name = cursor.name;
-        font_name = "${fonts.sansSerif.name} 16";
-        icon_theme_name = theme.icons.name;
-        theme_name = theme.gtk.name;
-      };
-
       # Backlight
       user.groups = ["input" "video"];
       hardware.brillo.enable = true;
@@ -103,6 +105,9 @@ in {
         greetd.enableGnomeKeyring = true;
         swaylock.text = "auth include login";
       };
-    })
+    }
+
+    ## Application Configuration
+    (import ./apps args)
   ]);
 }

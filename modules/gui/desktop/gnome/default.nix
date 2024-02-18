@@ -5,14 +5,15 @@
   pkgs,
   files,
   ...
-}:
+} @ args:
 with files; let
   inherit (config.gui) desktop;
-  inherit (lib) gvariant mkIf mkForce mkMerge;
+  inherit (lib) gvariant hasPrefix mkIf mkForce mkMerge;
   exists = app: builtins.elem app config.apps.list;
 in {
-  ## GNOME Desktop Configuration ##
-  config = mkIf (desktop == "gnome" || desktop == "gnome-minimal") (mkMerge [
+  ## GNOME Configuration ##
+  config = mkIf (hasPrefix "gnome" desktop) (mkMerge [
+    ## Environment Setup
     {
       # Session
       services = {
@@ -50,7 +51,10 @@ in {
       ];
     }
 
-    ## Full-Fledged GNOME Desktop Configuration
+    ## Install Media Configuration
+    (mkIf (desktop == "gnome-iso") (import ./iso.nix args))
+
+    ## Desktop Configuration
     (mkIf (desktop == "gnome") {
       # Desktop Integration
       gui = {
@@ -97,8 +101,10 @@ in {
           };
         };
       };
+    })
 
-      ## User Configuration
+    ## User Configuration
+    (mkIf (desktop == "gnome") {
       user.homeConfig = {
         # Desktop Settings
         imports = [gnome.settings];
@@ -118,59 +124,16 @@ in {
           video = ["io.github.celluloid_player.Celluloid.desktop"];
         };
 
-        home.file =
-          {
-            # Action Menu
-            ".config/guillotine.json".source = gnome.menu;
+        home.file = {
+          # Action Menu
+          ".config/guillotine.json".source = gnome.menu;
 
-            # Shell Theme
-            ".local/share/themes/custom/gnome-shell/gnome-shell.css".text = gnome.shell;
+          # Shell Theme
+          ".local/share/themes/custom/gnome-shell/gnome-shell.css".text = gnome.shell;
 
-            # Window Tiling Stylesheet
-            ".config/forge/stylesheet/forge/stylesheet.css".text = gnome.tiling;
-          }
-          //
-          ## 3rd Party Apps Configuration
-          {
-            # Firefox GNOME Theme
-            ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
-            ".mozilla/firefox/default/chrome/userContent.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userContent.css";'';
-
-            # Workaround for NixOS/nixpkgs/47340
-            ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
-
-            # Discord DNOME Theme
-            ".config/BetterDiscord/data/stable/custom.css" =
-              mkIf (exists "discord") {text = ''@import url("https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css");'';};
-          };
-
-        # Code Editor
-        programs.vscode = mkIf (exists "vscode") {
-          extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
-          userSettings = {
-            "workbench.colorTheme" = "Adwaita Dark";
-            "workbench.productIconTheme" = "adwaita";
-            "window.titleBarStyle" = "custom";
-            "terminal.external.linuxExec" = "blackbox";
-          };
+          # Window Tiling Stylesheet
+          ".config/forge/stylesheet/forge/stylesheet.css".text = gnome.tiling;
         };
-      };
-
-      # Flatpak Apps
-      services.flatpak = mkIf config.services.flatpak.enable {
-        remotes = [
-          {
-            name = "gnome-nightly";
-            location = "https://nightly.gnome.org/gnome-nightly.flatpakrepo";
-          }
-        ];
-
-        packages = [
-          {
-            appId = "com.github.tchx84.Flatseal";
-            origin = "flathub";
-          }
-        ];
       };
 
       ## Color Scheme
@@ -245,49 +208,50 @@ in {
       ];
     })
 
-    ## Minimal GNOME Desktop Configuration
-    (mkIf (desktop == "gnome-minimal") {
-      services.xserver = {
-        displayManager.gdm.autoSuspend = false; # Disable Suspension
-        desktopManager.gnome = {
-          extraGSettingsOverrides = gnome.iso;
-          extraGSettingsOverridePackages = [pkgs.gnome.gnome-settings-daemon];
-          favoriteAppsOverride = ''
-            [org.gnome.shell]
-            favorite-apps=[ 'org.gnome.Epiphany.desktop', 'nixos-manual.desktop', 'org.gnome.Console.desktop', 'org.gnome.Nautilus.desktop', 'gparted.desktop' ]
-          '';
+    ## 3rd Party Apps Configuration
+    (mkIf (desktop == "gnome") {
+      user.homeConfig = {
+        home.file = {
+          # Firefox GNOME Theme
+          ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
+          ".mozilla/firefox/default/chrome/userContent.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userContent.css";'';
+
+          # Workaround for NixOS/nixpkgs/47340
+          ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
+
+          # Discord DNOME Theme
+          ".config/BetterDiscord/data/stable/custom.css" =
+            mkIf (exists "discord") {text = ''@import url("https://raw.githack.com/GeopJr/DNOME/dist/DNOME.css");'';};
+        };
+
+        # Code Editor
+        programs.vscode = mkIf (exists "vscode") {
+          extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
+          userSettings = {
+            "workbench.colorTheme" = "Adwaita Dark";
+            "workbench.productIconTheme" = "adwaita";
+            "window.titleBarStyle" = "custom";
+            "terminal.external.linuxExec" = "blackbox";
+          };
         };
       };
 
-      # Essential Utilities
-      environment.systemPackages = with (pkgs.gnome // pkgs); [
-        epiphany
-        gnome-console
-        gnome-text-editor
-        gnome-system-monitor
-        gparted
-        nautilus
-      ];
+      # Flatpak Apps
+      services.flatpak = mkIf config.services.flatpak.enable {
+        remotes = [
+          {
+            name = "gnome-nightly";
+            location = "https://nightly.gnome.org/gnome-nightly.flatpakrepo";
+          }
+        ];
 
-      # Excluded Packages
-      xdg.portal.enable = mkForce false;
-      qt.enable = mkForce false;
-
-      services.gnome = {
-        core-utilities.enable = mkForce false;
-        gnome-browser-connector.enable = mkForce false;
-        gnome-remote-desktop.enable = mkForce false;
-        gnome-user-share.enable = mkForce false;
+        packages = [
+          {
+            appId = "com.github.tchx84.Flatseal";
+            origin = "flathub";
+          }
+        ];
       };
-
-      environment.gnome.excludePackages = with pkgs.gnome; [
-        gnome-backgrounds
-        gnome-shell-extensions
-        gnome-themes-extra
-        pkgs.gnome-tour
-        pkgs.gnome-user-docs
-        pkgs.hicolor-icon-theme
-      ];
     })
   ]);
 }

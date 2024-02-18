@@ -12,16 +12,14 @@ with files; let
   inherit (lib) mkIf mkMerge;
 in {
   ## Pantheon Desktop Configuration ##
-  config = mkIf (desktop == "pantheon" || desktop == "pantheon-minimal") (mkMerge [
+  config = mkIf (desktop == "pantheon") (mkMerge [
+    ## Environment Setup
     {
       # Session
       services.xserver.desktopManager.pantheon.enable = true;
     }
 
-    ## Full-Fledged Pantheon Desktop Configuration
-    (mkIf (desktop == "pantheon") {
-      warnings = ["Flatpak app support is enabled by default while using Pantheon Desktop"];
-
+    {
       # Desktop Integration
       gui = {
         fonts.enable = true;
@@ -91,8 +89,10 @@ in {
 
       # Color Scheme
       stylix.base16Scheme = colors.elementary;
+    }
 
-      ## User Configuration
+    ## User Configuration
+    {
       user.homeConfig = {
         imports = [pantheon.dconf];
 
@@ -158,19 +158,22 @@ in {
             '';
           };
         };
+      };
+    }
 
-        ## 3rd Party Apps Configuration
-        # Code Editor
-        programs.vscode = mkIf (exists "vscode") {
-          extensions = [pkgs.code.vscode-marketplace.sixpounder.elementary-theme];
-          userSettings = {
-            "workbench.colorTheme" = "Elementary Dark";
-            "terminal.external.linuxExec" = "io.elementary.terminal";
-          };
+    ## 3rd Party Apps Configuration
+    {
+      # Code Editor
+      user.homeConfig.programs.vscode = mkIf (exists "vscode") {
+        extensions = [pkgs.code.vscode-marketplace.sixpounder.elementary-theme];
+        userSettings = {
+          "workbench.colorTheme" = "Elementary Dark";
+          "terminal.external.linuxExec" = "io.elementary.terminal";
         };
       };
 
       # Flatpak Apps
+      warnings = ["Flatpak app support is enabled by default while using Pantheon Desktop"];
       apps.list = ["flatpak"];
       services.flatpak = {
         remotes = [
@@ -187,23 +190,6 @@ in {
           }
         ];
       };
-    })
-
-    ## Minimal Pantheon Desktop Configuration
-    (mkIf (desktop == "pantheon-minimal") {
-      # Disabled Services
-      services.fwupd.enable = mkForce false;
-      services.power-profiles-daemon.enable = mkForce false;
-      services.tumbler.enable = mkForce false;
-      services.geoclue2.enable = mkForce false;
-
-      # Excluded Packages
-      environment.pantheon.excludePackages = with pkgs.pantheon; [
-        elementary-camera
-        elementary-music
-        elementary-photos
-        elementary-videos
-      ];
-    })
+    }
   ]);
 }

@@ -9,7 +9,7 @@
 with files; let
   inherit (config.gui) desktop fancy wallpaper;
   exists = app: builtins.elem app config.apps.list;
-  inherit (lib) mkForce mkIf mkMerge;
+  inherit (lib) hasPrefix mkIf mkMerge;
 
   # GTK+ Theme
   theme = {
@@ -17,8 +17,8 @@ with files; let
     package = pkgs.arc-theme;
   };
 in {
-  ## XFCE Desktop Configuration ##
-  config = mkIf (desktop == "xfce" || desktop == "xfce-minimal") (mkMerge [
+  ## XFCE Configuration ##
+  config = mkIf (hasPrefix "xfce" desktop) (mkMerge [
     {
       # Session
       services.xserver = {
@@ -47,7 +47,10 @@ in {
       };
     }
 
-    ## Full-Fledged XFCE Desktop Configuration
+    ## Install Media Configuration
+    (mkIf (desktop == "xfce-iso") (import ./iso.nix args))
+
+    ## Desktop Configuration
     (mkIf (desktop == "xfce" && fancy) (import ./compositor.nix args))
     (mkIf (desktop == "xfce") {
       # Desktop Components
@@ -208,13 +211,16 @@ in {
                 )
               ];
             };
-          }
-          ## 3rd Party Apps Configuration
-          // {
-            # Discord Arc Theme
-            ".config/BetterDiscord/data/stable/custom.css" =
-              mkIf (exists "discord") {text = ''@import url(https://rawcdn.githack.com/orblazer/discord-nordic/f3f6833c70d0b27b1cde986233b7009d61917812/nordic.theme.css);'';};
           };
+      };
+    })
+
+    ## 3rd Party Apps Configuration
+    (mkIf (desktop == "xfce") {
+      user.homeConfig = {
+        # Discord Arc Theme
+        home.file.".config/BetterDiscord/data/stable/custom.css" =
+          mkIf (exists "discord") {text = ''@import url(https://rawcdn.githack.com/orblazer/discord-nordic/f3f6833c70d0b27b1cde986233b7009d61917812/nordic.theme.css);'';};
 
         # Code Editor
         programs.vscode = mkIf (exists "vscode") {
@@ -225,25 +231,6 @@ in {
           };
         };
       };
-    })
-
-    ## Minimal XFCE Desktop Configuration
-    (mkIf (desktop == "xfce-minimal") {
-      environment = {
-        # Utilities
-        systemPackages = [pkgs.epiphany];
-
-        # Excluded Packages
-        xfce.excludePackages = with pkgs; [
-          tango-icon-theme
-          xfce4-icon-theme
-          xfwm4-themes
-        ];
-      };
-
-      # Disabled Services
-      services.tumbler.enable = mkForce false;
-      services.accounts-daemon.enable = mkForce false;
     })
   ]);
 }
