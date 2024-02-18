@@ -1,7 +1,8 @@
-_: {
+{sys, ...}: {
   ## Keybindings
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
+    env = ["SLURP_ARGS, -dc ${sys.lib.stylix.colors.base0A}"];
     bind =
       [
         ("$mod SHIFT, slash, exec, xdg-open " + ../README.md)

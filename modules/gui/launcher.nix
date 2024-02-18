@@ -38,13 +38,10 @@ in {
   ## ULauncher Configuration ##
   config = mkIf cfg.enable {
     # Launcher Package
-    environment.systemPackages = with pkgs; [ulauncher clipman];
+    environment.systemPackages = [pkgs.ulauncher];
 
     user = {
-      persist = {
-        files = [".local/share/clipman.json"];
-        directories = [".config/ulauncher" ".local/share/ulauncher"];
-      };
+      persist.directories = [".config/ulauncher" ".local/share/ulauncher"];
 
       # Customisation
       homeConfig = {

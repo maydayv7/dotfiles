@@ -121,6 +121,7 @@ in
             # Localization
             time.timeZone = timezone;
             i18n.defaultLocale = "en_${locale}";
+            environment.variables."LC_ALL" = "en_${locale}.UTF-8";
 
             # Package Configuration
             nixpkgs = {inherit pkgs;};

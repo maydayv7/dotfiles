@@ -44,26 +44,17 @@
   background-color: @base0A;
 }
 
+#custom-logo {
+  color: #ffffff;
+}
+
+#custom-dunst {
+  color: @base0A;
+}
+
 #mpris {
   color: @base00;
   background-color: @base05;
-}
-
-.modules-left #user {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
-
-.modules-left image {
-  padding-left: 6px;
-  background-color: @base0F;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-#custom-logo {
-  color: @base00;
-  background-color: @base06;
 }
 
 #custom-weather {
@@ -71,10 +62,23 @@
   background-color: @base06;
 }
 
+.modules-left image {
+  padding-left: 5px;
+  background-color: @base0F;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.modules-left #user {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
 #backlight,
 #battery,
 #bluetooth,
 #clock,
+#custom-dunst,
 #custom-logo,
 #custom-weather,
 #keyboard-state,
@@ -86,5 +90,5 @@
 #window,
 #wireplumber,
 #workspaces {
-  padding: 3px 6px 3px 6px;
+  padding: 2px 5px 2px 5px;
 }

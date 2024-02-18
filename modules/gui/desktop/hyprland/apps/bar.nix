@@ -75,6 +75,7 @@ in rec {
           "battery"
           "custom/weather"
           "clock"
+          "custom/dunst"
         ];
 
         "custom/logo" = {
@@ -94,9 +95,9 @@ in rec {
           all-outputs = true;
           show-special = true;
           format = "{icon}";
-          on-scroll-up = "hyprctl dispatch workspace e+1";
-          on-scroll-down = "hyprctl dispatch workspace e-1";
-          persistent-workspaces."*" = 3;
+          on-scroll-up = "hyprctl dispatch workspace m+1";
+          on-scroll-down = "hyprctl dispatch workspace m-1";
+          persistent-workspaces."eDP-1" = 3;
           format-icons = {
             default = "";
             "1" = "";
@@ -121,6 +122,8 @@ in rec {
             "bash" = "Terminal";
             "zsh" = "Terminal";
             "(.*) - kitty" = "Terminal";
+            "nwg-clipman" = "Clipboard";
+            "nwg-displays" = "Displays";
             "Ulauncher(.*)" = "Launcher";
             "(.*) - Geany" = "Text Editor";
             "(.*) - Thunar" = "File Manager";
@@ -151,7 +154,7 @@ in rec {
           tooltip-format = " {status}";
           tooltip-format-connected = "{device_enumerate}";
           tooltip-format-enumerate-connected = " {device_alias} 󰂄 {device_battery_percentage}%";
-          on-click = "blueberry";
+          on-click = "overskride";
         };
 
         network = {
@@ -191,7 +194,8 @@ in rec {
           max-volume = 150;
           scroll-step = 1;
           reverse-scrolling = 1;
-          format = "{icon} {volume}%";
+          format = "{icon}";
+          tooltip-format = "Volume: {volume}\nDevice: {node_name}";
           format-muted = " Mute";
           format-icons = ["" "" "󰕾" ""];
           on-click = "pavucontrol";
@@ -199,7 +203,7 @@ in rec {
 
         backlight = {
           format = "{icon}";
-          tooltip-format = "Backlight {percent}%";
+          tooltip-format = "Backlight: {percent}%";
           format-icons = ["" "" "" "" "" "" "" "" ""];
           on-scroll-down = "${pkgs.brillo}/bin/brillo -u 300000 -A 5";
           on-scroll-up = "${pkgs.brillo}/bin/brillo -u 300000 -U 5";
@@ -211,7 +215,7 @@ in rec {
           align = 0;
           rotate = 0;
           format = "{icon}";
-          tooltip-format = "Battery {capacity}%";
+          tooltip-format = "Battery: {capacity}%";
           format-charging = "";
           format-icons = ["" "" "" "" ""];
           states = {
@@ -255,6 +259,24 @@ in rec {
             on-scroll-up = "shift_down";
             on-scroll-down = "shift_up";
           };
+        };
+
+        "custom/dunst" = {
+          tooltip = false;
+          on-click = "dunstctl history-pop";
+          on-click-right = "dunstctl set-paused toggle";
+          restart-interval = 1;
+          exec = with pkgs; "${writeShellApplication {
+            name = "notify";
+            runtimeInputs = [coreutils dunst];
+            text = ''
+              COUNT=$(dunstctl count waiting)
+              ENABLED=""
+              DISABLED=""
+              if [ "$COUNT" != 0 ]; then DISABLED=" $COUNT"; fi
+              if dunstctl is-paused | grep -q "false" ; then echo "$ENABLED"; else echo "$DISABLED"; fi
+            '';
+          }}/bin/notify";
         };
       }
     ];

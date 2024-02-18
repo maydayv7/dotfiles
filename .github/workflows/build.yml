@@ -51,4 +51,7 @@ jobs:
           name: maydayv7-dotfiles
           authToken: "${{ secrets.CACHIX_TOKEN }}"
       - name: Build Configuration
-        run: nix build .#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel -L --show-trace
+        run: |
+          export LC_ALL=C.UTF-8
+          ulimit -n 2048
+          nix build .#nixosConfigurations.${{ matrix.device }}.config.system.build.toplevel -L --show-trace

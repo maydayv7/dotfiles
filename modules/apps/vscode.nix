@@ -12,8 +12,8 @@ with files.vscode; let
   font = head config.fonts.fontconfig.defaultFonts.monospace;
 in {
   ## Visual Studio Code Editor Configuration ##
-  config = lib.mkIf enable {
-    environment.systemPackages = with pkgs; [nil vscode];
+  config = lib.mkIf enable rec {
+    environment.systemPackages = [pkgs.nil user.homeConfig.programs.vscode.package];
 
     user = {
       persist.directories = [".config/Code" ".vscode"];
@@ -24,7 +24,7 @@ in {
 
         programs.vscode = {
           enable = true;
-          package = pkgs.vscode;
+          package = pkgs.unstable.vscode;
 
           # Keyboard Shortcuts
           inherit keybindings;

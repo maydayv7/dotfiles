@@ -15,6 +15,9 @@ in {
     pkgs,
     ...
   }: (let
+    # Repository Configuration
+    config = import ../modules/nix/config.nix;
+
     # Package Calling Function
     call = rec {
       __functor = _: name: pkg name {};
@@ -41,9 +44,9 @@ in {
             inherit src patches;
             name = "nixpkgs-patched-${src.shortRev}";
           })
-      ) {
-        inherit system;
-        config = import ../modules/nix/config.nix;
+      ) rec {
+        inherit system config;
+
         overlays = [
           nur.overlay
           vscode-catppuccin.overlays.default
@@ -51,7 +54,7 @@ in {
             nixFlakes = prev.nixVersions.nix_2_19;
 
             custom = self.packages."${system}";
-            unstable = import unstable {inherit system;};
+            unstable = import unstable {inherit system config;};
 
             chaotic = chaotic.packages."${system}";
             code = vscode.extensions."${system}";

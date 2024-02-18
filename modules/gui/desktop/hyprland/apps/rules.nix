@@ -9,6 +9,9 @@ _: {
 
     ## Window Rules
     windowrulev2 = [
+      # Clipboard
+      "float, title:^(nwg-clipman)$"
+
       # PiP Window
       "float, title:^(Picture-in-Picture)$"
       "pin, title:^(Picture-in-Picture)$"

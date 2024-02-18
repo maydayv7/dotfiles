@@ -20,6 +20,7 @@
     settings = {
       debug.disable_logs = false;
       env = ["QT_WAYLAND_DISABLE_WINDOWDECORATION,1"];
+      exec-once = ["dbus-update-activation-environment --systemd --all"];
 
       # Display
       monitor = ",preferred,auto,1";

@@ -14,6 +14,7 @@ with files; let
 in {
   apps.list = ["firefox"];
   gui.launcher.terminal = "kitty";
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
   # File Manager
   services.tumbler.enable = true;
@@ -23,7 +24,6 @@ in {
       enable = true;
       plugins = with pkgs.xfce; [
         thunar-archive-plugin
-        thunar-dropbox-plugin
         thunar-volman
       ];
     };
@@ -37,16 +37,19 @@ in {
     lollypop
     mate.atril
     mission-center
+    custom.nwg-clipman
     nwg-displays
+    unstable.overskride
     playerctl
     qalculate-gtk
     shotwell
     transmission-gtk
 
     # Utilities
-    blueberry
+    cliphist
     grim
     grimblast
+    hyprkeys
     pavucontrol
     slurp
     wev
@@ -65,6 +68,7 @@ in {
       ".config/Thunar"
       ".local/share/lollypop"
       ".local/share/shotwell"
+      ".cache/cliphist"
       ".cache/shotwell"
     ];
 
@@ -89,11 +93,18 @@ in {
         "$mod, F, exec, thunar"
         "$mod, T, exec, kitty"
         "$mod, W, exec, firefox"
+        "$mod, V, exec, nwg-clipman -nw"
         "$mod, Return, exec, missioncenter"
         "$mod, N, exec, dunstctl history-pop"
         "$mod, slash, exec, ulauncher-toggle"
         ", XF86Calculator, exec, qalculate-gtk"
         "$mod, Escape, exec, wlogout -p layer-shell"
+      ];
+
+      # Clipboard
+      wayland.windowManager.hyprland.settings.exec-once = [
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
       ];
 
       # Utilities
