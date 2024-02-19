@@ -31,6 +31,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     # Apps
+    apostrophe
     celluloid
     font-manager
     geany
@@ -43,13 +44,14 @@ in {
     unstable.overskride
     playerctl
     qalculate-gtk
+    remmina
     shotwell
     transmission-gtk
 
     # Utilities
     cliphist
     grim
-    grimblast
+    unstable.grimblast
     hyprkeys
     pavucontrol
     slurp
@@ -57,6 +59,7 @@ in {
     wl-clipboard
     wl-screenrec
     wlr-randr
+    xfce.exo
   ];
 
   user = {
@@ -82,7 +85,7 @@ in {
         directory = ["thunar.desktop"];
         image = ["org.gnome.Shotwell-Viewer.desktop"];
         magnet = ["transmission-gtk.desktop"];
-        markdown = ["geany.desktop"];
+        markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
         pdf = ["atril.desktop"];
         text = ["geany.desktop"];
         video = ["io.github.celluloid_player.Celluloid.desktop"];
@@ -112,7 +115,7 @@ in {
       services.playerctld.enable = true;
 
       # Terminal
-      wayland.windowManager.hyprland.settings.misc.swallow_regex = " ^(kitty)$";
+      wayland.windowManager.hyprland.settings.misc.swallow_regex = "^(kitty)$";
       programs.kitty = {
         enable = true;
         font = with config.stylix.fonts; monospace // {size = sizes.terminal;};
@@ -182,6 +185,11 @@ in {
             shrink = "no";
             word_wrap = "yes";
           };
+          utility = {
+            appname = "ignore";
+            history_ignore = "yes";
+            fullscreen = "show";
+          };
         };
       };
 
@@ -226,6 +234,10 @@ in {
 
           # Terminal
           ".config/kitty/search".source = pkgs.custom.kitty-search;
+          ".config/xfce4/helpers.rc".text = ''
+            TerminalEmulator=kitty
+            TerminalEmulatorDismissed=true
+          '';
 
           # File Manager
           ".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml" = {

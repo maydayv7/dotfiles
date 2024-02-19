@@ -1,8 +1,20 @@
-{sys, ...}: {
+{
+  sys,
+  pkgs,
+  files,
+  ...
+}: let
+  inherit (sys.lib.stylix.colors) base07 base0D;
+  utils = "${pkgs.writeShellApplication {
+    name = "utils";
+    text = builtins.replaceStrings ["#ffffff"] ["#${base07}"] files.scripts.utils;
+    runtimeInputs = with pkgs; [coreutils alsa-utils brillo playerctl libnotify wget];
+  }}/bin/utils";
+in {
   ## Keybindings
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
-    env = ["SLURP_ARGS, -dc ${sys.lib.stylix.colors.base0A}"]; # Screengrab
+    env = ["SLURP_ARGS, -dc ${base0D}"]; # Screengrab
     bind =
       [
         ("$mod SHIFT, slash, exec, xdg-open " + ../README.md)
@@ -12,6 +24,8 @@
         "$mod, P, pin"
         "$mod, M, fullscreen, 1"
         "$mod SHIFT, M, fullscreen,"
+        "$mod, U, focusurgentorlast"
+        "$mod, U, bringactivetotop,"
 
         # Focus Change
         "$mod, left, movefocus, l"
@@ -55,12 +69,12 @@
         "$mod SHIFT, comma, movetoworkspace, m+1"
 
         # Cycle Monitors
-        "$mod SHIFT, period, focusmonitor, l"
-        "$mod SHIFT, comma, focusmonitor, r"
+        "$mod ALT, period, focusmonitor, l"
+        "$mod ALT, comma, focusmonitor, r"
 
         # Send Focused Workspace to Monitor
-        "$mod SHIFT CTRL, period, movecurrentworkspacetomonitor, l"
-        "$mod SHIFT CTRL, comma, movecurrentworkspacetomonitor, r"
+        "$mod SHIFT ALT, period, movecurrentworkspacetomonitor, l"
+        "$mod SHIFT ALT, comma, movecurrentworkspacetomonitor, r"
 
         # Screen Lock
         "$mod, L, exec, loginctl lock-session"
@@ -99,24 +113,23 @@
     # Ignore Locked State
     bindl = [
       # Media Controls
-      ", XF86AudioPlay, exec, playerctl play-pause"
-      ", XF86AudioPrev, exec, playerctl previous"
-      ", XF86AudioNext, exec, playerctl next"
+      ", XF86AudioPlay, exec, ${utils} play_pause"
+      ", XF86AudioPrev, exec, ${utils} prev_track"
+      ", XF86AudioNext, exec, ${utils} next_track"
 
       # Volume
-      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      ", XF86AudioMute, exec, ${utils} volume_mute"
     ];
 
     # Repeat on Hold
     bindle = [
       # Volume
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 5%+"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume -l '1.0' @DEFAULT_AUDIO_SINK@ 5%-"
+      ", XF86AudioRaiseVolume, exec, ${utils} volume_up"
+      ", XF86AudioLowerVolume, exec, ${utils} volume_down"
 
       # Backlight
-      ", XF86MonBrightnessUp, exec, brillo -u 300000 -A 5"
-      ", XF86MonBrightnessDown, exec, brillo -u 300000 -U 5"
+      ", XF86MonBrightnessUp, exec, ${utils} brightness_up"
+      ", XF86MonBrightnessDown, exec, ${utils} brightness_down"
     ];
   };
 }

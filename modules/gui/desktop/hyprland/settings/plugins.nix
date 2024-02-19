@@ -19,6 +19,9 @@
           overview_gappo = 60
           enable_gesture = 1
           swipe_fingers = 4
+          enable_alt_release_exit = 1
+          alt_replace_key = Alt_L
+          alt_toggle_auto_next = 1
         }
       }
     '';

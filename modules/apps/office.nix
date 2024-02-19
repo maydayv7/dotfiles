@@ -26,6 +26,7 @@ in {
 
       # Internet
       google-chrome
+      linux-wifi-hotspot
       thunderbird
       whatsapp-for-linux
       zoom-us
