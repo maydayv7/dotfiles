@@ -41,7 +41,7 @@
 
   gui = {
     desktop = "hyprland";
-    wallpaper = "Tetris";
+    wallpaper = "Thread";
     fancy = true;
   };
 

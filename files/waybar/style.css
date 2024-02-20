@@ -5,6 +5,10 @@
   min-height: 0;
 }
 
+window#waybar {
+  background-color: transparent;
+}
+
 #waybar.empty #window {
   background: none;
 }

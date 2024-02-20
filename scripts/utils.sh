@@ -37,11 +37,13 @@ function volume_notification {
     volume_icon=""
   fi
 
-  if $show_music_in_volume_indicator
+  song_title=$(playerctl -f "{{title}}" metadata)
+  if $show_music_in_volume_indicator && [ -n "$song_title" ]
   then
-    current_song=$(playerctl -f "{{title}} - {{artist}}" metadata)
+    song_artist=$(playerctl -f "{{artist}}" metadata)
+    if [ -z "$song_artist" ]; then song_artist="Unknown"; fi
     if $show_album_art; then get_album_art; fi
-    notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:volume -h int:value:"$volume" -i "$album_art" "$volume_icon $volume%" "$current_song" -h string:hlcolor:#ffffff
+    notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:volume -h int:value:"$volume" -i "$album_art" "$volume_icon $volume%" "$song_title\nBy $song_artist" -h string:hlcolor:#ffffff
   else
     notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:volume -h int:value:"$volume" "$volume_icon $volume%" -h string:hlcolor:#ffffff
   fi
@@ -50,13 +52,14 @@ function volume_notification {
 function music_notification {
   song_title=$(playerctl -f "{{title}}" metadata)
   song_artist=$(playerctl -f "{{artist}}" metadata)
-  song_album=$(playerctl -f "{{album}}" metadata)
+  if [ -z "$song_artist" ]; then song_artist="Unknown"; fi
   if $show_album_art; then get_album_art; fi
+  song_album=$(playerctl -f "{{album}}" metadata)
   if [ -z "$song_album" ]
   then
-    notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:music -i "$album_art" "$song_title" "$song_artist"
+    notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:music -i "$album_art" "$song_title" "By $song_artist"
   else
-    notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:music -i "$album_art" "$song_title" "$song_artist - $song_album"
+    notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:music -i "$album_art" "$song_title" "By $song_artist from $song_album"
   fi
 }
 

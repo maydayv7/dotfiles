@@ -113,6 +113,7 @@ in {
 
       # Utilities
       services.playerctld.enable = true;
+      services.poweralertd.enable = true;
 
       # Terminal
       wayland.windowManager.hyprland.settings.misc.swallow_regex = "^(kitty)$";
@@ -161,36 +162,45 @@ in {
       services.dunst = {
         enable = true;
         iconTheme = theme.icons;
-        settings = {
-          fullscreen_delay_everything = {fullscreen = "delay";};
-          global = {
-            alignment = "center";
-            corner_radius = 10;
-            follow = "mouse";
-            format = "<b>%s</b>\\n%b";
-            frame_width = 1;
-            offset = "5x5";
-            horizontal_padding = 8;
-            icon_position = "left";
-            indicate_hidden = "yes";
-            markup = "yes";
-            max_icon_size = 64;
-            mouse_left_click = "do_action";
-            mouse_middle_click = "close_all";
-            mouse_right_click = "close_current";
-            padding = 8;
-            plain_text = "no";
-            separator_height = 1;
-            show_indicators = false;
-            shrink = "no";
-            word_wrap = "yes";
-          };
-          utility = {
-            appname = "ignore";
-            history_ignore = "yes";
-            fullscreen = "show";
-          };
-        };
+        settings =
+          {
+            global = {
+              alignment = "center";
+              corner_radius = 10;
+              follow = "mouse";
+              format = "<b>%s</b>\\n%b";
+              frame_width = 1;
+              horizontal_padding = 8;
+              icon_corner_radius = 10;
+              icon_position = "left";
+              icon_theme = theme.icons.name;
+              indicate_hidden = "yes";
+              markup = "yes";
+              max_icon_size = 64;
+              mouse_left_click = "do_action";
+              mouse_middle_click = "close_all";
+              mouse_right_click = "close_current";
+              offset = "5x5";
+              padding = 8;
+              plain_text = "no";
+              progress_bar_corner_radius = 10;
+              separator_height = 1;
+              show_indicators = false;
+              shrink = "no";
+              transparency = 10;
+              word_wrap = "yes";
+            };
+          }
+          // (let
+            ignore = {
+              history_ignore = "yes";
+              fullscreen = "show";
+            };
+          in {
+            fullscreen_delay = {fullscreen = "delay";};
+            power = {appname = "poweralertd";} // ignore;
+            utility = {appname = "utility";} // ignore;
+          });
       };
 
       systemd.user.services = {
