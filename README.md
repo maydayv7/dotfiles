@@ -11,16 +11,19 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 <details>
 <summary>Desktop Pictures</summary>
 
-| ![Hyprland](./files/images/desktop/hyprland.png) |
+| ![Hyprland](./files/images/desktop/hyprland/1.png)
+![](./files/images/desktop/hyprland/2.png)
+![](./files/images/desktop/hyprland/3.png)
+![](./files/images/desktop/hyprland/4.png) |
 | :----------------------------------------------: |
-|                    _Hyprland_                    |
+| _Hyprland_ |
 
 | ![GNOME Overview](./files/images/desktop/gnome/overview.png)
 ![GNOME Desktop](./files/images/desktop/gnome/desktop.png) |
 | :----------------------------------------------------------: |
 | _GNOME Desktop_ |
 
-| [![](./files/images/desktop/xfce/1.png)](https://www.reddit.com/r/unixporn/comments/19efxry/xfce_functional_and_beautiful/)
+| [![XFCE Desktop](./files/images/desktop/xfce/1.png)](https://www.reddit.com/r/unixporn/comments/19efxry/xfce_functional_and_beautiful/)
 ![](./files/images/desktop/xfce/2.png)
 ![](./files/images/desktop/xfce/3.png) |
 | :----------------------------------------------: |
