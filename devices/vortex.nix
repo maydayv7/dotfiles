@@ -9,6 +9,7 @@
   kernel = "xanmod_latest";
   kernelModules = ["nvme" "thunderbolt"];
 
+  imports = [{services.fwupd.enable = true;}];
   hardware = {
     boot = "secure";
     filesystem = "advanced";

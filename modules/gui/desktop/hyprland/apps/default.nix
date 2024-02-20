@@ -41,6 +41,7 @@ in {
     mission-center
     custom.nwg-clipman
     nwg-displays
+    custom.nwg-drawer
     unstable.overskride
     playerctl
     qalculate-gtk
@@ -93,20 +94,25 @@ in {
 
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [
+        "$mod, A, exec, nwg-drawer"
         "$mod, D, exec, nwg-displays"
         "$mod, F, exec, thunar"
-        "$mod, T, exec, kitty"
-        "$mod, W, exec, firefox"
-        "$mod, V, exec, nwg-clipman -nw"
-        "$mod, Return, exec, missioncenter"
         "$mod, N, exec, dunstctl history-pop"
+        "$mod, T, exec, kitty"
+        "$mod, V, exec, nwg-clipman -nw"
+        "$mod, W, exec, firefox"
         "$mod, slash, exec, ulauncher-toggle"
+        "$mod, Return, exec, missioncenter"
         ", XF86Calculator, exec, qalculate-gtk"
         "$mod, Escape, exec, wlogout -p layer-shell"
       ];
 
-      # Clipboard
+      # Autostart
       wayland.windowManager.hyprland.settings.exec-once = [
+        # Application Drawer
+        "nwg-drawer -r"
+
+        # Clipboard
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];
@@ -232,6 +238,9 @@ in {
       # Configuration Files
       home.file =
         {
+          # Application Drawer
+          ".config/nwg-drawer/drawer.css".text = nwg.drawer;
+
           # Wallpaper
           ".config/hypr/hyprpaper.conf".text = ''
             preload = ${wallpaper}

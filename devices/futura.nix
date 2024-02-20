@@ -13,7 +13,7 @@
     cpu.cores = 4;
     filesystem = "simple";
     support = ["laptop"];
-    modules = ["common-cpu-intel" "common-pc" "common-pc-laptop"];
+    modules = ["common-pc" "common-pc-laptop" "common-cpu-intel" "common-gpu-intel"];
   };
 
   gui.desktop = "xfce";

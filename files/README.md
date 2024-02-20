@@ -13,6 +13,7 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`images`](./images) - Personal Wallpapers and Profile Pictures
 - [`nano`](./nano) - `nano` Text Editor Global Configuration
 - [`neofetch`](./neofetch) - `neofetch` CLI Theming
+- [`nwg`](./nwg) - [NWG Shell](https://nwg-piotr.github.io/nwg-shell/) Configuration
 - [`pantheon`](./pantheon) - Configuration Files for Pantheon Desktop
 - [`plank`](./plank) - `plank` Dock Theming
 - [`proprietary`](https://github.com/maydayv7/proprietary) - Custom Proprietary Files

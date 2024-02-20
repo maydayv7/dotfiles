@@ -76,12 +76,13 @@ in rec {
           "custom/weather"
           "clock"
           "custom/dunst"
+          "custom/power"
         ];
 
         "custom/logo" = {
           format = "";
           tooltip = false;
-          on-click = "wlogout -p layer-shell";
+          on-click = "nwg-drawer";
         };
 
         user = {
@@ -89,6 +90,7 @@ in rec {
           icon = true;
           height = 30;
           width = 30;
+          open-on-click = true;
         };
 
         "hyprland/workspaces" = {
@@ -277,6 +279,12 @@ in rec {
               if dunstctl is-paused | grep -q "false" ; then echo "$ENABLED"; else echo "$DISABLED"; fi
             '';
           }}/bin/notify";
+        };
+
+        "custom/power" = {
+          format = "";
+          tooltip = false;
+          on-click = "wlogout -p layer-shell";
         };
       }
     ];

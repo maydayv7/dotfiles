@@ -91,6 +91,9 @@
     # Nano Text Editor
     nano = readFile ./nano/nanorc;
 
+    # NWG Shell
+    nwg.drawer = readFile ./nwg/drawer.css;
+
     # Interactive Nix Shell
     repl = ./repl.nix;
 

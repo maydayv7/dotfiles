@@ -57,24 +57,24 @@ in {
         "ALT CTRL, Tab, bringactivetotop,"
 
         # Cycle Workspaces
-        "$mod, period, workspace, m-1"
-        "$mod, comma, workspace, m+1"
+        "$mod, comma, workspace, m-1"
+        "$mod, period, workspace, m+1"
 
         # Special Workspace
         "$mod SHIFT, grave, movetoworkspace, special"
         "$mod, grave, togglespecialworkspace, eDP-1"
 
         # Move Window to Workspace
-        "$mod SHIFT, period, movetoworkspace, m-1"
-        "$mod SHIFT, comma, movetoworkspace, m+1"
+        "$mod SHIFT, comma, movetoworkspace, m-1"
+        "$mod SHIFT, period, movetoworkspace, m+1"
 
         # Cycle Monitors
-        "$mod ALT, period, focusmonitor, l"
-        "$mod ALT, comma, focusmonitor, r"
+        "$mod ALT, comma, focusmonitor, l"
+        "$mod ALT, period, focusmonitor, r"
 
         # Send Focused Workspace to Monitor
-        "$mod SHIFT ALT, period, movecurrentworkspacetomonitor, l"
-        "$mod SHIFT ALT, comma, movecurrentworkspacetomonitor, r"
+        "$mod SHIFT ALT, comma, movecurrentworkspacetomonitor, l"
+        "$mod SHIFT ALT, period, movecurrentworkspacetomonitor, r"
 
         # Screen Lock
         "$mod, L, exec, loginctl lock-session"

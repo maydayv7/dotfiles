@@ -2,10 +2,8 @@ _: {
   wayland.windowManager.hyprland.settings = {
     ## Layer Rules
     layerrule = [
-      "blur, waybar"
+      "blur, ^(waybar)$"
       "blur, ^(gtk-layer-shell)$"
-      "xray 1, ^(gtk-layer-shell)$"
-      "ignorealpha 0.2, ^(gtk-layer-shell)$"
     ];
 
     ## Window Rules

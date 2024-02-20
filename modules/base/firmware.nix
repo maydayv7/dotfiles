@@ -1,7 +1,6 @@
 {
   lib,
   inputs,
-  pkgs,
   ...
 }: {
   imports = [inputs.gaming.nixosModules.pipewireLowLatency];
@@ -11,19 +10,9 @@
     # Drivers
     hardware = {
       opengl.enable = true;
-      cpu.intel.updateMicrocode = true;
       enableRedistributableFirmware = true;
       pulseaudio.enable = lib.mkForce false;
     };
-
-    # Driver Packages
-    services.fwupd.enable = true;
-    hardware.opengl.extraPackages = with pkgs; [
-      intel-media-driver
-      libvdpau-va-gl
-      vaapiIntel
-      vaapiVdpau
-    ];
 
     # Audio
     sound = {
