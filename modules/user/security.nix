@@ -5,7 +5,7 @@
   files,
   ...
 }: let
-  inherit (lib) filterAttrs mkAfter mkForce mkIf;
+  inherit (lib) filterAttrs mkAfter mkDefault mkForce mkIf;
   inherit (builtins) all attrNames attrValues hasAttr mapAttrs readFile;
   inherit (config.sops) secrets;
   inherit (config.user) settings;
@@ -70,7 +70,7 @@ in {
           group = "users";
           extraGroups = ["wheel"];
           useDefaultShell = true;
-          initialHashedPassword = readFile (directory + "/default");
+          initialHashedPassword = mkDefault (readFile (directory + "/default"));
         };
       };
   };

@@ -62,7 +62,7 @@ with files.path; let
       mount -t zfs fspool/system/root /mnt
       mkdir -p /mnt/{nix,data}
       mount -t zfs fspool/system/nix /mnt/nix
-      mkdir -p /mnt/nix/state
+      mkdir -p /mnt${persist}
       mount -t zfs fspool/data /mnt/data
     }
 
@@ -150,7 +150,11 @@ in
         URL=${flake}
       fi
       echo "Installing System from '$URL'..."
-      nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST"
+      until nixos-install --no-root-passwd --root /mnt --flake "$URL"#"$HOST"
+      do
+        newline
+        info "Couldn't finish installation. Trying again..."
+      done
       newline
 
       unmount_all

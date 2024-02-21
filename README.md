@@ -114,6 +114,7 @@ github:maydayv7/dotfiles
 │       ├───lua: development environment 'Lua'
 │       ├───python: development environment 'Python'
 │       ├───rust: development environment 'Rust'
+│       ├───sql: development environment 'SQL'
 │       ├───video: development environment 'Video'
 │       └───website: development environment 'Website'
 ├───files: 'dotfiles' and program configuration
@@ -229,9 +230,81 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
 5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `secrets.yaml` and then using the following command (The [`nixos`](./scripts/README.md) script can be used to simplify the process):  
    _Replace_ **_PATH_** _with the path to the `secret`_ <pre><code>sops --config <i>/path/to/<b>secrets.yaml</b></i> -i <b><i>PATH</i></b></code></pre>
 
-6. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option
+6. Add device-specific configuration by creating a new file in [`devices`](./devices) (bear in mind that the name of the file must be same as the `HOSTNAME` of your device), and if required, hardware configuration using the `hardware.modules` option. Do keep in mind that the filesystems must be appropriately created and labeled as defined [here](./modules/hardware/filesystem.nix).
 
 7. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
+
+</details>
+
+<details>
+<summary><b>Minimal Configuration</b></summary>
+
+The `lib.build.device` function can be used to generate the full configuration minimally  
+Read [this](./devices/README.md) for definition information
+
+Example `flake.nix`:
+
+```nix
+{
+  description = "Minimal NixOS Configuration";
+
+  ## System Repositories ##
+  inputs = {
+    ## Package Repositories ##
+    # NixOS Package Repository
+    nixpkgs.follows = "dotfiles/nixpkgs";
+
+    ## Configuration Modules ##
+    # My PC Dotfiles
+    dotfiles.url = "github:maydayv7/dotfiles";
+  };
+
+  ## System Configuration ##
+  outputs = inputs: let
+    lib = with inputs; nixpkgs.lib // dotfiles.lib;
+  in {
+    nixosConfigurations.host = lib.build.device {
+      name = "HOST_NAME";
+      system = "x86_64-linux";
+
+      imports = [
+        # Generate using 'nixos-generate-config'
+        ./hardware-configuration.nix
+
+        # Passwords
+        {
+          users.extraUsers = {
+            root.hashedPassword = "HASHED_PASSWORD";
+            recovery.initialHashedPassword = "HASHED_PASSWORD";
+          };
+        }
+      ];
+
+      timezone = "Continent/City";
+      locale = "US";
+
+      kernel = "zen";
+      kernelModules = ["nvme"];
+
+      gui = {};
+      hardware = {
+        boot = "efi";
+        cores = 4;
+        filesystem = "simple";
+        modules = [ /* Imported from 'nixos-hardware' */];
+      };
+
+      # Default User
+      user = {
+        name = "nixos";
+        description = "Default User";
+        minimal = true;
+        password = "HASHED_PASSWORD"; # Generate using 'mkpasswd -m sha-512'
+      };
+    };
+  };
+}
+```
 
 </details>
 
@@ -240,7 +313,9 @@ In case you want to use my configuration as-is for a fresh NixOS install, you ca
 
 Download the latest NixOS `.iso` from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)
 
-**_Important:_** In order to directly use the configuration, you must first create a clone of this repository and follow steps 2 to 6 from the above section, and preferably upload it to a hosting platform like GitHub/GitLab
+> [!IMPORTANT]
+> These instructions are mainly intended for personal use.
+> In order to directly use the configuration, you must first create a clone of this repository and follow steps 2 to 6 from the first section, and preferably create your own install media
 
 <details>
 <summary><i>Additional Install Media</i></summary>
@@ -419,14 +494,14 @@ You can navigate to the `README`s present in the various directories to know mor
 <details>
 <summary><b>Changelog</b></summary>
 
-### vNEXT
+### v17
 
 - Re-expose `lib.build.device`
+- Add Hyprland Configuration
 - Refactor GNOME `dconf`
 - Overhaul XFCE Configuration
   - Use ULauncher
   - Use the Picom Compositor
-- Add Hyprland Configuration
 - Add Pantheon Desktop Configuration
 - Add VS Code Extensions Repository
 - Fix Android Virtualisation

@@ -30,12 +30,9 @@ in {
           package = pkgs.hyprworld.hyprland;
         };
 
+        # Login
         regreet = {
           enable = true;
-          package = pkgs.greetd.regreet.overrideAttrs (final: prev: {
-            SESSION_DIRS = "${config.services.xserver.displayManager.sessionData.desktops}/share";
-          });
-
           settings.commands = {
             reboot = ["systemctl" "reboot"];
             poweroff = ["systemctl" "poweroff"];
@@ -52,6 +49,7 @@ in {
       };
 
       # Greeter
+      environment.persist.directories = ["/var/cache/regreet"];
       programs.regreet.settings.GTK = with config.stylix; {
         application_prefer_dark_theme = true;
         cursor_theme_name = cursor.name;
