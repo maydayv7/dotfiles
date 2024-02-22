@@ -83,6 +83,7 @@ in rec {
           format = "";
           tooltip = false;
           on-click = "nwg-drawer";
+          on-click-right = "hyprctl dispatch hycov:toggleoverview";
         };
 
         user = {
@@ -99,7 +100,7 @@ in rec {
           format = "{icon}";
           on-scroll-up = "hyprctl dispatch workspace m+1";
           on-scroll-down = "hyprctl dispatch workspace m-1";
-          persistent-workspaces."eDP-1" = 3;
+          persistent-workspaces."${sys.gui.display}" = 3;
           format-icons = {
             default = "";
             "1" = "";
@@ -112,6 +113,7 @@ in rec {
             "8" = "";
             "9" = "";
             "10" = "";
+            OVERVIEW = "";
             special = "";
           };
         };
@@ -207,8 +209,8 @@ in rec {
           format = "{icon}";
           tooltip-format = "Backlight: {percent}%";
           format-icons = ["" "" "" "" "" "" "" "" ""];
-          on-scroll-down = "${pkgs.brillo}/bin/brillo -u 300000 -A 5";
-          on-scroll-up = "${pkgs.brillo}/bin/brillo -u 300000 -U 5";
+          on-scroll-down = "brillo -u 300000 -A 5";
+          on-scroll-up = "brillo -u 300000 -U 5";
           on-click = "nwg-displays";
         };
 

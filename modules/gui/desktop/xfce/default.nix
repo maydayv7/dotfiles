@@ -7,7 +7,7 @@
   ...
 } @ args:
 with files; let
-  inherit (config.gui) desktop fancy wallpaper;
+  inherit (config.gui) desktop display fancy icons wallpaper;
   exists = app: builtins.elem app config.apps.list;
   inherit (lib) hasPrefix mkIf mkMerge;
 
@@ -188,6 +188,7 @@ in {
             replace = {
               placeholders = [
                 "@system"
+                "@monitor"
                 "@wallpaper"
                 "@theme"
                 "@icons"
@@ -198,9 +199,10 @@ in {
               ];
               values = [
                 path.system
+                display
                 wallpaper
                 theme.name
-                config.gui.icons.name
+                icons.name
                 config.stylix.cursor.name
                 config.stylix.fonts.sansSerif.name
                 config.stylix.fonts.monospace.name

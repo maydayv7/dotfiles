@@ -42,6 +42,7 @@
 
   gui = {
     desktop = "hyprland";
+    display = "eDP-1";
     wallpaper = "Thread";
     fancy = true;
   };

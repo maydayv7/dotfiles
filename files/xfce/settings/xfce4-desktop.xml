@@ -3,7 +3,7 @@
 <channel name="xfce4-desktop" version="1.0">
   <property name="backdrop" type="empty">
     <property name="screen0" type="empty">
-      <property name="monitoreDP-1" type="empty">
+      <property name="monitor@display" type="empty">
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="4"/>

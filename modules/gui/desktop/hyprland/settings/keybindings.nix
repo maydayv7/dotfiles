@@ -62,7 +62,7 @@ in {
 
         # Special Workspace
         "$mod SHIFT, grave, movetoworkspace, special"
-        "$mod, grave, togglespecialworkspace, eDP-1"
+        "$mod, grave, togglespecialworkspace, ${sys.gui.display}"
 
         # Move Window to Workspace
         "$mod SHIFT, comma, movetoworkspace, m-1"

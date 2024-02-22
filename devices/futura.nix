@@ -16,8 +16,11 @@
     modules = ["common-pc" "common-pc-laptop" "common-cpu-intel" "common-gpu-intel"];
   };
 
-  gui.desktop = "xfce";
   apps.list = ["firefox" "office"];
+  gui = {
+    desktop = "xfce";
+    display = "eDP-1";
+  };
 
   # User Navya
   user = {

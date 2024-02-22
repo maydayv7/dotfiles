@@ -14,6 +14,12 @@ in {
 
   options.gui = {
     fancy = mkEnableOption "Enable Fancy GUI Effects";
+    display = mkOption {
+      description = "Main GUI Display";
+      type = types.str;
+      default = "";
+      example = "HDMI-A-1";
+    };
     desktop = mkOption {
       description = "GUI Desktop Choice";
       type = types.enum ((name ./desktop) ++ map (x: x + "-iso") (import ./desktop/iso.nix) ++ [""]);

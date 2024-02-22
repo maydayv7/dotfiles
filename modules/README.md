@@ -26,7 +26,8 @@ Configuration [Builder](./configuration.nix)
 
 - [`gui`](./gui): Module that configures GUI Desktops/Environments and the like -
 
-  - `desktop`: Choice of GUI Desktop - `"gnome" / "xfce" / "pantheon"`
+  - `desktop`: Choice of GUI Desktop - `"hyprland" / "gnome" / "xfce" / "pantheon"`
+  - `display`: Main GUI Display - Ex. `"HDMI-A-1"`
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
   - `fancy`: Enable Fancy GUI Effects - `true / false`
   - `fonts` -
