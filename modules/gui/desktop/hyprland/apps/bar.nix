@@ -36,18 +36,8 @@ in rec {
   programs.waybar = {
     enable = true;
     systemd.enable = true;
+    package = pkgs.wayworld.waybar;
     inherit (files.waybar) style;
-
-    package = pkgs.waybar.overrideAttrs (old: {
-      version = "hypr";
-      nativeCheckInputs = [pkgs.unstable.catch2_3];
-      src = pkgs.fetchFromGitHub {
-        owner = "Syndelis";
-        repo = "Waybar";
-        rev = "1bf97f532e5aac74fe9e9ca61500c3e26b14422f";
-        sha256 = "sha256-kAaMoFqaJ9qUVztpLJWiZAq/EKHuhJFBbGyuGbINq/U=";
-      };
-    });
 
     # Panel
     settings = [
@@ -96,7 +86,7 @@ in rec {
 
         "hyprland/workspaces" = {
           all-outputs = true;
-          show-special = true;
+          show-special = false;
           format = "{icon}";
           on-scroll-up = "hyprctl dispatch workspace m+1";
           on-scroll-down = "hyprctl dispatch workspace m-1";

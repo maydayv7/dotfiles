@@ -36,6 +36,7 @@ in {
     font-manager
     geany
     gnome.file-roller
+    hyprpicker
     lollypop
     mate.atril
     mission-center
@@ -95,6 +96,7 @@ in {
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [
         "$mod, A, exec, nwg-drawer"
+        "$mod, C, exec, hyprpicker -arf hex"
         "$mod, D, exec, nwg-displays"
         "$mod, F, exec, thunar"
         "$mod, N, exec, dunstctl history-pop"
@@ -243,6 +245,8 @@ in {
 
           # Wallpaper
           ".config/hypr/hyprpaper.conf".text = ''
+            splash = true
+            ipc = false
             preload = ${wallpaper}
             wallpaper = , ${wallpaper}
           '';

@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   ## Plugin Settings
   wayland.windowManager.hyprland = {
-    plugins = with pkgs.hyprworld; [hych hycov];
+    plugins = with pkgs.wayworld; [hych hycov];
     extraConfig = ''
       plugin {
         # Window Minimize
