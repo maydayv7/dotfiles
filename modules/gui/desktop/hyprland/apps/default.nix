@@ -33,6 +33,7 @@ in {
     # Apps
     apostrophe
     celluloid
+    custom.desktop-icons
     font-manager
     geany
     gnome.file-roller
@@ -113,6 +114,9 @@ in {
       wayland.windowManager.hyprland.settings.exec-once = [
         # Application Drawer
         "nwg-drawer -r"
+
+        # Desktop Icons
+        "dicons"
 
         # Clipboard
         "wl-paste --type text --watch cliphist store"
@@ -209,6 +213,13 @@ in {
             power = {appname = "poweralertd";} // ignore;
             utility = {appname = "utility";} // ignore;
           });
+      };
+
+      # Display Temperature
+      services.gammastep = {
+        enable = true;
+        provider = "geoclue2";
+        tray = true;
       };
 
       systemd.user.services = {
