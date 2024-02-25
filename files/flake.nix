@@ -71,17 +71,31 @@
     # GTK+ Settings
     gtk.bookmarks = readFile ./gtk/bookmarks;
 
+    # Hyprland WM
+    hyprland = {
+      # Pyprland
+      pypr = readFile ./hyprland/pypr.toml;
+
+      # NWG Shell
+      nwg.drawer = readFile ./hyprland/nwg/drawer.css;
+
+      # Waybar
+      waybar.style = readFile ./hyprland/waybar/style.css;
+    };
+
     # Pictures
     images.profile = ./images/Profile.png;
 
     # Pantheon Desktop
-    pantheon.dconf = ./pantheon/dconf.nix;
+    pantheon = {
+      dconf = ./pantheon/dconf.nix;
 
-    # Plank Dock
-    plank = {
-      autostart = readFile ./plank/dock.desktop;
-      launchers = ./plank/launchers;
-      theme = readFile ./plank/dock.theme;
+      # Plank Dock
+      plank = {
+        autostart = readFile ./pantheon/plank/dock.desktop;
+        launchers = ./pantheon/plank/launchers;
+        theme = readFile ./pantheon/plank/dock.theme;
+      };
     };
 
     # Custom Proprietary Files
@@ -90,9 +104,6 @@
 
     # Nano Text Editor
     nano = readFile ./nano/nanorc;
-
-    # NWG Shell
-    nwg.drawer = readFile ./nwg/drawer.css;
 
     # Interactive Nix Shell
     repl = ./repl.nix;
@@ -128,9 +139,6 @@
       apply = file: fromJSON (readFile file);
       extension = ".json";
     };
-
-    # Waybar
-    waybar.style = readFile ./waybar/style.css;
 
     # XDG Settings
     xdg.mime = import ./xdg/mime.nix;

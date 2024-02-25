@@ -1,5 +1,15 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  files,
+  ...
+}: {
   ## Plugin Settings
+  # Pyprland
+  home = {
+    packages = [pkgs.unstable.pyprland];
+    file.".config/hypr/pyprland.toml".text = files.hyprland.pypr;
+  };
+
   wayland.windowManager.hyprland = {
     plugins = with pkgs.wayworld; [hych hycov];
     extraConfig = ''
@@ -26,18 +36,21 @@
       }
     '';
 
-    settings.bind = [
-      # Window Minimize
-      "ALT, Q, hych:minimize"
-      "ALT SHIFT, Q, hych:toggle_restore_window"
+    settings = {
+      exec-once = ["pypr"];
+      bind = [
+        # Window Minimize
+        "ALT, Q, hych:minimize"
+        "ALT SHIFT, Q, hych:toggle_restore_window"
 
-      # Overview
-      "ALT, grave, hycov:toggleoverview"
-      "ALT SHIFT, grave, hycov:toggleoverview, forceall"
-      "ALT, left, hycov:movefocus, l"
-      "ALT, right, hycov:movefocus, r"
-      "ALT, up, hycov:movefocus, u"
-      "ALT, down, hycov:movefocus, d"
-    ];
+        # Overview
+        "ALT, grave, hycov:toggleoverview"
+        "ALT SHIFT, grave, hycov:toggleoverview, forceall"
+        "ALT, left, hycov:movefocus, l"
+        "ALT, right, hycov:movefocus, r"
+        "ALT, up, hycov:movefocus, u"
+        "ALT, down, hycov:movefocus, d"
+      ];
+    };
   };
 }

@@ -37,7 +37,7 @@ in rec {
     enable = true;
     systemd.enable = true;
     package = pkgs.wayworld.waybar;
-    inherit (files.waybar) style;
+    inherit (files.hyprland.waybar) style;
 
     # Panel
     settings = [
@@ -133,7 +133,11 @@ in rec {
           on-click = "activate";
           on-click-middle = "fullscreen";
           on-click-right = "close";
-          ignore-list = ["ulauncher"];
+          ignore-list = [
+            "kitty-dropterm"
+            "nwg-clipman"
+            "ulauncher"
+          ];
         };
 
         tray = {
@@ -148,7 +152,7 @@ in rec {
           tooltip-format = " {status}";
           tooltip-format-connected = "{device_enumerate}";
           tooltip-format-enumerate-connected = " {device_alias} 󰂄 {device_battery_percentage}%";
-          on-click = "overskride";
+          on-click = "pypr show bluetooth";
         };
 
         network = {
@@ -160,7 +164,7 @@ in rec {
           format-linked = "󰈁 {ifname}";
           tooltip-format = "Network: <big><b>{essid}</b></big>\nStrength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>";
           tooltip-format-disconnected = "󰌙 Disconnected";
-          on-click = "kitty nmtui";
+          on-click = "pypr show network";
         };
 
         keyboard-state = {
@@ -192,7 +196,7 @@ in rec {
           tooltip-format = "Volume: {volume}%\nDevice: {node_name}";
           format-muted = " Mute";
           format-icons = ["" "" "󰕾" ""];
-          on-click = "pavucontrol";
+          on-click = "pypr show volume";
         };
 
         backlight = {
@@ -201,7 +205,7 @@ in rec {
           format-icons = ["" "" "" "" "" "" "" "" ""];
           on-scroll-down = "brillo -u 300000 -A 5";
           on-scroll-up = "brillo -u 300000 -U 5";
-          on-click = "nwg-displays";
+          on-click = "pypr show displays";
         };
 
         battery = {

@@ -29,6 +29,7 @@ in {
   # Screen Idle
   services.swayidle = {
     enable = true;
+    systemdTarget = "hyprland-session.target";
     events = [
       {
         event = "before-sleep";

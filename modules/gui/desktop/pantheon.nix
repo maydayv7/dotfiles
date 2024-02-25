@@ -118,7 +118,7 @@ in {
         };
 
         home = {
-          file = {
+          file = with pantheon; {
             # Plank Dock
             ".config/autostart/Dock.desktop".text = plank.autostart;
             ".local/share/plank/themes/default/dock.theme".text = plank.theme;

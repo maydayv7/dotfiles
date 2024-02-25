@@ -61,8 +61,8 @@ in {
         "$mod, period, workspace, m+1"
 
         # Special Workspace
-        "$mod SHIFT, grave, movetoworkspace, special"
-        "$mod, grave, togglespecialworkspace, ${sys.gui.display}"
+        "$mod, grave, togglespecialworkspace, stash"
+        "$mod SHIFT, grave, exec, pypr toggle_special stash"
 
         # Move Window to Workspace
         "$mod SHIFT, comma, movetoworkspace, m-1"
@@ -85,8 +85,8 @@ in {
         "SHIFT, Print, exec, grimblast --notify --cursor copysave screen"
 
         # Magnifier
-        ''$mod, equal, exec, hyprctl keyword misc:cursor_zoom_factor "$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2 + 1}')"''
-        ''$mod, minus, exec, hyprctl keyword misc:cursor_zoom_factor "$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2 - 1}')"''
+        ''$mod, equal, exec, pypr zoom "$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2 + 1}')"''
+        ''$mod, minus, exec, pypr zoom "$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2 - 1}')"''
       ]
       ++
       # Workspaces

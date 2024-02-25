@@ -1,0 +1,59 @@
+[pyprland]
+plugins = [
+  "scratchpads",
+  "magnify",
+  "toggle_special"
+]
+
+[scratchpads.term]
+animation = "fromTop"
+command = "kitty --class kitty-dropterm"
+class = "kitty-dropterm"
+size = "75% 60%"
+
+[scratchpads.clip]
+animation = "fromBottom"
+command = "nwg-clipman -nw"
+class = "nwg-clipman"
+size = "75% 65%"
+margin = 30
+
+[scratchpads.bluetooth]
+animation = "fromRight"
+command = "overskride"
+class = "overskride"
+lazy = true
+size = "50% 90%"
+margin = 30
+unfocus = "hide"
+excludes = ["displays", "network", "volume"]
+
+[scratchpads.displays]
+animation = "fromRight"
+command = "nwg-displays"
+class = "nwg-displays"
+lazy = true
+size = "50% 90%"
+margin = 30
+unfocus = "hide"
+excludes = ["bluetooth", "network", "volume"]
+
+[scratchpads.network]
+animation = "fromRight"
+command = "kitty nmtui"
+class = "kitty"
+lazy = true
+size = "50% 90%"
+margin = 30
+unfocus = "hide"
+excludes = ["bluetooth", "displays", "volume"]
+
+[scratchpads.volume]
+animation = "fromRight"
+command = "pavucontrol"
+class = "pavucontrol"
+lazy = true
+size = "50% 90%"
+margin = 30
+unfocus = "hide"
+excludes = ["bluetooth", "displays", "network"]

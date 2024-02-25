@@ -98,11 +98,12 @@ in {
       wayland.windowManager.hyprland.settings.bind = [
         "$mod, A, exec, nwg-drawer"
         "$mod, C, exec, hyprpicker -arf hex"
-        "$mod, D, exec, nwg-displays"
+        "$mod, D, exec, pypr toggle displays"
         "$mod, F, exec, thunar"
         "$mod, N, exec, dunstctl history-pop"
         "$mod, T, exec, kitty"
-        "$mod, V, exec, nwg-clipman -nw"
+        "$mod SHIFT, T, exec, pypr toggle term"
+        "$mod, V, exec, pypr toggle clip"
         "$mod, W, exec, firefox"
         "$mod, slash, exec, ulauncher-toggle"
         "$mod, Return, exec, missioncenter"
@@ -252,7 +253,7 @@ in {
       home.file =
         {
           # Application Drawer
-          ".config/nwg-drawer/drawer.css".text = nwg.drawer;
+          ".config/nwg-drawer/drawer.css".text = hyprland.nwg.drawer;
 
           # Wallpaper
           ".config/hypr/hyprpaper.conf".text = ''
