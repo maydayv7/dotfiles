@@ -10,7 +10,7 @@ in {
     systemPackages = with pkgs; [epiphany gparted];
 
     # Excluded Packages
-    xfce.excludePackages = with pkgs; [
+    xfce.excludePackages = with (pkgs.xfce // pkgs); [
       tango-icon-theme
       xfce4-icon-theme
       xfwm4-themes
