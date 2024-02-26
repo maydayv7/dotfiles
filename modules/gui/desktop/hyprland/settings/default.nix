@@ -92,6 +92,31 @@
         "col.locked_active" = "rgb(${base0D})";
       };
 
+      animation = {
+        bezier = [
+          "fluentish, 0, 0.2, 0.4, 1"
+          "easeOutCircle, 0, 0.55, 0.45, 1"
+          "easeOutCubic, 0.33, 1, 0.68, 1"
+          "easeInOutSine, 0.37, 0, 0.63, 1"
+        ];
+
+        animation = [
+          "windowsIn, 1, 1.7, easeOutCubic, slide"
+          "windowsOut, 1, 1.7, easeOutCubic, slide"
+          "windowsMove, 1, 2.5, easeInOutSine, slide"
+
+          # Fading
+          "fadeIn, 1, 3, easeOutCubic"
+          "fadeOut, 1, 3, easeOutCubic"
+          "fadeSwitch, 1, 5, easeOutCircle"
+          "fadeShadow, 1, 5, easeOutCircle"
+          "fadeDim, 1, 6, fluentish"
+          "border, 1, 2.7, easeOutCircle"
+          "workspaces, 1, 2, fluentish, slide"
+          "specialWorkspace, 1, 3, fluentish, slidevert"
+        ];
+      };
+
       decoration = lib.mkIf sys.gui.fancy {
         rounding = 10;
         drop_shadow = true;
