@@ -30,7 +30,7 @@ function get_album_art {
 function volume_notification {
   volume=$(amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1)
   mute=$(amixer get Master | grep '%' | grep -oE '[^ ]+$' | grep off | head -n1)
-  if [ "$volume" -eq 0 ] || [ "$mute" == "[yes]" ]
+  if [ "$volume" -eq 0 ] || [ "$mute" == "[off]" ]
   then
     volume_icon=""
   else
@@ -41,9 +41,13 @@ function volume_notification {
   if $show_music_in_volume_indicator && [ -n "$song_title" ]
   then
     song_artist=$(playerctl -f "{{artist}}" metadata)
-    if [ -z "$song_artist" ]; then song_artist="Unknown"; fi
     if $show_album_art; then get_album_art; fi
-    notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:volume -h int:value:"$volume" -i "$album_art" "$volume_icon $volume%" "$song_title\nBy $song_artist" -h string:hlcolor:#ffffff
+    if [ -z "$song_artist" ]
+    then
+      notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:volume -h int:value:"$volume" -i "$album_art" "$volume_icon $volume%" "$song_title" -h string:hlcolor:#ffffff
+    else
+      notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:volume -h int:value:"$volume" -i "$album_art" "$volume_icon $volume%" "$song_title\nBy $song_artist" -h string:hlcolor:#ffffff
+    fi
   else
     notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:volume -h int:value:"$volume" "$volume_icon $volume%" -h string:hlcolor:#ffffff
   fi
@@ -52,12 +56,16 @@ function volume_notification {
 function music_notification {
   song_title=$(playerctl -f "{{title}}" metadata)
   song_artist=$(playerctl -f "{{artist}}" metadata)
-  if [ -z "$song_artist" ]; then song_artist="Unknown"; fi
   if $show_album_art; then get_album_art; fi
   song_album=$(playerctl -f "{{album}}" metadata)
   if [ -z "$song_album" ]
   then
-    notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:music -i "$album_art" "$song_title" "By $song_artist"
+    if [ -z "$song_artist" ]
+    then
+      notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:music -i "$album_art" "$song_title"
+    else
+      notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:music -i "$album_art" "$song_title" "By $song_artist"
+    fi
   else
     notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:music -i "$album_art" "$song_title" "By $song_artist from $song_album"
   fi

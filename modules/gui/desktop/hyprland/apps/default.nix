@@ -97,7 +97,7 @@ in {
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [
         "$mod, A, exec, nwg-drawer"
-        "$mod, C, exec, hyprpicker -arf hex"
+        "$mod SHIFT, C, exec, hyprpicker -arf hex"
         "$mod, D, exec, pypr toggle displays"
         "$mod, F, exec, thunar"
         "$mod, N, exec, dunstctl history-pop"

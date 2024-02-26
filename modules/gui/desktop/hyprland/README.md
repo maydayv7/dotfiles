@@ -6,8 +6,6 @@
 | <kbd>$mod P</kbd>                | pin                           |                                                                                                | Pin window on all Workspaces                 |
 | <kbd>$mod M</kbd>                | fullscreen                    | 1                                                                                              | Maximize window                              |
 | <kbd>$mod SHIFT M</kbd>          | fullscreen                    |                                                                                                | Fullscreen window                            |
-| <kbd>$mod U</kbd>                | focusurgentorlast             |                                                                                                | Activate urgent/last window                  |
-| <kbd>$mod U</kbd>                | bringactivetotop              |                                                                                                |                                              |
 | <kbd>ALT Q</kbd>                 | hych:minimize                 |                                                                                                | Minimize window                              |
 | <kbd>ALT SHIFT Q</kbd>           | hych:toggle_restore_window    |                                                                                                | Show minimized windows                       |
 | <kbd>$mod left</kbd>             | movefocus                     | l                                                                                              | Switch focus to left window                  |
@@ -27,6 +25,8 @@
 | <kbd>$mod C</kbd>                | centerwindow                  |                                                                                                | Center window                                |
 | <kbd>ALT Tab</kbd>               | cyclenext                     |                                                                                                | Cycle through open applications              |
 | <kbd>ALT Tab</kbd>               | bringactivetotop              |                                                                                                |                                              |
+| <kbd>ALT SHIFT Tab</kbd>         | focusurgentorlast             |                                                                                                | Activate urgent/last window                  |
+| <kbd>ALT SHIFT Tab</kbd>         | bringactivetotop              |                                                                                                |                                              |
 | <kbd>ALT CTRL Tab</kbd>          | cyclenext                     | prev                                                                                           | Cycle through grouped applications backward  |
 | <kbd>ALT CTRL Tab</kbd>          | bringactivetotop              |                                                                                                |                                              |
 | <kbd>ALT grave</kbd>             | hycov:toggleoverview          |                                                                                                | Show overview                                |
@@ -55,7 +55,7 @@
 | <kbd>$mod 1</kbd>                | workspace                     | num                                                                                            | Create workspace 'num'                       |
 | <kbd>$mod SHIFT 1</kbd>          | movetoworkspace               | num                                                                                            | Move window to workspace 'num'               |
 | <kbd>$mod A</kbd>                | exec                          | nwg-drawer                                                                                     | Application Drawer                           |
-| <kbd>$mod C</kbd>                | exec                          | hyprpicker -arf hex                                                                            | Color Picker                                 |
+| <kbd>$mod SHIFT C</kbd>          | exec                          | hyprpicker -arf hex                                                                            | Color Picker                                 |
 | <kbd>$mod D</kbd>                | exec                          | pypr toggle displays                                                                           | Monitor Configuration                        |
 | <kbd>$mod F</kbd>                | exec                          | thunar                                                                                         | File Manager                                 |
 | <kbd>$mod T</kbd>                | exec                          | kitty                                                                                          | Terminal                                     |

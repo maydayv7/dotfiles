@@ -24,8 +24,6 @@ in {
         "$mod, P, pin"
         "$mod, M, fullscreen, 1"
         "$mod SHIFT, M, fullscreen,"
-        "$mod, U, focusurgentorlast"
-        "$mod, U, bringactivetotop,"
 
         # Focus Change
         "$mod, left, movefocus, l"
@@ -53,6 +51,8 @@ in {
         # Window Switcher
         "ALT, Tab, cyclenext,"
         "ALT, Tab, bringactivetotop,"
+        "ALT SHIFT, Tab, focusurgentorlast"
+        "ALT SHIFT, Tab, bringactivetotop,"
         "ALT CTRL, Tab, cyclenext, prev"
         "ALT CTRL, Tab, bringactivetotop,"
 

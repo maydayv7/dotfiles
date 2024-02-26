@@ -194,7 +194,7 @@ in rec {
           reverse-scrolling = 1;
           format = "{icon}";
           tooltip-format = "Volume: {volume}%\nDevice: {node_name}";
-          format-muted = " Mute";
+          format-muted = "";
           format-icons = ["" "" "󰕾" ""];
           on-click = "pypr show volume";
         };

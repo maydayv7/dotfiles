@@ -304,11 +304,12 @@ in
         esac
       ;;
       "run")
+        export NIXPKGS_ALLOW_UNFREE=1
         if [[ "$2" == *[:/]* ]] || grep -wq "$2" <<<"${list inputs + "nixpkgs"}"
         then
-          nix run "$2"#"$3" -- "''${@:4}"
+          nix run "$2"#"$3" --impure -- "''${@:4}"
         else
-          nix run ${path.system}#"$2" -- "''${@:3}"
+          nix run ${path.system}#"$2" --impure -- "''${@:3}"
         fi
       ;;
       "save")
