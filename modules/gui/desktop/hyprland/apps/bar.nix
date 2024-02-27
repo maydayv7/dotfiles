@@ -37,7 +37,7 @@ in rec {
     enable = true;
     systemd.enable = true;
     package = pkgs.wayworld.waybar;
-    inherit (files.hyprland.waybar) style;
+    style = files.hyprland.waybar;
 
     # Panel
     settings = [

@@ -17,8 +17,6 @@ in {
     env = ["SLURP_ARGS, -dc ${base0D}"]; # Screengrab
     bind =
       [
-        ("$mod SHIFT, slash, exec, xdg-open " + ../README.md)
-
         # Compositor Commands
         "$mod, Q, killactive,"
         "$mod, P, pin"

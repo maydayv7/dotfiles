@@ -73,14 +73,20 @@
 
     # Hyprland WM
     hyprland = {
+      # Binds
+      binds = ./hyprland/binds.pango;
+
       # Pyprland
       pypr = readFile ./hyprland/pypr.toml;
 
-      # NWG Shell
-      nwg.drawer = readFile ./hyprland/nwg/drawer.css;
-
       # Waybar
-      waybar.style = readFile ./hyprland/waybar/style.css;
+      waybar = readFile ./hyprland/waybar.css;
+
+      # NWG Shell
+      nwg = {
+        drawer = readFile ./hyprland/nwg/drawer.css;
+        wrapper = ./hyprland/nwg/wrapper.css;
+      };
     };
 
     # Pictures

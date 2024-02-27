@@ -31,7 +31,6 @@ in {
 
   environment.systemPackages = with pkgs; [
     # Apps
-    apostrophe
     celluloid
     custom.desktop-icons
     font-manager
@@ -44,6 +43,7 @@ in {
     custom.nwg-clipman
     nwg-displays
     custom.nwg-drawer
+    nwg-wrapper
     unstable.overskride
     playerctl
     qalculate-gtk
@@ -88,7 +88,7 @@ in {
         directory = ["thunar.desktop"];
         image = ["org.gnome.Shotwell-Viewer.desktop"];
         magnet = ["transmission-gtk.desktop"];
-        markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
+        markdown = ["geany.desktop"];
         pdf = ["atril.desktop"];
         text = ["geany.desktop"];
         video = ["io.github.celluloid_player.Celluloid.desktop"];
@@ -96,6 +96,7 @@ in {
 
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [
+        "$mod SHIFT, slash, exec, pkill -f -1 nwg-wrapper" # Binds List
         "$mod, A, exec, nwg-drawer"
         "$mod SHIFT, C, exec, hyprpicker -arf hex"
         "$mod, D, exec, pypr toggle displays"
@@ -122,6 +123,9 @@ in {
         # Clipboard
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+
+        # Binds List
+        (with files.hyprland; "nwg-wrapper -t ${binds} -c ${nwg.wrapper} -il 3 -sv 1")
       ];
 
       # Utilities
