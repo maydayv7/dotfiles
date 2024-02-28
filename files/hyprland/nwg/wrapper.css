@@ -4,10 +4,9 @@
 }
 
 window {
-  background-color: rgba(0, 0, 0, 0.3);
+  background: alpha(@theme_bg_color, 0.7);
 }
 
 #box-inner {
-  background-color: transparent;
   padding: 0 20px 0 20px;
 }

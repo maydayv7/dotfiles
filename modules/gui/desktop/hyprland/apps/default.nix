@@ -97,6 +97,8 @@ in {
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [
         "$mod SHIFT, slash, exec, pkill -f -1 nwg-wrapper" # Binds List
+        "$mod, slash, exec, ulauncher-toggle"
+        "$mod, slash, bringactivetotop,"
         "$mod, A, exec, nwg-drawer"
         "$mod SHIFT, C, exec, hyprpicker -arf hex"
         "$mod, D, exec, pypr toggle displays"
@@ -106,7 +108,6 @@ in {
         "$mod SHIFT, T, exec, pypr toggle term"
         "$mod, V, exec, pypr toggle clip"
         "$mod, W, exec, firefox"
-        "$mod, slash, exec, ulauncher-toggle"
         "$mod, Return, exec, missioncenter"
         ", XF86Calculator, exec, qalculate-gtk"
         "$mod, Escape, exec, wlogout -p layer-shell"

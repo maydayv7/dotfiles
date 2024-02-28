@@ -82,6 +82,9 @@
       # Waybar
       waybar = readFile ./hyprland/waybar.css;
 
+      # WLogout
+      wlogout = readFile ./hyprland/wlogout.css;
+
       # NWG Shell
       nwg = {
         drawer = readFile ./hyprland/nwg/drawer.css;

@@ -11,6 +11,9 @@ _: {
       # Clipboard
       "float, title:^(nwg-clipman)$"
 
+      # Application Launcher
+      "opacity 0.9 override, class:^(ulauncher)$"
+
       # PiP Window
       "float, title:^(Picture-in-Picture)$"
       "pin, title:^(Picture-in-Picture)$"

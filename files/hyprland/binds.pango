@@ -1,11 +1,11 @@
 <span size="10.75pt">
 <b><big>Keyboard Shortcuts</big></b>																	<b><big>Mouse Actions</big></b>
-<i>$mod -> SUPER</i>																			<i>L</i> or <i>R -> Left/Right Click</i>
+<i>$mod -> SUPER</i>																			<i>L'</i> or <i>R' -> Left/Right Click</i>
 
-<tt>$mod Q</tt>							Quit application										<tt>$mod L</tt>				Move window
-<tt>$mod P</tt>							Pin window on all Workspaces							<tt>$mod R</tt>				Window resize
-<tt>$mod M</tt>							Maximize window										<tt>$mod CTRL L</tt>		Window resize
-<tt>$mod SHIFT M</tt>					Fullscreen window										<tt>$mod SHIFT L</tt>		Move window into application group
+<tt>$mod Q</tt>							Quit application										<tt>$mod L'</tt>				Move window
+<tt>$mod P</tt>							Pin window on all Workspaces							<tt>$mod R'</tt>				Window resize
+<tt>$mod M</tt>							Maximize window										<tt>$mod CTRL L'</tt>		Window resize
+<tt>$mod SHIFT M</tt>					Fullscreen window										<tt>$mod SHIFT L'</tt>		Move window into application group
 <tt>ALT Q</tt>								Minimize window
 <tt>ALT SHIFT Q</tt>					Show minimized windows
 <tt>$mod <i>ARROW</i></tt>						Switch focus to window in desired direction
@@ -46,7 +46,7 @@
 <tt>$mod Shift T</tt>					Toggle Terminal in Quake mode
 <tt>$mod V</tt>							Toggle Clipboard
 <tt>$mod W</tt>							Web Browser
-<tt>$mod Return</tt>					Task Manager
+<tt>$mod Enter</tt>						Task Manager
 <tt>$mod N</tt>							Show received notifications in order
 <tt>$mod /</tt>							Application Launcher
 <tt>Calculator</tt>						Calculator
