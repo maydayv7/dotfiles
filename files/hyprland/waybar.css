@@ -70,6 +70,16 @@ window#waybar {
   background-color: @base06;
 }
 
+.modules-right #idle_inhibitor {
+  color: @base09;
+  background-color: transparent;
+}
+
+.modules-left #workspaces button.empty {
+  color: @base07;
+  background-color: transparent;
+}
+
 .modules-left image {
   padding-left: 5px;
   background-color: @base0F;

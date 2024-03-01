@@ -66,6 +66,7 @@ in rec {
           "custom/weather"
           "clock"
           "custom/dunst"
+          "idle_inhibitor"
           "custom/power"
         ];
 
@@ -275,6 +276,14 @@ in rec {
               if dunstctl is-paused | grep -q "false" ; then echo "$ENABLED"; else echo "$DISABLED"; fi
             '';
           }}/bin/notify";
+        };
+
+        idle_inhibitor = {
+          format = "{icon}";
+          format-icons = {
+            activated = "";
+            deactivated = "";
+          };
         };
 
         "custom/power" = {

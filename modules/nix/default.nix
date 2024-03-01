@@ -43,7 +43,7 @@ in {
 
         # Additional Features
         sandbox = true;
-        system-features = ["kvm" "recursive-nix"];
+        system-features = optionals tools ["kvm" "big-parallel" "recursive-nix"];
       };
 
       extraOptions = ''
