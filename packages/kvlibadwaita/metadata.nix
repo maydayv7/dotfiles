@@ -1,5 +1,5 @@
 {
   repo = "https://github.com/GabePoel/KvLibadwaita";
-  rev = "06d9a42c6876d1483fda178cd2a672861e424fa6";
-  sha256 = "sha256-dz7xotlh/Yxryl0CCa0AF8VK7tgO/Nqw57qErk5cM3I=";
+  rev = "f4bdbb6ce981a55907129905cc397de0bbf1cb23";
+  sha256 = "sha256-M0XhmZ/2lk+6jIkUxAog1A+/BIz9/mUTeWGV1mtBrxY=";
 }
