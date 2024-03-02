@@ -97,12 +97,12 @@
               b = "branch";
               bc = "${b} --show-current";
               bd = "${b} -D";
-              backup = ''
-                !sh -c 'CURRENT=$(git ${bc}) && git ${st} && git ${co} -B backup && git ${st} apply && git ${ad} && git ${cam} "backup" && git ${pf} $1 && git ${co} $CURRENT && git ${stp} && git ${bd} backup' -'';
+              backup = ''!sh -c 'CURRENT=$(git ${bc}) && git ${st} && git ${co} -B backup && git ${st} apply && git ${ad} && git ${cam} "backup" && git ${pf} $1 && git ${co} $CURRENT && git ${stp} && git ${bd} backup' -'';
               cfg = "config";
               ci = "commit -v";
               cam = "${ci} -am";
               cia = "${ci} -a";
+              cmx = ''!sh -c 'msg=$(cat ./.git/COMMIT_EDITMSG); echo "''${msg%%#*}"' -'';
               co = "checkout";
               cp = "cherry-pick";
               cpp = "!sh -c 'CURRENT=$(git ${bc}) && git ${st} && git ${co} -B $2 $3 && git ${cp} $1 && git ${pf} $4 && git ${co} $CURRENT && git ${stp}' -";

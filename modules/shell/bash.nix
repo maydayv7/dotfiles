@@ -41,7 +41,7 @@ in {
           initExtra = ''
             function _update_ps1() {
               local old_exit_status=$?
-              eval $(${pkgs.powerline-go}/bin/powerline-go -error $old_exit_status -shell bash -eval -modules "host,cwd,exit,jobs,git" -newline)
+              eval $(${lib.getExe pkgs.powerline-go} -error $old_exit_status -shell bash -eval -modules "host,cwd,exit,jobs,git" -newline)
               return $old_exit_status
             }
 

@@ -77,9 +77,10 @@ with files; let
 in
   recursiveUpdate {
     meta = {
+      mainProgram = "nixos";
       description = "System Management Script";
       homepage = files.path.repo;
-      license = licenses.mit;
+      license = licenses.gpl3Only;
       maintainers = ["maydayv7"];
     };
   } (pkgs.writeShellApplication {

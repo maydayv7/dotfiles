@@ -15,7 +15,7 @@ gdbus monitor -y -d org.freedesktop.login1 | grep LockedHint --line-buffered |
         else
           PLAY=false
         fi
-        playerctl pause
+        playerctl pause -a
       ;;
       *"<false>"*)
         if $PLAY

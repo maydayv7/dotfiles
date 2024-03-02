@@ -21,7 +21,7 @@ in rec {
     # nix-community/home-manager/4099
     services.waybar.Service.ExecStart = lib.mkForce (pkgs.writeShellScript "waybar-wrapper.sh" ''
       ${files.path.systemd}
-      ${programs.waybar.package}/bin/waybar
+      ${lib.getExe programs.waybar.package}
     '');
 
     # nix-community/home-manager/2064
@@ -280,6 +280,9 @@ in rec {
 
         idle_inhibitor = {
           format = "{icon}";
+          on-click = "hyprutils toggle_idle";
+          tooltip-format-activated = "Idle Inhibitor: On";
+          tooltip-format-deactivated = "Idle Inhibitor: Off";
           format-icons = {
             activated = "";
             deactivated = "";

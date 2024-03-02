@@ -1,20 +1,7 @@
-{
-  sys,
-  pkgs,
-  files,
-  ...
-}: let
-  inherit (sys.lib.stylix.colors) base07 base0D;
-  utils = "${pkgs.writeShellApplication {
-    name = "utils";
-    text = builtins.replaceStrings ["#ffffff"] ["#${base07}"] files.scripts.utils;
-    runtimeInputs = with pkgs; [coreutils alsa-utils brillo playerctl libnotify wget];
-  }}/bin/utils";
-in {
-  ## Keybindings
+_: {
+  ## Compositor Keybindings
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
-    env = ["SLURP_ARGS, -dc ${base0D}"]; # Screengrab
     bind =
       [
         # Compositor Commands
@@ -111,23 +98,23 @@ in {
     # Ignore Locked State
     bindl = [
       # Media Controls
-      ", XF86AudioPlay, exec, ${utils} play_pause"
-      ", XF86AudioPrev, exec, ${utils} prev_track"
-      ", XF86AudioNext, exec, ${utils} next_track"
+      ", XF86AudioPlay, exec, hyprutils play_pause"
+      ", XF86AudioPrev, exec, hyprutils prev_track"
+      ", XF86AudioNext, exec, hyprutils next_track"
 
       # Volume
-      ", XF86AudioMute, exec, ${utils} volume_mute"
+      ", XF86AudioMute, exec, hyprutils volume_mute"
     ];
 
     # Repeat on Hold
     bindle = [
       # Volume
-      ", XF86AudioRaiseVolume, exec, ${utils} volume_up"
-      ", XF86AudioLowerVolume, exec, ${utils} volume_down"
+      ", XF86AudioRaiseVolume, exec, hyprutils volume_up"
+      ", XF86AudioLowerVolume, exec, hyprutils volume_down"
 
       # Backlight
-      ", XF86MonBrightnessUp, exec, ${utils} brightness_up"
-      ", XF86MonBrightnessDown, exec, ${utils} brightness_down"
+      ", XF86MonBrightnessUp, exec, hyprutils brightness_up"
+      ", XF86MonBrightnessDown, exec, hyprutils brightness_down"
     ];
   };
 }

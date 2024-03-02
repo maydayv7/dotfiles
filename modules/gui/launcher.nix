@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf mkOption replaceStrings types;
+  inherit (lib) getExe mkEnableOption mkIf mkOption replaceStrings types;
   cfg = config.gui.launcher;
 in {
   options.gui.launcher = {
@@ -79,7 +79,7 @@ in {
             ExecStart = pkgs.writeShellScript "ulauncher-wrapper.sh" ''
               ${files.path.systemd}
               export GDK_BACKEND=${cfg.server}
-              exec ${pkgs.ulauncher}/bin/ulauncher --hide-window ${
+              exec ${getExe pkgs.ulauncher} --hide-window ${
                 if cfg.shadow
                 then ""
                 else "--no-window-shadow"

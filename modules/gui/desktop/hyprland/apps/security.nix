@@ -5,12 +5,14 @@
   files,
   ...
 }: let
+  inherit (lib) concatMapStringsSep getExe;
   inherit (sys.stylix) fonts;
+  locker = pkgs.swaylock-effects;
 in {
   # Locker
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock-effects;
+    package = locker;
     settings = {
       clock = true;
       indicator = true;
@@ -38,7 +40,7 @@ in {
       }
       {
         event = "lock";
-        command = "${pkgs.swaylock-effects}/bin/swaylock -f";
+        command = "sh -c '${getExe pkgs.custom.hyprutils} toggle_media; ${getExe locker} -f'";
       }
     ];
     timeouts = [
@@ -49,10 +51,7 @@ in {
           runtimeInputs = with pkgs; [pipewire ripgrep systemd];
           text = ''
             pw-cli i all | rg running
-            if [ $? == 1 ]
-            then
-              ${pkgs.systemd}/bin/systemctl suspend
-            fi
+            if [ $? == 1 ]; then ${pkgs.systemd}/bin/systemctl suspend; fi
           '';
         }}/bin/suspend";
       }
@@ -65,7 +64,7 @@ in {
     style =
       files.hyprland.wlogout
       + ''
-        ${lib.concatMapStringsSep "\n" (
+        ${concatMapStringsSep "\n" (
             name: ''
               #${name} {
                 background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/${name}.png"));

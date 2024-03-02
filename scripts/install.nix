@@ -83,9 +83,10 @@ with files.path; let
 in
   recursiveUpdate {
     meta = {
+      mainProgram = "os-install";
       description = "System Install Script";
       homepage = repo;
-      license = licenses.mit;
+      license = licenses.gpl3Only;
       maintainers = ["maydayv7"];
     };
   } (pkgs.writeShellApplication {

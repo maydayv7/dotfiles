@@ -9,7 +9,7 @@
 with files; let
   inherit (util.map) modules;
   inherit (builtins) listToAttrs map;
-  inherit (lib) mkEnableOption mkBefore mkIf mkMerge nameValuePair;
+  inherit (lib) getExe mkEnableOption mkBefore mkIf mkMerge nameValuePair;
 in {
   imports = modules.list ./.;
 
@@ -65,7 +65,7 @@ in {
           programs =
             listToAttrs (map (shell:
               nameValuePair shell
-              {initExtra = mkBefore ''eval $(${pkgs.thefuck}/bin/thefuck --alias "fix")'';})
+              {initExtra = mkBefore ''eval $(${getExe pkgs.thefuck} --alias "fix")'';})
             (modules.name ./.))
             // {
               hstr.enable = true; # Command History Browser
@@ -97,12 +97,11 @@ in {
             dotfiles = "cd ${path.system}";
 
             # Programs
-            cat = "bat";
-            colors = "${scripts.colors}";
-            grep = "grep --color";
-            edit = "sudo $EDITOR";
-            history = "hstr";
+            c = "bat";
             l = "eza -b -h -l -F --octal-permissions --icons --time-style iso";
+            grep = "grep --color";
+            colors = "${scripts.colors}";
+            edit = "sudo $EDITOR";
             sike = "neofetch";
           };
         };

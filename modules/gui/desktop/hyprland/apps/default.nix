@@ -7,8 +7,9 @@
   ...
 }:
 with files; let
-  inherit (config.gui) wallpaper;
   inherit (lib) getExe mkIf;
+  inherit (config.gui) wallpaper;
+  inherit (config.lib.stylix) colors;
   exists = app: builtins.elem app config.apps.list;
   theme = import ../theme.nix pkgs;
 in {
@@ -52,6 +53,7 @@ in {
     transmission-gtk
 
     # Utilities
+    custom.hyprutils
     cliphist
     grim
     unstable.grimblast
@@ -94,6 +96,16 @@ in {
         video = ["io.github.celluloid_player.Celluloid.desktop"];
       };
 
+      # App Environment
+      dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "appmenu";
+      wayland.windowManager.hyprland.settings.env = [
+        # Screengrab
+        "SLURP_ARGS, -dc ${colors.base0D}"
+
+        # QT Apps
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION, 1"
+      ];
+
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [
         "$mod SHIFT, slash, exec, pkill -f -1 nwg-wrapper" # Binds List
@@ -115,6 +127,8 @@ in {
 
       # Autostart
       wayland.windowManager.hyprland.settings.exec-once = [
+        "dbus-update-activation-environment --systemd --all"
+
         # Application Drawer
         "nwg-drawer -r"
 
@@ -177,48 +191,47 @@ in {
 
       # Notifications
       stylix.targets.dunst.enable = true;
-      services.dunst = {
+      services.dunst = let
+        ignore = {
+          history_ignore = "yes";
+          fullscreen = "show";
+          highlight = "#${colors.base07}";
+        };
+      in {
         enable = true;
         iconTheme = theme.icons;
-        settings =
-          {
-            global = {
-              alignment = "center";
-              corner_radius = 10;
-              follow = "mouse";
-              format = "<b>%s</b>\\n%b";
-              frame_width = 1;
-              horizontal_padding = 8;
-              icon_corner_radius = 10;
-              icon_position = "left";
-              icon_theme = theme.icons.name;
-              indicate_hidden = "yes";
-              markup = "yes";
-              max_icon_size = 64;
-              mouse_left_click = "do_action";
-              mouse_middle_click = "close_all";
-              mouse_right_click = "close_current";
-              offset = "5x5";
-              padding = 8;
-              plain_text = "no";
-              progress_bar_corner_radius = 10;
-              separator_height = 1;
-              show_indicators = false;
-              shrink = "no";
-              transparency = 10;
-              word_wrap = "yes";
-            };
-          }
-          // (let
-            ignore = {
-              history_ignore = "yes";
-              fullscreen = "show";
-            };
-          in {
-            fullscreen_delay = {fullscreen = "delay";};
-            power = {appname = "poweralertd";} // ignore;
-            utility = {appname = "utility";} // ignore;
-          });
+        settings = {
+          global = {
+            alignment = "center";
+            corner_radius = 10;
+            follow = "mouse";
+            format = "<b>%s</b>\\n%b";
+            frame_width = 1;
+            horizontal_padding = 8;
+            icon_corner_radius = 10;
+            icon_position = "left";
+            icon_theme = theme.icons.name;
+            indicate_hidden = "yes";
+            markup = "yes";
+            max_icon_size = 64;
+            mouse_left_click = "do_action";
+            mouse_middle_click = "close_all";
+            mouse_right_click = "close_current";
+            offset = "5x5";
+            padding = 8;
+            plain_text = "no";
+            progress_bar_corner_radius = 10;
+            separator_height = 1;
+            show_indicators = false;
+            shrink = "no";
+            transparency = 10;
+            word_wrap = "yes";
+          };
+
+          fullscreen_delay.fullscreen = "delay";
+          power = {appname = "poweralertd";} // ignore;
+          utility = {appname = "utility";} // ignore;
+        };
       };
 
       # Display Temperature
@@ -245,7 +258,7 @@ in {
 
         # Screen Share
         xwaylandvideobridge = {
-          Unit.Description = "Stream Wayland windows to apps running under Xwayland";
+          Unit.Description = "Stream Wayland windows to apps running under XWayland";
           Install.wantedBy = ["graphical-session.target"];
           Service = {
             ExecStart = getExe pkgs.xwaylandvideobridge;
