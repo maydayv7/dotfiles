@@ -283,6 +283,7 @@ in {
 
           # Text Editor
           ".config/geany/geany.conf".text = geany.settings;
+          ".config/geany/keybindings.conf".text = geany.keybindings;
           ".config/geany/colorschemes/theme.conf".text = geany.catppuccin;
 
           # Terminal

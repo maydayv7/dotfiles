@@ -1,28 +1,27 @@
 <span size="10.75pt">
 <b><big>Keyboard Shortcuts</big></b>																	<b><big>Mouse Actions</big></b>
-<i>$mod -> SUPER</i>																			<i>L'</i> or <i>R' -> Left/Right Click</i>
+<i>$mod -> SUPER</i>																			<i>L' -> Left Click</i>
+<i> -> ALT Release Selection</i>																<i>R' -> Right Click</i>
 
 <tt>$mod Q</tt>							Quit application										<tt>$mod L'</tt>				Move window
 <tt>$mod P</tt>							Pin window on all Workspaces							<tt>$mod R'</tt>				Window resize
 <tt>$mod M</tt>							Maximize window										<tt>$mod CTRL L'</tt>		Window resize
 <tt>$mod SHIFT M</tt>					Fullscreen window										<tt>$mod SHIFT L'</tt>		Move window into application group
 <tt>ALT Q</tt>								Minimize window
-<tt>ALT SHIFT Q</tt>					Show minimized windows
+<tt>ALT SHIFT Q </tt>					Show all minimized windows
 <tt>$mod <i>ARROW</i></tt>						Switch focus to window in desired direction
 <tt>$mod SHIFT <i>ARROW</i></tt>			Swap current window with window in desired direction
 <tt>$mod Space</tt>						Change window split direction
-
-<tt>ALT [CTRL] Tab</tt>				Cycle [backwards] through open applications
-<tt>ALT SHIFT Tab</tt>					Activate urgent/last window
 <tt>$mod SHIFT Space</tt>			Toggle application grouping
-<tt>$mod [SHIFT] Tab</tt>			Cycle [backwards] through grouped applications
-<tt>ALT `</tt>								Show overview
-<tt>ALT SHIFT `</tt>					Show overview with every open application
+
+<tt>ALT [SHIFT] Tab </tt>			Show application overview [of all workspaces]
 <tt>ALT <i>ARROW</i></tt>						Switch to window in desired direction in overview
+<tt>ALT CTRL Tab</tt>					Activate urgent/last window
+<tt>ALT [SHIFT] `</tt>					Cycle [backwards] through grouped applications
 
 <tt>$mod <i>NUM</i></tt>						Create workspace '<i>NUM</i>'
 <tt>$mod SHIFT <i>NUM</i></tt>				Move window to workspace '<i>NUM</i>'
-<tt>$mod ,<i> or </i>.</tt>					Move to previous/next workspace
+<tt>$mod ,<i> or </i>.</tt>					Move to previous/next non-empty workspace
 <tt>$mod `</tt>							Toggle special workspace to stash windows
 <tt>$mod SHIFT `</tt>					Move window to/from special workspace stash
 <tt>$mod SHIFT ,<i> or </i>.</tt>			Move window to previous/next workspace
@@ -49,5 +48,4 @@
 <tt>$mod Enter</tt>						Task Manager
 <tt>$mod N</tt>							Show received notifications in order
 <tt>$mod /</tt>							Application Launcher
-<tt>Calculator</tt>						Calculator
 </span>

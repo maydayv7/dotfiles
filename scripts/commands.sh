@@ -3,6 +3,15 @@
 
 # Useful Commands #
 
+temp(){
+  TEMP=/tmp/"$1"
+  if [ -z "$2" ]
+  then
+    rm -rf "$TEMP"
+  fi
+  mkdir -p "$TEMP"
+}
+
 extract() {
   if [ -f "$1" ]
   then
@@ -26,13 +35,6 @@ extract() {
   fi
 }
 
-internet() {
-  if ! nc -zw1 google.com 443 2> /dev/null
-  then
-    error "You are Offline, Please Connect to the Internet"
-  fi
-}
-
 up() {
   LIMIT=$1
   P=$PWD/..
@@ -43,14 +45,11 @@ up() {
   cd "$P" || exit
 }
 
-newline() {
-  echo -e "\n";
-}
-
-temp(){
-  TEMP=/tmp/script
-  rm -rf "$TEMP"
-  mkdir -p "$TEMP"
+internet() {
+  if ! nc -zw1 google.com 443 2> /dev/null
+  then
+    error "You are Offline, Please Connect to the Internet"
+  fi
 }
 
 restart() {
@@ -61,6 +60,11 @@ restart() {
     esac
 }
 
+# Print
+
+newline() {
+  echo -e "\n";
+}
 
 error() {
   echo -e "\n\033[0;31merror:\033[0m $1"

@@ -89,6 +89,7 @@ in
       cachix
       coreutils
       git
+      gnugrep
       gnupg
       gnused
       jq
@@ -142,7 +143,7 @@ in
           fi
         ;;
         "--delta")
-          temp
+          temp nixos-build
           pushd "$TEMP" &> /dev/null
           echo "Building Configuration..."
           if nixos-rebuild build --flake ${path.system}#

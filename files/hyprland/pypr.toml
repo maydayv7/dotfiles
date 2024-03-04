@@ -15,6 +15,7 @@ size = "75% 60%"
 animation = "fromBottom"
 command = "nwg-clipman -nw"
 class = "nwg-clipman"
+lazy = true
 size = "75% 65%"
 margin = 30
 

@@ -44,8 +44,8 @@
         "ALT SHIFT, Q, hych:toggle_restore_window"
 
         # Overview
-        "ALT, grave, hycov:toggleoverview"
-        "ALT SHIFT, grave, hycov:toggleoverview, forceall"
+        "ALT, Tab, hycov:toggleoverview"
+        "ALT SHIFT, Tab, hycov:toggleoverview, forceall"
         "ALT, left, hycov:movefocus, l"
         "ALT, right, hycov:movefocus, r"
         "ALT, up, hycov:movefocus, u"

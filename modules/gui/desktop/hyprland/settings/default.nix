@@ -3,7 +3,11 @@
   lib,
   util,
   ...
-}: {
+}: let
+  inherit (lib) mkForce mkIf;
+  inherit (sys.gui) fancy;
+  inherit (sys.lib.stylix.colors) base0A base0D;
+in {
   ## Hyprland Settings
   imports = util.map.modules.list ./.;
   stylix.targets.hyprland.enable = true;
@@ -70,7 +74,7 @@
       general =
         {
           resize_on_border = true;
-          allow_tearing = !sys.gui.fancy;
+          allow_tearing = !fancy;
         }
         //
         # Visuals
@@ -78,9 +82,10 @@
           gaps_in = 5;
           gaps_out = 5;
           border_size = 2;
+          "col.active_border" = mkForce "rgb(${base0A}) rgb(${base0D}) 45deg";
         };
 
-      group.groupbar = with sys.lib.stylix.colors; {
+      group.groupbar = {
         enabled = true;
         render_titles = false;
         height = 7;
@@ -114,7 +119,7 @@
         ];
       };
 
-      decoration = lib.mkIf sys.gui.fancy {
+      decoration = mkIf fancy {
         rounding = 10;
         drop_shadow = true;
         shadow_ignore_window = true;

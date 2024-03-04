@@ -9,12 +9,15 @@ _: {
         "$mod, P, pin"
         "$mod, M, fullscreen, 1"
         "$mod SHIFT, M, fullscreen,"
+        "$mod, Space, togglesplit"
 
-        # Focus Change
+        # Window Focus
         "$mod, left, movefocus, l"
         "$mod, right, movefocus, r"
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
+        "ALT CTRL, Tab, focusurgentorlast"
+        "ALT CTRL, Tab, bringactivetotop,"
 
         # Window Swap
         "$mod SHIFT, left, swapwindow, l"
@@ -22,24 +25,15 @@ _: {
         "$mod SHIFT, up, swapwindow, u"
         "$mod SHIFT, down, swapwindow, d"
 
-        # Tiling
-        "$mod, Space, togglesplit"
-        "$mod SHIFT, Space, togglegroup"
-        "$mod, Tab, changegroupactive, f"
-        "$mod SHIFT, Tab, changegroupactive, b"
+        # Window Groups
+        "$mod SHIFT, space, togglegroup"
+        "ALT, grave, changegroupactive, f"
+        "ALT SHIFT, grave, changegroupactive, b"
 
         # Floating Mode
         "$mod, semicolon, togglefloating,"
         "$mod, apostrophe, workspaceopt, allfloat"
         "$mod, C, centerwindow"
-
-        # Window Switcher
-        "ALT, Tab, cyclenext,"
-        "ALT, Tab, bringactivetotop,"
-        "ALT SHIFT, Tab, focusurgentorlast"
-        "ALT SHIFT, Tab, bringactivetotop,"
-        "ALT CTRL, Tab, cyclenext, prev"
-        "ALT CTRL, Tab, bringactivetotop,"
 
         # Cycle Workspaces
         "$mod, comma, workspace, m-1"
@@ -50,8 +44,8 @@ _: {
         "$mod SHIFT, grave, exec, pypr toggle_special stash"
 
         # Move Window to Workspace
-        "$mod SHIFT, comma, movetoworkspace, m-1"
-        "$mod SHIFT, period, movetoworkspace, m+1"
+        "$mod SHIFT, comma, movetoworkspace, r-1"
+        "$mod SHIFT, period, movetoworkspace, r+1"
 
         # Cycle Monitors
         "$mod ALT, comma, focusmonitor, l"

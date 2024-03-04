@@ -40,7 +40,7 @@ in {
       }
       {
         event = "lock";
-        command = "sh -c '${getExe pkgs.custom.hyprutils} toggle_media; ${getExe locker} -f'";
+        command = let toggle = "${getExe pkgs.custom.hyprutils} toggle_media"; in "sh -c '${toggle}; ${getExe locker}; ${toggle}'";
       }
     ];
     timeouts = [

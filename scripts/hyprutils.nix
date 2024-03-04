@@ -18,16 +18,22 @@ in
     name = "hyprutils";
     runtimeInputs = with pkgs; [
       coreutils
+      dunst
+      gnugrep
       alsa-utils
       brillo
       playerctl
       libnotify
+      swayidle
       systemd
       wget
     ];
 
     text = ''
       set +eu
+      ${files.scripts.commands}
+      temp hyprutils preserve
+
       show_album_art=true
       show_music_in_volume_indicator=true
 
@@ -51,8 +57,8 @@ in
           elif [[ "$url" == "http://"* ]] || [[ "$url" == "https://"* ]]
           then
             filename="$(echo "$url" | sed "s/.*\///")"
-            if [ ! -f "/tmp/$filename" ]; then wget -O "/tmp/$filename" "$url"; fi
-            media_icon="/tmp/$filename"
+            if [ ! -f "$TEMP/$filename" ]; then wget -O "$TEMP/$filename" "$url"; fi
+            media_icon="$TEMP/$filename"
           fi
         fi
       }
@@ -145,7 +151,7 @@ in
         ;;
 
         toggle_media)
-          FILE="/tmp/playerctl_status"
+          FILE="$TEMP/toggle_media"
           if test -f "$FILE"
           then
             rm "$FILE"
