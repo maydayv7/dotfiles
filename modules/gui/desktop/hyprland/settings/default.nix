@@ -6,7 +6,7 @@
 }: let
   inherit (lib) mkForce mkIf;
   inherit (sys.gui) fancy;
-  inherit (sys.lib.stylix.colors) base0A base0D;
+  inherit (sys.lib.stylix.colors) base03 base0A base0D;
 in {
   ## Hyprland Settings
   imports = util.map.modules.list ./.;
@@ -82,16 +82,28 @@ in {
           gaps_in = 5;
           gaps_out = 5;
           border_size = 2;
-          "col.active_border" = mkForce "rgb(${base0A}) rgb(${base0D}) 45deg";
+          "col.active_border" = mkForce "rgb(${base0D}) rgb(${base0A}) 90deg";
         };
 
-      group.groupbar = {
-        enabled = true;
-        render_titles = false;
-        height = 7;
-        scrolling = true;
-        "col.active" = "rgb(${base0A})";
-        "col.locked_active" = "rgb(${base0D})";
+      group = let
+        active = "rgb(${base0A}) rgb(${base0D}) 90deg";
+        inactive = "rgb(${base03}) rgb(${base0D}) 90deg";
+      in {
+        groupbar = {
+          enabled = true;
+          render_titles = false;
+          height = 7;
+          scrolling = true;
+          gradients = true;
+          "col.active" = active;
+          "col.locked_active" = active;
+          "col.inactive" = inactive;
+          "col.locked_inactive" = inactive;
+        };
+        "col.border_active" = mkForce active;
+        "col.border_locked_active" = mkForce active;
+        "col.border_inactive" = mkForce inactive;
+        "col.border_locked_inactive" = mkForce inactive;
       };
 
       animation = {

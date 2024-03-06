@@ -107,7 +107,7 @@ in
 
       if [[ -n $IN_NIX_SHELL ]]
       then
-        warn "You are in a Nix Developer Shell" "'nixos' may not work here properly\n"
+        warn "You are in a Nix Developer Shell" "This script may not work here properly\n"
       fi
 
       case $1 in

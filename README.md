@@ -11,6 +11,8 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 <details>
 <summary>Desktop Pictures</summary>
 
+**_Note:_** These may be outdated
+
 | ![Hyprland](./files/images/desktop/hyprland.png) |
 | :----------------------------------------------: |
 |                    _Hyprland_                    |

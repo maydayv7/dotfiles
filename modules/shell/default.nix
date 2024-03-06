@@ -9,7 +9,7 @@
 with files; let
   inherit (util.map) modules;
   inherit (builtins) listToAttrs map;
-  inherit (lib) getExe mkEnableOption mkBefore mkIf mkMerge nameValuePair;
+  inherit (lib) getExe' mkEnableOption mkBefore mkIf mkMerge nameValuePair;
 in {
   imports = modules.list ./.;
 
@@ -65,7 +65,7 @@ in {
           programs =
             listToAttrs (map (shell:
               nameValuePair shell
-              {initExtra = mkBefore ''eval $(${getExe pkgs.thefuck} --alias "fix")'';})
+              {initExtra = mkBefore ''eval $(${getExe' pkgs.thefuck "thefuck"} --alias "fix")'';})
             (modules.name ./.))
             // {
               hstr.enable = true; # Command History Browser

@@ -17,6 +17,14 @@ window#waybar {
   padding-right: 5px;
 }
 
+#users .drawer box {
+  margin-left: 5px;
+}
+
+#custom-power {
+  color: @base08;
+}
+
 #waybar.empty #window {
   background: none;
 }
@@ -46,8 +54,18 @@ window#waybar {
   border: 2px solid @base08;
 }
 
+#custom-dropdown {
+  color: #ffffff;
+}
+
 #tray {
-  background-color: @base08;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+#tray * {
+  margin-left: 8px;
 }
 
 #mpris {
@@ -70,6 +88,10 @@ window#waybar {
   animation-direction: alternate;
 }
 
+#power-profiles-daemon {
+  color: @base0C;
+}
+
 #custom-weather {
   color: @base00;
   background-color: @base06;
@@ -88,14 +110,11 @@ window#waybar {
   background-color: transparent;
 }
 
-#custom-power {
-  color: @base08;
-}
-
 #backlight,
 #battery,
 #bluetooth,
 #clock,
+#custom-dropdown,
 #custom-dunst,
 #custom-logo,
 #custom-power,
@@ -103,11 +122,11 @@ window#waybar {
 #keyboard-state,
 #mpris,
 #network,
+#power-profiles-daemon,
 #taskbar,
-#tray,
 #user,
 #window,
 #wireplumber,
 #workspaces {
-  padding: 0 5px 0 5px;
+  padding: 3px 5px 3px 5px;
 }

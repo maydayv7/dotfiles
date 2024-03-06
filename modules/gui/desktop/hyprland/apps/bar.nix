@@ -52,22 +52,18 @@ in rec {
         margin-bottom = 5;
         margin-left = 5;
 
-        modules-left = ["custom/logo" "user" "hyprland/workspaces" "hyprland/window"];
+        modules-left = ["custom/logo" "group/users" "hyprland/workspaces" "hyprland/window"];
         modules-center = ["wlr/taskbar"];
         modules-right = [
-          "tray"
+          "group/menu"
           "bluetooth"
           "network"
-          "keyboard-state"
-          "mpris"
-          "wireplumber"
+          "group/media"
           "backlight"
-          "battery"
+          "group/power"
           "custom/weather"
           "clock"
-          "custom/dunst"
-          "idle_inhibitor"
-          "custom/power"
+          "group/notify"
         ];
 
         "custom/logo" = {
@@ -77,12 +73,24 @@ in rec {
           on-click-right = "hyprctl dispatch hycov:toggleoverview";
         };
 
+        "group/users" = {
+          orientation = "horizontal";
+          modules = ["user" "custom/power"];
+          drawer.transition-left-to-right = true;
+        };
+
         user = {
           format = "{user}";
           icon = true;
           height = 30;
           width = 30;
           open-on-click = true;
+        };
+
+        "custom/power" = {
+          format = "";
+          tooltip = false;
+          on-click = "wlogout -p layer-shell";
         };
 
         "hyprland/workspaces" = {
@@ -141,9 +149,29 @@ in rec {
           ];
         };
 
-        tray = {
-          icon-size = 14;
-          spacing = 8;
+        "group/menu" = {
+          orientation = "horizontal";
+          modules = ["custom/dropdown" "keyboard-state" "tray"];
+          drawer.transition-left-to-right = true;
+        };
+
+        "custom/dropdown" = {
+          format = "";
+          tooltip = false;
+        };
+
+        tray.icon-size = 14;
+        keyboard-state = {
+          numlock = true;
+          capslock = true;
+          format = {
+            numlock = " N {icon}";
+            capslock = "󰪛 {icon}";
+          };
+          format-icons = {
+            locked = "";
+            unlocked = "";
+          };
         };
 
         bluetooth = {
@@ -168,25 +196,10 @@ in rec {
           on-click = "pypr show network";
         };
 
-        keyboard-state = {
-          numlock = true;
-          capslock = true;
-          format = {
-            numlock = " N {icon}";
-            capslock = "󰪛 {icon}";
-          };
-          format-icons = {
-            locked = "";
-            unlocked = "";
-          };
-        };
-
-        mpris = {
-          dynamic-len = 20;
-          dynamic-importance-order = ["title" "position" "length" "artist"];
-          dynamic-separator = "";
-          format = " {player} {dynamic}";
-          format-paused = "󰏤 <i>{player}</i>";
+        "group/media" = {
+          orientation = "horizontal";
+          modules = ["wireplumber" "mpris"];
+          drawer.transition-left-to-right = true;
         };
 
         wireplumber = {
@@ -200,6 +213,14 @@ in rec {
           on-click = "pypr show volume";
         };
 
+        mpris = {
+          dynamic-len = 20;
+          dynamic-importance-order = ["title" "position" "length" "artist"];
+          dynamic-separator = "";
+          format = " {player} {dynamic}";
+          format-paused = "󰏤 <i>{player}</i>";
+        };
+
         backlight = {
           format = "{icon}";
           tooltip-format = "Backlight: {percent}%";
@@ -207,6 +228,12 @@ in rec {
           on-scroll-down = "brillo -u 300000 -A 5";
           on-scroll-up = "brillo -u 300000 -U 5";
           on-click = "pypr show displays";
+        };
+
+        "group/power" = {
+          orientation = "horizontal";
+          modules = ["battery" "power-profiles-daemon"];
+          drawer.transition-left-to-right = true;
         };
 
         battery = {
@@ -217,10 +244,23 @@ in rec {
           tooltip-format = "Battery: {capacity}%";
           format-charging = "";
           format-icons = ["" "" "" "" ""];
+          on-click-right = "hyprutils toggle_fancy";
           states = {
             good = 80;
             warning = 20;
             critical = 10;
+          };
+        };
+
+        power-profiles-daemon = {
+          format = "{icon}";
+          tooltip = true;
+          tooltip-format = "Power Profile: {profile}";
+          format-icons = {
+            default = "";
+            performance = "";
+            balanced = "";
+            power-saver = "";
           };
         };
 
@@ -260,6 +300,12 @@ in rec {
           };
         };
 
+        "group/notify" = {
+          orientation = "horizontal";
+          modules = ["custom/dunst" "idle_inhibitor"];
+          drawer.transition-left-to-right = true;
+        };
+
         "custom/dunst" = {
           tooltip = false;
           on-click = "dunstctl history-pop";
@@ -287,12 +333,6 @@ in rec {
             activated = "";
             deactivated = "";
           };
-        };
-
-        "custom/power" = {
-          format = "";
-          tooltip = false;
-          on-click = "wlogout -p layer-shell";
         };
       }
     ];

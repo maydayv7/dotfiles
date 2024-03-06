@@ -5,6 +5,21 @@
   ...
 }: let
   inherit (lib) licenses recursiveUpdate;
+
+  help = ''
+    # Legend #
+      xxx - Command[s]           - Description
+
+    # Usage #
+      brightness_[up,down]       - Increase/Decrease screen brightness
+      volume_[up,down,mute]      - Increase/Decrease/Mute audio
+      [next,prev]_track          - Skip to previous/next audio track
+      play_pause                 - Toggle audio playing state
+      toggle_[]
+        media                    - Persist and toggle audio playing state
+        idle                     - Toggle Idle Daemon service
+        fancy                    - Toggle Compositor Effects
+  '';
 in
   recursiveUpdate {
     meta = {
@@ -37,7 +52,7 @@ in
       show_album_art=true
       show_music_in_volume_indicator=true
 
-      notify () {
+      notify() {
         notify-send -a "utility" -t 1000 -h string:x-dunst-stack-tag:"$1" "''${@:2}"
       }
 
@@ -108,49 +123,43 @@ in
       }
 
       case "$1" in
-        volume_up)
+        "") error "Expected an Option" "${help}";;
+        "help") echo -e "## Hyprland Utility Script ##\n${help}";;
+        "volume_up")
           amixer set Master on
           amixer sset Master 5%+
           volume_notification
         ;;
-
-        volume_down)
+        "volume_down")
           amixer set Master on
           amixer sset Master 5%-
           volume_notification
         ;;
-
-        volume_mute)
+        "volume_mute")
           amixer set Master 1+ toggle
           volume_notification
         ;;
-
-        brightness_up)
+        "brightness_up")
           brillo -u 300000 -A 5
           brightness_notification
         ;;
-
-        brightness_down)
+        "brightness_down")
           brillo -u 300000 -U 5
           brightness_notification
         ;;
-
-        next_track)
+        "next_track")
           playerctl next
           sleep 0.5 && music_notification
         ;;
-
-        prev_track)
+        "prev_track")
           playerctl previous
           sleep 0.5 && music_notification
         ;;
-
-        play_pause)
+        "play_pause")
           playerctl play-pause
           music_notification
         ;;
-
-        toggle_media)
+        "toggle_media")
           FILE="$TEMP/toggle_media"
           if test -f "$FILE"
           then
@@ -164,8 +173,7 @@ in
             playerctl pause -a
           fi
         ;;
-
-        toggle_idle)
+        "toggle_idle")
           if systemctl --user is-active swayidle
           then
             systemctl --user stop swayidle
@@ -174,6 +182,22 @@ in
             systemctl --user restart swayidle
             notify idle -i "system-lock-screen" "Started Idle Daemon"
           fi
+        ;;
+        "toggle_fancy")
+          FANCY=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
+          if [ "$FANCY" = 1 ]
+          then
+            hyprctl --batch "\
+              keyword animations:enabled 0;\
+              keyword decoration:drop_shadow 0;\
+              keyword decoration:blur:enabled 0;\
+              keyword general:gaps_in 0;\
+              keyword general:gaps_out 0;\
+              keyword general:border_size 1;\
+              keyword decoration:rounding 0"
+            exit
+          fi
+          hyprctl reload
         ;;
       esac
     '';
