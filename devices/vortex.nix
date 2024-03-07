@@ -6,7 +6,7 @@
   timezone = "Asia/Kolkata";
   locale = "IN";
 
-  kernel = "xanmod";
+  kernel = "cachyos";
   kernelModules = ["nvme" "thunderbolt"];
 
   imports = [{services.fwupd.enable = true;}];

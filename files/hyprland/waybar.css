@@ -68,6 +68,10 @@ window#waybar {
   margin-left: 8px;
 }
 
+#media .drawer box {
+  margin-left: 3px;
+}
+
 #mpris {
   color: @base00;
   background-color: @base05;

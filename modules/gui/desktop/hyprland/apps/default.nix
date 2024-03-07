@@ -110,7 +110,7 @@ in {
       wayland.windowManager.hyprland.settings.bind = [
         "$mod SHIFT, slash, exec, pkill -f -1 nwg-wrapper" # Binds List
         "$mod, slash, exec, ulauncher-toggle"
-        "$mod, slash, bringactivetotop,"
+        "$mod, slash, focuswindow, ulauncher"
         "$mod, A, exec, nwg-drawer"
         "$mod SHIFT, C, exec, hyprpicker -arf hex"
         "$mod, D, exec, pypr toggle displays"

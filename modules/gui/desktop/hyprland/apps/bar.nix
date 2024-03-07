@@ -257,8 +257,8 @@ in rec {
           tooltip = true;
           tooltip-format = "Power Profile: {profile}";
           format-icons = {
-            default = "";
-            performance = "";
+            default = "";
+            performance = "";
             balanced = "";
             power-saver = "";
           };

@@ -187,6 +187,7 @@ in
           FANCY=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
           if [ "$FANCY" = 1 ]
           then
+            hyprctl notify 1 2000 0 "Compositor Effects Disabled"
             hyprctl --batch "\
               keyword animations:enabled 0;\
               keyword decoration:drop_shadow 0;\
@@ -197,6 +198,7 @@ in
               keyword decoration:rounding 0"
             exit
           fi
+          hyprctl notify 1 2000 0 "Compositor Effects Enabled"
           hyprctl reload
         ;;
       esac
