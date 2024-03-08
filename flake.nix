@@ -43,20 +43,6 @@
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
-    # Nix User Repository
-    nur.url = "github:nix-community/NUR";
-
-    # Chaotic Packages Repository
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs = {
-        home-manager.follows = "home-manager";
-        systems.follows = "systems";
-        flake-utils.follows = "utils/flake-utils";
-        nix-filter.follows = "filters";
-      };
-    };
-
     # Proprietary Software
     proprietary = {
       url = "github:maydayv7/proprietary";
@@ -254,29 +240,26 @@
 
     # Binary Caches
     trusted-substituters = [
+      "https://maydayv7-dotfiles.cachix.org"
       "https://cache.nixos.org"
       "https://hyprland.cachix.org"
       "https://nix-community.cachix.org"
       "https://nix-gaming.cachix.org"
       "https://nixpkgs-unfree.cachix.org"
       "https://nixpkgs-wayland.cachix.org"
-      "https://nyx.chaotic.cx/"
       "https://catppuccin.cachix.org"
-      "https://maydayv7-dotfiles.cachix.org"
     ];
 
     # Public Keys
     trusted-public-keys = [
+      "maydayv7-dotfiles.cachix.org-1:dpECO0Z2ZMttY6JgWHuAR5M7cqeyfFjUsvHdnMz+j6U="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
-      "maydayv7-dotfiles.cachix.org-1:dpECO0Z2ZMttY6JgWHuAR5M7cqeyfFjUsvHdnMz+j6U="
     ];
   };
 }

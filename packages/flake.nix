@@ -48,7 +48,6 @@ in {
         inherit system config;
 
         overlays = [
-          nur.overlay
           vscode-catppuccin.overlays.default
           (final: prev: {
             nixFlakes = prev.nixVersions.nix_2_19;
@@ -56,7 +55,6 @@ in {
             custom = self.packages."${system}";
             unstable = import unstable {inherit system config;};
 
-            chaotic = chaotic.packages."${system}";
             code = vscode.extensions."${system}";
             gaming = gaming.packages."${system}";
             wine = windows.packages."${system}";

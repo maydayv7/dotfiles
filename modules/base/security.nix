@@ -1,11 +1,8 @@
 {
-  config,
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) hasPrefix mkOverride;
-in {
+}: {
   ## Security & Hardening Settings ##
   config = {
     # Protocols
@@ -27,11 +24,12 @@ in {
       kernel.sysctl = {
         # Kernel
         "kernel.ftrace_enabled" = false;
-        "kernel.kptr_restrict" = mkOverride 500 2;
+        "kernel.kptr_restrict" = lib.mkOverride 500 2;
         "kernel.sysrq" = 0;
-        "kernel.yama.ptrace_scope" = mkOverride 500 1;
+        "kernel.yama.ptrace_scope" = lib.mkOverride 500 1;
 
         # Network
+        "net.core.bpf_jit_enable" = true;
         "net.core.default_qdisc" = "cake";
         "net.ipv4.conf.all.accept_redirects" = false;
         "net.ipv4.conf.all.accept_source_route" = 0;
@@ -53,10 +51,6 @@ in {
         "net.ipv6.conf.all.accept_redirects" = false;
         "net.ipv6.conf.all.accept_source_route" = 0;
         "net.ipv6.conf.default.accept_redirects" = false;
-        "net.core.bpf_jit_enable" =
-          if (hasPrefix "cachyos" config.base.kernel)
-          then true
-          else false;
       };
 
       # Secure Modules
