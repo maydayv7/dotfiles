@@ -74,8 +74,8 @@
 
     # Flake Utility Functions
     utils = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-      inputs.flake-utils.inputs.systems.follows = "systems";
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
 
     # Source Filter Functions
@@ -103,7 +103,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "framework";
-        flake-utils.follows = "utils/flake-utils";
+        flake-utils.follows = "utils";
       };
     };
 
@@ -136,7 +136,7 @@
 
     # Base16 Theming
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:danth/stylix?ref=release-23.11";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
@@ -160,7 +160,7 @@
     };
 
     hycov = {
-      url = "github:DreamMaoMao/hycov";
+      url = "github:Ayuei/hycov";
       inputs.hyprland.follows = "hyprland";
     };
 
@@ -172,7 +172,7 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils/flake-utils";
+        flake-utils.follows = "utils";
       };
     };
 

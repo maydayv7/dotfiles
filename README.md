@@ -65,7 +65,6 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Ephemeral, Opt-In File System State using the [`impermanence`](https://github.com/nix-community/impermanence) module and [ZFS](https://zfsonlinux.org/)
 - Support for Secure Boot using [`lanzaboote`](https://github.com/nix-community/lanzaboote)
 - Support for Multiple Programming Language Development [`shells`](./shells) integrated with [`direnv`](https://direnv.net/) and [`lorri`](https://github.com/nix-community/lorri)
-- Auto-Magic using [`flake-utils-plus`](https://github.com/gytis-ivaskevicius/flake-utils-plus) helper functions
 - Automatic `packages` Updates using [`update.sh`](./packages/update.sh)
 - Install Media and Device Images using [`nixos-generators`](https://github.com/nix-community/nixos-generators) image generation modules
 - Syntax [Formatting](./modules/nix/format.nix) using [`treefmt`](https://github.com/numtide/treefmt) and [`treefmt-nix`](https://github.com/numtide/treefmt-nix)

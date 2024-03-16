@@ -32,7 +32,7 @@
   "search.useGlobalIgnoreFiles": true,
   "search.useParentIgnoreFiles": true,
   "terminal.integrated.cursorStyle": "line",
-  "terminal.integrated.enableBell": true,
+  "terminal.integrated.enableVisualBell": true,
   "terminal.integrated.tabs.separator": " / ",
   "update.mode": "none",
   "window.autoDetectColorScheme": true,

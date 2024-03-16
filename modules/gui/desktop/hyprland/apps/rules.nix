@@ -9,10 +9,11 @@ _: {
     ## Window Rules
     windowrulev2 = [
       # Clipboard
-      "float, title:^(nwg-clipman)$"
+      "float, title:^(clipman)$"
 
       # Application Launcher
       "opacity 0.9 override, class:^(ulauncher)$"
+      "move cursor -50% -50%, class:^(ulauncher)$"
 
       # PiP Window
       "float, title:^(Picture-in-Picture)$"
@@ -31,6 +32,8 @@ _: {
       "dimaround, class:^(gcr-prompter)$"
       "dimaround, class:^(xdg-desktop-portal-gtk)$"
       "dimaround, class:^(polkit-gnome-authentication-agent-1)$"
+      "stayfocused, class:^(polkit-gnome-authentication-agent-1)"
+      "stayfocused, class:^(pinentry-)"
 
       # Screen Share
       "maxsize 1 1, class:^(xwaylandvideobridge)$"

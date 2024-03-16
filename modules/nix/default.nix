@@ -1,21 +1,10 @@
-{
-  config,
-  lib,
-  inputs,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkEnableOption optionals;
-  inherit (config.nix) tools;
-  flake = (import ../../flake.nix).nixConfig;
-in {
-  imports = [./index.nix inputs.utils.nixosModules.autoGenFromInputs];
-
-  options.nix.tools = mkEnableOption "Enable Additional Nix Tools";
+{pkgs, ...}: {
+  imports = [./index.nix ./registry.nix ./tools.nix];
 
   ## Nix Settings ##
   config = {
     # Settings
+    user.persist.directories = [".cache/nix"];
     nix = {
       # Version
       package = pkgs.nixFlakes;
@@ -28,22 +17,15 @@ in {
         options = "--delete-older-than 7d";
       };
 
-      # Registry
-      linkInputs = true;
-      generateNixPathFromInputs = true;
-      generateRegistryFromInputs = true;
-
       settings = {
+        sandbox = true;
+
         # User Permissions
         allowed-users = ["root" "@wheel"];
         trusted-users = ["root" "@wheel"];
 
         # Binary Cache
-        inherit (flake) trusted-substituters trusted-public-keys;
-
-        # Additional Features
-        sandbox = true;
-        system-features = optionals tools ["kvm" "big-parallel" "recursive-nix"];
+        inherit ((import ../../flake.nix).nixConfig) trusted-substituters trusted-public-keys;
       };
 
       extraOptions = ''
@@ -54,17 +36,5 @@ in {
         max-free = ${toString (10 * 1024 * 1024 * 1024)}
       '';
     };
-
-    # Utilities
-    user.persist.directories = [".cache/nix"] ++ optionals tools [".cache/manix"];
-    environment.systemPackages =
-      [pkgs.cachix]
-      ++ optionals tools (with pkgs; [
-        alejandra
-        manix
-        nodePackages.prettier
-        shellcheck
-        statix
-      ]);
   };
 }

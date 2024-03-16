@@ -49,8 +49,8 @@ in {
 
         overlays = [
           vscode-catppuccin.overlays.default
-          (final: prev: {
-            nixFlakes = prev.nixVersions.nix_2_19;
+          (pkg: _: {
+            nixFlakes = pkg.unstable.nixVersions.nix_2_20;
 
             custom = self.packages."${system}";
             unstable = import unstable {inherit system config;};

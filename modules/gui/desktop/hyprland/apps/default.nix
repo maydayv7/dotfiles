@@ -42,7 +42,7 @@ in {
     mate.atril
     mission-center
     custom.nwg-clipman
-    nwg-displays
+    unstable.nwg-displays
     custom.nwg-drawer
     nwg-wrapper
     unstable.overskride
@@ -110,7 +110,6 @@ in {
       wayland.windowManager.hyprland.settings.bind = [
         "$mod SHIFT, slash, exec, pkill -f -1 nwg-wrapper" # Binds List
         "$mod, slash, exec, ulauncher-toggle"
-        "$mod, slash, focuswindow, ulauncher"
         "$mod, A, exec, nwg-drawer"
         "$mod SHIFT, C, exec, hyprpicker -arf hex"
         "$mod, D, exec, pypr toggle displays"
