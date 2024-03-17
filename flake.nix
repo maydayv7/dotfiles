@@ -145,7 +145,7 @@
 
     # Hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland?ref=v0.37.1";
       inputs.systems.follows = "systems";
     };
 
