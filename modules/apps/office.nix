@@ -23,6 +23,7 @@ in {
       hyphen
       libreoffice
       obs-studio
+      pitivi
 
       # Internet
       google-chrome
@@ -54,6 +55,7 @@ in {
         ".config/libreoffice"
         ".config/obs-studio"
         ".config/onlyoffice"
+        ".config/pitivi"
         ".local/share/data"
         ".local/share/onlyoffice"
         ".local/share/whatsapp-for-linux"

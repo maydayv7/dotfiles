@@ -51,11 +51,11 @@
         "description": "Switch to first/last Workspace"
       },
       {
-        "key": "Super + Ctrl + ←/→",
+        "key": "Super + Shift + ←/→",
         "description": "Move window to specified Workspace"
       },
       {
-        "key": "Super + Shift + ←/→",
+        "key": "Super + Ctrl + ←/→",
         "description": "Move window to specified Monitor"
       }
     ]
@@ -114,11 +114,11 @@
     "name": "Tiling Shortcuts",
     "shortcuts": [
       {
-        "key": "Super + Z",
+        "key": "Super + Y",
         "description": "Toggle window Tiling"
       },
       {
-        "key": "Super + Shift + Z",
+        "key": "Super + Shift + Y",
         "description": "Toggle automatic window tiling"
       },
       {

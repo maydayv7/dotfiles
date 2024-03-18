@@ -187,7 +187,7 @@
           focus-border-toggle = [];
           mod-mask-mouse-tile = "Super";
           prefs-open = [];
-          prefs-tiling-toggle = ["<Super>z"];
+          prefs-tiling-toggle = ["<Super>y"];
           window-focus-down = ["<Super>s"];
           window-focus-left = ["<Super>a"];
           window-focus-right = ["<Super>d"];
@@ -218,7 +218,7 @@
           window-swap-up = ["<Shift><Super>w"];
           window-toggle-always-float = [];
           window-toggle-float = ["<Shift><Super>F"];
-          workspace-active-tile-toggle = ["<Shift><Super>z"];
+          workspace-active-tile-toggle = ["<Shift><Super>y"];
         };
     }
     {

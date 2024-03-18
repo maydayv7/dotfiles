@@ -172,7 +172,6 @@ in {
           gnome-secrets
           gthumb
           lollypop
-          pitivi
           video-trimmer
           wike
 
@@ -187,7 +186,6 @@ in {
         ".config/evolution"
         ".config/gnome-boxes"
         ".config/gnome-builder"
-        ".config/pitivi"
         ".local/share/epiphany"
         ".local/share/evolution"
         ".local/share/geary"

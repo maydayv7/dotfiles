@@ -23,14 +23,14 @@ in {
       maximize = ["<Super>Up"];
       minimize = ["<Super>Down"];
       move-to-monitor-down = [];
-      move-to-monitor-left = ["<Shift><Super>Left"];
-      move-to-monitor-right = ["<Shift><Super>Right"];
+      move-to-monitor-left = ["<Primary><Super>Left"];
+      move-to-monitor-right = ["<Primary><Super>Right"];
       move-to-monitor-up = [];
       move-to-workspace-1 = [];
       move-to-workspace-down = [];
       move-to-workspace-last = [];
-      move-to-workspace-left = ["<Primary><Super>Left"];
-      move-to-workspace-right = ["<Primary><Super>Right"];
+      move-to-workspace-left = ["<Shift><Super>Left"];
+      move-to-workspace-right = ["<Shift><Super>Right"];
       move-to-workspace-up = [];
       panel-main-menu = [];
       panel-run-dialog = ["<Super>F2"];
@@ -109,6 +109,7 @@ in {
 
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
+      focus-mode = "sloppy";
       titlebar-font = "${builtins.head fonts.sansSerif} Bold 11";
       visual-bell = false;
     };
