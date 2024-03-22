@@ -30,4 +30,4 @@ jobs:
           github_token: ${{ secrets.ACCESS_TOKEN }}
           publish_dir: ./result
           publish_branch: deploy
-          cname: maydayv7.tk
+          cname: maydayv7.my.to

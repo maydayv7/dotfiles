@@ -10,7 +10,7 @@ Configuration [Builder](./configuration.nix)
   - `git` -
     - `hosting` -
       - `enable`: Enable Gitea Code Hosting - `true / false`
-      - `domain`: Website Domain Name - Ex. `maydayv7.tk`
+      - `domain`: Website Domain Name - Ex. `maydayv7.net`
       - `secret`: Path to Cloudfare Authentication Credentials
     - `runner` -
       - `support`: Enable Support for `git` Runners - `"github" / "gitlab"`

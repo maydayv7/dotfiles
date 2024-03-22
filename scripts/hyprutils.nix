@@ -8,14 +8,15 @@
 
   help = ''
     # Legend #
-      xxx - Command [modifiers]      - Description
+      xxx - Command [action]         - Description
 
     # Usage #
+      help                           - Show this information
       brightness [up,down]           - Screen Brightness Controls
       volume [up,down,mute]          - Volume Controls
       media [next,previous,toggle]   - Media Controls
       zoom [in,out]                  - Screen Zoom
-      toggle []
+      toggle 
         media                        - Persist and toggle audio playing state
         idle                         - Toggle Idle Daemon service
         fancy                        - Toggle Compositor Effects
@@ -77,6 +78,24 @@ in
       case "$1" in
         "") error "Expected an Option" "${help}";;
         "help") echo -e "## Hyprland Utility Script ##\n${help}";;
+        "brightness")
+          brightness_notification() {
+            brightness=$(brillo | grep -Po '[0-9]{1,3}' | head -n 1)
+            notify brightness -i "display" -h int:value:"$brightness" " $brightness%"
+          }
+          case "$2" in
+          "up")
+            brillo -u 300000 -A 5
+            brightness_notification
+          ;;
+          "down")
+            brillo -u 300000 -U 5
+            brightness_notification
+          ;;
+          "") error "Expected an Option" "Try 'hyprutils help' for more information" ;;
+          *) error "Unexpected Option 'brightness $2'" "Try 'hyprutils help' for more information" ;;
+          esac
+        ;;
         "volume")
           volume_notification() {
             volume=$(amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1)
@@ -118,28 +137,8 @@ in
             amixer set Master 1+ toggle
             volume_notification
           ;;
-          *)
-            error "Unexpected Option 'volume $2'" "Try 'hyprutils help' for more information"
-          ;;
-          esac
-        ;;
-        "brightness")
-          brightness_notification() {
-            brightness=$(brillo | grep -Po '[0-9]{1,3}' | head -n 1)
-            notify brightness -i "display" -h int:value:"$brightness" " $brightness%"
-          }
-          case "$2" in
-          "up")
-            brillo -u 300000 -A 5
-            brightness_notification
-          ;;
-          "down")
-            brillo -u 300000 -U 5
-            brightness_notification
-          ;;
-          *)
-            error "Unexpected Option 'brightness $2'" "Try 'hyprutils help' for more information"
-          ;;
+          "") error "Expected an Option" "Try 'hyprutils help' for more information" ;;
+          *) error "Unexpected Option 'volume $2'" "Try 'hyprutils help' for more information" ;;
           esac
         ;;
         "media")
@@ -173,9 +172,8 @@ in
             playerctl play-pause
             music_notification
           ;;
-          *)
-            error "Unexpected Option 'media $2'" "Try 'hyprutils help' for more information"
-          ;;
+          "") error "Expected an Option" "Try 'hyprutils help' for more information" ;;
+          *) error "Unexpected Option 'media $2'" "Try 'hyprutils help' for more information" ;;
           esac
         ;;
         "zoom")
@@ -196,9 +194,8 @@ in
               hyprctl notify 1 1000 0 "Zoomed Out ($ZOOM""x)"
             fi
           ;;
-          *)
-            error "Unexpected Option 'zoom $2'" "Try 'hyprutils help' for more information"
-          ;;
+          "") error "Expected an Option" "Try 'hyprutils help' for more information" ;;
+          *) error "Unexpected Option 'zoom $2'" "Try 'hyprutils help' for more information" ;;
           esac
         ;;
         "toggle")
@@ -245,9 +242,8 @@ in
             hyprctl notify 1 2000 0 "Compositor Effects Enabled"
             hyprctl reload
           ;;
-          *)
-            error "Unexpected Option 'toggle $2'" "Try 'hyprutils help' for more information"
-          ;;
+          "") error "Expected an Option" "Try 'hyprutils help' for more information" ;;
+          *) error "Unexpected Option 'toggle $2'" "Try 'hyprutils help' for more information" ;;
           esac
         ;;
       esac

@@ -1,10 +1,10 @@
 ## My Personal Website
 
-[![website](../files/images/website.png)](https://maydayv7.tk)
+[![website](../files/images/website.png)](https://maydayv7.my.to)
 
 Generated using [Zola](https://www.getzola.org/) and Deployed with [Nix](https://nixos.org/), [GitHub Pages](https://pages.github.com/) and [Netlify](https://netlify.com)
 
-Hosted at [maydayv7.tk](https://maydayv7.tk)
+Hosted at [maydayv7.my.to](https://maydayv7.my.to)
 
 ### Build
 

@@ -13,7 +13,7 @@ in {
       description = "Website Domain Name";
       type = types.str;
       default = "";
-      example = "maydayv7.tk";
+      example = "maydayv7.net";
     };
     secret = mkOption {
       description = "Path to Cloudfare Authentication Credentials";

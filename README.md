@@ -6,7 +6,7 @@
 
 ![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-23.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
-This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.tk](https://maydayv7.tk). You can follow along with my [NixOS Desktop](https://maydayv7.tk/series/nixos-desktop/) Series
+This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.my.to](https://maydayv7.my.to). You can follow along with my [NixOS Desktop](https://maydayv7.my.to/series/nixos-desktop/) Series
 
 <details>
 <summary>Desktop Pictures</summary>
