@@ -62,10 +62,6 @@ _: {
         ", Print, exec, grimblast --notify copysave area"
         "CTRL, Print, exec, grimblast --notify --cursor copysave output"
         "SHIFT, Print, exec, grimblast --notify --cursor copysave screen"
-
-        # Magnifier
-        ''$mod, equal, exec, pypr zoom "$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2 + 1}')"''
-        ''$mod, minus, exec, pypr zoom "$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2 - 1}')"''
       ]
       ++
       # Workspaces
@@ -92,23 +88,27 @@ _: {
     # Ignore Locked State
     bindl = [
       # Media Controls
-      ", XF86AudioPlay, exec, hyprutils play_pause"
-      ", XF86AudioPrev, exec, hyprutils prev_track"
-      ", XF86AudioNext, exec, hyprutils next_track"
+      ", XF86AudioPlay, exec, hyprutils media toggle"
+      ", XF86AudioPrev, exec, hyprutils media previous"
+      ", XF86AudioNext, exec, hyprutils media next"
 
       # Volume
-      ", XF86AudioMute, exec, hyprutils volume_mute"
+      ", XF86AudioMute, exec, hyprutils volume mute"
     ];
 
     # Repeat on Hold
     bindle = [
       # Volume
-      ", XF86AudioRaiseVolume, exec, hyprutils volume_up"
-      ", XF86AudioLowerVolume, exec, hyprutils volume_down"
+      ", XF86AudioRaiseVolume, exec, hyprutils volume up"
+      ", XF86AudioLowerVolume, exec, hyprutils volume down"
 
       # Backlight
-      ", XF86MonBrightnessUp, exec, hyprutils brightness_up"
-      ", XF86MonBrightnessDown, exec, hyprutils brightness_down"
+      ", XF86MonBrightnessUp, exec, hyprutils brightness up"
+      ", XF86MonBrightnessDown, exec, hyprutils brightness down"
+
+      # Magnifier
+      "$mod, equal, exec, hyprutils zoom in"
+      "$mod, minus, exec, hyprutils zoom out"
     ];
   };
 }

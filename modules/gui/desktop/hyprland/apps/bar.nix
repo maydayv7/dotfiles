@@ -219,6 +219,8 @@ in rec {
           dynamic-separator = "";
           format = " {player} {dynamic}";
           format-paused = "󰏤 <i>{player}</i>";
+          format-stopped = "";
+          tooltip-format-stopped = "Not Playing";
         };
 
         backlight = {
@@ -244,7 +246,7 @@ in rec {
           tooltip-format = "Battery: {capacity}%";
           format-charging = "";
           format-icons = ["" "" "" "" ""];
-          on-click-right = "hyprutils toggle_fancy";
+          on-click-right = "hyprutils toggle fancy";
           states = {
             good = 80;
             warning = 20;
@@ -326,7 +328,7 @@ in rec {
 
         idle_inhibitor = {
           format = "{icon}";
-          on-click = "hyprutils toggle_idle";
+          on-click = "hyprutils toggle idle";
           tooltip-format-activated = "Idle Inhibitor: On";
           tooltip-format-deactivated = "Idle Inhibitor: Off";
           format-icons = {
