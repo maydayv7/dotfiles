@@ -22,7 +22,7 @@ margin = 30
 [scratchpads.bluetooth]
 animation = "fromRight"
 command = "overskride"
-class = "overskride"
+class = "io.github.kaii_lb.Overskride"
 lazy = true
 size = "50% 90%"
 margin = 30
@@ -41,8 +41,8 @@ excludes = ["bluetooth", "network", "volume"]
 
 [scratchpads.network]
 animation = "fromRight"
-command = "kitty nmtui"
-class = "kitty"
+command = "kitty --class kitty-nm nmtui"
+class = "kitty-nm"
 lazy = true
 size = "50% 90%"
 margin = 30

@@ -160,7 +160,7 @@
     };
 
     hycov = {
-      url = "github:Ayuei/hycov";
+      url = "github:nlintn/hycov";
       inputs.hyprland.follows = "hyprland";
     };
 

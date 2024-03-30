@@ -545,15 +545,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1709466277,
-        "narHash": "sha256-fSujEAViKqQusHyYe7Qg8QnLlyUNOf0/Jk1P70BmiyE=",
-        "owner": "Ayuei",
+        "lastModified": 1711389855,
+        "narHash": "sha256-Bm5Z7DZVCqzUAg3n2JxJePXSEPnZYmH0+KJdWd8rYcc=",
+        "owner": "nlintn",
         "repo": "hycov",
-        "rev": "db6ea8a24f0a58fa69f86db49d7c853754b1b8e1",
+        "rev": "1aa1505d91222f1371749ecec7dd5512f5f7c2a5",
         "type": "github"
       },
       "original": {
-        "owner": "Ayuei",
+        "owner": "nlintn",
         "repo": "hycov",
         "type": "github"
       }
@@ -1168,11 +1168,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1710451336,
-        "narHash": "sha256-pP86Pcfu3BrAvRO7R64x7hs+GaQrjFes+mEPowCfkxY=",
+        "lastModified": 1711163522,
+        "narHash": "sha256-YN/Ciidm+A0fmJPWlHBGvVkcarYWSC+s3NTPk/P+q3c=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d691274a972b3165335d261cc4671335f5c67de9",
+        "rev": "44d0940ea560dee511026a53f0e2e2cde489b4d4",
         "type": "github"
       },
       "original": {

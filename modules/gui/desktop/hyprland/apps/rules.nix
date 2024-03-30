@@ -15,16 +15,13 @@ _: {
       "opacity 0.9 override, class:^(ulauncher)$"
       "move cursor -50% -50%, class:^(ulauncher)$"
 
-      # PiP Window
+      # Browser Windows
       "float, title:^(Picture-in-Picture)$"
-      "pin, title:^(Picture-in-Picture)$"
-
-      # Throw away Sharing Window
-      "workspace special silent, title:^(Firefox — Sharing Indicator)$"
+      "workspace special silent, title:^(Sharing Indicator)$"
       "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
 
-      # Idle Inhibit during media consumption
-      "idleinhibit focus, class:^(mpv|.+exe)$"
+      # Media Consumption
+      "idleinhibit focus, class:^(mpv|.*celluloid.*|.+exe)$"
       "idleinhibit focus, class:^(firefox|google-chrome)$, title:^(.*YouTube.*)$"
       "idleinhibit fullscreen, class:^(firefox|google-chrome)$"
 
