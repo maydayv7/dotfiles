@@ -1,31 +1,41 @@
-## Arch ZSH Config
+## My ZSH Config ##
+# Plugins
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# Powerlevel10k Prompt
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Powerlevel10K Prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Find The Command
 source /usr/share/doc/find-the-command/ftc.zsh noprompt quiet
 
-# Oh My ZSH
-export ZSH="/home/v7/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+bindkey '^[[3;5~' kill-word
+bindkey '^[[3~'   delete-char
+bindkey "^[[5~"   beginning-of-history
+bindkey "^[[6~"   end-of-history
+bindkey '^[[A'    up-line-or-search
+bindkey '^[[B'    down-line-or-search
+bindkey '^[[C'    forward-char
+bindkey '^[[D'    backward-char
+bindkey '^[[F'    end-of-line
+bindkey '^[[H'    beginning-of-line
+bindkey '^J'      backward-kill-line
 
-# Set name of the theme to load
-ZSH_THEME="powerlevel10k/powerlevel10k"
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=1000
+setopt SHARE_HISTORY
 
-# Plugins
-plugins=(
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-
-# Aliases
-alias sike="neofetch"
-alias edit="nano"
 alias hi="echo 'Hi there. How are you?'"
 alias bye="exit"
-alias repo="sudo systemctl start reflector.service"
+alias c="bat"
+alias l="eza -b -h -l -F --octal-permissions --icons --time-style iso"
+alias grep="grep --color"
+alias edit="sudo $EDITOR"
+alias sike="neofetch --ascii_distro arch"
