@@ -145,7 +145,7 @@
 
     # Hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.37.1";
+      url = "github:hyprwm/Hyprland";
       inputs.systems.follows = "systems";
     };
 
@@ -154,31 +154,23 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    hych = {
-      url = "github:DreamMaoMao/hych";
+    hyprspace = {
+      url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
-    };
-
-    hycov = {
-      url = "github:nlintn/hycov";
-      inputs.hyprland.follows = "hyprland";
+      inputs.hyprlandPlugins.follows = "hyprland-plugins";
     };
 
     # Declarative Flatpak Wrapper
     flatpak.url = "github:gmodena/nix-flatpak";
 
     # VS Code Extensions
+    vscode-catppuccin.url = "github:catppuccin/vscode";
     vscode = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "utils";
       };
-    };
-
-    vscode-catppuccin = {
-      url = "github:catppuccin/vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Windows VM Creator

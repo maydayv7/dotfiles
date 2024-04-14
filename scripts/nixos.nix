@@ -430,7 +430,7 @@ in
           cp -r "$KEY"/. ./keys
         fi
         echo "Importing Keys..."
-        find ./keys -name '*.gpg' -exec gpg --homedir ${files.gpg} --import {} \+
+        find ./keys -name '*.gpg' -exec sudo gpg --homedir ${files.gpg} --import {} \+
         rm -rf ./keys
         newline
 

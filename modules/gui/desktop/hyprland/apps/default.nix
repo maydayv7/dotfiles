@@ -43,7 +43,7 @@ in {
     mission-center
     custom.nwg-clipman
     unstable.nwg-displays
-    custom.nwg-drawer
+    unstable.nwg-drawer
     nwg-wrapper
     unstable.overskride
     playerctl

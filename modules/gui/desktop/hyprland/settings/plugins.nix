@@ -1,8 +1,12 @@
 {
+  sys,
+  config,
   pkgs,
   files,
   ...
-}: {
+}: let
+  inherit (sys.lib.stylix.colors) base00 base0A;
+in {
   ## Plugin Settings
   # Pyprland
   home = {
@@ -11,27 +15,34 @@
   };
 
   wayland.windowManager.hyprland = {
-    plugins = with pkgs.wayworld; [hych hycov];
-    extraConfig = ''
+    plugins = with pkgs.wayworld; [hyprexpo Hyprspace];
+    extraConfig = let
+      gaps =
+        builtins.toString
+        config.wayland.windowManager.hyprland.settings.general.gaps_in;
+    in ''
       plugin {
-        # Window Minimize
-        hych {
-          enable_alt_release_exit = 1
-          alt_replace_key = code:64
+        # Expose
+        hyprexpo {
+          columns = 3
+          gap_size = ${gaps}
+          bg_col = rgb(${base00})
+          workspace_method = center current
+          enable_gesture = true
+          gesture_positive = true
         }
 
         # Overview
-        hycov {
-          enable_hotarea = 1
-          hotarea_pos = 3
-          only_active_workspace = 1
-          overview_gappi = 24
-          overview_gappo = 60
-          enable_gesture = 1
-          swipe_fingers = 4
-          enable_alt_release_exit = 1
-          alt_replace_key = Alt_L
-          alt_toggle_auto_next = 1
+        overview {
+          autoDrag = false
+          exitOnClick = true
+          centerAligned = true
+          hideTopLayers = true
+          hideOverlayLayers = false
+          overrideGaps = true
+          gapsIn = ${gaps}
+          gapsOut = ${gaps}
+          workspaceActiveBorder = rgb(${base0A})
         }
       }
     '';
@@ -39,17 +50,12 @@
     settings = {
       exec-once = ["pypr"];
       bind = [
-        # Window Minimize
-        "ALT, Q, hych:minimize"
-        "ALT SHIFT, Q, hych:toggle_restore_window"
+        # Expose
+        "$MOD CTRL, TAB, hyprexpo:expo, toggle"
 
         # Overview
-        "ALT, Tab, hycov:toggleoverview"
-        "ALT SHIFT, Tab, hycov:toggleoverview, forceall"
-        "ALT, left, hycov:movefocus, l"
-        "ALT, right, hycov:movefocus, r"
-        "ALT, up, hycov:movefocus, u"
-        "ALT, down, hycov:movefocus, d"
+        "$mod, Tab, overview:toggle"
+        "$mod SHIFT, Tab, overview:toggle, all"
       ];
     };
   };

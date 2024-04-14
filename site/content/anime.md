@@ -66,6 +66,7 @@ comments = true
 - Prison School
 - Rent-a-Girlfriend <sup>\*</sup>
 - RikeKoi <sup>#</sup>
+- Saint Cecilia and Pastor Lawrence <sup>\*</sup>
 - Scums Wish <sup>\*</sup>
 - Sekai Saikou no Ansatsusha, Isekai Kizoku ni Tensei suru <sup>\*</sup>
 - Senryu Girl

@@ -48,6 +48,7 @@ in {
         inherit system config;
 
         overlays = [
+          (import ./patches)
           vscode-catppuccin.overlays.default
           (pkg: _: {
             nixFlakes = pkg.unstable.nixVersions.nix_2_20;
@@ -60,8 +61,7 @@ in {
             wine = windows.packages."${system}";
             wayworld =
               wayland.packages."${system}"
-              // hych.packages."${system}"
-              // hycov.packages."${system}"
+              // hyprspace.packages."${system}"
               // hyprland-plugins.packages."${system}"
               // hyprland.packages."${system}";
           })

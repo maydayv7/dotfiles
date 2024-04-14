@@ -1,21 +1,21 @@
 <span size="10.75pt">
 <b><big>Keyboard Shortcuts</big></b>																	<b><big>Mouse Actions</big></b>
-<i>$mod -> SUPER</i>																			<i>L' -> Left Click</i>
-<i> -> ALT Release Selection</i>																<i>R' -> Right Click</i>
+<i>$mod -> SUPER</i>																			<i>L'/R' -> Left/Right Click</i>
 
 <tt>$mod Q</tt>							Quit application										<tt>$mod L'</tt>				Move window
 <tt>$mod P</tt>							Pin window on all Workspaces							<tt>$mod R'</tt>				Window resize
 <tt>$mod M</tt>							Maximize window										<tt>$mod CTRL L'</tt>		Window resize
 <tt>$mod SHIFT M</tt>					Fullscreen window										<tt>$mod SHIFT L'</tt>		Move window into application group
 <tt>ALT Q</tt>								Minimize window
-<tt>ALT SHIFT Q </tt>					Show all minimized windows
+<tt>ALT SHIFT Q</tt>					Activate previously minimized windows
 <tt>$mod <i>ARROW</i></tt>						Switch focus to window in desired direction
 <tt>$mod SHIFT <i>ARROW</i></tt>			Swap current window with window in desired direction
 <tt>$mod Space</tt>						Change window split direction
 <tt>$mod SHIFT Space</tt>			Toggle application grouping
 
-<tt>ALT [SHIFT] Tab </tt>			Show application overview [of all workspaces]
-<tt>ALT <i>ARROW</i></tt>						Switch to window in desired direction in overview
+<tt>$mod CTRL Tab</tt>					Show workspace expose view
+<tt>$mod [SHIFT] Tab</tt>			Show workspace overview [of all monitors]
+<tt>ALT [SHIFT] Tab</tt>				Cycle [backwards] through open applications
 <tt>ALT CTRL Tab</tt>					Activate urgent/last window
 <tt>ALT [SHIFT] `</tt>					Cycle [backwards] through grouped applications
 

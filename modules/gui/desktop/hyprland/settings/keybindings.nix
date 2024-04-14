@@ -16,6 +16,12 @@ _: {
         "$mod, right, movefocus, r"
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
+
+        # Window Switcher
+        "ALT, Tab, cyclenext,"
+        "ALT, Tab, bringactivetotop,"
+        "ALT SHIFT, Tab, cyclenext, prev"
+        "ALT SHIFT, Tab, bringactivetotop,"
         "ALT CTRL, Tab, focusurgentorlast"
         "ALT CTRL, Tab, bringactivetotop,"
 
@@ -34,6 +40,11 @@ _: {
         "$mod, semicolon, togglefloating,"
         "$mod, apostrophe, workspaceopt, allfloat"
         "$mod, C, centerwindow"
+
+        # Window Minimization
+        "ALT, Q, movetoworkspacesilent, special:minimized"
+        "ALT SHIFT, Q, togglespecialworkspace, minimized"
+        "ALT SHIFT, Q, movetoworkspace, +0"
 
         # Cycle Workspaces
         "$mod, comma, workspace, m-1"
