@@ -43,10 +43,18 @@ in {
         };
       };
 
+      # Workspace Behaviour
+      binds = {
+        workspace_center_on = 1;
+        movefocus_cycles_fullscreen = true;
+        workspace_back_and_forth = true;
+      };
+
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 3;
         workspace_swipe_forever = true;
+        workspace_swipe_use_r = true;
         workspace_swipe_create_new = true;
       };
 
@@ -69,6 +77,7 @@ in {
         # Graphics
         vrr = 1;
         no_direct_scanout = false;
+        hide_cursor_on_key_press = true;
       };
 
       general =

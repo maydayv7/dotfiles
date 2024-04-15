@@ -5,7 +5,7 @@
   files,
   ...
 }: let
-  inherit (sys.lib.stylix.colors) base00 base0A;
+  inherit (sys.lib.stylix.colors) base00 base0D;
 in {
   ## Plugin Settings
   # Pyprland
@@ -29,7 +29,7 @@ in {
           bg_col = rgb(${base00})
           workspace_method = center current
           enable_gesture = true
-          gesture_positive = true
+          gesture_positive = false
         }
 
         # Overview
@@ -39,10 +39,12 @@ in {
           centerAligned = true
           hideTopLayers = true
           hideOverlayLayers = false
+          showNewWorkspace = true
+          showEmptyWorkspace = false
           overrideGaps = true
           gapsIn = ${gaps}
           gapsOut = ${gaps}
-          workspaceActiveBorder = rgb(${base0A})
+          workspaceActiveBorder = rgb(${base0D})
         }
       }
     '';

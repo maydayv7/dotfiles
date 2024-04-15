@@ -560,15 +560,16 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1713042788,
-        "narHash": "sha256-gnUFZtjsBYjS3L8ItEaSGSr38/8485YfURR6GioozJk=",
+        "lastModified": 1713120508,
+        "narHash": "sha256-piBUBQsQ8R20/lX9GMJjwdntal6yfJZMVCIi21XCZ8Y=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "61fe47189b885058157b23326118627ae61f3746",
+        "rev": "e93fbd7c4f991cb8ef03e433ccc4d43587923e15",
         "type": "github"
       },
       "original": {
         "owner": "hyprwm",
+        "ref": "v0.39.0",
         "repo": "Hyprland",
         "type": "github"
       }
@@ -663,11 +664,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713060259,
-        "narHash": "sha256-v5sdYIJgEJJ/wrX9o6k2L9ouW+rcxe2aObFfcrghUyA=",
+        "lastModified": 1713165700,
+        "narHash": "sha256-gDrXQpub0lxJu1IlDnfttSSMGYsf36XvYoLbUuvYpsE=",
         "owner": "KZDKM",
         "repo": "Hyprspace",
-        "rev": "e4251c52acc47deba063bb4a3f46f5eb17339997",
+        "rev": "0d3b9466cf6fc19a3173d4dfa58fe37178e6aaae",
         "type": "github"
       },
       "original": {
@@ -976,7 +977,7 @@
         "unstable": "unstable",
         "utils": "utils_2",
         "vscode": "vscode",
-        "vscode-catppuccin": "vscode-catppuccin",
+        "vsppuccin": "vsppuccin",
         "wayland": "wayland",
         "wfvm": "wfvm",
         "windows": "windows"
@@ -1211,7 +1212,7 @@
         "type": "github"
       }
     },
-    "vscode-catppuccin": {
+    "vsppuccin": {
       "inputs": {
         "nixpkgs": "nixpkgs_4"
       },

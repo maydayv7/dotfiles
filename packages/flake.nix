@@ -48,8 +48,7 @@ in {
         inherit system config;
 
         overlays = [
-          (import ./patches)
-          vscode-catppuccin.overlays.default
+          vsppuccin.overlays.default
           (pkg: _: {
             nixFlakes = pkg.unstable.nixVersions.nix_2_20;
 

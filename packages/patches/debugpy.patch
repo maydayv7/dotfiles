@@ -1,0 +1,12 @@
+diff --git a/pkgs/development/python-modules/debugpy/default.nix b/pkgs/development/python-modules/debugpy/default.nix
+index 85389fba2fb2f2..4d76a7be3c9ea0 100644
+--- a/pkgs/development/python-modules/debugpy/default.nix
++++ b/pkgs/development/python-modules/debugpy/default.nix
+@@ -87,6 +87,7 @@ buildPythonPackage rec {
+     requests
+   ];
+
++  doCheck = false;
+   preCheck = ''
+     export DEBUGPY_PROCESS_SPAWN_TIMEOUT=0
+     export DEBUGPY_PROCESS_EXIT_TIMEOUT=0

@@ -145,7 +145,7 @@
 
     # Hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland?ref=v0.39.0";
       inputs.systems.follows = "systems";
     };
 
@@ -164,7 +164,7 @@
     flatpak.url = "github:gmodena/nix-flatpak";
 
     # VS Code Extensions
-    vscode-catppuccin.url = "github:catppuccin/vscode";
+    vsppuccin.url = "github:catppuccin/vscode";
     vscode = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
