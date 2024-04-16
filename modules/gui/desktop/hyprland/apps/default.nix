@@ -7,7 +7,7 @@
   ...
 }:
 with files; let
-  inherit (lib) getExe mkIf;
+  inherit (lib) getExe mkIf replaceStrings;
   inherit (config.gui) wallpaper;
   inherit (config.lib.stylix) colors;
   exists = app: builtins.elem app config.apps.list;
@@ -33,6 +33,7 @@ in {
   environment.systemPackages = with pkgs; [
     # Apps
     celluloid
+    unstable.clipse
     custom.desktop-icons
     font-manager
     geany
@@ -41,7 +42,6 @@ in {
     lollypop
     mate.atril
     mission-center
-    custom.nwg-clipman
     unstable.nwg-displays
     unstable.nwg-drawer
     nwg-wrapper
@@ -54,7 +54,6 @@ in {
 
     # Utilities
     custom.hyprutils
-    cliphist
     grim
     unstable.grimblast
     hyprkeys
@@ -70,6 +69,7 @@ in {
   user = {
     # Persisted Files
     persist.directories = [
+      ".config/clipse"
       ".config/geany"
       ".config/mpv"
       ".config/nwg-displays"
@@ -77,7 +77,6 @@ in {
       ".config/Thunar"
       ".local/share/lollypop"
       ".local/share/shotwell"
-      ".cache/cliphist"
       ".cache/shotwell"
     ];
 
@@ -135,8 +134,7 @@ in {
         "dicons"
 
         # Clipboard
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
+        "clipse -listen"
 
         # Binds List
         (with files.hyprland; "nwg-wrapper -t ${binds} -c ${nwg.wrapper} -il 3 -sv 1")
@@ -272,6 +270,12 @@ in {
           # Application Drawer
           ".config/nwg-drawer/drawer.css".text = hyprland.nwg.drawer;
 
+          # Clipboard
+          ".config/clipse/custom_theme.json".text =
+            replaceStrings ["@base01" "@base05" "@base07" "@base08" "@base0B" "@base0D" "@base0E" "@base0F"]
+            (with colors; [base01 base05 base07 base08 base0B base0D base0E base0F])
+            hyprland.clipse;
+
           # Wallpaper
           ".config/hypr/hyprpaper.conf".text = ''
             splash = true
@@ -283,7 +287,7 @@ in {
           # Text Editor
           ".config/geany/geany.conf".text = geany.settings;
           ".config/geany/keybindings.conf".text = geany.keybindings;
-          ".config/geany/colorschemes/theme.conf".text = geany.catppuccin;
+          ".config/geany/colorschemes/theme.conf".source = with theme; "${pkgs.custom.geany-catppuccin}/share/geany/colorschemes/${name}-${variant}.conf";
 
           # Terminal
           ".config/kitty/search".source = pkgs.custom.kitty-search;

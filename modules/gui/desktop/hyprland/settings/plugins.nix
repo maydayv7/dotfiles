@@ -15,7 +15,7 @@ in {
   };
 
   wayland.windowManager.hyprland = {
-    plugins = with pkgs.wayworld; [hyprexpo Hyprspace];
+    plugins = with pkgs.wayworld; [hycov hyprexpo Hyprspace];
     extraConfig = let
       gaps =
         builtins.toString
@@ -32,7 +32,20 @@ in {
           gesture_positive = false
         }
 
-        # Overview
+        # Application Overview
+        hycov {
+          enable_hotarea = 1
+          hotarea_pos = 3
+          only_active_workspace = 1
+          overview_gappi = 24
+          overview_gappo = 60
+          enable_gesture = 0
+          enable_alt_release_exit = 1
+          alt_replace_key = Alt_L
+          alt_toggle_auto_next = 1
+        }
+
+        # Workspace Overview
         overview {
           autoDrag = false
           exitOnClick = true
@@ -55,7 +68,15 @@ in {
         # Expose
         "$MOD CTRL, TAB, hyprexpo:expo, toggle"
 
-        # Overview
+        # Application Overview
+        "ALT, Tab, hycov:toggleoverview"
+        "ALT SHIFT, Tab, hycov:toggleoverview, forceall"
+        "ALT, left, hycov:movefocus, l"
+        "ALT, right, hycov:movefocus, r"
+        "ALT, up, hycov:movefocus, u"
+        "ALT, down, hycov:movefocus, d"
+
+        # Workspace Overview
         "$mod, Tab, overview:toggle"
         "$mod SHIFT, Tab, overview:toggle, all"
       ];

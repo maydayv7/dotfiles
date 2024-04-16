@@ -16,12 +16,6 @@ _: {
         "$mod, right, movefocus, r"
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
-
-        # Window Switcher
-        "ALT, Tab, cyclenext,"
-        "ALT, Tab, bringactivetotop,"
-        "ALT SHIFT, Tab, cyclenext, prev"
-        "ALT SHIFT, Tab, bringactivetotop,"
         "ALT CTRL, Tab, focusurgentorlast"
         "ALT CTRL, Tab, bringactivetotop,"
 

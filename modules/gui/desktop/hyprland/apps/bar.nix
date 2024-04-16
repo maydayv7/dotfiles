@@ -125,7 +125,7 @@ in rec {
             "bash" = "Terminal";
             "zsh" = "Terminal";
             "(.*) - kitty" = "Terminal";
-            "nwg-clipman" = "Clipboard";
+            "clipse" = "Clipboard";
             "nwg-displays" = "Displays";
             "Ulauncher(.*)" = "Launcher";
             "(.*) - Geany" = "Text Editor";
@@ -144,7 +144,7 @@ in rec {
           on-click-right = "close";
           ignore-list = [
             "kitty-dropterm"
-            "nwg-clipman"
+            "clipse"
             "ulauncher"
           ];
         };

@@ -518,6 +518,26 @@
         "type": "github"
       }
     },
+    "hycov": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ]
+      },
+      "locked": {
+        "lastModified": 1713156476,
+        "narHash": "sha256-CDWaSJhsWgoHE43lCI+AUPt8hyTt8gb1rrQsJka+trg=",
+        "owner": "DreamMaoMao",
+        "repo": "hycov",
+        "rev": "10ecd517f1e0dc51e4c2b9e114a7a24e765d1bed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DreamMaoMao",
+        "repo": "hycov",
+        "type": "github"
+      }
+    },
     "hyprcursor": {
       "inputs": {
         "hyprlang": [
@@ -664,11 +684,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713165700,
-        "narHash": "sha256-gDrXQpub0lxJu1IlDnfttSSMGYsf36XvYoLbUuvYpsE=",
+        "lastModified": 1713240951,
+        "narHash": "sha256-Nvbn1baUNN7AQOA1hHunUHuFziF0dErqaTlfxr9NNwo=",
         "owner": "KZDKM",
         "repo": "Hyprspace",
-        "rev": "0d3b9466cf6fc19a3173d4dfa58fe37178e6aaae",
+        "rev": "954eda50aca5ef986c557f3b515c4321fd3c7fd8",
         "type": "github"
       },
       "original": {
@@ -964,6 +984,7 @@
         "generators": "generators",
         "hardware": "hardware",
         "home-manager": "home-manager",
+        "hycov": "hycov",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprspace": "hyprspace",

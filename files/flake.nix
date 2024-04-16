@@ -76,6 +76,9 @@
       # Binds
       binds = ./hyprland/binds.pango;
 
+      # Clipboard Manager
+      clipse = readFile ./hyprland/clipse.json;
+
       # Pyprland
       pypr = readFile ./hyprland/pypr.toml;
 

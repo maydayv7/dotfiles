@@ -27,4 +27,4 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`xorg`](./xorg) - X11 Display Server Configuration
 - [`zsh`](./zsh) - Z Shell Configuration and Prompt Theming
 
-- [`archive`](./archive) - Old, Archived Files
+- [`archive`](./_archive) - Old, Archived Files

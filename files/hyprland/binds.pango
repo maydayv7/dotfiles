@@ -14,7 +14,9 @@
 <tt>$mod SHIFT Space</tt>			Toggle application grouping
 
 <tt>$mod CTRL Tab</tt>					Show workspace expose view
-<tt>$mod [SHIFT] Tab</tt>			Show workspace overview [of all monitors]
+<tt>$mod [SHIFT] Tab</tt>			Show workspace overview [for all monitors]
+<tt>ALT [SHIFT] Tab</tt>				Show application overview [for all workspaces]
+<tt>ALT <i>ARROW</i></tt>						Switch to window in desired direction (in overview)
 <tt>ALT [SHIFT] Tab</tt>				Cycle [backwards] through open applications
 <tt>ALT CTRL Tab</tt>					Activate urgent/last window
 <tt>ALT [SHIFT] `</tt>					Cycle [backwards] through grouped applications

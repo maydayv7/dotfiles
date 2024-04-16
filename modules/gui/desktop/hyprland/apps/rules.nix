@@ -9,7 +9,7 @@ _: {
     ## Window Rules
     windowrulev2 = [
       # Clipboard
-      "float, title:^(clipman)$"
+      "float, class:^(clipse)$"
 
       # Application Launcher
       "opacity 0.9 override, class:^(ulauncher)$"
