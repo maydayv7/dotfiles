@@ -16,8 +16,20 @@ in
       inherit (metadata) rev sha256;
     };
 
-    buildInputs = [gtk3 gtk-layer-shell pkg-config];
+    nativeBuildInputs = [wrapGAppsHook];
+    buildInputs = [
+      gtk3
+      gtk-layer-shell
+      pkg-config
+    ];
+
     NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
+    preFixup = ''
+      gappsWrapperArgs+=(
+        --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS"
+      )
+    '';
+
     installPhase = ''
       mkdir -p $out/bin
       cp -r dicons $out/bin/dicons

@@ -77,14 +77,14 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 
 ## Programs
 
-| Type                 |                                                         Programs                                                         |
-| :------------------- | :----------------------------------------------------------------------------------------------------------------------: |
-| Editors              |                    [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                     |
-| Shells               |                        [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                        |
+| Type                 |                                                                              Programs                                                                               |
+| :------------------- | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Editors              |                                          [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                                          |
+| Shells               |                                             [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                                              |
 | Terminal             | [Blackbox](https://gitlab.gnome.org/raggesilver/blackbox), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start), [Kitty](https://sw.kovidgoyal.net/kitty/) |
-| Browser              |                                    [Firefox](https://www.mozilla.org/en-US/firefox/)                                     |
-| Desktop Environments |              [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/), [Pantheon](https://elementary.io/)               |
-| Compositors          |                        [Hyprland](https://hyprland.org/), [Picom](https://github.com/yshui/picom)                        |
+| Browser              |                                                          [Firefox](https://www.mozilla.org/en-US/firefox/)                                                          |
+| Desktop Environments |                                    [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/), [Pantheon](https://elementary.io/)                                    |
+| Compositors          |                                             [Hyprland](https://hyprland.org/), [Picom](https://github.com/yshui/picom)                                              |
 
 ## Structure
 
@@ -499,6 +499,7 @@ You can navigate to the `README`s present in the various directories to know mor
 <summary><b>Changelog</b></summary>
 
 ### vNEXT
+
 - Hyprland Improvements
   - Update to latest version
   - Keybindings List
