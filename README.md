@@ -81,7 +81,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 | :------------------- | :----------------------------------------------------------------------------------------------------------------------: |
 | Editors              |                    [`nano`](https://www.nano-editor.org/), [VS Code](https://code.visualstudio.com/)                     |
 | Shells               |                        [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                        |
-| Terminal             | [Blackbox](https://gitlab.gnome.org/raggesilver/blackbox), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start) |
+| Terminal             | [Blackbox](https://gitlab.gnome.org/raggesilver/blackbox), [`xfce4` Terminal](https://docs.xfce.org/apps/terminal/start), [Kitty](https://sw.kovidgoyal.net/kitty/) |
 | Browser              |                                    [Firefox](https://www.mozilla.org/en-US/firefox/)                                     |
 | Desktop Environments |              [GNOME](https://www.gnome.org), [XFCE](https://xfce.org/), [Pantheon](https://elementary.io/)               |
 | Compositors          |                        [Hyprland](https://hyprland.org/), [Picom](https://github.com/yshui/picom)                        |
@@ -376,7 +376,10 @@ If you really want to get dirty with Nix and decide to invest oodles of your tim
 
 ### Caution
 
-I am pretty new to Nix, and my configuration is still _WIP_ and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature (**Important:** Nix >= 2.19)
+This repository contains my personal configuration, and may cause undesirable effects on other systems. It may also be subject to rapid undocumented changes, and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature
+
+> [!NOTE]
+> Required Nix Version >= 2.19
 
 It is not recommended to use NixOS if you are a beginner just starting out, without acquaintance with either the command-line or functional programming languages, since the learning curve is steep, debugging issues is difficult, documentation is shallow, and the effort required/time spent isn't worth the hassle for a novice/casual user
 
@@ -494,6 +497,20 @@ You can navigate to the `README`s present in the various directories to know mor
 
 <details>
 <summary><b>Changelog</b></summary>
+
+### vNEXT
+- Hyprland Improvements
+  - Update to latest version
+  - Keybindings List
+  - Panel Improvements
+  - Border Gradients
+  - Revamp `hyprutils` Script
+  - Use [`clipse`](https://github.com/savedra1/clipse) for Clipboard
+  - Use amazing plugins
+    - [Hycov](https://github.com/DreamMaoMao/hycov)
+    - [Hyprspace](https://github.com/KZDKM/Hyprspace)
+    - [Hyprexpo](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprexpo)
+- Add `devcontainer` for Github Codespaces
 
 ### v17
 

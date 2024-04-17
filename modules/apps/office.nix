@@ -12,15 +12,18 @@ in {
   imports = [inputs.windows.nixosModules.onlyoffice];
   config = lib.mkIf enable {
     # Applications
+    programs.onlyoffice = {
+      enable = true;
+      package = pkgs.onlyoffice-bin_latest;
+    };
+
     environment.systemPackages = with pkgs; [
       # Productivity
+      calibre
       gimp
       gnome.simple-scan
       gscan2pdf
       handbrake
-      hunspell
-      hunspellDicts.en_US-large
-      hyphen
       libreoffice
       obs-studio
       pitivi
@@ -31,12 +34,12 @@ in {
       thunderbird
       whatsapp-for-linux
       zoom-us
-    ];
 
-    programs.onlyoffice = {
-      enable = true;
-      package = pkgs.onlyoffice-bin_latest;
-    };
+      # Utilities
+      hunspell
+      hunspellDicts.en_US-large
+      hyphen
+    ];
 
     # Dictionaries
     environment = {
@@ -48,8 +51,10 @@ in {
       # Persisted Files
       persist.files = [".config/gscan2pdfrc" ".config/zoomus.conf"];
       persist.directories = [
+        ".calibre"
         ".thunderbird"
         ".zoom"
+        ".config/calibre"
         ".config/GIMP"
         ".config/google-chrome"
         ".config/libreoffice"

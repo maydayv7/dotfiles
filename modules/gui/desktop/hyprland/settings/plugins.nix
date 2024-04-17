@@ -27,7 +27,7 @@ in {
           columns = 3
           gap_size = ${gaps}
           bg_col = rgb(${base00})
-          workspace_method = center current
+          workspace_method = first 1
           enable_gesture = true
           gesture_positive = false
         }
@@ -66,7 +66,7 @@ in {
       exec-once = ["pypr"];
       bind = [
         # Expose
-        "$MOD CTRL, TAB, hyprexpo:expo, toggle"
+        "$mod CTRL, TAB, hyprexpo:expo, toggle"
 
         # Application Overview
         "ALT, Tab, hycov:toggleoverview"

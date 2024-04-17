@@ -270,7 +270,14 @@ in {
           # Application Drawer
           ".config/nwg-drawer/drawer.css".text = hyprland.nwg.drawer;
 
-          # Clipboard
+          # Browser
+          ".mozilla/firefox/default/chrome/userChrome.css".text = ''
+            #TabsToolbar {
+              -moz-window-dragging: no-drag;
+            }
+          '';
+
+          # Clipboard Manager
           ".config/clipse/custom_theme.json".text =
             replaceStrings ["@base01" "@base05" "@base07" "@base08" "@base0B" "@base0D" "@base0E" "@base0F"]
             (with colors; [base01 base05 base07 base08 base0B base0D base0E base0F])

@@ -15,6 +15,10 @@ with files.path; let
       then
         error "Path to Disk cannot be empty. If unsure, use the command 'fdisk -l'"
       fi
+
+      echo "Deleting Partitions..."
+      dd if=/dev/zero of=/dev/"$DISK" bs=512 count=1
+
       echo "Creating Partitions..."
       parted /dev/"$DISK" -- mkpart ESP fat32 1MiB 1024MiB
       parted /dev/"$DISK" -- set 1 esp on
@@ -115,9 +119,10 @@ in
       fi
 
       read -rp "Enter Name of Device to Install: " HOST
+      warn "Disk will be Completely Wiped for Automatic Partitioning"
       read -rp "Do you want to Automatically Create the Partitions? (Y/N): " choice
         case $choice in
-          [Yy]*) warn "Assuming Disk is Completely Empty"; partition_disk;;
+          [Yy]*) partition_disk;;
           *) warn "You must Create, Format and Label the Partitions on your own"; gparted &> /dev/null;;
         esac
       newline

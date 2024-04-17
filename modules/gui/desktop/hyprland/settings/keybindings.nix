@@ -72,15 +72,14 @@ _: {
       # Workspaces
       (with builtins;
         concatLists (genList (
-            num: let
-              key = toString (num + 1 - (((num + 1) / 10) * 10));
-              workspace = toString (num + 1);
+            n: let
+              num = toString (n + 1);
             in [
-              "$mod, ${key}, workspace, ${workspace}"
-              "$mod SHIFT, ${key}, movetoworkspace, ${workspace}"
+              "$mod, ${num}, workspace, ${num}"
+              "$mod SHIFT, ${num}, movetoworkspace, ${num}"
             ]
           )
-          10));
+          9));
 
     # Mouse
     bindm = [
