@@ -758,7 +758,7 @@ You can navigate to the `README`s present in the various directories to know mor
 
 </details>
 
-> Last Updated: **March** 2024
+> Last Updated: **April** 2024
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 

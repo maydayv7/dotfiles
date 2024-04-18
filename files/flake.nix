@@ -79,6 +79,9 @@
       # Clipboard Manager
       clipse = readFile ./hyprland/clipse.json;
 
+      # Greeter Configuration
+      greeter = readFile ./hyprland/greeter.conf;
+
       # Pyprland
       pypr = readFile ./hyprland/pypr.toml;
 

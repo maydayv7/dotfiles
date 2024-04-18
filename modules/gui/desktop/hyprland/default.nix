@@ -6,13 +6,13 @@
   ...
 } @ args: let
   inherit (config.gui) desktop;
-  inherit (lib) mkIf mkMerge;
+  inherit (lib) getExe mkForce mkIf mkMerge replaceStrings;
   theme = import ./theme.nix pkgs;
 in {
   ## Hyprland Configuration ##
   config = mkIf (desktop == "hyprland") (mkMerge [
     ## Environment Setup
-    {
+    rec {
       # Session
       gui = {
         xorg.enable = false;
@@ -24,6 +24,7 @@ in {
       };
 
       programs = {
+        # WM
         hyprland = {
           enable = true;
           xwayland.enable = true;
@@ -33,12 +34,21 @@ in {
         # Login
         regreet = {
           enable = true;
+          package = pkgs.greetd.regreet;
           settings.commands = {
             reboot = ["systemctl" "reboot"];
             poweroff = ["systemctl" "poweroff"];
           };
         };
       };
+
+      # Greeter
+      services.greetd.settings.default_session.command = with programs;
+        mkForce "${getExe hyprland.package} --config ${
+          pkgs.writeText "greeter.conf"
+          (replaceStrings ["@color" "@greeter"] [config.lib.stylix.colors.base00 (getExe regreet.package)]
+            files.hyprland.greeter)
+        } &> /dev/null";
     }
 
     {

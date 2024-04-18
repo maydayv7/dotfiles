@@ -24,7 +24,18 @@ in {
     # Network Print
     services.avahi = {
       enable = true;
+      #nssmdns4 = true;
       openFirewall = true;
+    };
+
+    #!# Temporary Workaround
+    system = {
+      nssModules = [pkgs.nssmdns];
+      nssDatabases.hosts = with lib;
+        mkMerge [
+          (mkOrder 900 ["mdns4_minimal [NOTFOUND=return]"])
+          (mkOrder 1501 ["mdns4"])
+        ];
     };
   };
 }
