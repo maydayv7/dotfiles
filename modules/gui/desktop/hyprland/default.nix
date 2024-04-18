@@ -14,7 +14,6 @@ in {
   config = mkIf (desktop == "hyprland") (mkMerge [
     ## Environment Setup
     rec {
-      # Session
       gui = {
         xorg.enable = false;
         wayland.enable = true;
@@ -23,6 +22,15 @@ in {
           shadow = false;
         };
       };
+
+      # Session
+      services.xserver.displayManager.session = [
+        {
+          name = "Desktop";
+          manage = "desktop";
+          start = "Hyprland &> /dev/null";
+        }
+      ];
 
       programs = {
         # WM
