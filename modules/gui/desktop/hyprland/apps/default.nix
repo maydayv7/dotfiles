@@ -7,7 +7,7 @@
   ...
 }:
 with files; let
-  inherit (lib) getExe mkIf replaceStrings;
+  inherit (lib) getExe mkIf;
   inherit (config.gui) wallpaper;
   inherit (config.lib.stylix) colors;
   exists = app: builtins.elem app config.apps.list;
@@ -278,10 +278,7 @@ in {
           '';
 
           # Clipboard Manager
-          ".config/clipse/custom_theme.json".text =
-            replaceStrings ["@base01" "@base05" "@base07" "@base08" "@base0B" "@base0D" "@base0E" "@base0F"]
-            (with colors; [base01 base05 base07 base08 base0B base0D base0E base0F])
-            hyprland.clipse;
+          ".config/clipse/custom_theme.json".text = util.build.color colors hyprland.clipse;
 
           # Wallpaper
           ".config/hypr/hyprpaper.conf".text = ''

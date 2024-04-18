@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  util,
   pkgs,
   files,
   ...
@@ -46,8 +47,8 @@ in {
       services.greetd.settings.default_session.command = with programs;
         mkForce "${getExe hyprland.package} --config ${
           pkgs.writeText "greeter.conf"
-          (replaceStrings ["@color" "@greeter"] [config.lib.stylix.colors.base00 (getExe regreet.package)]
-            files.hyprland.greeter)
+          (replaceStrings ["@greeter"] [(getExe regreet.package)]
+            (util.build.color config.lib.stylix.colors files.hyprland.greeter))
         } &> /dev/null";
     }
 
