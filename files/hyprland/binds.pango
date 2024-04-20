@@ -41,7 +41,7 @@
 <tt>$mod ?</tt>							Show this page
 <tt>$mod A</tt>							Application Drawer
 <tt>$mod SHIFT C</tt>					Color Picker
-<tt>$mod D</tt>							Monitor Configuration
+<tt>$mod [SHIFT] D</tt>				Monitor Configuration [Toggle main Display]
 <tt>$mod F</tt>							File Manager
 <tt>$mod T</tt>							Terminal
 <tt>$mod Shift T</tt>					Toggle Terminal in Quake mode

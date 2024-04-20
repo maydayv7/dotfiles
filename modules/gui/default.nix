@@ -17,7 +17,7 @@ in {
     display = mkOption {
       description = "Main GUI Display";
       type = types.str;
-      default = "";
+      default = "eDP-1";
       example = "HDMI-A-1";
     };
     desktop = mkOption {

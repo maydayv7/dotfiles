@@ -17,9 +17,11 @@
       media [next,previous,toggle]   - Media Controls
       zoom [in,out]                  - Screen Zoom
       toggle 
-        media                        - Persist and toggle audio playing state
-        idle                         - Toggle Idle Daemon service
         fancy                        - Toggle Compositor Effects
+        float                        - Toggle window floating in current workspace
+        idle                         - Toggle Idle Daemon service
+        media                        - Persist and toggle audio playing state
+        monitor                      - Toggle specified Monitor
   '';
 in
   recursiveUpdate {
@@ -200,30 +202,6 @@ in
         ;;
         "toggle")
           case "$2" in
-          "media")
-            FILE="$TEMP/toggle_media"
-            if test -f "$FILE"
-            then
-              rm "$FILE"
-              playerctl play
-              exit 0
-            fi
-            if playerctl status | grep Playing
-            then
-              touch "$FILE"
-              playerctl pause -a
-            fi
-          ;;
-          "idle")
-            if systemctl --user is-active swayidle
-            then
-              systemctl --user stop swayidle
-              notify idle -i "system-lock-screen" "Stopped Idle Daemon"
-            else
-              systemctl --user restart swayidle
-              notify idle -i "system-lock-screen" "Started Idle Daemon"
-            fi
-          ;;
           "fancy")
             FANCY=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
             if [ "$FANCY" = 1 ]
@@ -241,6 +219,43 @@ in
             fi
             hyprctl notify 1 2000 0 "Compositor Effects Enabled"
             hyprctl reload
+          ;;
+          "float")
+            WORKSPACE=$(hyprctl activeworkspace | grep "workspace ID" | awk '{print $3}')
+            hyprctl notify 1 2000 0 "Toggle window floating on Workspace $WORKSPACE"
+            hyprctl dispatch workspaceopt allfloat
+          ;;
+          "idle")
+            if systemctl --user is-active swayidle
+            then
+              systemctl --user stop swayidle
+              notify idle -i "system-lock-screen" "Stopped Idle Daemon"
+            else
+              systemctl --user restart swayidle
+              notify idle -i "system-lock-screen" "Started Idle Daemon"
+            fi
+          ;;
+          "media")
+            FILE="$TEMP/toggle_media"
+            if test -f "$FILE"
+            then
+              rm "$FILE"
+              playerctl play
+              exit 0
+            fi
+            if playerctl status | grep Playing
+            then
+              touch "$FILE"
+              playerctl pause -a
+            fi
+          ;;
+          "monitor")
+            if hyprctl monitors | grep "$3"
+            then
+              hyprctl keyword monitor "$3, disable"
+            else
+              hyprctl keyword monitor "$3, preferred, auto, 1"
+            fi
           ;;
           "") error "Expected an Option" "Try 'hyprutils help' for more information" ;;
           *) error "Unexpected Option 'toggle $2'" "Try 'hyprutils help' for more information" ;;

@@ -47,7 +47,7 @@ in {
 
         # Workspace Overview
         overview {
-          autoDrag = false
+          autoDrag = true
           exitOnClick = true
           centerAligned = true
           hideTopLayers = true

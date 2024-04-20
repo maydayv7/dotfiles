@@ -1,4 +1,4 @@
-_: {
+{sys, ...}: {
   ## Compositor Keybindings
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
@@ -10,6 +10,7 @@ _: {
         "$mod, M, fullscreen, 1"
         "$mod SHIFT, M, fullscreen,"
         "$mod, Space, togglesplit"
+        "$mod SHIFT, D, exec, hyprutils toggle monitor ${sys.gui.display}"
 
         # Window Focus
         "$mod, left, movefocus, l"
@@ -32,7 +33,7 @@ _: {
 
         # Floating Mode
         "$mod, semicolon, togglefloating,"
-        "$mod, apostrophe, workspaceopt, allfloat"
+        "$mod, apostrophe, exec, hyprutils toggle float"
         "$mod, C, centerwindow"
 
         # Window Minimization

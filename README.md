@@ -383,14 +383,14 @@ This repository contains my personal configuration, and may cause undesirable ef
 
 It is not recommended to use NixOS if you are a beginner just starting out, without acquaintance with either the command-line or functional programming languages, since the learning curve is steep, debugging issues is difficult, documentation is shallow, and the effort required/time spent isn't worth the hassle for a novice/casual user
 
-### Requirements
+### Platform
 
 _May change according to available hardware_
 
-- UEFI Compatible System
-- Intel CPU + iGPU
+This configuration works well with an Intel CPU + iGPU, and is not tested with anything else
+The `hardware.modules` option can be used to load relevant configuration from [`nixos-hardware`](https://github.com/nixos/nixos-hardware)
 
-See [this](./modules/hardware/README.md) for additional hardware information
+See [this](./modules/hardware/README.md) for additional information
 
 ### Build
 
@@ -750,10 +750,7 @@ You can navigate to the `README`s present in the various directories to know mor
 <details>
 <summary><b>Known Limitations</b></summary>
 
-- It is a hard requirement to clone the repository to `/etc/nixos` in order to use it as intended
 - Home Configuration can't be decoupled from System
-- Lack of automatic script checking
-- Currently using a workaround for CI due to NixOS/nix#3978
 - [Wine](./packages/wine) Applications have to be manually updated
 
 </details>

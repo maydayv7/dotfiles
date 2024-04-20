@@ -145,7 +145,7 @@
 
     # Hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.39.0";
+      url = "github:hyprwm/Hyprland?ref=v0.39.1";
       inputs.systems.follows = "systems";
     };
 
@@ -162,7 +162,6 @@
     hyprspace = {
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
-      inputs.hyprlandPlugins.follows = "hyprland-plugins";
     };
 
     # Declarative Flatpak Wrapper

@@ -24,7 +24,7 @@ in {
       debug.disable_logs = false;
 
       # Display
-      monitor = ",preferred,auto,1";
+      monitor = ", preferred, auto, 1";
       xwayland.force_zero_scaling = true;
 
       input = {
