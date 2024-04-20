@@ -376,7 +376,7 @@ If you really want to get dirty with Nix and decide to invest oodles of your tim
 
 ### Caution
 
-This repository contains my personal configuration, and may cause undesirable effects on other systems. It may also be subject to rapid undocumented changes, and uses Nix [Flakes](https://nixos.wiki/wiki/Flakes), an experimental feature
+This repository contains my personal configuration, and may cause undesirable effects on other systems. It may also be subject to rapid undocumented changes, and uses Nix [Flakes](https://wiki.nixos.org/wiki/Flakes), an experimental feature
 
 > [!NOTE]
 > Required Nix Version >= 2.19

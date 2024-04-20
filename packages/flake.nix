@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (util) map;
-  inherit (builtins) any isPath;
+  inherit (builtins) any attrValues isPath;
 in {
   ## Package Configuration ##
   perSystem = {
@@ -47,25 +47,25 @@ in {
       ) rec {
         inherit system config;
 
-        overlays = [
-          vsppuccin.overlays.default
-          (pkg: _: {
-            nixFlakes = pkg.unstable.nixVersions.nix_2_20;
+        overlays =
+          (attrValues self.overlays or {})
+          ++ [
+            vsppuccin.overlays.default
+            (_: _: {
+              custom = self.packages."${system}";
+              unstable = import unstable {inherit system config;};
 
-            custom = self.packages."${system}";
-            unstable = import unstable {inherit system config;};
-
-            code = vscode.extensions."${system}";
-            gaming = gaming.packages."${system}";
-            wine = windows.packages."${system}";
-            wayworld =
-              wayland.packages."${system}"
-              // hycov.packages."${system}"
-              // hyprspace.packages."${system}"
-              // hyprland-plugins.packages."${system}"
-              // hyprland.packages."${system}";
-          })
-        ];
+              code = vscode.extensions."${system}";
+              gaming = gaming.packages."${system}";
+              wine = windows.packages."${system}";
+              wayworld =
+                wayland.packages."${system}"
+                // hycov.packages."${system}"
+                // hyprspace.packages."${system}"
+                // hyprland-plugins.packages."${system}"
+                // hyprland.packages."${system}";
+            })
+          ];
       };
 
     # Custom Packages
@@ -77,4 +77,7 @@ in {
       // map.modules ../scripts call.script
       // inputs'.proprietary.packages;
   });
+
+  # Package Overrides
+  flake.overlays = map.modules ./overlays import;
 }
