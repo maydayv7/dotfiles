@@ -37,7 +37,7 @@ in {
         hyprland = {
           enable = true;
           xwayland.enable = true;
-          package = pkgs.wayworld.hyprland;
+          package = pkgs.hyprworld.hyprland;
         };
 
         # Login

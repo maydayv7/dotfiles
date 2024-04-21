@@ -42,24 +42,24 @@
         "ALT SHIFT, Q, movetoworkspace, +0"
 
         # Cycle Workspaces
-        "$mod, comma, workspace, m-1"
-        "$mod, period, workspace, m+1"
+        "$mod, comma, split:workspace, m-1"
+        "$mod, period, split:workspace, m+1"
 
         # Special Workspace
         "$mod, grave, togglespecialworkspace, stash"
         "$mod SHIFT, grave, exec, pypr toggle_special stash"
 
         # Move Window to Workspace
-        "$mod SHIFT, comma, movetoworkspace, r-1"
-        "$mod SHIFT, period, movetoworkspace, r+1"
+        "$mod SHIFT, comma, split:movetoworkspace, r-1"
+        "$mod SHIFT, period, split:movetoworkspace, r+1"
 
         # Cycle Monitors
         "$mod ALT, comma, focusmonitor, l"
         "$mod ALT, period, focusmonitor, r"
 
-        # Send Focused Workspace to Monitor
-        "$mod SHIFT ALT, comma, movecurrentworkspacetomonitor, l"
-        "$mod SHIFT ALT, period, movecurrentworkspacetomonitor, r"
+        # Move Window to Monitor
+        "$mod SHIFT ALT, comma, movewindow, mon:-1"
+        "$mod SHIFT ALT, period, movewindow, mon:+1"
 
         # Screen Lock
         "$mod, L, exec, loginctl lock-session"
@@ -76,8 +76,8 @@
             n: let
               num = toString (n + 1);
             in [
-              "$mod, ${num}, workspace, ${num}"
-              "$mod SHIFT, ${num}, movetoworkspace, ${num}"
+              "$mod, ${num}, split:workspace, ${num}"
+              "$mod SHIFT, ${num}, split:movetoworkspace, ${num}"
             ]
           )
           9));

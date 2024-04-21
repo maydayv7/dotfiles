@@ -502,6 +502,7 @@ You can navigate to the `README`s present in the various directories to know mor
 
 - Hyprland Improvements
   - Update to latest version
+  - Desktop Icons
   - Keybindings List
   - Panel Improvements
   - Border Gradients

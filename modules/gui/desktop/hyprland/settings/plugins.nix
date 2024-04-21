@@ -15,7 +15,7 @@ in {
   };
 
   wayland.windowManager.hyprland = {
-    plugins = with pkgs.wayworld; [hycov hyprexpo Hyprspace];
+    plugins = with pkgs.hyprworld; [hycov hyprexpo Hyprspace hyprsplit];
     extraConfig = let
       gaps =
         builtins.toString
@@ -48,6 +48,7 @@ in {
         # Workspace Overview
         overview {
           autoDrag = true
+          dragAlpha = 0.4
           exitOnClick = true
           centerAligned = true
           hideTopLayers = true
@@ -58,6 +59,11 @@ in {
           gapsIn = ${gaps}
           gapsOut = ${gaps}
           workspaceActiveBorder = rgb(${base0D})
+        }
+
+        # Split Monitor Workspaces
+        hyprsplit {
+          num_workspaces = 9
         }
       }
     '';

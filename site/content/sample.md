@@ -94,7 +94,7 @@ Supports wide range of Multi-Media using [_shortcodes_](https://www.getzola.org/
 
 ## Image
 
-{{ figure(src="https://raw.githubusercontent.com/maydayv7/dotfiles/b384f1914f030f1e12ae58cc2b78512a378bf4c9/files/images/wallpapers/Island.jpg", alt="Island", style="border-style: inset; border-radius: 15px; width: 100%;", caption="A Nice Wallpaper", caption_style="font-weight: bold;") }}
+{{ figure(src="https://github.com/maydayv7/proprietary/blob/45552f2069239c3b59bee339503fc005423b5da6/wallpapers/Island.jpg", alt="Island", style="border-style: inset; border-radius: 15px; width: 100%;", caption="A Nice Wallpaper", caption_style="font-weight: bold;") }}
 
 ## Video
 

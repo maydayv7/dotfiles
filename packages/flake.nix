@@ -58,12 +58,12 @@ in {
               code = vscode.extensions."${system}";
               gaming = gaming.packages."${system}";
               wine = windows.packages."${system}";
-              wayworld =
-                wayland.packages."${system}"
+              hyprworld =
+                hyprland.packages."${system}"
+                // hyprland-plugins.packages."${system}"
                 // hycov.packages."${system}"
                 // hyprspace.packages."${system}"
-                // hyprland-plugins.packages."${system}"
-                // hyprland.packages."${system}";
+                // hyprsplit.packages."${system}";
             })
           ];
       };

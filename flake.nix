@@ -55,9 +55,6 @@
       inputs.flake-parts.follows = "framework";
     };
 
-    # Wayland Repository
-    wayland.url = "github:nix-community/nixpkgs-wayland";
-
     ## Configuration Modules ##
     ## Language Addendum
     # Supported Architectures
@@ -164,6 +161,11 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     # Declarative Flatpak Wrapper
     flatpak.url = "github:gmodena/nix-flatpak";
 
@@ -242,7 +244,6 @@
       "https://nix-community.cachix.org"
       "https://nix-gaming.cachix.org"
       "https://nixpkgs-unfree.cachix.org"
-      "https://nixpkgs-wayland.cachix.org"
       "https://catppuccin.cachix.org"
     ];
 
@@ -254,7 +255,6 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
     ];
   };

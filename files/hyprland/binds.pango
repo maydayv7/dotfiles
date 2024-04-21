@@ -28,7 +28,7 @@
 <tt>$mod SHIFT `</tt>					Move window to/from special workspace stash
 <tt>$mod SHIFT ,<i> or </i>.</tt>			Move window to previous/next workspace
 <tt>$mod ALT ,<i> or </i>.</tt>				Move focus to left/right monitor
-<tt>$mod SHIFT ALT ,<i> or </i>.</tt>		Move workspace to left/right monitor
+<tt>$mod SHIFT ALT ,<i> or </i>.</tt>		Move window to left/right monitor
 
 <tt>Print</tt>								Take Screenshot of area
 <tt>CTRL Print</tt>						Take Screenshot of window
