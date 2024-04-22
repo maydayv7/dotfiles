@@ -42,6 +42,10 @@ window#waybar {
   background-color: transparent;
 }
 
+#custom-minimized {
+  color: @base0E;
+}
+
 #taskbar button.active {
   background: @base03;
 }
@@ -121,6 +125,7 @@ window#waybar {
 #custom-dropdown,
 #custom-dunst,
 #custom-logo,
+#custom-minimized,
 #custom-power,
 #custom-weather,
 #keyboard-state,

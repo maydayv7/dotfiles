@@ -4,7 +4,7 @@ final: prev: {
     installPhase =
       old.installPhase
       + ''
-        fix=" --enable-features=WebUIDarkMode,TouchpadOverscrollHistoryNavigation --force-dark-mode"
+        fix=" --enable-features=TouchpadOverscrollHistoryNavigation --gtk-version=4"
         substituteInPlace $out/share/applications/google-chrome.desktop \
           --replace $exe "$exe$fix"
       '';

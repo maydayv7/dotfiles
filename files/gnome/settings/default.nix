@@ -128,7 +128,6 @@ in {
     };
 
     "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
       clock-show-weekday = true;
       enable-animations = true;
       enable-hot-corners = true;

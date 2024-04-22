@@ -47,7 +47,7 @@ in {
       binds = {
         workspace_center_on = 1;
         movefocus_cycles_fullscreen = true;
-        workspace_back_and_forth = true;
+        workspace_back_and_forth = false;
       };
 
       gestures = {

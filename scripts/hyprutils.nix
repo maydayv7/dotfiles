@@ -35,7 +35,7 @@ in
   } (pkgs.writeShellApplication {
     name = "hyprutils";
     runtimeInputs = with pkgs; [
-      hyprland
+      hyprworld.hyprland
       coreutils
       dunst
       gnugrep

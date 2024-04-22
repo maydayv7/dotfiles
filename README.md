@@ -504,6 +504,7 @@ You can navigate to the `README`s present in the various directories to know mor
   - Update to latest version
   - Desktop Icons
   - Keybindings List
+  - Useful Submaps
   - Panel Improvements
   - Border Gradients
   - Revamp `hyprutils` Script

@@ -28,7 +28,6 @@ in {
     "org/gnome/desktop/interface" = {
       clock-format = "24h";
       clock-show-weekday = true;
-      color-scheme = "prefer-dark";
       cursor-size = 32;
       document-font-name = "${head fonts.sansSerif} 12";
       enable-animations = true;

@@ -29,18 +29,21 @@ in {
     useImage = true;
   };
 
-  # Screen Idle
+  # Idle Daemon
   services.swayidle = {
     enable = true;
     systemdTarget = "hyprland-session.target";
-    events = [
+    events = let
+      toggle = "${getExe pkgs.custom.hyprutils} toggle media";
+      lock = flag: "sh -c '${toggle}; ${getExe locker} ${flag}; ${toggle}'";
+    in [
       {
         event = "before-sleep";
-        command = "${pkgs.systemd}/bin/loginctl lock-session";
+        command = lock "--grace 0";
       }
       {
         event = "lock";
-        command = let toggle = "${getExe pkgs.custom.hyprutils} toggle media"; in "sh -c '${toggle}; ${getExe locker}; ${toggle}'";
+        command = lock "";
       }
     ];
     timeouts = [
@@ -83,7 +86,7 @@ in {
 
   # Authorization Agent
   systemd.user.services.polkit = {
-    Unit.Description = "polkit-gnome-authentication-agent-1";
+    Unit.Description = "Polkit Authentication (GNOME)";
 
     Install = {
       WantedBy = ["graphical-session.target"];

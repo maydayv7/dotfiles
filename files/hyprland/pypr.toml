@@ -1,7 +1,6 @@
 [pyprland]
 plugins = [
   "scratchpads",
-  "magnify",
   "toggle_special"
 ]
 

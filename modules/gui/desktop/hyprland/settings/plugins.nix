@@ -4,9 +4,7 @@
   pkgs,
   files,
   ...
-}: let
-  inherit (sys.lib.stylix.colors) base00 base0D;
-in {
+}: {
   ## Plugin Settings
   # Pyprland
   home = {
@@ -16,7 +14,7 @@ in {
 
   wayland.windowManager.hyprland = {
     plugins = with pkgs.hyprworld; [hycov hyprexpo Hyprspace hyprsplit];
-    extraConfig = let
+    extraConfig = with sys.lib.stylix.colors; let
       gaps =
         builtins.toString
         config.wayland.windowManager.hyprland.settings.general.gaps_in;
@@ -58,6 +56,8 @@ in {
           overrideGaps = true
           gapsIn = ${gaps}
           gapsOut = ${gaps}
+          panelBorderWidth = 1
+          panelBorderColor = rgb(${base0A})
           workspaceActiveBorder = rgb(${base0D})
         }
 

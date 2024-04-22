@@ -470,11 +470,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713447438,
-        "narHash": "sha256-6WgXIc5h8DTbLzdKrkGmJusCZfaNeT/XK+EX3wqQ5LI=",
+        "lastModified": 1713576964,
+        "narHash": "sha256-qn/SED9lGPRkbgjbAm0Q8TG8Eo9PldAcLAVwZXsKVJs=",
         "owner": "DreamMaoMao",
         "repo": "hycov",
-        "rev": "2c25830474ed41058accf87568991d3444b16537",
+        "rev": "df22a0cafc4ea1d2074231f5d1c906d819b1d660",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713480110,
-        "narHash": "sha256-AUGdqvZs3C2wJziAzbxccXMvXW+4/41TAuyRE0IG8Yc=",
+        "lastModified": 1713738762,
+        "narHash": "sha256-wXMqOQosjblsdV3x0DzpH7qSBUs5hT5Ca6eZ2Xp8TOA=",
         "owner": "KZDKM",
         "repo": "Hyprspace",
-        "rev": "fc8d5f4152e4a935838b25e9f4da0fc5e958baba",
+        "rev": "de3b1ccbf30498b6fcd42b36418e33a2c8c1405a",
         "type": "github"
       },
       "original": {

@@ -52,7 +52,7 @@ in rec {
         margin-bottom = 5;
         margin-left = 5;
 
-        modules-left = ["custom/logo" "group/users" "hyprland/workspaces" "hyprland/window"];
+        modules-left = ["custom/logo" "group/users" "hyprland/workspaces" "group/window"];
         modules-center = ["wlr/taskbar"];
         modules-right = [
           "group/menu"
@@ -116,6 +116,12 @@ in rec {
           };
         };
 
+        "group/window" = {
+          orientation = "horizontal";
+          modules = ["hyprland/window" "custom/minimized"];
+          drawer.transition-left-to-right = true;
+        };
+
         "hyprland/window" = {
           format = "{initialTitle}";
           max-length = 40;
@@ -130,6 +136,27 @@ in rec {
             "(.*) - Geany" = "Text Editor";
             "(.*) - Thunar" = "File Manager";
           };
+        };
+
+        "custom/minimized" = {
+          format = "";
+          tooltip = "false";
+          on-click = with pkgs; "${writeShellApplication {
+            name = "minimize";
+            runtimeInputs = [hyprworld.hyprland];
+            text = ''
+              if hyprctl workspaces | grep "special:minimized"
+              then
+                hyprctl --batch "\
+                  dispatch submap reset;\
+                  dispatch workspace special:minimized;\
+                  dispatch submap minimized"
+                exit
+              else
+                hyprctl notify 3 2000 0 "No minimized windows present"
+              fi
+            '';
+          }}/bin/minimize";
         };
 
         "wlr/taskbar" = {

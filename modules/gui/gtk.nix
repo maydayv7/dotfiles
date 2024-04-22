@@ -49,6 +49,7 @@ in {
         home.file.".config/gtk-3.0/bookmarks".text = files.gtk.bookmarks;
 
         # Theming
+        dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
         gtk = {
           enable = true;
           inherit (cfg) theme;
