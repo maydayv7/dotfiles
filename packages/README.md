@@ -15,4 +15,4 @@ Then Nix will fail the build with an `error` message and give the correct hash
 
 ### Patches
 
-The default package channel can be patched by simply dropping a valid `.patch` file into the `patches` directory
+The default package channel (`stable`) can be patched by simply dropping a valid `.patch` file into the `patches` directory

@@ -15,3 +15,7 @@ These are the options that can be used in addition to the ones exposed by the [`
 - `format`: Generates Output for Specified Target Format (See [this](https://github.com/nix-community/nixos-generators#supported-formats) for the list of supported formats)
 - `user` or `users` (---> `config.user.settings`): Used to specify Device User/Multiple Users per Device - Ex. `users = [ { name "1"; } { name = "2"; } ]`
 - `update`: Enable Automatic System Upgrades - Ex. `weekly`
+- `channel`: Specify which Package Channel the system is built from - Ex. `unstable`
+
+> [!WARNING]
+> Specifying any other package channel apart from `stable` may be untested and cause breakage

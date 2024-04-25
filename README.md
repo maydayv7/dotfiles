@@ -514,6 +514,7 @@ You can navigate to the `README`s present in the various directories to know mor
     - [Hyprspace](https://github.com/KZDKM/Hyprspace)
     - [Hyprexpo](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprexpo)
 - Add `devcontainer` for Github Codespaces
+- Reimplement support for specifying Package Channel for configuration build
 
 ### v17
 

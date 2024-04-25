@@ -91,7 +91,7 @@ in {
 
     user.homeConfig.stylix.targets = {
       bat.enable = mkIf shell true;
-      btop.enable = mkIf shell true;
+      #btop.enable = mkIf shell true;
       #yazi.enable = mkIf shell true; #!# Wait for release
       firefox.enable = false;
       vscode.enable = mkIf (exists "vscode") false;

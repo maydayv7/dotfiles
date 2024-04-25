@@ -1,21 +1,7 @@
-{
-  lib,
-  inputs,
-}: let
+inputs: let
   inherit (inputs) self;
   util = self.lib;
   inherit (self) files;
-  inherit (lib) fileContents makeOverridable mkIf;
-  inherit
-    (builtins)
-    attrValues
-    getAttr
-    hashString
-    map
-    removeAttrs
-    replaceStrings
-    substring
-    ;
 in
   ## Configuration Build Function ##
   {
@@ -23,6 +9,7 @@ in
     name ? "nixos",
     description ? "",
     format ? null,
+    channel ? "stable",
     imports ? [],
     timezone,
     locale,
@@ -37,8 +24,22 @@ in
     user ? null,
     users ? null,
   }: let
-    # Default Package Channel
-    pkgs = self.legacyPackages."${system}";
+    # Package Channel
+    pkgs = self.channels."${system}"."${channel}";
+
+    # Configuration Libraries
+    inherit (inputs."${channel}") lib;
+    inherit (lib) fileContents makeOverridable mkIf;
+    inherit
+      (builtins)
+      attrValues
+      getAttr
+      hashString
+      map
+      removeAttrs
+      replaceStrings
+      substring
+      ;
 
     # User Build Function
     user' = {
@@ -73,7 +74,7 @@ in
         inherit system;
         specialArgs = {
           inherit util inputs files;
-          lib = with inputs; nixpkgs.lib // {inherit (home-manager.lib) hm;};
+          lib = lib // {inherit (inputs.home-manager.lib) hm;};
         };
 
         modules = [
@@ -139,7 +140,7 @@ in
                 else true;
 
               # Version
-              stateVersion = fileContents "${inputs.nixpkgs}/.version";
+              stateVersion = fileContents "${inputs."${channel}"}/.version";
               configurationRevision =
                 if (self ? rev)
                 then self.rev

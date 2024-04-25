@@ -38,7 +38,8 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Packages Repository
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=release-23.11";
+    nixpkgs.follows = "stable";
+    stable.url = "github:NixOS/nixpkgs?ref=release-23.11";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -46,7 +47,7 @@
     # Proprietary Software
     proprietary = {
       url = "github:maydayv7/proprietary";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
 
     # Packaged Games
@@ -66,7 +67,7 @@
     # Flakes Framework
     framework = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
+      inputs.nixpkgs-lib.follows = "stable";
     };
 
     # Flake Utility Functions
@@ -81,14 +82,14 @@
     # Syntax Formatter
     formatter = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
 
     ## Feature Modules
     # User Home Manager
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-23.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
 
     # Hardware Support
@@ -98,7 +99,7 @@
     boot = {
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "stable";
         flake-parts.follows = "framework";
         flake-utils.follows = "utils";
       };
@@ -109,7 +110,7 @@
       url = "github:Mic92/sops-nix";
       inputs = {
         nixpkgs.follows = "unstable";
-        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs-stable.follows = "stable";
       };
     };
 
@@ -120,7 +121,7 @@
     generators = {
       url = "github:nix-community/nixos-generators";
       inputs = {
-        nixlib.follows = "nixpkgs";
+        nixlib.follows = "stable";
         nixpkgs.follows = "unstable";
       };
     };
@@ -128,14 +129,14 @@
     # Nix Index Database
     index = {
       url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
 
     # Base16 Theming
     stylix = {
       url = "github:danth/stylix?ref=release-23.11";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "stable";
         home-manager.follows = "home-manager";
       };
     };
@@ -174,7 +175,7 @@
     vscode = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "stable";
         flake-utils.follows = "utils";
       };
     };
@@ -182,7 +183,7 @@
     # Windows VM Creator
     wfvm = {
       url = "git+https://git.m-labs.hk/M-Labs/wfvm";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
 
     # Windows Apps Wrapper
@@ -194,7 +195,7 @@
 
   ## Configuration ##
   outputs = {self, ...} @ inputs: let
-    inherit (inputs.nixpkgs) lib;
+    inherit (inputs.stable) lib;
     map = import ./lib/map.nix lib;
   in
     inputs.framework.lib.mkFlake {inherit inputs;} {
@@ -213,7 +214,7 @@
           lib.recursiveUpdate (map.modules ./lib (file: import file lib))
           {
             nixpkgs = lib;
-            build.device = import ./modules/configuration.nix {inherit lib inputs;};
+            build.device = import ./modules/configuration.nix inputs;
           };
 
         ## Configuration Template ##
