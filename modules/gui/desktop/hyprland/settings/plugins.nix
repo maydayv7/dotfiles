@@ -72,7 +72,7 @@
       exec-once = ["pypr"];
       bind = [
         # Expose
-        "$mod CTRL, TAB, hyprexpo:expo, toggle"
+        "$mod, grave, hyprexpo:expo, toggle"
 
         # Application Overview
         "ALT, Tab, hycov:toggleoverview"

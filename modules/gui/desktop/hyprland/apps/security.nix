@@ -17,7 +17,6 @@ in {
       clock = true;
       indicator = true;
       font = fonts.sansSerif.name;
-      grace = 10;
       fade-in = 1;
       effect-vignette = "0.3:1";
     };
@@ -39,11 +38,11 @@ in {
     in [
       {
         event = "before-sleep";
-        command = lock "--grace 0";
+        command = lock "";
       }
       {
         event = "lock";
-        command = lock "";
+        command = lock "--grace 10";
       }
     ];
     timeouts = [

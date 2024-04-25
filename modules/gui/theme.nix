@@ -10,6 +10,7 @@
   cfg = config.gui;
   enable = !(cfg.desktop == "" || hasSuffix "-minimal" cfg.desktop);
   exists = app: builtins.elem app config.apps.list;
+  shell = config.shell.utilities;
 in {
   imports = [inputs.stylix.nixosModules.stylix];
 
@@ -74,8 +75,12 @@ in {
         }
         else {
           homeManagerIntegration.autoImport = true;
-          opacity.popups = 0.9;
           polarity = "dark";
+          opacity = {
+            popups = 0.9;
+            terminal = 0.9;
+          };
+
           targets = {
             console.enable = true;
             kmscon.enable = true;
@@ -85,7 +90,9 @@ in {
       );
 
     user.homeConfig.stylix.targets = {
-      bat.enable = true;
+      bat.enable = mkIf shell true;
+      btop.enable = mkIf shell true;
+      #yazi.enable = mkIf shell true; #!# Wait for release
       firefox.enable = false;
       vscode.enable = mkIf (exists "vscode") false;
     };

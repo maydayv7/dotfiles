@@ -145,10 +145,8 @@ in {
       services.poweralertd.enable = true;
 
       # Terminal
-      wayland.windowManager.hyprland.settings.misc.swallow_regex = "^(kitty)$";
       programs.kitty = {
         enable = true;
-        font = with config.stylix.fonts; monospace // {size = sizes.terminal;};
         theme = with theme; "${name-alt}-${variant-alt}";
         keybindings = {
           "ctrl+c" = "copy_or_interrupt";
@@ -157,7 +155,6 @@ in {
 
         settings = {
           kitty_mod = "ctrl+shift";
-          background_opacity = "0.9";
           placement_strategy = "center";
 
           copy_on_select = "clipboard";
@@ -166,6 +163,12 @@ in {
           enable_audio_bell = "no";
           visual_bell_duration = "0.1";
         };
+      };
+
+      wayland.windowManager.hyprland.settings.misc.swallow_regex = "^(kitty)$";
+      stylix.targets.kitty = {
+        enable = true;
+        variant256Colors = true;
       };
 
       # Web Browser

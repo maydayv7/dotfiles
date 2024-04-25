@@ -32,15 +32,14 @@ in {
       # Utilities
       environment.systemPackages = with pkgs; [
         bat
-        etcher
+        browsh
+        btop
         eza
         fd
-        file
         lolcat
         neofetch
-        shellcheck
-        stylua
         tree
+        yazi
       ];
 
       ## Program Configuration
@@ -68,7 +67,9 @@ in {
               {initExtra = mkBefore ''eval $(${getExe' pkgs.thefuck "thefuck"} --alias "fix")'';})
             (modules.name ./.))
             // {
+              btop.enable = true; # Resource Monitor
               hstr.enable = true; # Command History Browser
+              #yazi.enable = true # File Browser #!# Wait for release
 
               # DirENV Support
               direnv = {

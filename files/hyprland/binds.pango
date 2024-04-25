@@ -13,7 +13,7 @@
 <tt>$mod Space</tt>						Change window split direction
 <tt>$mod SHIFT Space</tt>			Toggle application grouping
 
-<tt>$mod CTRL Tab</tt>					Show workspace expose view
+<tt>$mod `</tt>							Show workspace expose view
 <tt>$mod [SHIFT] Tab</tt>			Show workspace overview [for all monitors]
 <tt>ALT [SHIFT] Tab</tt>				Show application overview [for all workspaces]
 <tt>ALT <i>ARROW</i></tt>						Switch to window in desired direction (in overview)
@@ -21,11 +21,11 @@
 <tt>ALT CTRL Tab</tt>					Activate urgent/last window
 <tt>ALT [SHIFT] `</tt>					Cycle [backwards] through grouped applications
 
-<tt>$mod <i>NUM</i></tt>						Create workspace '<i>NUM</i>'
-<tt>$mod SHIFT <i>NUM</i></tt>				Move window to workspace '<i>NUM</i>'
+<tt>$mod <i>NUM</i></tt>						Create workspace '<i>NUM</i>' {1 to 9}
+<tt>$mod SHIFT <i>NUM</i></tt>				Move window to workspace '<i>NUM</i>' {1 to 9}
 <tt>$mod ,<i> or </i>.</tt>					Move to previous/next non-empty workspace
-<tt>$mod `</tt>							Toggle special workspace to stash windows
-<tt>$mod SHIFT `</tt>					Move window to/from special workspace stash
+<tt>$mod 0</tt>							Toggle special workspace to stash windows
+<tt>$mod SHIFT 0</tt>					Move window to/from special workspace stash
 <tt>$mod SHIFT ,<i> or </i>.</tt>			Move window to previous/next workspace
 <tt>$mod ALT ,<i> or </i>.</tt>				Move focus to left/right monitor
 <tt>$mod SHIFT ALT ,<i> or </i>.</tt>		Move window to left/right monitor

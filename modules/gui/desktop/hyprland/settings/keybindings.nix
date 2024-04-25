@@ -48,8 +48,8 @@
           "$mod, period, split:workspace, m+1"
 
           # Special Workspace
-          "$mod, grave, togglespecialworkspace, stash"
-          "$mod SHIFT, grave, exec, pypr toggle_special stash"
+          "$mod, 0, togglespecialworkspace, stash"
+          "$mod SHIFT, 0, exec, pypr toggle_special stash"
 
           # Move Window to Workspace
           "$mod SHIFT, comma, split:movetoworkspace, r-1"
