@@ -8,8 +8,14 @@
   ## Plugin Settings
   # Pyprland
   home = {
-    packages = [pkgs.unstable.pyprland];
-    file.".config/hypr/pyprland.toml".text = files.hyprland.pypr;
+    packages = with pkgs; [hyprshade unstable.pyprland];
+    file = {
+      ".config/hypr/pyprland.toml".text = files.hyprland.pypr;
+      ".config/hypr/shaders" = {
+        source = "${pkgs.custom.hyprland-shaders}/share/hypr/shaders";
+        recursive = true;
+      };
+    };
   };
 
   wayland.windowManager.hyprland = {
@@ -73,6 +79,9 @@
       bind = [
         # Expose
         "$mod, grave, hyprexpo:expo, toggle"
+
+        # Compositor Shaders
+        "$mod, S, exec, hyprutils toggle shader"
 
         # Application Overview
         "ALT, Tab, hycov:toggleoverview"

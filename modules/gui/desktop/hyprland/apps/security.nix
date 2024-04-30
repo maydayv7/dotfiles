@@ -50,9 +50,9 @@ in {
         timeout = 330;
         command = "${pkgs.writeShellApplication {
           name = "suspend"; # Only suspend if no audio is playing
-          runtimeInputs = with pkgs; [pipewire ripgrep systemd];
+          runtimeInputs = with pkgs; [pipewire gnugrep systemd];
           text = ''
-            pw-cli i all | rg running
+            pw-cli i all | grep running
             if [ $? == 1 ]; then ${pkgs.systemd}/bin/systemctl suspend; fi
           '';
         }}/bin/suspend";

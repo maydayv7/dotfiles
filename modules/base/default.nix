@@ -56,7 +56,6 @@ in {
     # Essential Utilities
     environment.systemPackages = with pkgs; [
       cryptsetup
-      gparted
       inxi
       killall
       man-pages

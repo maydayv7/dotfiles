@@ -22,6 +22,7 @@
         idle                         - Toggle Idle Daemon service
         media                        - Persist and toggle audio playing state
         monitor                      - Toggle specified Monitor
+        shader                       - Toggle Compositor Shader
   '';
 in
   recursiveUpdate {
@@ -35,15 +36,18 @@ in
   } (pkgs.writeShellApplication {
     name = "hyprutils";
     runtimeInputs = with pkgs; [
-      hyprworld.hyprland
-      coreutils
       dunst
-      gnugrep
+      gnome.zenity
+      hyprshade
+      hyprworld.hyprland
+      swayidle
+
       alsa-utils
       brillo
-      playerctl
+      coreutils
+      gnugrep
       libnotify
-      swayidle
+      playerctl
       systemd
       wget
     ];
@@ -256,6 +260,12 @@ in
             else
               hyprctl keyword monitor "$3, preferred, auto, 1"
             fi
+          ;;
+          "shader")
+            hyprshade off
+            mapfile SHADERS < <(hyprshade ls)
+            SHADER=$(zenity --list --title="Compositor Shader Toggle" --column="Shaders" "''${SHADERS[@]}" | sed "s/^[ \t]*//")
+            hyprshade on "$SHADER" && hyprctl seterror ""
           ;;
           "") error "Expected an Option" "Try 'hyprutils help' for more information" ;;
           *) error "Unexpected Option 'toggle $2'" "Try 'hyprutils help' for more information" ;;

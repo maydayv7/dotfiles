@@ -66,7 +66,14 @@ in {
 
         unstable = import unstable {
           inherit system config;
-          overlays = overlays ++ [(_: _: {inherit (channels) stable;})];
+          overlays =
+            overlays
+            ++ [
+              (pkg: _: {
+                inherit (channels) stable;
+                unstable = pkg;
+              })
+            ];
         };
       };
     }

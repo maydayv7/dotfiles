@@ -38,6 +38,7 @@ in {
     font-manager
     geany
     gnome.file-roller
+    gnome.gnome-disk-utility
     hyprpicker
     lollypop
     mate.atril

@@ -1,24 +1,23 @@
-<span size="10.75pt">
-<b><big>Keyboard Shortcuts</big></b>																	<b><big>Mouse Actions</big></b>
-<i>$mod -> SUPER</i>																			<i>L'/R' -> Left/Right Click</i>
+<b><big>Keyboard Shortcuts</big></b>																<b><big>Mouse Actions</big></b>
+<i>$mod -> SUPER</i>																		<i>L'/R' -> Left/Right Click</i>
 
-<tt>$mod Q</tt>							Quit application										<tt>$mod L'</tt>				Move window
-<tt>$mod P</tt>							Pin window on all Workspaces							<tt>$mod R'</tt>				Window resize
-<tt>$mod M</tt>							Maximize window										<tt>$mod CTRL L'</tt>		Window resize
-<tt>$mod SHIFT M</tt>					Fullscreen window										<tt>$mod SHIFT L'</tt>		Move window into application group
-<tt>ALT Q</tt>								Minimize window
-<tt>ALT SHIFT Q</tt>					Activate previously minimized windows
+<tt>$mod Q<i> or </i>ALT F4</tt>				Quit application										<tt>$mod L'</tt>			Move window
+<tt>ALT A</tt>							Activate urgent/last window								<tt>$mod R'</tt>			Window resize
+<tt>$mod [SHIFT] M</tt>				Maximize [fullscreen] window								<tt>$mod CTRL L'</tt>		Window resize
+<tt>ALT [SHIFT] Q</tt>					Minimize [or bring back] window							<tt>$mod SHIFT L'</tt>		Move window into application group
 <tt>$mod <i>ARROW</i></tt>						Switch focus to window in desired direction
-<tt>$mod SHIFT <i>ARROW</i></tt>			Swap current window with window in desired direction
+<tt>$mod SHIFT <i>ARROW</i></tt>				Swap current window with window in desired direction
 <tt>$mod Space</tt>						Change window split direction
-<tt>$mod SHIFT Space</tt>			Toggle application grouping
+<tt>$mod SHIFT Space</tt>				Toggle application grouping
+<tt>$mod ;<i> or </i>:</tt>					Toggle window float for one/all window(s)
+<tt>$mod C</tt>							Center floating window									<b><big>Submaps</big></b>
+<tt>$mod P</tt>							Pin floating window on all workspaces						<i><tt>esc</tt> to reset</i>
 
-<tt>$mod `</tt>							Show workspace expose view
-<tt>$mod [SHIFT] Tab</tt>			Show workspace overview [for all monitors]
+<tt>$mod `</tt>							Show workspace expose view								<b>Resize</b>			<tt>$mod R</tt>
+<tt>$mod [SHIFT] Tab</tt>				Show workspace overview [for all monitors]					<i>ARROW</i>			Resize window in specified direction
 <tt>ALT [SHIFT] Tab</tt>				Show application overview [for all workspaces]
 <tt>ALT <i>ARROW</i></tt>						Switch to window in desired direction (in overview)
 <tt>ALT [SHIFT] Tab</tt>				Cycle [backwards] through open applications
-<tt>ALT CTRL Tab</tt>					Activate urgent/last window
 <tt>ALT [SHIFT] `</tt>					Cycle [backwards] through grouped applications
 
 <tt>$mod <i>NUM</i></tt>						Create workspace '<i>NUM</i>' {1 to 9}
@@ -26,17 +25,16 @@
 <tt>$mod ,<i> or </i>.</tt>					Move to previous/next non-empty workspace
 <tt>$mod 0</tt>							Toggle special workspace to stash windows
 <tt>$mod SHIFT 0</tt>					Move window to/from special workspace stash
-<tt>$mod SHIFT ,<i> or </i>.</tt>			Move window to previous/next workspace
+<tt>$mod SHIFT ,<i> or </i>.</tt>				Move window to previous/next workspace
 <tt>$mod ALT ,<i> or </i>.</tt>				Move focus to left/right monitor
 <tt>$mod SHIFT ALT ,<i> or </i>.</tt>		Move window to left/right monitor
 
-<tt>Print</tt>								Take Screenshot of area
+<tt>Print</tt>							Take Screenshot of area
 <tt>CTRL Print</tt>						Take Screenshot of window
 <tt>SHIFT Print</tt>					Take Screenshot of screen
 <tt>$mod =<i> or </i>-</tt>					Zoom in/out
-<tt>$mod ;<i> or </i>:</tt>					Toggle window float for one/all window(s)
-<tt>$mod C</tt>							Center floating window
 <tt>$mod L<i> or </i>Esc</tt>					Lock screen / System Logoff
+<tt>$mod S</tt>							Toggle Compositor Shader
 
 <tt>$mod ?</tt>							Show this page
 <tt>$mod A</tt>							Application Drawer
@@ -50,4 +48,3 @@
 <tt>$mod Enter</tt>						Task Manager
 <tt>$mod N</tt>							Show received notifications in order
 <tt>$mod /</tt>							Application Launcher
-</span>

@@ -101,6 +101,10 @@ github:maydayv7/dotfiles
 │       ├───default: app
 │       ├───install: app
 │       └───nixos: app
+├───channels
+│   └───x86_64-linux
+│       ├───stable: package channel
+│       └───unstable: package channel
 ├───checks
 │   └───x86_64-linux
 │       ├───Device-gnome: derivation 'nixos-rebuild'
@@ -123,7 +127,7 @@ github:maydayv7/dotfiles
 │   └───x86_64-linux: package 'treefmt'
 ├───installMedia: device install media
 ├───legacyPackages
-│   └───x86_64-linux: omitted (use '--legacy' to show)
+│   └───x86_64-linux (References 'stable' channel)
 ├───lib: utility library functions
 ├───nixosConfigurations
 │   ├───futura: NixOS configuration
@@ -508,6 +512,7 @@ You can navigate to the `README`s present in the various directories to know mor
   - Panel Improvements
   - Border Gradients
   - Revamp `hyprutils` Script
+  - Compositor Shaders
   - Use [`clipse`](https://github.com/savedra1/clipse) for Clipboard
   - Use amazing plugins
     - [Hycov](https://github.com/DreamMaoMao/hycov)

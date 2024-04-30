@@ -20,8 +20,8 @@
           "$mod, right, movefocus, r"
           "$mod, up, movefocus, u"
           "$mod, down, movefocus, d"
-          "ALT CTRL, Tab, focusurgentorlast"
-          "ALT CTRL, Tab, bringactivetotop,"
+          "ALT, A, focusurgentorlast"
+          "ALT, A, bringactivetotop,"
 
           # Window Swap
           "$mod SHIFT, left, swapwindow, l"
@@ -134,12 +134,14 @@
       submap = reset
 
       # Window Resize
-      bind = ALT, R, submap, resize
+      bind = $mod, R, submap, resize
       submap = resize
       binde = , right, resizeactive, 10 0
       binde = , left, resizeactive, -10 0
       binde = , up, resizeactive, 0 -10
       binde = , down, resizeactive, 0 10
+      bindm = , mouse:272, resizewindow
+      bindm = , mouse:273, movewindow
       bind = , escape, submap, reset
       submap = reset
     '';
