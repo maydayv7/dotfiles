@@ -41,19 +41,15 @@
       "/var/lib/bluetooth"
     ];
 
-    hardware.bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-
     networking = {
       networkmanager.enable = true;
       firewall.enable = true;
     };
 
-    # Power Management
-    services.thermald.enable = true;
-    powerManagement.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
 
     # Memory
     systemd.oomd.enable = false;
@@ -70,6 +66,7 @@
       enable = true;
       enableSSHSupport = true;
     };
+
     user.persist.directories = [
       {
         directory = ".gnupg";
@@ -84,6 +81,7 @@
         PasswordAuthentication = true;
         PermitRootLogin = lib.mkForce "no";
       };
+
       hostKeys = [
         {
           comment = "Host SSH Key";

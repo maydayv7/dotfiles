@@ -9,11 +9,17 @@
 in {
   ## Laptop Configuration ##
   config = lib.mkIf enable {
-    # Lid
-    services.logind.extraConfig = ''
-      HandleLidSwitch=lock
-      HandleLidSwitchExternalPower=lock
-    '';
+    services.logind = {
+      killUserProcesses = true;
+
+      # Power Button
+      powerKey = "poweroff";
+      powerKeyLongPress = "reboot";
+
+      # Lid
+      lidSwitch = "lock";
+      lidSwitchDocked = "ignore";
+    };
 
     # Audio
     user.homeConfig.home.file.".config/autostart/audio-tweaks.desktop".text = ''
@@ -39,6 +45,12 @@ in {
         scrollMethod = "twofinger";
         accelSpeed = "0.7";
       };
+    };
+
+    # Battery
+    powerManagement = {
+      enable = true;
+      powertop.enable = true;
     };
   };
 }

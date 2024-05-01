@@ -92,13 +92,13 @@
     networking.extraHosts =
       builtins.readFile (pkgs.fetchurl {
         # Shady Sites
-        url = "https://raw.githubusercontent.com/shreyasminocha/shady-hosts/fc9cc4020e80b3f87024c96178cba0f766b95e7a/hosts";
-        sha256 = "jbsEiIcOjoglqLeptHhwWhvL/p0PI3DVMdGCzSXFgNA=";
+        url = "https://raw.githubusercontent.com/shreyasminocha/shady-hosts/a5647df22b0dc5ff6c866f21ee2d8b588682626a/hosts";
+        sha256 = "sha256-f6xCphzFHFYfOhMv+488amAMy+rSyHxQs/21nyvBtiU=";
       })
       + builtins.readFile (pkgs.fetchurl {
         # Crypto Scams
-        url = "https://raw.githubusercontent.com/MetaMask/eth-phishing-detect/3be0b9594f0bc6e3e699ee30cb2e809618539597/src/hosts.txt";
-        sha256 = "b3HvaLxnUJZOANUL/p+XPNvu9Aod9YLHYYtCZT5Lan0=";
+        url = "https://raw.githubusercontent.com/MetaMask/eth-phishing-detect/78e727318a77fd62521d220e25871cdb65b8f00d/src/hosts.txt";
+        sha256 = "sha256-b3HvaLxnUJZOANUL/p+XPNvu9Aod9YLHYYtCZT5Lan0=";
       });
   };
 }
