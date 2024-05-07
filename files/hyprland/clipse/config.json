@@ -1,0 +1,6 @@
+{
+  "historyFile": "$XDG_DATA_HOME/clipboard/history.json",
+  "maxHistory": 150,
+  "themeFile": "theme.json",
+  "tempDir": "$XDG_DATA_HOME/clipboard/temp"
+}

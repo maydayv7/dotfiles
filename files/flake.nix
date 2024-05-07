@@ -77,7 +77,11 @@
       binds = ./hyprland/binds.pango;
 
       # Clipboard Manager
-      clipse = readFile ./hyprland/clipse.json;
+      clipse = map.files {
+        directory = ./hyprland/clipse;
+        apply = readFile;
+        extension = ".json";
+      };
 
       # Greeter Configuration
       greeter = readFile ./hyprland/greeter.conf;

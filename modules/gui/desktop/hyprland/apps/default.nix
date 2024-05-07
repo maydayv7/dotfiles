@@ -70,12 +70,12 @@ in {
   user = {
     # Persisted Files
     persist.directories = [
-      ".config/clipse"
       ".config/geany"
       ".config/mpv"
       ".config/nwg-displays"
       ".config/shotwell"
       ".config/Thunar"
+      ".local/share/clipboard"
       ".local/share/lollypop"
       ".local/share/shotwell"
       ".cache/shotwell"
@@ -282,7 +282,8 @@ in {
           '';
 
           # Clipboard Manager
-          ".config/clipse/custom_theme.json".text = util.build.color colors hyprland.clipse;
+          ".config/clipse/config.json".text = hyprland.clipse.config;
+          ".config/clipse/theme.json".text = util.build.color colors hyprland.clipse.theme;
 
           # Wallpaper
           ".config/hypr/hyprpaper.conf".text = ''

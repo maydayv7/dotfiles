@@ -47,6 +47,7 @@
           enable_alt_release_exit = 1
           alt_replace_key = Alt_L
           alt_toggle_auto_next = 1
+          enable_click_action = 1
         }
 
         # Workspace Overview

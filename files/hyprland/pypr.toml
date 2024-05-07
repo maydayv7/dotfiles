@@ -12,7 +12,7 @@ size = "75% 60%"
 
 [scratchpads.clip]
 animation = "fromBottom"
-command = "kitty --class clipse sh -c 'clipse $PPID'"
+command = "kitty --class clipse sh -c 'clipse -fc $PPID'"
 class = "clipse"
 lazy = true
 size = "75% 65%"

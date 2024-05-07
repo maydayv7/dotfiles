@@ -47,16 +47,27 @@ in {
     ];
     timeouts = [
       {
-        timeout = 330;
+        timeout = 500;
         command = "${pkgs.writeShellApplication {
-          name = "suspend"; # Only suspend if no audio is playing
+          name = "suspend"; # Suspend if no audio is playing
           runtimeInputs = with pkgs; [pipewire gnugrep systemd];
           text = ''
-            pw-cli i all | grep running
-            if [ $? == 1 ]; then ${pkgs.systemd}/bin/systemctl suspend; fi
+            pw-cli info all | grep running
+            if [ $? == 1 ]; then systemctl suspend; fi
           '';
         }}/bin/suspend";
       }
+      (let
+        script = text: "${pkgs.writeShellApplication {
+          name = "dpms";
+          runtimeInputs = [sys.programs.hyprland.package pkgs.procps];
+          inherit text;
+        }}/bin/dpms";
+      in {
+        timeout = 30; # Turn off display after locking
+        command = script "if pgrep -x swaylock; then hyprctl dispatch dpms off; fi";
+        resumeCommand = script "hyprctl dispatch dpms on";
+      })
     ];
   };
 

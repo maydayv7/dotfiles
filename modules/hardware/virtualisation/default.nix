@@ -34,7 +34,7 @@ in {
     };
 
     # VM Packages
-    environment.systemPackages = [pkgs.libguestfs];
+    environment.systemPackages = with pkgs; [libguestfs virtiofsd];
     programs.virt-manager.enable = true;
 
     # VM Utilities
