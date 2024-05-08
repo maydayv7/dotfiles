@@ -11,6 +11,9 @@ _: {
       # Clipboard
       "float, class:^(clipse)$"
 
+      # Screen Tearing
+      "immediate, class:^(.+exe)$"
+
       # Application Launcher
       "opacity 0.9 override, class:^(ulauncher)$"
       "move cursor -50% -50%, class:^(ulauncher)$"
@@ -24,6 +27,13 @@ _: {
       "idleinhibit focus, class:^(mpv|.*celluloid.*|.+exe)$"
       "idleinhibit focus, class:^(firefox|google-chrome)$, title:^(.*YouTube.*)$"
       "idleinhibit fullscreen, class:^(firefox|google-chrome)$"
+
+      # Dialogs
+      "float, title:^(Open File)(.*)$"
+      "float, title:^(Select a File)(.*)$"
+      "float, title:^(Open Folder)(.*)$"
+      "float, title:^(Save As)(.*)$"
+      "float, title:^(Library)(.*)$"
 
       # Prompt Windows
       "dimaround, class:^(gcr-prompter)$"

@@ -4,19 +4,15 @@
   pkgs,
   files,
   ...
-}: let
-  inherit (lib) concatMapStringsSep getExe;
-  inherit (sys.stylix) fonts;
-  locker = pkgs.swaylock-effects;
-in {
+}: rec {
   # Locker
   programs.swaylock = {
     enable = true;
-    package = locker;
+    package = pkgs.swaylock-effects;
     settings = {
       clock = true;
       indicator = true;
-      font = fonts.sansSerif.name;
+      font = sys.stylix.fonts.sansSerif.name;
       fade-in = 1;
       effect-vignette = "0.3:1";
     };
@@ -29,13 +25,14 @@ in {
   };
 
   # Idle Daemon
-  services.swayidle = {
+  services.swayidle = let
+    inherit (lib) getExe getExe';
+    toggle = "${getExe pkgs.custom.hyprutils} toggle media";
+    lock = flag: "sh -c '${toggle}; ${getExe programs.swaylock.package} ${flag}; ${toggle}'";
+  in {
     enable = true;
     systemdTarget = "hyprland-session.target";
-    events = let
-      toggle = "${getExe pkgs.custom.hyprutils} toggle media";
-      lock = flag: "sh -c '${toggle}; ${getExe locker} ${flag}; ${toggle}'";
-    in [
+    events = [
       {
         event = "before-sleep";
         command = lock "";
@@ -45,29 +42,22 @@ in {
         command = lock "--grace 10";
       }
     ];
-    timeouts = [
+    timeouts = let
+      script = command: getExe (pkgs.writeShellScript "idle" command);
+      hyprctl = getExe' sys.programs.hyprland.package "hyprctl";
+    in [
       {
-        timeout = 500;
-        command = "${pkgs.writeShellApplication {
-          name = "suspend"; # Suspend if no audio is playing
-          runtimeInputs = with pkgs; [pipewire gnugrep systemd];
-          text = ''
-            pw-cli info all | grep running
-            if [ $? == 1 ]; then systemctl suspend; fi
-          '';
-        }}/bin/suspend";
+        timeout = 300; # Turn off display and lock
+        command = script "${hyprctl} dispatch dpms off; ${lock ""}";
+        resumeCommand = script "${hyprctl} dispatch dpms on";
       }
-      (let
-        script = text: "${pkgs.writeShellApplication {
-          name = "dpms";
-          runtimeInputs = [sys.programs.hyprland.package pkgs.procps];
-          inherit text;
-        }}/bin/dpms";
-      in {
-        timeout = 30; # Turn off display after locking
-        command = script "if pgrep -x swaylock; then hyprctl dispatch dpms off; fi";
-        resumeCommand = script "hyprctl dispatch dpms on";
-      })
+      {
+        timeout = 1000; # Suspend if no audio is playing
+        command = script ''
+          ${getExe' pkgs.pipewire "pw-cli"} info all | ${getExe pkgs.gnugrep} running
+          if [ $? == 1 ]; then ${getExe' pkgs.systemd "systemctl"} suspend; fi
+        '';
+      }
     ];
   };
 
@@ -77,7 +67,7 @@ in {
     style =
       files.hyprland.wlogout
       + ''
-        ${concatMapStringsSep "\n" (
+        ${lib.concatMapStringsSep "\n" (
             name: ''
               #${name} {
                 background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/${name}.png"));
