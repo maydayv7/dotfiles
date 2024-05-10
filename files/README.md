@@ -6,6 +6,7 @@ The `files` directory is used to store all my plain-text program configuration f
 
 - [`ascii`](./ascii) - Personal Collection of beautiful Ascii Art
 - [`colors`](./colors) - Base16 Color Schemes
+- [`fetch`](./fetch) - `hyfetch` CLI Theming
 - [`geany`](./geany) - Configuration for Geany Text Editor
 - [`git`](./git) - Configuration for `git` Version Control
 - [`gnome`](./gnome) - Configuration Files for GNOME Desktop
@@ -14,7 +15,6 @@ The `files` directory is used to store all my plain-text program configuration f
 - [`hyprland`](./hyprland) - Hyprland WM Configuration
 - [`images`](./images) - Personal Wallpapers and Profile Pictures
 - [`nano`](./nano) - `nano` Text Editor Global Configuration
-- [`neofetch`](./neofetch) - `neofetch` CLI Theming
 - [`pantheon`](./pantheon) - Configuration Files for Pantheon Desktop
 - [`proprietary`](https://github.com/maydayv7/proprietary) - Custom Proprietary Files
 - [`templates`](./templates) - Document Templates

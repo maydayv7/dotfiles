@@ -36,8 +36,8 @@
       extension = ".yaml";
     };
 
-    # Neofetch
-    fetch = readFile ./neofetch/config.conf;
+    # Hyfetch
+    fetch = readFile ./fetch/config.conf;
 
     # Geany Text Editor
     geany = map.files {

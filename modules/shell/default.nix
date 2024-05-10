@@ -36,8 +36,8 @@ in {
         btop
         eza
         fd
+        hyfetch
         lolcat
-        neofetch
         tree
         yazi
       ];
@@ -88,7 +88,7 @@ in {
               };
             };
 
-          # Neofetch
+          # Fetch
           home.file.".config/neofetch/config.conf".text = fetch;
 
           # Command Aliases
@@ -103,7 +103,7 @@ in {
             grep = "grep --color";
             colors = "${scripts.colors}";
             edit = "sudo $EDITOR";
-            sike = "neofetch";
+            sike = "neowofetch";
           };
         };
       };

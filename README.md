@@ -425,7 +425,7 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 
 ### Theming
 
-- [Neofetch](https://github.com/dylanaraps/neofetch): Snazzy CLI System Information Tool
+- [Hyfetch](https://github.com/hykilpikonna/hyfetch): Snazzy CLI System Information Tool
 - [Powerlevel10K](https://github.com/romkatv/powerlevel10k) Theme: ZSH Theme for the fancy-looking prompt with immense customization capabilities
 - [Arc Theme](https://github.com/jnsh/arc-theme): Flat GTK theme with transparent elements for various desktop shells, window managers and applications
 - [Bibata Cursor](https://github.com/ful1e5/Bibata_Cursor): Compact and material designed cursor set
