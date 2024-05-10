@@ -30,6 +30,7 @@ _: {
 
       # Dialogs
       "float, title:^(Open File)(.*)$"
+      "float, title:^(Save File)(.*)$"
       "float, title:^(Select a File)(.*)$"
       "float, title:^(Open Folder)(.*)$"
       "float, title:^(Save As)(.*)$"

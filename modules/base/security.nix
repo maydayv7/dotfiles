@@ -8,7 +8,7 @@
     # Protocols
     programs.firejail.enable = true;
     security = {
-      protectKernelImage = true;
+      protectKernelImage = false; # To enable Hibernation
       apparmor = {
         enable = true;
         killUnconfinedConfinables = true;
@@ -24,6 +24,7 @@
       kernel.sysctl = {
         # Kernel
         "kernel.ftrace_enabled" = false;
+        "kernel.kexec_load_disabled" = true;
         "kernel.kptr_restrict" = lib.mkOverride 500 2;
         "kernel.sysrq" = 0;
         "kernel.yama.ptrace_scope" = lib.mkOverride 500 1;

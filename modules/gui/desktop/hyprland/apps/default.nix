@@ -97,7 +97,6 @@ in {
       };
 
       # App Environment
-      dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "appmenu";
       wayland.windowManager.hyprland.settings.env = [
         # Screengrab
         "SLURP_ARGS, -dc ${colors.base0D}"
@@ -105,6 +104,12 @@ in {
         # QT Apps
         "QT_WAYLAND_DISABLE_WINDOWDECORATION, 1"
       ];
+
+      # GTK Apps
+      dconf.settings."org/gnome/desktop/wm/preferences" = {
+        action-double-click-titlebar = "none";
+        button-layout = "appmenu";
+      };
 
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [

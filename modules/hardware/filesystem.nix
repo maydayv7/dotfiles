@@ -127,8 +127,9 @@ in {
         boot = {
           resumeDevice = "/dev/disk/by-partlabel/swap";
           supportedFilesystems = ["zfs"];
-          kernelParams = ["elevator=none" "nohibernate"];
+          kernelParams = ["elevator=none"];
           zfs = {
+            allowHibernation = true;
             forceImportRoot = false;
             forceImportAll = false;
             devNodes = "/dev/disk/by-partlabel/System";

@@ -6,6 +6,11 @@
   ...
 }: rec {
   # Locker
+  stylix.targets.swaylock = {
+    enable = true;
+    useImage = true;
+  };
+
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
@@ -16,12 +21,6 @@
       fade-in = 1;
       effect-vignette = "0.3:1";
     };
-  };
-
-  # Theming
-  stylix.targets.swaylock = {
-    enable = true;
-    useImage = true;
   };
 
   # Idle Daemon
@@ -43,20 +42,20 @@
       }
     ];
     timeouts = let
-      script = command: getExe (pkgs.writeShellScript "idle" command);
+      audio = command: "${pkgs.writeShellScript "audio" ''
+        ${getExe' pkgs.pipewire "pw-cli"} info all | ${getExe pkgs.gnugrep} running
+        if [ $? == 1 ]; then ${command}; fi
+      ''}"; # Check if audio is playing
       hyprctl = getExe' sys.programs.hyprland.package "hyprctl";
     in [
       {
-        timeout = 300; # Turn off display and lock
-        command = script "${hyprctl} dispatch dpms off; ${lock ""}";
-        resumeCommand = script "${hyprctl} dispatch dpms on";
+        timeout = 300; # Turn off display
+        command = audio "${hyprctl} dispatch dpms off";
+        resumeCommand = "${hyprctl} dispatch dpms on";
       }
       {
-        timeout = 1000; # Suspend if no audio is playing
-        command = script ''
-          ${getExe' pkgs.pipewire "pw-cli"} info all | ${getExe pkgs.gnugrep} running
-          if [ $? == 1 ]; then ${getExe' pkgs.systemd "systemctl"} suspend; fi
-        '';
+        timeout = 600; # Suspend then Hibernate computer
+        command = audio "${hyprctl} dispatch dpms on && ${getExe' pkgs.systemd "systemctl"} suspend-then-hibernate";
       }
     ];
   };
