@@ -4,7 +4,10 @@
   pkgs,
   files,
   ...
-}: rec {
+}: let
+  inherit (lib) concatMapStringsSep getExe getExe';
+  locker = pkgs.swaylock-effects;
+in {
   # Locker
   stylix.targets.swaylock = {
     enable = true;
@@ -13,7 +16,7 @@
 
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock-effects;
+    package = locker;
     settings = {
       clock = true;
       indicator = true;
@@ -24,23 +27,24 @@
   };
 
   # Idle Daemon
-  services.swayidle = let
-    inherit (lib) getExe getExe';
-    toggle = "${getExe pkgs.custom.hyprutils} toggle media";
-    lock = flag: "sh -c '${toggle}; ${getExe programs.swaylock.package} ${flag}; ${toggle}'";
-  in {
+  services.swayidle = {
     enable = true;
     systemdTarget = "hyprland-session.target";
-    events = [
+
+    events = let
+      toggle = "${getExe pkgs.custom.hyprutils} toggle media";
+      lock = command: "sh -c 'if ! ${getExe' pkgs.procps "pgrep"} -x swaylock; then ${command}; fi'";
+    in [
       {
         event = "before-sleep";
-        command = lock "";
+        command = lock (getExe locker);
       }
       {
         event = "lock";
-        command = lock "--grace 10";
+        command = lock "${toggle}; ${getExe locker} --grace 10; ${toggle}";
       }
     ];
+
     timeouts = let
       audio = command: "${pkgs.writeShellScript "audio" ''
         ${getExe' pkgs.pipewire "pw-cli"} info all | ${getExe pkgs.gnugrep} running
@@ -54,7 +58,7 @@
         resumeCommand = "${hyprctl} dispatch dpms on";
       }
       {
-        timeout = 600; # Suspend then Hibernate computer
+        timeout = 600; # Suspend then Hibernate device
         command = audio "${hyprctl} dispatch dpms on && ${getExe' pkgs.systemd "systemctl"} suspend-then-hibernate";
       }
     ];
@@ -66,7 +70,7 @@
     style =
       files.hyprland.wlogout
       + ''
-        ${lib.concatMapStringsSep "\n" (
+        ${concatMapStringsSep "\n" (
             name: ''
               #${name} {
                 background-image: image(url("${pkgs.wlogout}/share/wlogout/icons/${name}.png"));
@@ -85,7 +89,7 @@
 
   # Authorization Agent
   systemd.user.services.polkit = {
-    Unit.Description = "Polkit Authentication (GNOME)";
+    Unit.Description = "Polkit Authentication";
 
     Install = {
       WantedBy = ["graphical-session.target"];
