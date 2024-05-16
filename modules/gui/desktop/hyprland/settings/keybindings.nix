@@ -121,18 +121,6 @@
 
     ## Submaps
     extraConfig = ''
-      # Window Minimization
-      bind = ALT SHIFT, Q, submap, minimized
-      submap = minimized
-      bind = , F4, killactive
-      bind = , Return, movetoworkspace, +0
-      bind = , Return, submap, reset
-      bind = , mouse:272, movetoworkspace, +0
-      bind = , mouse:272, submap, reset
-      bind = , escape, togglespecialworkspace, minimized
-      bind = , escape, submap, reset
-      submap = reset
-
       # Window Resize
       bind = $mod, R, submap, resize
       submap = resize
@@ -142,6 +130,18 @@
       binde = , down, resizeactive, 0 10
       bindm = , mouse:272, resizewindow
       bindm = , mouse:273, movewindow
+      bind = , escape, submap, reset
+      submap = reset
+
+      # Window Minimization
+      bind = ALT SHIFT, Q, submap, minimized
+      submap = minimized
+      bind = , F4, killactive
+      bind = , Return, movetoworkspace, +0
+      bind = , Return, submap, reset
+      bind = , mouse:272, movetoworkspace, +0
+      bind = , mouse:272, submap, reset
+      bind = , escape, togglespecialworkspace, minimized
       bind = , escape, submap, reset
       submap = reset
     '';

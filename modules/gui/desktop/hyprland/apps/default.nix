@@ -35,15 +35,16 @@ in {
     celluloid
     unstable.clipse
     custom.desktop-icons
+    evince
     font-manager
     geany
     gnome.file-roller
     gnome.gnome-disk-utility
     hyprpicker
     lollypop
-    mate.atril
     mission-center
     unstable.nwg-displays
+    custom.nwg-dock
     unstable.nwg-drawer
     nwg-wrapper
     unstable.overskride
@@ -91,7 +92,7 @@ in {
         image = ["org.gnome.Shotwell-Viewer.desktop"];
         magnet = ["transmission-gtk.desktop"];
         markdown = ["geany.desktop"];
-        pdf = ["atril.desktop"];
+        pdf = ["org.gnome.Evince.desktop"];
         text = ["geany.desktop"];
         video = ["io.github.celluloid_player.Celluloid.desktop"];
       };
@@ -133,17 +134,20 @@ in {
       wayland.windowManager.hyprland.settings.exec-once = [
         "dbus-update-activation-environment --systemd --all"
 
+        # Clipboard
+        "clipse -listen"
+
         # Application Drawer
         "nwg-drawer -r"
 
         # Desktop Icons
         "dicons"
 
-        # Clipboard
-        "clipse -listen"
-
         # Binds List
-        (with files.hyprland; "nwg-wrapper -t ${binds} -c ${nwg.wrapper} -il 3 -sv 1")
+        (with files.hyprland; "nwg-wrapper -t ${binds} -c ${builtins.toFile "css" nwg.wrapper} -il 3 -sv 1")
+
+        # Application Dock
+        "nwg-dock-hyprland -l 'overlay' -p 'top' -i 34 -w 9 -c 'hyprutils toggle minimized'"
       ];
 
       # Utilities
@@ -278,6 +282,10 @@ in {
         {
           # Application Drawer
           ".config/nwg-drawer/drawer.css".text = hyprland.nwg.drawer;
+
+          # Application Dock
+          ".config/nwg-dock-hyprland/style.css".text = hyprland.nwg.dock;
+          ".local/share/nwg-dock-hyprland/images/grid.svg".source = hyprland.nwg.image;
 
           # Browser
           ".mozilla/firefox/default/chrome/userChrome.css".text = ''

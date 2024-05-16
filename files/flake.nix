@@ -86,6 +86,17 @@
       # Greeter Configuration
       greeter = readFile ./hyprland/greeter.conf;
 
+      # NWG Shell
+      nwg =
+        map.files {
+          directory = ./hyprland/nwg;
+          apply = readFile;
+          extension = ".css";
+        }
+        // {
+          image = ./hyprland/nwg/dropdown.svg;
+        };
+
       # Pyprland
       pypr = readFile ./hyprland/pypr.toml;
 
@@ -94,12 +105,6 @@
 
       # WLogout
       wlogout = readFile ./hyprland/wlogout.css;
-
-      # NWG Shell
-      nwg = {
-        drawer = readFile ./hyprland/nwg/drawer.css;
-        wrapper = ./hyprland/nwg/wrapper.css;
-      };
     };
 
     # Pictures

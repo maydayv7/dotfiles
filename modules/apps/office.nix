@@ -27,6 +27,7 @@ in {
       libreoffice
       obs-studio
       pitivi
+      xournalpp
 
       # Internet
       google-chrome

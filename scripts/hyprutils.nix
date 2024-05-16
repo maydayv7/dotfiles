@@ -21,6 +21,7 @@
         float                        - Toggle window floating in current workspace
         idle                         - Toggle Idle Daemon service
         media                        - Persist and toggle audio playing state
+        minimized                    - Show Minimized windows
         monitor                      - Toggle specified Monitor
         shader                       - Toggle Compositor Shader
   '';
@@ -251,6 +252,18 @@ in
             then
               touch "$FILE"
               playerctl pause -a
+            fi
+          ;;
+          "minimized")
+            if hyprctl workspaces | grep "special:minimized"
+            then
+              hyprctl --batch "\
+                dispatch submap reset;\
+                dispatch workspace special:minimized;\
+                dispatch submap minimized"
+              exit
+            else
+              hyprctl notify 1 2000 0 "No minimized windows present"
             fi
           ;;
           "monitor")

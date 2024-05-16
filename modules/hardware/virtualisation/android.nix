@@ -6,12 +6,11 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkIf optional;
-  inherit (config.hardware.vm.android) enable;
 in {
   options.hardware.vm.android.enable = mkEnableOption "Enable Android Virtualisation";
 
   ## Android Virtualisation ##
-  config = mkIf enable {
+  config = mkIf config.hardware.vm.android.enable {
     assertions = [
       {
         assertion = config.gui.wayland.enable;

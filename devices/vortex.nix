@@ -16,7 +16,7 @@
     filesystem = "advanced";
     support = ["laptop" "mobile" "printer" "virtualisation"];
     modules = ["dell-inspiron-5509"];
-    vm.android.enable = false;
+    vm.android.enable = true;
     cpu = {
       cores = 8;
       mode = "performance";

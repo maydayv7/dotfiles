@@ -15,11 +15,11 @@
 
 <tt>$mod `</tt>							Show workspace expose view								<b>Resize</b>			<tt>$mod R</tt>
 <tt>$mod [SHIFT] Tab</tt>				Show workspace overview [for all monitors]					<i>ARROW</i>			Resize window in specified direction
-<tt>ALT [SHIFT] Tab</tt>				Show application overview [for all workspaces]
+<tt>ALT [SHIFT] Tab</tt>				Show application overview [for all workspaces]				<tt>L'/R'</tt>			Resize / Move window
 <tt>ALT <i>ARROW</i></tt>						Switch to window in desired direction (in overview)
-<tt>ALT [SHIFT] Tab</tt>				Cycle [backwards] through open applications
-<tt>ALT [SHIFT] `</tt>					Cycle [backwards] through grouped applications
-
+<tt>ALT [SHIFT] Tab</tt>				Cycle [backwards] through open applications					<b>Minimize</b>		<tt>ALT SHIFT Q</tt>
+<tt>ALT [SHIFT] `</tt>					Cycle [backwards] through grouped applications				<tt>Return<i> or </i>L'</tt>	Unminimize selected window
+																					<tt>F4</tt>				Quit focused application
 <tt>$mod <i>NUM</i></tt>						Create workspace '<i>NUM</i>' {1 to 9}
 <tt>$mod SHIFT <i>NUM</i></tt>				Move window to workspace '<i>NUM</i>' {1 to 9}
 <tt>$mod ,<i> or </i>.</tt>					Move to previous/next non-empty workspace

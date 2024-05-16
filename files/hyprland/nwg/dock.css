@@ -1,0 +1,32 @@
+/* nwg-dock Styling */
+
+* {
+  border-radius: 10px;
+}
+
+window {
+  background-color: transparent;
+}
+
+#box {
+  padding: 0px;
+}
+
+#active {
+  border-bottom: solid 1px;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+button,
+image {
+  background: none;
+  border: none;
+}
+
+button:hover {
+  background-color: rgba (255, 255, 255, 0.1);
+}
+
+button:focus {
+  box-shadow: none;
+}

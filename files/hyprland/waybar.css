@@ -35,15 +35,12 @@ window#waybar {
 
 .modules-left #workspaces button.active {
   border: 2px solid @base03;
+  color: @base05;
 }
 
 .modules-left #workspaces button.empty {
   color: @base07;
   background-color: transparent;
-}
-
-#custom-minimized {
-  color: @base0E;
 }
 
 #taskbar button.active {
@@ -125,7 +122,6 @@ window#waybar {
 #custom-dropdown,
 #custom-dunst,
 #custom-logo,
-#custom-minimized,
 #custom-power,
 #custom-weather,
 #keyboard-state,
