@@ -23,6 +23,7 @@
         media                        - Persist and toggle audio playing state
         minimized                    - Show Minimized windows
         monitor                      - Toggle specified Monitor
+        panel                        - Toggle top Panel
         shader                       - Toggle Compositor Shader
   '';
 in
@@ -37,11 +38,13 @@ in
   } (pkgs.writeShellApplication {
     name = "hyprutils";
     runtimeInputs = with pkgs; [
+      custom.nwg-dock
       dunst
       gnome.zenity
       hyprshade
       hyprworld.hyprland
       swayidle
+      waybar
 
       alsa-utils
       brillo
@@ -227,7 +230,7 @@ in
           ;;
           "float")
             WORKSPACE=$(hyprctl activeworkspace | grep "workspace ID" | awk '{print $3}')
-            hyprctl notify 1 2000 0 "Toggle window floating on Workspace $WORKSPACE"
+            hyprctl notify 1 2000 0 "Toggled window floating on Workspace $WORKSPACE"
             hyprctl dispatch workspaceopt allfloat
           ;;
           "idle")
@@ -272,6 +275,16 @@ in
               hyprctl keyword monitor "$3, disable"
             else
               hyprctl keyword monitor "$3, preferred, auto, 1"
+            fi
+          ;;
+          "panel")
+            if systemctl --user is-active waybar
+            then
+              systemctl --user stop waybar
+              systemctl --user stop nwg-dock
+            else
+              systemctl --user start waybar
+              systemctl --user start nwg-dock
             fi
           ;;
           "shader")

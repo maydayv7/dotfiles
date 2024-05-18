@@ -19,7 +19,7 @@
   };
 
   wayland.windowManager.hyprland = {
-    plugins = with pkgs.hyprworld; [hycov hyprexpo Hyprspace hyprsplit];
+    plugins = with pkgs.hyprworld; [hycov hyprexpo Hypr-DarkWindow Hyprspace hyprsplit];
     extraConfig = with sys.lib.stylix.colors; let
       gaps =
         builtins.toString
@@ -83,6 +83,7 @@
 
         # Compositor Shaders
         "$mod, S, exec, hyprutils toggle shader"
+        "$mod SHIFT, S, invertactivewindow"
 
         # Application Overview
         "ALT, Tab, hycov:toggleoverview"

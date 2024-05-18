@@ -41,6 +41,7 @@ in {
                 hyprland.packages."${system}"
                 // hyprland-plugins.packages."${system}"
                 // hycov.packages."${system}"
+                // hyprdark.packages."${system}"
                 // hyprspace.packages."${system}"
                 // hyprsplit.packages."${system}";
             })

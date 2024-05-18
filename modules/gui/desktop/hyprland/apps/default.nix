@@ -44,7 +44,6 @@ in {
     lollypop
     mission-center
     unstable.nwg-displays
-    custom.nwg-dock
     unstable.nwg-drawer
     nwg-wrapper
     unstable.overskride
@@ -117,17 +116,18 @@ in {
         "$mod SHIFT, slash, exec, pkill -f -1 nwg-wrapper" # Binds List
         "$mod, slash, exec, ulauncher-toggle"
         "$mod, A, exec, nwg-drawer"
+        "$mod SHIFT, A, exec, hyprutils toggle panel"
         "$mod SHIFT, C, exec, hyprpicker -arf hex"
         "$mod, D, exec, pypr toggle displays"
         "$mod, F, exec, thunar"
         "$mod, N, exec, dunstctl history-pop"
         "$mod, T, exec, kitty"
         "$mod SHIFT, T, exec, pypr toggle term"
-        "$mod, V, exec, pypr toggle clip"
+        ''$mod, V, exec, sh -c "if ! hyprctl clients | grep 'class: clipse'; then pypr show clip; fi"''
         "$mod, W, exec, firefox"
         "$mod, Return, exec, missioncenter"
         ", XF86Calculator, exec, qalculate-gtk"
-        "$mod, Escape, exec, wlogout -p layer-shell"
+        "$mod, Escape, exec, sh -c 'if ! pgrep -x wlogout; then wlogout -p layer-shell; fi'"
       ];
 
       # Autostart
@@ -137,22 +137,37 @@ in {
         # Clipboard
         "clipse -listen"
 
-        # Application Drawer
-        "nwg-drawer -r"
-
         # Desktop Icons
         "dicons"
 
+        # Application Drawer
+        "nwg-drawer -r"
+
         # Binds List
         (with files.hyprland; "nwg-wrapper -t ${binds} -c ${builtins.toFile "css" nwg.wrapper} -il 3 -sv 1")
-
-        # Application Dock
-        "nwg-dock-hyprland -l 'overlay' -p 'top' -i 34 -w 9 -c 'hyprutils toggle minimized'"
       ];
 
       # Utilities
       services.playerctld.enable = true;
       services.poweralertd.enable = true;
+
+      # Application Dock
+      systemd.user.services.nwg-dock = {
+        Unit.Description = "Application Dock";
+
+        Install = {
+          WantedBy = ["graphical-session.target"];
+          Wants = ["graphical-session.target"];
+          After = ["graphical-session.target"];
+        };
+
+        Service = {
+          Type = "simple";
+          ExecStart = "${getExe pkgs.custom.nwg-dock} -l 'overlay' -p 'top' -i 30 -w 9 -c 'hyprutils toggle minimized'";
+          Restart = "on-failure";
+          RestartSec = 1;
+        };
+      };
 
       # Terminal
       programs.kitty = {

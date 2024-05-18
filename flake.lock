@@ -512,6 +512,27 @@
         "type": "github"
       }
     },
+    "hyprdark": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ],
+        "nix-filter": "nix-filter"
+      },
+      "locked": {
+        "lastModified": 1713251571,
+        "narHash": "sha256-8sVbc/1VIw3K2I5XD7YwbjZ813UPNE1A+LNxu5pAWBc=",
+        "owner": "micha4w",
+        "repo": "Hypr-DarkWindow",
+        "rev": "e847f179adf4eab3517623e3d5209f531435a61a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "micha4w",
+        "repo": "Hypr-DarkWindow",
+        "type": "github"
+      }
+    },
     "hyprland": {
       "inputs": {
         "hyprcursor": "hyprcursor",
@@ -689,6 +710,21 @@
         "type": "github"
       }
     },
+    "nix-filter": {
+      "locked": {
+        "lastModified": 1705332318,
+        "narHash": "sha256-kcw1yFeJe9N4PjQji9ZeX47jg0p9A0DuU4djKvg1a7I=",
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "rev": "3449dc925982ad46246cfc36469baf66e1b64f17",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1708751719,
@@ -817,6 +853,7 @@
         "hardware": "hardware",
         "home-manager": "home-manager",
         "hycov": "hycov",
+        "hyprdark": "hyprdark",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "hyprspace": "hyprspace",

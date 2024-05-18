@@ -157,6 +157,11 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    hyprdark = {
+      url = "github:micha4w/Hypr-DarkWindow";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     hyprspace = {
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";

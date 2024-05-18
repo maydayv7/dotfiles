@@ -34,10 +34,10 @@
 <tt>SHIFT Print</tt>					Take Screenshot of screen
 <tt>$mod =<i> or </i>-</tt>					Zoom in/out
 <tt>$mod L<i> or </i>Esc</tt>					Lock screen / System Logoff
-<tt>$mod S</tt>							Toggle Compositor Shader
+<tt>$mod [SHIFT] S</tt>				Toggle Compositor Shader [Invert window]
 
 <tt>$mod ?</tt>							Show this page
-<tt>$mod A</tt>							Application Drawer
+<tt>$mod [SHIFT] A</tt>				Application Drawer [Toggle top Panel]
 <tt>$mod SHIFT C</tt>					Color Picker
 <tt>$mod [SHIFT] D</tt>				Monitor Configuration [Toggle main Display]
 <tt>$mod F</tt>							File Manager
