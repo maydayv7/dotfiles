@@ -3,22 +3,22 @@
   pkgs,
   ...
 }:
-with pkgs;
+with pkgs; let
+  metadata = import ./metadata.nix;
+in
   unstable.buildGoModule rec {
     pname = "nwg-dock-hyprland";
-    version = "v" + src.rev;
+    version = metadata.rev;
 
+    inherit (metadata) vendorHash;
     src = fetchFromGitHub {
       owner = "nwg-piotr";
       repo = pname;
-      rev = "f81fcd6c1564583d31aede2bf63b018d94cc562e";
-      sha256 = "sha256-Af6ug7XdveJdX4wvN1KCWVJTZtOfhWYWdo+OPn2Ypvk=";
+      inherit (metadata) rev sha256;
     };
 
-    patches = [./minimize.patch];
-    vendorHash = "sha256-bK3SpydIO943e7zti6yWQ+JqmdF4NkAAtelNBt4Q/+s=";
-
     ldflags = ["-s" "-w"];
+    patches = [./minimize.patch];
     buildInputs = [gtk-layer-shell];
     nativeBuildInputs = [pkg-config wrapGAppsHook];
 

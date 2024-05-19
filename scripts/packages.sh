@@ -4,6 +4,8 @@
 unset NIX_PATH
 set -euo pipefail
 
+COMMIT_PREFIX="chore(packages): Update"
+
 # Script to Automatically Update Packages #
 # Logic
 update() {
@@ -28,8 +30,8 @@ update() {
     repo="$(cat "${t1}" | jq -r .repo)"
     branch="$(cat "${t1}" | jq -r .branch)"             # Optional
     release="$(cat "${t1}" | jq -r .release)"           # Optional
-    cargoSha256="$(cat "${t1}" | jq -r .cargoSha256)"   # Optional
-    vendorSha256="$(cat "${t1}" | jq -r .vendorSha256)" # Optional
+    cargoHash="$(cat "${t1}" | jq -r .cargoHash)"   # Optional
+    vendorHash="$(cat "${t1}" | jq -r .vendorHash)" # Optional
     skip="$(cat "${t1}" | jq -r .skip)"                 # Optional
     upattr="$(cat "${t1}" | jq -r .upattr)";            # Optional
     if [[ "${upattr}" == "null" ]]
@@ -69,51 +71,50 @@ update() {
     echo "Bumping '${rev}' ---> '${newrev}'"
 
     # SHA
-    fakeHash="0000000000000000000000000000000000000000000000000000000000000000"
+    fakeHash="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
     sed -i "s|${rev}|${newrev}|" "${metadata}"
     sed -i "s|${sha256}|${fakeHash}|" "${metadata}"
     nix build --no-link "..#${upattr}" &> "${t2}" || true
-    newsha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
-    if [[ "${newsha256}" == "sha256" ]]
+    newHash="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
+    if [[ "${newHash}" == "sha256" ]]
     then
-      newsha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
+      newHash="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
     fi
 
-    newsha256="$(nix hash to-sri --type sha256 "${newsha256}")"
-    sed -i "s|${fakeHash}|${newsha256}|" "${metadata}"
+    newHash="$(nix hash convert --hash-algo sha256 "${newHash}")"
+    sed -i "s|${fakeHash}|${newHash}|" "${metadata}"
 
     # Cargo SHA
-    if [[ "${cargoSha256}" != "null" ]]
+    if [[ "${cargoHash}" != "null" ]]
     then
-      sed -i "s|${cargoSha256}|${fakeHash}|" "${metadata}"
+      sed -i "s|${cargoHash}|${fakeHash}|" "${metadata}"
       nix build --no-link "..#${upattr}" &> "${t2}" || true
-      newcargoSha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
-      if [[ "${newcargoSha256}" == "sha256" ]]
+      newcargoHash="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
+      if [[ "${newcargoHash}" == "sha256" ]]
         then
-        newcargoSha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
+        newcargoHash="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
       fi
-      newcargoSha256="$(nix hash to-sri --type sha256 "${newcargoSha256}")"
-      sed -i "s|${fakeHash}|${newcargoSha256}|" "${metadata}"
+      newcargoHash="$(nix hash convert --hash-algo sha256 "${newcargoHash}")"
+      sed -i "s|${fakeHash}|${newcargoHash}|" "${metadata}"
     fi
 
     # Vendor SHA
-    if [[ "${vendorSha256}" != "null" ]]
+    if [[ "${vendorHash}" != "null" ]]
     then
-      sed -i "s|${vendorSha256}|${fakeHash}|" "${metadata}"
+      sed -i "s|${vendorHash}|${fakeHash}|" "${metadata}"
       nix build --no-link "..#${upattr}" &> "${t2}" || true
-      newvendorSha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
-      if [[ "${newvendorSha256}" == "sha256" ]]
+      newvendorHash="$(cat "${t2}" | grep 'got:' | cut -d':' -f2 | tr -d ' ' || true)"
+      if [[ "${newvendorHash}" == "sha256" ]]
       then
-        newvendorSha256="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
+        newvendorHash="$(cat "${t2}" | grep 'got:' | cut -d':' -f3 | tr -d ' ' || true)"
       fi
-      newvendorSha256="$(nix hash to-sri --type sha256 "${newvendorSha256}")"
-      sed -i "s|${fakeHash}|${newvendorSha256}|" "${metadata}"
+      newvendorHash="$(nix hash convert --hash-algo sha256 "${newvendorHash}")"
+      sed -i "s|${fakeHash}|${newvendorHash}|" "${metadata}"
     fi
 
     # Commit
-    prefix="chore(packages): Update"
     git diff-index --quiet HEAD "${pkg}" || \
-      git commit -q -n "${pkg}" -m "${prefix} \`${pkgname}\`" -m "${rev} ---> ${newrev}"
+      git commit -q -n "${pkg}" -m "${COMMIT_PREFIX} \`${pkgname}\`" -m "${rev} ---> ${newrev}"
     echo -e "Finished Updating '${pkgname}' ('${rev}' ---> '${newrev}')\n"
     exit 0
   fi

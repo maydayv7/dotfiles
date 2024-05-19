@@ -50,7 +50,14 @@
         margin-bottom = 5;
         margin-left = 5;
 
-        modules-left = ["custom/logo" "group/users" "hyprland/workspaces" "hyprland/window"];
+        modules-left = [
+          "custom/logo"
+          "group/users"
+          "hyprland/workspaces"
+          "hyprland/submap"
+          "hyprland/window"
+        ];
+
         modules-right = [
           "group/menu"
           "bluetooth"
@@ -111,6 +118,13 @@
             OVERVIEW = "";
             special = "";
           };
+        };
+
+        "hyprland/submap" = {
+          always-on = false;
+          tooltip = false;
+          format = " {}";
+          on-click = "hyprctl dispatch submap reset";
         };
 
         "hyprland/window" = {

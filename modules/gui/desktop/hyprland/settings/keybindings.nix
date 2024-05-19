@@ -67,9 +67,9 @@
           "$mod, L, exec, loginctl lock-session"
 
           # Screenshot
-          ", Print, exec, grimblast --notify copysave area"
-          "CTRL, Print, exec, grimblast --notify --cursor copysave output"
-          "SHIFT, Print, exec, grimblast --notify --cursor copysave screen"
+          ", Print, exec, grimblast --notify --freeze copysave area"
+          "CTRL, Print, exec, grimblast --notify --cursor copysave active"
+          "SHIFT, Print, exec, grimblast --notify --cursor copysave output"
         ]
         ++
         # Workspaces

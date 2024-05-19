@@ -20,12 +20,15 @@ in {
     environment.systemPackages = with pkgs; [
       # Productivity
       calibre
-      gimp
       gnome.simple-scan
       gscan2pdf
-      handbrake
       libreoffice
       obs-studio
+
+      # Graphics
+      gimp
+      handbrake
+      inkscape
       pitivi
       xournalpp
 
@@ -58,6 +61,7 @@ in {
         ".config/calibre"
         ".config/GIMP"
         ".config/google-chrome"
+        ".config/inkscape"
         ".config/libreoffice"
         ".config/obs-studio"
         ".config/onlyoffice"

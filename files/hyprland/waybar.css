@@ -43,6 +43,11 @@ window#waybar {
   background-color: transparent;
 }
 
+#submap {
+  color: @base00;
+  background-color: @base08;
+}
+
 #taskbar button.active {
   background: @base03;
 }
@@ -128,6 +133,7 @@ window#waybar {
 #mpris,
 #network,
 #power-profiles-daemon,
+#submap,
 #taskbar,
 #user,
 #window,

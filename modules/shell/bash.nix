@@ -52,7 +52,7 @@ in {
 
           # Command History
           historySize = 100000;
-          historyIgnore = ["rm" "pkill"];
+          historyIgnore = ["rm" "killall"];
           historyControl = ["erasedups" "ignoredups" "ignorespace"];
         };
       })

@@ -61,7 +61,7 @@ in {
             extended = true;
             ignoreDups = true;
             expireDuplicatesFirst = true;
-            ignorePatterns = ["rm *" "pkill *"];
+            ignorePatterns = ["rm *" "killall *"];
           };
 
           # Additional Plugins
