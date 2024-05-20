@@ -56,7 +56,10 @@ in {
         mkForce "${getExe hyprland.package} --config ${
           pkgs.writeText "greeter.conf"
           (replaceStrings ["@greeter"] [(getExe regreet.package)]
-            (util.build.color config.lib.stylix.colors files.hyprland.greeter))
+            (util.build.theme {
+              inherit (config.lib.stylix) colors;
+              file = files.hyprland.greeter;
+            }))
         } &> /dev/null";
     }
 

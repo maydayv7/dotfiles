@@ -8,15 +8,17 @@ _: {
 
     ## Window Rules
     windowrulev2 = [
-      # Clipboard
+      # Clipboard Manager
       "float, class:^(clipse)$"
-
-      # Screen Tearing
-      "immediate, class:^(.+exe)$"
 
       # Application Launcher
       "opacity 0.9 override, class:^(ulauncher)$"
       "move cursor -50% -50%, class:^(ulauncher)$"
+
+      # Keybinds Viewer
+      "float, title:^(Kebihelp)$"
+      "stayfocused, title:^(Kebihelp)$"
+      "opacity 0.9 override, title:^(Kebihelp)"
 
       # Browser Windows
       "float, title:^(Picture-in-Picture)$"
@@ -35,6 +37,9 @@ _: {
       "float, title:^(Open Folder)(.*)$"
       "float, title:^(Save As)(.*)$"
       "float, title:^(Library)(.*)$"
+
+      # Screen Tearing
+      "immediate, class:^(.+exe)$"
 
       # Prompt Windows
       "dimaround, class:^(gcr-prompter)$"

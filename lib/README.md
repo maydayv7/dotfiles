@@ -9,7 +9,7 @@ The `lib` directory contains custom-made utility functions (exposed as `util`), 
   - `device`: Main system configuration building function, used to build the entire configuration for devices (`nixosConfigurations`) as per provided parameters
   - `mime`: Builds and sets `mimetype` values according to specified application and types
   - `script`: Builds script from specified file by removing `shebangs` and exporting as a _string_
-  - `color`: Builds specified file by replacing placeholders with respective Base16 colors from provided scheme
+  - `theme`: Builds specified file by replacing placeholders with provided theming elements
 
 - [`map`](./map.nix): Mapping functions primarily aimed at shortening code complexity -
 

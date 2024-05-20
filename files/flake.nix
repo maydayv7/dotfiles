@@ -73,8 +73,8 @@
 
     # Hyprland WM
     hyprland = {
-      # Binds
-      binds = ./hyprland/binds.pango;
+      # Keybinds Viewer
+      kebihelp = readFile ./hyprland/kebihelp.json;
 
       # Clipboard Manager
       clipse = map.files {

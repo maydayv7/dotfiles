@@ -24,7 +24,7 @@ in
 
     meta = with lib; {
       description = "Modified 'nwg-dock' for Hyprland";
-      homepage = "https://github.com/nwg-piotr/nwg-dock-hyprland";
+      homepage = metadata.repo;
       license = licenses.mit;
       platforms = platforms.linux;
       maintainers = ["maydayv7"];

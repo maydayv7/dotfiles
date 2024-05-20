@@ -6,8 +6,8 @@ plugins = [
 
 [scratchpads.term]
 animation = "fromTop"
-command = "kitty --class kitty-dropterm"
-class = "kitty-dropterm"
+command = "kitty --class yakuake"
+class = "yakuake"
 lazy = true
 size = "75% 60%"
 

@@ -1,0 +1,1034 @@
+{
+  "Parameters": {
+    "cmd_focused_window": "hyprctl activewindow",
+    "importer": {
+      "match_line": ".*@@(.+?)@@(.+?)@@(.+?)@@.*",
+      "position_group": 1,
+      "position_keybinding": 2,
+      "position_label": 3
+    },
+    "keys": {
+      "tab_previous": "Backtab",
+      "tab_next": "Tab",
+      "scroll_down": "Down",
+      "scroll_up": "Up",
+      "quit": "Esc"
+    },
+    "layout": {
+      "n_columns": 3,
+      "spacing": 3,
+      "width": 1100,
+      "height": 900,
+      "background_color": "#@base00",
+      "opacity": 0.9,
+      "tabs": {
+        "background_color": "#@base02",
+        "background_color_current": "#@base04",
+        "color": "#@white",
+        "font": "@font",
+        "font_size": 10,
+        "padding": 1
+      },
+      "group_name": {
+        "background_color": "#@accent",
+        "color": "#@base00",
+        "bold": true,
+        "stretched": false,
+        "padding": "0px 5px 0px 2px",
+        "font": "@font",
+        "font_size": 11
+      },
+      "shortcut": {
+        "label": {
+          "color": "#@white",
+          "bold": false,
+          "font": "@font",
+          "font_size": 10
+        },
+        "value": {
+          "color": "#@base05",
+          "bold": true,
+          "font": "@monospace",
+          "font_size": 10
+        },
+        "spacing": 10
+      }
+    }
+  },
+  "Rules": {
+    "default": "Desktop",
+    "kitty": "Terminal",
+    "code-url-handler": "Code"
+  },
+  "Keybindings": {
+    "Desktop": {
+      "_hidden": false,
+      "Legend": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "SUPER",
+            "label": "$mod"
+          },
+          {
+            "value": "L'/R'",
+            "label": "Left/Right Click"
+          }
+        ]
+      },
+      "Compositor": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod Q or ALT F4",
+            "label": "Quit application"
+          },
+          {
+            "value": "ALT A",
+            "label": "Activate urgent/last window"
+          },
+          {
+            "value": "$mod M",
+            "label": "Maximize window"
+          },
+          {
+            "value": "$mod SHIFT M",
+            "label": "Fullscreen window"
+          },
+          {
+            "value": "ALT Q",
+            "label": "Minimize window"
+          },
+          {
+            "value": "ALT SHIFT Q",
+            "label": "Show all minimized windows"
+          },
+          {
+            "value": "$mod <ARROW>",
+            "label": "Switch focus to window in desired direction"
+          },
+          {
+            "value": "$mod SHIFT <ARROW>",
+            "label": "Swap windows in desired direction"
+          },
+          {
+            "value": "$mod Space",
+            "label": "Change window split direction"
+          },
+          {
+            "value": "$mod SHIFT Space",
+            "label": "Toggle application grouping"
+          },
+          {
+            "value": "$mod ; or :",
+            "label": "Toggle window float for one/all window(s)"
+          },
+          {
+            "value": "$mod C",
+            "label": "Center floating window"
+          },
+          {
+            "value": "$mod P",
+            "label": "Pin floating window on all workspaces"
+          }
+        ]
+      },
+      "Switcher": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod `",
+            "label": "Show workspace expose view"
+          },
+          {
+            "value": "$mod [SHIFT] Tab",
+            "label": "Show workspace overview [for all monitors]"
+          },
+          {
+            "value": "ALT <ARROW>",
+            "label": "Switch to window in desired direction (in overview)"
+          },
+          {
+            "value": "ALT [SHIFT] Tab",
+            "label": "Cycle [backwards] through open applications"
+          },
+          {
+            "value": "ALT [SHIFT] `",
+            "label": "Cycle [backwards] through grouped applications"
+          }
+        ]
+      },
+      "Workspaces": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod <NUM>",
+            "label": "Create workspace '<NUM>' {1 to 9}"
+          },
+          {
+            "value": "$mod SHIFT <NUM>",
+            "label": "Move window to workspace '<NUM>' {1 to 9}"
+          },
+          {
+            "value": "$mod , or .",
+            "label": "Move to previous/next non-empty workspace"
+          },
+          {
+            "value": "$mod 0",
+            "label": "Toggle special workspace to stash windows"
+          },
+          {
+            "value": "$mod SHIFT 0",
+            "label": "Move window to/from special workspace stash"
+          },
+          {
+            "value": "$mod SHIFT , or .",
+            "label": "Move window to previous/next workspace"
+          },
+          {
+            "value": "$mod ALT , or .",
+            "label": "Move focus to left/right monitor"
+          },
+          {
+            "value": "$mod SHIFT ALT , or .",
+            "label": "Move window to left/right monitor"
+          }
+        ]
+      },
+      "Utility": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "Print",
+            "label": "Take Screenshot of area"
+          },
+          {
+            "value": "CTRL Print",
+            "label": "Take Screenshot of window"
+          },
+          {
+            "value": "SHIFT Print",
+            "label": "Take Screenshot of screen"
+          },
+          {
+            "value": "$mod = or -",
+            "label": "Zoom in/out"
+          },
+          {
+            "value": "$mod L or Esc",
+            "label": "Lock screen / System Logoff"
+          },
+          {
+            "value": "$mod S",
+            "label": "Toggle Compositor Shader"
+          },
+          {
+            "value": "$mod SHIFT S",
+            "label": "Invert active window color"
+          }
+        ]
+      },
+      "Applications": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod ?",
+            "label": "Show this page"
+          },
+          {
+            "value": "$mod [SHIFT] A",
+            "label": "Application Drawer [Toggle top Panel]"
+          },
+          {
+            "value": "$mod SHIFT C",
+            "label": "Color Picker"
+          },
+          {
+            "value": "$mod [SHIFT] D",
+            "label": "Monitor Configuration [Toggle main Display]"
+          },
+          {
+            "value": "$mod F",
+            "label": "File Manager"
+          },
+          {
+            "value": "$mod T",
+            "label": "Terminal"
+          },
+          {
+            "value": "$mod Shift T",
+            "label": "Toggle Terminal in Quake mode"
+          },
+          {
+            "value": "$mod V",
+            "label": "Toggle Clipboard"
+          },
+          {
+            "value": "$mod W",
+            "label": "Web Browser"
+          },
+          {
+            "value": "$mod Enter",
+            "label": "Task Manager"
+          },
+          {
+            "value": "$mod N",
+            "label": "Show received notifications in order"
+          },
+          {
+            "value": "$mod /",
+            "label": "Application Launcher"
+          }
+        ]
+      },
+      "Mouse": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod L'",
+            "label": "Move window"
+          },
+          {
+            "value": "$mod R'",
+            "label": "Window resize"
+          },
+          {
+            "value": "$mod CTRL L'",
+            "label": "Window resize"
+          },
+          {
+            "value": "$mod SHIFT L'",
+            "label": "Move window into application group"
+          }
+        ]
+      },
+      "Submap": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "esc",
+            "label": "Reset Submap"
+          },
+          {
+            "value": "$mod R",
+            "label": "Resize"
+          },
+          {
+            "value": "($mod R) L'/R'",
+            "label": "Resize / Move window"
+          },
+          {
+            "value": "ALT SHIFT Q",
+            "label": "Minimize"
+          },
+          {
+            "value": "(ALT SHIFT Q) Return or L'",
+            "label": "Unminimize selected window"
+          }
+        ]
+      }
+    },
+    "Code": {
+      "_hidden": false,
+      "General": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "CTRL /",
+            "label": "Show Command Palette"
+          },
+          {
+            "value": "CTRL P",
+            "label": "Quick Open, Go to File..."
+          },
+          {
+            "value": "CTRL SHIFT N",
+            "label": "New window/instance"
+          },
+          {
+            "value": "CTRL SHIFT W",
+            "label": "Close window/instance"
+          },
+          {
+            "value": "CTRL ,",
+            "label": "User Settings"
+          },
+          {
+            "value": "CTRL K + CTRL S",
+            "label": "Keyboard Shortcuts"
+          }
+        ]
+      },
+      "Editing": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "CTRL X",
+            "label": "Cut line (empty selection)"
+          },
+          {
+            "value": "CTRL C",
+            "label": "Copy line (empty selection)"
+          },
+          {
+            "value": "ALT Up/Down",
+            "label": "Move line up/down"
+          },
+          {
+            "value": "SHIFT ALT Up/Down",
+            "label": "Copy line up/down"
+          },
+          {
+            "value": "CTRL D",
+            "label": "Delete line"
+          },
+          {
+            "value": "CTRL Return",
+            "label": "Insert line below"
+          },
+          {
+            "value": "CTRL SHIFT Return",
+            "label": "Insert line above"
+          },
+          {
+            "value": "CTRL SHIFT \\",
+            "label": "Jump to matching bracket"
+          },
+          {
+            "value": "CTRL ]/[",
+            "label": "Indent/outdent line"
+          },
+          {
+            "value": "Home/End",
+            "label": "Go to beginning/end of line"
+          },
+          {
+            "value": "CTRL Home",
+            "label": "Go to beginning of file"
+          },
+          {
+            "value": "CTRL End",
+            "label": "Go to end of file"
+          },
+          {
+            "value": "CTRL Up/Down",
+            "label": "Scroll line up/down"
+          },
+          {
+            "value": "ALT PgUp/PgDown",
+            "label": "Scroll page up/down"
+          },
+          {
+            "value": "CTRL SHIFT [",
+            "label": "Fold (collapse) region"
+          },
+          {
+            "value": "CTRL SHIFT ]",
+            "label": "Unfold (uncollapse) region"
+          },
+          {
+            "value": "CTRL K + CTRL [",
+            "label": "Fold (collapse) all subregions"
+          },
+          {
+            "value": "CTRL K + CTRL ]",
+            "label": "Unfold (uncollapse) all subregions"
+          },
+          {
+            "value": "CTRL K + CTRL 0",
+            "label": "Fold (collapse) all regions"
+          },
+          {
+            "value": "CTRL K + CTRL J",
+            "label": "Unfold (uncollapse) all regions"
+          },
+          {
+            "value": "CTRL K + CTRL C",
+            "label": "Add line comment"
+          },
+          {
+            "value": "CTRL K + CTRL U",
+            "label": "Remove line comment"
+          },
+          {
+            "value": "SHIFT ALT A",
+            "label": "Toggle block comment"
+          },
+          {
+            "value": "ALT Z",
+            "label": "Toggle word wrap"
+          }
+        ]
+      },
+      "Navigation": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "CTRL T",
+            "label": "Show all Symbols"
+          },
+          {
+            "value": "CTRL G",
+            "label": "Go to Line..."
+          },
+          {
+            "value": "CTRL P",
+            "label": "Go to File..."
+          },
+          {
+            "value": "CTRL SHIFT O",
+            "label": "Go to Symbol..."
+          },
+          {
+            "value": "CTRL SHIFT M",
+            "label": "Show Problems panel"
+          },
+          {
+            "value": "F8",
+            "label": "Go to next error or warning"
+          },
+          {
+            "value": "SHIFT F8",
+            "label": "Go to previous error or warning"
+          },
+          {
+            "value": "CTRL SHIFT TAB",
+            "label": "Navigate editor group history"
+          },
+          {
+            "value": "ALT Left/Right",
+            "label": "Go back/forward"
+          },
+          {
+            "value": "CTRL M",
+            "label": "Toggle Tab moves focus"
+          }
+        ]
+      },
+      "Search": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "CTRL F",
+            "label": "Find"
+          },
+          {
+            "value": "CTRL H",
+            "label": "Replace"
+          },
+          {
+            "value": "F3",
+            "label": "Find next"
+          },
+          {
+            "value": "SHIFT F3",
+            "label": "Find previous"
+          },
+          {
+            "value": "ALT Return",
+            "label": "Select all occurences of Find match"
+          },
+          {
+            "value": "CTRL K + CTRL D",
+            "label": "Move last selection to next Find match"
+          },
+          {
+            "value": "ALT C/R/W",
+            "label": "Toggle case-sensitive/regex/whole word"
+          }
+        ]
+      },
+      "Selection": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "ALT Click",
+            "label": "Insert cursor"
+          },
+          {
+            "value": "CTRL ALT Up/Down",
+            "label": "Insert cursor above/below"
+          },
+          {
+            "value": "CTRL U",
+            "label": "Undo last cursor operation"
+          },
+          {
+            "value": "SHIFT ALT I",
+            "label": "Insert cursor at end of each line selected"
+          },
+          {
+            "value": "CTRL I",
+            "label": "Select current line"
+          },
+          {
+            "value": "CTRL SHIFT L",
+            "label": "Select all occurrences of current selection"
+          },
+          {
+            "value": "CTRL F2",
+            "label": "Select all occurrences of current word"
+          },
+          {
+            "value": "SHIFT ALT Right",
+            "label": "Expand selection"
+          },
+          {
+            "value": "SHIFT ALT Left",
+            "label": "Shrink selection"
+          },
+          {
+            "value": "SHIFT ALT (Mouse Drag) or <ARROW>",
+            "label": "Column (box) selection"
+          }
+        ]
+      },
+      "Editor": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "CTRL F4",
+            "label": "Close editor"
+          },
+          {
+            "value": "CTRL W",
+            "label": "Close editor"
+          },
+          {
+            "value": "CTRL K + F",
+            "label": "Close folder"
+          },
+          {
+            "value": "CTRL \\",
+            "label": "Split editor"
+          },
+          {
+            "value": "CTRL 1/2/3",
+            "label": "Focus into 1st, 2nd, or 3rd editor group"
+          },
+          {
+            "value": "CTRL K + CTRL Left/Right",
+            "label": "Focus into previous/next editor group"
+          },
+          {
+            "value": "CTRL SHIFT PgUp/PgDown",
+            "label": "Move editor left/right"
+          },
+          {
+            "value": "CTRL K + Left/Right",
+            "label": "Move active editor group"
+          }
+        ]
+      },
+      "File": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "CTRL N",
+            "label": "New File"
+          },
+          {
+            "value": "CTRL O",
+            "label": "Open File..."
+          },
+          {
+            "value": "CTRL S",
+            "label": "Save"
+          },
+          {
+            "value": "CTRL SHIFT S",
+            "label": "Save As..."
+          },
+          {
+            "value": "CTRL K S",
+            "label": "Save All"
+          },
+          {
+            "value": "CTRL F4",
+            "label": "Close"
+          },
+          {
+            "value": "CTRL K + CTRL W",
+            "label": "Close All"
+          },
+          {
+            "value": "CTRL SHIFT T",
+            "label": "Reopen closed editor"
+          },
+          {
+            "value": "CTRL K + Return",
+            "label": "Keep preview mode editor open"
+          },
+          {
+            "value": "CTRL TAB",
+            "label": "Open next"
+          },
+          {
+            "value": "CTRL SHIFT TAB",
+            "label": "Open previous"
+          },
+          {
+            "value": "CTRL K + P",
+            "label": "Copy path of active file"
+          },
+          {
+            "value": "CTRL K + R",
+            "label": "Reveal active file in Explorer"
+          },
+          {
+            "value": "CTRL K + O",
+            "label": "Show active file in new window/instance"
+          }
+        ]
+      },
+      "Display": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "F11",
+            "label": "Toggle full screen"
+          },
+          {
+            "value": "SHIFT ALT 0",
+            "label": "Toggle editor layout"
+          },
+          {
+            "value": "CTRL =/-",
+            "label": "Zoom in/out"
+          },
+          {
+            "value": "CTRL B",
+            "label": "Toggle Sidebar visibility"
+          },
+          {
+            "value": "CTRL SHIFT E",
+            "label": "Show Explorer/Toggle focus"
+          },
+          {
+            "value": "CTRL SHIFT F",
+            "label": "Show Search"
+          },
+          {
+            "value": "CTRL SHIFT G",
+            "label": "Show Source Control"
+          },
+          {
+            "value": "CTRL SHIFT D",
+            "label": "Show Debug"
+          },
+          {
+            "value": "CTRL SHIFT X",
+            "label": "Show Extensions"
+          },
+          {
+            "value": "CTRL SHIFT H",
+            "label": "Replace in files"
+          },
+          {
+            "value": "CTRL SHIFT J",
+            "label": "Toggle Search details"
+          },
+          {
+            "value": "CTRL SHIFT U",
+            "label": "Show Output panel"
+          },
+          {
+            "value": "CTRL SHIFT V",
+            "label": "Open Markdown preview"
+          },
+          {
+            "value": "CTRL K + V",
+            "label": "Open Markdown preview to the side"
+          },
+          {
+            "value": "CTRL K + Z",
+            "label": "Zen Mode (Esc to exit)"
+          }
+        ]
+      },
+      "Debug": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "F9",
+            "label": "Toggle breakpoint"
+          },
+          {
+            "value": "F5",
+            "label": "Start/Continue"
+          },
+          {
+            "value": "SHIFT F5",
+            "label": "Stop"
+          },
+          {
+            "value": "F11",
+            "label": "Step into"
+          },
+          {
+            "value": "SHIFT F11",
+            "label": "Step out"
+          },
+          {
+            "value": "F10",
+            "label": "Step over"
+          },
+          {
+            "value": "CTRL K + CTRL I",
+            "label": "Show hover"
+          }
+        ]
+      },
+      "Terminal": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "ALT T",
+            "label": "Show terminal"
+          },
+          {
+            "value": "CTRL C",
+            "label": "Copy selection"
+          },
+          {
+            "value": "CTRL V",
+            "label": "Paste into active terminal"
+          },
+          {
+            "value": "CTRL Up/Down",
+            "label": "Scroll up/down"
+          },
+          {
+            "value": "SHIFT PgUp/PgDown",
+            "label": "Scroll page up/down"
+          },
+          {
+            "value": "CTRL Home/End",
+            "label": "Scroll to top/bottom"
+          }
+        ]
+      }
+    },
+    "Terminal": {
+      "_hidden": false,
+      "Legend": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "CTRL SHIFT",
+            "label": "$mod"
+          }
+        ]
+      },
+      "Scrolling": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod Up",
+            "label": "Scroll line up"
+          },
+          {
+            "value": "$mod Down",
+            "label": "Scroll line down"
+          },
+          {
+            "value": "$mod PgUp",
+            "label": "Scroll page up"
+          },
+          {
+            "value": "$mod PgDown",
+            "label": "Scroll page down"
+          },
+          {
+            "value": "$mod Home",
+            "label": "Scroll to beginning"
+          },
+          {
+            "value": "$mod End",
+            "label": "Scroll to end"
+          },
+          {
+            "value": "$mod Z",
+            "label": "Scroll to prompt -1"
+          },
+          {
+            "value": "$mod X",
+            "label": "Scroll to prompt 1"
+          },
+          {
+            "value": "$mod H",
+            "label": "Show scrollback"
+          },
+          {
+            "value": "$mod G",
+            "label": "Show last command output"
+          }
+        ]
+      },
+      "Tabs": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod Right",
+            "label": "Next tab"
+          },
+          {
+            "value": "CTRL TAB",
+            "label": "Next tab"
+          },
+          {
+            "value": "$mod Left",
+            "label": "Previous tab"
+          },
+          {
+            "value": "CTRL SHIFT TAB",
+            "label": "Previous tab"
+          },
+          {
+            "value": "$mod T",
+            "label": "New tab"
+          },
+          {
+            "value": "$mod Q",
+            "label": "Close tab"
+          },
+          {
+            "value": "$mod .",
+            "label": "Move tab forward"
+          },
+          {
+            "value": "$mod ,",
+            "label": "Move tab backward"
+          },
+          {
+            "value": "$mod ALT T",
+            "label": "Set tab title"
+          }
+        ]
+      },
+      "Window": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod Return",
+            "label": "New window"
+          },
+          {
+            "value": "$mod N",
+            "label": "New OS window"
+          },
+          {
+            "value": "$mod W",
+            "label": "Close window"
+          },
+          {
+            "value": "$mod ]",
+            "label": "Next window"
+          },
+          {
+            "value": "$mod [",
+            "label": "Previous window"
+          },
+          {
+            "value": "$mod B",
+            "label": "Move window backward"
+          },
+          {
+            "value": "$mod `",
+            "label": "Move window to top"
+          },
+          {
+            "value": "$mod R",
+            "label": "Resize window"
+          },
+          {
+            "value": "$mod <N>",
+            "label": "'N'th window"
+          },
+          {
+            "value": "$mod F7",
+            "label": "Focus visible window"
+          },
+          {
+            "value": "$mod F8",
+            "label": "Swap with window"
+          },
+          {
+            "value": "$mod L",
+            "label": "Next layout"
+          }
+        ]
+      },
+      "Actions": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod F",
+            "label": "Find occurrences of entered text"
+          },
+          {
+            "value": "$mod C",
+            "label": "Copy to clipboard"
+          },
+          {
+            "value": "$mod V",
+            "label": "Paste from clipboard"
+          },
+          {
+            "value": "$mod S or SHIFT Insert",
+            "label": "Paste from selection"
+          },
+          {
+            "value": "CTRL C",
+            "label": "Copy or Interrupt"
+          },
+          {
+            "value": "$mod O",
+            "label": "Pass selection to program"
+          },
+          {
+            "value": "$mod U",
+            "label": "Unicode input"
+          },
+          {
+            "value": "$mod =/+/-",
+            "label": "Change font size"
+          },
+          {
+            "value": "$mod E",
+            "label": "Open URL with hints"
+          }
+        ]
+      },
+      "Debug": {
+        "_hidden": false,
+        "keybindings": [
+          {
+            "value": "$mod F1",
+            "label": "Show help"
+          },
+          {
+            "value": "$mod F2",
+            "label": "Edit config file"
+          },
+          {
+            "value": "$mod Esc",
+            "label": "Shell window"
+          },
+          {
+            "value": "$mod Del",
+            "label": "Clear terminal reset active"
+          },
+          {
+            "value": "$mod F5",
+            "label": "Load config file"
+          },
+          {
+            "value": "$mod F6",
+            "label": "Debug config"
+          }
+        ]
+      }
+    }
+  }
+}

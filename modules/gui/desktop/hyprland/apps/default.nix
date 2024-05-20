@@ -41,11 +41,11 @@ in {
     gnome.file-roller
     gnome.gnome-disk-utility
     hyprpicker
+    custom.kebihelp
     lollypop
     mission-center
     unstable.nwg-displays
     unstable.nwg-drawer
-    nwg-wrapper
     unstable.overskride
     playerctl
     qalculate-gtk
@@ -113,7 +113,7 @@ in {
 
       # Shortcuts
       wayland.windowManager.hyprland.settings.bind = [
-        "$mod SHIFT, slash, exec, pkill -f -1 nwg-wrapper" # Binds List
+        "$mod SHIFT, slash, exec, pkill kebihelp || kebihelp show -a"
         "$mod, slash, exec, ulauncher-toggle"
         "$mod, A, exec, nwg-drawer"
         "$mod SHIFT, A, exec, hyprutils toggle panel"
@@ -134,7 +134,7 @@ in {
       wayland.windowManager.hyprland.settings.exec-once = [
         "dbus-update-activation-environment --systemd --all"
 
-        # Clipboard
+        # Clipboard Manager
         "clipse -listen"
 
         # Desktop Icons
@@ -142,9 +142,6 @@ in {
 
         # Application Drawer
         "nwg-drawer -r"
-
-        # Binds List
-        (with files.hyprland; "nwg-wrapper -t ${binds} -c ${builtins.toFile "css" nwg.wrapper} -il 3 -sv 1")
       ];
 
       # Utilities
@@ -298,6 +295,13 @@ in {
           # Application Drawer
           ".config/nwg-drawer/drawer.css".text = hyprland.nwg.drawer;
 
+          # Keybinds Viewer
+          ".config/kebihelp.json".text = util.build.theme {
+            inherit colors;
+            inherit (config.stylix) fonts;
+            file = hyprland.kebihelp;
+          };
+
           # Application Dock
           ".config/nwg-dock-hyprland/style.css".text = hyprland.nwg.dock;
           ".local/share/nwg-dock-hyprland/images/grid.svg".source = hyprland.nwg.image;
@@ -311,7 +315,10 @@ in {
 
           # Clipboard Manager
           ".config/clipse/config.json".text = hyprland.clipse.config;
-          ".config/clipse/theme.json".text = util.build.color colors hyprland.clipse.theme;
+          ".config/clipse/theme.json".text = util.build.theme {
+            inherit colors;
+            file = hyprland.clipse.theme;
+          };
 
           # Wallpaper
           ".config/hypr/hyprpaper.conf".text = ''
