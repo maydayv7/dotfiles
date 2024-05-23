@@ -71,8 +71,8 @@
             "label": "$mod"
           },
           {
-            "value": "L'/R'",
-            "label": "Left/Right Click"
+            "value": "L' / R'",
+            "label": "Left/Right Mouse Click"
           }
         ]
       },
@@ -88,11 +88,11 @@
             "label": "Activate urgent/last window"
           },
           {
-            "value": "$mod M",
+            "value": "$mod E",
             "label": "Maximize window"
           },
           {
-            "value": "$mod SHIFT M",
+            "value": "$mod SHIFT E",
             "label": "Fullscreen window"
           },
           {
@@ -141,8 +141,12 @@
             "label": "Show workspace expose view"
           },
           {
-            "value": "$mod [SHIFT] Tab",
-            "label": "Show workspace overview [for all monitors]"
+            "value": "$mod Tab",
+            "label": "Show workspace overview for current monitor"
+          },
+          {
+            "value": "$mod SHIFT Tab",
+            "label": "Show workspace overview for all monitors"
           },
           {
             "value": "ALT <ARROW>",
@@ -150,11 +154,11 @@
           },
           {
             "value": "ALT [SHIFT] Tab",
-            "label": "Cycle [backwards] through open applications"
+            "label": "Cycle [backwards] through open windows"
           },
           {
             "value": "ALT [SHIFT] `",
-            "label": "Cycle [backwards] through grouped applications"
+            "label": "Cycle [backwards] through grouped windows"
           }
         ]
       },
@@ -163,11 +167,11 @@
         "keybindings": [
           {
             "value": "$mod <NUM>",
-            "label": "Create workspace '<NUM>' {1 to 9}"
+            "label": "Create workspace 'NUM' {1 to 9}"
           },
           {
             "value": "$mod SHIFT <NUM>",
-            "label": "Move window to workspace '<NUM>' {1 to 9}"
+            "label": "Move window to workspace 'NUM' {1 to 9}"
           },
           {
             "value": "$mod , or .",
@@ -225,6 +229,10 @@
           {
             "value": "$mod SHIFT S",
             "label": "Invert active window color"
+          },
+          {
+            "value": "$mod SHIFT D",
+            "label": "Toggle main Display"
           }
         ]
       },
@@ -244,8 +252,8 @@
             "label": "Color Picker"
           },
           {
-            "value": "$mod [SHIFT] D",
-            "label": "Monitor Configuration [Toggle main Display]"
+            "value": "$mod D",
+            "label": "Monitor Configuration"
           },
           {
             "value": "$mod F",
@@ -293,10 +301,6 @@
             "label": "Window resize"
           },
           {
-            "value": "$mod CTRL L'",
-            "label": "Window resize"
-          },
-          {
             "value": "$mod SHIFT L'",
             "label": "Move window into application group"
           }
@@ -307,22 +311,58 @@
         "keybindings": [
           {
             "value": "esc",
-            "label": "Reset Submap"
+            "label": "Exit Submap"
+          },
+          {
+            "value": "",
+            "label": ""
           },
           {
             "value": "$mod R",
-            "label": "Resize"
+            "label": "Resize Submap"
           },
           {
-            "value": "($mod R) L'/R'",
-            "label": "Resize / Move window"
+            "value": "<ARROW> or L' (Mouse Drag)",
+            "label": "Resize window"
+          },
+          {
+            "value": "",
+            "label": ""
+          },
+          {
+            "value": "$mod M",
+            "label": "Move Submap"
+          },
+          {
+            "value": "L' (Mouse Drag)",
+            "label": "Move window"
+          },
+          {
+            "value": "<ARROW>",
+            "label": "Move window (into group)"
+          },
+          {
+            "value": "SHIFT <ARROW>",
+            "label": "Move floating window"
+          },
+          {
+            "value": "C",
+            "label": "Center floating window"
+          },
+          {
+            "value": "P",
+            "label": "Pin floating window"
+          },
+          {
+            "value": "",
+            "label": ""
           },
           {
             "value": "ALT SHIFT Q",
-            "label": "Minimize"
+            "label": "Minimized Submap"
           },
           {
-            "value": "(ALT SHIFT Q) Return or L'",
+            "value": "Return or L'",
             "label": "Unminimize selected window"
           }
         ]

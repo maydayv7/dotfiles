@@ -34,13 +34,16 @@ window#waybar {
 }
 
 .modules-left #workspaces button.active {
-  border: 2px solid @base03;
-  color: @base05;
+  background-color: @base05;
 }
 
 .modules-left #workspaces button.empty {
   color: @base07;
   background-color: transparent;
+}
+
+.modules-left #workspaces button.hosting-monitor {
+  border: 2px solid @base04;
 }
 
 #submap {

@@ -10,8 +10,8 @@
           "$mod, Q, killactive,"
           "ALT, F4, killactive,"
           "$mod, P, pin"
-          "$mod, M, fullscreen, 1"
-          "$mod SHIFT, M, fullscreen,"
+          "$mod, E, fullscreen, 1"
+          "$mod SHIFT, E, fullscreen,"
           "$mod, Space, togglesplit"
           "$mod SHIFT, D, exec, hyprutils toggle monitor ${sys.gui.display}"
 
@@ -88,7 +88,6 @@
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
-        "$mod CTRL, mouse:272, resizewindow"
         "$mod SHIFT, mouse:272, moveintogroup"
       ];
 
@@ -122,21 +121,41 @@
     ## Submaps
     extraConfig = ''
       # Window Resize
-      bind = $mod, R, submap, resize
-      submap = resize
+      bind = $mod, R, submap, Resize
+      submap = Resize
       binde = , right, resizeactive, 10 0
       binde = , left, resizeactive, -10 0
       binde = , up, resizeactive, 0 -10
       binde = , down, resizeactive, 0 10
       bindm = , mouse:272, resizewindow
-      bindm = , mouse:273, movewindow
+      bind = , escape, submap, reset
+      submap = reset
+
+      # Window Movement
+      bind = $mod, M, submap, Move
+      submap = Move
+      bindm = , mouse:272, movewindow
+      bind = , C, centerwindow
+      bind = , P, pin
+      bind = , left, movewindoworgroup, l
+      bind = , right, movewindoworgroup, r
+      bind = , up, movewindoworgroup, u
+      bind = , down, movewindoworgroup, d
+      bind = SHIFT, left, moveactive, -30 0
+      bind = SHIFT, right, moveactive, 30 0
+      bind = SHIFT, up, moveactive, 0 -30
+      bind = SHIFT, down, moveactive, 0 30
       bind = , escape, submap, reset
       submap = reset
 
       # Window Minimization
-      bind = ALT SHIFT, Q, submap, minimized
-      submap = minimized
+      bind = ALT SHIFT, Q, submap, Minimized
+      submap = Minimized
       bind = , F4, killactive
+      bind = , left, movefocus, l
+      bind = , right, movefocus, r
+      bind = , up, movefocus, u
+      bind = , down, movefocus, d
       bind = , Return, movetoworkspace, +0
       bind = , Return, submap, reset
       bind = , mouse:272, movetoworkspace, +0

@@ -16,6 +16,7 @@ _: {
       "move cursor -50% -50%, class:^(ulauncher)$"
 
       # Keybinds Viewer
+      "pin, title:^(Kebihelp)$"
       "float, title:^(Kebihelp)$"
       "stayfocused, title:^(Kebihelp)$"
       "opacity 0.9 override, title:^(Kebihelp)"
