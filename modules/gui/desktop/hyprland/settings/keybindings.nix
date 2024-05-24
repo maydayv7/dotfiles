@@ -41,7 +41,7 @@
 
           # Window Minimization
           "ALT, Q, movetoworkspacesilent, special:minimized"
-          "ALT SHIFT, Q, togglespecialworkspace, minimized"
+          "ALT SHIFT, Q, exec, hyprutils minimize show"
 
           # Cycle Workspaces
           "$mod, comma, split:workspace, m-1"
@@ -149,9 +149,7 @@
       submap = reset
 
       # Window Minimization
-      bind = ALT SHIFT, Q, submap, Minimized
       submap = Minimized
-      bind = , F4, killactive
       bind = , left, movefocus, l
       bind = , right, movefocus, r
       bind = , up, movefocus, u

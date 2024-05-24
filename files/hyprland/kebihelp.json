@@ -244,8 +244,12 @@
             "label": "Show this page"
           },
           {
-            "value": "$mod [SHIFT] A",
-            "label": "Application Drawer [Toggle top Panel]"
+            "value": "$mod A",
+            "label": "Application Drawer"
+          },
+          {
+            "value": "$mod SHIFT A",
+            "label": "Toggle top Panel"
           },
           {
             "value": "$mod SHIFT C",
@@ -364,6 +368,10 @@
           {
             "value": "Return or L'",
             "label": "Unminimize selected window"
+          },
+          {
+            "value": "<ARROW>",
+            "label": "Focus window in desired direction"
           }
         ]
       }

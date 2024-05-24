@@ -4,7 +4,9 @@
   pkgs,
   files,
   ...
-}: rec {
+}: let
+  theme = import ../theme.nix pkgs;
+in rec {
   ## Bar Configuration
   stylix.targets.waybar = {
     enable = true;
@@ -58,6 +60,7 @@
           "hyprland/window"
         ];
 
+        modules-center = ["wlr/taskbar"];
         modules-right = [
           "group/menu"
           "bluetooth"
@@ -99,11 +102,12 @@
 
         "hyprland/workspaces" = {
           all-outputs = true;
-          show-special = false;
+          show-special = true;
           format = "{icon}";
           on-scroll-up = "hyprctl dispatch workspace m+1";
           on-scroll-down = "hyprctl dispatch workspace m-1";
           persistent-workspaces."${sys.gui.display}" = 3;
+          ignore-workspaces = ["special:scratch_.*"];
           format-icons = {
             default = "";
             "1" = "";
@@ -117,6 +121,7 @@
             "9" = "";
             OVERVIEW = "";
             special = "";
+            "special:minimized" = "";
           };
         };
 
@@ -141,6 +146,24 @@
             "(.*) - Geany" = "Text Editor";
             "(.*) - Thunar" = "File Manager";
           };
+        };
+
+        "wlr/taskbar" = {
+          format = "{icon}";
+          icon-size = 20;
+          all-outputs = false;
+          active-first = false;
+          icon-theme = theme.icons.name;
+          markup = true;
+          tooltip-format = "Name: <big><b>{name}</b></big> <i>{short_state}</i>\nTitle: <b>{title}</b>";
+          on-click = "activate";
+          on-click-middle = "fullscreen";
+          on-click-right = "close";
+          ignore-list = [
+            "kitty-clip"
+            "kitty-dropterm"
+            "ulauncher"
+          ];
         };
 
         "group/menu" = {

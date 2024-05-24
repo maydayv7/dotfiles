@@ -42,7 +42,7 @@ window#waybar {
   background-color: transparent;
 }
 
-.modules-left #workspaces button.hosting-monitor {
+.modules-left #workspaces button.hosting-monitor.visible {
   border: 2px solid @base04;
 }
 

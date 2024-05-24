@@ -758,12 +758,12 @@ You can navigate to the `README`s present in the various directories to know mor
 <details>
 <summary><b>Known Limitations</b></summary>
 
-- Home Configuration can't be decoupled from System
+- Home Configuration isn't be decoupled from System
 - [Wine](./packages/wine) Applications have to be manually updated
 
 </details>
 
-> Last Updated: **April** 2024
+> Last Updated: **May** 2024
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 

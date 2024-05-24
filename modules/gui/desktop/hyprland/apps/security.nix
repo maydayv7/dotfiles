@@ -29,6 +29,7 @@ in {
   # Idle Daemon
   services.swayidle = {
     enable = true;
+    extraArgs = ["-w"];
     systemdTarget = "hyprland-session.target";
 
     events = let
@@ -37,7 +38,7 @@ in {
     in [
       {
         event = "before-sleep";
-        command = lock (getExe locker);
+        command = lock "${getExe locker} -f";
       }
       {
         event = "lock";

@@ -83,19 +83,11 @@
         extension = ".json";
       };
 
+      # Application Drawer
+      drawer = readFile ./hyprland/drawer.css;
+
       # Greeter Configuration
       greeter = readFile ./hyprland/greeter.conf;
-
-      # NWG Shell
-      nwg =
-        map.files {
-          directory = ./hyprland/nwg;
-          apply = readFile;
-          extension = ".css";
-        }
-        // {
-          image = ./hyprland/nwg/dropdown.svg;
-        };
 
       # Pyprland
       pypr = readFile ./hyprland/pypr.toml;

@@ -15,16 +15,27 @@
       brightness [up,down]           - Screen Brightness Controls
       volume [up,down,mute]          - Volume Controls
       media [next,previous,toggle]   - Media Controls
+      minimize [show]                - Show Minimized windows
       zoom [in,out]                  - Screen Zoom
       toggle 
         fancy                        - Toggle Compositor Effects
         float                        - Toggle window floating in current workspace
         idle                         - Toggle Idle Daemon service
         media                        - Persist and toggle audio playing state
-        minimized                    - Show Minimized windows
         monitor                      - Toggle specified Monitor
         panel                        - Toggle top Panel
         shader                       - Toggle Compositor Shader
+  '';
+
+  minimize = builtins.toFile "minimize.sh" ''
+    event_activespecial() {
+      case "$WORKSPACENAME" in
+      special:minimized*)
+        hyprctl dispatch submap reset
+        hyprctl dispatch submap Minimized
+      ;;
+      esac
+    }
   '';
 in
   recursiveUpdate {
@@ -38,11 +49,11 @@ in
   } (pkgs.writeShellApplication {
     name = "hyprutils";
     runtimeInputs = with pkgs; [
-      custom.nwg-dock
       dunst
       gnome.zenity
       hyprshade
       hyprworld.hyprland
+      custom.hyprshellevents
       swayidle
       waybar
 
@@ -52,6 +63,7 @@ in
       gnugrep
       libnotify
       playerctl
+      socat
       systemd
       wget
     ];
@@ -186,6 +198,24 @@ in
           *) error "Unexpected Option 'media $2'" "Try 'hyprutils help' for more information" ;;
           esac
         ;;
+        "minimize")
+          case "$2" in
+          "show")
+            if hyprctl workspaces | grep "special:minimized"
+            then
+              hyprctl dispatch workspace special:minimized
+            else
+              hyprctl notify 1 2000 0 "No minimized windows present"
+            fi
+          ;;
+          "")
+            info "Monitoring workspace 'special:minimized' activation..."
+            socat -u UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock \
+              EXEC:"shellevents ${minimize}",nofork
+          ;;
+          *) error "Unexpected Option 'minimize $2'" "Try 'hyprutils help' for more information" ;;
+          esac
+        ;;
         "zoom")
           ZOOM=$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2}')
           case "$2" in
@@ -257,18 +287,6 @@ in
               playerctl pause -a
             fi
           ;;
-          "minimized")
-            if hyprctl workspaces | grep "special:minimized"
-            then
-              hyprctl --batch "\
-                dispatch submap reset;\
-                dispatch workspace special:minimized;\
-                dispatch submap minimized"
-              exit
-            else
-              hyprctl notify 1 2000 0 "No minimized windows present"
-            fi
-          ;;
           "monitor")
             if hyprctl monitors | grep "$3"
             then
@@ -281,10 +299,8 @@ in
             if systemctl --user is-active waybar
             then
               systemctl --user stop waybar
-              systemctl --user stop nwg-dock
             else
               systemctl --user start waybar
-              systemctl --user start nwg-dock
             fi
           ;;
           "shader")

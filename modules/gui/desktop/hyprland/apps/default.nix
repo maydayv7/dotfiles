@@ -134,37 +134,22 @@ in {
       wayland.windowManager.hyprland.settings.exec-once = [
         "dbus-update-activation-environment --systemd --all"
 
+        # Application Drawer
+        "nwg-drawer -r"
+
         # Clipboard Manager
         "clipse -listen"
 
         # Desktop Icons
         "dicons"
 
-        # Application Drawer
-        "nwg-drawer -r"
+        # Minimized Windows
+        "hyprutils minimize"
       ];
 
       # Utilities
       services.playerctld.enable = true;
       services.poweralertd.enable = true;
-
-      # Application Dock
-      systemd.user.services.nwg-dock = {
-        Unit.Description = "Application Dock";
-
-        Install = {
-          WantedBy = ["graphical-session.target"];
-          Wants = ["graphical-session.target"];
-          After = ["graphical-session.target"];
-        };
-
-        Service = {
-          Type = "simple";
-          ExecStart = "${getExe pkgs.custom.nwg-dock} -l 'overlay' -p 'top' -i 30 -w 9 -c 'hyprutils toggle minimized'";
-          Restart = "on-failure";
-          RestartSec = 1;
-        };
-      };
 
       # Terminal
       programs.kitty = {
@@ -293,7 +278,7 @@ in {
       home.file =
         {
           # Application Drawer
-          ".config/nwg-drawer/drawer.css".text = hyprland.nwg.drawer;
+          ".config/nwg-drawer/drawer.css".text = hyprland.drawer;
 
           # Keybinds Viewer
           ".config/kebihelp.json".text = util.build.theme {
@@ -301,10 +286,6 @@ in {
             inherit (config.stylix) fonts;
             file = hyprland.kebihelp;
           };
-
-          # Application Dock
-          ".config/nwg-dock-hyprland/style.css".text = hyprland.nwg.dock;
-          ".local/share/nwg-dock-hyprland/images/grid.svg".source = hyprland.nwg.image;
 
           # Browser
           ".mozilla/firefox/default/chrome/userChrome.css".text = ''
