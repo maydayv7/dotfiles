@@ -21,7 +21,6 @@
         fancy                        - Toggle Compositor Effects
         float                        - Toggle window floating in current workspace
         idle                         - Toggle Idle Daemon service
-        media                        - Persist and toggle audio playing state
         monitor                      - Toggle specified Monitor
         panel                        - Toggle top Panel
         shader                       - Toggle Compositor Shader
@@ -71,8 +70,6 @@ in
     text = ''
       set +eu
       ${files.scripts.commands}
-      temp hyprutils preserve
-
       show_album_art=true
       show_music_in_volume_indicator=true
 
@@ -271,20 +268,6 @@ in
             else
               systemctl --user restart swayidle
               notify idle -i "system-lock-screen" "Started Idle Daemon"
-            fi
-          ;;
-          "media")
-            FILE="$TEMP/toggle_media"
-            if test -f "$FILE"
-            then
-              rm "$FILE"
-              playerctl play
-              exit 0
-            fi
-            if playerctl status | grep Playing
-            then
-              touch "$FILE"
-              playerctl pause -a
             fi
           ;;
           "monitor")

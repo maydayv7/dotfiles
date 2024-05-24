@@ -33,16 +33,15 @@ in {
     systemdTarget = "hyprland-session.target";
 
     events = let
-      toggle = "${getExe pkgs.custom.hyprutils} toggle media";
-      lock = command: "sh -c 'if ! ${getExe' pkgs.procps "pgrep"} -x swaylock; then ${command}; fi'";
+      lock = pre: post: "sh -c 'if ! ${getExe' pkgs.procps "pgrep"} -x swaylock; then ${pre}; ${getExe locker} -f ${post}; fi'";
     in [
       {
         event = "before-sleep";
-        command = lock "${getExe locker} -f";
+        command = lock "" "";
       }
       {
         event = "lock";
-        command = lock "${toggle}; ${getExe locker} --grace 10; ${toggle}";
+        command = lock "${getExe pkgs.playerctl} pause -a" "--grace 10";
       }
     ];
 
