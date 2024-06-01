@@ -21,15 +21,15 @@ in {
   config = mkIf (hasPrefix "xfce" desktop) (mkMerge [
     {
       # Session
-      services.xserver = {
-        desktopManager.xfce = {
-          enable = true;
-          enableXfwm = true;
-        };
+      services = {
+        displayManager.defaultSession = "xfce";
+        xserver = {
+          desktopManager.xfce = {
+            enable = true;
+            enableXfwm = true;
+          };
 
-        displayManager = {
-          defaultSession = "xfce";
-          lightdm.greeters.gtk = {
+          displayManager.lightdm.greeters.gtk = {
             clock-format = "%H:%M";
             indicators = [
               "~a11y"

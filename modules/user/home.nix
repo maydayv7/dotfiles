@@ -11,7 +11,10 @@
 
     user.homeConfig = {
       imports = [../../users];
-      systemd.user.startServices = true;
+      systemd.user = {
+        enable = true;
+        startServices = true;
+      };
 
       # Package Configuration
       home = {

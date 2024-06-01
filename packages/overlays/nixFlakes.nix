@@ -1,4 +1,4 @@
 final: prev: {
   # Nix Version
-  nixFlakes = final.unstable.nixVersions.nix_2_20;
+  nixFlakes = final.nixVersions.latest;
 }

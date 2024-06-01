@@ -17,11 +17,13 @@ in
       inherit (metadata) rev sha256;
     };
 
+    build-system = [setuptools-scm];
     nativeBuildInputs = [libsForQt5.qt5.wrapQtAppsHook];
-    propagatedBuildInputs = [prettytable pyqt5 pyqt5_sip libsForQt5.qt5.qtwayland];
+    propagatedBuildInputs = [prettytable pyqt5 pyqt5-sip libsForQt5.qt5.qtwayland];
 
     format = "pyproject";
     dontWrapQtApps = true;
+    dontCheckRuntimeDeps = true;
     preFixup = ''
       makeWrapperArgs+=("''${qtWrapperArgs[@]}")
     '';

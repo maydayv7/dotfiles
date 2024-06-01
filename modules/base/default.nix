@@ -8,7 +8,7 @@
   ...
 }: let
   inherit (builtins) attrNames map;
-  inherit (lib) removePrefix mkOption optionals types;
+  inherit (lib) removePrefix mkIf mkOption optionals types;
   cfg = config.base;
 in {
   imports = util.map.modules.list ./. ++ [inputs.generators.nixosModules.all-formats];
@@ -34,7 +34,7 @@ in {
   config = {
     # Kernel Configuration
     boot = {
-      supportedFilesystems = optionals (cfg.kernel == "zfs") ["zfs"];
+      supportedFilesystems.zfs = mkIf (cfg.kernel == "zfs") true;
       kernelPackages =
         if (cfg.kernel == "zfs")
         then pkgs.zfs.latestCompatibleLinuxPackages

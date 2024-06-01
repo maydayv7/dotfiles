@@ -75,7 +75,7 @@
         enable-fading-next-tag = true;
       };
 
-    package = pkgs.unstable.picom.overrideAttrs (old: {
+    package = pkgs.picom.overrideAttrs (old: {
       version = "11a";
       src = pkgs.fetchFromGitHub {
         owner = "FT-Labs";

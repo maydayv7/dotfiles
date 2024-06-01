@@ -36,7 +36,7 @@ in rec {
   programs.waybar = {
     enable = true;
     systemd.enable = true;
-    package = pkgs.unstable.waybar;
+    package = pkgs.waybar;
     style = files.hyprland.waybar;
 
     # Panel

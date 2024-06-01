@@ -39,7 +39,7 @@
     ## Package Repositories ##
     # NixOS Packages Repository
     nixpkgs.follows = "stable";
-    stable.url = "github:NixOS/nixpkgs?ref=release-23.11";
+    stable.url = "github:NixOS/nixpkgs?ref=release-24.05";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -88,12 +88,12 @@
     ## Feature Modules
     # User Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-23.11";
+      url = "github:nix-community/home-manager?ref=release-24.05";
       inputs.nixpkgs.follows = "stable";
     };
 
     # Hardware Support
-    hardware.url = "github:nixos/nixos-hardware";
+    hardware.url = "github:maydayv7/nixos-hardware?ref=patch-1";
 
     # Secure Boot
     boot = {
@@ -134,7 +134,7 @@
 
     # Base16 Theming
     stylix = {
-      url = "github:danth/stylix?ref=release-23.11";
+      url = "github:danth/stylix";
       inputs = {
         nixpkgs.follows = "stable";
         home-manager.follows = "home-manager";

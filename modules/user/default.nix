@@ -126,7 +126,7 @@ in {
     };
 
     # Login
-    services.xserver.displayManager.autoLogin = let
+    services.displayManager.autoLogin = let
       find =
         findSingle (value: value.autologin || value.minimal) "0" "1"
         (attrValues settings);
@@ -134,7 +134,7 @@ in {
       enable =
         if (find == "0")
         then false
-        else if (config.services.xserver.displayManager.defaultSession == null)
+        else if (config.services.displayManager.defaultSession == null)
         then throw "Graphical Environment must be present for Automatic Log-In"
         else if (find == "1")
         then throw "Only one User can be Automatically Logged-In"

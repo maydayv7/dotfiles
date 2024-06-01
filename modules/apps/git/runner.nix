@@ -35,7 +35,7 @@ in {
     (mkIf (runner.support == "github") {
       # GitHub Runner
       environment.systemPackages = [pkgs.act];
-      services.github-runner = {
+      services.github-runners.runner = {
         enable = true;
         url = files.path.repo;
         extraLabels = ["self"];
