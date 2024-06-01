@@ -69,7 +69,7 @@ in {
             // {
               btop.enable = true; # Resource Monitor
               hstr.enable = true; # Command History Browser
-              #yazi.enable = true # File Browser #!# Wait for release
+              yazi.enable = true; # File Browser
 
               # DirENV Support
               direnv = {

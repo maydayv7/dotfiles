@@ -34,7 +34,7 @@ in {
     '';
 
     # Touchpad
-    services.xserver.libinput = {
+    services.libinput = {
       enable = true;
       touchpad = {
         tapping = true;

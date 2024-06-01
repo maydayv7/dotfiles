@@ -33,7 +33,7 @@ in {
   environment.systemPackages = with pkgs; [
     # Apps
     celluloid
-    unstable.clipse
+    clipse
     custom.desktop-icons
     evince
     font-manager
@@ -44,9 +44,9 @@ in {
     custom.kebihelp
     lollypop
     mission-center
-    unstable.nwg-displays
-    unstable.nwg-drawer
-    unstable.overskride
+    nwg-displays
+    nwg-drawer
+    overskride
     playerctl
     qalculate-gtk
     remmina
@@ -56,7 +56,7 @@ in {
     # Utilities
     custom.hyprutils
     grim
-    unstable.grimblast
+    grimblast
     hyprkeys
     pavucontrol
     slurp
@@ -150,6 +150,17 @@ in {
       # Utilities
       services.playerctld.enable = true;
       services.poweralertd.enable = true;
+
+      # Wallpaper Daemon
+      services.hyprpaper = {
+        enable = true;
+        settings = {
+          ipc = false;
+          splash = true;
+          preload = wallpaper;
+          wallpaper = ", ${wallpaper}";
+        };
+      };
 
       # Terminal
       programs.kitty = {
@@ -248,29 +259,13 @@ in {
         tray = true;
       };
 
-      systemd.user.services = {
-        # Wallpaper Daemon
-        hyprpaper = {
-          Install.WantedBy = ["graphical-session.target"];
-          Unit = {
-            Description = "Hyprland Wallpaper Daemon";
-            PartOf = ["graphical-session.target"];
-          };
-
-          Service = {
-            ExecStart = getExe pkgs.hyprpaper;
-            Restart = "on-failure";
-          };
-        };
-
-        # Screen Share
-        xwaylandvideobridge = {
-          Unit.Description = "Stream Wayland windows to apps running under XWayland";
-          Install.wantedBy = ["graphical-session.target"];
-          Service = {
-            ExecStart = getExe pkgs.xwaylandvideobridge;
-            Restart = "on-failure";
-          };
+      # Screen Share
+      systemd.user.services.xwaylandvideobridge = {
+        Unit.Description = "Stream Wayland windows to apps running under XWayland";
+        Install.wantedBy = ["graphical-session.target"];
+        Service = {
+          ExecStart = getExe pkgs.xwaylandvideobridge;
+          Restart = "on-failure";
         };
       };
 
@@ -300,14 +295,6 @@ in {
             inherit colors;
             file = hyprland.clipse.theme;
           };
-
-          # Wallpaper
-          ".config/hypr/hyprpaper.conf".text = ''
-            splash = true
-            ipc = false
-            preload = ${wallpaper}
-            wallpaper = , ${wallpaper}
-          '';
 
           # Text Editor
           ".config/geany/geany.conf".text = geany.settings;

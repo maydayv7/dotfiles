@@ -66,14 +66,16 @@ in {
       {
         ## Partitions ##
         # Common Partitions
-        boot.supportedFilesystems = ["ntfs" "vfat"];
         programs.fuse.userAllowOther = true;
-        fileSystems = {
-          # EFI System Partition
-          "/boot" = {
-            device = "/dev/disk/by-partlabel/ESP";
-            fsType = "vfat";
-          };
+        boot.supportedFilesystems = {
+          ntfs = true;
+          vfat = true;
+        };
+
+        # EFI System Partition
+        fileSystems."/boot" = {
+          device = "/dev/disk/by-partlabel/ESP";
+          fsType = "vfat";
         };
 
         # SWAP Partition
@@ -126,7 +128,7 @@ in {
         # Boot Settings
         boot = {
           resumeDevice = "/dev/disk/by-partlabel/swap";
-          supportedFilesystems = ["zfs"];
+          supportedFilesystems.zfs = true;
           kernelParams = ["elevator=none"];
           zfs = {
             allowHibernation = true;

@@ -23,7 +23,7 @@ in {
         # Discord Activation
         activation.discordSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
           echo "Setting up Discord..."
-          $DRY_RUN_CMD /usr/bin/env betterdiscordctl $VERBOSE_ARG install || true
+          run /usr/bin/env betterdiscordctl $VERBOSE_ARG install || true
         '';
       };
     };

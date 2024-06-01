@@ -17,12 +17,10 @@ in {
     {
       # Session
       services = {
+        displayManager.defaultSession = "gnome";
         xserver = {
           desktopManager.gnome.enable = true;
-          displayManager = {
-            gdm.enable = true;
-            defaultSession = "gnome";
-          };
+          displayManager.gdm.enable = true;
         };
 
         # Initial Setup
@@ -90,7 +88,7 @@ in {
 
       apps.list = ["firefox"];
       programs = {
-        gnupg.agent.pinentryFlavor = mkForce "gnome3";
+        gnupg.agent.pinentryPackage = mkForce pkgs.pinentry.gnome3;
         firefox = {
           policies.ExtensionSettings = {
             name = "gnome-shell-integration";

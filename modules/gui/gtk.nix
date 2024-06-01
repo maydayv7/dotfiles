@@ -34,7 +34,7 @@ in {
     };
 
     # Desktop Integration
-    programs.gnupg.agent.pinentryFlavor = "gtk2";
+    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
 
     user = {
       # Configuration

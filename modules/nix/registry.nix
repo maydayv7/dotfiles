@@ -5,6 +5,11 @@
 }: {
   ## Nix Registry ##
   config = {
+    nixpkgs.flake = {
+      setNixPath = false;
+      setFlakeRegistry = false;
+    };
+
     nix = {
       nixPath = ["/etc/nix/inputs"];
       registry =

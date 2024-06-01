@@ -13,7 +13,7 @@
     cpu.cores = 4;
     filesystem = "simple";
     support = ["laptop"];
-    modules = ["common-pc" "common-pc-laptop" "common-cpu-intel" "common-gpu-intel"];
+    modules = ["common-pc" "common-pc-laptop" "common-cpu-intel"];
   };
 
   apps.list = ["firefox" "office"];
