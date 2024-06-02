@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkForce mkIf;
-  inherit (sys.gui) fancy;
+  inherit (sys.gui) display fancy;
   inherit (sys.lib.stylix.colors) base03 base0A base0D;
 in {
   ## Hyprland Settings
@@ -65,10 +65,9 @@ in {
       };
 
       misc = {
-        disable_autoreload = false;
-
-        # Window Swallowing
         enable_swallow = true;
+        disable_autoreload = false;
+        initial_workspace_tracking = 2;
 
         # Interfere with wallpaper daemons
         force_default_wallpaper = 0;
@@ -84,6 +83,7 @@ in {
         {
           resize_on_border = true;
           allow_tearing = !fancy;
+          default_cursor_monitor = display;
         }
         //
         # Visuals
