@@ -143,7 +143,7 @@
 
     # Hyprland
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.39.1";
+      url = "github:hyprwm/Hyprland?ref=v0.40.0";
       inputs.systems.follows = "systems";
     };
 
@@ -159,7 +159,10 @@
 
     hyprdark = {
       url = "github:micha4w/Hypr-DarkWindow";
-      inputs.hyprland.follows = "hyprland";
+      inputs = {
+        hyprland.follows = "hyprland";
+        nix-filter.follows = "filters";
+      };
     };
 
     hyprspace = {

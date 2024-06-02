@@ -207,7 +207,7 @@ in
           ;;
           "")
             info "Monitoring workspace 'special:minimized' activation..."
-            socat -u UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock \
+            socat -u UNIX-CONNECT:"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock \
               EXEC:"shellevents ${minimize}",nofork
           ;;
           *) error "Unexpected Option 'minimize $2'" "Try 'hyprutils help' for more information" ;;
