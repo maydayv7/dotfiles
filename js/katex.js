@@ -2,10 +2,10 @@
   "object" == typeof exports && "object" == typeof module
     ? (module.exports = e())
     : "function" == typeof define && define.amd
-    ? define([], e)
-    : "object" == typeof exports
-    ? (exports.katex = e())
-    : (t.katex = e());
+      ? define([], e)
+      : "object" == typeof exports
+        ? (exports.katex = e())
+        : (t.katex = e());
 })("undefined" != typeof self ? self : this, function () {
   return (function (t) {
     var e = {};
@@ -147,12 +147,12 @@
               ? t(e.body[0])
               : e
             : "color" === e.type
-            ? 1 === e.body.length
-              ? t(e.body[0])
-              : e
-            : "font" === e.type
-            ? t(e.body)
-            : e;
+              ? 1 === e.body.length
+                ? t(e.body[0])
+                : e
+              : "font" === e.type
+                ? t(e.body)
+                : e;
         },
         c = {
           contains: function (t, e) {
@@ -4072,10 +4072,10 @@
             ("textbf" === e && "textit" === r
               ? "BoldItalic"
               : "textbf" === e
-              ? "Bold"
-              : "textit" === e
-              ? "Italic"
-              : "Regular")
+                ? "Bold"
+                : "textit" === e
+                  ? "Italic"
+                  : "Regular")
           );
         },
         Lt = {
@@ -4109,8 +4109,8 @@
               "boldsymbol" === r.font && Bt(t, "Main-Bold", e).metrics
                 ? Ct(t, "Main-Bold", e, r, a.concat(["mathbf"]))
                 : "\\" === t || "main" === j[e][t].font
-                ? Ct(t, "Main-Regular", e, r, a)
-                : Ct(t, "AMS-Regular", e, r, a.concat(["amsrm"]))
+                  ? Ct(t, "Main-Regular", e, r, a)
+                  : Ct(t, "AMS-Regular", e, r, a.concat(["amsrm"]))
             );
           },
           makeSpan: It,
@@ -4708,20 +4708,20 @@
                   t >= 0.05555 && t <= 0.05556
                     ? "\u200a"
                     : t >= 0.1666 && t <= 0.1667
-                    ? "\u2009"
-                    : t >= 0.2222 && t <= 0.2223
-                    ? "\u2005"
-                    : t >= 0.2777 && t <= 0.2778
-                    ? "\u2005\u200a"
-                    : t >= -0.05556 && t <= -0.05555
-                    ? "\u200a\u2063"
-                    : t >= -0.1667 && t <= -0.1666
-                    ? "\u2009\u2063"
-                    : t >= -0.2223 && t <= -0.2222
-                    ? "\u205f\u2063"
-                    : t >= -0.2778 && t <= -0.2777
-                    ? "\u2005\u2063"
-                    : null);
+                      ? "\u2009"
+                      : t >= 0.2222 && t <= 0.2223
+                        ? "\u2005"
+                        : t >= 0.2777 && t <= 0.2778
+                          ? "\u2005\u200a"
+                          : t >= -0.05556 && t <= -0.05555
+                            ? "\u200a\u2063"
+                            : t >= -0.1667 && t <= -0.1666
+                              ? "\u2009\u2063"
+                              : t >= -0.2223 && t <= -0.2222
+                                ? "\u205f\u2063"
+                                : t >= -0.2778 && t <= -0.2777
+                                  ? "\u2005\u2063"
+                                  : null);
             }
             var e = t.prototype;
             return (
@@ -4769,10 +4769,10 @@
             return "textit" === e.fontShape && "textbf" === e.fontWeight
               ? "sans-serif-bold-italic"
               : "textit" === e.fontShape
-              ? "sans-serif-italic"
-              : "textbf" === e.fontWeight
-              ? "bold-sans-serif"
-              : "sans-serif";
+                ? "sans-serif-italic"
+                : "textbf" === e.fontWeight
+                  ? "bold-sans-serif"
+                  : "sans-serif";
           if ("textit" === e.fontShape && "textbf" === e.fontWeight)
             return "bold-italic";
           if ("textit" === e.fontShape) return "italic";
@@ -5822,75 +5822,85 @@
           "\\uparrow" === t
             ? (l = h = "\u23d0")
             : "\\Uparrow" === t
-            ? (l = h = "\u2016")
-            : "\\downarrow" === t
-            ? (o = l = "\u23d0")
-            : "\\Downarrow" === t
-            ? (o = l = "\u2016")
-            : "\\updownarrow" === t
-            ? ((o = "\\uparrow"), (l = "\u23d0"), (h = "\\downarrow"))
-            : "\\Updownarrow" === t
-            ? ((o = "\\Uparrow"), (l = "\u2016"), (h = "\\Downarrow"))
-            : "[" === t || "\\lbrack" === t
-            ? ((o = "\u23a1"),
-              (l = "\u23a2"),
-              (h = "\u23a3"),
-              (m = "Size4-Regular"))
-            : "]" === t || "\\rbrack" === t
-            ? ((o = "\u23a4"),
-              (l = "\u23a5"),
-              (h = "\u23a6"),
-              (m = "Size4-Regular"))
-            : "\\lfloor" === t || "\u230a" === t
-            ? ((l = o = "\u23a2"), (h = "\u23a3"), (m = "Size4-Regular"))
-            : "\\lceil" === t || "\u2308" === t
-            ? ((o = "\u23a1"), (l = h = "\u23a2"), (m = "Size4-Regular"))
-            : "\\rfloor" === t || "\u230b" === t
-            ? ((l = o = "\u23a5"), (h = "\u23a6"), (m = "Size4-Regular"))
-            : "\\rceil" === t || "\u2309" === t
-            ? ((o = "\u23a4"), (l = h = "\u23a5"), (m = "Size4-Regular"))
-            : "(" === t || "\\lparen" === t
-            ? ((o = "\u239b"),
-              (l = "\u239c"),
-              (h = "\u239d"),
-              (m = "Size4-Regular"))
-            : ")" === t || "\\rparen" === t
-            ? ((o = "\u239e"),
-              (l = "\u239f"),
-              (h = "\u23a0"),
-              (m = "Size4-Regular"))
-            : "\\{" === t || "\\lbrace" === t
-            ? ((o = "\u23a7"),
-              (s = "\u23a8"),
-              (h = "\u23a9"),
-              (l = "\u23aa"),
-              (m = "Size4-Regular"))
-            : "\\}" === t || "\\rbrace" === t
-            ? ((o = "\u23ab"),
-              (s = "\u23ac"),
-              (h = "\u23ad"),
-              (l = "\u23aa"),
-              (m = "Size4-Regular"))
-            : "\\lgroup" === t || "\u27ee" === t
-            ? ((o = "\u23a7"),
-              (h = "\u23a9"),
-              (l = "\u23aa"),
-              (m = "Size4-Regular"))
-            : "\\rgroup" === t || "\u27ef" === t
-            ? ((o = "\u23ab"),
-              (h = "\u23ad"),
-              (l = "\u23aa"),
-              (m = "Size4-Regular"))
-            : "\\lmoustache" === t || "\u23b0" === t
-            ? ((o = "\u23a7"),
-              (h = "\u23ad"),
-              (l = "\u23aa"),
-              (m = "Size4-Regular"))
-            : ("\\rmoustache" !== t && "\u23b1" !== t) ||
-              ((o = "\u23ab"),
-              (h = "\u23a9"),
-              (l = "\u23aa"),
-              (m = "Size4-Regular"));
+              ? (l = h = "\u2016")
+              : "\\downarrow" === t
+                ? (o = l = "\u23d0")
+                : "\\Downarrow" === t
+                  ? (o = l = "\u2016")
+                  : "\\updownarrow" === t
+                    ? ((o = "\\uparrow"), (l = "\u23d0"), (h = "\\downarrow"))
+                    : "\\Updownarrow" === t
+                      ? ((o = "\\Uparrow"), (l = "\u2016"), (h = "\\Downarrow"))
+                      : "[" === t || "\\lbrack" === t
+                        ? ((o = "\u23a1"),
+                          (l = "\u23a2"),
+                          (h = "\u23a3"),
+                          (m = "Size4-Regular"))
+                        : "]" === t || "\\rbrack" === t
+                          ? ((o = "\u23a4"),
+                            (l = "\u23a5"),
+                            (h = "\u23a6"),
+                            (m = "Size4-Regular"))
+                          : "\\lfloor" === t || "\u230a" === t
+                            ? ((l = o = "\u23a2"),
+                              (h = "\u23a3"),
+                              (m = "Size4-Regular"))
+                            : "\\lceil" === t || "\u2308" === t
+                              ? ((o = "\u23a1"),
+                                (l = h = "\u23a2"),
+                                (m = "Size4-Regular"))
+                              : "\\rfloor" === t || "\u230b" === t
+                                ? ((l = o = "\u23a5"),
+                                  (h = "\u23a6"),
+                                  (m = "Size4-Regular"))
+                                : "\\rceil" === t || "\u2309" === t
+                                  ? ((o = "\u23a4"),
+                                    (l = h = "\u23a5"),
+                                    (m = "Size4-Regular"))
+                                  : "(" === t || "\\lparen" === t
+                                    ? ((o = "\u239b"),
+                                      (l = "\u239c"),
+                                      (h = "\u239d"),
+                                      (m = "Size4-Regular"))
+                                    : ")" === t || "\\rparen" === t
+                                      ? ((o = "\u239e"),
+                                        (l = "\u239f"),
+                                        (h = "\u23a0"),
+                                        (m = "Size4-Regular"))
+                                      : "\\{" === t || "\\lbrace" === t
+                                        ? ((o = "\u23a7"),
+                                          (s = "\u23a8"),
+                                          (h = "\u23a9"),
+                                          (l = "\u23aa"),
+                                          (m = "Size4-Regular"))
+                                        : "\\}" === t || "\\rbrace" === t
+                                          ? ((o = "\u23ab"),
+                                            (s = "\u23ac"),
+                                            (h = "\u23ad"),
+                                            (l = "\u23aa"),
+                                            (m = "Size4-Regular"))
+                                          : "\\lgroup" === t || "\u27ee" === t
+                                            ? ((o = "\u23a7"),
+                                              (h = "\u23a9"),
+                                              (l = "\u23aa"),
+                                              (m = "Size4-Regular"))
+                                            : "\\rgroup" === t || "\u27ef" === t
+                                              ? ((o = "\u23ab"),
+                                                (h = "\u23ad"),
+                                                (l = "\u23aa"),
+                                                (m = "Size4-Regular"))
+                                              : "\\lmoustache" === t ||
+                                                  "\u23b0" === t
+                                                ? ((o = "\u23a7"),
+                                                  (h = "\u23ad"),
+                                                  (l = "\u23aa"),
+                                                  (m = "Size4-Regular"))
+                                                : ("\\rmoustache" !== t &&
+                                                    "\u23b1" !== t) ||
+                                                  ((o = "\u23ab"),
+                                                  (h = "\u23a9"),
+                                                  (l = "\u23aa"),
+                                                  (m = "Size4-Regular"));
           var c = Ve(o, m, n),
             u = c.height + c.depth,
             p = Ve(l, m, n),
@@ -6197,8 +6207,8 @@
                 return r && Ge(s, a, e), s;
               })(t, s.style, r, a, n, i)
             : "large" === s.type
-            ? Ye(t, s.size, r, a, n, i)
-            : _e(t, e, r, a, n, i);
+              ? Ye(t, s.size, r, a, n, i)
+              : _e(t, e, r, a, n, i);
         },
         ir = function (t, e) {
           var r,
@@ -6226,17 +6236,17 @@
                 )).style.minWidth = "0.853em"),
                 (a = 0.833 / o))
               : "large" === i.type
-              ? ((m = 1080 * Je[i.size]),
-                (h = (Je[i.size] + s) / o),
-                (l = (Je[i.size] + s + 0.08) / o),
-                ((r = je("sqrtSize" + i.size, l, m, s, e)).style.minWidth =
-                  "1.02em"),
-                (a = 1 / o))
-              : ((l = t + s + 0.08),
-                (h = t + s),
-                (m = Math.floor(1e3 * t + s) + 80),
-                ((r = je("sqrtTall", l, m, s, e)).style.minWidth = "0.742em"),
-                (a = 1.056)),
+                ? ((m = 1080 * Je[i.size]),
+                  (h = (Je[i.size] + s) / o),
+                  (l = (Je[i.size] + s + 0.08) / o),
+                  ((r = je("sqrtSize" + i.size, l, m, s, e)).style.minWidth =
+                    "1.02em"),
+                  (a = 1 / o))
+                : ((l = t + s + 0.08),
+                  (h = t + s),
+                  (m = Math.floor(1e3 * t + s) + 80),
+                  ((r = je("sqrtTall", l, m, s, e)).style.minWidth = "0.742em"),
+                  (a = 1.056)),
             (r.height = h),
             (r.style.height = l + "em"),
             {
@@ -6982,8 +6992,8 @@
             "alignat" === t.colSeparationType
               ? r.setAttribute("columnspacing", "0em")
               : "small" === t.colSeparationType
-              ? r.setAttribute("columnspacing", "0.2778em")
-              : r.setAttribute("columnspacing", "1em");
+                ? r.setAttribute("columnspacing", "0.2778em")
+                : r.setAttribute("columnspacing", "1em");
           var f = "",
             g = t.hLinesBeforeRow;
           (n += g[0].length > 0 ? "left " : ""),
@@ -7256,11 +7266,11 @@
                   ? ((r.attributes.lspace = "0.22em"),
                     (r.attributes.rspace = "0.22em"))
                   : "mpunct" === t.mclass
-                  ? ((r.attributes.lspace = "0em"),
-                    (r.attributes.rspace = "0.17em"))
-                  : ("mopen" !== t.mclass && "mclose" !== t.mclass) ||
-                    ((r.attributes.lspace = "0em"),
-                    (r.attributes.rspace = "0em"))),
+                    ? ((r.attributes.lspace = "0em"),
+                      (r.attributes.rspace = "0.17em"))
+                    : ("mopen" !== t.mclass && "mclose" !== t.mclass) ||
+                      ((r.attributes.lspace = "0em"),
+                      (r.attributes.rspace = "0em"))),
             r);
       }
       _t({
@@ -7441,10 +7451,10 @@
             "display" === t
               ? (r = r.id >= w.SCRIPT.id ? r.text() : w.DISPLAY)
               : "text" === t && r.size === w.DISPLAY.size
-              ? (r = w.TEXT)
-              : "script" === t
-              ? (r = w.SCRIPT)
-              : "scriptscript" === t && (r = w.SCRIPTSCRIPT),
+                ? (r = w.TEXT)
+                : "script" === t
+                  ? (r = w.SCRIPT)
+                  : "scriptscript" === t && (r = w.SCRIPTSCRIPT),
             r
           );
         },
@@ -7540,8 +7550,10 @@
             (v = t.continued
               ? Dt.makeSpan([])
               : null == t.rightDelim
-              ? ie(e, ["mclose"])
-              : sr(t.rightDelim, g, !0, e.havingStyle(a), t.mode, ["mclose"])),
+                ? ie(e, ["mclose"])
+                : sr(t.rightDelim, g, !0, e.havingStyle(a), t.mode, [
+                    "mclose",
+                  ])),
             Dt.makeSpan(
               ["mord"].concat(r.sizingClasses(e)),
               [x, Dt.makeSpan(["mfrac"], [f]), v],
@@ -9165,17 +9177,17 @@
                   ? Ur
                   : null
                 : "operatorname" === r.type
-                ? r.alwaysHandleSupSub &&
-                  (e.style.size === w.DISPLAY.size || r.limits)
-                  ? Xr
-                  : null
-                : "accent" === r.type
-                ? c.isCharacterBox(r.base)
-                  ? Ie
-                  : null
-                : "horizBrace" === r.type && !t.sub === r.isOver
-                ? Pr
-                : null
+                  ? r.alwaysHandleSupSub &&
+                    (e.style.size === w.DISPLAY.size || r.limits)
+                    ? Xr
+                    : null
+                  : "accent" === r.type
+                    ? c.isCharacterBox(r.base)
+                      ? Ie
+                      : null
+                    : "horizBrace" === r.type && !t.sub === r.isOver
+                      ? Pr
+                      : null
               : null;
           })(t, e);
           if (r) return r(t, e);
@@ -9288,11 +9300,11 @@
                 o && "op" === o.type && o.limits && e.style === w.DISPLAY
                   ? "munderover"
                   : o &&
-                    "operatorname" === o.type &&
-                    o.alwaysHandleSupSub &&
-                    (e.style === w.DISPLAY || o.limits)
-                  ? "munderover"
-                  : "msubsup";
+                      "operatorname" === o.type &&
+                      o.alwaysHandleSupSub &&
+                      (e.style === w.DISPLAY || o.limits)
+                    ? "munderover"
+                    : "msubsup";
             } else {
               var s = t.base;
               n =
@@ -9302,11 +9314,11 @@
                 (e.style === w.DISPLAY || s.alwaysHandleSupSub)
                   ? "munder"
                   : s &&
-                    "operatorname" === s.type &&
-                    s.alwaysHandleSupSub &&
-                    (s.limits || e.style === w.DISPLAY)
-                  ? "munder"
-                  : "msub";
+                      "operatorname" === s.type &&
+                      s.alwaysHandleSupSub &&
+                      (s.limits || e.style === w.DISPLAY)
+                    ? "munder"
+                    : "msub";
             }
           else {
             var l = t.base;
@@ -9317,11 +9329,11 @@
               (e.style === w.DISPLAY || l.alwaysHandleSupSub)
                 ? "mover"
                 : l &&
-                  "operatorname" === l.type &&
-                  l.alwaysHandleSupSub &&
-                  (l.limits || e.style === w.DISPLAY)
-                ? "mover"
-                : "msup";
+                    "operatorname" === l.type &&
+                    l.alwaysHandleSupSub &&
+                    (l.limits || e.style === w.DISPLAY)
+                  ? "mover"
+                  : "msup";
           }
           return new ue.MathNode(n, i);
         },
@@ -9370,10 +9382,10 @@
                 "text" === t.mode
                   ? new ue.MathNode("mtext", [a])
                   : /[0-9]/.test(t.text)
-                  ? new ue.MathNode("mn", [a])
-                  : "\\prime" === t.text
-                  ? new ue.MathNode("mo", [a])
-                  : new ue.MathNode("mi", [a])),
+                    ? new ue.MathNode("mn", [a])
+                    : "\\prime" === t.text
+                      ? new ue.MathNode("mo", [a])
+                      : new ue.MathNode("mi", [a])),
               n !== Zr[r.type] && r.setAttribute("mathvariant", n),
               r
             );
@@ -9447,8 +9459,8 @@
             ? ta[r]
               ? e.withTextFontFamily(ta[r])
               : ea[r]
-              ? e.withTextFontWeight(ea[r])
-              : e.withTextFontShape(ra[r])
+                ? e.withTextFontWeight(ea[r])
+                : e.withTextFontShape(ra[r])
             : e;
         };
       _t({
@@ -9991,10 +10003,10 @@
           r in ga
             ? (e = ga[r])
             : "\\not" === r.substr(0, 4)
-            ? (e = "\\dotsb")
-            : r in j.math &&
-              c.contains(["bin", "rel"], j.math[r].group) &&
-              (e = "\\dotsb"),
+              ? (e = "\\dotsb")
+              : r in j.math &&
+                c.contains(["bin", "rel"], j.math[r].group) &&
+                (e = "\\dotsb"),
           e
         );
       });

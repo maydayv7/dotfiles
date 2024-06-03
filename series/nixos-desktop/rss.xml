@@ -14,7 +14,7 @@
           <author>Unknown</author>
           <link>/blog/nix/</link>
           <guid>/blog/nix/</guid>
-          <description>&lt;h1 id=&quot;under-construction&quot;&gt;Under Construction!&lt;a class=&quot;zola-anchor&quot; href=&quot;#under-construction&quot; aria-label=&quot;Anchor link for: under-construction&quot;
+          <description xml:base="/blog/nix/">&lt;h1 id=&quot;under-construction&quot;&gt;Under Construction!&lt;a class=&quot;zola-anchor&quot; href=&quot;#under-construction&quot; aria-label=&quot;Anchor link for: under-construction&quot;
   &gt;§&lt;&#x2F;a
 &gt;
 &lt;&#x2F;h1&gt;
