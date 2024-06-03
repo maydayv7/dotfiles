@@ -175,6 +175,10 @@
         "description": "Run app by Position in the Launcher"
       },
       {
+        "key": "; or ` in Overview",
+        "description": "Shows Open apps"
+      },
+      {
         "key": "Super + I",
         "description": "Open Settings"
       },
@@ -196,10 +200,10 @@
       },
       {
         "key": "Super + .",
-        "description": "Open emoji picker"
+        "description": "Open Emoji Picker"
       },
       {
-        "key": "Ctrl + Alt + Return",
+        "key": "Super + Enter",
         "description": "Opens Task Manager"
       },
       {

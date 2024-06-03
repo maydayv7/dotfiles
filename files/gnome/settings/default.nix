@@ -96,7 +96,7 @@ in {
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Primary><Alt>Return";
+      binding = "<Super>Return";
       command = "gnome-system-monitor";
       name = "Task Manager";
     };
@@ -105,6 +105,12 @@ in {
       binding = "<Super>t";
       command = "blackbox";
       name = "Terminal";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+      binding = "<Super>period";
+      command = "smile";
+      name = "Emoji Picker";
     };
 
     "org/gnome/desktop/wm/preferences" = {

@@ -1,3 +1,33 @@
+.tiled {
+  color: rgb(98, 160, 234);
+  opacity: 1;
+  border-width: 3px;
+}
+
+.split {
+  color: rgb(248, 228, 92);
+  opacity: 1;
+  border-width: 3px;
+}
+
+.stacked {
+  color: rgb(153, 193, 241);
+  opacity: 1;
+  border-width: 3px;
+}
+
+.tabbed {
+  color: rgb(17, 199, 224);
+  opacity: 1;
+  border-width: 3px;
+}
+
+.floated {
+  color: rgb(53, 132, 228);
+  opacity: 1;
+  border-width: 3px;
+}
+
 .window-tiled-border {
   border-width: 3px;
   border-color: rgb(98, 160, 234);
@@ -33,7 +63,7 @@
 
 .window-tabbed-border {
   border-width: 3px;
-  border-color: rgba(17, 199, 224, 1);
+  border-color: rgb(17, 199, 224);
   border-style: solid;
   border-radius: 14px;
 }
