@@ -761,9 +761,14 @@ You can navigate to the `README`s present in the various directories to know mor
 - Home Configuration isn't be decoupled from System
 - [Wine](./packages/wine) Applications have to be manually updated
 
+#### To Fix
+- VS Code theme doesn't apply
+- GNOME Extensions aren't updated
+- New [Picom](https://github.com/yshui/picomx) animations feature isn't implemented
+
 </details>
 
-> Last Updated: **May** 2024
+> Last Updated: **June** 2024
 
 If you like this project, consider leaving a [star](https://github.com/maydayv7/dotfiles)
 

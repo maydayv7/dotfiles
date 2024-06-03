@@ -5,11 +5,12 @@ description = "What I'm currently up to!"
 
 This page is inspired by [NowNowNow](https://nownownow.com)
 
-- Playing around with Nix(OS)
-- Creating this (beautiful) Website
-- Studying for my upcoming Exams
+Entrance Exams are over! Time to PARTAYYY!!
+
+- Messing around with Nix(OS)
+- Playing FPS Games
 - Binge-watching {{ url(path="anime", text="Anime", trail_slash=false) }}
 
 Nothing much else really! ;)
 
-> Last Updated: **December** 2023
+> Last Updated: **June** 2024
