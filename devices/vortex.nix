@@ -16,7 +16,7 @@
     filesystem = "advanced";
     support = ["laptop" "mobile" "printer" "virtualisation"];
     modules = ["dell-inspiron-5509"];
-    vm.android.enable = true;
+    vm.android.enable = false;
     cpu = {
       cores = 8;
       mode = "performance";
@@ -42,7 +42,7 @@
   };
 
   gui = {
-    desktop = "gnome";
+    desktop = "hyprland";
     display = "eDP-1";
     wallpaper = "Thread";
     fancy = true;

@@ -14,6 +14,7 @@ in {
     # Desktop
     "io/elementary/desktop/agent-geoclue2".location-enabled = true;
     "io/elementary/desktop/wingpanel".use-transparency = true;
+    "io/elementary/desktop/wingpanel/a11y".show-indicator = true;
     "io/elementary/desktop/wingpanel/datetime".clock-format = "24h";
     "io/elementary/desktop/wingpanel/sound".max-volume = 100.0;
     "io/elementary/desktop/wingpanel/power".show-percentage = true;
@@ -23,7 +24,7 @@ in {
     "io/elementary/settings-daemon/datetime".show-weeks = true;
 
     "org/gnome/desktop/session".idle-delay = mkUint32 900;
-    "/org/gnome/desktop/a11y/keyboard".togglekeys-enable = true;
+    "org/gnome/desktop/a11y/keyboard".togglekeys-enable = true;
     "org/gnome/desktop/datetime".automatic-timezone = true;
     "org/gnome/desktop/interface" = {
       clock-format = "24h";

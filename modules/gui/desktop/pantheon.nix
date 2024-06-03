@@ -23,8 +23,6 @@ in {
       # Desktop Integration
       gui = {
         fonts.enable = true;
-        icons.name = "ePapirus-Dark";
-
         gtk = {
           enable = true;
           theme = {
