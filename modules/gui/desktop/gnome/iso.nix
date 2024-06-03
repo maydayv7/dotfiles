@@ -42,7 +42,6 @@ in {
   environment.gnome.excludePackages = with pkgs.gnome; [
     gnome-backgrounds
     gnome-shell-extensions
-    gnome-themes-extra
     pkgs.gnome-tour
     pkgs.gnome-user-docs
     pkgs.hicolor-icon-theme

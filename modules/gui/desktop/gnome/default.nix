@@ -37,9 +37,7 @@ in {
       programs.dconf.profiles.gdm.databases = [
         {
           settings = {
-            "org/gnome/desktop/peripherals/touchpad" = {
-              tap-to-click = true;
-            };
+            "org/gnome/desktop/peripherals/touchpad".tap-to-click = true;
             "org/gnome/desktop/interface" = {
               cursor-theme = config.stylix.cursor.name;
               cursor-size = gvariant.mkInt32 config.stylix.cursor.size;
@@ -99,6 +97,10 @@ in {
           };
         };
       };
+
+      # Screen Brightness
+      user.groups = ["i2c"];
+      hardware.i2c.enable = true;
     })
 
     ## User Configuration
@@ -165,16 +167,18 @@ in {
           drawing
           fractal
           fragments
-          gradience
           gnome-podcasts
           gnome-secrets
+          gradience
           gthumb
           lollypop
+          smile
           video-trimmer
           wike
 
           # Utilities
           celluloid
+          ddcutil
           gnuchess
         ]);
 
