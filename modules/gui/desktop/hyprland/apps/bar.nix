@@ -139,6 +139,7 @@ in rec {
           rewrite = {
             "bash" = "Terminal";
             "zsh" = "Terminal";
+            "kitty" = "Terminal";
             "(.*) - kitty" = "Terminal";
             "clipse" = "Clipboard";
             "nwg-displays" = "Displays";
