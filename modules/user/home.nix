@@ -1,4 +1,9 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  files,
+  ...
+}: {
   ## User Home Configuration ##
   config = {
     # Environment Settings
@@ -10,7 +15,16 @@
     };
 
     user.homeConfig = {
-      imports = [../../users];
+      imports = [
+        ../../users
+
+        # Mutable Configuration Files
+        ({config, ...}: (import (builtins.fetchurl {
+          inherit (files.mutability.module) url sha256;
+        }) {inherit config lib;}))
+      ];
+
+      # SystemD User Services
       systemd.user = {
         enable = true;
         startServices = true;
@@ -21,8 +35,7 @@
         inherit (config.system) stateVersion;
         file = {
           ".config/nixpkgs/config.nix".source = ../nix/config.nix;
-          ".config/nix/nix.conf".source =
-            config.environment.etc."nix/nix.conf".source;
+          ".config/nix/nix.conf".source = config.environment.etc."nix/nix.conf".source;
         };
       };
     };

@@ -519,6 +519,7 @@ You can navigate to the `README`s present in the various directories to know mor
     - [Hyprspace](https://github.com/KZDKM/Hyprspace)
     - [Hyprexpo](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprexpo)
 - Add `devcontainer` for Github Codespaces
+- Make VS Code Configuration mutable using [this](https://gist.github.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa) module
 - Reimplement support for specifying Package Channel for configuration build
 
 ### v17
@@ -762,7 +763,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - [Wine](./packages/wine) Applications have to be manually updated
 
 #### To Fix
-- VS Code theme doesn't apply
+
 - GNOME Extensions aren't updated
 - New [Picom](https://github.com/yshui/picomx) animations feature isn't implemented
 

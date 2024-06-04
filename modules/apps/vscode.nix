@@ -18,10 +18,15 @@ in {
     user = {
       persist.directories = [".config/Code" ".vscode"];
       homeConfig = {
-        xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {
-          text = ["code.desktop"];
-        };
+        # Mutable Configuration File
+        imports = [
+          ({config, ...}: (import (builtins.fetchurl {
+            inherit (files.mutability.vscode) url sha256;
+          }) {inherit config lib pkgs;}))
+        ];
 
+        # Environment
+        xdg.mimeApps.defaultApplications = util.build.mime files.xdg.mime {text = ["code.desktop"];};
         programs.vscode = {
           enable = true;
           package = pkgs.vscode;
