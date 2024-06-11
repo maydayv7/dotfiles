@@ -93,7 +93,7 @@
     };
 
     # Hardware Support
-    hardware.url = "github:maydayv7/nixos-hardware?ref=patch-1";
+    hardware.url = "github:NixOS/nixos-hardware";
 
     # Secure Boot
     boot = {

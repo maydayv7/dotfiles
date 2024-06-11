@@ -65,9 +65,10 @@ in {
       };
 
       misc = {
-        enable_swallow = true;
-        disable_autoreload = false;
-        initial_workspace_tracking = 2;
+        enable_swallow = true; # Window Swallowing
+        focus_on_activate = true;
+        disable_autoreload = false; # Enable configuration Polling
+        initial_workspace_tracking = 1;
 
         # Interfere with wallpaper daemons
         force_default_wallpaper = 0;
