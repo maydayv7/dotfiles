@@ -23,7 +23,7 @@ jobs:
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update Flake Lock File
-        uses: DeterminateSystems/update-flake-lock@v21
+        uses: DeterminateSystems/update-flake-lock@v23
         with:
           branch: update_flake
           pr-labels: dependencies
