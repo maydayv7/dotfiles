@@ -134,7 +134,7 @@
 
     # Base16 Theming
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:danth/stylix?ref=release-24.05";
       inputs = {
         nixpkgs.follows = "stable";
         home-manager.follows = "home-manager";
