@@ -1,21 +1,19 @@
 {
-  config,
   sys,
   lib,
   pkgs,
   files,
   ...
 }: let
-  inherit (builtins) filter hasAttr head map;
+  inherit (builtins) filter hasAttr map;
   inherit (lib) foldr hm mapAttrs' mkForce nameValuePair recursiveUpdate;
-  homeDir = config.home.homeDirectory;
-  font = head sys.fonts.fontconfig.defaultFonts.sansSerif;
 
   # Shell Extensions
-  extensions = with pkgs.gnomeExtensions // hm.gvariant; [
+  extensions = with pkgs.unstable.gnomeExtensions // pkgs.gnomeExtensions // hm.gvariant; [
     {package = appindicator;}
     {package = control-monitor-brightness-and-volume-with-ddcutil;}
     {package = gamemode-indicator-in-system-settings;}
+    {package = gsconnect;}
     {package = guillotine;}
     {package = overview-hover;}
     {package = removable-drive-menu;}
@@ -26,6 +24,11 @@
       package = workspace-indicator;
       disable = true;
     }
+    (
+      if sys.services.supergfxd.enable
+      then {package = gpu-supergfxctl-switch;}
+      else {}
+    )
     {
       package = top-bar-organizer;
       settings = {
@@ -42,7 +45,7 @@
           "a11y"
           "aggregateMenu"
           "drive-menu"
-          "pano@elhan.io"
+          "clipboardIndicator"
           "vitalsMenu"
           "dwellClick"
           "lockkeys"
@@ -79,6 +82,14 @@
       settings = {
         colored-icon = true;
         show-title = false;
+      };
+    }
+    {
+      package = emoji-copy;
+      settings = {
+        active-keybind = true;
+        always-show = false;
+        paste-on-select = true;
       };
     }
     {
@@ -142,21 +153,18 @@
       };
     }
     {
-      package = pano;
+      package = clipboard-indicator;
       settings = {
-        database-location = "${homeDir}/.local/share/clipboard";
-        global-shortcut = ["<Super>v"];
-        history-length = 250;
-        incognito-shortcut = ["<Ctrl><Super>v"];
-        play-audio-on-copy = false;
-        send-notification-on-copy = false;
-        window-position = mkUint32 2;
-        item-date-font-family = font;
-        item-date-font-size = 11;
-        item-title-font-family = font;
-        item-title-font-size = 20;
-        search-bar-font-family = font;
-        search-bar-font-size = 14;
+        cache-size = 20;
+        clear-history = [];
+        disable-down-arrow = true;
+        history-size = 100;
+        keep-selected-on-clear = true;
+        move-item-first = true;
+        next-entry = [];
+        prev-entry = [];
+        private-mode-binding = ["<Ctrl><Super>v"];
+        toggle-menu = ["<Super>v"];
       };
     }
     {
