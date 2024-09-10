@@ -12,7 +12,7 @@
   font = head sys.fonts.fontconfig.defaultFonts.sansSerif;
 
   # Shell Extensions
-  extensions = with pkgs.gnomeExtensions // hm.gvariant; [
+  extensions = with pkgs.unstable.gnomeExtensions // pkgs.gnomeExtensions // hm.gvariant; [
     {package = appindicator;}
     {package = control-monitor-brightness-and-volume-with-ddcutil;}
     {package = gamemode-indicator-in-system-settings;}
@@ -26,6 +26,11 @@
       package = workspace-indicator;
       disable = true;
     }
+    (
+      if sys.services.supergfxd.enable
+      then {package = gpu-supergfxctl-switch;}
+      else {}
+    )
     {
       package = top-bar-organizer;
       settings = {

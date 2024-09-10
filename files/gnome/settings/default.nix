@@ -131,6 +131,7 @@ in {
       edge-tiling = true;
       focus-change-on-pointer-rest = true;
       workspaces-only-on-primary = true;
+      experimental-features = ["scale-monitor-framebuffer"];
     };
 
     "org/gnome/desktop/interface" = {
