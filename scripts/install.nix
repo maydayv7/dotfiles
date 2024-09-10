@@ -18,6 +18,12 @@ with files.path; let
 
       echo "Deleting Partitions..."
       dd if=/dev/zero of=/dev/"$DISK" bs=512 count=1
+      if [[ "$DISK" == nvme* ]]
+      then
+        parted /dev/"$DISK" --script mklabel gpt
+      else
+        parted /dev/"$DISK" --script mklabel msdos
+      fi
 
       echo "Creating Partitions..."
       parted /dev/"$DISK" -- mkpart ESP fat32 1MiB 1024MiB
@@ -118,7 +124,6 @@ in
         error "This Command must be Executed as 'root'"
       fi
 
-      read -rp "Enter Name of Device to Install: " HOST
       warn "Disk will be Completely Wiped for Automatic Partitioning"
       read -rp "Do you want to Automatically Create the Partitions? (Y/N): " choice
         case $choice in
@@ -150,6 +155,7 @@ in
       systemd-machine-id-setup --root=/mnt
       newline
 
+      read -rp "Enter Name of Device to Install: " HOST
       read -rp "Enter Path to Repository (path/URL): " URL
       if [ -z "$URL" ]
       then

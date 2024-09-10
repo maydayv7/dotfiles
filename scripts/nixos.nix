@@ -413,8 +413,9 @@ in
         fi
 
         echo "Cloning Repository..."
-        git clone --recurse-submodules ${path.repo} "$DIR"
-        pushd "$DIR" &> /dev/null; git config core.fileMode false; popd &> /dev/null
+        sudo git clone --recurse-submodules ${path.repo} "$DIR"
+        pushd "$DIR" &> /dev/null; sudo git config core.fileMode false; popd &> /dev/null
+        sudo chgrp -R keys "$DIR"
         newline
 
         read -rp "Enter Path to GPG Keys (path/.git): " KEY
