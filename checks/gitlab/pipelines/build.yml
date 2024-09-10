@@ -11,7 +11,7 @@ device:
     CACHIX_CACHE_NAME: maydayv7-dotfiles
   parallel:
     matrix:
-      - DEVICE: [vortex, futura]
+      - DEVICE: [valkyrie, vortex, futura]
   script: cachix watch-exec $CACHIX_CACHE_NAME nix build .#nixosConfigurations.$DEVICE.config.system.build.toplevel -- -L --show-trace
 
 # Build and Upload Install Media Image
