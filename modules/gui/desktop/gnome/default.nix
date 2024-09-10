@@ -87,7 +87,13 @@ in {
       apps.list = ["firefox"];
       programs = {
         gnupg.agent.pinentryPackage = mkForce pkgs.pinentry.gnome3;
+        kdeconnect = {
+          enable = true;
+          package = pkgs.gnomeExtensions.gsconnect;
+        };
+
         firefox = {
+          nativeMessagingHosts.gsconnect = true;
           policies.ExtensionSettings = {
             name = "gnome-shell-integration";
             value = {
@@ -204,7 +210,7 @@ in {
 
         # Extensions
         ".config/forge"
-        ".local/share/clipboard"
+        ".cache/clipboard-indicator@tudmotu.com"
       ];
     })
 
@@ -215,9 +221,6 @@ in {
           # Firefox GNOME Theme
           ".mozilla/firefox/default/chrome/userChrome.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userChrome.css";'';
           ".mozilla/firefox/default/chrome/userContent.css".text = ''@import "${pkgs.custom.firefox-gnome-theme}/userContent.css";'';
-
-          # Workaround for NixOS/nixpkgs/47340
-          ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
 
           # Discord DNOME Theme
           ".config/BetterDiscord/data/stable/custom.css" =

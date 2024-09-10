@@ -35,6 +35,7 @@ in {
       # Internet
       google-chrome
       linux-wifi-hotspot
+      openfortivpn
       thunderbird
       whatsapp-for-linux
       zoom-us
@@ -43,6 +44,7 @@ in {
       hunspell
       hunspellDicts.en_US-large
       hyphen
+      ventoy-full
     ];
 
     # Dictionaries

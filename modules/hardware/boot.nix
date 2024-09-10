@@ -84,7 +84,7 @@ in {
         };
       })
 
-      ## Secure Boot (EFI Only) ##
+      ## EFI Secure Boot ##
       (mkIf (loader == "secure") rec {
         boot.lanzaboote = {
           enable = true;
