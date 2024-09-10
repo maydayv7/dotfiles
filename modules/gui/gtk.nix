@@ -5,7 +5,7 @@
   files,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib) mkEnableOption mkForce mkIf mkOption types;
   cfg = config.gui.gtk;
 in {
   options.gui.gtk = {
@@ -52,7 +52,7 @@ in {
         dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
         gtk = {
           enable = true;
-          inherit (cfg) theme;
+          theme = mkForce cfg.theme;
           iconTheme = config.gui.icons;
           cursorTheme = config.gui.cursors;
           gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
