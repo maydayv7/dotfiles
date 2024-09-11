@@ -178,6 +178,12 @@
     # Declarative Flatpak Wrapper
     flatpak.url = "github:gmodena/nix-flatpak";
 
+    # Spicetify Module
+    spotify = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # VS Code Extensions
     vsppuccin.url = "github:catppuccin/vscode";
     vscode = {

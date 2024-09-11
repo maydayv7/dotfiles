@@ -5,8 +5,9 @@
   files,
   ...
 }: let
-  inherit (lib) mkEnableOption mkForce mkIf mkOption types;
+  inherit (lib) mkEnableOption mkIf mkOption types;
   cfg = config.gui.gtk;
+  inherit (config.stylix) fonts;
 in {
   options.gui.gtk = {
     enable = mkEnableOption "Enable GTK Configuration";
@@ -49,12 +50,18 @@ in {
         home.file.".config/gtk-3.0/bookmarks".text = files.gtk.bookmarks;
 
         # Theming
+        stylix.targets.gtk.enable = false;
         dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
         gtk = {
           enable = true;
-          theme = mkForce cfg.theme;
+          inherit (cfg) theme;
           iconTheme = config.gui.icons;
           cursorTheme = config.gui.cursors;
+          font = {
+            inherit (fonts.sansSerif) package name;
+            size = fonts.sizes.applications;
+          };
+
           gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
           gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
         };

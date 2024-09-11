@@ -178,7 +178,6 @@ in {
           gradience
           gthumb
           lollypop
-          smile
           video-trimmer
           wike
 

@@ -391,7 +391,7 @@ It is not recommended to use NixOS if you are a beginner just starting out, with
 
 _May change according to available hardware_
 
-This configuration works well with an Intel CPU + iGPU, and is not tested with anything else
+This configuration works well with an Intel CPU + iGPU, and is currently being improved to support AMD CPU + iGPU + Nvidia GPU. Any other setup is untested
 The `hardware.modules` option can be used to load relevant configuration from [`nixos-hardware`](https://github.com/nixos/nixos-hardware)
 
 See [this](./modules/hardware/README.md) for additional information

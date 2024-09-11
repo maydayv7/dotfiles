@@ -31,6 +31,7 @@
       "firefox"
       "git"
       "office"
+      "spotify"
       "vscode"
     ];
   };

@@ -15,9 +15,9 @@
     {package = gamemode-indicator-in-system-settings;}
     {package = gsconnect;}
     {package = guillotine;}
+    {package = media-progress;}
     {package = overview-hover;}
     {package = removable-drive-menu;}
-    {package = smile-complementary-extension;}
     {package = transparent-top-bar;}
     {package = xlanguagetray;}
     {
