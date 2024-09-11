@@ -71,8 +71,9 @@ Configuration [Builder](./configuration.nix)
   - `modules`: List of Hardware Configuration Modules imported from [`inputs.hardware`](https://github.com/nixos/nixos-hardware) - Ex. `[ "common-pc" ]`
   - `support`: List of Additional Supported Hardware - `[ "laptop" "mobile" "printer" "virtualisation" ]`
   - `vm`: Configure Virtualisation Support -
-    - `android`: Enable Android Virtualisation
-    - `passthrough`: PCI Device IDs for VM Passthrough using VFI/O (Use [`scripts/pci.sh`](../scripts/pci.sh)) - Ex. `[ "00:02.0" "00:1c.0" ]`
+    - `android`: Enable Android Virtualisation - `true / false`
+    - `vfio`: Configure the device for VFIO - `true / false`
+    - `passthrough`: PCI Device IDs for VFIO (Use [`scripts/pci.sh`](../scripts/pci.sh)) - Ex. `[ "10de:28e0" "10de:22be" ]`
 
 - [`nix`](./nix): Module that configures the Nix Package Manager -
 
