@@ -32,7 +32,7 @@ lib.makeWindowsImage {
   ];
 
   # License
-  imageSelection = "Windows 10 Pro";
+  imageSelection = "Windows 11 Pro N";
   productKey = "VK7JG-NPHTM-C97JM-9MPGT-3V66T";
 
   # Locales

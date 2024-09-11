@@ -178,6 +178,7 @@ in {
           gradience
           gthumb
           lollypop
+          mission-center
           video-trimmer
           wike
 

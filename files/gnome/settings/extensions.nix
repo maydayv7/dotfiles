@@ -162,6 +162,7 @@
         keep-selected-on-clear = true;
         move-item-first = true;
         next-entry = [];
+        pinned-on-bottom = true;
         prev-entry = [];
         private-mode-binding = ["<Ctrl><Super>v"];
         toggle-menu = ["<Super>v"];
@@ -374,8 +375,8 @@
         ws-switcher-ignore-last = false;
         ws-switcher-mode = 0;
         ws-switcher-wraparound = true;
-        ws-thumbnail-scale = 8;
-        ws-thumbnail-scale-appgrid = 13;
+        ws-thumbnail-scale = 10;
+        ws-thumbnail-scale-appgrid = 15;
         ws-thumbnails-full = false;
         ws-thumbnails-position = 5;
         wst-position-adjust = 0;

@@ -68,11 +68,13 @@ in {
         ".config/obs-studio"
         ".config/onlyoffice"
         ".config/pitivi"
+        ".config/whatsapp-for-linux"
         ".local/share/data"
         ".local/share/onlyoffice"
         ".local/share/whatsapp-for-linux"
         ".cache/thunderbird"
         ".cache/google-chrome"
+        ".cache/whatsapp-for-linux"
         ".cache/zoom"
       ];
 
