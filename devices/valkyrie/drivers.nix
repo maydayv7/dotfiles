@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   services.fwupd.enable = true;
   user.persist.directories = [".config/rog"];
   hardware = {
@@ -12,5 +16,13 @@
         enableOffloadCmd = true;
       };
     };
+  };
+
+  systemd.services.mic-boost = {
+    description = "Fix Internal Microphone";
+    wantedBy = ["multi-user.target"];
+    script = ''
+      ${lib.getExe' pkgs.alsa-utils "amixer"} -c 2 sset 'Internal Mic Boost' 0
+    '';
   };
 }
