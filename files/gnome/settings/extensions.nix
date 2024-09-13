@@ -15,12 +15,13 @@
       {package = gamemode-indicator-in-system-settings;}
       {package = gsconnect;}
       {package = guillotine;}
+      {package = hide-minimized;}
       {package = media-progress;}
       {package = overview-hover;}
       {package = removable-drive-menu;}
-      {package = transparent-top-bar;}
       {package = unmess;}
       {package = window-state-manager;}
+      {package = x11-gestures;}
       {package = xlanguagetray;}
       {
         package = workspace-indicator;
@@ -388,6 +389,7 @@
     ++ optionals sys.gui.fancy [
       {package = wiggle;}
       {package = rounded-window-corners-reborn;}
+      {package = transparent-top-bar;}
       {
         package = panel-corners;
         settings.panel-corners = false;

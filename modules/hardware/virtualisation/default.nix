@@ -32,7 +32,7 @@ in {
       user.persist.directories = [".config/libvirt" ".local/share/libvirt"];
       environment.persist.directories = ["/var/lib/libvirt"];
       security.virtualisation.flushL1DataCache = "cond";
-      specialisation."VFIO".configuration.hardware.vm.vfio = true;
+      specialisation.vfio.configuration.hardware.vm.vfio = true;
       boot = {
         kernelModules = ["kvm-amd" "kvm-intel"];
         extraModprobeConfig = ''

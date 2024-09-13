@@ -256,5 +256,13 @@ in {
         ];
       };
     })
+
+    ## XORG Configuration
+    (mkIf (desktop == "gnome") {
+      specialisation.xorg.configuration.services = {
+        touchegg.enable = true;
+        displayManager.defaultSession = mkForce "gnome-xorg";
+      };
+    })
   ]);
 }

@@ -44,6 +44,7 @@ with files; let
 
     apply = ''
       # Usage #
+        'specialisation'             - Activates Specified System Specialisation
         --activate [ home ]          - Activates Current [ Home ] Configuration
         --boot                       - Applies Configuration on boot
         --delta                      - Shows Package Delta for Build
@@ -175,7 +176,15 @@ in
           ;;
           esac
         ;;
-        *) error "Unknown Option '$2'" "${usage.apply}";;
+        *)
+          SPECIALISATIONS=$(ls -1 /nix/var/nix/profiles/system/specialisation)
+          if grep -wq "$2" <<<"$SPECIALISATIONS" &> /dev/null
+          then
+            sudo nixos-rebuild switch --specialisation "$2"
+          else
+            error "Unknown Option '$2'\n${usage.apply}" "# Available Specialisations #\n$SPECIALISATIONS"
+          fi
+        ;;
         esac
       ;;
       "cache")

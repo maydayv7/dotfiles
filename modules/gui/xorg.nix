@@ -19,5 +19,11 @@
       # Driver Settings
       videoDrivers = ["modesetting"];
     };
+
+    # System Specialisation
+    specialisation.xorg.configuration = {
+      system.nixos.tags = ["xorg"];
+      gui.wayland.enable = lib.mkForce false;
+    };
   };
 }
