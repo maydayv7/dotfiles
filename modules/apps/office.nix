@@ -40,6 +40,10 @@ in {
       whatsapp-for-linux
       zoom-us
 
+      # Sound
+      pwvucontrol
+      qpwgraph
+
       # Utilities
       hunspell
       hunspellDicts.en_US-large
@@ -55,7 +59,12 @@ in {
 
     user = {
       # Persisted Files
-      persist.files = [".config/gscan2pdfrc" ".config/zoomus.conf"];
+      persist.files = [
+        ".config/gscan2pdfrc"
+        ".config/rncbc.org/qpwgraph"
+        ".config/zoomus.conf"
+      ];
+
       persist.directories = [
         ".calibre"
         ".thunderbird"

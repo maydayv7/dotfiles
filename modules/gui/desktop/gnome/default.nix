@@ -77,6 +77,7 @@ in {
       services = {
         udev.packages = [pkgs.gnome.gnome-settings-daemon];
         telepathy.enable = true;
+        switcherooControl.enable = true;
         gnome = {
           core-developer-tools.enable = true;
           gnome-remote-desktop.enable = true;
@@ -87,6 +88,11 @@ in {
       apps.list = ["firefox"];
       programs = {
         gnupg.agent.pinentryPackage = mkForce pkgs.pinentry.gnome3;
+        nautilus-open-any-terminal = {
+          enable = true;
+          terminal = "blackbox";
+        };
+
         kdeconnect = {
           enable = true;
           package = pkgs.gnomeExtensions.gsconnect;

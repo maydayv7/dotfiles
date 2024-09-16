@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (util.map) modules;
-  inherit (lib) mkOption types;
+  inherit (lib) mkForce mkOption types;
   cfg = config.hardware;
 in {
   imports = modules.list ./.;
@@ -37,10 +37,14 @@ in {
       type = listOf (enum (modules.name ./.));
       default = [];
     };
+  };
 
-    config = {
-      powerManagement.cpuFreqGovernor = cfg.cpu.mode;
-      nix.settings.max-jobs = cfg.cpu.cores;
+  config = {
+    powerManagement.cpuFreqGovernor = cfg.cpu.mode;
+    nix.settings.max-jobs = cfg.cpu.cores;
+    specialisation = {
+      powersave.configuration.hardware.cpu.mode = mkForce "powersave";
+      performance.configuration.hardware.cpu.mode = mkForce "performance";
     };
   };
 }

@@ -110,6 +110,8 @@
           hot-sensors = ["_default_icon_"];
           show-battery = true;
           show-storage = false;
+          show-gpu = true;
+          include-static-gpu-info = false;
         };
       }
       {
@@ -387,7 +389,6 @@
       }
     ]
     ++ optionals sys.gui.fancy [
-      {package = wiggle;}
       {package = rounded-window-corners-reborn;}
       {package = transparent-top-bar;}
       {

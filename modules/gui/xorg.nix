@@ -17,7 +17,7 @@
       autorun = true;
 
       # Driver Settings
-      videoDrivers = ["modesetting"];
+      videoDrivers = lib.mkDefault ["modesetting"];
     };
 
     # System Specialisation

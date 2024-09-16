@@ -19,7 +19,7 @@
     vm.android.enable = false;
     cpu = {
       cores = 8;
-      mode = "performance";
+      mode = "powersave";
     };
   };
 

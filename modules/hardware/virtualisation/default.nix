@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (builtins) concatStringsSep elem;
-  inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
+  inherit (lib) mkEnableOption mkForce mkIf mkMerge mkOption types;
   enable = elem "virtualisation" config.hardware.support;
   cfg = config.hardware.vm;
 in {
@@ -32,12 +32,9 @@ in {
       user.persist.directories = [".config/libvirt" ".local/share/libvirt"];
       environment.persist.directories = ["/var/lib/libvirt"];
       security.virtualisation.flushL1DataCache = "cond";
-      specialisation.vfio.configuration.hardware.vm.vfio = true;
       boot = {
         kernelModules = ["kvm-amd" "kvm-intel"];
-        extraModprobeConfig = ''
-          options kvm_intel nested=1
-        '';
+        extraModprobeConfig = "options kvm_intel nested=1";
       };
 
       # VM Packages
@@ -63,23 +60,32 @@ in {
           };
         };
       };
+
+      # VFIO Configuration
+      specialisation.vfio.configuration.hardware = {
+        vm.vfio = true;
+        cpu.mode = mkForce "performance";
+      };
     }
     (mkIf cfg.vfio {
-      # VFIO Configuration
       system.nixos.tags = ["vfio"];
       boot = {
         kernelParams = [
-          "amd_iommu=on"
-          "intel_iommu=on"
+          "amd_iommu=pt"
+          "intel_iommu=pt"
           "i915.enable_gvt=1"
+          "iommu=pt"
+          "kvm.ignore_msrs=1"
+          "kvm.report_ignored_msrs=0"
           ("vfio-pci.ids=" + concatStringsSep "," cfg.passthrough)
         ];
 
         kernelModules = [
           "vfio"
-          "vfio-pci"
-          "vfio_virqfd"
+          "vfio_pci"
           "vfio_iommu_type1"
+          "vfio_virqfd"
+
           "nvidia"
           "nvidia_modeset"
           "nvidia_uvm"

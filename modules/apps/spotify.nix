@@ -28,7 +28,7 @@ in {
 
           colorScheme = "custom";
           customColorScheme = with config.lib.stylix.colors; {
-            "text" = "${base0C}";
+            "text" = "${base07}";
             "subtext" = "${base05}";
             "nav-active-text" = "${bright-green}";
             "main" = "${base00}";
@@ -37,14 +37,14 @@ in {
             "card" = "${base00}";
             "shadow" = "${base02}";
             "main-secondary" = "${base01}";
-            "button" = "${base0C}";
+            "button" = "${base07}";
             "button-secondary" = "${green}";
             "button-active" = "${base0D}";
             "button-disabled" = "${base0D}";
             "nav-active" = "${base0D}";
             "play-button" = "${green}";
             "tab-active" = "${yellow}";
-            "notification" = "${base0C}";
+            "notification" = "${base07}";
             "notification-error" = "${orange}";
             "playback-bar" = "${bright-green}";
             "misc" = "${bright-green}";

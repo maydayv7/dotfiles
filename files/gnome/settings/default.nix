@@ -115,7 +115,7 @@ in {
 
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
-      focus-mode = "sloppy";
+      focus-mode = "mouse";
       titlebar-font = "${builtins.head fonts.sansSerif} Bold 11";
       visual-bell = false;
     };

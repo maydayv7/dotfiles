@@ -28,7 +28,7 @@ in {
     '';
 
     #!# Run the following command to install the image:
-    #!# sudo waydroid init -s GAPPS -f
+    #!# waydroid init -s GAPPS -f
     virtualisation.waydroid.enable = true;
     environment.systemPackages = [pkgs.wl-clipboard];
 

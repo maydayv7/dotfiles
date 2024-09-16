@@ -36,6 +36,7 @@
     # Network Settings
     user.groups = ["networkmanager"];
     environment.persist.directories = [
+      "/var/lib/alsa"
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
       "/var/lib/bluetooth"
