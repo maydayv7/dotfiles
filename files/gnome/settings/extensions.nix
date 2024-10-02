@@ -16,6 +16,7 @@
       {package = gsconnect;}
       {package = guillotine;}
       {package = hide-minimized;}
+      {package = invert-window-color;}
       {package = media-progress;}
       {package = overview-hover;}
       {package = removable-drive-menu;}

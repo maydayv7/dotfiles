@@ -179,7 +179,7 @@
         "description": "Shows Open apps"
       },
       {
-        "key": "Super + I",
+        "key": "Super + S",
         "description": "Open Settings"
       },
       {
@@ -215,6 +215,10 @@
   {
     "name": "Application Shortcuts",
     "shortcuts": [
+      {
+        "key": "Super + I",
+        "description": "Invert window colors"
+      },
       {
         "key": "Ctrl + W",
         "description": "Close tab in tab enabled apps"

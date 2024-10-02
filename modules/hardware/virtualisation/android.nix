@@ -27,10 +27,10 @@ in {
       - Use the mainline/LTS kernel for assured support
     '';
 
-    #!# Run the following command to install the image:
-    #!# waydroid init -s GAPPS -f
     virtualisation.waydroid.enable = true;
     environment.systemPackages = [pkgs.wl-clipboard];
+
+    #!# Run 'waydroid init -s GAPPS -f' to install the image
 
     # Environment Setup
     users.groups.android = {

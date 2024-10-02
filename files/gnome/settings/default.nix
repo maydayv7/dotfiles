@@ -71,7 +71,7 @@ in {
     "org/gnome/settings-daemon/plugins/media-keys" = {
       area-screenshot = ["Print"];
       area-screenshot-clip = [];
-      control-center = ["<Super>i"];
+      control-center = ["<Super>s"];
       email = ["<Super>e"];
       home = ["<Super>f"];
       magnifier = ["<Super>x"];

@@ -17,5 +17,7 @@ in {
     # File Transfer
     services.usbmuxd.enable = true;
     environment.systemPackages = [pkgs.libimobiledevice];
+
+    #!# Run 'systemctl restart usbmuxd.service' if it doesn't work
   };
 }
