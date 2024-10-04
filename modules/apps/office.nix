@@ -36,6 +36,7 @@ in {
       google-chrome
       linux-wifi-hotspot
       openfortivpn
+      teams-for-linux
       thunderbird
       whatsapp-for-linux
       zoom-us
