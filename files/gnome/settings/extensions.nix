@@ -6,18 +6,19 @@
   ...
 }: let
   inherit (builtins) filter hasAttr map;
-  inherit (lib) foldr hm mapAttrs' mkForce nameValuePair optionals recursiveUpdate;
+  inherit (lib) foldr hm mkForce optionals recursiveUpdate;
+  latest = pkgs.unstable.gnomeExtensions;
 
   # Shell Extensions
-  extensions = with pkgs.unstable.gnomeExtensions // pkgs.gnomeExtensions // hm.gvariant; ([
+  extensions = with pkgs.gnomeExtensions // hm.gvariant; ([
       {package = appindicator;}
       {package = control-monitor-brightness-and-volume-with-ddcutil;}
       {package = gamemode-indicator-in-system-settings;}
       {package = gsconnect;}
       {package = guillotine;}
       {package = hide-minimized;}
-      {package = invert-window-color;}
-      {package = media-progress;}
+      {package = latest.invert-window-color;}
+      {package = latest.media-progress;}
       {package = overview-hover;}
       {package = removable-drive-menu;}
       {package = unmess;}
@@ -30,7 +31,7 @@
       }
       (
         if sys.services.supergfxd.enable
-        then {package = gpu-supergfxctl-switch;}
+        then {package = latest.gpu-supergfxctl-switch;}
         else {}
       )
       {
@@ -46,6 +47,7 @@
 
           right-box-order = [
             "emoji-copy@felipeftn"
+            "tilingshell@ferrarodomenico.com"
             "a11y"
             "aggregateMenu"
             "drive-menu"
@@ -89,7 +91,7 @@
         };
       }
       {
-        package = emoji-copy;
+        package = latest.emoji-copy;
         settings = {
           active-keybind = true;
           always-show = false;
@@ -103,6 +105,15 @@
           avatar-position = 1;
           avatar-realname = false;
           avatar-size = 56;
+        };
+      }
+      {
+        package = focus-changer;
+        settings = {
+          focus-down = ["<Super>s"];
+          focus-left = ["<Super>a"];
+          focus-right = ["<Super>d"];
+          focus-up = ["<Super>w"];
         };
       }
       {
@@ -175,62 +186,6 @@
         };
       }
       {
-        package = forge;
-        settings =
-          {
-            auto-split-enabled = true;
-            focus-border-toggle = true;
-            stacked-tiling-mode-enabled = true;
-            tabbed-tiling-mode-enabled = true;
-            tiling-mode-enabled = false;
-            window-gap-hidden-on-single = false;
-          }
-          // mapAttrs' (name: value:
-            nameValuePair "keybindings/${name}" value) {
-            con-split-horizontal = [];
-            con-split-layout-toggle = [];
-            con-split-vertical = [];
-            con-stacked-layout-toggle = ["<Shift><Super>s"];
-            con-tabbed-layout-toggle = ["<Shift><Super>t"];
-            con-tabbed-showtab-decoration-toggle = [];
-            focus-border-toggle = [];
-            mod-mask-mouse-tile = "Super";
-            prefs-open = [];
-            prefs-tiling-toggle = ["<Super>y"];
-            window-focus-down = ["<Super>s"];
-            window-focus-left = ["<Super>a"];
-            window-focus-right = ["<Super>d"];
-            window-focus-up = ["<Super>w"];
-            window-gap-size-decrease = ["<Primary><Super>minus"];
-            window-gap-size-increase = ["<Primary><Super>plus"];
-            window-move-down = ["<Primary><Super>s"];
-            window-move-left = ["<Primary><Super>a"];
-            window-move-right = ["<Primary><Super>d"];
-            window-move-up = ["<Primary><Super>w"];
-            window-resize-bottom-decrease = ["<Alt><Primary><Super>Down"];
-            window-resize-bottom-increase = ["<Alt><Super>Down"];
-            window-resize-left-decrease = ["<Alt><Primary><Super>Left"];
-            window-resize-left-increase = ["<Alt><Super>Left"];
-            window-resize-right-decrease = ["<Alt><Primary><Super>Right"];
-            window-resize-right-increase = ["<Alt><Super>Right"];
-            window-resize-top-decrease = ["<Alt><Primary><Super>Up"];
-            window-resize-top-increase = ["<Alt><Super>Up"];
-            window-snap-center = ["<Super>c"];
-            window-snap-one-third-left = [];
-            window-snap-one-third-right = [];
-            window-snap-two-third-left = [];
-            window-snap-two-third-right = [];
-            window-swap-down = ["<Shift><Super>s"];
-            window-swap-last-active = [];
-            window-swap-left = ["<Shift><Super>a"];
-            window-swap-right = ["<Shift><Super>d"];
-            window-swap-up = ["<Shift><Super>w"];
-            window-toggle-always-float = [];
-            window-toggle-float = ["<Shift><Super>F"];
-            workspace-active-tile-toggle = ["<Shift><Super>y"];
-          };
-      }
-      {
         package = window-gestures;
         name = "windowgestures";
         settings = {
@@ -259,6 +214,27 @@
           results-order = 1;
           search-commands = false;
           search-method = 1;
+        };
+      }
+      {
+        package = pkgs.custom.gnome-tilingshell;
+        name = "tilingshell";
+        settings = {
+          enable-blur-selected-tilepreview = false;
+          enable-blur-snap-assistant = false;
+          enable-snap-assist = false;
+          enable-tiling-system = true;
+          enable-window-border = true;
+          inner-gaps = mkUint32 12;
+          move-window-down = ["<Shift><Super>s"];
+          move-window-left = ["<Shift><Super>a"];
+          move-window-right = ["<Shift><Super>d"];
+          move-window-up = ["<Shift><Super>w"];
+          override-window-menu = true;
+          restore-window-original-size = true;
+          tiling-system-activation-key = ["0"];
+          top-edge-maximize = true;
+          window-border-width = mkUint32 2;
         };
       }
       {
@@ -390,7 +366,7 @@
       }
     ]
     ++ optionals sys.gui.fancy [
-      {package = rounded-window-corners-reborn;}
+      {package = latest.rounded-window-corners-reborn;}
       {package = transparent-top-bar;}
       {
         package = panel-corners;

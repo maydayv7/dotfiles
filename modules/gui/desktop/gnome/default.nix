@@ -142,9 +142,6 @@ in {
 
           # Shell Theme
           ".local/share/themes/custom/gnome-shell/gnome-shell.css".text = gnome.shell;
-
-          # Window Tiling Stylesheet
-          ".config/forge/stylesheet/forge/stylesheet.css".text = gnome.tiling;
         };
       };
 
@@ -215,7 +212,6 @@ in {
         ".cache/gnome-builder"
 
         # Extensions
-        ".config/forge"
         ".cache/clipboard-indicator@tudmotu.com"
       ];
     })

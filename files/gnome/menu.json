@@ -28,7 +28,7 @@
           "type": "switch",
           "title": "Android",
           "icon": "application-x-addon-symbolic",
-          "start": "waydroid session start",
+          "start": "sh -c 'nohup waydroid session start > /dev/null 2>&1&'",
           "stop": "waydroid session stop",
           "check": "sh -c 'waydroid status | grep RUNNING'",
           "interval_s": 10
@@ -50,24 +50,8 @@
         },
         {
           "type": "command",
-          "title": "Documentation",
-          "command": "xdg-open /run/current-system/sw/share/gnome-shell/extensions/guillotine@fopdoodle.net/README.md",
-          "instancing": "singleInstance",
-          "icon": "guillotine-symbolic",
-          "killOnDisable": false
-        },
-        {
-          "type": "command",
-          "title": "Log",
-          "command": "kgx -e 'journalctl -f GNOME_SHELL_EXTENSION_UUID=guillotine@fopdoodle.net' ",
-          "instancing": "singleInstance",
-          "icon": "emblem-documents-symbolic",
-          "killOnDisable": false
-        },
-        {
-          "type": "command",
-          "title": "Log gnome-shell",
-          "command": "kgx -e 'journalctl -f _COMM=gnome-shell' ",
+          "title": "Log Desktop",
+          "command": "kgx -e 'sudo journalctl /run/current-system/sw/bin/gnome-shell -f -o cat'",
           "instancing": "singleInstance",
           "icon": "emblem-documents-symbolic",
           "killOnDisable": false

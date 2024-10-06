@@ -7,7 +7,7 @@
   timezone = "Asia/Kolkata";
   locale = "IN";
 
-  kernel = "lqx";
+  kernel = "xanmod";
   kernelModules = ["nvme" "thunderbolt"];
 
   imports = [./drivers.nix];
@@ -16,7 +16,7 @@
     filesystem = "advanced";
     support = ["laptop" "mobile" "printer" "virtualisation"];
     modules = ["asus-zephyrus-ga402x-nvidia"];
-    vm.android.enable = false;
+    vm.android.enable = true;
     cpu = {
       cores = 8;
       mode = "performance";

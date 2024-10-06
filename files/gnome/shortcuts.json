@@ -3,20 +3,8 @@
     "name": "Window Navigation",
     "shortcuts": [
       {
-        "key": "Super",
-        "description": "Enter Overview"
-      },
-      {
-        "key": "Super * 2",
-        "description": "Enter App Grid"
-      },
-      {
         "key": "Alt + F4 / Super + Q",
         "description": "Close window"
-      },
-      {
-        "key": "Super + Mouse Drag",
-        "description": "Move window"
       },
       {
         "key": "F11",
@@ -29,6 +17,43 @@
       {
         "key": "Alt + Space",
         "description": "Activate Window Menu"
+      },
+      {
+        "key": "Super + W/A/S/D",
+        "description": "Focus window in specified direction"
+      },
+      {
+        "key": "Super + Shift + W/A/S/D",
+        "description": "Move window to specified tile"
+      },
+      {
+        "key": "Super + Mouse Drag",
+        "description": "Move window"
+      },
+      {
+        "key": "Super + Ctrl + Mouse Drag",
+        "description": "Tile window (Use 'Alt' to span)"
+      },
+      {
+        "key": "Super + C",
+        "description": "Move window to center"
+      },
+      {
+        "key": "Super + P",
+        "description": "Pin window above all others"
+      }
+    ]
+  },
+  {
+    "name": "Desktop Navigation",
+    "shortcuts": [
+      {
+        "key": "Super",
+        "description": "Enter Overview"
+      },
+      {
+        "key": "Super * 2",
+        "description": "Enter App Grid"
       },
       {
         "key": "Alt + Tab",
@@ -111,59 +136,6 @@
     ]
   },
   {
-    "name": "Tiling Shortcuts",
-    "shortcuts": [
-      {
-        "key": "Super + Y",
-        "description": "Toggle window Tiling"
-      },
-      {
-        "key": "Super + Shift + Y",
-        "description": "Toggle automatic window tiling"
-      },
-      {
-        "key": "Super + Shift + S",
-        "description": "Toggle stacked layout"
-      },
-      {
-        "key": "Super + Shift + T",
-        "description": "Toggle tabbed layout"
-      },
-      {
-        "key": "Super + W/A/S/D",
-        "description": "Focus specified window"
-      },
-      {
-        "key": "Super + Ctrl + W/A/S/D",
-        "description": "Move window in specified direction"
-      },
-      {
-        "key": "Super + Shift + W/A/S/D",
-        "description": "Swap window in specified direction"
-      },
-      {
-        "key": "Super + C",
-        "description": "Snap window to center"
-      },
-      {
-        "key": "Super + Shift + F",
-        "description": "Toggle window floating state"
-      },
-      {
-        "key": "Alt + Space + Always on Top",
-        "description": "Pin window above all others"
-      },
-      {
-        "key": "Super + Alt + ↑/←/↓/→",
-        "description": "Increase window size in specified direction"
-      },
-      {
-        "key": "Super + Ctrl + Alt + ↑/←/↓/→",
-        "description": "Decrease window size in specified direction"
-      }
-    ]
-  },
-  {
     "name": "Run and Close Applications",
     "shortcuts": [
       {
@@ -179,7 +151,7 @@
         "description": "Shows Open apps"
       },
       {
-        "key": "Super + S",
+        "key": "Super + ~",
         "description": "Open Settings"
       },
       {

@@ -15,6 +15,7 @@ in {
   dconf.settings = {
     # Keyboard Shortcuts
     "org/gnome/desktop/wm/keybindings" = {
+      always-on-top = ["<Super>p"];
       begin-move = [];
       begin-resize = [];
       close = ["<Super>q" "<Alt>F4"];
@@ -22,6 +23,7 @@ in {
       cycle-group-backward = [];
       maximize = ["<Super>Up"];
       minimize = ["<Super>Down"];
+      move-to-center = ["<Super>c"];
       move-to-monitor-down = [];
       move-to-monitor-left = ["<Primary><Super>Left"];
       move-to-monitor-right = ["<Primary><Super>Right"];
@@ -66,12 +68,13 @@ in {
       toggle-application-view = [];
       toggle-message-tray = [];
       toggle-overview = [];
+      toggle-quick-settings = [];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
       area-screenshot = ["Print"];
       area-screenshot-clip = [];
-      control-center = ["<Super>s"];
+      control-center = ["<Super><Shift>grave"];
       email = ["<Super>e"];
       home = ["<Super>f"];
       magnifier = ["<Super>x"];

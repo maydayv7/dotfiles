@@ -2,10 +2,12 @@
   lib,
   files,
   ...
-}: {
-  options.gui.xorg.enable = lib.mkOption {
+}: let
+  inherit (lib) mkDefault mkForce mkOption types;
+in {
+  options.gui.xorg.enable = mkOption {
     description = "Enable X11 Server Configuration";
-    type = lib.types.bool;
+    type = types.bool;
     default = true;
   };
 
@@ -17,13 +19,14 @@
       autorun = true;
 
       # Driver Settings
-      videoDrivers = lib.mkDefault ["modesetting"];
+      videoDrivers = mkDefault ["modesetting"];
     };
 
     # System Specialisation
     specialisation.xorg.configuration = {
       system.nixos.tags = ["xorg"];
-      gui.wayland.enable = lib.mkForce false;
+      gui.wayland.enable = mkForce false;
+      hardware.vm.android.enable = mkForce false;
     };
   };
 }
