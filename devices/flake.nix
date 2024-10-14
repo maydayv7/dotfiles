@@ -36,7 +36,7 @@ in {
             password = readFile ../users/passwords/default;
           };
         })) (import ../modules/gui/desktop/iso.nix))
-      // {default = self.installMedia.xfce;};
+      // {default = self.installMedia.gnome;};
 
     ## Virtual Machines ##
     vmConfigurations = with self;

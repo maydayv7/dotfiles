@@ -3,13 +3,15 @@
   options,
   lib,
   util,
+  pkgs,
   ...
 }: let
   inherit (builtins) map;
   inherit (util.map.modules) list name;
-  inherit (lib) hasSuffix mkEnableOption mkIf mkOption optional types;
+  inherit (lib) hasSuffix mkEnableOption mkForce mkIf mkMerge mkOption optional types;
   inherit (config.gui) desktop;
 in {
+  ## GUI Configuration ##
   imports = list ./. ++ list ./desktop;
 
   options.gui = {
@@ -28,12 +30,11 @@ in {
     };
   };
 
-  config =
-    {
-      # Warning
-      warnings = optional (desktop == "") (options.gui.desktop.description + " is unset");
-    }
-    // (mkIf (desktop != "" && !(hasSuffix "-iso" desktop))
+  config = mkMerge [
+    {warnings = optional (desktop == "") (options.gui.desktop.description + " is unset");}
+
+    ## Desktop Environment
+    (mkIf (desktop != "" && !(hasSuffix "-iso" desktop))
       {
         # Autostart Apps
         user.persist.directories = [".config/autostart"];
@@ -51,5 +52,12 @@ in {
           enable = true;
           xdgOpenUsePortal = true;
         };
-      });
+      })
+
+    ## Install Media
+    (mkIf (hasSuffix "-iso" desktop) {
+      xdg.portal.enable = mkForce false;
+      environment.systemPackages = with pkgs; [epiphany gparted];
+    })
+  ];
 }

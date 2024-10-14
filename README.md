@@ -288,7 +288,7 @@ Example `flake.nix`:
       timezone = "Continent/City";
       locale = "US";
 
-      kernel = "zen";
+      kernel = "zfs";
       kernelModules = ["nvme"];
 
       gui = {};
@@ -316,7 +316,7 @@ Example `flake.nix`:
 <details>
 <summary><b>From Scratch</b></summary>
 
-Download the latest NixOS `.iso` from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)
+Download the latest install media image from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)
 
 > [!IMPORTANT]
 > These instructions are mainly intended for personal use.
@@ -391,7 +391,7 @@ It is not recommended to use NixOS if you are a beginner just starting out, with
 
 _May change according to available hardware_
 
-This configuration works well with an Intel CPU + iGPU, and is currently being improved to support AMD CPU + iGPU + Nvidia GPU. Any other setup is untested
+This configuration works well with an Intel CPU + iGPU, and is currently being improved to support AMD APU + Nvidia GPU. Any other setup is untested
 The `hardware.modules` option can be used to load relevant configuration from [`nixos-hardware`](https://github.com/nixos/nixos-hardware)
 
 See [this](./modules/hardware/README.md) for additional information
@@ -526,6 +526,7 @@ You can navigate to the `README`s present in the various directories to know mor
 - Add configuration for Spotify using [`spicetify-nix`](https://github.com/Gerg-L/spicetify-nix)
 - Make VS Code Configuration mutable using [this](https://gist.github.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa) module
 - Reimplement support for specifying Package Channel for configuration build
+- Refactor Install Media build and upload image as Github artifact to circumvent size limit
 
 ### v17
 

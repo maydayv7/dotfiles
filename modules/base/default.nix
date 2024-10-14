@@ -11,6 +11,7 @@
   inherit (lib) removePrefix mkIf mkOption optionals types;
   cfg = config.base;
 in {
+  ## BASE Configuration ##
   imports = util.map.modules.list ./. ++ [inputs.generators.nixosModules.all-formats];
 
   options.base = {
@@ -30,7 +31,6 @@ in {
     };
   };
 
-  ## Base Configuration ##
   config = {
     # Kernel Configuration
     boot = {

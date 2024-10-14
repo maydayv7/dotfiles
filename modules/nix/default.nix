@@ -1,7 +1,7 @@
 {pkgs, ...}: {
+  ## NIX Configuration ##
   imports = [./index.nix ./registry.nix ./tools.nix];
 
-  ## Nix Settings ##
   config = {
     # Settings
     user.persist.directories = [".cache/nix"];

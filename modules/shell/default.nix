@@ -11,11 +11,11 @@ with files; let
   inherit (builtins) listToAttrs map;
   inherit (lib) getExe' mkEnableOption mkBefore mkIf mkMerge nameValuePair;
 in {
+  ## SHELL Configuration ##
   imports = modules.list ./.;
 
   options.shell.utilities = mkEnableOption "Enable Additional Shell Utilities";
 
-  ## Shell Configuration ##
   config = mkMerge [
     {
       # Environment Settings

@@ -9,6 +9,7 @@
   inherit (lib) mkForce mkOption types;
   cfg = config.hardware;
 in {
+  ## HARDWARE Configuration ##
   imports = modules.list ./.;
 
   options.hardware = with types; {

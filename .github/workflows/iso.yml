@@ -1,12 +1,15 @@
-name: "ci: Create Release"
+name: "ci: Build default `installMedia`"
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *"
   push:
     tags:
       - "*"
 env:
   NIX_SHOW_STATS: 1
 jobs:
-  release:
+  image:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Repo
@@ -23,13 +26,11 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Build Default Install Media
         run: nix build .#installMedia.default.config.system.build.isoImage -L --show-trace
-      - name: Draft Release
-        uses: ncipollo/release-action@v1.14.0
+      - name: Upload ISO Image
+        uses: actions/upload-artifact@v4
+        id: image-upload
         with:
-          allowUpdates: true
-          artifactErrorsFailBuild: true
-          artifacts: "result/iso/nixos.iso"
-          draft: true
-          omitBodyDuringUpdate: true
-          omitNameDuringUpdate: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Image
+          path: result/iso/nixos.iso
+          compression-level: 0
+          if-no-files-found: error

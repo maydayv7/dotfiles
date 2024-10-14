@@ -20,18 +20,13 @@ in {
 
   # Essential Utilities
   environment.systemPackages = with (pkgs.gnome // pkgs); [
-    epiphany
     gnome-console
     gnome-text-editor
     gnome-system-monitor
-    gparted
     nautilus
   ];
 
   # Excluded Packages
-  xdg.portal.enable = mkForce false;
-  qt.enable = mkForce false;
-
   services.gnome = {
     core-utilities.enable = mkForce false;
     gnome-browser-connector.enable = mkForce false;
@@ -39,11 +34,8 @@ in {
     gnome-user-share.enable = mkForce false;
   };
 
-  environment.gnome.excludePackages = with pkgs.gnome; [
-    gnome-backgrounds
-    gnome-shell-extensions
-    pkgs.gnome-tour
-    pkgs.gnome-user-docs
-    pkgs.hicolor-icon-theme
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+    hicolor-icon-theme
   ];
 }

@@ -8,7 +8,7 @@
 }: let
   inherit (lib) attrNames hasSuffix mkIf mkOption optionals types;
   cfg = config.gui;
-  enable = !(cfg.desktop == "" || hasSuffix "-minimal" cfg.desktop);
+  enable = !(cfg.desktop == "" || hasSuffix "-iso" cfg.desktop);
   exists = app: builtins.elem app config.apps.list;
 in {
   imports = [inputs.stylix.nixosModules.stylix];

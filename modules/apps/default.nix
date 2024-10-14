@@ -6,6 +6,7 @@
   inherit (util.map) modules;
   inherit (lib) mkOption types;
 in {
+  ## APPS Configuration ##
   imports = modules.list ./.;
 
   options.apps.list = mkOption {

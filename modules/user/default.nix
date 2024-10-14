@@ -30,6 +30,7 @@
     merge = _: getValues;
   };
 in {
+  ## USER Configuration ##
   imports = modules.list ./. ++ [inputs.home-manager.nixosModules.home-manager];
 
   options = {
@@ -113,7 +114,6 @@ in {
     };
   };
 
-  ## User Configuration ##
   config = {
     # Settings
     users = {

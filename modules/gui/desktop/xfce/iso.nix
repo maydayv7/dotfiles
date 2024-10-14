@@ -5,17 +5,12 @@
 }: let
   inherit (lib) mkForce;
 in {
-  environment = {
-    # Utilities
-    systemPackages = with pkgs; [epiphany gparted];
-
-    # Excluded Packages
-    xfce.excludePackages = with (pkgs.xfce // pkgs); [
-      tango-icon-theme
-      xfce4-icon-theme
-      xfwm4-themes
-    ];
-  };
+  # Excluded Packages
+  environment.xfce.excludePackages = with (pkgs.xfce // pkgs); [
+    tango-icon-theme
+    xfce4-icon-theme
+    xfwm4-themes
+  ];
 
   # Disabled Services
   services.tumbler.enable = mkForce false;
