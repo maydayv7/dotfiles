@@ -502,10 +502,10 @@ You can navigate to the `README`s present in the various directories to know mor
 <details>
 <summary><b>Changelog</b></summary>
 
-### vNEXT
+### v24
 
 - Hyprland Improvements
-  - Update to latest version
+  - Update to version 0.40
   - Desktop Icons
   - Keybindings List
   - Useful Submaps
@@ -518,7 +518,12 @@ You can navigate to the `README`s present in the various directories to know mor
     - [Hycov](https://github.com/DreamMaoMao/hycov)
     - [Hyprspace](https://github.com/KZDKM/Hyprspace)
     - [Hyprexpo](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprexpo)
+- Add device `valkyrie` and fix NVIDIA issues
+- Improve GNOME Configuration
+  - Use [`tiling-shell`](https://github.com/domferr/tilingshell) instead of `forge`
+  - Support NVIDIA GPUs and PRIME
 - Add `devcontainer` for Github Codespaces
+- Add configuration for Spotify using [`spicetify-nix`](https://github.com/Gerg-L/spicetify-nix)
 - Make VS Code Configuration mutable using [this](https://gist.github.com/piousdeer/b29c272eaeba398b864da6abf6cb5daa) module
 - Reimplement support for specifying Package Channel for configuration build
 

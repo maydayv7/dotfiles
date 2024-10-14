@@ -76,6 +76,7 @@
       unifont
 
       fira
+      ibm-plex
       roboto
       roboto-slab
       source-code-pro

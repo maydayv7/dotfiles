@@ -225,16 +225,17 @@
           enable-snap-assist = false;
           enable-tiling-system = true;
           enable-window-border = true;
-          inner-gaps = mkUint32 12;
-          move-window-down = ["<Shift><Super>s"];
-          move-window-left = ["<Shift><Super>a"];
-          move-window-right = ["<Shift><Super>d"];
-          move-window-up = ["<Shift><Super>w"];
           override-window-menu = true;
           restore-window-original-size = true;
           tiling-system-activation-key = ["0"];
           top-edge-maximize = true;
           window-border-width = mkUint32 2;
+          inner-gaps = mkUint32 5;
+          outer-gaps = mkUint32 5;
+          move-window-down = ["<Shift><Super>s"];
+          move-window-left = ["<Shift><Super>a"];
+          move-window-right = ["<Shift><Super>d"];
+          move-window-up = ["<Shift><Super>w"];
         };
       }
       {
