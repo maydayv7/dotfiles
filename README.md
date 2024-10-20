@@ -131,6 +131,7 @@ github:maydayv7/dotfiles
 ├───lib: utility library functions
 ├───nixosConfigurations
 │   ├───futura: NixOS configuration
+│   ├───valkyrie: NixOS configuration
 │   └───vortex: NixOS configuration
 ├───overlays
 ├───packages
@@ -503,9 +504,11 @@ You can navigate to the `README`s present in the various directories to know mor
 <summary><b>Changelog</b></summary>
 
 ### v24.1
+
 - GNOME Improvements
   - Use [PaperWM](https://github.com/paperwm/PaperWM)
   - Remove unneeded extensions
+- Fix VFIO Configuration
 
 ### v24
 
