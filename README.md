@@ -502,6 +502,11 @@ You can navigate to the `README`s present in the various directories to know mor
 <details>
 <summary><b>Changelog</b></summary>
 
+### v24.1
+- GNOME Improvements
+  - Use [PaperWM](https://github.com/paperwm/PaperWM)
+  - Remove unneeded extensions
+
 ### v24
 
 - Hyprland Improvements

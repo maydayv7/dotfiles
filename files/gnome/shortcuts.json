@@ -4,48 +4,120 @@
     "shortcuts": [
       {
         "key": "Alt + F4 / Super + Q",
-        "description": "Close window"
+        "description": "Close active window"
       },
       {
-        "key": "F11",
-        "description": "Make Full screen/Restore"
+        "key": "F11 / Super + Shift + F",
+        "description": "Make fullscreen/restore"
       },
       {
-        "key": "Super + ↑/↓",
-        "description": "Maximize/Minimize window"
+        "key": "Super + M",
+        "description": "Maximize horizontally"
       },
       {
-        "key": "Alt + Space",
-        "description": "Activate Window Menu"
+        "key": "Super + ↑/←/↓/→",
+        "description": "Switch window columns"
       },
       {
-        "key": "Super + W/A/S/D",
-        "description": "Focus window in specified direction"
-      },
-      {
-        "key": "Super + Shift + W/A/S/D",
-        "description": "Move window to specified tile"
+        "key": "Super + Shift + ↑/←/↓/→",
+        "description": "Move window to specified column"
       },
       {
         "key": "Super + Mouse Drag",
         "description": "Move window"
       },
       {
-        "key": "Super + Ctrl + Mouse Drag",
-        "description": "Tile window (Use 'Alt' to span)"
+        "key": "Alt + Tab",
+        "description": "Switch between windows"
+      },
+      {
+        "key": "Alt + `",
+        "description": "Grab and drop windows"
+      },
+      {
+        "key": "Super + Tab",
+        "description": "Switch between workspaces"
+      },
+      {
+        "key": "Super + < / >",
+        "description": "Switch workspaces"
+      },
+      {
+        "key": "Super + Shift + < / >",
+        "description": "Move window to specified workspace"
       },
       {
         "key": "Super + C",
-        "description": "Move window to center"
+        "description": "Center window"
+      },
+      {
+        "key": "Super + N",
+        "description": "Duplicate window"
+      },
+      {
+        "key": "Super + H",
+        "description": "Minimize window"
+      },
+      {
+        "key": "Super + B",
+        "description": "Move window to active column"
+      },
+      {
+        "key": "Super + Shift + B",
+        "description": "Move window to new column"
+      },
+      {
+        "key": "Super + = / -",
+        "description": "Change window width"
+      },
+      {
+        "key": "Super + Shift + = / -",
+        "description": "Change window height"
+      },
+      {
+        "key": "Super + Shift + ; / '",
+        "description": "Drift viewport"
+      },
+      {
+        "key": "Super + `",
+        "description": "Toggle window float"
+      },
+      {
+        "key": "Super + Shift + `",
+        "description": "Show floating windows"
+      },
+      {
+        "key": "Super + Ctrl + `",
+        "description": "Switch between floating windows"
       },
       {
         "key": "Super + P",
-        "description": "Pin window above all others"
+        "description": "Pin floating window"
+      },
+      {
+        "key": "Super + ] / [",
+        "description": "Switch to specified monitor"
+      },
+      {
+        "key": "Super + Shift + ] / [",
+        "description": "Move window to specified monitor"
+      },
+      {
+        "key": "Super + Ctrl + ] / [",
+        "description": "Swap workspaces with specified monitor"
+      },
+      {
+        "key": "Super + Shift + C",
+        "description": "Switch window focus mode"
+      },
+      {
+        "key": "Super + Shift + W",
+        "description": "Switch position of new windows"
       }
     ]
   },
   {
-    "name": "Desktop Navigation",
+    "name": "Desktop Actions",
     "shortcuts": [
       {
         "key": "Super",
@@ -56,103 +128,57 @@
         "description": "Enter App Grid"
       },
       {
-        "key": "Alt + Tab",
-        "description": "Switches between Application"
+        "key": "Alt + Space",
+        "description": "Activate window menu"
       },
       {
-        "key": "Super + Tab",
-        "description": "Switches between Windows of current application"
+        "key": "Super + F2",
+        "description": "Run Dialog"
       },
       {
-        "key": "Space in Overview",
-        "description": "Search open windows"
+        "key": "Super + Shift + N",
+        "description": "Show notification tray"
       },
-      {
-        "key": "Super + ←/→",
-        "description": "Switch Workspace"
-      },
-      {
-        "key": "Super + Home/End",
-        "description": "Switch to first/last Workspace"
-      },
-      {
-        "key": "Super + Shift + ←/→",
-        "description": "Move window to specified Workspace"
-      },
-      {
-        "key": "Super + Ctrl + ←/→",
-        "description": "Move window to specified Monitor"
-      }
-    ]
-  },
-  {
-    "name": "System Shortcuts",
-    "shortcuts": [
       {
         "key": "Super + Space",
         "description": "Switch keyboard layout"
       },
       {
         "key": "Ctrl + Alt + Del",
-        "description": "Opens the shutdown menu"
+        "description": "Open shutdown menu"
       },
       {
         "key": "Super + L",
-        "description": "Locks the screen"
+        "description": "Lock the screen"
       },
       {
         "key": "Super + X",
         "description": "Toggle zoom"
       },
       {
-        "key": "Super + =",
+        "key": "Super + Ctrl + =",
         "description": "Zoom in"
       },
       {
-        "key": "Super + -",
+        "key": "Super + Ctrl + -",
         "description": "Zoom out"
+      },
+      {
+        "key": "Super + I",
+        "description": "Invert window colors"
       }
     ]
   },
   {
-    "name": "Screenshot Shortcuts",
+    "name": "Application Shortcuts",
     "shortcuts": [
-      {
-        "key": "Print",
-        "description": "Take a screenshot of a region"
-      },
-      {
-        "key": "Shift + Print",
-        "description": "Take a full screenshot"
-      },
-      {
-        "key": "Ctrl + Print",
-        "description": "Take a screenshot of a window"
-      },
-      {
-        "key": "Alt + Print",
-        "description": "Video capture desktop"
-      }
-    ]
-  },
-  {
-    "name": "Run and Close Applications",
-    "shortcuts": [
-      {
-        "key": "Super + F2",
-        "description": "Run Dialog"
-      },
       {
         "key": "Super + 1,2,3...",
-        "description": "Run app by Position in the Launcher"
+        "description": "Run app by position in launcher"
       },
       {
         "key": "; or ` in Overview",
-        "description": "Shows Open apps"
-      },
-      {
-        "key": "Super + ~",
-        "description": "Open Settings"
+        "description": "Show open application windows"
       },
       {
         "key": "Super + F",
@@ -167,41 +193,32 @@
         "description": "Open Terminal"
       },
       {
-        "key": "Super + `",
+        "key": "Super + W",
         "description": "Open Browser"
       },
       {
-        "key": "Super + .",
+        "key": "Super + Shift + E",
         "description": "Open Emoji Picker"
       },
       {
         "key": "Super + Enter",
-        "description": "Opens Task Manager"
+        "description": "Open Task Manager"
       },
       {
         "key": "Super + /",
         "description": "Show this shortcuts menu"
-      }
-    ]
-  },
-  {
-    "name": "Application Shortcuts",
-    "shortcuts": [
-      {
-        "key": "Super + I",
-        "description": "Invert window colors"
       },
       {
         "key": "Ctrl + W",
-        "description": "Close tab in tab enabled apps"
+        "description": "Close tab in tabbed apps"
       },
       {
         "key": "Ctrl + T",
-        "description": "Opens new tab in tab enabled apps"
+        "description": "Opens new tab in tabbed apps"
       },
       {
         "key": "Ctrl + Shift + T",
-        "description": "Reopen last closed tab in web browser"
+        "description": "Reopen last closed tab in browser"
       },
       {
         "key": "Ctrl + /",
@@ -218,43 +235,40 @@
     ]
   },
   {
-    "name": "Navigation Gestures",
+    "name": "Screenshots",
     "shortcuts": [
       {
-        "key": "4F ↑ Swipe (←/→)",
-        "description": "Maximize/fullscreen/restore(/snap) a window"
+        "key": "Print",
+        "description": "Take region screenshot"
       },
+      {
+        "key": "Shift + Print",
+        "description": "Take full screenshot"
+      },
+      {
+        "key": "Ctrl + Print",
+        "description": "Take window screenshot"
+      },
+      {
+        "key": "Alt + Print",
+        "description": "Video capture desktop"
+      }
+    ]
+  },
+  {
+    "name": "Navigation Gestures",
+    "shortcuts": [
       {
         "key": "3F ↑ Swipe",
         "description": "Show overview/apps grid"
       },
       {
-        "key": "3F ↓ Swipe",
-        "description": "Minimize window"
-      },
-      {
         "key": "3F ←/→ Swipe",
+        "description": "Switch windows"
+      },
+      {
+        "key": "3F ↓ Swipe",
         "description": "Switch workspaces"
-      },
-      {
-        "key": "4F Hold then Swipe",
-        "description": "Move window"
-      },
-      {
-        "key": "3F ↓ Swipe then ←/→",
-        "description": "Switch to previous/next window"
-      },
-      {
-        "key": "4F ↓ Swipe",
-        "description": "Show notification center"
-      },
-      {
-        "key": "4F Pinch Out",
-        "description": "Show desktop"
-      },
-      {
-        "key": "4F Pinch In",
-        "description": "Mute audio"
       },
       {
         "key": "2F ←/→ Swipe",

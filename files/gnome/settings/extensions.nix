@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (builtins) filter hasAttr map;
-  inherit (lib) foldr hm mkForce optionals recursiveUpdate;
+  inherit (lib) foldr hm mapAttrs' mkForce nameValuePair optionals recursiveUpdate;
   latest = pkgs.unstable.gnomeExtensions;
 
   # Shell Extensions
@@ -19,29 +19,28 @@
       {package = hide-minimized;}
       {package = latest.invert-window-color;}
       {package = latest.media-progress;}
-      {package = overview-hover;}
       {package = removable-drive-menu;}
-      {package = unmess;}
-      {package = window-state-manager;}
       {package = x11-gestures;}
       {package = xlanguagetray;}
       {
         package = workspace-indicator;
         disable = true;
       }
-      (
-        if sys.services.supergfxd.enable
-        then {package = latest.gpu-supergfxctl-switch;}
-        else {}
-      )
+      {
+        package = latest.gpu-supergfxctl-switch;
+        disable = !sys.services.supergfxd.enable;
+      }
       {
         package = top-bar-organizer;
         settings = {
           center-box-order = ["dateMenu"];
           left-box-order = [
+            "WorkspaceMenu"
             "activities"
             "guillotine"
             "guillotine@fopdoodle.net"
+            "FocusButton"
+            "OpenPositionButton"
             "appMenu"
           ];
 
@@ -77,13 +76,6 @@
         settings.name = mkForce "custom";
       }
       {
-        package = fullscreen-avoider;
-        settings = {
-          move-hot-corners = true;
-          move-notifications = true;
-        };
-      }
-      {
         package = window-title-is-back;
         settings = {
           colored-icon = true;
@@ -95,6 +87,7 @@
         settings = {
           active-keybind = true;
           always-show = false;
+          emoji-keybind = ["<Super><Shift>e"];
           paste-on-select = true;
         };
       }
@@ -108,15 +101,6 @@
         };
       }
       {
-        package = focus-changer;
-        settings = {
-          focus-down = ["<Super>s"];
-          focus-left = ["<Super>a"];
-          focus-right = ["<Super>d"];
-          focus-up = ["<Super>w"];
-        };
-      }
-      {
         package = vitals;
         settings = {
           hot-sensors = ["_default_icon_"];
@@ -124,28 +108,6 @@
           show-storage = false;
           show-gpu = true;
           include-static-gpu-info = false;
-        };
-      }
-      {
-        package = alttab-mod;
-        name = "altTab-mod";
-        settings = {
-          current-monitor-only = true;
-          current-monitor-only-window = true;
-          current-workspace-only = true;
-          disable-hover-select = false;
-          focus-on-select-window = true;
-          remove-delay = true;
-        };
-      }
-      {
-        package = auto-activities;
-        settings = {
-          detect-minimized = true;
-          hide-on-new-window = true;
-          show-apps = false;
-          skip-last-workspace = false;
-          skip-taskbar = true;
         };
       }
       {
@@ -186,27 +148,6 @@
         };
       }
       {
-        package = window-gestures;
-        name = "windowgestures";
-        settings = {
-          fn-fullscreen = true;
-          fn-maximized-snap = true;
-          fn-move = true;
-          fn-move-snap = true;
-          fn-resize = true;
-          pinch-enable = true;
-          pinch3-in = 0;
-          pinch3-out = 0;
-          pinch4-in = 14;
-          pinch4-out = 3;
-          swipe3-down = 1;
-          swipe4-updown = 22;
-          taphold-move = true;
-          three-finger = false;
-          use-active-window = true;
-        };
-      }
-      {
         package = wsp-windows-search-provider;
         name = "windows-search-provider";
         settings = {
@@ -217,26 +158,96 @@
         };
       }
       {
-        package = pkgs.custom.gnome-tilingshell;
-        name = "tilingshell";
-        settings = {
-          enable-blur-selected-tilepreview = false;
-          enable-blur-snap-assistant = false;
-          enable-snap-assist = false;
-          enable-tiling-system = true;
-          enable-window-border = true;
-          override-window-menu = true;
-          restore-window-original-size = true;
-          tiling-system-activation-key = ["0"];
-          top-edge-maximize = true;
-          window-border-width = mkUint32 2;
-          inner-gaps = mkUint32 5;
-          outer-gaps = mkUint32 5;
-          move-window-down = ["<Shift><Super>s"];
-          move-window-left = ["<Shift><Super>a"];
-          move-window-right = ["<Shift><Super>d"];
-          move-window-up = ["<Shift><Super>w"];
-        };
+        package = pkgs.custom.paperwm;
+        settings =
+          {
+            animation-time = 0.25;
+            disable-topbar-styling = false;
+            gesture-horizontal-fingers = 3;
+            gesture-workspace-fingers = 3;
+            horizontal-margin = 10;
+            maximize-within-tiling = true;
+            open-window-position = 0;
+            open-window-position-option-up = true;
+            overview-ensure-viewport-animation = 1;
+            overview-min-windows-per-row = 4;
+            restore-attach-modal-dialogs = "true";
+            restore-edge-tiling = "false";
+            restore-workspaces-only-on-primary = "true";
+            selection-border-size = 5;
+            show-focus-mode-icon = true;
+            show-open-position-icon = true;
+            show-window-position-bar = true;
+            show-workspace-indicator = true;
+            topbar-mouse-scroll-enable = true;
+            use-default-background = true;
+            vertical-margin = 5;
+            vertical-margin-bottom = 5;
+            window-gap = 15;
+            winprops = [];
+          }
+          // mapAttrs' (name: value:
+            nameValuePair "keybindings/${name}" value) {
+            barf-out = [""];
+            barf-out-active = ["<Shift><Super>b"];
+            center-horizontally = ["<Super>c"];
+            center-vertically = [""];
+            close-window = ["<Super>q"];
+            cycle-height = [""];
+            cycle-height-backwards = [""];
+            cycle-width = [""];
+            cycle-width-backwards = [""];
+            drift-left = ["<Super>semicolon"];
+            drift-right = ["<Super>apostrophe"];
+            live-alt-tab = ["<Alt>Tab"];
+            live-alt-tab-backward = ["<Shift><Alt>Tab"];
+            live-alt-tab-scratch = ["<Control><Super>grave"];
+            live-alt-tab-scratch-backward = [""];
+            move-down = ["<Shift><Super>Down"];
+            move-down-workspace = ["<Shift><Super>greater"];
+            move-left = ["<Shift><Super>Left"];
+            move-monitor-above = [""];
+            move-monitor-below = [""];
+            move-monitor-left = ["<Shift><Super>braceleft"];
+            move-monitor-right = ["<Shift><Super>braceright"];
+            move-previous-workspace = [""];
+            move-previous-workspace-backward = [""];
+            move-right = ["<Shift><Super>Right"];
+            move-space-monitor-above = [""];
+            move-space-monitor-below = [""];
+            move-space-monitor-left = [""];
+            move-space-monitor-right = [""];
+            move-up = ["<Shift><Super>Up"];
+            move-up-workspace = ["<Shift><Super>comma"];
+            new-window = ["<Super>n"];
+            previous-workspace = ["<Super>Tab"];
+            previous-workspace-backward = ["<Shift><Super>Tab"];
+            resize-h-dec = ["<Shift><Super>underscore"];
+            resize-w-inc = ["<Super>equal"];
+            slurp-in = ["<Super>b"];
+            swap-monitor-above = [""];
+            swap-monitor-below = [""];
+            swap-monitor-left = ["<Control><Super>bracketleft"];
+            swap-monitor-right = ["<Control><Super>bracketright"];
+            switch-down-workspace = ["<Super>period"];
+            switch-first = [""];
+            switch-last = [""];
+            switch-left = ["<Super>Left"];
+            switch-monitor-above = [""];
+            switch-monitor-below = [""];
+            switch-monitor-left = ["<Super>bracketleft"];
+            switch-monitor-right = ["<Super>bracketright"];
+            switch-next = [""];
+            switch-previous = [""];
+            switch-up = ["<Super>Up"];
+            switch-up-workspace = ["<Super>comma"];
+            take-window = ["<Alt>grave"];
+            toggle-maximize-width = ["<Super>m"];
+            toggle-scratch = ["<Super>grave"];
+            toggle-scratch-layer = ["<Shift><Super>asciitilde"];
+            toggle-scratch-window = [""];
+            toggle-top-and-position-bar = [""];
+          };
       }
       {
         package = vertical-workspaces;
@@ -246,12 +257,12 @@
           animation-speed-factor = 100;
           app-display-module = true;
           app-favorites-module = true;
-          app-folder-order = 1;
+          app-folder-order = 2;
           app-grid-active-preview = false;
           app-grid-animation = 4;
           app-grid-bg-blur-sigma = 40;
           app-grid-columns = 0;
-          app-grid-content = 4;
+          app-grid-content = 2;
           app-grid-folder-center = true;
           app-grid-folder-columns = 0;
           app-grid-folder-icon-grid = 2;
@@ -261,12 +272,12 @@
           app-grid-incomplete-pages = false;
           app-grid-names = 0;
           app-grid-order = 1;
-          app-grid-page-width-scale = 90;
+          app-grid-page-width-scale = 80;
           app-grid-performance = true;
           app-grid-rows = 0;
           app-grid-spacing = 12;
           center-app-grid = true;
-          center-dash-to-ws = true;
+          center-dash-to-ws = false;
           center-search = true;
           close-ws-button-mode = 2;
           dash-bg-color = 0;
@@ -281,14 +292,13 @@
           dash-position-adjust = 0;
           dash-show-extensions-icon = 0;
           dash-show-recent-files-icon = 0;
-          dash-show-windows-before-activation = 1;
-          dash-show-windows-icon = 2;
-          enable-page-shortcuts = true;
+          dash-show-windows-before-activation = 3;
+          enable-page-shortcuts = false;
           favorites-notify = 1;
           highlighting-style = 1;
           hot-corner-action = 1;
-          hot-corner-fullscreen = false;
-          hot-corner-position = 1;
+          hot-corner-fullscreen = true;
+          hot-corner-position = 3;
           hot-corner-ripples = true;
           layout-module = true;
           message-tray-module = true;
@@ -301,22 +311,22 @@
           overlay-key-primary = 1;
           overlay-key-secondary = 1;
           overview-bg-blur-sigma = 50;
-          overview-bg-brightness = 90;
+          overview-bg-brightness = 50;
           overview-esc-behavior = 0;
-          overview-mode = 1;
+          overview-mode = 0;
           panel-module = true;
           panel-position = 0;
           panel-visibility = 0;
           recent-files-search-provider-module = false;
           running-dot-style = 1;
-          search-bg-brightness = 50;
+          search-bg-brightness = 30;
           search-controller-module = true;
           search-fuzzy = true;
           search-icon-size = 96;
           search-max-results-rows = 5;
           search-module = true;
-          search-view-animation = 3;
-          search-width-scale = 120;
+          search-view-animation = 1;
+          search-width-scale = 105;
           search-windows-icon-scroll = 1;
           search-windows-order = 1;
           sec-wst-position-adjust = 0;
@@ -324,20 +334,20 @@
           secondary-ws-preview-shift = false;
           secondary-ws-thumbnail-scale = 5;
           secondary-ws-thumbnails-position = 2;
-          show-app-icon-position = 0;
+          show-app-icon-position = 1;
           show-bg-in-overview = true;
-          show-search-entry = true;
+          show-search-entry = false;
           show-ws-preview-bg = false;
           show-ws-switcher-bg = false;
-          show-wst-labels = 2;
+          show-wst-labels = 1;
           show-wst-labels-on-hover = true;
           smooth-blur-transitions = true;
-          startup-state = 1;
+          startup-state = 2;
           swipe-tracker-module = false;
           win-attention-handler-module = true;
           win-preview-icon-size = 1;
-          win-preview-mid-mouse-btn-action = 0;
-          win-preview-sec-mouse-btn-action = 1;
+          win-preview-mid-mouse-btn-action = 1;
+          win-preview-sec-mouse-btn-action = 0;
           win-preview-show-close-button = true;
           win-title-position = 0;
           window-attention-mode = 0;
@@ -348,34 +358,31 @@
           workspace-animation-module = true;
           workspace-module = true;
           workspace-switcher-animation = 1;
-          workspace-switcher-popup-module = true;
-          ws-max-spacing = 80;
+          workspace-switcher-popup-module = false;
+          ws-max-spacing = 350;
           ws-preview-bg-radius = 30;
           ws-preview-scale = 100;
           ws-sw-popup-h-position = 50;
-          ws-sw-popup-mode = 0;
-          ws-sw-popup-v-position = 95;
+          ws-sw-popup-mode = 1;
+          ws-sw-popup-v-position = 50;
           ws-switcher-ignore-last = false;
           ws-switcher-mode = 0;
-          ws-switcher-wraparound = true;
+          ws-switcher-wraparound = false;
           ws-thumbnail-scale = 10;
           ws-thumbnail-scale-appgrid = 15;
           ws-thumbnails-full = false;
-          ws-thumbnails-position = 5;
+          ws-thumbnails-position = 0;
           wst-position-adjust = 0;
         };
       }
     ]
     ++ optionals sys.gui.fancy [
-      {package = latest.rounded-window-corners-reborn;}
-      {package = transparent-top-bar;}
       {
         package = panel-corners;
         settings.panel-corners = false;
       }
     ]);
 in {
-  home.packages = [pkgs.dconf2nix] ++ builtins.map (ext: ext.package) extensions;
   dconf.settings =
     {
       "org/gnome/shell" = let
@@ -406,4 +413,9 @@ in {
           )
         else {})
       extensions);
+
+  home = {
+    packages = [pkgs.dconf2nix] ++ builtins.map (ext: ext.package) extensions;
+    file.".config/guillotine.json".source = files.gnome.menu; # Action Menu
+  };
 }

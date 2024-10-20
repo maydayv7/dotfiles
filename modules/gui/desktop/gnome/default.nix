@@ -135,14 +135,6 @@ in {
           text = ["org.gnome.TextEditor.desktop"];
           video = ["io.github.celluloid_player.Celluloid.desktop"];
         };
-
-        home.file = {
-          # Action Menu
-          ".config/guillotine.json".source = gnome.menu;
-
-          # Shell Theme
-          ".local/share/themes/custom/gnome-shell/gnome-shell.css".text = gnome.shell;
-        };
       };
 
       ## Color Scheme
@@ -212,6 +204,7 @@ in {
         ".cache/gnome-builder"
 
         # Extensions
+        ".config/paperwm"
         ".cache/clipboard-indicator@tudmotu.com"
       ];
     })

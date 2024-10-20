@@ -18,31 +18,31 @@ in {
       always-on-top = ["<Super>p"];
       begin-move = [];
       begin-resize = [];
-      close = ["<Super>q" "<Alt>F4"];
+      close = ["<Alt>F4"];
       cycle-group = [];
       cycle-group-backward = [];
-      maximize = ["<Super>Up"];
-      minimize = ["<Super>Down"];
-      move-to-center = ["<Super>c"];
+      maximize = [""];
+      minimize = ["<Super>h"];
+      move-to-center = [""];
       move-to-monitor-down = [];
-      move-to-monitor-left = ["<Primary><Super>Left"];
-      move-to-monitor-right = ["<Primary><Super>Right"];
+      move-to-monitor-left = [""];
+      move-to-monitor-right = [""];
       move-to-monitor-up = [];
       move-to-workspace-1 = [];
       move-to-workspace-down = [];
       move-to-workspace-last = [];
-      move-to-workspace-left = ["<Shift><Super>Left"];
-      move-to-workspace-right = ["<Shift><Super>Right"];
+      move-to-workspace-left = [""];
+      move-to-workspace-right = [""];
       move-to-workspace-up = [];
       panel-main-menu = [];
       panel-run-dialog = ["<Super>F2"];
-      switch-applications = ["<Alt>Tab"];
-      switch-applications-backward = ["<Shift><Alt>Tab"];
-      switch-group = ["<Super>Tab"];
-      switch-group-backward = ["<Shift><Super>Tab"];
+      switch-applications = [""];
+      switch-applications-backward = [""];
+      switch-group = [""];
+      switch-group-backward = [""];
       switch-to-workspace-down = [];
-      switch-to-workspace-left = ["<Super>Left"];
-      switch-to-workspace-right = ["<Super>Right"];
+      switch-to-workspace-left = [];
+      switch-to-workspace-right = [];
       switch-to-workspace-up = [];
       toggle-maximized = ["F11"];
       unmaximize = [];
@@ -66,7 +66,7 @@ in {
       switch-to-application-8 = ["<Super>8"];
       switch-to-application-9 = ["<Super>9"];
       toggle-application-view = [];
-      toggle-message-tray = [];
+      toggle-message-tray = ["<Super><Shift>n"];
       toggle-overview = [];
       toggle-quick-settings = [];
     };
@@ -74,12 +74,12 @@ in {
     "org/gnome/settings-daemon/plugins/media-keys" = {
       area-screenshot = ["Print"];
       area-screenshot-clip = [];
-      control-center = ["<Super><Shift>grave"];
+      control-center = [""];
       email = ["<Super>e"];
       home = ["<Super>f"];
       magnifier = ["<Super>x"];
-      magnifier-zoom-in = ["<Super>equal"];
-      magnifier-zoom-out = ["<Super>minus"];
+      magnifier-zoom-in = ["<Super><Primary>equal"];
+      magnifier-zoom-out = ["<Super><Primary>minus"];
       rotate-video-lock-static = [];
       screencast = ["<Alt>Print"];
       screenreader = [];
@@ -91,7 +91,7 @@ in {
       volume-up = ["AudioRaiseVolume"];
       window-screenshot = ["<Primary>Print"];
       window-screenshot-clip = [];
-      www = ["<Super>grave"];
+      www = ["<Super>w"];
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
@@ -110,15 +110,9 @@ in {
       name = "Terminal";
     };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-      binding = "<Super>period";
-      command = "smile";
-      name = "Emoji Picker";
-    };
-
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
-      focus-mode = "mouse";
+      focus-mode = "click";
       titlebar-font = "${builtins.head fonts.sansSerif} Bold 11";
       visual-bell = false;
     };
@@ -131,7 +125,7 @@ in {
       attach-modal-dialogs = true;
       center-new-windows = true;
       dynamic-workspaces = true;
-      edge-tiling = true;
+      edge-tiling = false;
       focus-change-on-pointer-rest = true;
       workspaces-only-on-primary = true;
       experimental-features = ["scale-monitor-framebuffer" "x11-randr-fractional-scaling"];
