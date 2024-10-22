@@ -72,8 +72,8 @@ Configuration [Builder](./configuration.nix)
   - `support`: List of Additional Supported Hardware - `[ "laptop" "mobile" "printer" "virtualisation" ]`
   - `vm`: Configure Virtualisation Support -
     - `android`: Enable Android Virtualisation - `true / false`
-    - `vfio`: Configure the device for VFIO - `true / false`
-    - `passthrough`: PCI Device IDs for VFIO (Use [`scripts/pci.sh`](../scripts/pci.sh)) - Ex. `[ "10de:28e0" "10de:22be" ]`
+    - `vfio`: Configure VFIO PCI passthrough - `true / false`
+    - `passthrough`: PCI Device IDs for VFIO - Ex. `[ "10de:28e0" "10de:22be" ]`
 
 - [`nix`](./nix): Module that configures the Nix Package Manager -
 

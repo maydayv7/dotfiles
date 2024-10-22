@@ -32,6 +32,15 @@
           "stop": "waydroid session stop",
           "check": "sh -c 'waydroid status | grep RUNNING'",
           "interval_s": 10
+        },
+        {
+          "type": "switch",
+          "title": "Windows",
+          "icon": "application-x-addon-symbolic",
+          "start": "virsh -c qemu:///system start Windows",
+          "stop": "virsh -c qemu:///system shutdown Windows",
+          "check": "sh -c 'virsh -c qemu:///system list | grep Windows'",
+          "interval_s": 10
         }
       ]
     },

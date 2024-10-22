@@ -902,7 +902,6 @@
         "utils": "utils_2",
         "vscode": "vscode",
         "vsppuccin": "vsppuccin",
-        "wfvm": "wfvm",
         "windows": "windows"
       }
     },
@@ -1175,26 +1174,6 @@
         "owner": "catppuccin",
         "repo": "vscode",
         "type": "github"
-      }
-    },
-    "wfvm": {
-      "inputs": {
-        "nixpkgs": [
-          "stable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1718082876,
-        "narHash": "sha256-u4OgfsO6jnQwHNmxHhSIfCKaa2gYoIYwGKPJFZSpK/A=",
-        "ref": "refs/heads/master",
-        "rev": "e811c7c5d87059cb93b6548109fcafb3268a3af1",
-        "revCount": 70,
-        "type": "git",
-        "url": "https://git.m-labs.hk/M-Labs/wfvm"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git.m-labs.hk/M-Labs/wfvm"
       }
     },
     "windows": {

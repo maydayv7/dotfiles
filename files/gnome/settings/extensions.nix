@@ -164,7 +164,7 @@
             animation-time = 0.25;
             disable-topbar-styling = false;
             gesture-horizontal-fingers = 3;
-            gesture-workspace-fingers = 3;
+            gesture-workspace-fingers = 4;
             horizontal-margin = 10;
             maximize-within-tiling = true;
             open-window-position = 0;
@@ -358,12 +358,12 @@
           workspace-animation-module = true;
           workspace-module = true;
           workspace-switcher-animation = 1;
-          workspace-switcher-popup-module = false;
+          workspace-switcher-popup-module = true;
           ws-max-spacing = 350;
           ws-preview-bg-radius = 30;
           ws-preview-scale = 100;
           ws-sw-popup-h-position = 50;
-          ws-sw-popup-mode = 1;
+          ws-sw-popup-mode = 0;
           ws-sw-popup-v-position = 50;
           ws-switcher-ignore-last = false;
           ws-switcher-mode = 0;

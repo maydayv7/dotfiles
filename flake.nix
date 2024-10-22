@@ -194,12 +194,6 @@
       };
     };
 
-    # Windows VM Creator
-    wfvm = {
-      url = "git+https://git.m-labs.hk/M-Labs/wfvm";
-      inputs.nixpkgs.follows = "stable";
-    };
-
     # Windows Apps Wrapper
     windows = {
       url = "github:emmanuelrosa/erosanix";

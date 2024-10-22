@@ -73,7 +73,7 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - Support for declaratively installing [Flatpak](./modules/apps/flatpak.nix) applications using [`nix-flatpak`](https://github.com/gmodena/nix-flatpak)
 - Wrapped `wine` [Applications](./packages/wine) using Emmanuel's [Wrapper](https://github.com/emmanuelrosa/erosanix/tree/0dabea58d483e13d2de141517cb4ff1cb230b2aa/pkgs/mkwindowsapp)
 - Support for Android Virtualisation using [Waydroid](https://waydro.id/)
-- Declaratively Configured [Windows VM](./devices/vm/Windows.nix) using the [WFVM](https://git.m-labs.hk/M-Labs/wfvm) module
+- Support for VFIO PCI Device Passthrough along with [Looking Glass](https://looking-glass.io/) for high-performance VMs
 
 ## Programs
 
@@ -138,10 +138,8 @@ github:maydayv7/dotfiles
 │   └───x86_64-linux
 │       ├───install: package 'install'
 │       └───nixos: package 'nixos'
-├───templates
-│   └───default: template: My NixOS Configuration
-└───vmConfigurations
-    └───Windows: Virtual Machine
+└───templates
+    └───default: template: My NixOS Configuration
 ```
 
 </details>
@@ -320,7 +318,9 @@ Example `flake.nix`:
 Download the latest install media image from the [Releases](../../releases/latest) page and burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)
 
 > [!IMPORTANT]
-> These instructions are mainly intended for personal use.
+> These instructions are mainly intended for personal use
+
+> [!TIP]
 > In order to directly use the configuration, you must first create a clone of this repository and follow steps 2 to 6 from the first section, and preferably create your own install media
 
 <details>
@@ -392,7 +392,7 @@ It is not recommended to use NixOS if you are a beginner just starting out, with
 
 _May change according to available hardware_
 
-This configuration works well with an Intel CPU + iGPU, and is currently being improved to support AMD APU + Nvidia GPU. Any other setup is untested
+This configuration works well with an Intel CPU + iGPU, and is currently being improved to support AMD APU + Nvidia GPU. Any other setup is untested  
 The `hardware.modules` option can be used to load relevant configuration from [`nixos-hardware`](https://github.com/nixos/nixos-hardware)
 
 See [this](./modules/hardware/README.md) for additional information
@@ -508,7 +508,8 @@ You can navigate to the `README`s present in the various directories to know mor
 - GNOME Improvements
   - Use [PaperWM](https://github.com/paperwm/PaperWM)
   - Remove unneeded extensions
-- Fix VFIO Configuration
+- Add Looking Glass to VFIO Configuration
+- Remove needless `wfvm` Configuration
 
 ### v24
 

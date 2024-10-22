@@ -6,7 +6,6 @@
 }: let
   inherit (inputs) self;
   inherit (util) build map pack;
-  inherit (builtins) head readFile;
   inherit (lib) listToAttrs nameValuePair;
 in {
   flake = {
@@ -33,15 +32,10 @@ in {
             description = "Default User";
             minimal = true;
             shells = null;
-            password = readFile ../users/passwords/default;
+            password = builtins.readFile ../users/passwords/default;
           };
         })) (import ../modules/gui/desktop/iso.nix))
       // {default = self.installMedia.gnome;};
-
-    ## Virtual Machines ##
-    vmConfigurations = with self;
-      map.modules ./vm
-      (name: import name inputs.wfvm.lib legacyPackages."${head systems}");
   };
 
   # Install Media Checks
