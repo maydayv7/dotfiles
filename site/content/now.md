@@ -5,12 +5,9 @@ description = "What I'm currently up to!"
 
 This page is inspired by [NowNowNow](https://nownownow.com)
 
-Entrance Exams are over! Time to PARTAYYY!!
+Freshman at uni, still getting adjusted
 
-- Messing around with Nix(OS)
-- Playing FPS Games
-- Binge-watching {{ url(path="anime", text="Anime", trail_slash=false) }}
+- Trying (failing) to study
+- Watching {{ url(path="anime", text="Anime", trail_slash=false) }}
 
-Nothing much else really! ;)
-
-> Last Updated: **June** 2024
+> Last Updated: **October** 2024

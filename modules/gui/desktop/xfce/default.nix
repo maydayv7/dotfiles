@@ -188,7 +188,7 @@ in {
             replace = {
               placeholders = [
                 "@system"
-                "@monitor"
+                "@display"
                 "@wallpaper"
                 "@theme"
                 "@icons"

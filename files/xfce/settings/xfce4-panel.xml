@@ -47,14 +47,12 @@
         <value type="int" value="13"/>
         <value type="int" value="14"/>
       </property>
-      <property name="position" type="string" value="p=0;x=946;y=27"/>
       <property name="position-locked" type="bool" value="true"/>
       <property name="size" type="uint" value="27"/>
       <property name="span-monitors" type="bool" value="false"/>
       <property name="enable-struts" type="bool" value="true"/>
     </property>
     <property name="panel-1" type="empty">
-      <property name="position" type="string" value="p=0;x=961;y=1031"/>
       <property name="size" type="uint" value="72"/>
       <property name="plugin-ids" type="array">
         <value type="int" value="23"/>
@@ -135,7 +133,7 @@
       <property name="tooltip-format" type="string" value="%A %d %B %Y"/>
       <property name="digital-time-format" type="string" value="%a %I:%M %p"/>
       <property name="digital-layout" type="uint" value="3"/>
-      <property name="digital-time-font" type="string" value="Sans 11"/>
+      <property name="digital-time-font" type="string" value="@font 11"/>
     </property>
     <property name="plugin-9" type="string" value="separator">
       <property name="expand" type="bool" value="false"/>

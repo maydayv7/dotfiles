@@ -6,6 +6,7 @@
   ## Picom Compositor Configuration ##
   services.picom = rec {
     enable = true;
+    package = pkgs.unstable.picom;
 
     # Driver
     backend = "egl";
@@ -27,15 +28,15 @@
       "95:class_g = 'Code'"
       "95:class_g = 'Ulauncher'"
     ];
+
     wintypes = {
       tooltip = {opacity = 0.8;};
       popup_menu = {opacity = 0.9;};
       dropdown_menu = {opacity = 0.9;};
     };
 
-    # Behaviour
-    fade = true;
     settings =
+      # Behaviour
       {
         inactive-dim = 0.1;
         corner-radius = 10.0;
@@ -50,40 +51,93 @@
             "class_g='Xfce4-panel'"
           ];
       }
-      //
-      # Blur
+      // # Fade
+      {
+        fading = true;
+        fade-in-step = 0.03;
+        fade-out-step = 0.1;
+        fade-delta = 15;
+        no-fading-openclose = false;
+      }
+      // # Blur
       {
         blur-method = "dual_kawase";
         blur-strength = 3;
         blur-background-exclude = shadowExclude;
       }
-      //
-      # Animations
+      // # Animation
       {
-        animations = true;
-        animation-for-open-window = "zoom";
-        animation-for-unmap-window = "zoom";
-        animation-for-transient-window = "slide-up";
-        animation-stiffness-in-tag = 150;
-        animation-stiffness-tag-change = 90.0;
-        animation-window-mass = 0.2;
-        animation-dampening = 15;
-        animation-clamping = true;
-        animation-for-prev-tag = "minimize";
-        enable-fading-prev-tag = true;
-        animation-for-next-tag = "slide-in-center";
-        enable-fading-next-tag = true;
-      };
+        animations = [
+          {
+            triggers = ["close" "hide"];
+            preset = "disappear";
+            scale = 0.4;
+            opacity = {
+              duration = 0.4;
+              start = "window-raw-opacity-before";
+              end = 0;
+            };
+            blur-opacity = "opacity";
+            shadow-opacity = "opacity";
+          }
+          {
+            triggers = ["open" "show"];
+            opacity = {
+              curve = "cubic-bezier(0.3,1.0,0.4,1)";
+              duration = 0.4;
+              start = 0;
+              end = "window-raw-opacity";
+            };
+            blur-opacity = "opacity";
+            shadow-opacity = "opacity";
+            offset-x = "(1 - scale-x) / 2 * window-width";
+            offset-y = "(1 - scale-y) / 2 * window-height";
+            scale-x = {
+              curve = "cubic-bezier(0.3,1.0,0.4,1)";
+              duration = 0.4;
+              start = 0;
+              end = 1;
+            };
+            scale-y = "scale-x";
+            shadow-scale-x = "scale-x";
+            shadow-scale-y = "scale-y";
+            shadow-offset-x = "offset-x";
+            shadow-offset-y = "offset-y";
+          }
+          {
+            triggers = ["geometry"];
+            scale-x = {
+              curve = "cubic-bezier(0.3,1.0,0.4,1)";
+              duration = 0.4;
+              start = "window-width-before / window-width";
+              end = 1;
+            };
+            scale-y = {
+              curve = "cubic-bezier(0.3,1.0,0.4,1)";
+              duration = 0.4;
+              start = "window-height-before / window-height";
+              end = 1;
+            };
+            offset-x = {
+              curve = "cubic-bezier(0.3,1.0,0.4,1)";
+              duration = 0.4;
+              start = "window-x-before - window-x";
+              end = 0;
+            };
+            offset-y = {
+              curve = "cubic-bezier(0.3,1.0,0.4,1)";
+              duration = 0.4;
+              start = "window-y-before - window-y";
+              end = 0;
+            };
 
-    package = pkgs.picom.overrideAttrs (old: {
-      version = "11a";
-      src = pkgs.fetchFromGitHub {
-        owner = "FT-Labs";
-        repo = "picom";
-        rev = "fe5b416ed6f43c31418d21dde7a9f20c12d7dfb0";
-        sha256 = "sha256-jouBx8fqoy/psD/P9dX3Q4/D4IWsLSxA210CKcBbh4I=";
+            shadow-scale-x = "scale-x";
+            shadow-scale-y = "scale-y";
+            shadow-offset-x = "offset-x";
+            shadow-offset-y = "offset-y";
+          }
+        ];
       };
-    });
   };
 
   # Theme Fixes
