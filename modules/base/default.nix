@@ -8,8 +8,9 @@
   ...
 }: let
   inherit (builtins) attrNames map;
-  inherit (lib) removePrefix mkIf mkOption optionals types;
+  inherit (lib) hasPrefix mkIf mkOption optionals removePrefix types;
   cfg = config.base;
+  inherit (config.system.nixos) label;
 in {
   ## BASE Configuration ##
   imports = util.map.modules.list ./. ++ [inputs.generators.nixosModules.all-formats];
@@ -54,22 +55,25 @@ in {
     };
 
     # Essential Utilities
-    environment.systemPackages = with pkgs; [
-      cryptsetup
-      inxi
-      killall
-      man-pages
-      mkpasswd
-      ntfsprogs
-      parted
-      pciutils
-      rsync
-      sdparm
-      smartmontools
-      unrar
-      unzip
-      usbutils
-      wget
-    ];
+    environment = {
+      variables."NIXOS_SPECIALISATION" = mkIf (hasPrefix "special." label) (removePrefix "special." label);
+      systemPackages = with pkgs; [
+        cryptsetup
+        inxi
+        killall
+        man-pages
+        mkpasswd
+        ntfsprogs
+        parted
+        pciutils
+        rsync
+        sdparm
+        smartmontools
+        unrar
+        unzip
+        usbutils
+        wget
+      ];
+    };
   };
 }

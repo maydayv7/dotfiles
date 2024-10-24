@@ -24,7 +24,7 @@ in {
 
     # System Specialisation
     specialisation.xorg.configuration = {
-      system.nixos.tags = ["xorg"];
+      system.nixos.label = "special.xorg";
       gui.wayland.enable = mkForce false;
       hardware.vm.android.enable = mkForce false;
     };

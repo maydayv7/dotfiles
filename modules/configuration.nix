@@ -127,6 +127,8 @@ in
             # Package Configuration
             nixpkgs = {inherit pkgs;};
             system = {
+              name = "${name}-${replaceStrings [" "] ["_"] description}";
+
               # Updates
               autoUpgrade = {
                 enable = mkIf (update != "") true;
@@ -142,11 +144,6 @@ in
               # Version
               stateVersion = fileContents "${inputs."${channel}"}/.version";
               configurationRevision =
-                if (self ? rev)
-                then self.rev
-                else null;
-              name = "${name}-${replaceStrings [" "] ["_"] description}";
-              nixos.label =
                 if (self ? rev)
                 then "${substring 0 8 self.lastModifiedDate}.${self.shortRev}"
                 else if (self ? dirtyRev)

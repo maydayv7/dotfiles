@@ -55,7 +55,7 @@ in {
 
         # Debug
         specialisation.recovery.configuration = {
-          system.nixos.tags = ["recovery"];
+          system.nixos.label = "special.recovery";
           boot = {
             initrd.verbose = mkForce true;
             plymouth.enable = mkForce false;

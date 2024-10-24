@@ -25,14 +25,16 @@ in {
   ## VFIO Configuration ##
   config = mkMerge [
     (mkIf enable {
-      specialisation.vfio.configuration.hardware = {
-        vm.vfio = true;
-        cpu.mode = mkForce "performance";
+      specialisation.vfio.configuration = {
+        system.nixos.label = "special.vfio";
+        hardware = {
+          vm.vfio = true;
+          cpu.mode = mkForce "performance";
+        };
       };
     })
 
     (mkIf (enable && cfg.vfio) {
-      system.nixos.tags = ["vfio"];
       boot = {
         kernelParams = [
           "amd_iommu=pt"

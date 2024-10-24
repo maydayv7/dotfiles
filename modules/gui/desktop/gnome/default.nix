@@ -205,7 +205,7 @@ in {
 
         # Extensions
         ".config/paperwm"
-        ".cache/clipboard-indicator@tudmotu.com"
+        ".local/share/clipboard"
       ];
     })
 

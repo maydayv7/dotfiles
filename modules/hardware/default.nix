@@ -43,9 +43,18 @@ in {
   config = {
     powerManagement.cpuFreqGovernor = cfg.cpu.mode;
     nix.settings.max-jobs = cfg.cpu.cores;
+
     specialisation = {
-      powersave.configuration.hardware.cpu.mode = mkForce "powersave";
-      performance.configuration.hardware.cpu.mode = mkForce "performance";
+      powersave.configuration = {
+        system.nixos.label = "special.powersave";
+        gui.fancy = mkForce false;
+        hardware.cpu.mode = mkForce "powersave";
+      };
+
+      performance.configuration = {
+        system.nixos.label = "special.performance";
+        hardware.cpu.mode = mkForce "performance";
+      };
     };
   };
 }

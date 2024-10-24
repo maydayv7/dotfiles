@@ -1,12 +1,16 @@
 {
   sys,
+  config,
   lib,
   pkgs,
   files,
   ...
 }: let
-  inherit (builtins) filter hasAttr map;
+  inherit (builtins) filter hasAttr head map;
   inherit (lib) foldr hm mapAttrs' mkForce nameValuePair optionals recursiveUpdate;
+  homeDir = config.home.homeDirectory;
+  font = head sys.fonts.fontconfig.defaultFonts.sansSerif;
+
   latest = pkgs.unstable.gnomeExtensions;
 
   # Shell Extensions
@@ -50,7 +54,7 @@
             "a11y"
             "aggregateMenu"
             "drive-menu"
-            "clipboardIndicator"
+            "pano@elhan.io"
             "vitalsMenu"
             "dwellClick"
             "lockkeys"
@@ -132,22 +136,6 @@
         };
       }
       {
-        package = clipboard-indicator;
-        settings = {
-          cache-size = 20;
-          clear-history = [];
-          disable-down-arrow = true;
-          history-size = 100;
-          keep-selected-on-clear = true;
-          move-item-first = true;
-          next-entry = [];
-          pinned-on-bottom = true;
-          prev-entry = [];
-          private-mode-binding = ["<Ctrl><Super>v"];
-          toggle-menu = ["<Super>v"];
-        };
-      }
-      {
         package = wsp-windows-search-provider;
         name = "windows-search-provider";
         settings = {
@@ -158,7 +146,29 @@
         };
       }
       {
-        package = pkgs.custom.paperwm;
+        package = pkgs.custom.gnome-pano;
+        settings = {
+          database-location = "${homeDir}/.local/share/clipboard";
+          history-length = 250;
+          global-shortcut = ["<Super>v"];
+          incognito-shortcut = ["<Ctrl><Super>v"];
+          link-previews = true;
+          open-links-in-browser = true;
+          play-audio-on-copy = false;
+          send-notification-on-copy = false;
+          watch-exclusion-list = true;
+          wiggle-indicator = sys.gui.fancy;
+          window-position = mkUint32 2;
+          item-date-font-family = font;
+          item-date-font-size = 11;
+          item-title-font-family = font;
+          item-title-font-size = 20;
+          search-bar-font-family = font;
+          search-bar-font-size = 14;
+        };
+      }
+      {
+        package = pkgs.custom.gnome-paperwm;
         settings =
           {
             animation-time = 0.25;
@@ -297,8 +307,8 @@
           favorites-notify = 1;
           highlighting-style = 1;
           hot-corner-action = 1;
-          hot-corner-fullscreen = true;
-          hot-corner-position = 3;
+          hot-corner-fullscreen = false;
+          hot-corner-position = 1;
           hot-corner-ripples = true;
           layout-module = true;
           message-tray-module = true;
@@ -312,7 +322,7 @@
           overlay-key-secondary = 1;
           overview-bg-blur-sigma = 50;
           overview-bg-brightness = 50;
-          overview-esc-behavior = 0;
+          overview-esc-behavior = 1;
           overview-mode = 0;
           panel-module = true;
           panel-position = 0;

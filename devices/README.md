@@ -6,14 +6,14 @@ The `devices` directory contains the core definitions for multiple PCs and vario
 
 These are the options that can be used in addition to the ones exposed by the [`modules`](../modules/README.md):
 
-- `description`: System Description (to add to `config.system.nixos.label`)
+- `description`: System Description (to add to `config.system.name`)
 - `timezone`: System Time Zone - Ex. `"Asia/Kolkata"`
 - `locale`: Default Locale - Ex. `"IN"`
 - `kernel`: Linux Kernel to use (from `pkgs.linuxKernel.packages.linux_${kernel}`) - Ex. `zfs`
 - `kernelModules`: Additional Kernel Modules (to add to `config.boot.initrd.availableKernelModules`) - Ex. `[ "nvme" ]`
 - `imports`: Additional Configuration Files to import - Ex. `[ ./hardware-configuration.nix ]`
 - `format`: Generates Output for Specified Target Format (See [this](https://github.com/nix-community/nixos-generators#supported-formats) for the list of supported formats)
-- `user` or `users` (---> `config.user.settings`): Used to specify Device User/Multiple Users per Device - Ex. `users = [ { name "1"; } { name = "2"; } ]`
+- `user` or `users` (--> `config.user.settings`): Used to specify Device User/Multiple Users per Device - Ex. `users = [ { name "1"; } { name = "2"; } ]`
 - `update`: Enable Automatic System Upgrades - Ex. `weekly`
 - `channel`: Specify which Package Channel the system is built from - Ex. `unstable`
 

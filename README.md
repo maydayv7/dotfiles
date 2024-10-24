@@ -506,10 +506,11 @@ You can navigate to the `README`s present in the various directories to know mor
 ### v24.1
 
 - GNOME Improvements
-  - Use [PaperWM](https://github.com/paperwm/PaperWM)
+  - Use [PaperWM](https://github.com/paperwm/PaperWM) and [Pano](https://github.com/oae/gnome-shell-pano)
   - Remove unneeded extensions
 - Add Looking Glass to VFIO Configuration
 - Remove needless `wfvm` Configuration
+- Refine Specialisations
 
 ### v24
 

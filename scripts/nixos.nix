@@ -118,14 +118,26 @@ in
         case $2 in
         help|--help|-h) echo "${usage.apply}";;
         "")
-          echo "Applying Configuration..."
-          sudo nixos-rebuild switch --flake ${path.system}#
+          if [ -z "$NIXOS_SPECIALISATION" ]
+          then
+            echo "Applying Configuration..."
+            sudo nixos-rebuild switch --flake ${path.system}#
+          else
+            echo "Applying Configuration ($NIXOS_SPECIALISATION)..."
+            sudo nixos-rebuild switch --specialisation "$NIXOS_SPECIALISATION"
+          fi
         ;;
         "--activate")
           case $3 in
           "")
-            echo "Activating Configuration..."
-            sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+            if [ -z "$NIXOS_SPECIALISATION" ]
+            then
+              echo "Activating Configuration..."
+              sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+            else
+              echo "Activating Configuration ($NIXOS_SPECIALISATION)..."
+              sudo /nix/var/nix/profiles/system/specialisation/"$NIXOS_SPECIALISATION"/bin/switch-to-configuration switch
+            fi
           ;;
           "home")
             echo "Applying Home Configuration..."
