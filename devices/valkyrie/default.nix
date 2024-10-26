@@ -10,7 +10,7 @@
   kernel = "xanmod";
   kernelModules = ["nvme" "thunderbolt"];
 
-  imports = [./drivers.nix];
+  imports = [./drivers.nix ./kernel-arch.nix];
   hardware = {
     boot = "secure";
     filesystem = "advanced";

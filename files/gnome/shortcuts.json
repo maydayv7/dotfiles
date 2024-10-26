@@ -263,11 +263,11 @@
         "description": "Show overview/apps grid"
       },
       {
-        "key": "3F ←/→ Swipe",
+        "key": "4F ←/→ Swipe",
         "description": "Switch windows"
       },
       {
-        "key": "3F ↓ Swipe",
+        "key": "4F ↓ Swipe",
         "description": "Switch workspaces"
       },
       {

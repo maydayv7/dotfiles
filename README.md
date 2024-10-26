@@ -778,6 +778,11 @@ You can navigate to the `README`s present in the various directories to know mor
 - Home Configuration isn't be decoupled from System
 - [Wine](./packages/wine) Applications have to be manually updated
 
+### TO FIX
+
+- ASUS ROG Kernel for `vakyrie` needs to be manually updated
+- GNOME [Pano](https://github.com/oae/gnome-shell-pano) needs to be manually updated till upstream stabilises
+
 </details>
 
 > Last Updated: **October** 2024

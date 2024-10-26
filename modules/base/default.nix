@@ -10,7 +10,6 @@
   inherit (builtins) attrNames map;
   inherit (lib) hasPrefix mkIf mkOption optionals removePrefix types;
   cfg = config.base;
-  inherit (config.system.nixos) label;
 in {
   ## BASE Configuration ##
   imports = util.map.modules.list ./. ++ [inputs.generators.nixosModules.all-formats];
@@ -56,7 +55,9 @@ in {
 
     # Essential Utilities
     environment = {
-      variables."NIXOS_SPECIALISATION" = mkIf (hasPrefix "special." label) (removePrefix "special." label);
+      variables."NIXOS_SPECIALISATION" = with config.system.nixos;
+        mkIf (hasPrefix "special." label) (removePrefix "special." label);
+
       systemPackages = with pkgs; [
         cryptsetup
         inxi

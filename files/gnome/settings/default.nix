@@ -6,6 +6,7 @@
 }:
 with lib.hm.gvariant; let
   fonts = sys.fonts.fontconfig.defaultFonts;
+  asus = sys.services.asusd.enable;
 in {
   imports = util.map.modules.list ./.;
 
@@ -92,10 +93,12 @@ in {
       window-screenshot = ["<Primary>Print"];
       window-screenshot-clip = [];
       www = ["<Super>w"];
-      custom-keybindings = [
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-      ];
+      custom-keybindings =
+        [
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+        ]
+        ++ lib.optional asus "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -108,6 +111,12 @@ in {
       binding = "<Super>t";
       command = "blackbox";
       name = "Terminal";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = lib.mkIf asus {
+      binding = "Launch4";
+      command = "asusctl profile -n";
+      name = "Fan Control";
     };
 
     "org/gnome/desktop/wm/preferences" = {

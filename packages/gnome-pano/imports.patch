@@ -1,6 +1,5 @@
 diff --git a/__nix-prepend-search-paths.js b/__nix-prepend-search-paths.js
 new file mode 100644
-index 0000000..bf3071b
 --- /dev/null
 +++ b/__nix-prepend-search-paths.js
 @@ -0,0 +1,3 @@
@@ -8,20 +7,29 @@ index 0000000..bf3071b
 +GIRepository.Repository.prepend_search_path('@gsound@/lib/girepository-1.0');
 +GIRepository.Repository.prepend_search_path('@libgda@/lib/girepository-1.0');
 diff --git a/extension.js b/extension.js
-index a3d6741..6a38850 100644
 --- a/extension.js
 +++ b/extension.js
 @@ -1,3 +1,4 @@
 +import './__nix-prepend-search-paths.js';
  import Gio from 'gi://Gio';
  import GLib from 'gi://GLib';
- import Shell from 'gi://Shell';
+ import * as extension_js from 'resource:///org/gnome/shell/extensions/extension.js';
 diff --git a/prefs.js b/prefs.js
-index 5dd94eb..634b2ef 100644
 --- a/prefs.js
 +++ b/prefs.js
 @@ -1,3 +1,4 @@
 +import './__nix-prepend-search-paths.js';
+ import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
  import Gdk from 'gi://Gdk';
  import Gtk from 'gi://Gtk';
- import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+diff --git a/extension.js b/extension.js
+--- a/extension.js
++++ b/extension.js
+@@ -3507,6 +3507,7 @@ class PanoExtension extends Extension {
+     async clearHistory() {
+         this.stop();
+         await deleteAppDirs(this);
++        this.setupResources();
+         this.start();
+     }
+     async clearSessionHistory() {

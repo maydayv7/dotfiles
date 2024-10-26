@@ -173,7 +173,7 @@
           {
             animation-time = 0.25;
             disable-topbar-styling = false;
-            gesture-horizontal-fingers = 3;
+            gesture-horizontal-fingers = 4;
             gesture-workspace-fingers = 4;
             horizontal-margin = 10;
             maximize-within-tiling = true;

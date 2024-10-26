@@ -41,8 +41,11 @@ in {
           # Useful Extensions
           extensions = with pkgs.vscode-extensions;
             [
+              aaron-bond.better-comments
+              divyanshuagrawal.competitive-programming-helper
               dotjoshjohnson.xml
               eamodio.gitlens
+              ecmel.vscode-html-css
               editorconfig.editorconfig
               esbenp.prettier-vscode
               file-icons.file-icons
@@ -57,8 +60,6 @@ in {
               yzhang.markdown-all-in-one
             ]
             ++ (with pkgs.code.vscode-marketplace; [
-              aaron-bond.better-comments
-              ecmel.vscode-html-css
               vscode-org-mode.org-mode
             ]);
         };

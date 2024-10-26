@@ -8,10 +8,10 @@ with pkgs; let
 in
   stdenv.mkDerivation rec {
     pname = "pano";
-    version = "v23-alpha2";
+    version = "v23-alpha3";
     src = fetchzip {
       url = "https://github.com/oae/gnome-shell-pano/releases/download/${version}/${uuid}.zip";
-      sha256 = "sha256-Y8WgVUHX094RUwYKdt7OROPZMl3dakK0zOU9OTdyqxc=";
+      sha256 = "sha256-LYpxsl/PC8hwz0ZdH5cDdSZPRmkniBPUCqHQxB4KNhc=";
       stripRoot = false;
     };
 
