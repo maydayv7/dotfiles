@@ -1,5 +1,5 @@
 {
   repo = "https://github.com/hyprwm/contrib";
-  rev = "1e531dc49ad36c88b45bf836081a7a2c8927e072";
-  sha256 = "sha256-6LgsZHz8w3g4c9bRUwRAR+WIMwFGGf3P1VZQcKNRf2o=";
+  rev = "d72bc8b1cd30d448bd438e8328f8eeb4c0f2ddb6";
+  sha256 = "sha256-w9dNUedNe2qnhHuhcRf7A1l29+/6DxdMfwN6g4U3c/w=";
 }
