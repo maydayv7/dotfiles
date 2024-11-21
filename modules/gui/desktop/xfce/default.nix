@@ -99,12 +99,12 @@ in {
       # Utilities
       environment.systemPackages = with pkgs.xfce // pkgs; [
         galculator
-        gnome.file-roller
+        file-roller
         mate.atril
         orage
         pavucontrol
         system-config-printer
-        transmission-gtk
+        transmission_3-gtk
         xorg.xkill
 
         xfce4-clipman-plugin

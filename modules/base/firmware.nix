@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  pkgs,
   ...
 }: {
   imports = [inputs.gaming.nixosModules.pipewireLowLatency];
@@ -9,18 +10,12 @@
   config = {
     # Drivers
     hardware = {
-      opengl.enable = true;
+      graphics.enable = true;
       enableRedistributableFirmware = true;
       pulseaudio.enable = lib.mkForce false;
     };
 
     # Audio
-    sound = {
-      enable = true;
-      mediaKeys.enable = true;
-    };
-
-    security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
       alsa.enable = true;
@@ -31,6 +26,37 @@
         quantum = 64;
         rate = 48000;
       };
+    };
+
+    security.rtkit.enable = true;
+    hardware.alsa.enablePersistence = true;
+    services.actkbd = let
+      step = "1%";
+      mixer = lib.getExe' pkgs.alsa-utils "amixer";
+    in {
+      enable = true;
+      bindings = [
+        {
+          keys = [113]; # "Mute" Key
+          events = ["key"];
+          command = "${mixer} -q set Master toggle";
+        }
+        {
+          keys = [114]; # "Lower Volume" Key
+          events = ["key" "rep"];
+          command = "${mixer} -q set Master ${step}- unmute";
+        }
+        {
+          keys = [115]; # "Raise Volume" Key
+          events = ["key" "rep"];
+          command = "${mixer} -q set Master ${step}+ unmute";
+        }
+        {
+          keys = [190]; # "Mic Mute" Key
+          events = ["key"];
+          command = "${mixer} -q set Capture toggle";
+        }
+      ];
     };
 
     # Network Settings

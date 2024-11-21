@@ -13,7 +13,7 @@
   }: {
     ## Code Formatter
     treefmt.config = rec {
-      package = pkgs.treefmt;
+      package = pkgs.treefmt1; #!# Currently broken
 
       projectRoot = ../.;
       projectRootFile = "${projectRoot}/flake.nix";

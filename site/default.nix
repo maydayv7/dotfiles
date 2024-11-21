@@ -3,7 +3,7 @@
   pkgs,
 }:
 with pkgs;
-  stdenvNoCC.mkDerivation rec {
+  stdenvNoCC.mkDerivation {
     pname = "website";
     version = "stable";
     src = ./.;

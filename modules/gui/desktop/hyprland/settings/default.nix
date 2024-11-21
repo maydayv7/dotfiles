@@ -105,10 +105,10 @@ in {
           height = 7;
           scrolling = true;
           gradients = true;
-          "col.active" = active;
-          "col.locked_active" = active;
-          "col.inactive" = inactive;
-          "col.locked_inactive" = inactive;
+          "col.active" = mkForce active;
+          "col.locked_active" = mkForce active;
+          "col.inactive" = mkForce inactive;
+          "col.locked_inactive" = mkForce inactive;
         };
         "col.border_active" = mkForce active;
         "col.border_locked_active" = mkForce active;

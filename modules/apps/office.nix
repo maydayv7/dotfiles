@@ -12,18 +12,28 @@ in {
   imports = [inputs.windows.nixosModules.onlyoffice];
   config = lib.mkIf enable {
     # Applications
-    programs.onlyoffice = {
-      enable = true;
-      package = pkgs.onlyoffice-bin_latest;
+    programs = {
+      onlyoffice = {
+        enable = true;
+        package = pkgs.onlyoffice-bin_latest;
+      };
+
+      obs-studio = {
+        enable = true;
+        enableVirtualCamera = true;
+        plugins = with pkgs.obs-studio-plugins; [
+          obs-mute-filter
+          obs-source-switcher
+        ];
+      };
     };
 
     environment.systemPackages = with pkgs; [
       # Productivity
       calibre
-      gnome.simple-scan
+      simple-scan
       gscan2pdf
       libreoffice
-      obs-studio
 
       # Graphics
       gimp

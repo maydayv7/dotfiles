@@ -4,7 +4,7 @@
   <img alt="Logo" src="files/images/logo/dark.png">
 </picture>
 
-![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-24.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+![Version](https://img.shields.io/github/v/release/maydayv7/dotfiles?include_prereleases&label=version&style=flat-square&logo=github) ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square) ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square) [![NixOS](https://img.shields.io/badge/NixOS-24.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 
 This [repository](https://github.com/maydayv7/dotfiles) contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)). All the devices I own, controlled by code. It also builds and deploys my website to [maydayv7.my.to](https://maydayv7.my.to). You can follow along with my [NixOS Desktop](https://maydayv7.my.to/series/nixos-desktop/) Series
 
@@ -291,7 +291,7 @@ Example `flake.nix`:
       timezone = "Continent/City";
       locale = "US";
 
-      kernel = "zfs";
+      kernel = "lts";
       kernelModules = ["nvme"];
 
       gui = {};
@@ -450,7 +450,8 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 
 ### Important Links
 
-**See:** A [Curated List](https://github.com/nix-community/awesome-nix) of the Best Resources in the Nix Community
+**See:** A [Curated List](https://github.com/nix-community/awesome-nix) of the Best Resources in the Nix Community  
+**Also:** [This](https://nixos-and-flakes.thiscute.world/) website for beginners starting out with NixOS and Flakes
 
 - Official [Documentation](https://nixos.org/learn.html)
 - NixOS [Manual](https://nixos.org/manual/nixpkgs/stable)
@@ -471,7 +472,7 @@ The [`home-manager`](https://github.com/nix-community/home-manager) module is us
 - Justin's [Notes](https://github.com/justinwoo/nix-shorts) on using Nix
 - Lan Tian's Series of [Blog Posts](https://lantian.pub/en/article/modify-website/nixos-initial-config-flake-deploy.lantian/) on NixOS
 - Christine's [Blog Posts](https://christine.website/blog/series/nixos) addressing NixOS Security
-- [Graham](https://grahamc.com/blog/erase-your-darlings) and [Elis'](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/) Blog Posts on Ephemeral Partition Schemes
+- [Graham's](https://grahamc.com/blog/erase-your-darlings) and [Elis'](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/) Blog Posts on Ephemeral Partition Schemes
 
 #### Other Configurations
 
@@ -506,6 +507,10 @@ You can navigate to the `README`s present in the various directories to know mor
 
 <details>
 <summary><b>Changelog</b></summary>
+
+### v25
+
+- Upgrade to NixOS v24.11 (Vicuna)!
 
 ### v24.5
 

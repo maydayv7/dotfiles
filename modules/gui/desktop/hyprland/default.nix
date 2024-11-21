@@ -72,12 +72,11 @@ in {
 
       # Greeter
       environment.persist.directories = ["/var/cache/regreet"];
-      programs.regreet.settings.GTK = with config.stylix; {
-        application_prefer_dark_theme = true;
-        cursor_theme_name = cursor.name;
-        font_name = "${fonts.sansSerif.name} 16";
-        icon_theme_name = theme.icons.name;
-        theme_name = theme.gtk.name;
+      stylix.targets.regreet.enable = true;
+      programs.regreet = {
+        extraCss = mkForce "";
+        theme = mkForce theme.gtk;
+        iconTheme = mkForce theme.icons;
       };
     }
 

@@ -135,7 +135,7 @@ in {
       edge-tiling = false;
       focus-change-on-pointer-rest = true;
       workspaces-only-on-primary = true;
-      experimental-features = ["scale-monitor-framebuffer" "x11-randr-fractional-scaling"];
+      experimental-features = ["scale-monitor-framebuffer" "xwayland-native-scaling"];
     };
 
     "org/gnome/desktop/interface" = {

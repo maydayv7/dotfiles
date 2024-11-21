@@ -25,7 +25,7 @@ in {
     environment.systemPackages = with pkgs; [libguestfs virtiofsd];
     programs.virt-manager.enable = true;
 
-    #!# Run 'virsh net-start default' to start network service
+    #!# Run 'virsh net-start default' to start virtual network service
 
     # VM Utilities
     virtualisation = {

@@ -11,19 +11,17 @@
   homeDir = config.home.homeDirectory;
   font = head sys.fonts.fontconfig.defaultFonts.sansSerif;
 
-  latest = pkgs.unstable.gnomeExtensions;
-
   # Shell Extensions
   extensions = with pkgs.gnomeExtensions // hm.gvariant; ([
       {package = appindicator;}
       {package = control-monitor-brightness-and-volume-with-ddcutil;}
-      {package = latest.display-configuration-switcher;}
+      {package = display-configuration-switcher;}
       {package = gamemode-indicator-in-system-settings;}
       {package = gsconnect;}
       {package = guillotine;}
       {package = hide-minimized;}
-      {package = latest.invert-window-color;}
-      {package = latest.media-progress;}
+      {package = invert-window-color;}
+      {package = media-progress;}
       {package = removable-drive-menu;}
       {package = x11-gestures;}
       {package = xlanguagetray;}
@@ -32,7 +30,7 @@
         disable = true;
       }
       {
-        package = latest.gpu-supergfxctl-switch;
+        package = gpu-supergfxctl-switch;
         disable = !sys.services.supergfxd.enable;
       }
       {
@@ -90,7 +88,7 @@
         };
       }
       {
-        package = latest.autohide-battery-percentage;
+        package = autohide-battery-percentage;
         settings = {
           hide-on-battery-level = 90;
           hide-on-plugged-in = true;
@@ -98,7 +96,7 @@
         };
       }
       {
-        package = latest.emoji-copy;
+        package = emoji-copy;
         settings = {
           active-keybind = true;
           always-show = false;

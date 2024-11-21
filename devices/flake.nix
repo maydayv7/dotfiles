@@ -24,7 +24,7 @@ in {
           locale = "IN";
 
           kernelModules = ["nvme"];
-          kernel = "zfs";
+          kernel = "lts";
           gui.desktop = name + "-iso";
 
           user = {

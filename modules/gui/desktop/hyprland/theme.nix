@@ -18,10 +18,9 @@ pkgs: rec {
   };
 
   qt = {
-    name = "${name-alt}-${variant-alt}-${accent-alt}";
+    name = "${name}-${variant}-${accent}";
     package = pkgs.catppuccin-kvantum.override {
-      accent = accent-alt;
-      variant = variant-alt;
+      inherit accent variant;
     };
   };
 

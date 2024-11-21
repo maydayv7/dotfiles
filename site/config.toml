@@ -13,7 +13,7 @@ compile_sass = true
 build_search_index = true
 
 # RSS Feed
-feed_filename = "rss.xml"
+feed_filenames = ["rss.xml"]
 
 # Taxonomies
 # See <https://www.getzola.org/documentation/content/taxonomies/>

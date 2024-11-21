@@ -79,6 +79,7 @@ in {
 
     user.homeConfig.stylix.targets = {
       firefox.enable = false;
+      spicetify.enable = mkIf (exists "spotify") true;
       vscode.enable = mkIf (exists "vscode") false;
     };
   };

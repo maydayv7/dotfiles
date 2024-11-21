@@ -10,7 +10,7 @@ in {
     displayManager.gdm.autoSuspend = false; # Disable Suspension
     desktopManager.gnome = {
       extraGSettingsOverrides = files.gnome.iso;
-      extraGSettingsOverridePackages = [pkgs.gnome.gnome-settings-daemon];
+      extraGSettingsOverridePackages = [pkgs.gnome-settings-daemon];
       favoriteAppsOverride = ''
         [org.gnome.shell]
         favorite-apps=[ 'org.gnome.Epiphany.desktop', 'nixos-manual.desktop', 'org.gnome.Console.desktop', 'org.gnome.Nautilus.desktop', 'gparted.desktop' ]
@@ -19,7 +19,7 @@ in {
   };
 
   # Essential Utilities
-  environment.systemPackages = with (pkgs.gnome // pkgs); [
+  environment.systemPackages = with pkgs; [
     gnome-console
     gnome-text-editor
     gnome-system-monitor

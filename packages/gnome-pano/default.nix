@@ -23,7 +23,7 @@ in
     ];
 
     nativeBuildInputs = [wrapGAppsHook];
-    buildInputs = [gnome.gnome-shell libgda gsound];
+    buildInputs = [gnome-shell libgda gsound];
     installPhase = ''
       mkdir -p $out/share/gnome-shell/extensions
       cp -r -T . $out/share/gnome-shell/extensions/${uuid}

@@ -6,7 +6,7 @@
   ## Picom Compositor Configuration ##
   services.picom = rec {
     enable = true;
-    package = pkgs.unstable.picom;
+    package = pkgs.picom;
 
     # Driver
     backend = "egl";

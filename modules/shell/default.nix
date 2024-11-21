@@ -86,6 +86,15 @@ in {
                   map-syntax = [".ignore:Git Ignore"];
                 };
               };
+
+              # Eza Configuration
+              eza = {
+                enable = true;
+                colors = "auto";
+                icons = "auto";
+                git = true;
+                extraOptions = ["--group-directories-first"];
+              };
             };
 
           # Fetch
@@ -99,7 +108,7 @@ in {
 
             # Programs
             c = "bat";
-            l = "eza -b -h -l -F --octal-permissions --icons --time-style iso";
+            l = "eza -b -h -l -F --octal-permissions --time-style iso";
             grep = "grep --color";
             colors = "${scripts.colors}";
             edit = "sudo $EDITOR";

@@ -23,7 +23,7 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> v24.5                        #
+#     Version -> v25                          #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The Very Heart of my 'dotfiles'       #
@@ -39,7 +39,7 @@
     ## Package Repositories ##
     # NixOS Packages Repository
     nixpkgs.follows = "stable";
-    stable.url = "github:NixOS/nixpkgs?ref=release-24.05";
+    stable.url = "github:NixOS/nixpkgs?ref=release-24.11";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -88,7 +88,7 @@
     ## Feature Modules
     # User Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-24.05";
+      url = "github:nix-community/home-manager?ref=release-24.11";
       inputs.nixpkgs.follows = "stable";
     };
 
@@ -97,7 +97,7 @@
 
     # Secure Boot
     boot = {
-      url = "github:nix-community/lanzaboote/v0.3.0";
+      url = "github:nix-community/lanzaboote/v0.4.1";
       inputs = {
         nixpkgs.follows = "stable";
         flake-parts.follows = "framework";
@@ -134,9 +134,11 @@
 
     # Base16 Theming
     stylix = {
-      url = "github:danth/stylix?ref=release-24.05";
+      url = "github:danth/stylix?ref=release-24.11";
       inputs = {
         nixpkgs.follows = "stable";
+        systems.follows = "systems";
+        flake-utils.follows = "utils";
         home-manager.follows = "home-manager";
       };
     };

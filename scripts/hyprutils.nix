@@ -49,7 +49,7 @@ in
     name = "hyprutils";
     runtimeInputs = with pkgs; [
       dunst
-      gnome.zenity
+      zenity
       hyprshade
       hyprworld.hyprland
       custom.hyprshellevents

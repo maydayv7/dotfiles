@@ -21,7 +21,7 @@ Configuration [Builder](./configuration.nix)
 
 - [`base`](./base): Module that contains the base common/shared configuration -
 
-  - `kernel`: Linux Kernel Variant to be used - `"zfs" / "lts" / "variant"`
+  - `kernel`: Linux Kernel Variant to be used - `"lts" / "variant"`
   - `kernelModules`: Linux Kernel Modules to load
 
 - [`gui`](./gui): Module that configures GUI Desktops/Environments and the like -

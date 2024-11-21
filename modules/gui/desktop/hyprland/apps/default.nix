@@ -8,7 +8,6 @@
 }:
 with files; let
   inherit (lib) getExe mkIf;
-  inherit (config.gui) wallpaper;
   inherit (config.lib.stylix) colors;
   exists = app: builtins.elem app config.apps.list;
   theme = import ../theme.nix pkgs;
@@ -38,8 +37,8 @@ in {
     evince
     font-manager
     geany
-    gnome.file-roller
-    gnome.gnome-disk-utility
+    file-roller
+    gnome-disk-utility
     hyprpicker
     custom.kebihelp
     lollypop
@@ -51,7 +50,7 @@ in {
     qalculate-gtk
     remmina
     shotwell
-    transmission-gtk
+    transmission_4-gtk
 
     # Utilities
     custom.hyprutils
@@ -157,8 +156,6 @@ in {
         settings = {
           ipc = false;
           splash = true;
-          preload = wallpaper;
-          wallpaper = ", ${wallpaper}";
         };
       };
 

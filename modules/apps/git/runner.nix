@@ -54,7 +54,7 @@ in {
         services.default = {
           dockerImage = "alpine";
           tagList = ["self"];
-          registrationConfigFile = runner.secret;
+          authenticationTokenConfigFile = runner.secret;
         };
       };
     })

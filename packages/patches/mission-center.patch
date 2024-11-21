@@ -1,0 +1,94 @@
+From cf5a1c32934569601207395e03b3fa7ad66dd625 Mon Sep 17 00:00:00 2001
+From: seth <getchoo@tuta.io>
+Date: Tue, 19 Nov 2024 05:00:20 -0500
+Subject: [PATCH 1/2] mission-center: use RUSTFLAGS to link libGL and libvulkan
+
+A less crude method than patching `$cargoDepsCopy`
+
+(cherry picked from commit dd78a15b79aa3f741d16deadf209f6074938af82)
+---
+ pkgs/by-name/mi/mission-center/package.nix | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/pkgs/by-name/mi/mission-center/package.nix b/pkgs/by-name/mi/mission-center/package.nix
+index b21baead33796..4067bee90edae 100644
+--- a/pkgs/by-name/mi/mission-center/package.nix
++++ b/pkgs/by-name/mi/mission-center/package.nix
+@@ -35,9 +35,8 @@
+   pango,
+   sqlite,
+   udev,
+-  wayland,
+-
+   vulkan-loader,
++  wayland,
+ 
+   versionCheckHook,
+ }:
+@@ -111,6 +110,7 @@ stdenv.mkDerivation rec {
+     pango
+     sqlite
+     udev
++    vulkan-loader
+     wayland
+   ];
+ 
+@@ -118,12 +118,6 @@ stdenv.mkDerivation rec {
+     substituteInPlace src/sys_info_v2/gatherer.rs \
+       --replace-fail '"missioncenter-gatherer"' '"${placeholder "out"}/bin/missioncenter-gatherer"'
+ 
+-    substituteInPlace $cargoDepsCopy/gl_loader-*/src/glad.c \
+-      --replace-fail "libGL.so.1" "${libGL}/lib/libGL.so.1"
+-
+-    substituteInPlace $cargoDepsCopy/ash-*/src/entry.rs \
+-      --replace-fail '"libvulkan.so.1"' '"${vulkan-loader}/lib/libvulkan.so.1"'
+-
+     SRC_GATHERER=$NIX_BUILD_TOP/source/src/sys_info_v2/gatherer
+     SRC_GATHERER_NVTOP=$SRC_GATHERER/3rdparty/nvtop
+ 
+@@ -151,6 +145,18 @@ stdenv.mkDerivation rec {
+   versionCheckProgram = "${builtins.placeholder "out"}/bin/${meta.mainProgram}";
+   doInstallCheck = true;
+ 
++  env = {
++    # Make sure libGL and libvulkan can be found by dlopen()
++    RUSTFLAGS = toString (
++      map (flag: "-C link-arg=" + flag) [
++        "-Wl,--push-state,--no-as-needed"
++        "-lGL"
++        "-lvulkan"
++        "-Wl,--pop-state"
++      ]
++    );
++  };
++
+   meta = {
+     description = "Monitor your CPU, Memory, Disk, Network and GPU usage";
+     homepage = "https://gitlab.com/mission-center-devs/mission-center";
+
+From d86a6878f54221ff5d1d4ddce0eb27864f1a472e Mon Sep 17 00:00:00 2001
+From: seth <getchoo@tuta.io>
+Date: Tue, 19 Nov 2024 05:42:39 -0500
+Subject: [PATCH 2/2] mission-center: add getchoo to maintainers
+
+(cherry picked from commit 56e2eb4d1ae50f30acad6fa1fe0738b3d62adcde)
+---
+ pkgs/by-name/mi/mission-center/package.nix | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/mi/mission-center/package.nix b/pkgs/by-name/mi/mission-center/package.nix
+index 4067bee90edae..3b2972df4d24a 100644
+--- a/pkgs/by-name/mi/mission-center/package.nix
++++ b/pkgs/by-name/mi/mission-center/package.nix
+@@ -162,7 +162,10 @@ stdenv.mkDerivation rec {
+     homepage = "https://gitlab.com/mission-center-devs/mission-center";
+     changelog = "https://gitlab.com/mission-center-devs/mission-center/-/releases/v${version}";
+     license = lib.licenses.gpl3Only;
+-    maintainers = with lib.maintainers; [ GaetanLepage ];
++    maintainers = with lib.maintainers; [
++      GaetanLepage
++      getchoo
++    ];
+     platforms = lib.platforms.linux;
+     mainProgram = "missioncenter";
+   };

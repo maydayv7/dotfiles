@@ -17,11 +17,8 @@ in {
   options.base = {
     kernel = mkOption {
       description = "Linux Kernel Variant to be used";
-      default = "zfs";
-      type = types.enum (
-        ["lts" "zfs"]
-        ++ (map (name: removePrefix "linux_" name) (attrNames pkgs.linuxKernel.kernels))
-      );
+      default = "lts";
+      type = types.enum (["lts"] ++ (map (name: removePrefix "linux_" name) (attrNames pkgs.linuxKernel.kernels)));
     };
 
     kernelModules = mkOption {
@@ -34,11 +31,8 @@ in {
   config = {
     # Kernel Configuration
     boot = {
-      supportedFilesystems.zfs = mkIf (cfg.kernel == "zfs") true;
       kernelPackages =
-        if (cfg.kernel == "zfs")
-        then pkgs.zfs.latestCompatibleLinuxPackages
-        else if (cfg.kernel == "lts")
+        if (cfg.kernel == "lts")
         then options.boot.kernelPackages.default
         else pkgs.linuxKernel.packages."${"linux_" + cfg.kernel}";
 

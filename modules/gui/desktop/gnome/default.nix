@@ -29,8 +29,8 @@ in {
 
       # Excluded Packages
       environment.gnome.excludePackages = with pkgs; [
-        gnome.totem
-        gnome.gnome-music
+        totem
+        gnome-music
       ];
 
       # Dconf Settings
@@ -75,7 +75,7 @@ in {
       };
 
       services = {
-        udev.packages = [pkgs.gnome.gnome-settings-daemon];
+        udev.packages = [pkgs.gnome-settings-daemon];
         telepathy.enable = true;
         switcherooControl.enable = true;
         gnome = {
@@ -144,45 +144,42 @@ in {
       };
 
       ## Package List
-      environment. systemPackages = with pkgs; (with gnome;
-        [
-          # GNOME Apps
-          gnome-boxes
-          gnome-dictionary
-          gnome-sound-recorder
-          gnome-text-editor
-          gnome-tweaks
-          zenity
+      environment. systemPackages = with pkgs; [
+        gnome-boxes
+        gnome-sound-recorder
+        gnome-text-editor
+        gnome-tweaks
+        zenity
 
-          # GNOME Games
-          gnome-chess
-          gnome-mines
-          quadrapassel
-        ]
-        ++ [
-          # GNOME Circle
-          apostrophe
-          blackbox-terminal
-          curtail
-          deja-dup
-          dialect
-          drawing
-          fractal
-          fragments
-          gnome-podcasts
-          gnome-secrets
-          gradience
-          gthumb
-          lollypop
-          mission-center
-          video-trimmer
-          wike
+        # Games
+        gnome-chess
+        gnome-mines
+        quadrapassel
 
-          # Utilities
-          celluloid
-          ddcutil
-          gnuchess
-        ]);
+        # Circle
+        apostrophe
+        blackbox-terminal
+        curtail
+        deja-dup
+        dialect
+        drawing
+        fractal
+        fragments
+        gnome-podcasts
+        gnome-secrets
+        gradience
+        gthumb
+        lollypop
+        mission-center
+        video-trimmer
+        wike
+        wordbook
+
+        # Utilities
+        celluloid
+        ddcutil
+        gnuchess
+      ];
 
       # Persisted Files
       user.persist.directories = [
