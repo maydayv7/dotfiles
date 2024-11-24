@@ -58,7 +58,7 @@
   "Rules": {
     "default": "Desktop",
     "kitty": "Terminal",
-    "code-url-handler": "Code"
+    "code": "Code"
   },
   "Keybindings": {
     "Desktop": {

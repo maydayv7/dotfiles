@@ -111,7 +111,10 @@ in {
         upower.enable = true;
 
         # Location
-        geoclue2.enable = true;
+        geoclue2 = {
+          enable = true;
+          geoProviderUrl = "https://beacondb.net/v1/geolocate";
+        };
       };
       location.provider = "geoclue2";
 

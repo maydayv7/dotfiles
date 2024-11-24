@@ -162,7 +162,7 @@ in {
       # Terminal
       programs.kitty = {
         enable = true;
-        theme = with theme; "${name-alt}-${variant-alt}";
+        themeFile = with theme; "${name-alt}-${variant-alt}";
         keybindings = {
           "ctrl+c" = "copy_or_interrupt";
           "kitty_mod+f" = "launch --allow-remote-control kitty +kitten search/search.py @active-kitty-window-id";

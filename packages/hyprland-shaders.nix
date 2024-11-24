@@ -6,7 +6,7 @@
 with pkgs;
   stdenv.mkDerivation {
     pname = "hyprland-shaders";
-    version = "v0.39";
+    version = "v1";
 
     src = fetchFromGitHub {
       owner = "hyprland-community";

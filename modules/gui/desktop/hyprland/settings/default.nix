@@ -21,13 +21,21 @@ in {
     '';
 
     settings = {
-      debug.disable_logs = false;
+      debug = {
+        disable_logs = false;
+        error_position = 1;
+      };
 
       # Display
       monitor = ", preferred, auto, 1";
-      xwayland.force_zero_scaling = true;
+      xwayland = {
+        enabled = true;
+        force_zero_scaling = true;
+      };
 
       input = {
+        focus_on_close = 1;
+
         # Keyboard
         kb_layout = "us";
         numlock_by_default = true;
@@ -36,10 +44,10 @@ in {
         follow_mouse = 1; # Focus on cursor move
         accel_profile = "flat";
         touchpad = {
-          disable_while_typing = true;
-          natural_scroll = true;
           tap-to-click = true;
           tap-and-drag = true;
+          natural_scroll = true;
+          disable_while_typing = false;
         };
       };
 
@@ -50,6 +58,7 @@ in {
         workspace_back_and_forth = true;
       };
 
+      # Touchpad Gestures
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 3;
@@ -58,17 +67,28 @@ in {
         workspace_swipe_create_new = true;
       };
 
+      # Cursor Settings
+      cursor = {
+        default_monitor = display;
+        hide_on_key_press = true;
+        sync_gsettings_theme = true;
+        warp_on_change_workspace = true;
+      };
+
       # Tiling Layout
       dwindle = {
         pseudotile = true; # Keep floating dimensions
         preserve_split = true;
+        smart_split = true;
       };
 
       misc = {
         enable_swallow = true; # Window Swallowing
         focus_on_activate = true;
+
         disable_autoreload = false; # Enable configuration Polling
         initial_workspace_tracking = 1;
+        new_window_takes_over_fullscreen = 2;
 
         # Interfere with wallpaper daemons
         force_default_wallpaper = 0;
@@ -76,15 +96,25 @@ in {
 
         # Graphics
         vrr = 1;
-        no_direct_scanout = false;
-        hide_cursor_on_key_press = true;
+      };
+
+      render = {
+        direct_scanout = true;
+        explicit_sync = 2;
       };
 
       general =
         {
-          resize_on_border = true;
           allow_tearing = !fancy;
-          default_cursor_monitor = display;
+          resize_on_border = true;
+
+          # Floating Layout
+          snap = {
+            enabled = true;
+            window_gap = 15;
+            monitor_gap = 10;
+            border_overlap = true;
+          };
         }
         //
         # Visuals
@@ -99,6 +129,19 @@ in {
         active = "rgb(${base0A}) rgb(${base0D}) 90deg";
         inactive = "rgb(${base03}) rgb(${base0D}) 90deg";
       in {
+        auto_group = true;
+        insert_after_current = true;
+        drag_into_group = 2;
+        merge_groups_on_drag = true;
+        merge_groups_on_groupbar = true;
+        merge_floated_into_tiled_on_groupbar = false;
+        group_on_movetoworkspace = false;
+
+        "col.border_active" = mkForce active;
+        "col.border_locked_active" = mkForce active;
+        "col.border_inactive" = mkForce inactive;
+        "col.border_locked_inactive" = mkForce inactive;
+
         groupbar = {
           enabled = true;
           render_titles = false;
@@ -110,10 +153,6 @@ in {
           "col.inactive" = mkForce inactive;
           "col.locked_inactive" = mkForce inactive;
         };
-        "col.border_active" = mkForce active;
-        "col.border_locked_active" = mkForce active;
-        "col.border_inactive" = mkForce inactive;
-        "col.border_locked_inactive" = mkForce inactive;
       };
 
       animation = {
@@ -143,11 +182,14 @@ in {
 
       decoration = mkIf fancy {
         rounding = 10;
-        drop_shadow = true;
-        shadow_ignore_window = true;
-        shadow_offset = "0 2";
-        shadow_range = 20;
         dim_special = 0.3;
+
+        shadow = {
+          enabled = true;
+          ignore_window = true;
+          offset = "0 2";
+          range = 20;
+        };
 
         blur = {
           enabled = true;

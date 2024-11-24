@@ -21,7 +21,7 @@
           "$mod, up, movefocus, u"
           "$mod, down, movefocus, d"
           "ALT, A, focusurgentorlast"
-          "ALT, A, bringactivetotop,"
+          "ALT, A, alterzorder, top"
 
           # Window Swap
           "$mod SHIFT, left, swapwindow, l"

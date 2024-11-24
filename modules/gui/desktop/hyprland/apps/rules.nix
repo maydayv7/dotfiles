@@ -2,8 +2,9 @@ _: {
   wayland.windowManager.hyprland.settings = {
     ## Layer Rules
     layerrule = [
+      "blur, ^(logout_dialog)$"
+      "blur, ^(nwg-drawer)$"
       "blur, ^(waybar)$"
-      "blur, ^(gtk-layer-shell)$"
     ];
 
     ## Window Rules

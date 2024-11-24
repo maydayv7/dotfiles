@@ -214,11 +214,11 @@ in
           esac
         ;;
         "zoom")
-          ZOOM=$(hyprctl getoption misc:cursor_zoom_factor | grep float | awk '{print $2}')
+          ZOOM=$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2}')
           case "$2" in
           "in")
             ZOOM=$(echo "$ZOOM" | awk '{print $1 + 0.2}')
-            hyprctl keyword misc:cursor_zoom_factor "$ZOOM"
+            hyprctl keyword cursor:zoom_factor "$ZOOM"
             hyprctl notify 1 1000 0 "Zoomed In ($ZOOM""x)"
           ;;
           "out")
@@ -227,7 +227,7 @@ in
               hyprctl notify 3 2000 0 "Already zoomed out"
             else
               ZOOM=$(echo "$ZOOM" | awk '{print $1 - 0.2}')
-              hyprctl keyword misc:cursor_zoom_factor "$ZOOM"
+              hyprctl keyword cursor:zoom_factor "$ZOOM"
               hyprctl notify 1 1000 0 "Zoomed Out ($ZOOM""x)"
             fi
           ;;
@@ -244,7 +244,7 @@ in
               hyprctl notify 1 2000 0 "Compositor Effects Disabled"
               hyprctl --batch "\
                 keyword animations:enabled 0;\
-                keyword decoration:drop_shadow 0;\
+                keyword decoration:shadow:enabled 0;\
                 keyword decoration:blur:enabled 0;\
                 keyword general:gaps_in 0;\
                 keyword general:gaps_out 0;\

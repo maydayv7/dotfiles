@@ -39,7 +39,7 @@
     ## Package Repositories ##
     # NixOS Packages Repository
     nixpkgs.follows = "stable";
-    stable.url = "github:NixOS/nixpkgs?ref=release-24.11";
+    stable.url = "github:NixOS/nixpkgs?ref=nixos-24.11";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -108,10 +108,7 @@
     # Authentication Credentials Manager
     sops = {
       url = "github:Mic92/sops-nix";
-      inputs = {
-        nixpkgs.follows = "unstable";
-        nixpkgs-stable.follows = "stable";
-      };
+      inputs.nixpkgs.follows = "unstable";
     };
 
     # File System Persistent State Handler
@@ -143,24 +140,27 @@
       };
     };
 
-    # Hyprland
+    # Hyprland (manual update)
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.40.0";
-      inputs.systems.follows = "systems";
+      url = "github:hyprwm/Hyprland?ref=v0.45.2";
+      inputs = {
+        nixpkgs.follows = "stable";
+        systems.follows = "systems";
+      };
     };
 
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
+      url = "github:hyprwm/hyprland-plugins?rev=0bc619b2c3b4f9c2b65247e81d69f8bbc573d991";
       inputs.hyprland.follows = "hyprland";
     };
 
     hycov = {
-      url = "github:DreamMaoMao/hycov";
+      url = "github:bighu630/hycov?rev=a251d42b4e75eecd72bc91e763e79bb91772e841";
       inputs.hyprland.follows = "hyprland";
     };
 
     hyprdark = {
-      url = "github:micha4w/Hypr-DarkWindow";
+      url = "github:micha4w/Hypr-DarkWindow?ref=v0.45.0";
       inputs = {
         hyprland.follows = "hyprland";
         nix-filter.follows = "filters";
@@ -168,12 +168,12 @@
     };
 
     hyprspace = {
-      url = "github:KZDKM/Hyprspace";
+      url = "github:KZDKM/Hyprspace?rev=260f386075c7f6818033b05466a368d8821cde2d";
       inputs.hyprland.follows = "hyprland";
     };
 
     hyprsplit = {
-      url = "github:shezdy/hyprsplit";
+      url = "github:shezdy/hyprsplit?ref=v0.45.2";
       inputs.hyprland.follows = "hyprland";
     };
 

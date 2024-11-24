@@ -4,13 +4,11 @@ pkgs: rec {
   name-alt = "Catppuccin";
 
   accent = "blue";
-  accent-alt = "Blue";
-
   variant = "macchiato";
   variant-alt = "Macchiato";
 
   gtk = {
-    name = "${name-alt}-${variant-alt}-Standard-${accent-alt}-Dark";
+    name = "${name}-${variant}-${accent}-standard";
     package = pkgs.catppuccin-gtk.override {
       accents = [accent];
       inherit variant;

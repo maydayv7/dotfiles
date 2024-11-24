@@ -21,7 +21,6 @@ in {
       clock = true;
       indicator = true;
       font = sys.stylix.fonts.sansSerif.name;
-      fade-in = 1;
       effect-vignette = "0.3:1";
     };
   };
@@ -41,7 +40,7 @@ in {
       }
       {
         event = "lock";
-        command = lock "${getExe pkgs.playerctl} pause -a" "--grace 10";
+        command = lock "${getExe pkgs.playerctl} pause -a" "--grace 15 --grace-no-mouse";
       }
     ];
 

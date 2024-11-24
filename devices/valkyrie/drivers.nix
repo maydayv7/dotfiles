@@ -15,6 +15,9 @@ in {
     "nvidia_drm.fbdev=1" # Wayland Support
     "NVreg_UsePageAttributeTable=1" # PAT Support
     "NVreg_RegistryDwords=RMUseSwI2c=0x01;RMI2cSpeed=100" # DDC/CI Support
+
+    # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
+    (mkIf mode "amdgpu.dcdebugmask=0x10")
   ];
 
   hardware = {

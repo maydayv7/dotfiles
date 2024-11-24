@@ -64,7 +64,7 @@
           overrideGaps = true;
           gapsIn = gaps;
           gapsOut = gaps;
-          panelBorderWidth = 1;
+          panelBorderWidth = 0;
           panelBorderColor = "rgb(${base0A})";
           workspaceActiveBorder = "rgb(${base0D})";
         };

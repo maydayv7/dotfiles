@@ -35,7 +35,7 @@
   "terminal.integrated.enableVisualBell": true,
   "terminal.integrated.tabs.separator": " / ",
   "update.mode": "none",
-  "window.autoDetectColorScheme": true,
+  "window.autoDetectColorScheme": false,
   "window.closeWhenEmpty": true,
   "window.commandCenter": true,
   "window.dialogStyle": "custom",
