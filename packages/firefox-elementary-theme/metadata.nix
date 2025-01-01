@@ -1,6 +1,6 @@
 {
   repo = "https://github.com/Zonnev/elementaryos-firefox-theme";
   branch = "elementaryos-firefox-theme";
-  rev = "b2548f64fdb3dde53664fac2bdde570e9f0f5601";
-  sha256 = "sha256-TZ9svtCaed0TZvV0bRmxLjCzd/UJuHlDHThj2nXqsQE=";
+  rev = "d9a9c0b8c86c8fb04383229e0f0c601bca3df17b";
+  sha256 = "sha256-co122KHAqa33JhUIYllEPvnnmPshaCsqbt8g0QrshAc=";
 }
