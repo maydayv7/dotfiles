@@ -141,7 +141,7 @@
     };
 
     # Declarative Flatpak Wrapper
-    flatpak.url = "github:gmodena/nix-flatpak";
+    flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
 
     # Spicetify Module
     spotify = {

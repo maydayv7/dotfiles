@@ -23,6 +23,7 @@ in {
 
     services.flatpak = {
       enable = true;
+      uninstallUnused = true;
 
       # Repositories
       remotes = [
