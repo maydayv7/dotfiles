@@ -1,6 +1,6 @@
 {
   repo = "https://github.com/micha4w/Hypr-DarkWindow";
   release = true;
-  rev = "v0.45.0";
-  sha256 = "sha256-jmtwH8t1GRsNpkKFu1WJR1rZ15ejmcdDe+zwenjzo7U=";
+  rev = "v0.46.0";
+  sha256 = "sha256-hwjC+9mctoKYpc2kmHoYCpzJVrcBxy7fb+e+Ib9klH0=";
 }
