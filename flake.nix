@@ -38,8 +38,8 @@
   inputs = {
     ## Package Repositories ##
     # NixOS Packages Repository
-    nixpkgs.follows = "unstable";
-    stable.url = "github:NixOS/nixpkgs?ref=nixos-24.11";
+    nixpkgs.follows = "stable";
+    stable.url = "github:NixOS/nixpkgs?ref=nixos-25.05";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -88,7 +88,7 @@
     ## Feature Modules
     # User Home Manager
     home = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager?ref=release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -159,11 +159,11 @@
     ## Theming
     # Base16 Theming Module
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix?ref=release-25.05";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
-        flake-utils.follows = "utils";
+        flake-parts.follows = "framework";
         home-manager.follows = "home";
       };
     };
