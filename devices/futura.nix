@@ -20,7 +20,7 @@
     ];
   };
 
-  gui.desktop = "xfce";
+  gui.desktop = "pantheon";
   apps.list = [
     "firefox"
     "office"

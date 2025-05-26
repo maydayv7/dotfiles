@@ -6,7 +6,6 @@
   files,
   ...
 }:
-with files.logseq;
 let
   enable = builtins.elem "notes" config.apps.list;
   mutable = {
@@ -26,6 +25,7 @@ in
       ];
 
       homeConfig.home.file =
+        with files.logseq;
         {
           ".config/logseq/configs.edn".text = ''{:window/native-titlebar? true}'';
           ".logseq/preferences.json" = {

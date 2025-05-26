@@ -4,7 +4,6 @@ Type=Application
 Name=Dock
 Comment=
 Exec=plank
-OnlyShowIn=XFCE;
 RunHook=0
 StartupNotify=false
 Terminal=false

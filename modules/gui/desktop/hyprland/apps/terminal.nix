@@ -32,18 +32,11 @@
       };
     };
 
+    home.file.".config/kitty/search".source = pkgs.custom.kitty-search;
     wayland.windowManager.hyprland.settings.misc.swallow_regex = "^(kitty)$";
     stylix.targets.kitty = {
       enable = true;
       variant256Colors = true;
-    };
-
-    home.file = {
-      ".config/kitty/search".source = pkgs.custom.kitty-search;
-      ".config/xfce4/helpers.rc".text = ''
-        TerminalEmulator=kitty
-        TerminalEmulatorDismissed=true
-      '';
     };
   };
 }

@@ -247,7 +247,7 @@ let
           };
         }
         {
-          package = pkgs.custom.gnome-pano;
+          package = pano;
           settings = {
             database-location = "${homeDir}/.local/share/clipboard";
             history-length = 250;

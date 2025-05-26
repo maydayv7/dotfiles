@@ -6,66 +6,23 @@
   files,
   ...
 }@args:
-with files;
 let
   inherit (lib)
-    gvariant
-    hasPrefix
     mkIf
     mkForce
     mkMerge
     ;
 
-  inherit (config.gui) desktop;
   exists = app: builtins.elem app config.apps.list;
 in
 {
   ## GNOME Configuration ##
-  config = mkIf (hasPrefix "gnome" desktop) (mkMerge [
-    ## Environment Setup
+  config = mkIf (config.gui.desktop == "gnome") (mkMerge [
+    (import ./common.nix args)
+
     {
-      # Session
-      services = {
-        displayManager.defaultSession = "gnome";
-        xserver = {
-          desktopManager.gnome.enable = true;
-          displayManager.gdm.enable = true;
-        };
-
-        # Initial Setup
-        gnome.gnome-initial-setup.enable = mkForce false;
-      };
-
-      # Excluded Packages
-      environment.gnome.excludePackages = with pkgs; [
-        totem
-        gnome-music
-      ];
-
-      # Dconf Settings
-      programs.dconf.profiles.gdm.databases = [
-        {
-          settings = {
-            "org/gnome/desktop/peripherals/touchpad".tap-to-click = true;
-            "org/gnome/desktop/interface" = {
-              cursor-theme = config.stylix.cursor.name;
-              cursor-size = gvariant.mkInt32 config.stylix.cursor.size;
-            };
-          };
-        }
-      ];
-    }
-
-    ## Install Media Configuration
-    (mkIf (desktop == "gnome-iso") (import ./iso.nix args))
-
-    ## Desktop Configuration
-    (mkIf (desktop == "gnome") {
       # Desktop Integration
       gui = {
-        fonts.enable = true;
-        wayland.enable = true;
-
         gtk = {
           enable = true;
           theme = {
@@ -82,6 +39,12 @@ in
             package = pkgs.custom.kvlibadwaita;
           };
         };
+      };
+
+      # Color Scheme
+      stylix = {
+        base16Scheme = files.colors.adwaita;
+        targets.gnome.enable = false;
       };
 
       services = {
@@ -123,11 +86,9 @@ in
       # Screen Brightness
       user.groups = [ "i2c" ];
       hardware.i2c.enable = true;
-    })
 
-    (mkIf (desktop == "gnome") {
       user.homeConfig = {
-        # Desktop Settings
+        ## Desktop Settings
         imports = [ ./settings ];
         stylix.targets = {
           gnome.enable = true;
@@ -184,18 +145,11 @@ in
         };
       };
 
-      ## Color Scheme
-      stylix = {
-        base16Scheme = colors.adwaita;
-        targets.gnome.enable = false;
-      };
-
       ## Package List
       environment.systemPackages = with pkgs; [
         ghostty
         gnome-boxes
         gnome-sound-recorder
-        gnome-text-editor
         gnome-tweaks
         papers
         zenity
@@ -228,7 +182,7 @@ in
         gnuchess
       ];
 
-      # Persisted Files
+      ## Persisted Files
       user.persist.directories = [
         # Apps
         ".config/evolution"
@@ -253,10 +207,10 @@ in
         ".config/paperwm"
         ".local/share/clipboard"
       ];
-    })
+    }
 
     ## 3rd Party Apps Configuration
-    (mkIf (desktop == "gnome") {
+    {
       user.homeConfig = {
         # Firefox GNOME Theme
         stylix.targets.firefox = {
@@ -303,14 +257,6 @@ in
           }
         ];
       };
-    })
-
-    ## XORG Configuration
-    (mkIf (desktop == "gnome") {
-      specialisation.xorg.configuration.services = {
-        touchegg.enable = true;
-        displayManager.defaultSession = mkForce "gnome-xorg";
-      };
-    })
+    }
   ]);
 }

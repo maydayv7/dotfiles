@@ -6,7 +6,7 @@ pkgs: {
     (pkgs.python3.withPackages (
       p: with p; [
         pip
-        poetry
+        poetry-core
         setuptools
 
         black

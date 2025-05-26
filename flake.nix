@@ -23,7 +23,6 @@
 #     Author  -> V 7 <maydayv7@gmail.com>     #
 #     License -> MIT                          #
 #     URL     -> github:maydayv7/dotfiles     #
-#     Version -> v25.5                        #
 #   ---------------------------------------   #
 #           Welcome to Ground Zero!           #
 #       The very heart of my 'dotfiles'       #
@@ -112,15 +111,6 @@
 
     # Filesystem State Handler
     impermanence.url = "github:nix-community/impermanence";
-
-    # System Image Generators
-    generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs = {
-        nixlib.follows = "nixpkgs";
-        nixpkgs.follows = "unstable";
-      };
-    };
 
     # Nix Index Database
     index = {

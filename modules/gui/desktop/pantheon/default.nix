@@ -24,7 +24,6 @@ in
     {
       # Desktop Integration
       gui = {
-        fonts.enable = true;
         gtk = {
           enable = true;
           theme = {

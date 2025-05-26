@@ -9,7 +9,6 @@ in
   system ? "x86_64-linux",
   name ? "nixos",
   description ? "",
-  format ? null,
   imports ? [ ],
   timezone,
   locale,
@@ -33,7 +32,6 @@ let
   inherit (lib) fileContents makeOverridable mkIf;
   inherit (builtins)
     attrValues
-    getAttr
     hashString
     map
     removeAttrs
@@ -92,28 +90,7 @@ assert (user == null) -> (users != null);
         imports
         ++ attrValues (removeAttrs (util.map.modules ./. import) [ "configuration" ])
         ++ map user' (if (user != null) then [ user ] else users)
-        ++ util.map.array (hardware.modules or [ ]) inputs.hardware.nixosModules
-        ++ (
-          if (format != null) then
-            [
-              (getAttr format inputs.generators.nixosModules)
-              (
-                if (format == "iso") then
-                  {
-                    image.baseName = lib.mkForce "nixos";
-                    environment.systemPackages = [ pkgs.custom.install ];
-
-                    # Disabled Modules
-                    user.homeConfig = lib.mkForce { };
-                    sops.secrets = lib.mkForce { };
-                  }
-                else
-                  { }
-              )
-            ]
-          else
-            [ { environment.systemPackages = [ pkgs.custom.nixos ]; } ]
-        );
+        ++ util.map.array (hardware.modules or [ ]) inputs.hardware.nixosModules;
 
       inherit
         apps
@@ -148,10 +125,8 @@ assert (user == null) -> (users != null);
           inherit (files.path) flake;
         };
 
-        switch.enable = if (format != null) then false else true;
-
         # Version
-        stateVersion = fileContents "${inputs.nixpkgs}/.version";
+        stateVersion = fileContents "${inputs.nixpkgs}/lib/.version";
         configurationRevision =
           if (self ? rev) then
             "${substring 0 8 self.lastModifiedDate}.${self.shortRev}"

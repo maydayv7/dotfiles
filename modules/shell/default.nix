@@ -6,7 +6,6 @@
   files,
   ...
 }:
-with files;
 let
   inherit (util.map) modules;
   inherit (builtins) listToAttrs map;
@@ -39,7 +38,7 @@ in
     }
 
     (mkIf config.shell.utilities {
-      environment = {
+      environment = with files; {
         # Utilities
         systemPackages = with pkgs; [
           bat

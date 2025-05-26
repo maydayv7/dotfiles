@@ -43,7 +43,6 @@ in
     wl-clipboard
     wl-screenrec
     wlr-randr
-    xfce.exo
 
     # Network Settings
     (gnome-control-center.overrideAttrs (old: {

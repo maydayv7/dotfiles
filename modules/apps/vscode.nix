@@ -6,7 +6,6 @@
   files,
   ...
 }:
-with files.vscode;
 let
   inherit (builtins) elem head;
   enable = elem "vscode" config.apps.list;
@@ -46,7 +45,7 @@ in
         programs.vscode = {
           enable = true;
           package = pkgs.vscode;
-          profiles.default = {
+          profiles.default = with files.vscode; {
             # Keyboard Shortcuts
             inherit keybindings;
 

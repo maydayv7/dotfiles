@@ -27,11 +27,6 @@ in
       ++ [
         ## Environment Setup
         rec {
-          gui = {
-            xorg.enable = false;
-            wayland.enable = true;
-          };
-
           programs = {
             # WM
             hyprland = {

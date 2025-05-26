@@ -3,7 +3,6 @@
   options,
   lib,
   util,
-  inputs,
   pkgs,
   ...
 }:
@@ -22,7 +21,7 @@ let
 in
 {
   ## BASE Configuration ##
-  imports = util.map.modules.list ./. ++ [ inputs.generators.nixosModules.all-formats ];
+  imports = util.map.modules.list ./.;
 
   options.base = {
     kernel = mkOption {
@@ -74,6 +73,7 @@ in
         mkIf (hasPrefix "special." label) (removePrefix "special." label);
 
       systemPackages = with pkgs; [
+        custom.nixos
         cryptsetup
         inxi
         killall

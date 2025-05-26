@@ -50,7 +50,7 @@ in
 
       # Graphics
       drawing
-      gimp
+      gimp3
       handbrake
       inkscape
       xournalpp

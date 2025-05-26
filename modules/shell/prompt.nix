@@ -157,7 +157,6 @@
             bright-black = base03;
             white = base05;
             bright-white = base07;
-            bright-yellow = yellow;
             purple = magenta;
             bright-purple = bright-magenta;
             inherit
@@ -173,8 +172,8 @@
               bright-cyan
               bright-green
               bright-magenta
-              bright-orange
               bright-red
+              bright-yellow
               base00
               base01
               base02

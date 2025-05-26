@@ -12,12 +12,11 @@
     programs.hyprshell = {
       enable = true;
       systemd.enable = true;
-      style = util.build.theme {
+      styleFile = util.build.theme {
         inherit (config.lib.stylix) colors;
         file = files.hyprland.hyprshell;
       };
 
-      declarative = true;
       settings = {
         layerrules = false;
 
@@ -28,8 +27,8 @@
           max_items = 10;
           plugins = {
             applications = {
-              cache = 4;
-              execs = true;
+              run_cache_weeks = 4;
+              show_execs = true;
             };
             websearch.engines = [
               {
@@ -41,7 +40,7 @@
           };
         };
 
-        window = {
+        windows = {
           scale = 9.0;
           workspaces_per_row = 3;
           strip_html_from_workspace_title = true;
@@ -53,23 +52,25 @@
             };
             navigate = {
               forward = "tab";
-              reverse = "Mod(shift)";
-            };
-            filter = {
-              hide = false;
-              by = [ ];
+              reverse = {
+                key = "tab";
+                mod = "shift";
+              };
             };
           };
 
-          switcher = {
+          switch = {
             open.modifier = "alt";
             navigate = {
               forward = "tab";
-              reverse = "Mod(shift)";
+              reverse = {
+                key = "tab";
+                mod = "shift";
+              };
             };
-            filter = {
-              hide = true;
-              by = [ "current_workspace" ];
+            other = {
+              hide_filtered = true;
+              filter_by = [ "current_workspace" ];
             };
           };
         };

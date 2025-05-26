@@ -9,7 +9,6 @@
 let
   inherit (lib)
     attrNames
-    hasSuffix
     mkIf
     mkOption
     optionals
@@ -17,7 +16,7 @@ let
     ;
 
   cfg = config.gui;
-  enable = !(cfg.desktop == "" || hasSuffix "-iso" cfg.desktop);
+  enable = cfg.desktop != "" && cfg.desktop != "install";
   exists = app: builtins.elem app config.apps.list;
 in
 {

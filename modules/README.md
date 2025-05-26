@@ -27,7 +27,7 @@ Configuration [Builder](./configuration.nix)
 
 - [`gui`](./gui): Module that configures GUI Desktops/Environments and the like -
 
-  - `desktop`: Choice of GUI Desktop - `"hyprland" / "gnome" / "xfce" / "pantheon"`
+  - `desktop`: Choice of GUI Desktop - `"hyprland" / "gnome" / "pantheon"`
   - `display`: Main GUI Display - Ex. `"HDMI-A-1"`
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
   - `fancy`: Enable Fancy GUI Effects - `true / false`
@@ -51,10 +51,6 @@ Configuration [Builder](./configuration.nix)
     - `theme` -
       - `name`: QT Application Theme
       - `package`: QT Theme Package
-  - `wayland` -
-    - `enable`: Enable Wayland Configuration - `true / false`
-  - `xorg` -
-    - `enable`: Enable X11 Server Configuration - `true / false`
 
 - [`hardware`](./hardware): Module that configures device and additional hardware -
 

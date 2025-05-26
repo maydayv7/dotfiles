@@ -14,7 +14,6 @@ let
   inherit (lib) licenses recursiveUpdate;
 
   devShells = list self.devShells."${system}";
-  installMedia = list self.installMedia;
   nixosConfigurations = list self.nixosConfigurations;
 
   # Usage Description
@@ -31,7 +30,7 @@ let
         check [ --trace ]               - Checks System Configuration [ Displays Error to Trace ]
         clean [ --all ]                 - Garbage Collects and Optimises Nix Store
         explore                         - Opens Interactive Shell to explore Syntax and Configuration
-        iso 'variant' [ --burn ]        - Builds Image for Specified Install Media or Device [ Burns '.iso' to USB ]
+        iso 'variant' [ --burn ]        - Builds Image for Specified Device [ Burns '.iso' to USB ]
         list [ 'pattern' ]              - Lists all Installed Packages [ Returns Matches ]
         locate 'package'                - Locates Installed Package
         run [ 'path' ] 'command'        - Runs Specified Command [ from 'path' ] (Wraps 'nix run')
@@ -82,7 +81,7 @@ recursiveUpdate
     meta = {
       mainProgram = "nixos";
       description = "System Management Script";
-      homepage = files.path.repo;
+      homepage = path.repo;
       license = licenses.gpl3Only;
       maintainers = [ "maydayv7" ];
     };
@@ -248,18 +247,14 @@ recursiveUpdate
         ;;
         "iso")
           case $2 in
-          "") error "Expected a Variant of Install Media or Device";;
+          "") error "Expected a Device name";;
           *)
-            if grep -wq "$2" <<<"${installMedia}" &> /dev/null
+            if grep -wq "$2" <<<"${nixosConfigurations}" &> /dev/null
             then
-              echo "Building '$2' Install Media Image..."
-              nix build ${path.system}#installMedia."$2".config.system.build.isoImage && echo "The Image is located at './result/iso/nixos.iso'"
-            elif grep -wq "$2" <<<"${nixosConfigurations}" &> /dev/null
-            then
-              echo "Building '$2' Device Image..."
-              nix build ${path.system}#nixosConfigurations."$2".config.formats.iso
+              echo "Building '$2' Image..."
+              nix build ${path.system}#nixosConfigurations."$2".config.system.build.images.iso
             else
-              error "Unknown Variant '$2'" "# Available Variants #\n  Install Media: ${installMedia}\n  Devices: ${nixosConfigurations}"
+              error "Unknown Device '$2'" "# Available Devices #\n ${nixosConfigurations}"
             fi
           ;;
           esac
@@ -268,7 +263,10 @@ recursiveUpdate
           "--burn")
             case $4 in
             "") error "Expected a 'path' to USB Drive";;
-            *) sudo dd if=./result/iso/nixos.iso of="$4" status=progress bs=1M;;
+            *)
+              IMAGE=$(find ./result/iso -type f -name "*.iso")
+              sudo dd if="$IMAGE" of="$4" status=progress bs=1M
+            ;;
             esac
           ;;
           *) error "Unknown Option '$3'";;

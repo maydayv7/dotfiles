@@ -1,4 +1,4 @@
-name: "ci: Build default `installMedia`"
+name: "ci: Build Install Media image"
 on:
   workflow_dispatch:
   schedule:
@@ -25,12 +25,12 @@ jobs:
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Build Default Install Media
-        run: nix build .#installMedia.default.config.system.build.isoImage -L --show-trace
+        run: nix build .#nixosConfigurations.install.config.system.build.images.iso -L --show-trace
       - name: Upload ISO Image
         uses: actions/upload-artifact@v4
         id: image-upload
         with:
           name: Image
-          path: result/iso/nixos.iso
+          path: result/iso/install.iso
           compression-level: 0
           if-no-files-found: error

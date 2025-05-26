@@ -3,16 +3,12 @@
   options,
   lib,
   util,
-  pkgs,
   ...
 }:
 let
-  inherit (builtins) map;
   inherit (util.map.modules) list name;
   inherit (lib)
-    hasSuffix
     mkEnableOption
-    mkForce
     mkIf
     mkMerge
     mkOption
@@ -37,7 +33,7 @@ in
 
     desktop = mkOption {
       description = "GUI Desktop Choice";
-      type = types.enum ((name ./desktop) ++ map (x: x + "-iso") (import ./desktop/iso.nix) ++ [ "" ]);
+      type = types.enum ((name ./desktop) ++ [ "" ]);
       default = "";
     };
   };
@@ -46,39 +42,46 @@ in
     { warnings = optional (desktop == "") (options.gui.desktop.description + " is unset"); }
 
     ## Desktop Environment
-    (mkIf (desktop != "" && !(hasSuffix "-iso" desktop)) {
-      user.persist.directories = [
-        ".config/autostart"
-        ".local/share/gvfs-metadata"
-      ];
-
+    (mkIf (desktop != "" && desktop != "install") {
       # Utilities
-      programs.seahorse.enable = true;
-      user.homeConfig.services.mpris-proxy.enable = true;
+      gui.fonts.enable = true;
       services = {
         gvfs.enable = true;
         gnome.gnome-keyring.enable = true;
       };
+      programs = {
+        xwayland.enable = true;
+        seahorse.enable = true;
+      };
 
-      # Desktop Integration
-      environment.pathsToLink = [
-        "/share/xdg-desktop-portal"
-        "/share/applications"
-      ];
+      user = {
+        homeConfig.services.mpris-proxy.enable = true;
+        persist.directories = [
+          ".config/autostart"
+          ".local/share/gvfs-metadata"
+        ];
+      };
+
+      # Environment Setup
+      environment = {
+        pathsToLink = [
+          "/share/xdg-desktop-portal"
+          "/share/applications"
+        ];
+        sessionVariables = {
+          "NIXOS_OZONE_WL" = "1";
+          "QT_QPA_PLATFORM" = "wayland;xcb";
+          "GDK_BACKEND" = "wayland,x11";
+          "MOZ_ENABLE_WAYLAND" = "1";
+          "CLUTTER_BACKEND" = "wayland";
+        };
+      };
 
       xdg.portal = {
         enable = true;
         xdgOpenUsePortal = true;
+        wlr.enable = true;
       };
-    })
-
-    ## Install Media
-    (mkIf (hasSuffix "-iso" desktop) {
-      xdg.portal.enable = mkForce false;
-      environment.systemPackages = with pkgs; [
-        epiphany
-        gparted
-      ];
     })
   ];
 }
