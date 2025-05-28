@@ -28,10 +28,10 @@
             var,
             color,
             style ? "fg:white",
-            end ? "[${close}](fg:base04)",
+            end ? "[${close}](fg:base03)",
             ...
           }:
-          "[─](fg:base04)[${open}](fg:${color})[${icon}](fg:base01 bg:${color})[${close}](fg:${color} bg:base04)[ ${var}](${style} bg:base04)${end}";
+          "[─](fg:base04)[${open}](fg:${color})[${icon}](fg:base01 bg:${color})[${close}](fg:${color} bg:base03)[ ${var}](${style} bg:base03)${end}";
       in
       {
         enable = true;
@@ -83,7 +83,7 @@
 
           git_status = {
             disabled = false;
-            format = "[$ahead_behind$all_status](fg:green bg:base04)[${close}](fg:base04)";
+            format = "[$ahead_behind$all_status](fg:green bg:base03)[${close}](fg:base03)";
             ahead = " ⇡$count";
             behind = " ⇣$count";
             diverged = " ⇡$ahead_count ⇣$behind_count";

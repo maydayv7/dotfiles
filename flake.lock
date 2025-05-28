@@ -805,11 +805,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748219597,
-        "narHash": "sha256-pgrzIGUc861nS4BmCFklwUGjm32bdOui10DUtuAGpRU=",
+        "lastModified": 1748271808,
+        "narHash": "sha256-CfkV+Fh8rKV8PJA2lMnc448TUPdpqdpMZL8GZucj4r8=",
         "owner": "H3rmt",
         "repo": "hyprshell-test",
-        "rev": "7bc398262a5c6e3f252298cd2770ced0de121544",
+        "rev": "b8367b4de9dcd2a5b6e49a3e9322534657de4886",
         "type": "github"
       },
       "original": {

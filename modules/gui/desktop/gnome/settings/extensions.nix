@@ -36,7 +36,6 @@ let
         { package = control-monitor-brightness-and-volume-with-ddcutil; }
         { package = disconnect-wifi; }
         { package = display-configuration-switcher; }
-        { package = gamemode-indicator-in-system-settings; }
         { package = gsconnect; }
         { package = guillotine; }
         { package = hide-minimized; }
@@ -49,7 +48,6 @@ let
         { package = unmess; }
         { package = window-state-manager; }
         { package = x11-gestures; }
-        { package = xlanguagetray; }
         {
           package = workspace-indicator;
           disable = true;
@@ -80,6 +78,7 @@ let
               "vitalsMenu"
               "dwellClick"
               "color-picker@tuberry"
+              "gamemodeshellextension@trsnaqe.com"
               "lockkeys"
               "keyboard"
               "screenSharing"
@@ -89,12 +88,17 @@ let
           };
         }
         {
+          package = status-area-horizontal-spacing;
+          settings.hpadding = 4;
+        }
+        {
           package = color-picker;
           settings.enable-format = true;
         }
         {
-          package = status-area-horizontal-spacing;
-          settings.hpadding = 4;
+          package = gamemode-shell-extension;
+          name = "gamemodeshellextension";
+          settings.show-icon-only-when-active = true;
         }
         {
           package = lock-keys;
@@ -445,7 +449,7 @@ let
         }
         {
           package = gtk4-desktop-icons-ng-ding;
-          disable = true; # !# Currently buggy
+          disable = true; # ! # Currently buggy
           settings = {
             dark-text-in-labels = false;
             show-drop-place = false;

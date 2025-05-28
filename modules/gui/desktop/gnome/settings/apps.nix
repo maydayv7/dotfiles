@@ -128,6 +128,13 @@ in
         "org.gnome.Sudoku.desktop"
         "org.gnome.Mines.desktop"
         "org.gnome.Quadrapassel.desktop"
+        "osu!.desktop"
+        "org.prismlauncher.PrismLauncher.desktop"
+        "steam.desktop"
+        "Steam Linux Runtime 1.0 (scout).desktop"
+        "Steam Linux Runtime 2.0 (soldier).desktop"
+        "Steam Linux Runtime 3.0 (sniper).desktop"
+        "Proton Hotfix.desktop"
       ];
     };
 
@@ -152,11 +159,15 @@ in
       name = "Utilities";
       apps = [
         "cups.desktop"
+        "kvantummanager.desktop"
+        "micro.desktop"
         "nixos-manual.desktop"
         "org.gnome.baobab.desktop"
         "org.gnome.Console.desktop"
         "org.gnome.Devhelp.desktop"
+        "org.gnome.dspy.desktop"
         "org.gnome.Logs.desktop"
+        "org.gnome.Sysprof.desktop"
         "org.gnome.Tour.desktop"
         "xterm.desktop"
         "yelp.desktop"
@@ -187,8 +198,9 @@ in
       apps = [
         "7zip.desktop"
         "com.usebottles.bottles.desktop"
-        "Notepad++.desktop"
         "net.lutris.Lutris.desktop"
+        "Notepad++.desktop"
+        "winetricks.desktop"
       ];
     };
 

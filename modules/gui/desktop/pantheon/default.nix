@@ -6,22 +6,25 @@
   files,
   ...
 }:
-with files;
 let
   inherit (config.gui) desktop;
   exists = app: builtins.elem app config.apps.list;
-  inherit (lib) mkIf mkMerge;
+  inherit (lib)
+    getExe
+    mkIf
+    mkMerge
+    ;
 in
 {
   ## Pantheon Desktop Configuration ##
   config = mkIf (desktop == "pantheon") (mkMerge [
-    ## Environment Setup
     {
       # Session
-      services.xserver.desktopManager.pantheon.enable = true;
-    }
+      services.xserver = {
+        enable = true;
+        desktopManager.pantheon.enable = true;
+      };
 
-    {
       # Desktop Integration
       gui = {
         gtk = {
@@ -44,28 +47,26 @@ in
         };
       };
 
+      # Color Scheme
+      stylix.base16Scheme = files.colors.elementary;
+
       # Essential Utilities
       apps.list = [ "firefox" ];
       services.pantheon.apps.enable = true;
 
       # Panel Indicators
+      environment.pathsToLink = [ "/libexec" ];
       services.xserver.desktopManager.pantheon.extraWingpanelIndicators = with pkgs; [
-        monitor
+        # monitor # ! # https://github.com/NixOS/nixpkgs/issues/408811
         wingpanel-indicator-ayatana
       ];
 
-      environment = {
-        # Panel Indicator Compatibility
-        pathsToLink = [ "/libexec" ];
-
-        # Apps
-        systemPackages = with pkgs.pantheon // pkgs; [
-          appeditor
-          gthumb
-          pantheon-tweaks
-          torrential
-        ];
-      };
+      # Apps
+      environment.systemPackages = with pkgs.pantheon // pkgs; [
+        appeditor
+        pantheon-tweaks
+        torrential
+      ];
 
       # Persisted Files
       user.persist.directories = [
@@ -74,19 +75,15 @@ in
         ".config/torrential"
         ".local/share/contractor"
         ".local/share/evolution"
+        ".local/share/Emote"
         ".local/share/io.elementary.code"
         ".local/share/io.elementary.photos"
         ".cache/evolution"
         ".cache/io.elementary.appcenter"
       ];
 
-      # Color Scheme
-      stylix.base16Scheme = colors.elementary;
-    }
-
-    ## User Configuration
-    {
       user.homeConfig = {
+        ## Desktop Settings
         imports = [ ./settings.nix ];
         stylix.targets.gnome.enable = false;
 
@@ -101,27 +98,30 @@ in
           video = [ "io.elementary.videos.desktop" ];
         };
 
-        # App Indicator Autostart
-        systemd.user.services.indicator-application-gtk3 = {
-          Unit.Description = "Application Indicator";
-          Install.wantedBy = [ "graphical-session.target" ];
-          Service = {
-            Type = "Simple";
-            ExecStart = "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
+        systemd.user.services = {
+          # App Indicator
+          indicator-application-gtk3 = {
+            Unit.Description = "Application Indicator";
+            Install.wantedBy = [ "graphical-session.target" ];
+            Service = {
+              Type = "Simple";
+              ExecStart = "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
+            };
+          };
+
+          # Emoji Picker
+          emote = {
+            Unit.Description = "Emote Emoji Picker";
+            Install.WantedBy = [ "graphical-session.target" ];
+            Service = {
+              ExecStart = "${getExe pkgs.emote}";
+              Restart = "on-failure";
+            };
           };
         };
 
         home = {
           file = {
-            # Plank Dock
-            ".config/autostart/Dock.desktop".text = plank.autostart;
-            ".local/share/plank/themes/default/dock.theme".text = plank.theme;
-            ".config/plank/dock1/launchers" = {
-              source = plank.launchers;
-              recursive = true;
-              force = true;
-            };
-
             # Firefox Elementary Theme
             ".mozilla/firefox/default/chrome/userChrome.css".source =
               "${pkgs.custom.firefox-elementary}/Windows/userChrome.css";
@@ -134,7 +134,7 @@ in
               [Desktop Entry]
               Name=IBus Daemon
               Type=Application
-              Exec=${pkgs.ibus}/bin/ibus-daemon --daemonize --desktop=pantheon --replace --xim
+              Exec=ibus-daemon --daemonize --desktop=pantheon --replace --xim
               Categories=
               Terminal=false
               NoDisplay=true
@@ -145,7 +145,7 @@ in
               [Desktop Entry]
               Name=Monitor Indicators
               Type=Application
-              Exec=/run/current-system/sw/bin/com.github.stsdc.monitor --start-in-background
+              Exec=com.github.stsdc.monitor --start-in-background
               Icon=com.github.stsdc.monitor
               Categories=
               Terminal=false
@@ -168,7 +168,7 @@ in
         };
       };
 
-      # Flatpak Apps
+      # Flatpak
       warnings = [ "Flatpak app support is enabled by default while using Pantheon Desktop" ];
       apps.list = [ "flatpak" ];
       services.flatpak = {

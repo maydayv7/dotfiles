@@ -124,13 +124,6 @@
       # Nano Text Editor
       nano = readFile ./nanorc;
 
-      # Plank Dock
-      plank = {
-        autostart = readFile ./plank/dock.desktop;
-        launchers = ./plank/launchers;
-        theme = readFile ./plank/dock.theme;
-      };
-
       # Custom Proprietary Files
       proprietary = inputs.proprietary.files;
       inherit (proprietary) wallpapers;

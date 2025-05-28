@@ -54,8 +54,8 @@ in
             };
           };
 
+          # Session
           services = {
-            # Session
             displayManager.defaultSession = "Desktop";
             xserver = {
               desktopManager.runXdgAutostartIfNone = true;

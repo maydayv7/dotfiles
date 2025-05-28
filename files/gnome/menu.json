@@ -20,7 +20,7 @@
         {
           "type": "command",
           "title": "Microphone Boost",
-          "command": "sh -c \"VALUE=$(zenity --scale --text='Select Microphone Boost value' --value=0 --min-value=0 --max-value=100 --step=5); amixer -c 1 sset 'Mic Boost' $VALUE; amixer -c 1 sset 'Internal Mic Boost' $VALUE\"",
+          "command": "sh -c \"CARD=$(arecord -l | grep card | awk '{print $3}'); VALUE=$(zenity --scale --text='Select Microphone Boost value' --value=0 --min-value=0 --max-value=100 --step=5); amixer -c $CARD sset 'Mic Boost' $VALUE\"",
           "instancing": "singleInstance",
           "icon": "microphone-symbolic",
           "killOnDisable": false

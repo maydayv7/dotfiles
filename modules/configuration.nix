@@ -29,7 +29,7 @@ let
 
   # Configuration Libraries
   inherit (inputs.nixpkgs) lib;
-  inherit (lib) fileContents makeOverridable mkIf;
+  inherit (lib) fileContents mkIf;
   inherit (builtins)
     attrValues
     hashString
@@ -74,8 +74,9 @@ in
 # Assertions
 assert (user == null) -> (users != null);
 ## Device Configuration ##
-(makeOverridable lib.nixosSystem) {
+import ((self.patchedPkgs system) + "/nixos/lib/eval-config.nix") {
   inherit system;
+
   specialArgs = {
     inherit util inputs files;
     lib = lib // {

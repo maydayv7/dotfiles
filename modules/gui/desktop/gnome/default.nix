@@ -47,6 +47,7 @@ in
         targets.gnome.enable = false;
       };
 
+      # Essential Utilities
       services = {
         udev.packages = [ pkgs.gnome-settings-daemon ];
         telepathy.enable = true;
@@ -86,64 +87,6 @@ in
       # Screen Brightness
       user.groups = [ "i2c" ];
       hardware.i2c.enable = true;
-
-      user.homeConfig = {
-        ## Desktop Settings
-        imports = [ ./settings ];
-        stylix.targets = {
-          gnome.enable = true;
-          ghostty.enable = true;
-        };
-
-        # Default Applications
-        xdg.mimeApps.defaultApplications = util.build.mime {
-          archive = [ "org.gnome.FileRoller.desktop" ];
-          audio = [ "org.gnome.Lollypop.desktop" ];
-          calendar = [ "org.gnome.Calendar.desktop" ];
-          document = [ "org.gnome.Papers.desktop" ];
-          directory = [ "org.gnome.Nautilus.desktop" ];
-          image = [ "org.gnome.Loupe.desktop" ];
-          magnet = [ "de.haeckerfelix.Fragments.desktop" ];
-          mail = [ "org.gnome.Geary.desktop" ];
-          markdown = [ "org.gnome.gitlab.somas.Apostrophe.desktop" ];
-          pdf = [ "org.gnome.Papers.desktop" ];
-          text = [ "org.gnome.TextEditor.desktop" ];
-          video = [ "io.github.celluloid_player.Celluloid.desktop" ];
-        };
-
-        ## Terminal
-        programs.ghostty = {
-          enable = true;
-          settings = {
-            # Features
-            clipboard-paste-protection = true;
-            clipboard-trim-trailing-spaces = true;
-            copy-on-select = false;
-            mouse-hide-while-typing = true;
-            quit-after-last-window-closed = true;
-            scrollback-limit = 4200;
-            shell-integration-features = true;
-            window-vsync = true;
-
-            # Keybindings
-            keybind = [
-              "ctrl+h=goto_split:left"
-              "ctrl+j=goto_split:bottom"
-              "ctrl+k=goto_split:top"
-              "ctrl+l=goto_split:right"
-              "ctrl+shift+h=new_split:left"
-              "ctrl+shift+j=new_split:down"
-              "ctrl+shift+k=new_split:up"
-              "ctrl+shift+l=new_split:right"
-              "ctrl+shift+enter=new_split:auto"
-              "ctrl+shift+i=inspector:toggle"
-              "ctrl+shift+r=reload_config"
-              "ctrl+t=new_tab"
-              "ctrl+f=write_scrollback_file:open"
-            ];
-          };
-        };
-      };
 
       ## Package List
       environment.systemPackages = with pkgs; [
@@ -207,6 +150,64 @@ in
         ".config/paperwm"
         ".local/share/clipboard"
       ];
+
+      user.homeConfig = {
+        ## Desktop Settings
+        imports = [ ./settings ];
+        stylix.targets = {
+          gnome.enable = true;
+          ghostty.enable = true;
+        };
+
+        # Default Applications
+        xdg.mimeApps.defaultApplications = util.build.mime {
+          archive = [ "org.gnome.FileRoller.desktop" ];
+          audio = [ "org.gnome.Lollypop.desktop" ];
+          calendar = [ "org.gnome.Calendar.desktop" ];
+          document = [ "org.gnome.Papers.desktop" ];
+          directory = [ "org.gnome.Nautilus.desktop" ];
+          image = [ "org.gnome.Loupe.desktop" ];
+          magnet = [ "de.haeckerfelix.Fragments.desktop" ];
+          mail = [ "org.gnome.Geary.desktop" ];
+          markdown = [ "org.gnome.gitlab.somas.Apostrophe.desktop" ];
+          pdf = [ "org.gnome.Papers.desktop" ];
+          text = [ "org.gnome.TextEditor.desktop" ];
+          video = [ "io.github.celluloid_player.Celluloid.desktop" ];
+        };
+
+        ## Terminal
+        programs.ghostty = {
+          enable = true;
+          settings = {
+            # Features
+            clipboard-paste-protection = true;
+            clipboard-trim-trailing-spaces = true;
+            copy-on-select = false;
+            mouse-hide-while-typing = true;
+            quit-after-last-window-closed = true;
+            scrollback-limit = 4200;
+            shell-integration-features = true;
+            window-vsync = true;
+
+            # Keybindings
+            keybind = [
+              "ctrl+h=goto_split:left"
+              "ctrl+j=goto_split:bottom"
+              "ctrl+k=goto_split:top"
+              "ctrl+l=goto_split:right"
+              "ctrl+shift+h=new_split:left"
+              "ctrl+shift+j=new_split:down"
+              "ctrl+shift+k=new_split:up"
+              "ctrl+shift+l=new_split:right"
+              "ctrl+shift+enter=new_split:auto"
+              "ctrl+shift+i=inspector:toggle"
+              "ctrl+shift+r=reload_config"
+              "ctrl+t=new_tab"
+              "ctrl+f=write_scrollback_file:open"
+            ];
+          };
+        };
+      };
     }
 
     ## 3rd Party Apps Configuration

@@ -20,7 +20,7 @@ in
       services.xserver = {
         displayManager.gdm = {
           banner = "Install Media";
-          autoSuspend = false; # Disable Suspension
+          autoSuspend = false;
         };
 
         desktopManager.gnome = {
@@ -68,6 +68,18 @@ in
         gnome-tour
         gnome-user-docs
       ];
+
+      # Disable suspension
+      security.polkit.extraConfig = ''
+        polkit.addRule(function(action, subject) {
+            if (action.id == "org.freedesktop.login1.suspend" ||
+                action.id == "org.freedesktop.login1.suspend-multiple-sessions" ||
+                action.id == "org.freedesktop.login1.hibernate" ||
+                action.id == "org.freedesktop.login1.hibernate-multiple-sessions") {
+              return polkit.Result.NO;
+            }
+        });
+      '';
     }
   ]);
 }

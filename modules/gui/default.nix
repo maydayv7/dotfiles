@@ -63,18 +63,11 @@ in
       };
 
       # Environment Setup
-      environment = {
-        pathsToLink = [
-          "/share/xdg-desktop-portal"
-          "/share/applications"
-        ];
-        sessionVariables = {
-          "NIXOS_OZONE_WL" = "1";
-          "QT_QPA_PLATFORM" = "wayland;xcb";
-          "GDK_BACKEND" = "wayland,x11";
-          "MOZ_ENABLE_WAYLAND" = "1";
-          "CLUTTER_BACKEND" = "wayland";
-        };
+      environment.sessionVariables = {
+        "NIXOS_OZONE_WL" = "1";
+        "QT_QPA_PLATFORM" = "wayland;xcb";
+        "MOZ_ENABLE_WAYLAND" = "1";
+        "CLUTTER_BACKEND" = "wayland";
       };
 
       xdg.portal = {

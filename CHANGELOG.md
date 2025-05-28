@@ -1,5 +1,11 @@
-- Drop `nixos-generators`
-- Drop XFCE Desktop
+## 2025
+
+### May
+
+- Update to NixOS 25.05 (Warbler)
+  - Drop XFCE Desktop
+  - Drop `nixos-generators`
+  - Build system from patched `nixpkgs`
 - Abolish versioning
 
 ---

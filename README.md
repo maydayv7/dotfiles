@@ -39,12 +39,6 @@ This [repository](https://github.com/maydayv7/dotfiles) contains the configurati
 - VS Code [Adwaita Theme](https://github.com/piousdeer/vscode-adwaita): Integrates Visual Studio Code with GNOME Desktop
 - Discord [DNOME](https://github.com/GeopJr/DNOME) Theme: Discord Theme inspired by Adwaita, designed to integrate Discord with GNOME
 
-- [Arc Theme](https://github.com/jnsh/arc-theme): Flat GTK theme with transparent elements for various desktop shells, window managers and applications
-- [Arc KDE Theme](https://github.com/PapirusDevelopmentTeam/arc-kde): Port of the Arc GTK Theme for Plasma Desktop
-- VS Code [Arc Theme](https://github.com/alvesvaren/arc-dark-vscode): Port of the Arc Dark GTK Theme for Visual Studio Code
-- Discord [Nordic](https://github.com/orblazer/discord-nordic) Theme: Discord Theme using the [Nord](<(https://www.nordtheme.com/)>) color palette
-- Logseg [Nord Theme](https://github.com/Bad3r/Logseq-Nord-Theme): Logseq in an arctic, north-bluish color palette
-
 - Firefox [Elementary Theme](https://github.com/Zonnev/elementaryos-firefox-theme): Elementary OS Theme for the Mozilla Firefox Browser, used for better desktop integration
 - VS Code [Elementary Theme](https://github.com/sixpounder/vscode-elementary-theme): Integrates Visual Studio Code with Pantheon Desktop
 - Logseq [Bonofix Theme](https://github.com/Sansui233/logseq-bonofix-theme): A clean Logseq theme with focus on long-time writing experience
@@ -161,6 +155,7 @@ github:maydayv7/dotfiles
 │       ├───install: package 'os-install'
 │       ├───nixos: package 'nixos'
 │       └───website: package 'website-stable'
+├───patchedPkgs: patched package source
 ├───systems: supported architectures
 └───templates
     └───default: template: My NixOS Configuration
@@ -494,6 +489,7 @@ _Thanks a lot! ;)_
   - [tejing1](https://github.com/tejing1/nixos-config)
   - [vlaci](https://github.com/vlaci/nixos-config)
   - [wiltaylor](https://github.com/wiltaylor/dotfiles)
+  - [wimpysworld](https://github.com/wimpysworld/nix-config)
 
 ---
 

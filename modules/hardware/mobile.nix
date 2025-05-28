@@ -21,6 +21,6 @@ in
       scrcpy
     ];
 
-    #!# Run 'systemctl restart usbmuxd.service' if it doesn't work
+    # ? # Run 'systemctl restart usbmuxd.service' if it doesn't work
   };
 }

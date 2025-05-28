@@ -33,6 +33,7 @@ in
     };
 
     security.rtkit.enable = true;
+    environment.systemPackages = [ pkgs.alsa-utils ];
     hardware.alsa.enablePersistence = true;
     services.actkbd =
       let

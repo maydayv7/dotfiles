@@ -1,4 +1,5 @@
 {
+  self,
   util,
   inputs,
   ...
@@ -24,47 +25,31 @@ in
       legacyPackages =
         with inputs;
         let
-          # Channel Configuration
-          src = nixpkgs;
+          # Package Configuration
           config = import ../modules/nix/config.nix;
-
-          # Channel Patches
-          patches = map.patches ./patches;
-          pkgs' = import src { inherit system; };
         in
-        (
-          if !(any isPath patches) then
-            import src
-          else
-            import (
-              pkgs'.applyPatches {
-                inherit src patches;
-                name = "nixpkgs-patched-${src.shortRev}";
-              }
-            )
-        )
-          {
-            inherit system config;
+        import (self.patchedPkgs system) {
+          inherit system config;
 
-            # Package Overrides
-            overlays = (attrValues self.overlays or { }) ++ [
-              (_: _: {
-                custom = self.packages."${system}";
-                unstable = import unstable { inherit system config; };
+          # Package Overrides
+          overlays = (attrValues self.overlays or { }) ++ [
+            (_: _: {
+              custom = self.packages."${system}";
+              unstable = import unstable { inherit system config; };
 
-                code = vscode.extensions."${system}";
-                gaming = gaming.packages."${system}";
-                wine = windows.packages."${system}";
-                hyprworld =
-                  hyprland.packages."${system}"
-                  // hyprplugins.packages."${system}"
-                  // hyprsplit.packages."${system}"
-                  // hyprcursors.packages."${system}"
-                  // hyprspace.packages."${system}"
-                  // hyprdark.packages."${system}";
-              })
-            ];
-          };
+              code = vscode.extensions."${system}";
+              gaming = gaming.packages."${system}";
+              wine = windows.packages."${system}";
+              hyprworld =
+                hyprland.packages."${system}"
+                // hyprplugins.packages."${system}"
+                // hyprsplit.packages."${system}"
+                // hyprcursors.packages."${system}"
+                // hyprspace.packages."${system}"
+                // hyprdark.packages."${system}";
+            })
+          ];
+        };
     }
     // (
       let
@@ -90,6 +75,24 @@ in
       }
     );
 
-  # Package Overrides
-  flake.overlays = map.modules ./overlays import;
+  flake = {
+    # Patched Source
+    patchedPkgs =
+      system:
+      let
+        src = inputs.nixpkgs;
+        patches = map.patches ./patches;
+        pkgs' = import src { inherit system; };
+      in
+      if !(any isPath patches) then
+        src
+      else
+        pkgs'.applyPatches {
+          inherit src patches;
+          name = "nixpkgs-patched-${src.shortRev}";
+        };
+
+    # Package Overrides
+    overlays = map.modules ./overlays import;
+  };
 }

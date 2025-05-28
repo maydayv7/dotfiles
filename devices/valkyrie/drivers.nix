@@ -9,10 +9,8 @@ in
 {
   services.fwupd.enable = true;
 
-  # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
-  boot.kernelParams = [
-    (mkIf (config.hardware.cpu.mode == "performance") "amdgpu.dcdebugmask=0x10")
-  ];
+  # ! # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
+  boot.kernelParams = mkIf (config.hardware.cpu.mode == "performance") [ "amdgpu.dcdebugmask=0x10" ];
 
   # Remap Keys
   services.udev.extraHwdb = ''

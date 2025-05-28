@@ -52,10 +52,7 @@
             };
             navigate = {
               forward = "tab";
-              reverse = {
-                key = "tab";
-                mod = "shift";
-              };
+              reverse.mod = "shift";
             };
           };
 
@@ -63,10 +60,7 @@
             open.modifier = "alt";
             navigate = {
               forward = "tab";
-              reverse = {
-                key = "tab";
-                mod = "shift";
-              };
+              reverse.mod = "shift";
             };
             other = {
               hide_filtered = true;

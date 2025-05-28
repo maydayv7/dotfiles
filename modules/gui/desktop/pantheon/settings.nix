@@ -13,18 +13,25 @@ in
   # Generated via nix-community/dconf2nix
   # Use 'dconf watch /' to record changes
   dconf.settings = {
-    # Desktop
-    "io/elementary/desktop/agent-geoclue2".location-enabled = true;
+    # Panel
     "io/elementary/desktop/wingpanel".use-transparency = true;
-    "io/elementary/desktop/wingpanel/a11y".show-indicator = true;
-    "io/elementary/desktop/wingpanel/datetime".clock-format = "24h";
     "io/elementary/desktop/wingpanel/sound".max-volume = 100.0;
     "io/elementary/desktop/wingpanel/power".show-percentage = true;
     "io/elementary/desktop/wingpanel/bluetooth".bluetooth-enabled = false;
-
     "io/elementary/switchboard/keyboard".first-launch = false;
-    "io/elementary/files/preferences".singleclick-select = false;
-    "io/elementary/settings-daemon/datetime".show-weeks = true;
+    "io/elementary/wingpanel/keyboard" = {
+      show-a11y = true;
+      capslock = true;
+      numlock = true;
+    };
+
+    # Desktop
+    "io/elementary/desktop/agent-geoclue2".location-enabled = true;
+    "io/elementary/settings-daemon/power".profile-plugged-in = "performance";
+    "io/elementary/notifications/applications/gala-other" = {
+      remember = true;
+      sounds = true;
+    };
 
     "org/gnome/desktop/session".idle-delay = mkUint32 900;
     "org/gnome/desktop/a11y/keyboard".togglekeys-enable = true;
@@ -47,15 +54,16 @@ in
       picture-uri-dark = picture-uri;
     };
 
-    "io/elementary/notifications/applications/gala-other" = {
-      remember = true;
-      sounds = true;
-    };
-
     "org/gnome/desktop/sound" = {
       allow-volume-above-100-percent = false;
       event-sounds = true;
       theme-name = "elementary";
+    };
+
+    "org/gnome/desktop/peripherals/touchpad" = {
+      click-method = "fingers";
+      tap-to-click = true;
+      two-finger-scrolling-enabled = true;
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -63,12 +71,6 @@ in
       sleep-inactive-ac-timeout = 0;
       sleep-inactive-ac-type = "nothing";
       sleep-inactive-battery-timeout = 1800;
-    };
-
-    "org/gnome/desktop/peripherals/touchpad" = {
-      click-method = "fingers";
-      tap-to-click = true;
-      two-finger-scrolling-enabled = true;
     };
 
     "org/gnome/settings-daemon/plugins/color" = {
@@ -82,17 +84,22 @@ in
     "io/elementary/settings-daemon/housekeeping" = {
       cleanup-downloads-folder = false;
       cleanup-screenshots-folder = false;
-      old-files-age = 30;
+      cleanup-temp-folder = true;
+      cleanup-trash-folder = true;
+      old-files-age = 7;
     };
 
     # Window Manager
-    "org/pantheon/desktop/gala/appearance".button-layout = ":minimize,maximize,close";
-    "org/gnome/desktop/wm/preferences".titlebar-font = "${head fonts.sansSerif} Bold 11";
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = ":minimize,maximize,close";
+      titlebar-font = "${head fonts.sansSerif} Bold 11";
+    };
 
-    "org/pantheon/desktop/gala/behavior" = {
+    "io/elementary/desktop/wm/behavior" = {
       hotcorner-bottomleft = "show-workspace-view";
       hotcorner-bottomright = "switch-to-workspace-next";
       hotcorner-topleft = "open-launcher";
+      move-fullscreened-workspace = true;
     };
 
     "org/gnome/mutter" = {
@@ -110,7 +117,34 @@ in
       toggle-tiled-right = [ ];
     };
 
+    # Dock
+    "io/elementary/dock" = {
+      autohide-mode = "overlapping-focus-window";
+      icon-size = 48;
+      launchers = [
+        "gala-multitaskingview.desktop"
+        "google-chrome.desktop"
+        "io.elementary.mail.desktop"
+        "io.elementary.terminal.desktop"
+        "io.elementary.files.desktop"
+        "io.elementary.code.desktop"
+        "io.elementary.settings.desktop"
+      ];
+    };
+
+    # Gestures
+    "io/elementary/desktop/wm/gestures" = {
+      three-finger-swipe-horizontal = "switch-to-workspace";
+      four-finger-swipe-horizontal = "move-to-workspace";
+      three-finger-swipe-up = "multitasking-view";
+      four-finger-swipe-up = "toggle-maximized";
+      four-finger-pinch = "zoom";
+    };
+
     # Apps
+    "io/elementary/files/preferences".singleclick-select = false;
+    "org/gtk/settings/file-chooser".sort-directories-first = true;
+
     "desktop/ibus/panel/emoji".font = "${head fonts.emoji} 16";
     "desktop/ibus/panel" = {
       show-icon-on-systray = false;
@@ -129,27 +163,12 @@ in
       indicator-temperature-state = true;
     };
 
-    "org/gnome/epiphany" = {
-      ask-for-default = false;
-      default-search-engine = "Google";
-      use-google-search-suggestions = true;
-    };
-
     "io/elementary/terminal/settings" = {
       audible-bell = false;
       follow-last-tab = "true";
       font = "${head fonts.monospace} Medium 13";
       natural-copy-paste = false;
       unsafe-paste-alert = true;
-    };
-
-    "net/launchpad/plank/docks/dock1" = {
-      current-workspace-only = true;
-      icon-size = 60;
-      pressure-reveal = true;
-      theme = "default";
-      zoom-enabled = true;
-      zoom-percent = 120;
     };
 
     "io/elementary/code/saved-state".outline-visible = true;
@@ -166,6 +185,12 @@ in
         "preserve-indent"
         "detect-indent"
       ];
+    };
+
+    "org/gnome/epiphany" = {
+      ask-for-default = false;
+      default-search-engine = "Google";
+      use-google-search-suggestions = true;
     };
 
     "com/github/hezral/clips" = {
@@ -252,14 +277,15 @@ in
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
       ];
     };
 
-    "org/pantheon/desktop/gala/keybindings" = {
+    "io/elementary/desktop/wm/keybindings" = {
       area-screenshot = [ "Print" ];
+      screenshot = [ "<Shift>Print" ];
       expose-windows = [ "" ];
       pip = [ "" ];
-      screenshot = [ "<Shift>Print" ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -286,23 +312,10 @@ in
       command = "gtk-launch com.github.hezral.clips";
     };
 
-    # Gestures
-    "org/gnome/shell/extensions/windowgestures" = {
-      fn-fullscreen = true;
-      fn-maximized-snap = true;
-      fn-move = true;
-      fn-move-snap = true;
-      fn-resize = true;
-      pinch-enable = true;
-      pinch3-in = 0;
-      pinch3-out = 0;
-      pinch4-in = 14;
-      pinch4-out = 3;
-      swipe3-down = 1;
-      swipe4-updown = 22;
-      taphold-move = true;
-      three-finger = false;
-      use-active-window = true;
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
+      name = "Emoji Picker";
+      binding = "<Super>comma";
+      command = "emote";
     };
   };
 }

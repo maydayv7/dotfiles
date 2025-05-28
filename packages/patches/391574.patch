@@ -1,0 +1,46 @@
+From 46edf58124f5835009c96673c7a5498fbad29c2b Mon Sep 17 00:00:00 2001
+From: hustlerone <nine-ball@tutanota.com>
+Date: Fri, 16 May 2025 20:31:30 +0200
+Subject: [PATCH] nixos,pkgs/kmscon: update package & modules to fix issues
+
+---
+ nixos/modules/services/ttys/kmscon.nix | 4 +++-
+ pkgs/by-name/km/kmscon/package.nix     | 6 +++---
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/nixos/modules/services/ttys/kmscon.nix b/nixos/modules/services/ttys/kmscon.nix
+index 9706a384bffebd..0ca439c69ed206 100644
+--- a/nixos/modules/services/ttys/kmscon.nix
++++ b/nixos/modules/services/ttys/kmscon.nix
+@@ -112,7 +112,9 @@ in
+       serviceConfig.ExecStart = [
+         ""
+         ''
+-          ${pkgs.kmscon}/bin/kmscon "--vt=%I" ${cfg.extraOptions} --seats=seat0 --no-switchvt --configdir ${configDir} --login -- ${pkgs.shadow}/bin/login -p ${autologinArg}
++          ${pkgs.kmscon}/bin/kmscon "--vt=%I" ${cfg.extraOptions} ${
++            lib.optionalString (!cfg.hwRender) "--no-drm"
++          } --seats=seat0 --no-switchvt --configdir ${configDir} --login -- ${pkgs.shadow}/bin/login -p ${autologinArg}
+         ''
+       ];
+ 
+diff --git a/pkgs/by-name/km/kmscon/package.nix b/pkgs/by-name/km/kmscon/package.nix
+index b0d67da025c6d1..97a88e396b9dd7 100644
+--- a/pkgs/by-name/km/kmscon/package.nix
++++ b/pkgs/by-name/km/kmscon/package.nix
+@@ -21,13 +21,13 @@
+ }:
+ stdenv.mkDerivation {
+   pname = "kmscon";
+-  version = "9.0.0-unstable-2025-01-09";
++  version = "9.0.0-unstable-2025-05-16";
+ 
+   src = fetchFromGitHub {
+     owner = "Aetf";
+     repo = "kmscon";
+-    rev = "a81941f4464e6f9cee75bfb8a1db88c253ede33d";
+-    sha256 = "sha256-l7Prt7CsYi4VCnp9xktvqqNT+4djSdO2GvP1JdxhNSI=";
++    rev = "f4d9b6bbe3e176bbaf908bf25f40335283227f99";
++    sha256 = "sha256-TY2kJfUU2DGWqqcVr2l5fETw69cmxZ5sNs/GSa8IccY=";
+   };
+ 
+   strictDeps = true;

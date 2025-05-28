@@ -20,7 +20,7 @@ in
     # TTY
     services.kmscon = {
       enable = true;
-      hwRender = true;
+      hwRender = false; # ! # https://github.com/NixOS/nixpkgs/issues/385497
       extraConfig = ''
         font-name=${font}
         font-size=14

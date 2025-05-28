@@ -68,10 +68,6 @@
         "description": "Run app by position in launcher"
       },
       {
-        "key": "; or ` in Overview",
-        "description": "Show open application windows"
-      },
-      {
         "key": "Super + ←/→",
         "description": "Switch workspaces"
       },
@@ -212,6 +208,19 @@
       {
         "key": "Alt + Print",
         "description": "Video capture desktop"
+      }
+    ]
+  },
+  {
+    "name": "Overview Actions TODO",
+    "shortcuts": [
+      {
+        "key": "; or `",
+        "description": "Show open application windows"
+      },
+      {
+        "key": "..",
+        "description": "Show system actions"
       }
     ]
   },

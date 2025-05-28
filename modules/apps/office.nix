@@ -104,6 +104,7 @@ in
         ".local/share/data"
         ".local/share/onlyoffice"
         ".local/share/whatsapp-for-linux"
+        ".cache/gimp"
         ".cache/thunderbird"
         ".cache/google-chrome"
         ".cache/whatsapp-for-linux"
