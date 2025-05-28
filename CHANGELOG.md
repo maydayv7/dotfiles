@@ -4,7 +4,7 @@
 
 - Update to NixOS 25.05 (Warbler)
   - Drop XFCE Desktop
-  - Drop `nixos-generators`
+  - Drop `nixos-generators` -> Refactor install media configuration
   - Build system from patched `nixpkgs`
 - Abolish versioning
 
