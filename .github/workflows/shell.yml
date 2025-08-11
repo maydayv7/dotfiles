@@ -13,7 +13,7 @@ jobs:
         shell: [cc, format, java, lua, python, rust, sql, video, website]
     steps:
       - name: Clone Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
