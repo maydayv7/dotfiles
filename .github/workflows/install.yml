@@ -27,7 +27,7 @@ jobs:
       - name: Build Default Install Media
         run: nix build .#nixosConfigurations.install.config.system.build.images.iso -L --show-trace
       - name: Upload ISO Image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         id: image-upload
         with:
           name: Image
