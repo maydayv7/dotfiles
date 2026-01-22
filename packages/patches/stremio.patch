@@ -1,7 +1,7 @@
 # https://github.com/NixOS/nixpkgs/pull/468728
 --- /dev/null
 +++ b/pkgs/by-name/st/stremio-linux-shell/package.nix
-@@ -0,0 +1,130 @@
+@@ -0,0 +1,135 @@
 +{
 +  lib,
 +  symlinkJoin,
@@ -15,6 +15,7 @@
 +  cef-binary,
 +  gtk3,
 +  libayatana-appindicator,
++  libxkbcommon,
 +  mpv,
 +  openssl,
 +
@@ -25,13 +26,12 @@
 +
 +  # Wrapper
 +  libGL,
-+  libxkbcommon,
 +  nodejs,
 +}:
 +
 +let
 +  # Follow upstream
-+  # https://github.com/Stremio/stremio-linux-shell/blob/v1.0.0-beta.12/flatpak/com.stremio.Stremio.Devel.json#L150
++  # https://github.com/Stremio/stremio-linux-shell/blob/v1.0.0-beta.13/flatpak/com.stremio.Stremio.Devel.json#L150
 +  cefPinned = cef-binary.override {
 +    version = "138.0.21";
 +    gitRevision = "54811fe";
@@ -54,20 +54,24 @@
 +in
 +rustPlatform.buildRustPackage (finalAttrs: {
 +  pname = "stremio-linux-shell";
-+  version = "1.0.0-beta.12";
++  version = "1.0.0-beta.13";
 +
 +  src = fetchFromGitHub {
 +    owner = "Stremio";
 +    repo = "stremio-linux-shell";
 +    tag = "v${finalAttrs.version}";
-+    hash = "sha256-NVChTlW146AAHtpeLrCEJBhWmOM7FvrSv9H/KMLJiNY=";
++    hash = "sha256-1f9IBNo5gxpSqTSIf8QuQOlf+sfRhohOmQTLRbX/OU8=";
 +  };
 +
-+  cargoHash = "sha256-3HJqzkhmKF1J3aHiw3UvgeWzLNnr3tw+/cvMyAKNvAQ=";
++  cargoHash = "sha256-wx5oF4uF9UMtKzfGxZKsy6mVjYaRD40dLuvaRtz8yE4=";
 +
 +  postPatch = ''
 +    substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
 +      --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
++    substituteInPlace $cargoDepsCopy/xkbcommon-dl-*/src/lib.rs \
++      --replace-fail "libxkbcommon.so.0" "${libxkbcommon}/lib/libxkbcommon.so.0"
++    substituteInPlace $cargoDepsCopy/xkbcommon-dl-*/src/x11.rs \
++      --replace-fail "libxkbcommon-x11.so.0" "${libxkbcommon}/lib/libxkbcommon-x11.so.0"
 +  '';
 +
 +  # Don't download CEF during build
@@ -78,6 +82,7 @@
 +    cefPath
 +    gtk3
 +    libayatana-appindicator
++    libxkbcommon
 +    mpv
 +    openssl
 +  ];
@@ -106,7 +111,7 @@
 +  preFixup = ''
 +    gappsWrapperArgs+=(
 +      --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib" \
-+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL libxkbcommon ]}" \
++      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL ]}" \
 +      --prefix PATH : "${lib.makeBinPath [ nodejs ]}"
 +    )
 +  '';
