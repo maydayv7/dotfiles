@@ -23,7 +23,7 @@ in
     hyprkeys
     hyprshade
     hyprsunset
-    pyprland
+    unstable.pyprland
     slurp
     waycorner
   ];
