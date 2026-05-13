@@ -32,7 +32,7 @@ jobs:
           cp -rL result/* site/public/
       - name: Deploy to Cloudflare
         id: deploy
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           workingDirectory: "site"
           command: deploy ${{ github.ref == 'refs/heads/stable' && '--env production' || '' }}
