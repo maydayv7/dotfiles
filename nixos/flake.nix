@@ -44,7 +44,7 @@
     # Packaged Games
     gaming = {
       url = "github:fufexan/nix-gaming";
-      inputs.flake-parts.follows = "framework";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     # Proprietary Software
@@ -53,7 +53,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Peronal Stagit Fork
+    # Personal Stagit Fork
     stagit = {
       url = "github:maydayv7/stagit";
       inputs = {
@@ -77,10 +77,13 @@
     };
 
     # Flakes Framework
-    framework = {
+    flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    # Module Tree Import Functions
+    import-tree.url = "github:denful/import-tree";
 
     # Flake Utility Functions
     utils = {
@@ -102,7 +105,7 @@
     hardware.url = "github:NixOS/nixos-hardware";
 
     # User Home Manager
-    home = {
+    home-manager = {
       url = "github:nix-community/home-manager?ref=release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -124,7 +127,7 @@
       url = "github:nix-community/impermanence";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home";
+        home-manager.follows = "home-manager";
       };
     };
 
@@ -142,7 +145,7 @@
       url = "github:FlameFlag/nixcord";
       inputs = {
         nixpkgs.follows = "unstable";
-        flake-parts.follows = "framework";
+        flake-parts.follows = "flake-parts";
       };
     };
 
@@ -168,7 +171,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
-        flake-parts.follows = "framework";
+        flake-parts.follows = "flake-parts";
       };
     };
 
@@ -226,52 +229,24 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprland.follows = "hyprland";
-        home-manager.follows = "home";
-        flake-parts.follows = "framework";
+        home-manager.follows = "home-manager";
+        flake-parts.follows = "flake-parts";
       };
     };
   };
 
   ## Configuration ##
   outputs =
-    { self, ... }@inputs:
-    let
-      inherit (inputs.nixpkgs) lib;
-      map = import ./lib/map.nix lib;
-    in
-    inputs.framework.lib.mkFlake { inherit inputs; } {
-      inherit (self) systems;
-      debug = false;
-
-      imports = map.flake ./.;
-      _module.args = {
-        util = self.lib;
-      };
-
-      flake = {
-        # Supported Architectures
-        systems = import inputs.systems;
-
-        ## Custom Library Functions ##
-        lib = lib.recursiveUpdate (map.modules ./lib (file: import file lib)) {
-          nixpkgs = lib;
-          build.device = import ./modules/configuration.nix inputs;
-        };
-
-        ## Configuration Template ##
-        templates.default = with inputs.filters.lib; {
-          description = "My NixOS Configuration";
-          path = filter {
-            root = ./.;
-            exclude = [
-              ./checks
-              ./site
-              (matchExt "md")
-              (matchExt "secret")
-            ];
-          };
-        };
-      };
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; }
+    # Auto-import all flake-parts modules from ./modules
+    {
+      imports = [
+        (inputs.import-tree ./modules)
+        ./files/_module.nix
+        ./lib/_module.nix
+        ./packages/_module.nix
+      ];
     };
 
   ## Nix Configuration ##

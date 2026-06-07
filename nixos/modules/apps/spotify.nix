@@ -1,52 +1,50 @@
+# Spotify with Spicetify customization
+## Spotify Configuration ##
+{ inputs, ... }:
 {
-  config,
-  lib,
-  inputs,
-  pkgs,
-  ...
-}:
-let
-  enable = builtins.elem "spotify" config.apps.list;
-in
-{
-  ## Spotify Configuration ##
-  config = lib.mkIf enable {
-    environment.systemPackages = with pkgs; [
-      spotify
-      spot
-      spicetify-cli
-    ];
-
-    user.homeConfig = {
-      imports = [ inputs.spicetify.homeManagerModules.default ];
-      home.persist.directories = [
-        ".config/spotify"
-        ".cache/spotify"
-        ".cache/spot"
-      ];
-
-      programs.spicetify = {
-        enable = true;
-
-        # Player Improvements
-        enabledCustomApps = with pkgs.spicetify.apps; [
-          betterLibrary
-          localFiles
-          newReleases
-        ];
-
-        enabledExtensions = with pkgs.spicetify.extensions; [
-          beautifulLyrics
-          goToSong
-          history
-          loopyLoop
-          playNext
-          popupLyrics
-          seekSong
-          showQueueDuration
-          volumePercentage
+  flake.modules = {
+    nixos.spotify =
+      { pkgs, ... }:
+      {
+        environment.systemPackages = with pkgs; [
+          spotify
+          spot
+          spicetify-cli
         ];
       };
-    };
+
+    homeManager.spotify =
+      { pkgs, ... }:
+      {
+        imports = [ inputs.spicetify.homeManagerModules.default ];
+        home.persist.directories = [
+          ".config/spotify"
+          ".cache/spotify"
+          ".cache/spot"
+        ];
+
+        programs.spicetify = {
+          enable = true;
+
+          # Player Improvements
+          enabledCustomApps = with pkgs.spicetify.apps; [
+            betterLibrary
+            localFiles
+            newReleases
+          ];
+
+          enabledExtensions = with pkgs.spicetify.extensions; [
+            beautifulLyrics
+            goToSong
+            history
+            loopyLoop
+            playNext
+            popupLyrics
+            seekSong
+            showQueueDuration
+            volumePercentage
+          ];
+        };
+      };
   };
 }

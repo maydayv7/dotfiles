@@ -1,0 +1,99 @@
+(
+  config_name: "Keyboard Aura",
+  brightness: Med,
+  current_mode: Static,
+  builtins: {
+    Static: (
+      mode: Static,
+      zone: None,
+      colour1: (
+        r: 255,
+        g: 255,
+        b: 255,
+      ),
+      colour2: (
+        r: 0,
+        g: 0,
+        b: 0,
+      ),
+      speed: Med,
+      direction: Right,
+    ),
+    Breathe: (
+      mode: Breathe,
+      zone: None,
+      colour1: (
+        r: 255,
+        g: 255,
+        b: 255,
+      ),
+      colour2: (
+        r: 0,
+        g: 0,
+        b: 0,
+      ),
+      speed: Med,
+      direction: Right,
+    ),
+    RainbowCycle: (
+      mode: RainbowCycle,
+      zone: None,
+      colour1: (
+        r: 255,
+        g: 255,
+        b: 255,
+      ),
+      colour2: (
+        r: 0,
+        g: 0,
+        b: 0,
+      ),
+      speed: Med,
+      direction: Right,
+    ),
+    RainbowWave: (
+      mode: RainbowWave,
+      zone: None,
+      colour1: (
+        r: 255,
+        g: 255,
+        b: 255,
+      ),
+      colour2: (
+        r: 0,
+        g: 0,
+        b: 0,
+      ),
+      speed: Med,
+      direction: Right,
+    ),
+    Pulse: (
+      mode: Pulse,
+      zone: None,
+      colour1: (
+        r: 255,
+        g: 255,
+        b: 255,
+      ),
+      colour2: (
+        r: 0,
+        g: 0,
+        b: 0,
+      ),
+      speed: Med,
+      direction: Right,
+    ),
+  },
+  multizone_on: false,
+  enabled: (
+    states: [
+      (
+        zone: Keyboard,
+        boot: true,
+        awake: true,
+        sleep: false,
+        shutdown: false,
+      ),
+    ],
+  ),
+)

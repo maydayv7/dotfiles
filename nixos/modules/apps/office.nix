@@ -1,94 +1,84 @@
-{
-  config,
-  lib,
-  util,
-  pkgs,
-  files,
-  ...
-}:
+## Office Environment Configuration ##
+{ config, ... }:
 let
-  enable = builtins.elem "office" config.apps.list;
+  util = config.util;
+  files = config.flake.files;
 in
 {
-  ## Office Environment Configuration ##
-  config = lib.mkIf enable {
-    environment = {
-      systemPackages = with pkgs; [
-        # Productivity
-        calibre
-        gscan2pdf
-        keepassxc
-        libreoffice
-        onlyoffice-desktopeditors
-        pdfarranger
-        simple-scan
-
-        # Graphics
-        gimp3
-        handbrake
-        inkscape
-        xournalpp
-
-        # Dictionary
-        hunspell
-        hunspellDicts.en_US-large
-        hyphen
-      ];
-
-      variables."DICPATH" = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
-      pathsToLink = [
-        "/share/hunspell"
-        "/share/myspell"
-        "/share/hyphen"
-      ];
-    };
-
-    user.homeConfig = {
-      xdg.mimeApps.defaultApplications = util.build.mime {
-        office = [ "onlyoffice-desktopeditors.desktop" ];
-        password = [ "org.keepassxc.KeePassXC.desktop" ];
-      };
-
-      # Password Manager
-      programs.keepassxc.enable = true;
-
-      home = {
-        persist = {
-          files = [ ".config/gscan2pdfrc" ];
-          directories = [
-            ".calibre"
-            ".config/calibre"
-            ".config/GIMP"
-            ".cache/gimp"
-            ".config/inkscape"
-            ".config/keepassxc"
-            ".cache/keepassxc"
-            ".config/libreoffice"
-            ".config/onlyoffice"
-            ".local/share/onlyoffice"
-            ".local/share/data"
+  flake.modules = {
+    nixos.office =
+      { pkgs, ... }:
+      {
+        environment = {
+          systemPackages = with pkgs; [
+            calibre
+            gscan2pdf
+            keepassxc
+            libreoffice
+            onlyoffice-desktopeditors
+            pdfarranger
+            simple-scan
+            gimp3
+            handbrake
+            inkscape
+            xournalpp
+            hunspell
+            hunspellDicts.en_US-large
+            hyphen
+          ];
+          variables."DICPATH" = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
+          pathsToLink = [
+            "/share/hunspell"
+            "/share/myspell"
+            "/share/hyphen"
           ];
         };
+      };
 
-        file = {
-          # Document Templates
-          "Templates" = rec {
-            source = files.templates;
-            target = ".init-templates";
-            onChange = ''
-              rm -rf ~/Templates
-              cp -rL ~/${target} ~/Templates
-              chmod -R 0777 ~/Templates
-            '';
+    homeManager.office =
+      { pkgs, ... }:
+      {
+        xdg.mimeApps.defaultApplications = util.build.mime {
+          office = [ "onlyoffice-desktopeditors.desktop" ];
+          password = [ "org.keepassxc.KeePassXC.desktop" ];
+        };
+
+        programs.keepassxc.enable = true;
+
+        home = {
+          persist = {
+            files = [ ".config/gscan2pdfrc" ];
+            directories = [
+              ".calibre"
+              ".config/calibre"
+              ".config/GIMP"
+              ".cache/gimp"
+              ".config/inkscape"
+              ".config/keepassxc"
+              ".cache/keepassxc"
+              ".config/libreoffice"
+              ".config/onlyoffice"
+              ".local/share/onlyoffice"
+              ".local/share/data"
+            ];
           };
 
-          # Font Rendering
-          ".local/share/fonts" = {
-            source = "${pkgs.custom.fonts}/share/fonts";
-            recursive = true;
+          file = {
+            "Templates" = rec {
+              source = files.templates;
+              target = ".init-templates";
+              onChange = ''
+                rm -rf ~/Templates
+                cp -rL ~/${target} ~/Templates
+                chmod -R 0777 ~/Templates
+              '';
+            };
+            ".local/share/fonts" = {
+              source = "${pkgs.custom.fonts}/share/fonts";
+              recursive = true;
+            };
           };
         };
       };
-    };
   };
 }

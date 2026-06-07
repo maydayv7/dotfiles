@@ -1,40 +1,28 @@
+# Printer and scanner support
+## Printer Firmware ##
+{ ... }:
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  enable = builtins.elem "printer" config.hardware.support;
-in
-{
-  ## Printer Firmware ##
-  config = lib.mkIf enable {
-    # Scanning
-    user.groups = [
-      "lp"
-      "scanner"
-    ];
-    hardware.sane.enable = true;
+  flake.modules.nixos.printer =
+    { pkgs, ... }:
+    {
+      hardware.sane.enable = true;
 
-    # Printing
-    services.printing = {
-      enable = true;
-      drivers = with pkgs; [
-        gutenprint
-        brlaser
-        cnijfilter2
-      ];
-      extraConf = ''
-        DefaultPaperSize A4
-      '';
-    };
+      services.printing = {
+        enable = true;
+        drivers = with pkgs; [
+          gutenprint
+          brlaser
+          cnijfilter2
+        ];
+        extraConf = ''
+          DefaultPaperSize A4
+        '';
+      };
 
-    # Network Print
-    services.avahi = {
-      enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
+      services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
+      };
     };
-  };
 }

@@ -1,25 +1,17 @@
-# ? # Run 'systemctl restart usbmuxd' if iOS doesn't work
+# Mobile device connectivity (Android, iOS)
+## Device Firmware ##
+{ ... }:
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  enable = builtins.elem "mobile" config.hardware.support;
-in
-{
-  ## Device Firmware ##
-  config = lib.mkIf enable {
-    # Android Compatibilty
-    user.groups = [ "adbusers" ];
-    programs.adb.enable = true;
+  flake.modules.nixos.mobile =
+    { pkgs, ... }:
+    {
+      programs.adb.enable = true;
+      users.groups.adbusers = { };
 
-    # iOS Compatibility
-    services.usbmuxd.enable = true;
-    environment.systemPackages = with pkgs; [
-      libimobiledevice
-      scrcpy
-    ];
-  };
+      services.usbmuxd.enable = true;
+      environment.systemPackages = with pkgs; [
+        libimobiledevice
+        scrcpy
+      ];
+    };
 }

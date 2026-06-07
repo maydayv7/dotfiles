@@ -49,7 +49,7 @@
     {
       "Id": "Anthropic.Claude",
       "Name": "Claude",
-      "Version": "1.8089.1.0",
+      "Version": "1.11187.4.0",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -112,7 +112,7 @@
     {
       "Id": "CodecGuide.K-LiteCodecPack.Full",
       "Name": "K-Lite Codec Pack Full",
-      "Version": "19.7.0",
+      "Version": "19.7.5",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -126,14 +126,14 @@
     {
       "Id": "Devolutions.UniGetUI",
       "Name": "UniGetUI",
-      "Version": "2026.1.11",
+      "Version": "2026.2.0",
       "Source": "winget",
       "ManagerName": "winget"
     },
     {
       "Id": "Discord.Discord",
       "Name": "Discord",
-      "Version": "1.0.9239",
+      "Version": "1.0.9240",
       "Source": "winget",
       "ManagerName": "winget",
       "InstallationOptions": {
@@ -143,7 +143,7 @@
     {
       "Id": "Docker.DockerDesktop",
       "Name": "Docker Desktop",
-      "Version": "4.74.0",
+      "Version": "4.76.0",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -164,7 +164,7 @@
     {
       "Id": "Figma.Figma",
       "Name": "Figma",
-      "Version": "126.4.11",
+      "Version": "126.5.6",
       "Source": "winget",
       "ManagerName": "winget",
       "InstallationOptions": {
@@ -195,14 +195,14 @@
     {
       "Id": "Google.AntigravityIDE",
       "Name": "Antigravity IDE",
-      "Version": "2.0.3",
+      "Version": "2.0.4",
       "Source": "winget",
       "ManagerName": "winget"
     },
     {
       "Id": "Google.GoogleDrive",
       "Name": "Google Drive",
-      "Version": "125.0.0.0",
+      "Version": "126.0.5.0",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -237,7 +237,7 @@
     {
       "Id": "JohnMacFarlane.Pandoc",
       "Name": "Pandoc",
-      "Version": "3.9.0.2",
+      "Version": "3.10",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -328,14 +328,14 @@
     {
       "Id": "Microsoft.Edge",
       "Name": "Microsoft Edge",
-      "Version": "148.0.3967.96",
+      "Version": "149.0.4022.52",
       "Source": "winget",
       "ManagerName": "winget"
     },
     {
       "Id": "Microsoft.Office",
       "Name": "Microsoft 365 Apps for enterprise",
-      "Version": "16.0.19929.20172",
+      "Version": "16.0.20026.20112",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -370,7 +370,7 @@
     {
       "Id": "Microsoft.Teams",
       "Name": "Microsoft Teams",
-      "Version": "26106.1911.4707.3286",
+      "Version": "26120.3106.4722.3411",
       "Source": "winget",
       "ManagerName": "winget",
       "InstallationOptions": {
@@ -432,7 +432,7 @@
     {
       "Id": "Microsoft.VisualStudioCode",
       "Name": "Microsoft Visual Studio Code",
-      "Version": "1.122.0",
+      "Version": "1.123.0",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -449,6 +449,13 @@
       "Version": "10.0.9419",
       "Source": "winget",
       "ManagerName": "winget"
+    },
+    {
+      "Id": "Microsoft.WinGet.Client",
+      "Name": "Microsoft.WinGet.Client",
+      "Version": "1.28.240",
+      "Source": "PSGallery",
+      "ManagerName": "pwsh"
     },
     {
       "Id": "Microsoft.WinGet.Client",
@@ -488,7 +495,7 @@
     {
       "Id": "Microsoft.WindowsAppRuntime.1.8",
       "Name": "Windows App Runtime 1.8",
-      "Version": "8000.859.21.0",
+      "Version": "1.8.8",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -516,7 +523,7 @@
     {
       "Id": "Mozilla.Firefox",
       "Name": "Mozilla Firefox (en-US)",
-      "Version": "151.0.2",
+      "Version": "151.0.3",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -547,7 +554,7 @@
     {
       "Id": "Notepad\u002B\u002B.Notepad\u002B\u002B",
       "Name": "Notepad\u002B\u002B",
-      "Version": "8.9.6",
+      "Version": "8.9.6.4",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -585,6 +592,13 @@
       "Version": "0.84.0.0",
       "Source": "winget",
       "ManagerName": "winget"
+    },
+    {
+      "Id": "PySocks",
+      "Name": "PySocks",
+      "Version": "1.7.1",
+      "Source": "pip",
+      "ManagerName": "pip"
     },
     {
       "Id": "Python.PythonInstallManager",
@@ -641,7 +655,7 @@
     {
       "Id": "Spotify.Spotify",
       "Name": "Spotify",
-      "Version": "1.2.89.539.gfb3c63a3",
+      "Version": "1.2.90.451.gb094aab0",
       "Source": "winget",
       "ManagerName": "winget",
       "InstallationOptions": {
@@ -763,7 +777,7 @@
     {
       "Id": "ZedIndustries.Zed",
       "Name": "Zed",
-      "Version": "1.1.7",
+      "Version": "1.4.4",
       "Source": "winget",
       "ManagerName": "winget"
     },
@@ -783,6 +797,13 @@
       "Version": "1.8.8",
       "Source": "winget",
       "ManagerName": "winget"
+    },
+    {
+      "Id": "beautifulsoup4",
+      "Name": "Beautifulsoup4",
+      "Version": "4.14.3",
+      "Source": "pip",
+      "ManagerName": "pip"
     },
     {
       "Id": "calibre.calibre",
@@ -806,11 +827,32 @@
       "ManagerName": "cargo"
     },
     {
+      "Id": "certifi",
+      "Name": "Certifi",
+      "Version": "2026.5.20",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "charset-normalizer",
+      "Name": "Charset Normalizer",
+      "Version": "3.4.7",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
       "Id": "chrisant996.Clink",
       "Name": "Clink",
       "Version": "1.9.25",
       "Source": "winget",
       "ManagerName": "winget"
+    },
+    {
+      "Id": "colorama",
+      "Name": "Colorama",
+      "Version": "0.4.6",
+      "Source": "pip",
+      "ManagerName": "pip"
     },
     {
       "Id": "dandavison.delta",
@@ -837,6 +879,41 @@
       }
     },
     {
+      "Id": "et_xmlfile",
+      "Name": "Et Xmlfile",
+      "Version": "2.0.0",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "filelock",
+      "Name": "Filelock",
+      "Version": "3.29.1",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "gdown",
+      "Name": "Gdown",
+      "Version": "6.1.0",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "getzola.zola",
+      "Name": "zola",
+      "Version": "0.22.1",
+      "Source": "winget",
+      "ManagerName": "winget"
+    },
+    {
+      "Id": "idna",
+      "Name": "Idna",
+      "Version": "3.18",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
       "Id": "lin-ycv.EverythingCmdPal3",
       "Name": "EverythingCmdPal",
       "Version": "0.2.0.0",
@@ -844,9 +921,37 @@
       "ManagerName": "winget"
     },
     {
+      "Id": "lxml",
+      "Name": "Lxml",
+      "Version": "6.1.1",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "openpyxl",
+      "Name": "Openpyxl",
+      "Version": "3.1.5",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "pillow",
+      "Name": "Pillow",
+      "Version": "12.2.0",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
       "Id": "pip",
       "Name": "Pip",
-      "Version": "26.1.1",
+      "Version": "26.1.2",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "python-pptx",
+      "Name": "Python Pptx",
+      "Version": "1.0.2",
       "Source": "pip",
       "ManagerName": "pip"
     },
@@ -858,11 +963,11 @@
       "ManagerName": "winget"
     },
     {
-      "Id": "seerge.g-helper",
-      "Name": "g-helper",
-      "Version": "0.250",
-      "Source": "winget",
-      "ManagerName": "winget"
+      "Id": "requests",
+      "Name": "Requests",
+      "Version": "2.34.2",
+      "Source": "pip",
+      "ManagerName": "pip"
     },
     {
       "Id": "sharkdp.fd",
@@ -872,11 +977,46 @@
       "ManagerName": "winget"
     },
     {
+      "Id": "soupsieve",
+      "Name": "Soupsieve",
+      "Version": "2.8.4",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "tqdm",
+      "Name": "Tqdm",
+      "Version": "4.68.1",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "typing_extensions",
+      "Name": "Typing Extensions",
+      "Version": "4.15.0",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
+      "Id": "urllib3",
+      "Name": "Urllib3",
+      "Version": "2.7.0",
+      "Source": "pip",
+      "ManagerName": "pip"
+    },
+    {
       "Id": "voidtools.Everything.Alpha",
       "Name": "Everything (Alpha)",
       "Version": "1.5.0.1409",
       "Source": "winget",
       "ManagerName": "winget"
+    },
+    {
+      "Id": "xlsxwriter",
+      "Name": "Xlsxwriter",
+      "Version": "3.2.9",
+      "Source": "pip",
+      "ManagerName": "pip"
     }
   ],
   "incompatible_packages_info": "Incompatible packages cannot be installed from UniGetUI, either because they came from a local source (for example Local PC) or because the package manager was unavailable. Nevertheless, they have been listed here for logging purposes.",
@@ -1050,9 +1190,9 @@
       "Source": "Local PC"
     },
     {
-      "Id": "MSIX\\5319275A.WhatsAppDesktop_2.2616.100.0_x64__cv1g1gvanyjgm",
+      "Id": "MSIX\\5319275A.WhatsAppDesktop_2.2620.102.0_x64__cv1g1gvanyjgm",
       "Name": "WhatsApp",
-      "Version": "2.2616.100.0",
+      "Version": "2.2620.102.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1062,9 +1202,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\DolbyLaboratories.DolbyAccess_3.27.9430.0_x64__rz1tebttyb220",
+      "Id": "MSIX\\DolbyLaboratories.DolbyAccess_3.27.10030.0_x64__rz1tebttyb220",
       "Name": "Dolby Access",
-      "Version": "3.27.9430.0",
+      "Version": "3.27.10030.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1074,9 +1214,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\DongleInsovaki.MicaForEveryone_2.0.5.0_x64__t8299cmby5bjr",
+      "Id": "MSIX\\DongleInsovaki.MicaForEveryone_2.0.6.0_x64__t8299cmby5bjr",
       "Name": "Mica For Everyone",
-      "Version": "2.0.5.0",
+      "Version": "2.0.6.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1104,9 +1244,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.GamingApp_2605.1001.13.0_x64__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.GamingApp_2605.1001.14.0_x64__8wekyb3d8bbwe",
       "Name": "Xbox",
-      "Version": "2605.1001.13.0",
+      "Version": "2605.1001.14.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1128,15 +1268,15 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.Ink.Handwriting.en-US.1.0_0.1121.1848.0_x64__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.Ink.Handwriting.en-US.1.0_0.1248.2215.0_x64__8wekyb3d8bbwe",
       "Name": "Ink.Handwriting.en-US.1.0",
-      "Version": "0.1121.1848.0",
+      "Version": "0.1248.2215.0",
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.Ink.Handwriting.en-US.1.0_0.1121.1848.0_x86__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.Ink.Handwriting.en-US.1.0_0.1248.2215.0_x86__8wekyb3d8bbwe",
       "Name": "Ink.Handwriting.en-US.1.0",
-      "Version": "0.1121.1848.0",
+      "Version": "0.1248.2215.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1164,9 +1304,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.Office.ActionsServer_16.0.19929.20172_neutral__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.Office.ActionsServer_16.0.20026.20112_neutral__8wekyb3d8bbwe",
       "Name": "Microsoft.Office.ActionsServer",
-      "Version": "16.0.19929.20172",
+      "Version": "16.0.20026.20112",
       "Source": "Microsoft Store"
     },
     {
@@ -1176,9 +1316,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.OfficePushNotificationUtility_16.0.19929.20172_neutral__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.OfficePushNotificationUtility_16.0.20026.20112_neutral__8wekyb3d8bbwe",
       "Name": "OfficePushNotificationsUtility",
-      "Version": "16.0.19929.20172",
+      "Version": "16.0.20026.20112",
       "Source": "Microsoft Store"
     },
     {
@@ -1248,9 +1388,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.StorePurchaseApp_22603.1401.2.0_x64__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.StorePurchaseApp_22604.1401.2.0_x64__8wekyb3d8bbwe",
       "Name": "Store Experience Host",
-      "Version": "22603.1401.2.0",
+      "Version": "22604.1401.2.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1260,9 +1400,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.VisualStudioCode_1.0.122.0_neutral__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.VisualStudioCode_1.0.123.0_neutral__8wekyb3d8bbwe",
       "Name": "Visual Studio Code",
-      "Version": "1.0.122.0",
+      "Version": "1.0.123.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1284,9 +1424,21 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.Windows.Photos_2026.11020.20001.0_x64__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.Windows.Photos_2026.11050.1001.0_x64__8wekyb3d8bbwe",
       "Name": "Microsoft Photos",
-      "Version": "2026.11020.20001.0",
+      "Version": "2026.11050.1001.0",
+      "Source": "Microsoft Store"
+    },
+    {
+      "Id": "MSIX\\Microsoft.WindowsAppRuntime.2_2.1.3.0_x64__8wekyb3d8bbwe",
+      "Name": "WindowsAppRuntime.2",
+      "Version": "2.1.3.0",
+      "Source": "Microsoft Store"
+    },
+    {
+      "Id": "MSIX\\Microsoft.WindowsAppRuntime.2_2.1.3.0_x86__8wekyb3d8bbwe",
+      "Name": "WindowsAppRuntime.2",
+      "Version": "2.1.3.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1308,9 +1460,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.WindowsStore_22604.1401.6.0_x64__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.WindowsStore_22604.1401.8.0_x64__8wekyb3d8bbwe",
       "Name": "Microsoft Store",
-      "Version": "22604.1401.6.0",
+      "Version": "22604.1401.8.0",
       "Source": "Microsoft Store"
     },
     {
@@ -1320,9 +1472,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\Microsoft.Winget.Source_2026.529.911.31_neutral__8wekyb3d8bbwe",
+      "Id": "MSIX\\Microsoft.Winget.Source_2026.606.1725.30_neutral__8wekyb3d8bbwe",
       "Name": "Windows Package Manager Source (winget) V2",
-      "Version": "2026.529.911.31",
+      "Version": "2026.606.1725.30",
       "Source": "Microsoft Store"
     },
     {
@@ -1410,9 +1562,9 @@
       "Source": "Microsoft Store"
     },
     {
-      "Id": "MSIX\\aimgr_0.20.47.0_x64__8wekyb3d8bbwe",
+      "Id": "MSIX\\aimgr_0.20.52.0_x64__8wekyb3d8bbwe",
       "Name": "Local AI Manager for Microsoft 365",
-      "Version": "0.20.47.0",
+      "Version": "0.20.52.0",
       "Source": "Microsoft Store"
     },
     {

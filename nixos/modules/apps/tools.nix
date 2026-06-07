@@ -1,44 +1,42 @@
-{
-  config,
-  lib,
-  util,
-  pkgs,
-  ...
-}:
+## Tools Configuration ##
+{ config, ... }:
 let
-  enable = builtins.elem "tools" config.apps.list;
+  util = config.util;
 in
 {
-  ## Tools Configuration ##
-  config = lib.mkIf enable {
-    environment.systemPackages = with pkgs; [
-      # Utilities
-      clapgrep
-      gearlever
-      popsicle
+  flake.modules = {
+    nixos.tools =
+      { pkgs, ... }:
+      {
+        environment.systemPackages = with pkgs; [
+          # Utilities
+          clapgrep
+          gearlever
+          popsicle
 
-      # Graphics
-      drawing
-      identity
-      pitivi
-      vipsdisp
+          # Graphics
+          drawing
+          identity
+          pitivi
+          vipsdisp
 
-      # Audio
-      pwvucontrol
-      qpwgraph
-    ];
+          # Audio
+          pwvucontrol
+          qpwgraph
+        ];
 
-    # Screen Record
-    programs.obs-studio = {
-      enable = true;
-      enableVirtualCamera = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        obs-mute-filter
-        obs-source-switcher
-      ];
-    };
+        # Screen Record
+        programs.obs-studio = {
+          enable = true;
+          enableVirtualCamera = true;
+          plugins = with pkgs.obs-studio-plugins; [
+            obs-mute-filter
+            obs-source-switcher
+          ];
+        };
+      };
 
-    user.homeConfig = {
+    homeManager.tools = { ... }: {
       # AppImage Manager
       dconf.settings."it/mijorus/gearlever".appimages-default-folder = "~/.appimages";
       xdg.mimeApps.defaultApplications = util.build.mime {

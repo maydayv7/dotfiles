@@ -286,6 +286,26 @@
         "type": "github"
       }
     },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778716662,
+        "narHash": "sha256-m1Yf0wZ8j1OHjTc2UwHwyQRSnNeSgLJOd7q5Y45hzi4=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "f7c1a2d347e4c52d5fb8d10cb4d94b5884e546fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flatpak": {
       "locked": {
         "lastModified": 1767983141,
@@ -322,26 +342,6 @@
         "type": "github"
       }
     },
-    "framework": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768135262,
-        "narHash": "sha256-PVvu7OqHBGWN16zSi6tEmPwwHQ4rLPU9Plvs8/1TUBY=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "80daad04eddbbf5a4d883996a73f3f542fa437ac",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "fromYaml": {
       "flake": false,
       "locked": {
@@ -361,7 +361,7 @@
     "gaming": {
       "inputs": {
         "flake-parts": [
-          "framework"
+          "flake-parts"
         ],
         "nixpkgs": "nixpkgs"
       },
@@ -458,18 +458,18 @@
         "type": "github"
       }
     },
-    "home": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1769580047,
-        "narHash": "sha256-tNqCP/+2+peAXXQ2V8RwsBkenlfWMERb+Uy6xmevyhM=",
+        "lastModified": 1779506708,
+        "narHash": "sha256-QOD/CNm196nCJRheux/URi4/HE66fthdOMqCJoPP1Y0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "366d78c2856de6ab3411c15c1cb4fb4c2bf5c826",
+        "rev": "3ee51fbdac8c8bdfe1e7e1fcaba6520a563f394f",
         "type": "github"
       },
       "original": {
@@ -1103,10 +1103,10 @@
       "inputs": {
         "crane": "crane_2",
         "flake-parts": [
-          "framework"
+          "flake-parts"
         ],
         "home-manager": [
-          "home"
+          "home-manager"
         ],
         "hyprland": [
           "hyprland"
@@ -1322,7 +1322,7 @@
     "impermanence": {
       "inputs": {
         "home-manager": [
-          "home"
+          "home-manager"
         ],
         "nixpkgs": [
           "nixpkgs"
@@ -1339,6 +1339,21 @@
       "original": {
         "owner": "nix-community",
         "repo": "impermanence",
+        "type": "github"
+      }
+    },
+    "import-tree": {
+      "locked": {
+        "lastModified": 1778781969,
+        "narHash": "sha256-Jjuz5CmSkur8KvLDoGa+vylEp+RkQtv4mt/qcMznpH0=",
+        "owner": "denful",
+        "repo": "import-tree",
+        "rev": "d321337efd0f23a9eb14a42adb7b2c29313ab274",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denful",
+        "repo": "import-tree",
         "type": "github"
       }
     },
@@ -1450,7 +1465,7 @@
       "inputs": {
         "flake-compat": "flake-compat_4",
         "flake-parts": [
-          "framework"
+          "flake-parts"
         ],
         "nixpkgs": [
           "unstable"
@@ -1584,17 +1599,18 @@
         "boot": "boot",
         "catppuccin": "catppuccin",
         "filters": "filters",
+        "flake-parts": "flake-parts",
         "flatpak": "flatpak",
         "formatter": "formatter",
-        "framework": "framework",
         "gaming": "gaming",
         "hardware": "hardware",
-        "home": "home",
+        "home-manager": "home-manager",
         "hyprcursors": "hyprcursors",
         "hyprland": "hyprland",
         "hyprshell": "hyprshell",
         "hyprsplit": "hyprsplit",
         "impermanence": "impermanence",
+        "import-tree": "import-tree",
         "index": "index",
         "minecraft": "minecraft",
         "niri": "niri",
@@ -1726,7 +1742,7 @@
         "base16-vim": "base16-vim",
         "firefox-gnome-theme": "firefox-gnome-theme",
         "flake-parts": [
-          "framework"
+          "flake-parts"
         ],
         "gnome-shell": "gnome-shell",
         "nixpkgs": [
