@@ -3,8 +3,7 @@
   pkgs,
   files,
   ...
-}:
-let
+}: let
   inherit (lib) licenses recursiveUpdate;
 
   help = ''
@@ -42,14 +41,14 @@ let
     }
   '';
 in
-recursiveUpdate
+  recursiveUpdate
   {
     meta = {
       mainProgram = "hyprutils";
       description = "Hyprland Utility Script";
       homepage = files.path.repo;
       license = licenses.gpl3Only;
-      maintainers = [ "maydayv7" ];
+      maintainers = ["maydayv7"];
     };
   }
   (

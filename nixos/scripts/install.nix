@@ -4,8 +4,7 @@
   files,
   ...
 }:
-with files.path;
-let
+with files.path; let
   inherit (lib) licenses recursiveUpdate;
 
   # File System Operations
@@ -92,14 +91,14 @@ let
     }
   '';
 in
-recursiveUpdate
+  recursiveUpdate
   {
     meta = {
       mainProgram = "os-install";
       description = "System Install Script";
       homepage = repo;
       license = licenses.gpl3Only;
-      maintainers = [ "maydayv7" ];
+      maintainers = ["maydayv7"];
     };
   }
   (

@@ -23,7 +23,3 @@ The `lib` directory contains custom-made utility functions (exposed as `util`), 
   - `flake`: Maps all subflakes stored in a directory into a list for easy import
   - `patches`: Maps all file patches stored in a directory, if available
   - `secrets`: Maps binary `sops` encrypted secrets stored in a directory
-
-- [`pack`](./pack.nix): Utility packager functions used to conveniently perform package management functions -
-  - `device`: Pack desired system derivations into individual packages
-  - `user`: Pack `self.homeConfigurations` derivations into individual packages

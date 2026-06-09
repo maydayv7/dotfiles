@@ -75,7 +75,7 @@
   "nix.serverSettings": {
     "nil": {
       "formatting": {
-        "command": ["nixfmt"]
+        "command": ["alejandra"]
       }
     }
   },

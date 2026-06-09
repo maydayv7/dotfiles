@@ -1,18 +1,16 @@
-{
+_: {
   config,
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) mkForce mkIf;
   inherit (config._shared) enable theme;
-in
-{
+in {
   ## Login Configuration
   config = mkIf enable {
     stylix.targets.regreet.enable = true;
-    environment.persist.directories = [ "/var/lib/regreet" ];
+    environment.persist.directories = ["/var/lib/regreet"];
     programs.regreet = {
       enable = true;
       package = pkgs.regreet;

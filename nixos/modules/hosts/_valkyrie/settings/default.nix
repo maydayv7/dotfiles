@@ -2,9 +2,8 @@
   config,
   lib,
   ...
-}:
-{
-  imports = [ ./network.nix ];
+}: {
+  imports = [./network.nix];
 
   # ! # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
   boot.kernelParams = lib.mkIf (config.hardware.cpu.mode == "performance") [
@@ -22,7 +21,7 @@
   };
 
   # ASUS Software
-  user.homeConfig.imports = [ ./home.nix ];
+  user.homeConfig.imports = [(import ./home.nix {sys = config;})];
   services.asusd = {
     enable = true;
     enableUserService = true;

@@ -1,15 +1,12 @@
-{
+_: {
   config,
   lib,
   ...
-}:
-let
+}: let
   inherit (config._shared) enable theme;
-in
-{
+in {
   ## Browser Configuration
   config = lib.mkIf enable {
-    apps.list = [ "firefox" ];
     user.homeConfig = {
       home.file.".mozilla/firefox/default/chrome/userChrome.css".text = ''
         #TabsToolbar {

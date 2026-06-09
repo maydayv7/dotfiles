@@ -1,37 +1,53 @@
-{ lib, config, inputs, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   options.configurations.nixos = lib.mkOption {
     type = lib.types.lazyAttrsOf (
       lib.types.submodule {
-        options.module = lib.mkOption {
-          type = lib.types.deferredModule;
+        options = {
+          module = lib.mkOption {
+            type = lib.types.deferredModule;
+          };
+          system = lib.mkOption {
+            type = lib.types.str;
+            default = "x86_64-linux";
+          };
         };
       }
     );
-    default = { };
+    default = {};
   };
 
   config.flake = {
-    nixosConfigurations = lib.mapAttrs (
-      name:
-      { module }:
-      lib.nixosSystem {
-        modules = [
-          module
-          { networking.hostName = name; }
-        ];
-      }
-    ) config.configurations.nixos;
-
-    checks =
-      lib.mkMerge (
-        lib.mapAttrsToList (
-          name: nixos: {
-            ${nixos.config.nixpkgs.hostPlatform.system} = {
-              "configurations:nixos:${name}" = nixos.config.system.build.toplevel;
-            };
+    nixosConfigurations =
+      lib.mapAttrs (
+        name: {
+          module,
+          system,
+        }:
+          lib.nixosSystem {
+            modules = [
+              module
+              {networking.hostName = name;}
+              # Use the overlaid/patched package set built by packages/_module.nix
+              {nixpkgs.pkgs = config.flake.legacyPackages.${system};}
+            ];
           }
-        ) config.flake.nixosConfigurations
-      );
+      )
+      config.configurations.nixos;
+
+    checks = lib.mkMerge (
+      lib.mapAttrsToList (
+        name: {system, ...}: {
+          ${system} = {
+            "configurations:nixos:${name}" =
+              config.flake.nixosConfigurations.${name}.config.system.build.toplevel;
+          };
+        }
+      )
+      config.configurations.nixos
+    );
   };
 }

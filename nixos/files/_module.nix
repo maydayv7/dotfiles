@@ -1,10 +1,12 @@
-{ config, inputs, lib, ... }:
-let
+{
+  config,
+  inputs,
+  ...
+}: let
   inherit (config) util;
   inherit (util) build map;
   inherit (builtins) fromJSON readFile;
-in
-{
+in {
   flake.files = rec {
     # File Paths
     path = {
@@ -71,18 +73,19 @@ in
     };
 
     # Hyprland WM
-    hyprland = {
-      shaders = ./hyprland/shaders;
-      pypr = readFile ./hyprland/pypr.toml;
-      waycorner = readFile ./hyprland/waycorner.toml;
-      kebihelp = readFile ./hyprland/kebihelp.json;
-      greeter = readFile ./hyprland/greeter.conf;
-    }
-    // map.files {
-      directory = ./hyprland/theme;
-      apply = readFile;
-      extension = ".css";
-    };
+    hyprland =
+      {
+        shaders = ./hyprland/shaders;
+        pypr = readFile ./hyprland/pypr.toml;
+        waycorner = readFile ./hyprland/waycorner.toml;
+        kebihelp = readFile ./hyprland/kebihelp.json;
+        greeter = readFile ./hyprland/greeter.conf;
+      }
+      // map.files {
+        directory = ./hyprland/theme;
+        apply = readFile;
+        extension = ".css";
+      };
 
     # Pictures
     images = map.files {
@@ -100,14 +103,15 @@ in
     nano = readFile ./nanorc;
 
     # Niri WM
-    niri = {
-      rofi = readFile ./niri/rofi.rasi;
-    }
-    // map.files {
-      directory = ./niri/theme;
-      apply = readFile;
-      extension = ".css";
-    };
+    niri =
+      {
+        rofi = readFile ./niri/rofi.rasi;
+      }
+      // map.files {
+        directory = ./niri/theme;
+        apply = readFile;
+        extension = ".css";
+      };
 
     # PcmanFM File Manager
     pcmanfm = readFile ./pcmanfm.conf;

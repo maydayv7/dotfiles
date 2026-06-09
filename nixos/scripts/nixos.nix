@@ -6,8 +6,7 @@
   files,
   ...
 }:
-with files;
-let
+with files; let
   inherit (inputs) self;
   inherit (util.map) list;
   inherit (lib) licenses recursiveUpdate;
@@ -74,14 +73,14 @@ let
     '';
   };
 in
-recursiveUpdate
+  recursiveUpdate
   {
     meta = {
       mainProgram = "nixos";
       description = "System Management Script";
       homepage = path.repo;
       license = licenses.gpl3Only;
-      maintainers = [ "maydayv7" ];
+      maintainers = ["maydayv7"];
     };
   }
   (

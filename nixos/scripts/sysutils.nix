@@ -3,8 +3,7 @@
   pkgs,
   files,
   ...
-}:
-let
+}: let
   inherit (lib) licenses recursiveUpdate;
 
   help = ''
@@ -22,14 +21,14 @@ let
         service ['name']             - Toggle SYSTEMD Service
   '';
 in
-recursiveUpdate
+  recursiveUpdate
   {
     meta = {
       mainProgram = "sysutils";
       description = "System Utility Script";
       homepage = files.path.repo;
       license = licenses.gpl3Only;
-      maintainers = [ "maydayv7" ];
+      maintainers = ["maydayv7"];
     };
   }
   (

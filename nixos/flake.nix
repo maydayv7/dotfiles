@@ -236,9 +236,8 @@
   };
 
   ## Configuration ##
-  outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; }
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;}
     # Auto-import all flake-parts modules from ./modules
     {
       imports = [

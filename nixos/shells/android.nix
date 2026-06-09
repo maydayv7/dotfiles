@@ -1,5 +1,4 @@
-pkgs:
-let
+pkgs: let
   androidEnv = pkgs.callPackage "${toString pkgs.path}/pkgs/development/mobile/androidenv" {
     inherit pkgs;
     licenseAccepted = true;
@@ -11,14 +10,14 @@ let
       cmdLineToolsVersion = "8.0";
       toolsVersion = "26.1.1";
       platformToolsVersion = "35.0.2";
-      buildToolsVersions = [ buildTools ];
+      buildToolsVersions = [buildTools];
       includeEmulator = false;
-      platformVersions = [ "35" ];
+      platformVersions = ["35"];
       includeSystemImages = false;
       includeSources = false;
-      cmakeVersions = [ "3.22.1" ];
+      cmakeVersions = ["3.22.1"];
       includeNDK = true;
-      ndkVersions = [ "27.0.12077973" ];
+      ndkVersions = ["27.0.12077973"];
       extraLicenses = [
         "android-sdk-license"
         "android-sdk-preview-license"
@@ -26,9 +25,7 @@ let
     })
     androidsdk
     ;
-
-in
-rec {
+in rec {
   name = "Android";
   packages = with pkgs; [
     jdk

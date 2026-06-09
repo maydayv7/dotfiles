@@ -1,16 +1,16 @@
 {
+  util ? null,
+  files ? null,
+  ...
+}: {
   config,
   lib,
-  util,
   pkgs,
-  files,
   ...
-}:
-let
+}: let
   inherit (lib) getExe mkIf;
   inherit (config.lib.stylix) colors;
-in
-{
+in {
   config = mkIf config._shared.enable {
     environment.systemPackages = with pkgs; [
       # Apps
@@ -38,18 +38,20 @@ in
 
       # Network Settings
       (gnome-control-center.overrideAttrs (old: {
-        postInstall = old.postInstall + ''
-          dir=$out/share/applications
-          for panel in $dir/*
-          do
-            [ "$panel" = "$dir/gnome-network-panel.desktop" ] && continue
-            [ "$panel" = "$dir/gnome-wifi-panel.desktop" ] && continue
-            [ "$panel" = "$dir/gnome-wwan-panel.desktop" ] && continue
-            [ "$panel" = "$dir/gnome-sharing-panel.desktop" ] && continue
-            [ "$panel" = "$dir/gnome-wacom-panel.desktop" ] && continue
-            rm "$panel"
-          done
-        '';
+        postInstall =
+          old.postInstall
+          + ''
+            dir=$out/share/applications
+            for panel in $dir/*
+            do
+              [ "$panel" = "$dir/gnome-network-panel.desktop" ] && continue
+              [ "$panel" = "$dir/gnome-wifi-panel.desktop" ] && continue
+              [ "$panel" = "$dir/gnome-wwan-panel.desktop" ] && continue
+              [ "$panel" = "$dir/gnome-sharing-panel.desktop" ] && continue
+              [ "$panel" = "$dir/gnome-wacom-panel.desktop" ] && continue
+              rm "$panel"
+            done
+          '';
       }))
     ];
 
@@ -69,27 +71,23 @@ in
 
     user.homeConfig = {
       xdg.mimeApps.defaultApplications = util.build.mime {
-        font = [ "com.github.FontManager.FontViewer.desktop" ];
+        font = ["com.github.FontManager.FontViewer.desktop"];
       };
 
       # Display Temperature
       home.file.".config/sunsetr".source = files.sunsetr;
 
       # Desktop Clock
-      systemd.user.services.wlclock =
-        let
-          target = [ "graphical-session.target" ];
-        in
-        {
-          Install.WantedBy = target;
-          Unit = {
-            Description = "Desktop Clock";
-            After = target;
-          };
-          Service.ExecStart =
-            with colors;
-            "${getExe pkgs.wlclock} --layer bottom --exclusive-zone true --position top-right --margin 10 --size 300 --corner-radius 10 --border-size 2 --hand-width 7 --marking-width 3 --background-colour #${base00}4d --clock-colour #${base0D} --border-colour #${base00}";
+      systemd.user.services.wlclock = let
+        target = ["graphical-session.target"];
+      in {
+        Install.WantedBy = target;
+        Unit = {
+          Description = "Desktop Clock";
+          After = target;
         };
+        Service.ExecStart = with colors; "${getExe pkgs.wlclock} --layer bottom --exclusive-zone true --position top-right --margin 10 --size 300 --corner-radius 10 --border-size 2 --hand-width 7 --marking-width 3 --background-colour #${base00}4d --clock-colour #${base0D} --border-colour #${base00}";
+      };
 
       # Network Settings
       xdg.desktopEntries."org.gnome.Settings" = {
@@ -97,7 +95,7 @@ in
         comment = "Gnome Control Center";
         icon = "org.gnome.Settings";
         exec = "env XDG_CURRENT_DESKTOP=gnome gnome-control-center";
-        categories = [ "X-Preferences" ];
+        categories = ["X-Preferences"];
         terminal = false;
       };
     };

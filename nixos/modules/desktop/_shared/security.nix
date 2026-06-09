@@ -1,13 +1,15 @@
 {
+  util ? null,
+  files ? null,
+  ...
+}: {
   config,
   lib,
-  util,
   pkgs,
-  files,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     getExe'
     mkIf
@@ -16,8 +18,7 @@ let
     ;
 
   locker = pkgs.swaylock-effects;
-in
-{
+in {
   ## Security Configuration
   options._shared.idle = mkOption {
     description = "INTERNAL: Shared Idle Configuration";
@@ -33,17 +34,13 @@ in
 
     # Idle Scripts
     _shared.idle = {
-      lock =
-        pre: flag:
-        "sh -c 'if ! ${getExe' pkgs.procps "pgrep"} -x swaylock; then ${pre} ${getExe locker} -f ${flag}; fi'";
+      lock = pre: flag: "sh -c 'if ! ${getExe' pkgs.procps "pgrep"} -x swaylock; then ${pre} ${getExe locker} -f ${flag}; fi'";
 
       pause = "${getExe pkgs.playerctl} pause -a;";
-      audio =
-        command:
-        "${pkgs.writeShellScript "audio" ''
-          ${getExe pkgs.playerctl} status | ${getExe pkgs.gnugrep} Playing
-          if [ $? == 1 ]; then ${command}; fi
-        ''}"; # Check if audio is playing
+      audio = command: "${pkgs.writeShellScript "audio" ''
+        ${getExe pkgs.playerctl} status | ${getExe pkgs.gnugrep} Playing
+        if [ $? == 1 ]; then ${command}; fi
+      ''}"; # Check if audio is playing
     };
 
     user.homeConfig = {
@@ -67,7 +64,7 @@ in
       # Idle Daemon
       services.swayidle = with _shared.idle; {
         enable = true;
-        extraArgs = [ "-w" ];
+        extraArgs = ["-w"];
         events = [
           {
             event = "before-sleep";

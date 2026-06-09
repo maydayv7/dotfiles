@@ -1,38 +1,35 @@
 ## Internet Apps Configuration ##
-{ ... }:
-{
+_: {
   flake.modules = {
-    nixos.internet =
-      { pkgs, ... }:
-      {
-        programs.chromium = {
-          enable = true;
-          extensions = [
-            "cjpalhdlnbpafiamejdnhcphjbkeiagm"
-            "djflhoibgkdhkhhcedjiklpkjnoahfmg"
-            "lckanjgmijmafbedllaakclkaicjfmnk"
-            "oofgbpoabipfcfjapgnbbjjaenockbdp"
-            "jghecgabfgfdldnmbfkhmffcabddioke"
-            "jaioibhbkffompljnnipmpkeafhpicpd"
-            "eimadpbcbfnmbkopoojfekhnkhdbieeh"
-            "clngdbkpkpeebahjckkjfobafhncgmne"
-          ];
-        };
-
-        environment.systemPackages = with pkgs; [
-          brave
-          linux-wifi-hotspot
-          openfortivpn
-          teams-for-linux
-          thunderbird
-          wasistlos
-          zoom-us
+    nixos.internet = {pkgs, ...}: {
+      programs.chromium = {
+        enable = true;
+        extensions = [
+          "cjpalhdlnbpafiamejdnhcphjbkeiagm"
+          "djflhoibgkdhkhhcedjiklpkjnoahfmg"
+          "lckanjgmijmafbedllaakclkaicjfmnk"
+          "oofgbpoabipfcfjapgnbbjjaenockbdp"
+          "jghecgabfgfdldnmbfkhmffcabddioke"
+          "jaioibhbkffompljnnipmpkeafhpicpd"
+          "eimadpbcbfnmbkopoojfekhnkhdbieeh"
+          "clngdbkpkpeebahjckkjfobafhncgmne"
         ];
       };
 
-    homeManager.internet = { ... }: {
+      environment.systemPackages = with pkgs; [
+        brave
+        linux-wifi-hotspot
+        openfortivpn
+        teams-for-linux
+        thunderbird
+        wasistlos
+        zoom-us
+      ];
+    };
+
+    homeManager.internet = _: {
       home.persist = {
-        files = [ ".config/zoomus.conf" ];
+        files = [".config/zoomus.conf"];
         directories = [
           ".config/BraveSoftware"
           ".cache/BraveSoftware"

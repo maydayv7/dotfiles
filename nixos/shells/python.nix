@@ -4,19 +4,20 @@ pkgs: {
   packages = [
     pkgs.python3
     (pkgs.python3.withPackages (
-      p: with p; [
-        pip
-        poetry-core
-        setuptools
+      p:
+        with p; [
+          pip
+          poetry-core
+          setuptools
 
-        black
-        pylint
+          black
+          pylint
 
-        ipython
-        matplotlib
-        numpy
-        pandas
-      ]
+          ipython
+          matplotlib
+          numpy
+          pandas
+        ]
     ))
   ];
 }

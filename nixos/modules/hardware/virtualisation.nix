@@ -1,46 +1,46 @@
 # Virtualisation: KVM, libvirt, VFIO
 ## Virtualisation Settings ##
-{ ... }:
-{
+_: {
   flake.modules = {
-    nixos.virtualisation =
-      { config, lib, pkgs, ... }:
-      let
-        inherit (config.hardware.cpu) model;
-      in
-      {
-        environment.persist.directories = [ "/var/lib/libvirt" ];
+    nixos.virtualisation = {
+      config,
+      pkgs,
+      ...
+    }: let
+      inherit (config.hardware.cpu) model;
+    in {
+      environment.persist.directories = ["/var/lib/libvirt"];
 
-        # Environment Setup
-        security.virtualisation.flushL1DataCache = "cond";
-        boot = {
-          kernelModules = [ "kvm-${model}" ];
-          extraModprobeConfig = "options kvm_${model} nested=1";
-        };
+      # Environment Setup
+      security.virtualisation.flushL1DataCache = "cond";
+      boot = {
+        kernelModules = ["kvm-${model}"];
+        extraModprobeConfig = "options kvm_${model} nested=1";
+      };
 
-        # VM Utilities
-        programs.virt-manager.enable = true;
-        # VM Packages
-        environment.systemPackages = [ pkgs.libguestfs ];
+      # VM Utilities
+      programs.virt-manager.enable = true;
+      # VM Packages
+      environment.systemPackages = [pkgs.libguestfs];
 
-        virtualisation = {
-          kvmgt.enable = true;
-          spiceUSBRedirection.enable = true;
-          libvirtd = {
-            enable = true;
-            onBoot = "ignore";
-            onShutdown = "shutdown";
-            qemu = {
-              package = pkgs.qemu_kvm;
-              runAsRoot = false;
-              swtpm.enable = true;
-              vhostUserPackages = [ pkgs.virtiofsd ];
-            };
+      virtualisation = {
+        kvmgt.enable = true;
+        spiceUSBRedirection.enable = true;
+        libvirtd = {
+          enable = true;
+          onBoot = "ignore";
+          onShutdown = "shutdown";
+          qemu = {
+            package = pkgs.qemu_kvm;
+            runAsRoot = false;
+            swtpm.enable = true;
+            vhostUserPackages = [pkgs.virtiofsd];
           };
         };
       };
+    };
 
-    homeManager.virtualisation = { ... }: {
+    homeManager.virtualisation = _: {
       home.persist.directories = [
         ".config/libvirt"
         ".local/share/libvirt"

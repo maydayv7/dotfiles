@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   ## VPN
   # ? # Run 'warp-cli registration new' for initial setup
   services.cloudflare-warp = {
@@ -7,12 +6,12 @@
     openFirewall = true;
   };
 
-  environment.persist.directories = [ config.services.cloudflare-warp.rootDir ];
-  user.homeConfig.home.persist.directories = [ ".local/share/cloudflare-warp-gui" ];
+  environment.persist.directories = [config.services.cloudflare-warp.rootDir];
+  user.homeConfig.home.persist.directories = [".local/share/cloudflare-warp-gui"];
 
   # Development
   networking.firewall = {
-    allowedUDPPorts = [ 7777 ];
-    allowedTCPPorts = [ 7777 ];
+    allowedUDPPorts = [7777];
+    allowedTCPPorts = [7777];
   };
 }

@@ -1,10 +1,8 @@
-pkgs:
-let
+pkgs: let
   pkg = pkgs.mariadb;
-in
-{
+in {
   name = "SQL";
-  packages = [ pkg ];
+  packages = [pkg];
   shellHook = ''
     alias mysql='mysql -u root'
     MYSQL_HOME=$HOME/.mysql

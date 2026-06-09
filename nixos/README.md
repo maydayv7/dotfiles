@@ -179,8 +179,7 @@ github:maydayv7/dotfiles
 ├── checks
 ├── lib
 │   ├── build.nix
-│   ├── map.nix
-│   └── pack.nix
+│   └── map.nix
 ├── scripts
 │   ├── install.nix
 │   └── nixos.nix

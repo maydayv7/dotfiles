@@ -1,18 +1,17 @@
-{
+_: {
   config,
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkIf
     mkOption
     types
     ;
-in
-{
+in {
   ## Panel Configuration
   options._shared.panel = mkOption {
     description = "INTERNAL: Shared Panel Configuration";
@@ -27,7 +26,7 @@ in
         addCss = false;
       };
 
-      home.packages = [ pkgs.wttrbar ];
+      home.packages = [pkgs.wttrbar];
       programs.waybar = {
         enable = true;
         systemd.enable = true;
@@ -101,28 +100,26 @@ in
         on-click = "overskride";
       };
 
-      network =
-        let
-          tooltip = "Strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>";
-        in
-        {
-          format = "?";
-          format-disconnected = "󰌙";
-          format-wifi = "{icon}";
-          format-ethernet = "󰌘";
-          format-icons = [
-            "󰤯"
-            "󰤟"
-            "󰤢"
-            "󰤥"
-            "󰤨"
-          ];
-          format-linked = "󰈁";
-          tooltip-format-wifi = "Network: <big><b>{essid}</b></big>\n${tooltip}";
-          tooltip-format-ethernet = "Network: <big><b>Wired</b></big>\n${tooltip}";
-          tooltip-format-disconnected = "󰌙 Disconnected";
-          on-click = "sh -c 'env XDG_CURRENT_DESKTOP=GNOME gnome-control-center wifi'";
-        };
+      network = let
+        tooltip = "Strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nIP: <b>{ipaddr}/{cidr}</b>\nGateway: <b>{gwaddr}</b>\nNetmask: <b>{netmask}</b>";
+      in {
+        format = "?";
+        format-disconnected = "󰌙";
+        format-wifi = "{icon}";
+        format-ethernet = "󰌘";
+        format-icons = [
+          "󰤯"
+          "󰤟"
+          "󰤢"
+          "󰤥"
+          "󰤨"
+        ];
+        format-linked = "󰈁";
+        tooltip-format-wifi = "Network: <big><b>{essid}</b></big>\n${tooltip}";
+        tooltip-format-ethernet = "Network: <big><b>Wired</b></big>\n${tooltip}";
+        tooltip-format-disconnected = "󰌙 Disconnected";
+        on-click = "sh -c 'env XDG_CURRENT_DESKTOP=GNOME gnome-control-center wifi'";
+      };
 
       "group/media" = {
         modules = [

@@ -1,9 +1,7 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   map = import ./map.nix lib;
   build = import ./build.nix lib;
-in
-{
+in {
   options.util = lib.mkOption {
     type = lib.types.anything;
     readOnly = true;

@@ -1,13 +1,11 @@
-{
+_: {
   config,
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (config._shared) enable theme;
-in
-{
+in {
   ## Terminal Configuration
   config = lib.mkIf enable {
     user.homeConfig = {
@@ -16,8 +14,7 @@ in
         themeFile = with theme; "${name-alt}-${variant-alt}";
         keybindings = {
           "ctrl+c" = "copy_or_interrupt";
-          "kitty_mod+f" =
-            "launch --allow-remote-control kitty +kitten search/search.py @active-kitty-window-id";
+          "kitty_mod+f" = "launch --allow-remote-control kitty +kitten search/search.py @active-kitty-window-id";
         };
 
         settings = {

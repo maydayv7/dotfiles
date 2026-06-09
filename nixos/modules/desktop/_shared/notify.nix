@@ -1,20 +1,20 @@
 {
+  util ? null,
+  files ? null,
+  ...
+}: {
   config,
   lib,
-  util,
-  files,
   ...
-}:
-let
+}: let
   inherit (lib) mkDefault mkIf;
-in
-{
+in {
   ## Notifications Configuration
   config = mkIf config._shared.enable {
     # Phone Connect
     programs.kdeconnect.enable = true;
     user.homeConfig = {
-      home.persist.directories = [ ".config/kdeconnect" ];
+      home.persist.directories = [".config/kdeconnect"];
       services.kdeconnect = {
         enable = true;
         indicator = true;

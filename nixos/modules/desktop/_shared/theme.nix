@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
-{
+_: {
+  lib,
+  pkgs,
+  ...
+}: {
   ## Theming
   options._shared.theme = lib.mkOption {
     description = "INTERNAL: Shared Theme Configuration";
@@ -17,7 +20,7 @@
     gtk = {
       name = "${name}-${variant}-${accent}-standard";
       package = pkgs.catppuccin-gtk.override {
-        accents = [ accent ];
+        accents = [accent];
         inherit variant;
       };
     };

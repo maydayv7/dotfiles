@@ -1,6 +1,6 @@
-lib:
-let
-  inherit (builtins)
+lib: let
+  inherit
+    (builtins)
     attrNames
     attrValues
     foldl'
@@ -12,7 +12,8 @@ let
     typeOf
     ;
 
-  inherit (lib)
+  inherit
+    (lib)
     flatten
     filterAttrs
     forEach
@@ -29,59 +30,59 @@ let
 
   # Import Checks
   checkName = name: _: !(hasPrefix "_" name);
-  checkAttr =
-    name:
-    let
-      type = typeOf (import name);
-    in
+  checkAttr = name: let
+    type = typeOf (import name);
+  in
     type == "set" || type == "lambda";
-in
-rec {
+in rec {
   ## Mapping Functions ##
-  array = list: func: forEach list (name: getAttrFromPath [ name ] func);
+  array = list: func: forEach list (name: getAttrFromPath [name] func);
   list = func: foldl' (x: y: x + y + " ") "" (attrNames func);
-  filter =
-    name: func: attrs:
+  filter = name: func: attrs:
     filterAttrs (_: type: type != null) (mapAttrs' func (filterAttrs name attrs));
 
   ## Files Map
-  files =
-    {
-      directory,
-      recursive ? false,
-      apply ? id,
-      extension,
-      check ? (_: true),
-    }:
+  files = {
+    directory,
+    recursive ? false,
+    apply ? id,
+    extension,
+    check ? (_: true),
+  }:
     filter checkName (
-      name: type:
-      let
+      name: type: let
         path = "${toString directory}/${name}";
       in
-      if (type == "directory" || type == "symlink") && recursive then
-        nameValuePair name (files {
-          inherit path apply;
-        })
-      else if
-        (type == "directory" || type == "symlink")
-        && (if (extension == ".nix") then pathExists "${path}/default.nix" else true)
-      then
-        nameValuePair name (apply path)
-      else if
-        type == "regular"
-        && (if (extension == ".nix") then name != "default.nix" && name != "flake.nix" else true)
-        && hasSuffix extension name
-        && (check path)
-      then
-        nameValuePair (removeSuffix extension name) (apply path)
-      else
-        nameValuePair "" null
+        if (type == "directory" || type == "symlink") && recursive
+        then
+          nameValuePair name (files {
+            inherit path apply;
+          })
+        else if
+          (type == "directory" || type == "symlink")
+          && (
+            if (extension == ".nix")
+            then pathExists "${path}/default.nix"
+            else true
+          )
+        then nameValuePair name (apply path)
+        else if
+          type
+          == "regular"
+          && (
+            if (extension == ".nix")
+            then name != "default.nix" && name != "flake.nix"
+            else true
+          )
+          && hasSuffix extension name
+          && (check path)
+        then nameValuePair (removeSuffix extension name) (apply path)
+        else nameValuePair "" null
     ) (readDir directory);
 
   # Module Imports
   modules = {
-    __functor =
-      _: directory: apply:
+    __functor = _: directory: apply:
       files {
         inherit directory apply;
         extension = ".nix";
@@ -93,69 +94,62 @@ rec {
   };
 
   # Flake Imports
-  flake =
-    directory:
+  flake = directory:
     attrValues (
       filter checkName (
-        name: type:
-        let
+        name: type: let
           path = "${toString directory}/${name}";
         in
-        if (type == "directory" || type == "symlink") && (pathExists "${path}/flake.nix") then
-          nameValuePair name "${path}/flake.nix"
-        else
-          nameValuePair "" null
+          if (type == "directory" || type == "symlink") && (pathExists "${path}/flake.nix")
+          then nameValuePair name "${path}/flake.nix"
+          else nameValuePair "" null
       ) (readDir directory)
     );
 
   # Configuration Folder Creation
-  folder =
-    {
-      directory,
-      path,
-      extension ? "",
-      apply,
-      replace ? {
-        placeholders = { };
-        values = { };
-      },
-    }:
+  folder = {
+    directory,
+    path,
+    extension ? "",
+    apply,
+    replace ? {
+      placeholders = {};
+      values = {};
+    },
+  }:
     mapAttrs' (name: value: nameValuePair "${path}/${name}${extension}" (apply value)) (files {
       inherit directory extension;
       apply = file: with replace; replaceStrings placeholders values (readFile file);
     });
 
   # Package Patches
-  patches =
-    patch:
-    if isPath patch then
+  patches = patch:
+    if isPath patch
+    then
       flatten (
         mapAttrsToList (
           name: type:
-          if type == "regular" && (hasSuffix ".diff" name || hasSuffix ".patch" name) then
-            patch + "/${name}"
-          else
-            null
+            if type == "regular" && (hasSuffix ".diff" name || hasSuffix ".patch" name)
+            then patch + "/${name}"
+            else null
         ) (readDir patch)
       )
-    else
-      patch;
+    else patch;
 
   # 'sops' Encrypted Secrets
-  secrets =
-    {
-      directory,
-      neededForUsers ? false,
-    }:
+  secrets = {
+    directory,
+    neededForUsers ? false,
+  }:
     filter checkName (
       name: type:
-      if type == "regular" && hasSuffix ".secret" name then
-        nameValuePair name {
-          sopsFile = directory + "/${name}";
-          format = "binary";
-          inherit neededForUsers;
-        }
-      else
-        nameValuePair "" null
+        if type == "regular" && hasSuffix ".secret" name
+        then
+          nameValuePair name {
+            sopsFile = directory + "/${name}";
+            format = "binary";
+            inherit neededForUsers;
+          }
+        else nameValuePair "" null
     ) (readDir directory);
 }

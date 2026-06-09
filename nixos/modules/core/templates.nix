@@ -1,6 +1,5 @@
 # Flake template
-{ inputs, ... }:
-{
+{inputs, ...}: {
   flake.templates.default = with inputs.filters.lib; {
     description = "My NixOS Configuration";
     path = filter {

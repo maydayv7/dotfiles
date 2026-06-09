@@ -1,63 +1,61 @@
 ## Flatpak Configuration ##
-{ config, inputs, ... }:
-let
-  files = config.flake.files;
-in
-{
+{inputs, ...}: {
   flake.modules = {
-    nixos.flatpak =
-      { config, lib, pkgs, ... }:
-      {
-        imports = [ inputs.flatpak.nixosModules.nix-flatpak ];
+    nixos.flatpak = {
+      config,
+      pkgs,
+      ...
+    }: {
+      imports = [inputs.flatpak.nixosModules.nix-flatpak];
 
-        xdg.portal.enable = true;
-        system.activationScripts.updateDesktopDatabase.text = "${pkgs.desktop-file-utils}/bin/update-desktop-database /var/lib/flatpak/exports/share/applications";
+      xdg.portal.enable = true;
+      system.activationScripts.updateDesktopDatabase.text = "${pkgs.desktop-file-utils}/bin/update-desktop-database /var/lib/flatpak/exports/share/applications";
 
-        environment.persist.directories = [ "/var/lib/flatpak" ];
+      environment.persist.directories = ["/var/lib/flatpak"];
 
-        services.flatpak = {
-          enable = true;
-          uninstallUnmanaged = true;
+      services.flatpak = {
+        enable = true;
+        uninstallUnmanaged = true;
 
-          remotes = [
-            {
-              name = "flathub";
-              location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-            }
-            {
-              name = "flathub-beta";
-              location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
-            }
-          ];
+        remotes = [
+          {
+            name = "flathub";
+            location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+          }
+          {
+            name = "flathub-beta";
+            location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
+          }
+        ];
 
-          packages = [ ];
+        packages = [];
 
-          overrides.global = {
-            Context = {
-              filesystems = [
-                "~/.config/dconf:ro"
-                "/run/current-system/sw/share/themes:ro"
-              ];
-              sockets = [
-                "wayland"
-                "!x11"
-                "fallback-x11"
-              ];
-            };
-            Environment = {
-              "DCONF_USER_CONFIG_DIR" = ".config/dconf";
-              "GTK_THEME" = config.gui.gtk.theme.name or "";
-            };
+        overrides.global = {
+          Context = {
+            filesystems = [
+              "~/.config/dconf:ro"
+              "/run/current-system/sw/share/themes:ro"
+            ];
+            sockets = [
+              "wayland"
+              "!x11"
+              "fallback-x11"
+            ];
           };
-
-          update = {
-            onActivation = false;
-            auto.enable = false;
+          Environment = {
+            "DCONF_USER_CONFIG_DIR" = ".config/dconf";
+            "GTK_THEME" = config.gui.gtk.theme.name or "";
           };
         };
-      };
 
-    homeManager.flatpak = { ... }: {
+        update = {
+          onActivation = false;
+          auto.enable = false;
+        };
+      };
+    };
+
+    homeManager.flatpak = _: {
       home.persist.directories = [
         ".cache/flatpak"
         ".local/share/flatpak"

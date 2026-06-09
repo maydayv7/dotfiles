@@ -1,5 +1,5 @@
 {
-  appimage = [ "application/x-executable" ];
+  appimage = ["application/x-executable"];
 
   archive = [
     "application/x-7z-compressed"
@@ -101,7 +101,7 @@
     "text/x-yaml"
   ];
 
-  directory = [ "inode/directory" ];
+  directory = ["inode/directory"];
 
   document = [
     "application/illustrator"
@@ -172,13 +172,13 @@
     "image/x-tga"
   ];
 
-  latex = [ "text/x-tex" ];
+  latex = ["text/x-tex"];
 
-  magnet = [ "x-scheme-handler/magnet" ];
+  magnet = ["x-scheme-handler/magnet"];
 
-  mail = [ "x-scheme-handler/mailto" ];
+  mail = ["x-scheme-handler/mailto"];
 
-  markdown = [ "text/markdown" ];
+  markdown = ["text/markdown"];
 
   office = [
     "application/rtf"
@@ -198,7 +198,7 @@
     "application/x-keepass"
   ];
 
-  pdf = [ "application/pdf" ];
+  pdf = ["application/pdf"];
 
   text = [
     "text/plain"

@@ -1,19 +1,16 @@
-{
+{files ? null, ...}: {
   config,
   lib,
   pkgs,
-  files,
   ...
-}:
-let
+}: let
   inherit (config._shared) enable theme;
   inherit (theme) icons gtk qt;
-in
-{
+in {
   ## Desktop Integration
   config = lib.mkIf enable {
     stylix.base16Scheme = files.colors.catppuccin;
-    environment.systemPackages = [ pkgs.custom.cursors ];
+    environment.systemPackages = [pkgs.custom.cursors];
     gui = {
       inherit icons;
 

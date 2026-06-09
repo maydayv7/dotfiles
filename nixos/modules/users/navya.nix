@@ -1,7 +1,6 @@
 # User Navya's configuration
-{ ... }:
-{
-  flake.modules.homeManager.navya = { ... }: {
+_: {
+  flake.modules.homeManager.navya = _: {
     # Minimal user - no additional config
   };
 }

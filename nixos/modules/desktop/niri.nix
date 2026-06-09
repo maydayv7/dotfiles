@@ -1,52 +1,22 @@
-# Niri window manager
-{ config, inputs, ... }:
-let
-  files = config.flake.files;
-in
+# Niri scrollable-tiling window manager
 {
+  config,
+  inputs,
+  ...
+}: let
+  inherit (config.flake) files;
+  inherit (config) util;
+in {
   flake.modules = {
-    nixos.niri = nixosArgs: let
-      inherit (nixosArgs) config lib pkgs;
-      inherit (lib) mkIf mkMerge;
-    in {
+    nixos.niri = {
       imports = [
-        inputs.niri.nixosModules.niri
-        ./_shared
+        ./_base.nix
+        (import ./_niri/main.nix {inherit util files inputs;})
       ];
-
-      config = mkIf (config.gui.desktop or "" == "niri") (mkMerge [
-        {
-          gui.fonts.enable = true;
-          services = {
-            gvfs.enable = true;
-            gnome.gnome-keyring.enable = true;
-          };
-          programs = {
-            xwayland.enable = true;
-            seahorse.enable = true;
-            niri = {
-              enable = true;
-              package = pkgs.niri-unstable;
-            };
-          };
-          environment.sessionVariables = {
-            "NIXOS_OZONE_WL" = "1";
-            "QT_QPA_PLATFORM" = "wayland;xcb";
-            "MOZ_ENABLE_WAYLAND" = "1";
-            "CLUTTER_BACKEND" = "wayland";
-          };
-          xdg.portal = {
-            enable = true;
-            xdgOpenUsePortal = true;
-            wlr.enable = true;
-          };
-        }
-      ]);
     };
 
-    homeManager.niri = hmArgs: let
-      inherit (hmArgs) config lib pkgs;
-    in {
+    # Shared home-manager basics (also used by standalone configurations)
+    homeManager.niri = _: {
       services = {
         poweralertd.enable = true;
         mpris-proxy.enable = true;

@@ -1,57 +1,140 @@
 # User management and home-manager integration
 ## USER Configuration ##
-{ config, inputs, ... }:
-let
-  files = config.flake.files;
-  util = config.util;
-in
 {
+  config,
+  inputs,
+  ...
+}: let
+  inherit (config.flake) files;
+  inherit (config) util;
+in {
   flake.modules = {
     # Shared user base config (imported into NixOS as part of home-manager setup)
-    nixos.user =
-      { config, lib, pkgs, ... }:
-      let
-        inherit (lib) mkDefault mkOption types;
-      in
-      {
-        imports = [ inputs.home-manager.nixosModules.home-manager ];
+    nixos.user = {
+      config,
+      lib,
+      ...
+    }: let
+      inherit
+        (lib)
+        getValues
+        mkIf
+        mkOption
+        mkOptionType
+        types
+        ;
 
-        config = {
-          users.mutableUsers = false;
-          users.extraUsers.root = {
-            isNormalUser = false;
-            extraGroups = [ "wheel" ];
-          };
+      # Merged Sets Type: every definition contributes a module
+      mergedAttrs = mkOptionType {
+        name = "mergedAttrs";
+        merge = _: getValues;
+      };
+    in {
+      imports = [inputs.home-manager.nixosModules.home-manager];
 
-          # Home Manager settings
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            backupFileExtension = "bak";
-            extraSpecialArgs = { }; # intentionally empty - use closures
-          };
+      # Shared User Home Configuration: collected from system modules and
+      # applied to every user via 'home-manager.sharedModules' (no specialArgs)
+      options.user.homeConfig = mkOption {
+        description = "Shared User Home Configuration";
+        type = mergedAttrs;
+        default = {};
+      };
 
-          # XDG directories
-          environment.sessionVariables = {
-            "XDG_CACHE_HOME" = "$HOME/.cache";
-            "XDG_CONFIG_HOME" = "$HOME/.config";
-            "XDG_DATA_HOME" = "$HOME/.local/share";
-            "XDG_BIN_HOME" = "$HOME/.local/bin";
-          };
+      # Additional groups added to every normal user
+      options.user.groups = mkOption {
+        description = "Additional User Groups";
+        type = types.listOf types.str;
+        default = [];
+      };
+
+      config = {
+        users.mutableUsers = false;
+        users.extraUsers.root = {
+          isNormalUser = false;
+          extraGroups = ["wheel"];
+          hashedPasswordFile =
+            mkIf (
+              config.sops.secrets ? "root.secret"
+            )
+            config.sops.secrets."root.secret".path;
+        };
+
+        # User Passwords (sops, available before user creation)
+        sops.secrets = util.map.secrets {
+          directory = ../../secrets/passwords;
+          neededForUsers = true;
+        };
+
+        # Home Manager settings
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          backupFileExtension = "bak";
+          extraSpecialArgs = {}; # intentionally empty - use closures
+          sharedModules = config.user.homeConfig;
+        };
+
+        # XDG directories
+        environment.sessionVariables = {
+          "XDG_CACHE_HOME" = "$HOME/.cache";
+          "XDG_CONFIG_HOME" = "$HOME/.config";
+          "XDG_DATA_HOME" = "$HOME/.local/share";
+          "XDG_BIN_HOME" = "$HOME/.local/bin";
+        };
+      };
+    };
+
+    # Global Home Manager Configuration
+    homeManager.user = {
+      config,
+      lib,
+      osConfig ? null,
+      ...
+    }: let
+      inherit (lib) mkIf mkOption types;
+      cfg = config.credentials;
+    in {
+      imports = [
+        # Mutable file support
+        (import ../users/_mutable.nix)
+      ];
+
+      # User Identity / Credentials
+      options.credentials = {
+        name = mkOption {
+          description = "Work User Name";
+          type = types.str;
+          default = config.home.username;
+        };
+
+        fullname = mkOption {
+          description = "Full User Name";
+          type = types.str;
+          default = "Default User";
+        };
+
+        mail = mkOption {
+          description = "User Mail ID";
+          type = types.str;
+          default = "";
+          example = "user@email.com";
+        };
+
+        key = mkOption {
+          description = "User GPG Key";
+          type = types.str;
+          default = "";
+          example = "Use 'gpg --list-signatures --keyid-format short'";
         };
       };
 
-    # Global Home Manager Configuration
-    homeManager.user =
-      { config, lib, pkgs, ... }:
-      {
-        imports = [
-          # Mutable file support
-          (import ../users/_mutable.nix)
-        ];
-
+      config = {
         # Update News
         news.display = "show";
+
+        # State version (inherited from the host system in integrated mode)
+        home.stateVersion = mkIf (osConfig != null) (lib.mkDefault osConfig.system.stateVersion);
+
         # User Services
         systemd.user = {
           enable = true;
@@ -72,20 +155,30 @@ in
         };
 
         programs.gpg = {
+          settings = mkIf (cfg.key != "") {
+            default-key = cfg.key;
+            default-recipient-self = true;
+            auto-key-locate = "local,wkd,keyserver";
+            keyserver = "hkps://keys.openpgp.org";
+            auto-key-retrieve = true;
+            auto-key-import = true;
+            keyserver-options = "honor-keyserver-url";
+          };
+
           publicKeys =
             builtins.map
-              (source: {
-                inherit source;
-                trust = "ultimate";
-              })
-              (
-                builtins.attrValues (
-                  util.map.files {
-                    directory = ../../secrets/keys;
-                    extension = ".gpg";
-                  }
-                )
-              );
+            (source: {
+              inherit source;
+              trust = "ultimate";
+            })
+            (
+              builtins.attrValues (
+                util.map.files {
+                  directory = ../../secrets/keys;
+                  extension = ".gpg";
+                }
+              )
+            );
         };
 
         xdg = {
@@ -108,5 +201,6 @@ in
           };
         };
       };
+    };
   };
 }
