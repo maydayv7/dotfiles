@@ -25,7 +25,7 @@ jobs:
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Build Zola Site
-        run: nix build ./site#website
+        run: nix build .#website
       - name: Prepare for Deployment
         run: |
           mkdir -p site/public

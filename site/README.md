@@ -1,6 +1,6 @@
 ## My Personal Website
 
-[![website](../.misc/website.png)](https://maydayv7.cc)
+[![website](../files/images/website.png)](https://maydayv7.cc)
 
 Built with [Zola](https://www.getzola.org/)  
 Deployed via [Nix](https://nixos.org/) and [Cloudflare](https://www.cloudflare.com/)  
@@ -8,7 +8,7 @@ Hosted at [maydayv7.cc](https://maydayv7.cc)
 
 ### Build
 
-You can grab all the required dependencies using `nix-shell`
+You can grab all the required dependencies using `nix develop github:maydayv7/dotfiles#website` or `nix-shell`
 
 For testing, run the following commands:
 
@@ -19,8 +19,8 @@ zola -r site serve
 
 Then click [here](http://localhost:1111)
 
-To build the website, run `nix build`.
-To override the URL, run: <pre><code>nix build --impure --expr "with import \<nixpkgs\> { }; callPackage ./site { site = <b><i>URL</i></b>; }"</code></pre>
+To build the site, run `nix build`.
+To override the URL, run: <pre><code>nix build --impure --expr "with import ../packages; callPackage ./site { site = <b><i>URL</i></b>; }"</code></pre>
 
 #### Continuous Integration
 

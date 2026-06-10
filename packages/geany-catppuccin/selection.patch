@@ -1,0 +1,11 @@
+--- a/src/catppuccin-macchiato.conf
++++ b/src/catppuccin-macchiato.conf
+@@ -46,7 +46,7 @@ error=red;yellow;false;true
+ op=blue;base;true;false
+ # Editor UI
+ #  selection: words; background
+-selection=pink;blue;false;false
++selection=;surface1;false;true
+ current_line=;surface0;true
+ brace_good=green;overlay1;true;true
+ brace_bad=red;overlay1;true;true

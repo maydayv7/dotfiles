@@ -1,9 +1,0 @@
-set autoindent
-set indicator
-set linenumbers
-set locking
-set matchbrackets "(<[{)>]}"
-set minibar
-set mouse
-set nonewlines
-set smarthome
