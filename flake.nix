@@ -245,6 +245,7 @@
         ./files/_module.nix
         ./lib/_module.nix
         ./packages/_module.nix
+        ./site/_module.nix
       ];
     };
 

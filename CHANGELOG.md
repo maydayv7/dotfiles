@@ -1,5 +1,24 @@
 ## 2026
 
+### June
+
+- Refactor NixOS Configuration to use [dendritic](https://github.com/mightyiam/dendritic) pattern
+- Switch back formatter to `alejandra`
+- Switch back to NixOS (Yay!)
+- Create website favicon
+- Update website to use Zola v0.22
+  - Fix search and anchor links
+  - Update syntax highlighting and lazy-load images
+  - Support GitHub alerts
+
+### April
+
+- More Windows Configuration
+  - Windhawk
+  - Powertoys
+  - AutoHotKey Scripts
+  - WSL
+
 ### March
 
 - Move to Windows

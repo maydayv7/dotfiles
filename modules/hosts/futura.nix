@@ -101,8 +101,6 @@ in {
         enable = true;
         user = "navya";
       };
-
-      system.stateVersion = "25.11";
     };
   };
 
@@ -117,7 +115,6 @@ in {
       home = {
         username = "navya";
         homeDirectory = "/home/navya";
-        stateVersion = "25.11";
       };
     };
     system = "x86_64-linux";

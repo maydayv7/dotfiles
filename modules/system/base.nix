@@ -55,6 +55,9 @@
       };
 
       config = {
+        # System version (inherited from the nixpkgs release)
+        system.stateVersion = lib.mkDefault lib.trivial.release;
+
         # AppImage Support
         programs.appimage = {
           enable = true;
@@ -192,7 +195,10 @@
       };
     };
 
-    homeManager.base = _: {
+    homeManager.base = {lib, ...}: {
+      # State version (inherited from the nixpkgs release)
+      home.stateVersion = lib.mkDefault lib.trivial.release;
+
       home.persist.directories = [
         {
           directory = ".gnupg";

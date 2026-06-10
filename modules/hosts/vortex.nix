@@ -126,8 +126,6 @@ in {
           homeManager.v7
           homeManager.hyprland
         ];
-
-      system.stateVersion = "25.11";
     };
   };
 
@@ -142,7 +140,6 @@ in {
       home = {
         username = "v7";
         homeDirectory = "/home/v7";
-        stateVersion = "25.11";
       };
     };
     system = "x86_64-linux";

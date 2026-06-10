@@ -1,7 +1,4 @@
-{
-  pkgs ? import ../.,
-  ...
-}:
+{pkgs ? import ../., ...}:
 pkgs.mkShell {
   name = "Website";
   packages = with pkgs; [

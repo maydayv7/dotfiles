@@ -4,26 +4,25 @@
   site ? "https://git.maydayv7.cc",
   sitename ? "maydayv7",
   test ? false,
-}:
-let
+}: let
   inherit (lib) concatMapStrings licenses recursiveUpdate;
   theme = import ./theme.nix pkgs;
 
   buildCommands =
-    if test then
-      ''build_repo test "A long description just for testing" Me "$(pwd)"''
+    if test
+    then ''build_repo test "A long description just for testing" Me "$(pwd)"''
     else
       concatMapStrings (repo: ''
         build_repo "${repo.name}" "${repo.description}" "${repo.owner}" "${repo.url}"
       '') (import ./repos.nix);
 in
-recursiveUpdate
+  recursiveUpdate
   {
     meta = {
       mainProgram = "build-stagit";
       description = "Build 'git' frontend site";
       license = licenses.gpl3Only;
-      maintainers = [ "maydayv7" ];
+      maintainers = ["maydayv7"];
     };
   }
   (
@@ -36,7 +35,6 @@ recursiveUpdate
       ];
 
       text = ''
-
         set -e
         echo "Building Site..."
 

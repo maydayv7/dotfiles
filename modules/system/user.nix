@@ -88,7 +88,6 @@ in {
     homeManager.user = {
       config,
       lib,
-      osConfig ? null,
       ...
     }: let
       inherit (lib) mkIf mkOption types;
@@ -131,9 +130,6 @@ in {
       config = {
         # Update News
         news.display = "show";
-
-        # State version (inherited from the host system in integrated mode)
-        home.stateVersion = mkIf (osConfig != null) (lib.mkDefault osConfig.system.stateVersion);
 
         # User Services
         systemd.user = {

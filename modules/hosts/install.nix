@@ -59,15 +59,13 @@ in {
         extraGroups = ["wheel"];
         initialHashedPassword = lib.fileContents ../../secrets/passwords/default;
       };
-      home-manager.users.nixos.home.stateVersion = "25.11";
+      home-manager.users.nixos.home.stateVersion = lib.trivial.release;
 
       # Automatic login
       services.displayManager.autoLogin = {
         enable = true;
         user = "nixos";
       };
-
-      system.stateVersion = "25.11";
     };
   };
 }
