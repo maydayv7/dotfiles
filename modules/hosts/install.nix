@@ -18,8 +18,6 @@ in {
         nixos.user
         nixos.secrets
         nixos.theme
-        nixos.qt
-        nixos.gtk
         nixos.fonts
 
         # ISO image definition
@@ -42,7 +40,6 @@ in {
         )
       ];
 
-      gui.desktop = "install";
       base.kernel = "lts";
       boot.loader.grub.device = lib.mkDefault "nodev";
 

@@ -17,10 +17,13 @@
     homeManager.laptop
     homeManager.virtualisation
     homeManager.theme
+    homeManager.gtk
     homeManager.discord
     homeManager.firefox
     homeManager.flatpak
     homeManager.games
+    homeManager.osu
+    homeManager.minecraft
     homeManager.git
     homeManager.internet
     homeManager.office
@@ -85,10 +88,10 @@ in {
           nixos.vscode
           nixos.wine
           nixos.youtube
-          
+
           # Desktop
           nixos.hyprland
-          
+
           # Device-specific imports
           ./_valkyrie/settings
           ./_valkyrie/minecraft.nix
@@ -142,7 +145,6 @@ in {
 
       # GUI
       gui = {
-        desktop = "hyprland";
         display = "eDP-1";
         wallpaper = "Quasar";
         fancy = true;
@@ -159,21 +161,21 @@ in {
         group = "users";
         shell = pkgs.zsh;
         hashedPasswordFile = config.sops.secrets."v7.secret".path;
-        extraGroups =
-          [
-            "wheel"
-            "keys"
-            "systemd-journal"
-            "minecraft"
-            "networkmanager"
-            "adbusers"
-            "lp"
-            "scanner"
-            "kvm"
-            "libvirtd"
-            "i2c"
-          ]
-          ++ config.user.groups;
+        extraGroups = [
+          "wheel"
+          "keys"
+          "systemd-journal"
+          "minecraft"
+          "networkmanager"
+          "adbusers"
+          "lp"
+          "scanner"
+          "kvm"
+          "libvirtd"
+          "i2c"
+          "input"
+          "video"
+        ];
       };
 
       home-manager.users.v7.imports =
@@ -181,6 +183,7 @@ in {
         ++ [
           homeManager.v7
           homeManager.hyprland
+          ./_valkyrie/settings/home.nix
         ];
     };
   };
@@ -192,6 +195,7 @@ in {
         ++ [
           homeManager.v7
           homeManager.hyprland
+          ./_valkyrie/settings/home.nix
         ];
       home = {
         username = "v7";

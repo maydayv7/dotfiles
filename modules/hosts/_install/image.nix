@@ -11,6 +11,5 @@
   };
 
   # Disabled Modules
-  user.homeConfig = lib.mkForce {};
   sops.secrets = lib.mkForce {};
 }

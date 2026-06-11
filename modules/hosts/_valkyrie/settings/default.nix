@@ -21,7 +21,6 @@
   };
 
   # ASUS Software
-  user.homeConfig.imports = [(import ./home.nix {sys = config;})];
   services.asusd = {
     enable = true;
     enableUserService = true;

@@ -1,11 +1,11 @@
+# Application launcher (hyprshell)
 {
   util ? null,
   files ? null,
   inputs ? null,
   ...
-}: {config, ...}: {
-  ## Launcher Configuration
-  user.homeConfig = {
+}: {
+  home = {config, ...}: {
     imports = [inputs.hyprshell.homeModules.default];
     home.persist.directories = [
       ".local/share/hyprshell"

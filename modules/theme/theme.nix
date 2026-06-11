@@ -21,29 +21,18 @@ in {
         types
         ;
       cfg = config.gui;
-      enable = cfg.desktop or "" != "" && cfg.desktop or "" != "install";
+      inherit (config.gui) enable;
     in {
       imports = [inputs.stylix.nixosModules.stylix];
 
       options.gui = {
+        enable = lib.mkEnableOption "Graphical Desktop Session";
         fancy = lib.mkEnableOption "Enable Fancy GUI Effects";
         display = mkOption {
           description = "Main GUI Display";
           type = types.str;
           default = "eDP-1";
           example = "HDMI-A-1";
-        };
-        desktop = mkOption {
-          description = "GUI Desktop Choice";
-          type = types.enum [
-            ""
-            "install"
-            "gnome"
-            "hyprland"
-            "niri"
-            "pantheon"
-          ];
-          default = "";
         };
 
         icons = {
@@ -119,34 +108,51 @@ in {
     };
 
     homeManager.theme = {lib, ...}: {
-      home.persist.directories = [
-        ".config/dconf"
-        ".config/gtk-3.0"
-        ".config/gtk-4.0"
-      ];
-
-      stylix = {
-        enable = lib.mkDefault true;
-        icons = lib.mkForce {
-          enable = true;
-          light = "Papirus-Dark";
-          dark = "Papirus-Dark";
+      # App theme conduits (set by the active desktop, read by app modules)
+      options.apps = {
+        logseq.style = lib.mkOption {
+          description = "Logseq Notes CSS";
+          type = lib.types.str;
+          default = "";
         };
-        targets = {
-          firefox.enable = false;
-          gtk.enable = false;
-          gnome.enable = lib.mkDefault false;
-          spicetify.enable = false;
-          vscode.enable = false;
+
+        ytmusic.style = lib.mkOption {
+          description = "YouTube Music CSS";
+          type = lib.types.str;
+          default = "";
         };
       };
 
-      # Theming
-      dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-      gtk = {
-        enable = true;
-        gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-        gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+      config = {
+        home.persist.directories = [
+          ".config/dconf"
+          ".config/gtk-3.0"
+          ".config/gtk-4.0"
+        ];
+
+        stylix = {
+          enable = lib.mkDefault true;
+          icons = lib.mkForce {
+            enable = true;
+            light = "Papirus-Dark";
+            dark = "Papirus-Dark";
+          };
+          targets = {
+            firefox.enable = false;
+            gtk.enable = false;
+            gnome.enable = lib.mkDefault false;
+            spicetify.enable = false;
+            vscode.enable = false;
+          };
+        };
+
+        # Theming
+        dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+        gtk = {
+          enable = true;
+          gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+          gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+        };
       };
     };
   };

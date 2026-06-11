@@ -190,15 +190,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ## Niri
-    niri = {
-      url = "github:maydayv7/niri-flake";
-      inputs = {
-        nixpkgs.follows = "unstable";
-        nixpkgs-stable.follows = "stable";
-      };
-    };
-
     ## Hyprland
     # Core
     hyprland = {
@@ -262,7 +253,6 @@
       "https://cache.flox.dev"
       "https://nix-gaming.cachix.org"
       "https://hyprland.cachix.org"
-      "https://niri.cachix.org"
       "https://catppuccin.cachix.org"
     ];
 
@@ -275,7 +265,6 @@
       "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
       "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
     ];
   };

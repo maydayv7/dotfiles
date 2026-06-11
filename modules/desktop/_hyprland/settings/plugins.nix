@@ -1,8 +1,11 @@
-{sys ? null, ...}: {
+_: {
   config,
+  lib,
   pkgs,
+  osConfig ? null,
   ...
-}: {
+}:
+lib.mkIf (osConfig != null) {
   ## Plugin Settings
   wayland.windowManager.hyprland = {
     plugins = with pkgs.hyprworld; [
@@ -27,7 +30,7 @@
             ipc = false;
           };
           mode =
-            if sys.gui.fancy
+            if osConfig.gui.fancy
             then "tilt"
             else "none";
           tilt.function = "negative_quadratic";
@@ -37,7 +40,7 @@
         hyprexpo = {
           columns = 3;
           workspace_method = "first 1";
-          bg_col = "rgb(${sys.lib.stylix.colors.base00})";
+          bg_col = "rgb(${osConfig.lib.stylix.colors.base00})";
           gap_size = builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_in;
         };
       };

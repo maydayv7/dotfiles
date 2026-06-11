@@ -11,17 +11,13 @@ in {
     homeManager.notes = {
       config,
       lib,
-      osConfig ? null,
       ...
     }: let
       mutable = {
         mutable = true;
         force = true;
       };
-      style =
-        if osConfig != null
-        then osConfig.apps.logseq.style
-        else "";
+      inherit (config.apps.logseq) style;
     in {
       home = {
         persist.directories = [

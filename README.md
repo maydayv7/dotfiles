@@ -116,7 +116,7 @@ It also builds and deploys my website to [maydayv7.cc](https://maydayv7.cc).
 | Terminal    |                          [Ghostty](https://ghostty.org/), [Kitty](https://sw.kovidgoyal.net/kitty/)                          |
 | Browser     |                                      [Firefox](https://www.mozilla.org/en-US/firefox/)                                       |
 | Desktops    |                              [GNOME](https://www.gnome.org), [Pantheon](https://elementary.io/)                              |
-| Compositors |                            [Hyprland](https://hypr.land/), [Niri](https://github.com/YaLTeR/niri)                            |
+| Compositors |                                                [Hyprland](https://hypr.land/)                                                |
 
 ## Structure
 
@@ -445,8 +445,7 @@ A `git` [hook](./files/git/hooks) is used to check the commit message to adhere 
 ### Home Manager
 
 The [`home-manager`](https://github.com/nix-community/home-manager) module is used in tandem with the system configuration in order to define user-specific configuration.
-The `config.user.homeConfig` option, from which the final user configuration is built, has been declared in [`modules/user/default.nix`](./modules/user/default.nix) in order to effortlessly configure shared configuration for all users of the system.
-The system `config` can be accessed using the `sys` parameter in `home-manager` modules
+Each feature contributes both a `flake.modules.nixos.<aspect>` and a `flake.modules.homeManager.<aspect>` module; hosts compose the desired aspects explicitly. Home-manager modules read system state via the standard `osConfig` argument.
 
 ---
 
@@ -465,7 +464,6 @@ The system `config` can be accessed using the `sys` parameter in `home-manager` 
 ### To Do
 
 - Remove `pkgs.custom.copyous` after [merge](https://github.com/NixOS/nixpkgs/pull/469919)
-- Update Niri Configuration after [merge](https://github.com/sodiboo/niri-flake/pull/1548)
 - Remove `stremio.patch` after [merge](https://github.com/NixOS/nixpkgs/pull/468728)
 
 </details>

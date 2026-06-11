@@ -38,21 +38,6 @@
         };
       };
 
-      # Application theming hooks
-      options.apps = {
-        logseq.style = mkOption {
-          description = "Path to Logseq Notes CSS";
-          type = types.str;
-          default = "";
-        };
-
-        ytmusic.style = mkOption {
-          description = "YouTube Music CSS";
-          type = types.str;
-          default = "";
-        };
-      };
-
       config = {
         # System version
         system.stateVersion = lib.mkDefault lib.trivial.release;

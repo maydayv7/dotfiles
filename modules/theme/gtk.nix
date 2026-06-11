@@ -2,47 +2,45 @@
 {config, ...}: let
   inherit (config.flake) files;
 in {
-  flake.modules.nixos.gtk = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: let
-    inherit
-      (lib)
-      mkEnableOption
-      mkIf
-      mkOption
-      types
-      ;
-
-    cfg = config.gui.gtk;
-  in {
-    options.gui.gtk = {
-      enable = mkEnableOption "Enable GTK Configuration";
-      theme = {
-        name = mkOption {
+  flake.modules = {
+    nixos.gtk = {
+      config,
+      lib,
+      pkgs,
+      ...
+    }: let
+      cfg = config.gui.gtk;
+    in {
+      options.gui.gtk.theme = {
+        name = lib.mkOption {
           description = "GTK+ Application Theme";
-          type = types.str;
+          type = lib.types.str;
         };
 
-        package = mkOption {
+        package = lib.mkOption {
           description = "GTK+ Theme Package";
-          type = types.package;
+          type = lib.types.package;
+        };
+      };
+
+      config = {
+        # Environment Setup
+        programs.dconf.enable = true;
+        services.dbus.packages = [pkgs.dconf];
+        environment = {
+          systemPackages = [cfg.theme.package];
+          variables."GTK_THEME" = cfg.theme.name;
         };
       };
     };
 
-    config = mkIf cfg.enable {
-      # Environment Setup
-      programs.dconf.enable = true;
-      services.dbus.packages = [pkgs.dconf];
-      environment = {
-        systemPackages = [cfg.theme.package];
-        variables."GTK_THEME" = cfg.theme.name;
-      };
-
-      user.homeConfig = {
+    homeManager.gtk = {
+      config,
+      lib,
+      osConfig ? null,
+      ...
+    }:
+      lib.mkIf (osConfig != null) {
         home = {
           # Configuration
           persist.directories = [
@@ -63,8 +61,8 @@ in {
         dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
         gtk = {
           enable = true;
-          inherit (cfg) theme;
-          cursorTheme = config.gui.cursors;
+          inherit (osConfig.gui.gtk) theme;
+          cursorTheme = osConfig.gui.cursors;
           font = with config.stylix.fonts; {
             inherit (sansSerif) package name;
             size = sizes.applications;
@@ -74,6 +72,5 @@ in {
           gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
         };
       };
-    };
   };
 }

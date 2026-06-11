@@ -32,8 +32,8 @@ dotfiles/
 │   │                      #   latex, notes, office, spotify, stream, tools, vscode, wine, youtube
 │   ├── games/             # games (Steam/Lutris base), osu, minecraft, roblox, mc-server
 │   ├── theme/             # theme (stylix), gtk, qt, fonts
-│   ├── desktop/           # hyprland, niri, gnome, pantheon + _base.nix + _shared/ + _hyprland/ _niri/
-│   │                      #   _gnome/ _pantheon/ (verbatim settings/apps) + _install.nix (excluded dirs)
+│   ├── desktop/           # hyprland, gnome, pantheon + _base.nix + _hyprland/{features,settings}
+│   │                      #   _gnome/ _pantheon/ (verbatim settings/apps) + _install.nix (install media DE)
 │   ├── hosts/             # valkyrie, vortex, futura, install + _valkyrie/ _install/ (excluded)
 │   └── users/             # v7, navya + _mutable.nix, _v7/ (excluded)
 ├── files/                 # Raw dotfile data (text configs, images, etc.)
@@ -59,11 +59,11 @@ dotfiles/
 - `modules/core/flake-parts.nix` imports `inputs.flake-parts.flakeModules.modules` — required scaffolding.
 - `modules/core/nixos.nix` maps `configurations.nixos.<host> = { system; module; }` → `flake.nixosConfigurations`, and sets `nixpkgs.pkgs = config.flake.legacyPackages.<system>` so hosts get the **overlaid/patched** package set (custom, hyprworld, nixFlakes, etc.). Hosts must NOT set `nixpkgs.hostPlatform` (use the `system` field).
 - `modules/core/home-manager.nix` builds standalone home configs; it explicitly adds the stylix HM module (+ a default base16 scheme), a no-op `home.persistence` stub (impermanence's HM module is only auto-imported via the NixOS module), and uses the overlaid `legacyPackages`.
-- `modules/system/user.nix` defines `user.homeConfig` (a `mergedAttrs` option whose definitions become `home-manager.sharedModules`) and `user.groups`; it wires sops user/root passwords via `hashedPasswordFile`.
+- `modules/system/user.nix` wires `home-manager` (useGlobalPkgs/useUserPackages, no specialArgs) and sops user/root passwords via `hashedPasswordFile`. There is **no `user.homeConfig` bypass** — each feature defines a proper `flake.modules.homeManager.<aspect>` that hosts import explicitly. Home-manager modules read system state via the standard `osConfig` argument (guarded with `osConfig ? null` for standalone configs). Extra user groups are set directly in each host's `users.users.<u>.extraGroups`.
 - Home-manager modules receive `util`/`files`/`sys` as module args injected by `nixos.user` via `home-manager.sharedModules` `_module.args` (`sys` = the host config); standalone uses `sys = null`. Reading host state from a HM module uses `osConfig` (e.g. `nix.index`, `apps.logseq.style`, `apps.ytmusic.style`). Conditional app theming checks real upstream enables (e.g. `config.programs.vscode.enable`), not a custom list.
 - `packages/_module.nix` uses direct `import ../lib/map.nix lib` (not `config.util`) to avoid infinite recursion; exposes `flake.legacyPackages`, `flake.overlays`, `flake.patchedPkgs`.
 - `packages/_nixpkgs-config.nix` has `_` prefix because `map.modules` would try to `callPackage` it otherwise.
-- Desktop verbatim sub-configs live under `modules/desktop/_hyprland/`, `_niri/`, `_gnome/`, `_pantheon/` and are imported (with the static-layer applied) by the `nixos.<desktop>` wrappers. `_base.nix` holds the shared graphical-session config; `_shared/` is imported by the wlroots desktops (hyprland/niri).
+- Desktop verbatim sub-configs live under `modules/desktop/_hyprland/{features,settings}`, `_gnome/`, `_pantheon/`. Each Hyprland feature file exports `{ nixos?, home? }` and the `hyprland.nix` orchestrator routes the parts into `nixos.hyprland` / `homeManager.hyprland`. `gnome.nix`/`pantheon.nix` follow the same `{nixos, home}` split. `_base.nix` holds the shared graphical-session config (sets `gui.enable = true`) and is imported by every full desktop (not the install media). `_install.nix` is the minimal-GNOME install-media DE, imported directly by the install host.
 - `nix eval`/`nix build` require `--option allow-import-from-derivation true` (the `nixFlakes`/IFD overlay patches nixpkgs).
 
 ### Conventions

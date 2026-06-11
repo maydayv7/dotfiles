@@ -15,6 +15,7 @@
     homeManager.nix
     homeManager.laptop
     homeManager.theme
+    homeManager.gtk
     homeManager.firefox
     homeManager.office
   ];
@@ -66,8 +67,6 @@ in {
           cores = 4;
         };
       };
-
-      gui.desktop = "pantheon";
 
       # Auto-upgrade
       system.autoUpgrade = {

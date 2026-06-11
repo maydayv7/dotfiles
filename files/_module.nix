@@ -102,17 +102,6 @@ in {
     # Nano Text Editor
     nano = readFile ./nanorc;
 
-    # Niri WM
-    niri =
-      {
-        rofi = readFile ./niri/rofi.rasi;
-      }
-      // map.files {
-        directory = ./niri/theme;
-        apply = readFile;
-        extension = ".css";
-      };
-
     # PcmanFM File Manager
     pcmanfm = readFile ./pcmanfm.conf;
 

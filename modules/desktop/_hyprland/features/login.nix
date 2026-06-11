@@ -1,14 +1,13 @@
+# Login greeter (regreet)
 _: {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkForce mkIf;
-  inherit (config._shared) enable theme;
-in {
-  ## Login Configuration
-  config = mkIf enable {
+  nixos = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: let
+    inherit (lib) mkForce;
+  in {
     stylix.targets.regreet.enable = true;
     environment.persist.directories = ["/var/lib/regreet"];
     programs.regreet = {
@@ -26,8 +25,8 @@ in {
       };
 
       extraCss = mkForce "";
-      theme = mkForce theme.gtk;
-      iconTheme = mkForce theme.icons;
+      theme = mkForce config.gui.gtk.theme;
+      iconTheme = mkForce config.gui.icons;
     };
   };
 }

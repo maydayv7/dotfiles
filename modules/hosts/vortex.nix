@@ -16,6 +16,7 @@
     homeManager.nix
     homeManager.laptop
     homeManager.theme
+    homeManager.gtk
     homeManager.discord
     homeManager.firefox
     homeManager.internet
@@ -91,7 +92,6 @@ in {
       };
 
       gui = {
-        desktop = "hyprland";
         display = "eDP-1";
         wallpaper = "Thread";
         fancy = true;
@@ -106,18 +106,18 @@ in {
         group = "users";
         shell = pkgs.zsh;
         hashedPasswordFile = config.sops.secrets."v7.secret".path;
-        extraGroups =
-          [
-            "wheel"
-            "keys"
-            "networkmanager"
-            "adbusers"
-            "lp"
-            "scanner"
-            "kvm"
-            "libvirtd"
-          ]
-          ++ config.user.groups;
+        extraGroups = [
+          "wheel"
+          "keys"
+          "networkmanager"
+          "adbusers"
+          "lp"
+          "scanner"
+          "kvm"
+          "libvirtd"
+          "input"
+          "video"
+        ];
       };
 
       home-manager.users.v7.imports =

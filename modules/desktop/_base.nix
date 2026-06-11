@@ -1,10 +1,8 @@
 # Shared desktop environment configuration (applied to any graphical desktop)
-{
-  config,
-  lib,
-  ...
-}:
-lib.mkIf (config.gui.desktop != "" && config.gui.desktop != "install") {
+_: {
+  # Mark this host as running a graphical desktop session
+  gui.enable = true;
+
   # Utilities
   services = {
     gvfs.enable = true;

@@ -1,33 +1,35 @@
+# Hyprland utilities (wallpaper, hot corners, drawer, shaders)
 {
   util ? null,
   files ? null,
   ...
 }: {
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  inherit (lib) getExe;
-  inherit (config.lib.stylix) colors;
-in {
-  environment.systemPackages = with pkgs; [
-    # Apps
-    custom.kebihelp
-    nwg-displays
+  nixos = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
+      # Apps
+      custom.kebihelp
+      nwg-displays
 
-    # Utilities
-    custom.hyprutils
-    grim
-    grimblast
-    hyprkeys
-    hyprshade
-    unstable.pyprland
-    slurp
-    waycorner
-  ];
+      # Utilities
+      custom.hyprutils
+      grim
+      grimblast
+      hyprkeys
+      hyprshade
+      unstable.pyprland
+      slurp
+      waycorner
+    ];
+  };
 
-  user.homeConfig = {
+  home = {
+    config,
+    pkgs,
+    ...
+  }: let
+    inherit (pkgs.lib) getExe;
+    inherit (config.lib.stylix) colors;
+  in {
     # Wallpaper Daemon
     services.hyprpaper = {
       enable = true;

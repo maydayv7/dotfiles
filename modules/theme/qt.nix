@@ -10,7 +10,6 @@ _: {
       inherit
         (lib)
         mkDefault
-        mkEnableOption
         mkIf
         mkMerge
         mkOption
@@ -20,7 +19,6 @@ _: {
       inherit (config.stylix) fonts;
     in {
       options.gui.qt = {
-        enable = mkEnableOption "Enable QT Configuration";
         style = mkOption {
           description = "QT Application Style";
           type = types.nullOr (
@@ -49,7 +47,7 @@ _: {
       };
 
       config = with qt.theme;
-        mkIf qt.enable (mkMerge [
+        mkMerge [
           {
             stylix.targets.qt.enable = false;
             qt = {
@@ -115,7 +113,7 @@ _: {
               };
             }
           ))
-        ]);
+        ];
     };
   };
 }

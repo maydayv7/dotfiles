@@ -44,7 +44,6 @@ in {
                   hyprland.packages."${system}" // hyprsplit.packages."${system}" // hyprcursors.packages."${system}";
               })
               minecraft.overlay
-              niri.overlays.niri
               vscode.overlays.default
             ];
         };

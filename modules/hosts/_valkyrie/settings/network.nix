@@ -7,7 +7,6 @@
   };
 
   environment.persist.directories = [config.services.cloudflare-warp.rootDir];
-  user.homeConfig.home.persist.directories = [".local/share/cloudflare-warp-gui"];
 
   # Development
   networking.firewall = {

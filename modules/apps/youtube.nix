@@ -12,14 +12,11 @@ in {
     };
 
     homeManager.youtube = {
+      config,
       lib,
-      osConfig ? null,
       ...
     }: let
-      style =
-        if osConfig != null
-        then osConfig.apps.ytmusic.style
-        else "";
+      inherit (config.apps.ytmusic) style;
     in {
       home = {
         persist.directories = [

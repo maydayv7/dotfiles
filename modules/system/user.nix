@@ -14,37 +14,9 @@ in {
       lib,
       ...
     }: let
-      inherit
-        (lib)
-        getValues
-        mkIf
-        mkOption
-        mkOptionType
-        types
-        ;
-
-      # Merged Sets Type: every definition contributes a module
-      mergedAttrs = mkOptionType {
-        name = "mergedAttrs";
-        merge = _: getValues;
-      };
+      inherit (lib) mkIf;
     in {
       imports = [inputs.home-manager.nixosModules.home-manager];
-
-      # Shared User Home Configuration: collected from system modules and
-      # applied to every user via 'home-manager.sharedModules' (no specialArgs)
-      options.user.homeConfig = mkOption {
-        description = "Shared User Home Configuration";
-        type = mergedAttrs;
-        default = {};
-      };
-
-      # Additional groups added to every normal user
-      options.user.groups = mkOption {
-        description = "Additional User Groups";
-        type = types.listOf types.str;
-        default = [];
-      };
 
       config = {
         users.mutableUsers = false;
@@ -70,7 +42,6 @@ in {
           useUserPackages = true;
           backupFileExtension = "bak";
           extraSpecialArgs = {}; # intentionally empty - use closures
-          sharedModules = config.user.homeConfig;
         };
 
         # XDG directories
