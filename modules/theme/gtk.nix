@@ -1,4 +1,3 @@
-# GTK theming and configuration
 ## GTK Configuration ##
 {config, ...}: let
   inherit (config.flake) files;

@@ -1,4 +1,3 @@
-# Laptop power management, touchpad, lid handling
 ## Laptop Configuration ##
 {config, ...}: let
   inherit (config.flake) files;

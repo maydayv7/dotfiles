@@ -1,4 +1,4 @@
-# Developer shells
+## Developer Shells ##
 {config, ...}: let
   inherit (config) util;
 in {

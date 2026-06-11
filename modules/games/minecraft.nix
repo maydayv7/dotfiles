@@ -1,4 +1,4 @@
-## Minecraft (PrismLauncher) ##
+## Minecraft ##
 _: {
   flake.modules.nixos.minecraft = {pkgs, ...}: {
     environment.systemPackages = [pkgs.prismlauncher];

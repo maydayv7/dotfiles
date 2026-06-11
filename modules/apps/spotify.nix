@@ -1,4 +1,3 @@
-# Spotify with Spicetify customization
 ## Spotify Configuration ##
 {inputs, ...}: {
   flake.modules = {

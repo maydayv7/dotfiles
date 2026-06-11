@@ -1,4 +1,3 @@
-# Font configuration
 ## Font Configuration ##
 _: {
   flake.modules.nixos.fonts = {
@@ -22,9 +21,9 @@ _: {
           rgba = "rgb";
           lcdfilter = "default";
         };
-        # Default Fonts
+
+        # Emoji Support
         defaultFonts = let
-          # Emoji Support
           emoji = [config.stylix.fonts.emoji.name];
         in {
           monospace = emoji;

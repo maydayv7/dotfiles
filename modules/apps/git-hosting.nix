@@ -1,4 +1,3 @@
-# Gitea code hosting with NGINX reverse proxy
 ## Gitea Code Hosting ##
 _: {
   flake.modules.nixos.git-hosting = {

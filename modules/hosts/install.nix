@@ -1,4 +1,4 @@
-# Install Media - bootable NixOS installer ISO
+# Install Media
 {
   config,
   inputs,
@@ -21,11 +21,11 @@ in {
         nixos.qt
         nixos.gtk
         nixos.fonts
-        # Install desktop (GNOME-based) configuration
-        (import ../desktop/_install.nix {inherit util files inputs;})
+
         # ISO image definition
         ./_install/image.nix
-        # No-op persistence (the installer runs from a tmpfs root)
+
+        (import ../desktop/_install.nix {inherit util files inputs;})
         (
           {lib, ...}: {
             options = {
@@ -44,24 +44,21 @@ in {
 
       gui.desktop = "install";
       base.kernel = "lts";
-
-      # The ISO image module provides the boot media; no disk bootloader needed
       boot.loader.grub.device = lib.mkDefault "nodev";
 
       # Localization
       time.timeZone = "Asia/Kolkata";
       i18n.defaultLocale = "en_IN";
 
-      # Default installer user
+      # Default User
       users.users.nixos = {
         isNormalUser = true;
         description = "Default User";
         extraGroups = ["wheel"];
         initialHashedPassword = lib.fileContents ../../secrets/passwords/default;
       };
-      home-manager.users.nixos.home.stateVersion = lib.trivial.release;
 
-      # Automatic login
+      # Automatic Login
       services.displayManager.autoLogin = {
         enable = true;
         user = "nixos";

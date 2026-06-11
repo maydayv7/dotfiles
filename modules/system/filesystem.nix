@@ -1,4 +1,3 @@
-# Filesystem: impermanence, ZFS, partitions
 ## File System Configuration ##
 {
   config,

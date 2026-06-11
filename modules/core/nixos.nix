@@ -31,7 +31,6 @@
             modules = [
               module
               {networking.hostName = name;}
-              # Use the overlaid/patched package set built by packages/_module.nix
               {nixpkgs.pkgs = config.flake.legacyPackages.${system};}
             ];
           }

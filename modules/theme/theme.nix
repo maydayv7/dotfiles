@@ -1,5 +1,4 @@
-# Stylix theming, GTK, QT, icons, cursors, wallpaper
-## Application Theming ##
+## System Theming ##
 {
   config,
   inputs,

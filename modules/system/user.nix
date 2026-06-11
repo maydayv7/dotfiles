@@ -1,5 +1,4 @@
-# User management and home-manager integration
-## USER Configuration ##
+## User Configuration ##
 {
   config,
   inputs,

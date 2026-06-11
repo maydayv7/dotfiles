@@ -1,4 +1,3 @@
-# Starship shell prompt
 ## Shell Prompt Configuration ##
 _: {
   flake.modules.nixos.prompt = {config, ...}: {

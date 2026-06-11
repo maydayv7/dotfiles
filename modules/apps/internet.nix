@@ -5,14 +5,14 @@ _: {
       programs.chromium = {
         enable = true;
         extensions = [
-          "cjpalhdlnbpafiamejdnhcphjbkeiagm"
-          "djflhoibgkdhkhhcedjiklpkjnoahfmg"
-          "lckanjgmijmafbedllaakclkaicjfmnk"
-          "oofgbpoabipfcfjapgnbbjjaenockbdp"
-          "jghecgabfgfdldnmbfkhmffcabddioke"
-          "jaioibhbkffompljnnipmpkeafhpicpd"
-          "eimadpbcbfnmbkopoojfekhnkhdbieeh"
-          "clngdbkpkpeebahjckkjfobafhncgmne"
+          "cjpalhdlnbpafiamejdnhcphjbkeiagm" # UBlock Origin
+          "djflhoibgkdhkhhcedjiklpkjnoahfmg" # User Agent Switcher
+          "lckanjgmijmafbedllaakclkaicjfmnk" # ClearURLs
+          "oofgbpoabipfcfjapgnbbjjaenockbdp" # SetupVPN
+          "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Booster
+          "jaioibhbkffompljnnipmpkeafhpicpd" # Tab Auto Refresh
+          "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+          "clngdbkpkpeebahjckkjfobafhncgmne" # Stylus
         ];
       };
 

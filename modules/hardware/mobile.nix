@@ -1,4 +1,3 @@
-# Mobile device connectivity (Android, iOS)
 ## Device Firmware ##
 _: {
   flake.modules.nixos.mobile = {pkgs, ...}: {

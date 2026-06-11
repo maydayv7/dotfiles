@@ -7,7 +7,6 @@
   inherit (config.flake.modules) nixos homeManager;
   inherit (config) util;
 
-  # Shared home-manager modules for all users on this host
   sharedHmModules = [
     homeManager.user
     homeManager.base
@@ -86,8 +85,10 @@ in {
           nixos.vscode
           nixos.wine
           nixos.youtube
+          
           # Desktop
           nixos.hyprland
+          
           # Device-specific imports
           ./_valkyrie/settings
           ./_valkyrie/minecraft.nix
@@ -184,7 +185,6 @@ in {
     };
   };
 
-  # Standalone home-manager configuration
   configurations.homeManager."v7@valkyrie" = {
     module = {
       imports =

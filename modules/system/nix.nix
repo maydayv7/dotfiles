@@ -1,5 +1,4 @@
-# Nix settings, garbage collection, registry, tools, index
-## NIX Configuration ##
+## Nix Configuration ##
 {inputs, ...}: {
   flake.modules = {
     nixos.nix = {
@@ -22,8 +21,8 @@
 
           settings = {
             sandbox = true;
-            # Garbage Collection
             auto-optimise-store = true;
+
             # User Permissions
             allowed-users = [
               "root"
@@ -116,7 +115,6 @@
         ".cache/manix"
       ];
 
-      # Only enable index if the option is set at NixOS level
       programs = {
         nix-index.enable = lib.mkForce enable;
         nix-index-database.comma.enable = lib.mkForce enable;

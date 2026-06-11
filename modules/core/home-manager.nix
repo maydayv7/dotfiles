@@ -33,17 +33,12 @@ in {
           pkgs = config.flake.legacyPackages.${system};
           modules = [
             module
-            # Stylix theming (auto-imported via the NixOS module when integrated)
             inputs.stylix.homeModules.stylix
-            # Standalone has no system wallpaper: provide a default colour scheme
             (
               {lib, ...}: {
                 stylix.base16Scheme = lib.mkDefault files.colors.catppuccin;
               }
             )
-            # Standalone home-manager has no ephemeral root: provide a no-op
-            # 'home.persistence' so the 'home.persist' alias resolves (impermanence's
-            # home-manager module is only auto-imported via the NixOS module)
             (
               {lib, ...}: {
                 options.home.persistence = lib.mkOption {

@@ -1,4 +1,3 @@
-# Security hardening: apparmor, kernel hardening, sysctl, sudo
 ## Security & Hardening Settings ##
 {config, ...}: let
   inherit (config.flake) files;
@@ -70,12 +69,13 @@ in {
         kernelModules = ["tcp_bbr"];
 
         # Old & Obscure Modules
-        # Network Protocols
-        # Filesystems
         blacklistedKernelModules = [
+          # Network Protocols
           "ax25"
           "netrom"
           "rose"
+
+          # Filesystems
           "adfs"
           "affs"
           "befs"

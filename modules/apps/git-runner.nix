@@ -1,5 +1,4 @@
-# GitHub/GitLab CI runner support
-## Runner Configuration ##
+## GitHub/GitLab CI Runner Configuration ##
 {config, ...}: let
   inherit (config.flake) files;
 in {

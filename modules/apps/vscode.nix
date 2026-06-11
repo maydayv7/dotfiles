@@ -1,4 +1,3 @@
-# Visual Studio Code Editor
 ## Visual Studio Code Editor Configuration ##
 {config, ...}: let
   inherit (config) util;

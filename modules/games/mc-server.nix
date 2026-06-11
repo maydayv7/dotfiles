@@ -1,3 +1,4 @@
+## Minecraft Server Configuration ##
 # ? # Run 'systemctl start minecraft-server-NAME' to start the server
 # ? # Run 'echo COMMAND > /run/minecraft/NAME.stdin' to run commands
 {inputs, ...}: {

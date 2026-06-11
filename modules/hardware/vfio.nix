@@ -1,4 +1,3 @@
-# VFIO PCI passthrough and Looking Glass
 ## VFIO Configuration ##
 _: {
   flake.modules.nixos.vfio = {

@@ -1,4 +1,3 @@
-# Printer and scanner support
 ## Printer Firmware ##
 _: {
   flake.modules.nixos.printer = {pkgs, ...}: {

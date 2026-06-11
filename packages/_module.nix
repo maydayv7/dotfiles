@@ -1,4 +1,4 @@
-# Packages, overlays, and legacyPackages
+## Package Configuration ##
 {
   config,
   inputs,

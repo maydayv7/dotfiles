@@ -1,4 +1,3 @@
-# GPU configuration (NVIDIA)
 ## GPU Configuration ##
 _: {
   flake.modules.nixos.gpu = {
@@ -64,10 +63,11 @@ _: {
               "nvidia_uvm"
             ];
             kernelParams = ["nvidia-drm.fbdev=1"];
-            # PAT Support
-            # DDC/CI Support
             extraModprobeConfig = ''
+              # PAT Support
               options nvidia NVreg_UsePageAttributeTable=1
+
+              # DDC/CI Support
               options nvidia NVreg_RegistryDwords=RMUseSwI2c=0x01;RMI2cSpeed=100
             '';
           };

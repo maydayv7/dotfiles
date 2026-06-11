@@ -1,4 +1,3 @@
-# QT application theming
 ## QT Configuration ##
 _: {
   flake.modules = {

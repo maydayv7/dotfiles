@@ -1,4 +1,3 @@
-# Boot loader configuration (MBR, EFI, Secure Boot)
 ## Boot Configuration ##
 {inputs, ...}: {
   flake.modules.nixos.boot = {

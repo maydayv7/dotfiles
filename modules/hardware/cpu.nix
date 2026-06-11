@@ -1,4 +1,3 @@
-# CPU configuration
 ## CPU Configuration ##
 _: {
   flake.modules.nixos.cpu = {

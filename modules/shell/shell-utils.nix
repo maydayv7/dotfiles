@@ -1,4 +1,3 @@
-# Shell utilities: bat, btop, eza, yazi, starship prompt, etc.
 ## Shell Utilities ##
 {config, ...}: let
   inherit (config.flake) files;

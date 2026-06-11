@@ -1,4 +1,4 @@
-# Secrets management via sops-nix
+## Secrets Management ##
 {
   config,
   inputs,

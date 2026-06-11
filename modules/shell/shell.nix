@@ -1,5 +1,4 @@
-# Shell configuration: bash, zsh, utilities, prompt
-## SHELL Configuration ##
+## Shell Configuration ##
 {config, ...}: let
   inherit (config.flake) files;
 in {

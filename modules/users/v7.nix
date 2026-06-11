@@ -1,4 +1,3 @@
-# User V7's personal configuration
 {config, ...}: let
   inherit (config.flake) files;
 in {

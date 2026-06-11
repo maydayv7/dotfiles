@@ -1,7 +1,6 @@
 ## Games Configuration ##
 _: {
   flake.modules = {
-    # Base gaming setup: Steam, Lutris, Bottles, GameMode
     nixos.games = {
       lib,
       pkgs,

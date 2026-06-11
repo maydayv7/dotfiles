@@ -1,5 +1,4 @@
-# Base system: kernel, console, documentation, essential utilities
-## BASE Configuration ##
+## Base Configuration ##
 {inputs, ...}: {
   flake.modules = {
     nixos.base = {
@@ -39,7 +38,7 @@
         };
       };
 
-      # Application theming hooks (consumed by app modules, set by desktop modules)
+      # Application theming hooks
       options.apps = {
         logseq.style = mkOption {
           description = "Path to Logseq Notes CSS";
@@ -55,7 +54,7 @@
       };
 
       config = {
-        # System version (inherited from the nixpkgs release)
+        # System version
         system.stateVersion = lib.mkDefault lib.trivial.release;
 
         # AppImage Support
@@ -123,7 +122,7 @@
           ];
         };
 
-        # Drivers, Audio, Network, Bluetooth
+        # Drivers
         security.rtkit.enable = true;
         hardware = {
           graphics.enable = true;
@@ -196,9 +195,7 @@
     };
 
     homeManager.base = {lib, ...}: {
-      # State version (inherited from the nixpkgs release)
       home.stateVersion = lib.mkDefault lib.trivial.release;
-
       home.persist.directories = [
         {
           directory = ".gnupg";

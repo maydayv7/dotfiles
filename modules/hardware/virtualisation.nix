@@ -1,4 +1,3 @@
-# Virtualisation: KVM, libvirt, VFIO
 ## Virtualisation Settings ##
 _: {
   flake.modules = {
@@ -20,6 +19,7 @@ _: {
 
       # VM Utilities
       programs.virt-manager.enable = true;
+
       # VM Packages
       environment.systemPackages = [pkgs.libguestfs];
 

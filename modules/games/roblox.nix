@@ -1,4 +1,4 @@
-## Roblox (Sober - requires Flatpak) ##
+## Roblox ##
 _: {
   flake.modules.nixos.roblox = _: {
     services.flatpak.packages = [

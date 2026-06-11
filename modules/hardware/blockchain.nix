@@ -1,4 +1,3 @@
-# Hyperledger Fabric, Docker support
 ## Blockchain Support ##
 _: {
   flake.modules.nixos.blockchain = {pkgs, ...}: {
