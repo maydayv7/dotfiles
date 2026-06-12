@@ -3,6 +3,7 @@
   flake.modules = {
     nixos.flatpak = {
       config,
+      lib,
       pkgs,
       ...
     }: {
@@ -26,9 +27,33 @@
             name = "flathub-beta";
             location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
           }
+        ]
+        ++ lib.optionals (config.services.desktopManager.gnome.enable or false) [
+          {
+            name = "gnome-nightly";
+            location = "https://nightly.gnome.org/gnome-nightly.flatpakrepo";
+          }
+        ]
+        ++ lib.optionals (config.services.desktopManager.pantheon.enable or false) [
+          {
+            name = "appcenter";
+            location = "https://flatpak.elementary.io/repo.flatpakrepo";
+          }
         ];
 
-        packages = [];
+        packages = []
+        ++ lib.optionals (config.services.desktopManager.gnome.enable or false) [
+          {
+            appId = "com.github.tchx84.Flatseal";
+            origin = "flathub";
+          }
+        ]
+        ++ lib.optionals (config.services.desktopManager.pantheon.enable or false) [
+          {
+            appId = "com.github.hezral.clips";
+            origin = "appcenter";
+          }
+        ];
 
         overrides.global = {
           Context = {

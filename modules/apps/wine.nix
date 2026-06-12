@@ -29,7 +29,6 @@ in {
       };
 
       config = {
-        # Firmware
         services.samba.enable = true;
         hardware.xpadneo.enable = true;
         hardware.graphics.enable32Bit = true;

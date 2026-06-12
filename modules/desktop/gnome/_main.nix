@@ -4,7 +4,12 @@
   inputs ? null,
   ...
 }: {
-  nixos = {pkgs, ...}: {
+  nixos = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
     imports = [(import ./_common.nix {inherit util files inputs;})];
 
     # Desktop Integration
@@ -55,7 +60,7 @@
       };
 
       firefox = {
-        nativeMessagingHosts.gsconnect = true;
+        nativeMessagingHosts.packages = [pkgs.gnomeExtensions.gsconnect];
         policies.ExtensionSettings = {
           name = "gnome-shell-integration";
           value = {
@@ -105,23 +110,6 @@
       ddcutil
       gnuchess
     ];
-
-    # Flatpak Apps
-    services.flatpak = {
-      remotes = [
-        {
-          name = "gnome-nightly";
-          location = "https://nightly.gnome.org/gnome-nightly.flatpakrepo";
-        }
-      ];
-
-      packages = [
-        {
-          appId = "com.github.tchx84.Flatseal";
-          origin = "flathub";
-        }
-      ];
-    };
   };
 
   home = {
@@ -132,106 +120,90 @@
   }: {
     ## Desktop Settings
     imports = builtins.map (p: import p {inherit util files;}) (util.map.modules.list ./_settings);
-    stylix.targets = {
-      gnome.enable = true;
-      ghostty.enable = true;
-    };
 
-    # Logseq Bonofix Theme
-    apps.logseq.style = "url('https://cdn.jsdelivr.net/gh/sansui233/logseq-bonofix-theme/custom.css')";
-
-    # Default Applications
-    xdg.mimeApps.defaultApplications = util.build.mime {
-      archive = ["org.gnome.FileRoller.desktop"];
-      audio = ["org.gnome.Lollypop.desktop"];
-      calendar = ["org.gnome.Calendar.desktop"];
-      document = ["org.gnome.Papers.desktop"];
-      directory = ["org.gnome.Nautilus.desktop"];
-      image = ["org.gnome.Loupe.desktop"];
-      magnet = ["de.haeckerfelix.Fragments.desktop"];
-      mail = ["org.gnome.Geary.desktop"];
-      markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
-      password = ["org.gnome.World.Secrets.desktop"];
-      pdf = ["org.gnome.Papers.desktop"];
-      text = ["org.gnome.TextEditor.desktop"];
-      video = ["io.github.celluloid_player.Celluloid.desktop"];
-      virtualization = ["org.gnome.Boxes.desktop"];
-    };
-
-    # Persisted Files
-    home.persist.directories = [
-      ".config/evolution"
-      ".config/ghostty"
-      ".config/gnome-boxes"
-      ".config/gnome-builder"
-      ".local/share/epiphany"
-      ".local/share/evolution"
-      ".local/share/geary"
-      ".local/share/gnome-boxes"
-      ".local/share/gnome-builder"
-      ".local/share/lollypop"
-      ".local/share/nautilus"
-      ".local/share/sounds"
-      ".local/share/telepathy"
-      ".local/share/webkitgtk"
-      ".cache/evolution"
-      ".cache/fractal"
-      ".cache/gnome-builder"
-    ];
-
-    ## Terminal
-    programs.ghostty = {
-      enable = true;
-      settings = {
-        # Features
-        clipboard-paste-protection = true;
-        clipboard-trim-trailing-spaces = true;
-        copy-on-select = false;
-        mouse-hide-while-typing = true;
-        quit-after-last-window-closed = true;
-        scrollback-limit = 4200;
-        shell-integration-features = true;
-        window-vsync = true;
-
-        # Keybindings
-        keybind = [
-          "ctrl+h=goto_split:left"
-          "ctrl+j=goto_split:bottom"
-          "ctrl+k=goto_split:top"
-          "ctrl+l=goto_split:right"
-          "ctrl+shift+h=new_split:left"
-          "ctrl+shift+j=new_split:down"
-          "ctrl+shift+k=new_split:up"
-          "ctrl+shift+l=new_split:right"
-          "ctrl+shift+enter=new_split:auto"
-          "ctrl+shift+i=inspector:toggle"
-          "ctrl+shift+r=reload_config"
-          "ctrl+t=new_tab"
-          "ctrl+f=write_scrollback_file:open"
-        ];
+    config = {
+      stylix.targets = {
+        gnome.enable = true;
+        ghostty.enable = true;
       };
-    };
 
-    # Firefox GNOME Theme
-    stylix.targets.firefox = {
-      enable = lib.mkForce true;
-      profileNames = ["default"];
-      firefoxGnomeTheme.enable = true;
-    };
+      # Default Applications
+      xdg.mimeApps.defaultApplications = util.build.mime {
+        archive = ["org.gnome.FileRoller.desktop"];
+        audio = ["org.gnome.Lollypop.desktop"];
+        calendar = ["org.gnome.Calendar.desktop"];
+        document = ["org.gnome.Papers.desktop"];
+        directory = ["org.gnome.Nautilus.desktop"];
+        image = ["org.gnome.Loupe.desktop"];
+        magnet = ["de.haeckerfelix.Fragments.desktop"];
+        mail = ["org.gnome.Geary.desktop"];
+        markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
+        password = ["org.gnome.World.Secrets.desktop"];
+        pdf = ["org.gnome.Papers.desktop"];
+        text = ["org.gnome.TextEditor.desktop"];
+        video = ["io.github.celluloid_player.Celluloid.desktop"];
+        virtualization = ["org.gnome.Boxes.desktop"];
+      };
 
-    programs = {
-      # Discord GNOME Theme
-      nixcord.quickCss = lib.mkIf (config.programs.nixcord.enable or false) ''@import url("https://raw.githubusercontent.com/ricewind012/discord-gnome-theme/master/gnome.theme.css");'';
+      # Persisted Files
+      home.persist.directories = [
+        ".config/evolution"
+        ".config/ghostty"
+        ".config/gnome-boxes"
+        ".config/gnome-builder"
+        ".local/share/epiphany"
+        ".local/share/evolution"
+        ".local/share/geary"
+        ".local/share/gnome-boxes"
+        ".local/share/gnome-builder"
+        ".local/share/lollypop"
+        ".local/share/nautilus"
+        ".local/share/sounds"
+        ".local/share/telepathy"
+        ".local/share/webkitgtk"
+        ".cache/evolution"
+        ".cache/fractal"
+        ".cache/gnome-builder"
+      ];
 
-      # Code Editor
-      vscode.profiles.default = lib.mkIf config.programs.vscode.enable {
-        extensions = [pkgs.vscode-extensions.piousdeer.adwaita-theme];
-        userSettings = {
-          "workbench.colorTheme" = "Adwaita Dark";
-          "workbench.productIconTheme" = "adwaita";
-          "window.titleBarStyle" = "custom";
-          "terminal.external.linuxExec" = "ghostty";
+      ## Terminal
+      programs.ghostty = {
+        enable = true;
+        settings = {
+          # Features
+          clipboard-paste-protection = true;
+          clipboard-trim-trailing-spaces = true;
+          copy-on-select = false;
+          mouse-hide-while-typing = true;
+          quit-after-last-window-closed = true;
+          scrollback-limit = 4200;
+          shell-integration-features = true;
+          window-vsync = true;
+
+          # Keybindings
+          keybind = [
+            "ctrl+h=goto_split:left"
+            "ctrl+j=goto_split:bottom"
+            "ctrl+k=goto_split:top"
+            "ctrl+l=goto_split:right"
+            "ctrl+shift+h=new_split:left"
+            "ctrl+shift+j=new_split:down"
+            "ctrl+shift+k=new_split:up"
+            "ctrl+shift+l=new_split:right"
+            "ctrl+shift+enter=new_split:auto"
+            "ctrl+shift+i=inspector:toggle"
+            "ctrl+shift+r=reload_config"
+            "ctrl+t=new_tab"
+            "ctrl+f=write_scrollback_file:open"
+          ];
         };
+      };
+
+      # Firefox GNOME Theme
+      stylix.targets.firefox = {
+        enable = lib.mkForce true;
+        profileNames = ["default"];
+        firefoxGnomeTheme.enable = true;
       };
     };
   };

@@ -5,11 +5,16 @@
 in {
   flake.modules.homeManager.vscode = {
     config,
+    lib,
     pkgs,
+    osConfig ? {},
     ...
   }: let
     font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
     package = pkgs.vscode;
+    isGnome = osConfig.services.desktopManager.gnome.enable or false;
+    isPantheon = osConfig.services.desktopManager.pantheon.enable or false;
+    isHyprland = osConfig.programs.hyprland.enable or false;
   in {
     # Environment
     xdg.mimeApps.defaultApplications = util.build.mime {
@@ -37,11 +42,25 @@ in {
         inherit keybindings;
 
         # Settings
-        userSettings =
-          settings
-          // {
+        userSettings = lib.mkMerge [
+          (settings // {
             "editor.fontFamily" = "'${font}', 'monospace', monospace";
-          };
+          })
+          (lib.mkIf isGnome {
+            "workbench.colorTheme" = "Adwaita Dark";
+            "workbench.productIconTheme" = "adwaita";
+            "window.titleBarStyle" = "custom";
+            "terminal.external.linuxExec" = "ghostty";
+          })
+          (lib.mkIf isPantheon {
+            "workbench.colorTheme" = "Elementary Dark";
+            "terminal.external.linuxExec" = "io.elementary.terminal";
+          })
+          (lib.mkIf isHyprland {
+            "workbench.iconTheme" = "catppuccin-${config.catppuccin.flavor or "mocha"}";
+            "terminal.external.linuxExec" = "kitty";
+          })
+        ];
 
         ## Editor Extensions
         extensions = with pkgs.vscode-extensions;
@@ -80,7 +99,10 @@ in {
           ++ (with pkgs.vscode-marketplace; [
             kisstkondoros.vscode-gutter-preview # Image Preview
             fwcd.kotlin # Kotlin
-          ]);
+          ])
+          ++ lib.optionals isGnome [pkgs.vscode-extensions.piousdeer.adwaita-theme]
+          ++ lib.optionals isPantheon [pkgs.vscode-marketplace.sixpounder.elementary-theme]
+          ++ lib.optionals isHyprland [pkgs.vscode-extensions.catppuccin.catppuccin-vsc-icons];
       };
     };
   };

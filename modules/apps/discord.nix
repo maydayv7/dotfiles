@@ -1,6 +1,6 @@
 ## Discord Configuration ##
 {inputs, ...}: {
-  flake.modules.homeManager.discord = {pkgs, ...}: {
+  flake.modules.homeManager.discord = {pkgs, lib, config, osConfig ? {}, ...}: {
     imports = [inputs.nixcord.homeModules.nixcord];
     home.persist.directories = [".config/vesktop"];
     programs.nixcord = {
@@ -10,6 +10,10 @@
         enable = true;
         package = pkgs.vesktop;
       };
+
+      # Desktop-specific themes
+      quickCss = lib.mkIf (osConfig.services.desktopManager.gnome.enable or false)
+        ''@import url("https://raw.githubusercontent.com/ricewind012/discord-gnome-theme/master/gnome.theme.css");'';
 
       config = {
         # Theming

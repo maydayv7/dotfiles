@@ -3,11 +3,23 @@
   files ? null,
   ...
 }: {
-  nixos = {pkgs, ...}: {
-    # Session
+  nixos = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    # Session & Services
     services = {
       xserver.enable = true;
-      desktopManager.pantheon.enable = true;
+      desktopManager.pantheon = {
+        enable = true;
+        extraWingpanelIndicators = with pkgs; [
+          monitor
+          wingpanel-indicator-namarupa
+        ];
+      };
+      pantheon.apps.enable = true;
     };
 
     # Desktop Integration
@@ -29,39 +41,14 @@
     # Color Scheme
     stylix.base16Scheme = files.colors.elementary;
 
-    # Essential Utilities
-    services.pantheon.apps.enable = true;
-
     # Panel Indicators
     environment.pathsToLink = ["/libexec"];
-    services.desktopManager.pantheon.extraWingpanelIndicators = with pkgs; [
-      monitor
-      wingpanel-indicator-namarupa
-    ];
 
     # Apps
     environment.systemPackages = with pkgs.pantheon // pkgs; [
       appeditor
       pantheon-tweaks
     ];
-
-    # Flatpak
-    warnings = ["Flatpak support is enabled by default for Pantheon Desktop"];
-    services.flatpak = {
-      remotes = [
-        {
-          name = "appcenter";
-          location = "https://flatpak.elementary.io/repo.flatpakrepo";
-        }
-      ];
-
-      packages = [
-        {
-          appId = "com.github.hezral.clips";
-          origin = "appcenter";
-        }
-      ];
-    };
   };
 
   home = {
@@ -72,6 +59,7 @@
   }: {
     ## Desktop Settings
     imports = [(import ./_settings.nix {inherit util files;})];
+
     stylix.targets.gnome.enable = false;
 
     # Default Applications
@@ -149,15 +137,6 @@
           NoDisplay=true
           StartupNotify=false
         '';
-      };
-    };
-
-    # Code Editor
-    programs.vscode.profiles.default = lib.mkIf config.programs.vscode.enable {
-      extensions = [pkgs.vscode-marketplace.sixpounder.elementary-theme];
-      userSettings = {
-        "workbench.colorTheme" = "Elementary Dark";
-        "terminal.external.linuxExec" = "io.elementary.terminal";
       };
     };
   };

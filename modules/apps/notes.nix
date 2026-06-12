@@ -7,12 +7,15 @@ in {
     config,
     lib,
     pkgs,
+    osConfig ? {},
     ...
   }: let
     mutable = {
       mutable = true;
       force = true;
     };
+    isGnome = osConfig.services.desktopManager.gnome.enable or false;
+    isHyprland = osConfig.programs.hyprland.enable or false;
     inherit (config.apps.logseq) style;
   in {
     options.apps.logseq.style = lib.mkOption {
@@ -22,6 +25,12 @@ in {
     };
 
     config = {
+      # Desktop-specific theme
+      apps.logseq.style =
+        if isGnome then "url('https://cdn.jsdelivr.net/gh/sansui233/logseq-bonofix-theme/custom.css')"
+        else if isHyprland then "url('https://logseq.catppuccin.com/ctp-${config.catppuccin.flavor}.css')"
+        else "";
+
       home = {
         packages = [pkgs.logseq];
         persist.directories = [

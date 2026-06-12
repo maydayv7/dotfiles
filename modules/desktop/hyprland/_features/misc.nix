@@ -1,4 +1,4 @@
-# 3rd party app theming (catppuccin) + KDE apps + notes/music themes
+# 3rd party app theming (catppuccin) + KDE apps
 {
   inputs ? null,
   theme ? null,
@@ -6,7 +6,6 @@
 }: {
   home = {
     config,
-    options,
     lib,
     pkgs,
     ...
@@ -25,18 +24,9 @@
 
           brave.enable = true;
           thunderbird.enable = true;
-          obs.enable = config.programs.obs-studio.enable;
+          obs.enable = config.programs.obs-studio.enable or false;
           vesktop.enable = config.programs.nixcord.vesktop.enable or false;
-          vscode.profiles.default.enable = config.programs.vscode.enable;
-        };
-
-        # Code Editor
-        programs.vscode.profiles.default = lib.mkIf config.programs.vscode.enable {
-          extensions = [pkgs.vscode-extensions.catppuccin.catppuccin-vsc-icons];
-          userSettings = {
-            "workbench.iconTheme" = "${name}-${variant}";
-            "terminal.external.linuxExec" = "kitty";
-          };
+          vscode.profiles.default.enable = config.programs.vscode.enable or false;
         };
 
         # KDE Apps
@@ -83,17 +73,6 @@
               ]
             ));
         };
-      }
-      # App Themes: only emit the `apps` definition when an app aspect that
-      # declares the option is actually imported (pure-Nix gate via `options`)
-      // lib.optionalAttrs (options ? apps) {
-        apps =
-          lib.optionalAttrs (options.apps ? logseq) {
-            logseq.style = "url('https://logseq.${name}.com/ctp-${variant}.css')";
-          }
-          // lib.optionalAttrs (options.apps ? ytmusic) {
-            ytmusic.style = "@import url('https://youtubemusic.${name}.com/src/${variant}.css');";
-          };
       };
   };
 }
