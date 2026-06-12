@@ -23,7 +23,6 @@
   # ASUS Software
   services.asusd = {
     enable = true;
-    enableUserService = true;
     asusdConfig.text = builtins.readFile ./asusd.ron;
     auraConfigs."19b6".text = builtins.readFile ./aura.ron;
   };

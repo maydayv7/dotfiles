@@ -42,16 +42,10 @@
     services.swayidle = with idle; {
       enable = true;
       extraArgs = ["-w"];
-      events = [
-        {
-          event = "before-sleep";
-          command = lock pause "";
-        }
-        {
-          event = "lock";
-          command = lock pause "--fade-in 0.2 --grace 15 --grace-no-mouse";
-        }
-      ];
+      events = {
+        before-sleep = lock pause "";
+        lock = lock pause "--fade-in 0.2 --grace 15 --grace-no-mouse";
+      };
     };
 
     # Logout

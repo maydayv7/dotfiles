@@ -14,6 +14,9 @@ lib.mkIf (osConfig != null) (
     wayland.windowManager.hyprland = {
       inherit (osConfig.programs.hyprland) enable package portalPackage;
 
+      # Generate hyprland.conf (26.05 defaults to the Lua config type)
+      configType = "hyprlang";
+
       # Use 'nwg-displays' to configure monitors
       extraConfig = ''
         source = ~/.config/hypr/monitors.conf

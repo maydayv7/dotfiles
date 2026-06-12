@@ -1,4 +1,4 @@
-# Idle timeouts (dim, DPMS, suspend)
+# Idle timeouts
 _: {
   home = {
     lib,

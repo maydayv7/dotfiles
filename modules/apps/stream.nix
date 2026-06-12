@@ -1,15 +1,10 @@
 ## Streaming Configuration ##
 _: {
-  flake.modules = {
-    nixos.stream = {pkgs, ...}: {
-      environment.systemPackages = [pkgs.stremio-linux-shell];
-    };
-
-    homeManager.stream = _: {
-      home.persist.directories = [
-        ".stremio-server"
-        ".local/share/stremio"
-      ];
-    };
+  flake.modules.homeManager.stream = {pkgs, ...}: {
+    home.packages = [pkgs.stremio-linux-shell];
+    home.persist.directories = [
+      ".stremio-server"
+      ".local/share/stremio"
+    ];
   };
 }

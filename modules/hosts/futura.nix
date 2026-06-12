@@ -39,7 +39,6 @@ in {
           nixos.qt
           nixos.gtk
           nixos.fonts
-          nixos.firefox
           nixos.office
           nixos.pantheon
           nixos.flatpak

@@ -1,4 +1,4 @@
-# Install media desktop (minimal GNOME)
+## Install Media Desktop Configuration ##
 {
   util ? null,
   files ? null,
@@ -11,7 +11,7 @@
 }: let
   inherit (lib) mkForce;
 in {
-  imports = [(import ./_gnome/common.nix {inherit util files inputs;})];
+  imports = [(import ./gnome/_common.nix {inherit util files inputs;})];
 
   services = {
     displayManager.gdm = {

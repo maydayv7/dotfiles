@@ -1,4 +1,4 @@
-# Application launcher (hyprshell)
+# Application launcher
 {
   util ? null,
   files ? null,

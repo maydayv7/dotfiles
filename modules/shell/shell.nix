@@ -28,7 +28,7 @@ in {
             extraConfig = files.tmux;
           };
 
-          # Bash
+          # Bourne Shell
           bash = {
             vteIntegration = true;
             promptInit = ''
@@ -48,7 +48,7 @@ in {
             '';
           };
 
-          # Zsh
+          # Z Shell
           zsh = {
             enable = true;
             autosuggestions.enable = true;

@@ -36,7 +36,7 @@
     environment.pathsToLink = ["/libexec"];
     services.desktopManager.pantheon.extraWingpanelIndicators = with pkgs; [
       monitor
-      wingpanel-indicator-ayatana
+      wingpanel-indicator-namarupa
     ];
 
     # Apps
@@ -71,7 +71,7 @@
     ...
   }: {
     ## Desktop Settings
-    imports = [(import ./settings.nix {inherit util files;})];
+    imports = [(import ./_settings.nix {inherit util files;})];
     stylix.targets.gnome.enable = false;
 
     # Default Applications
@@ -122,9 +122,9 @@
 
       file = {
         # Firefox Elementary Theme
-        ".mozilla/firefox/default/chrome/userChrome.css".source = "${pkgs.custom.firefox-elementary}/Windows/userChrome.css";
-        ".mozilla/firefox/default/chrome/userContent.css".source = "${pkgs.custom.firefox-elementary}/userContent.css";
-        ".mozilla/firefox/default/chrome/base.css".source = "${pkgs.custom.firefox-elementary}/base.css";
+        ".config/mozilla/firefox/default/chrome/userChrome.css".source = "${pkgs.custom.firefox-elementary}/Windows/userChrome.css";
+        ".config/mozilla/firefox/default/chrome/userContent.css".source = "${pkgs.custom.firefox-elementary}/userContent.css";
+        ".config/mozilla/firefox/default/chrome/base.css".source = "${pkgs.custom.firefox-elementary}/base.css";
 
         # Panel Indicators
         ".config/autostart/ibus-daemon.desktop".text = ''

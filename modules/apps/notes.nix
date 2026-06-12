@@ -3,23 +3,27 @@
   inherit (config) util;
   inherit (config.flake) files;
 in {
-  flake.modules = {
-    nixos.notes = {pkgs, ...}: {
-      environment.systemPackages = [pkgs.logseq];
+  flake.modules.homeManager.notes = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: let
+    mutable = {
+      mutable = true;
+      force = true;
+    };
+    inherit (config.apps.logseq) style;
+  in {
+    options.apps.logseq.style = lib.mkOption {
+      description = "Logseq Notes CSS";
+      type = lib.types.str;
+      default = "";
     };
 
-    homeManager.notes = {
-      config,
-      lib,
-      ...
-    }: let
-      mutable = {
-        mutable = true;
-        force = true;
-      };
-      inherit (config.apps.logseq) style;
-    in {
+    config = {
       home = {
+        packages = [pkgs.logseq];
         persist.directories = [
           ".logseq"
           ".config/Logseq"

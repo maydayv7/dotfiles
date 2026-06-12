@@ -7,11 +7,11 @@
   inherit (config.flake) files;
   inherit (config) util;
 
-  main = import ./_gnome/main.nix {inherit util files inputs;};
+  main = import ./_main.nix {inherit util files inputs;};
 in {
   flake.modules = {
     nixos.gnome.imports = [
-      ./_base.nix
+      ../_base.nix
       (main.nixos or {})
     ];
 

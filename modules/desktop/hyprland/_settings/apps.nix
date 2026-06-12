@@ -1,4 +1,4 @@
-{util ? null, ...}: {
+_: {
   lib,
   pkgs,
   osConfig ? null,
@@ -7,9 +7,12 @@
 lib.mkIf (osConfig != null) (
   let
     inherit (builtins) map toString;
-    inherit (lib) flatten getExe;
+    inherit (lib) flatten getExe head splitString;
     inherit (osConfig.gui) cursors display;
     cursor = "${cursors.name}-Hyprcursor";
+
+    # systemd unit name = first word of the command (before any argument)
+    unit = command: head (splitString " " command);
   in {
     ## App Environment
     # Cursor
@@ -35,7 +38,7 @@ lib.mkIf (osConfig != null) (
           "uwsm finalize"
           "hyprctl setcursor ${cursor} ${toString cursors.size}"
         ]
-        ++ (map (app: "uwsm app -t service -u ${util.build.until " " app}.service -- " + app) [
+        ++ (map (app: "uwsm app -t service -u ${unit app}.service -- " + app) [
           "hyprutils daemon"
 
           # Pyprland

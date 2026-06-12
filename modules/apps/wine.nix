@@ -24,7 +24,7 @@ in {
         package = mkOption {
           description = "Package to use for 'wine'";
           type = types.package;
-          default = pkgs.wineWowPackages.stagingFull;
+          default = pkgs.wineWow64Packages.stagingFull;
         };
       };
 

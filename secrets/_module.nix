@@ -25,9 +25,9 @@ in {
       sops = {
         gnupg.home = path;
         secrets = let
-          directory = ../../secrets + "/${config.networking.hostName}";
+          directory = ./. + "/${config.networking.hostName}";
         in
-          util.map.secrets {directory = ../../secrets;}
+          util.map.secrets {directory = ./.;}
           // (
             if (builtins.pathExists directory)
             then util.map.secrets {inherit directory;}

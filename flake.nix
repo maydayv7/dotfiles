@@ -36,7 +36,7 @@
     ## Package Repositories ##
     # NixOS Packages Repository
     nixpkgs.follows = "stable";
-    stable.url = "github:NixOS/nixpkgs?ref=nixos-25.11";
+    stable.url = "github:NixOS/nixpkgs?ref=nixos-26.05";
 
     # Unstable Packages Repository
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
@@ -106,7 +106,7 @@
 
     # User Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-25.11";
+      url = "github:nix-community/home-manager?ref=release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -167,7 +167,7 @@
     ## Theming
     # Base16 Theming Module
     stylix = {
-      url = "github:nix-community/stylix?ref=release-25.11";
+      url = "github:nix-community/stylix?ref=release-26.05";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -186,7 +186,7 @@
 
     # Catppuccin Theme
     catppuccin = {
-      url = "github:catppuccin/nix?ref=release-25.11";
+      url = "github:catppuccin/nix?ref=release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -219,7 +219,6 @@
       url = "github:H3rmt/hyprshell";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        hyprland.follows = "hyprland";
         home-manager.follows = "home-manager";
         flake-parts.follows = "flake-parts";
       };
@@ -236,6 +235,7 @@
         ./files/_module.nix
         ./lib/_module.nix
         ./packages/_module.nix
+        ./secrets/_module.nix
         ./site/_module.nix
       ];
     };

@@ -68,33 +68,23 @@ in {
           nixos.qt
           nixos.gtk
           nixos.fonts
-          nixos.discord
-          nixos.firefox
           nixos.flatpak
           nixos.games
-          nixos.osu
-          nixos.minecraft
           nixos.roblox
           nixos.mc-server
           nixos.git
           nixos.git-runner
-          nixos.internet
           nixos.office
           nixos.latex
-          nixos.notes
-          nixos.spotify
           nixos.tools
-          nixos.stream
-          nixos.vscode
           nixos.wine
-          nixos.youtube
 
           # Desktop
           nixos.hyprland
 
           # Device-specific imports
-          ./_valkyrie/settings
-          ./_valkyrie/minecraft.nix
+          ./_settings
+          ./_minecraft.nix
         ]
         ++ util.map.array ["asus-zephyrus-ga402x-nvidia"] inputs.hardware.nixosModules;
 
@@ -183,7 +173,7 @@ in {
         ++ [
           homeManager.v7
           homeManager.hyprland
-          ./_valkyrie/settings/home.nix
+          ./_settings/home.nix
         ];
     };
   };
@@ -195,7 +185,7 @@ in {
         ++ [
           homeManager.v7
           homeManager.hyprland
-          ./_valkyrie/settings/home.nix
+          ./_settings/home.nix
         ];
       home = {
         username = "v7";

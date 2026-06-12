@@ -27,7 +27,7 @@
     pkgs,
     ...
   }: let
-    inherit (pkgs.lib) getExe;
+    inherit (pkgs.lib) getExe mkForce;
     inherit (config.lib.stylix) colors;
   in {
     # Wallpaper Daemon
@@ -35,7 +35,7 @@
       enable = true;
       settings = {
         ipc = false;
-        splash = true;
+        splash = mkForce true;
       };
     };
 

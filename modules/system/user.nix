@@ -163,7 +163,7 @@ in {
             publicShare = "$HOME/Public";
             templates = "$HOME/Templates";
             videos = "$HOME/Videos";
-            extraConfig."XDG_SCREENSHOTS_DIR" = "$HOME/Pictures/Screenshots";
+            extraConfig."SCREENSHOTS" = "$HOME/Pictures/Screenshots";
           };
         };
       };

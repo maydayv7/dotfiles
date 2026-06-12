@@ -1,9 +1,7 @@
 ## Minecraft ##
 _: {
-  flake.modules = {
-    nixos.minecraft = {pkgs, ...}: {
-      environment.systemPackages = [pkgs.prismlauncher];
-    };
-    homeManager.minecraft.home.persist.directories = [".local/share/PrismLauncher"];
+  flake.modules.homeManager.minecraft = {pkgs, ...}: {
+    home.packages = [pkgs.prismlauncher];
+    home.persist.directories = [".local/share/PrismLauncher"];
   };
 }

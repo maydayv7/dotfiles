@@ -44,17 +44,20 @@ in {
         services.lorri.enable = true;
         # Programs
         programs = {
-          yazi.enable = true;
+          yazi.enable = true; # File Manager
+
           # Command Correction Helper
           pay-respects = {
             enable = true;
             alias = "fix";
           };
+
           # DirENV Support
           direnv = {
             enable = true;
             nix-direnv.enable = true;
           };
+
           # Bat Configuration
           bat = {
             enable = true;
@@ -63,6 +66,8 @@ in {
               italic-text = "always";
             };
           };
+
+          # Terminal Multiplexer
           tmux = with config.lib.stylix.colors; {
             plugins = with pkgs.tmuxPlugins; [
               open
@@ -91,8 +96,9 @@ in {
       };
 
       programs = {
-        btop.enable = true;
-        hstr.enable = true;
+        btop.enable = true; # Resource Monitor
+        hstr.enable = true; # Command History Manager
+
         # File Lister
         eza = {
           enable = true;
@@ -101,6 +107,7 @@ in {
           git = true;
           extraOptions = ["--group-directories-first"];
         };
+
         # Text Editor
         micro = {
           enable = true;

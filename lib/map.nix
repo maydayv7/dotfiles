@@ -3,7 +3,6 @@ lib: let
     (builtins)
     attrNames
     attrValues
-    foldl'
     isPath
     pathExists
     readDir
@@ -37,7 +36,6 @@ lib: let
 in rec {
   ## Mapping Functions ##
   array = list: func: forEach list (name: getAttrFromPath [name] func);
-  list = func: foldl' (x: y: x + y + " ") "" (attrNames func);
   filter = name: func: attrs:
     filterAttrs (_: type: type != null) (mapAttrs' func (filterAttrs name attrs));
 
@@ -92,19 +90,6 @@ in rec {
     list = path: attrValues (modules path id);
     name = path: attrNames (modules path id);
   };
-
-  # Flake Imports
-  flake = directory:
-    attrValues (
-      filter checkName (
-        name: type: let
-          path = "${toString directory}/${name}";
-        in
-          if (type == "directory" || type == "symlink") && (pathExists "${path}/flake.nix")
-          then nameValuePair name "${path}/flake.nix"
-          else nameValuePair "" null
-      ) (readDir directory)
-    );
 
   # Configuration Folder Creation
   folder = {

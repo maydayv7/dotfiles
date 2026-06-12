@@ -21,9 +21,9 @@ in {
         nixos.fonts
 
         # ISO image definition
-        ./_install/image.nix
+        ./_image.nix
 
-        (import ../desktop/_install.nix {inherit util files inputs;})
+        (import ../../desktop/_install.nix {inherit util files inputs;})
         (
           {lib, ...}: {
             options = {
@@ -52,7 +52,7 @@ in {
         isNormalUser = true;
         description = "Default User";
         extraGroups = ["wheel"];
-        initialHashedPassword = lib.fileContents ../../secrets/passwords/default;
+        initialHashedPassword = lib.fileContents ../../../secrets/passwords/default;
       };
 
       # Automatic Login

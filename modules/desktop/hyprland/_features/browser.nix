@@ -1,7 +1,7 @@
 # Browser theming
 {theme ? null, ...}: {
   home = _: {
-    home.file.".mozilla/firefox/default/chrome/userChrome.css".text = ''
+    home.file.".config/mozilla/firefox/default/chrome/userChrome.css".text = ''
       #TabsToolbar {
         -moz-window-dragging: no-drag;
       }

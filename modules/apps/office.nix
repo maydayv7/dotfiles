@@ -5,19 +5,9 @@
 in {
   flake.modules = {
     nixos.office = {pkgs, ...}: {
+      # Dictionaries
       environment = {
         systemPackages = with pkgs; [
-          calibre
-          gscan2pdf
-          keepassxc
-          libreoffice
-          onlyoffice-desktopeditors
-          pdfarranger
-          simple-scan
-          gimp3
-          handbrake
-          inkscape
-          xournalpp
           hunspell
           hunspellDicts.en_US-large
           hyphen
@@ -32,6 +22,20 @@ in {
     };
 
     homeManager.office = {pkgs, ...}: {
+      home.packages = with pkgs; [
+        calibre
+        gscan2pdf
+        keepassxc
+        libreoffice
+        onlyoffice-desktopeditors
+        pdfarranger
+        simple-scan
+        gimp3
+        handbrake
+        inkscape
+        xournalpp
+      ];
+
       xdg.mimeApps.defaultApplications = util.build.mime {
         office = ["onlyoffice-desktopeditors.desktop"];
         password = ["org.keepassxc.KeePassXC.desktop"];

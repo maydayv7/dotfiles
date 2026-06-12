@@ -4607,7 +4607,6 @@
               s < n.length - 1 &&
               n[s + 1].hasClass("mspace") &&
               !n[s + 1].hasClass("newline");
-
             )
               (s++, o.push(n[s]), n[s].hasClass("nobreak") && (l = !0));
             l || (i.push(se(o, e)), (o = []));
@@ -5700,7 +5699,6 @@
             for (
               a = e.gullet.consumeArgs(1)[0];
               1 === a.length && "#" === a[0].text;
-
             ) {
               if (1 !== (a = e.gullet.consumeArgs(1)[0]).length)
                 throw new o(
@@ -6934,7 +6932,6 @@
                 Y = Dt.makeLineSpan("hdashline", e, m),
                 W = [{ type: "elem", elem: l, shift: 0 }];
               h.length > 0;
-
             ) {
               var X = h.pop(),
                 _ = X.pos - N;
@@ -9794,7 +9791,6 @@
           for (
             var l = "", h = t.expandNextToken();
             "]" !== h.text && "EOF" !== h.text;
-
           )
             ((l += h.text), (h = t.expandNextToken()));
           if (!l.match(/^\s*[0-9]+\s*$/))
@@ -10548,13 +10544,11 @@
                   for (
                     var n = r.replace(/##/g, "");
                     -1 !== n.indexOf("#" + (a + 1));
-
                   )
                     ++a;
                 for (
                   var i = new ha(r, this.settings), o = [], s = i.lex();
                   "EOF" !== s.text;
-
                 )
                   (o.push(s), (s = i.lex()));
                 return (o.reverse(), { tokens: o, numArgs: a });
@@ -11195,7 +11189,6 @@
               for (
                 var l, h = "", m = this.fetch(), c = 0, u = m;
                 (l = this.fetch()).text !== n || (r && c > 0);
-
               ) {
                 switch (l.text) {
                   case "EOF":
@@ -11219,7 +11212,6 @@
               for (
                 var a, n = this.fetch(), i = n, s = "";
                 "EOF" !== (a = this.fetch()).text && t.test(s + a.text);
-
               )
                 ((s += (i = a).text), this.consume());
               if ("" === s)

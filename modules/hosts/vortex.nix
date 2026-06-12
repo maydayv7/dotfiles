@@ -52,9 +52,6 @@ in {
           nixos.qt
           nixos.gtk
           nixos.fonts
-          nixos.discord
-          nixos.firefox
-          nixos.internet
           nixos.office
           nixos.wine
           nixos.hyprland

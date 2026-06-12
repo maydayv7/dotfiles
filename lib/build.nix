@@ -6,7 +6,6 @@ lib: let
     hasAttr
     listToAttrs
     map
-    match
     readFile
     ;
 
@@ -106,12 +105,4 @@ in {
     else if (fonts != null)
     then replaceStrings font font' file
     else throw "One of 'colors' or 'fonts' must be declared";
-
-  # String Extractor
-  until = check: string: let
-    value = match "([^ ]+)${check}.*" string;
-  in
-    if (value == null)
-    then string
-    else concatStringsSep "" value;
 }

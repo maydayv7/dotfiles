@@ -89,7 +89,7 @@
             manix
             alejandra
             nix-output-monitor
-            nodePackages.prettier
+            prettier
             shellcheck
             statix
           ]

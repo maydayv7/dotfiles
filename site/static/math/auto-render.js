@@ -92,7 +92,6 @@
                 o.push({ type: "text", data: l.slice(0, s) }),
                 (d = !1));
                 ;
-
               ) {
                 if (d) {
                   if (-1 === (f = l.indexOf(t, s))) break;

@@ -7,6 +7,7 @@
       exclude = [
         ../../site
         (matchExt "md")
+        (matchExt "gpg")
         (matchExt "secret")
       ];
     };

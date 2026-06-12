@@ -69,7 +69,11 @@ in {
           };
 
           gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-          gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+          gtk4 = {
+            # 26.05: gtk4 no longer mirrors gtk.theme by default
+            inherit (osConfig.gui.gtk) theme;
+            extraConfig.gtk-application-prefer-dark-theme = 1;
+          };
         };
       };
   };

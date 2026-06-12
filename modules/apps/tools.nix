@@ -4,7 +4,19 @@
 in {
   flake.modules = {
     nixos.tools = {pkgs, ...}: {
-      environment.systemPackages = with pkgs; [
+      # Screen Record
+      programs.obs-studio = {
+        enable = true;
+        enableVirtualCamera = true;
+        plugins = with pkgs.obs-studio-plugins; [
+          obs-mute-filter
+          obs-source-switcher
+        ];
+      };
+    };
+
+    homeManager.tools = {pkgs, ...}: {
+      home.packages = with pkgs; [
         # Utilities
         clapgrep
         gearlever
@@ -21,18 +33,6 @@ in {
         qpwgraph
       ];
 
-      # Screen Record
-      programs.obs-studio = {
-        enable = true;
-        enableVirtualCamera = true;
-        plugins = with pkgs.obs-studio-plugins; [
-          obs-mute-filter
-          obs-source-switcher
-        ];
-      };
-    };
-
-    homeManager.tools = _: {
       # AppImage Manager
       dconf.settings."it/mijorus/gearlever".appimages-default-folder = "~/.appimages";
       xdg.mimeApps.defaultApplications = util.build.mime {

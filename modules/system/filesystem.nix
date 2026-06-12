@@ -64,10 +64,13 @@ in {
       config = mkMerge [
         {
           warnings = optional (scheme == null) "Disk Filesystem Scheme is unset";
-          boot.supportedFilesystems = {
-            ntfs = true;
-            vfat = true;
-            zfs = true;
+          boot = {
+            supportedFilesystems = {
+              ntfs = true;
+              vfat = true;
+              zfs = true;
+            };
+            zfs.forceImportRoot = false;
           };
         }
 
@@ -158,9 +161,8 @@ in {
               # Boot Settings
               kernelParams = ["elevator=none"];
               zfs = {
-                allowHibernation = true;
-                forceImportRoot = false;
                 forceImportAll = false;
+                unsafeAllowHibernation = true;
                 devNodes = "/dev/disk/by-partlabel/System";
               };
 

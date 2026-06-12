@@ -1,9 +1,7 @@
 ## OSU! ##
 _: {
-  flake.modules = {
-    nixos.osu = {pkgs, ...}: {
-      environment.systemPackages = [pkgs.osu-lazer-bin];
-    };
-    homeManager.osu.home.persist.directories = [".local/share/osu"];
+  flake.modules.homeManager.osu = {pkgs, ...}: {
+    home.packages = [pkgs.osu-lazer-bin];
+    home.persist.directories = [".local/share/osu"];
   };
 }

@@ -1,6 +1,5 @@
 {
   lib,
-  util,
   inputs,
   pkgs,
   files,
@@ -8,8 +7,10 @@
 }:
 with files; let
   inherit (inputs) self;
-  inherit (util.map) list;
   inherit (lib) licenses recursiveUpdate;
+
+  # Joins an attrset's names into a space-separated string (for shell `grep -wq`)
+  list = attrs: builtins.foldl' (x: y: x + y + " ") "" (builtins.attrNames attrs);
 
   devShells = list self.devShells."${pkgs.stdenv.system}";
   nixosConfigurations = list self.nixosConfigurations;

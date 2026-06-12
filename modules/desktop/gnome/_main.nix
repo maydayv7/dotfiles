@@ -5,7 +5,7 @@
   ...
 }: {
   nixos = {pkgs, ...}: {
-    imports = [(import ./common.nix {inherit util files inputs;})];
+    imports = [(import ./_common.nix {inherit util files inputs;})];
 
     # Desktop Integration
     gui = {
@@ -43,6 +43,7 @@
 
     programs = {
       gnupg.agent.pinentryPackage = pkgs.lib.mkForce pkgs.pinentry-gnome3;
+      geary.enable = true;
       nautilus-open-any-terminal = {
         enable = true;
         terminal = "ghostty";
@@ -130,7 +131,7 @@
     ...
   }: {
     ## Desktop Settings
-    imports = builtins.map (p: import p {inherit util files;}) (util.map.modules.list ./settings);
+    imports = builtins.map (p: import p {inherit util files;}) (util.map.modules.list ./_settings);
     stylix.targets = {
       gnome.enable = true;
       ghostty.enable = true;

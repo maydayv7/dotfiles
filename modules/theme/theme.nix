@@ -108,21 +108,6 @@ in {
     };
 
     homeManager.theme = {lib, ...}: {
-      # App theme conduits (set by the active desktop, read by app modules)
-      options.apps = {
-        logseq.style = lib.mkOption {
-          description = "Logseq Notes CSS";
-          type = lib.types.str;
-          default = "";
-        };
-
-        ytmusic.style = lib.mkOption {
-          description = "YouTube Music CSS";
-          type = lib.types.str;
-          default = "";
-        };
-      };
-
       config = {
         home.persist.directories = [
           ".config/dconf"

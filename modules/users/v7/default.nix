@@ -24,8 +24,8 @@ in {
       ];
 
       file = {
-        ".face".source = ./_v7/profile.png;
-        ".config/goa-1.0/accounts.conf".text = builtins.readFile ./_v7/accounts.conf;
+        ".face".source = ./profile.png;
+        ".config/goa-1.0/accounts.conf".text = builtins.readFile ./accounts.conf;
         "Projects/dotfiles".source = config.lib.file.mkOutOfStoreSymlink files.path.system;
         ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
           file://${homeDir}/TBD TBD
