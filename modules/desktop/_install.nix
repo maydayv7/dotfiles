@@ -11,7 +11,7 @@
 }: let
   inherit (lib) mkForce;
 in {
-  imports = [(import ./gnome/_common.nix {inherit util files inputs;})];
+  imports = [(import ./gnome/_common.nix {})];
 
   services = {
     displayManager.gdm = {

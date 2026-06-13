@@ -2,8 +2,8 @@
 _: {
   flake.modules.nixos.prompt = {config, ...}: {
     programs.starship = let
-      open = "";
-      close = "";
+      open = "";
+      close = "";
       char = "⮞";
 
       build = a: b: c:
@@ -37,15 +37,15 @@ _: {
           disabled = false;
           format = "(fg:base04)[${open}](fg:white)[$symbol](fg:base01 bg:white)[${close}](fg:white)";
           symbols = {
-            Android = "";
-            Arch = "";
-            Fedora = "";
-            Linux = "";
-            Macos = "";
-            NixOS = "";
-            Ubuntu = "";
-            Windows = "";
-            Unknown = "";
+            Android = "";
+            Arch = "";
+            Fedora = "";
+            Linux = "";
+            Macos = "";
+            NixOS = "";
+            Ubuntu = "";
+            Windows = "";
+            Unknown = "";
           };
         };
 
@@ -56,13 +56,13 @@ _: {
           truncation_symbol = "…/";
           truncation_length = 4;
           truncate_to_repo = false;
-          read_only = "";
+          read_only = "";
         };
 
         git_branch = {
           disabled = false;
           format = build' {
-            icon = "";
+            icon = "";
             var = "$branch";
             color = "green";
             end = "";
@@ -85,9 +85,9 @@ _: {
           up_to_date = "";
         };
 
-        c.format = build " C" "$version" "bright-white";
-        python.format = build " Python" "$version" "bright-white";
-        java.format = build " Java" "$version" "bright-white";
+        c.format = build " C" "$version" "bright-white";
+        python.format = build " Python" "$version" "bright-white";
+        java.format = build " Java" "$version" "bright-white";
         nodejs.format = build "󰎙 Node.js" "$version" "bright-white";
         dotnet.format = build "󰪮 .NET" "$version" "bright-white";
 
@@ -98,7 +98,7 @@ _: {
 
         status = {
           disabled = false;
-          format = build "" "$status" "red";
+          format = build "" "$status" "red";
         };
 
         cmd_duration = {
@@ -108,7 +108,7 @@ _: {
 
         shell = {
           disabled = false;
-          format = build "" "$indicator" "purple";
+          format = build "" "$indicator" "purple";
           bash_indicator = "bash";
           fish_indicator = "fish";
           zsh_indicator = "zsh";
@@ -120,7 +120,7 @@ _: {
           style_user = "fg:white";
           style_root = "bold fg:red";
           format = build' {
-            icon = "";
+            icon = "";
             var = "$user";
             color = "yellow";
             style = "$style";
@@ -129,13 +129,13 @@ _: {
 
         hostname = {
           disabled = false;
-          format = build "" "$hostname" "cyan";
+          format = build "" "$hostname" "cyan";
           ssh_only = false;
         };
 
         time = {
           disabled = false;
-          format = build "" "$time" "blue";
+          format = build "" "$time" "blue";
           time_format = "%H:%M";
         };
 

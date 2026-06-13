@@ -33,6 +33,8 @@ in {
           pkgs = config.flake.legacyPackages.${system};
           modules = [
             module
+
+            # Compatibility
             inputs.stylix.homeModules.stylix
             (
               {lib, ...}: {

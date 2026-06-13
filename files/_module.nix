@@ -37,6 +37,7 @@ in {
     # Directory Bookmarks
     bookmarks = ''
       file://${path.data}/files Files
+      file://${path.data}/sync Sync
       file:/// Computer
     '';
 

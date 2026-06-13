@@ -1,4 +1,4 @@
-# Compositor: Hyprland program, greeter session, portals
+# Compositor
 {
   util ? null,
   files ? null,
@@ -44,15 +44,6 @@
   };
 
   home = _: {
-    services = {
-      poweralertd.enable = true;
-      mpris-proxy.enable = true;
-    };
-
-    home.persist.directories = [
-      ".config/autostart"
-      ".local/share/gvfs-metadata"
-      ".config/hypr"
-    ];
+    home.persist.directories = [".config/hypr"];
   };
 }

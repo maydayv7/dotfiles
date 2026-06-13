@@ -14,54 +14,42 @@ in {
       mutable = true;
       force = true;
     };
+
     isGnome = osConfig.services.desktopManager.gnome.enable or false;
     isHyprland = osConfig.programs.hyprland.enable or false;
-    inherit (config.apps.logseq) style;
+    style =
+      if isGnome
+      then "url('https://cdn.jsdelivr.net/gh/sansui233/logseq-bonofix-theme/custom.css')"
+      else if isHyprland
+      then "url('https://logseq.catppuccin.com/ctp-${config.catppuccin.flavor}.css')"
+      else "";
   in {
-    options.apps.logseq.style = lib.mkOption {
-      description = "Logseq Notes CSS";
-      type = lib.types.str;
-      default = "";
-    };
+    config.home = {
+      packages = [pkgs.logseq];
+      persist.directories = [
+        ".logseq"
+        ".config/Logseq"
+      ];
 
-    config = {
-      # Desktop-specific theme
-      apps.logseq.style =
-        if isGnome then "url('https://cdn.jsdelivr.net/gh/sansui233/logseq-bonofix-theme/custom.css')"
-        else if isHyprland then "url('https://logseq.catppuccin.com/ctp-${config.catppuccin.flavor}.css')"
-        else "";
-
-      home = {
-        packages = [pkgs.logseq];
-        persist.directories = [
-          ".logseq"
-          ".config/Logseq"
-        ];
-
-        file = with files.logseq;
-          {
-            ".config/logseq/configs.edn".text = "{:window/native-titlebar? true}";
-            ".logseq/preferences.json" =
-              {
-                text = prefs;
-              }
-              // mutable;
-            ".logseq/config/config.edn".text =
-              if style != ""
-              then ''{:custom-css-url "@import ${style};"}''
-              else lib.mkDefault "";
-          }
-          // util.map.folder {
-            directory = settings;
-            path = ".logseq/settings";
-            extension = ".json";
-            apply = text: {inherit text;} // mutable;
-            replace = {
-              placeholders = ["@bg"];
-              values = [config.lib.stylix.colors.base00];
-            };
+      file = with files.logseq;
+        {
+          ".config/logseq/configs.edn".text = "{:window/native-titlebar? true}";
+          ".logseq/preferences.json" = {text = prefs;} // mutable;
+          ".logseq/config/config.edn".text =
+            if style != ""
+            then ''{:custom-css-url "@import ${style};"}''
+            else lib.mkDefault "";
+        }
+        // util.map.folder {
+          directory = settings;
+          path = ".logseq/settings";
+          extension = ".json";
+          apply = text: {inherit text;} // mutable;
+          replace = {
+            placeholders = ["@bg"];
+            values = [config.lib.stylix.colors.base00];
           };
-      };
+        };
     };
   };
 }

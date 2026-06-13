@@ -22,6 +22,7 @@ in {
     };
 
     homeManager.office = {pkgs, ...}: {
+      programs.keepassxc.enable = true;
       home.packages = with pkgs; [
         calibre
         gscan2pdf
@@ -40,8 +41,6 @@ in {
         office = ["onlyoffice-desktopeditors.desktop"];
         password = ["org.keepassxc.KeePassXC.desktop"];
       };
-
-      programs.keepassxc.enable = true;
 
       home = {
         persist = {

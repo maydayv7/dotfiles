@@ -30,9 +30,9 @@ in {
             config.sops.secrets."root.secret".path;
         };
 
-        # User Passwords (sops, available before user creation)
+        # User Passwords
         sops.secrets = util.map.secrets {
-          directory = ../../secrets/passwords;
+          directory = ../../../secrets/passwords;
           neededForUsers = true;
         };
 
@@ -63,12 +63,10 @@ in {
       inherit (lib) mkIf mkOption types;
       cfg = config.credentials;
     in {
-      imports = [
-        # Mutable file support
-        (import ../users/_mutable.nix)
-      ];
+      # Mutable file support
+      imports = [(import ./_mutable.nix)];
 
-      # User Identity / Credentials
+      # User Identity
       options.credentials = {
         name = mkOption {
           description = "Work User Name";
@@ -140,7 +138,7 @@ in {
             (
               builtins.attrValues (
                 util.map.files {
-                  directory = ../../secrets/keys;
+                  directory = ../../../secrets/keys;
                   extension = ".gpg";
                 }
               )

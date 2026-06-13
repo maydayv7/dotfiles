@@ -452,19 +452,12 @@ Each feature contributes both a `flake.modules.nixos.<aspect>` and a `flake.modu
 <details>
 <summary><b>Known Limitations</b></summary>
 
-- Home Configuration isn't decoupled from System
-
 ### Manual Intervention
 
 - [Wine](./packages/wine) Applications have to be manually updated
 - Minecraft [Server](./modules/apps/games/mc-server.nix) has to be manually updated
 - Logseq Plugins have to be manually installed
 - Cannot automatically hibernate on NVIDIA due to upstream [issue](https://forums.developer.nvidia.com/t/systemds-suspend-then-hibernate-not-working-in-nvidia-optimus-laptop/213690)
-
-### To Do
-
-- Remove `pkgs.custom.copyous` after [merge](https://github.com/NixOS/nixpkgs/pull/469919)
-- Remove `stremio.patch` after [merge](https://github.com/NixOS/nixpkgs/pull/468728)
 
 </details>
 

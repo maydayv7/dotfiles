@@ -40,8 +40,8 @@ in {
           nixos.gtk
           nixos.fonts
           nixos.office
-          nixos.pantheon
           nixos.flatpak
+          nixos.gnome
         ]
         ++ util.map.array [
           "common-pc"
@@ -91,10 +91,9 @@ in {
         sharedHmModules
         ++ [
           homeManager.navya
-          homeManager.pantheon
+          homeManager.gnome
         ];
 
-      # Auto-login for this minimal system
       services.displayManager.autoLogin = {
         enable = true;
         user = "navya";
@@ -108,7 +107,7 @@ in {
         sharedHmModules
         ++ [
           homeManager.navya
-          homeManager.pantheon
+          homeManager.gnome
         ];
       home = {
         username = "navya";

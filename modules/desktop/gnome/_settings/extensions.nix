@@ -172,7 +172,7 @@ lib.mkIf (osConfig != null) (
           };
         }
         {
-          package = pkgs.custom.copyous;
+          package = copyous;
           settings = {
             auto-hide-search = false;
             clipboard-orientation = "horizontal";
@@ -525,10 +525,7 @@ lib.mkIf (osConfig != null) (
                 1.0
               ];
             global-rounded-corner-settings = "{'padding': <{'left': 1, 'right': 1, 'top': 1, 'bottom': 1}>, 'keepRoundedCorners': <{'maximized': true, 'fullscreen': false}>, 'borderRadius': <uint32 12>, 'smoothing': <0.0>, 'enabled': <true>}";
-            blacklist = [
-              "com.desktop.ding"
-              "com.github.amezin.ddterm"
-            ];
+            blacklist = ["com.github.amezin.ddterm"];
           };
         }
         {
@@ -538,14 +535,6 @@ lib.mkIf (osConfig != null) (
         {
           package = transparent-window-moving;
           settings.window-opacity = 200;
-        }
-        {
-          package = gtk4-desktop-icons-ng-ding;
-          settings = {
-            dark-text-in-labels = false;
-            show-drop-place = false;
-            show-network-volumes = false;
-          };
         }
       ]
     );

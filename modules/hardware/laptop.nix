@@ -4,11 +4,13 @@
 in {
   flake.modules = {
     nixos.laptop = _: {
-      # Power Button
       services.logind.settings.Login = {
         KillUserProcesses = true;
+
+        # Power Button
         HandlePowerKey = "poweroff";
         HandlePowerKeyLongPress = "reboot";
+
         # Lid
         HandleLidSwitch = "lock";
         HandleLidSwitchDocked = "ignore";

@@ -14,26 +14,25 @@
     homeManager.shell
     homeManager.shell-utils
     homeManager.nix
-    # homeManager.laptop
+    homeManager.laptop
     # homeManager.virtualisation
     homeManager.theme
     homeManager.gtk
-    # homeManager.discord
-    # homeManager.firefox
+    homeManager.discord
+    homeManager.firefox
     # homeManager.flatpak
     # homeManager.games
     # homeManager.osu
     # homeManager.minecraft
     homeManager.git
-    # homeManager.internet
-    # homeManager.office
+    homeManager.internet
+    homeManager.office
     # homeManager.latex
     # homeManager.notes
     # homeManager.spotify
-    # homeManager.tools
+    homeManager.tools
     # homeManager.stream
-    # homeManager.vscode
-    # homeManager.youtube
+    homeManager.vscode
     # homeManager.wine
   ];
 in {
@@ -53,12 +52,12 @@ in {
           nixos.filesystem
           nixos.cpu
           nixos.gpu
-          # nixos.laptop
-          # nixos.mobile
-          # nixos.printer
+          nixos.laptop
+          nixos.mobile
+          nixos.printer
           # nixos.virtualisation
           # nixos.vfio
-          # nixos.android
+          nixos.android
           nixos.nix
           nixos.shell
           nixos.shell-utils
@@ -73,10 +72,9 @@ in {
           # nixos.roblox
           # nixos.mc-server
           nixos.git
-          # nixos.git-runner
-          # nixos.office
+          nixos.office
           # nixos.latex
-          # nixos.tools
+          nixos.tools
           # nixos.wine
 
           # Desktop

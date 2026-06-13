@@ -1,6 +1,13 @@
 ## Discord Configuration ##
 {inputs, ...}: {
-  flake.modules.homeManager.discord = {pkgs, lib, config, osConfig ? {}, ...}: {
+  flake.modules.homeManager.discord = {
+    pkgs,
+    lib,
+    osConfig ? {},
+    ...
+  }: let
+    isGnome = osConfig.services.desktopManager.gnome.enable or false;
+  in {
     imports = [inputs.nixcord.homeModules.nixcord];
     home.persist.directories = [".config/vesktop"];
     programs.nixcord = {
@@ -11,12 +18,12 @@
         package = pkgs.vesktop;
       };
 
-      # Desktop-specific themes
-      quickCss = lib.mkIf (osConfig.services.desktopManager.gnome.enable or false)
+      # Theming
+      quickCss =
+        lib.mkIf isGnome
         ''@import url("https://raw.githubusercontent.com/ricewind012/discord-gnome-theme/master/gnome.theme.css");'';
 
       config = {
-        # Theming
         useQuickCss = true;
         frameless = false;
         transparent = false;

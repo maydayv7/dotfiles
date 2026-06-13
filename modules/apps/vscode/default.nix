@@ -11,12 +11,11 @@ in {
     ...
   }: let
     font = builtins.head config.fonts.fontconfig.defaultFonts.monospace;
-    package = pkgs.vscode;
     isGnome = osConfig.services.desktopManager.gnome.enable or false;
-    isPantheon = osConfig.services.desktopManager.pantheon.enable or false;
     isHyprland = osConfig.programs.hyprland.enable or false;
   in {
     # Environment
+    imports = [./_mutable.nix];
     xdg.mimeApps.defaultApplications = util.build.mime {
       code = ["code.desktop"];
       markdown = ["code.desktop"];
@@ -24,37 +23,33 @@ in {
     };
 
     home = {
-      packages = with pkgs; [
-        nil
-        alejandra
-      ];
       persist.directories = [
         ".config/Code"
         ".vscode"
+      ];
+      packages = with pkgs; [
+        nil
+        alejandra
       ];
     };
 
     programs.vscode = {
       enable = true;
-      inherit package;
+      package = pkgs.vscode;
       profiles.default = with files.vscode; {
         # Keyboard Shortcuts
         inherit keybindings;
 
         # Settings
         userSettings = lib.mkMerge [
-          (settings // {
-            "editor.fontFamily" = "'${font}', 'monospace', monospace";
-          })
+          (settings
+            // {
+              "workbench.colorTheme" = lib.mkDefault "Dark 2026";
+              "editor.fontFamily" = "'${font}', 'monospace', monospace";
+            })
           (lib.mkIf isGnome {
-            "workbench.colorTheme" = "Adwaita Dark";
             "workbench.productIconTheme" = "adwaita";
-            "window.titleBarStyle" = "custom";
             "terminal.external.linuxExec" = "ghostty";
-          })
-          (lib.mkIf isPantheon {
-            "workbench.colorTheme" = "Elementary Dark";
-            "terminal.external.linuxExec" = "io.elementary.terminal";
           })
           (lib.mkIf isHyprland {
             "workbench.iconTheme" = "catppuccin-${config.catppuccin.flavor or "mocha"}";
@@ -72,10 +67,7 @@ in {
             naumovs.color-highlight # Color Viewer
             johnpapa.vscode-peacock # Workspace Color
 
-            # Git
-            eamodio.gitlens
-            github.vscode-pull-request-github
-
+            github.vscode-pull-request-github # GitHub
             github.copilot # Copilot AI
             dart-code.flutter # Flutter
             divyanshuagrawal.competitive-programming-helper # CP
@@ -87,7 +79,7 @@ in {
             tomoki1207.pdf # PDF Viewer
             yzhang.markdown-all-in-one # Markdown
 
-            # HTML+CSS+XML
+            # HTML/CSS/XML
             ecmel.vscode-html-css
             formulahendry.auto-rename-tag
             redhat.vscode-xml
@@ -98,10 +90,8 @@ in {
           ]
           ++ (with pkgs.vscode-marketplace; [
             kisstkondoros.vscode-gutter-preview # Image Preview
-            fwcd.kotlin # Kotlin
           ])
           ++ lib.optionals isGnome [pkgs.vscode-extensions.piousdeer.adwaita-theme]
-          ++ lib.optionals isPantheon [pkgs.vscode-marketplace.sixpounder.elementary-theme]
           ++ lib.optionals isHyprland [pkgs.vscode-extensions.catppuccin.catppuccin-vsc-icons];
       };
     };

@@ -1,17 +1,9 @@
 {
   util ? null,
   files ? null,
-  inputs ? null,
   ...
 }: {
-  nixos = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
-    imports = [(import ./_common.nix {inherit util files inputs;})];
-
+  nixos = {pkgs, ...}: {
     # Desktop Integration
     gui = {
       gtk.theme = {
@@ -112,15 +104,7 @@
     ];
   };
 
-  home = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
-    ## Desktop Settings
-    imports = builtins.map (p: import p {inherit util files;}) (util.map.modules.list ./_settings);
-
+  home = {lib, ...}: {
     config = {
       stylix.targets = {
         gnome.enable = true;

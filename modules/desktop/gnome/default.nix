@@ -1,32 +1,24 @@
-# GNOME desktop environment
-{
-  config,
-  inputs,
-  ...
-}: let
-  inherit (config.flake) files;
+## GNOME DE ##
+{config, ...}: let
   inherit (config) util;
+  inherit (config.flake) files;
 
-  main = import ./_main.nix {inherit util files inputs;};
+  base = import ../_base.nix {};
+  main = import ./_main.nix {inherit util files;};
 in {
   flake.modules = {
     nixos.gnome.imports = [
-      ../_base.nix
+      (base.nixos or {})
+      (import ./_common.nix {})
       (main.nixos or {})
     ];
 
-    homeManager.gnome.imports = [
-      {
-        services = {
-          poweralertd.enable = true;
-          mpris-proxy.enable = true;
-        };
-        home.persist.directories = [
-          ".config/autostart"
-          ".local/share/gvfs-metadata"
-        ];
-      }
-      (main.home or {})
-    ];
+    homeManager.gnome.imports =
+      [
+        (base.home or {})
+        (main.home or {})
+      ]
+      ++ # Desktop Settings
+      builtins.map (p: import p {inherit util files;}) (util.map.modules.list ./_settings);
   };
 }

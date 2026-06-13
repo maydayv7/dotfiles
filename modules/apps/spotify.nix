@@ -2,14 +2,10 @@
 {inputs, ...}: {
   flake.modules.homeManager.spotify = {pkgs, ...}: {
     imports = [inputs.spicetify.homeManagerModules.default];
-    home = {
-      packages = [pkgs.spot];
-      persist.directories = [
-        ".config/spotify"
-        ".cache/spotify"
-        ".cache/spot"
-      ];
-    };
+    home.persist.directories = [
+      ".config/spotify"
+      ".cache/spotify"
+    ];
 
     programs.spicetify = {
       enable = true;
@@ -22,7 +18,6 @@
       ];
 
       enabledExtensions = with pkgs.spicetify.extensions; [
-        beautifulLyrics
         goToSong
         history
         loopyLoop

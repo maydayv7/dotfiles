@@ -180,13 +180,15 @@
     };
 
     homeManager.base = {lib, ...}: {
-      home.stateVersion = lib.mkDefault lib.trivial.release;
-      home.persist.directories = [
-        {
-          directory = ".gnupg";
-          mode = "0700";
-        }
-      ];
+      home = {
+        stateVersion = lib.mkDefault lib.trivial.release;
+        persist.directories = [
+          {
+            directory = ".gnupg";
+            mode = "0700";
+          }
+        ];
+      };
     };
   };
 }

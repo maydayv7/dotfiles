@@ -39,37 +39,7 @@
 
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "better-comments.highlightPlainText": true,
-  "gitlens.advanced.commitOrdering": "date",
-  "gitlens.advanced.fileHistoryFollowsRenames": true,
   "scm.repositories.visible": 7,
-  "todohighlight.isCaseSensitive": true,
-  "todohighlight.keywords": [
-    {
-      "text": "TODO",
-      "color": "#333",
-      "backgroundColor": "#2ecc71"
-    },
-    {
-      "text": "FIXME",
-      "color": "#333",
-      "backgroundColor": "#e67e22"
-    },
-    {
-      "text": "BUG",
-      "color": "#333",
-      "backgroundColor": "#e74c3c"
-    },
-    {
-      "text": "HACK",
-      "color": "#333",
-      "backgroundColor": "#f1c40f"
-    },
-    {
-      "text": "WONTFIX",
-      "color": "#333",
-      "backgroundColor": "#3498db"
-    }
-  ],
   "nix.enableLanguageServer": true,
   "nix.serverPath": "nil",
   "nix.serverSettings": {
