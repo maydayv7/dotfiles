@@ -107,6 +107,22 @@ in {
           Defaults lecture = always, lecture_file = ${files.ascii.groot}
         '';
       };
+
+      # Recovery Account
+      specialisation.recovery.configuration = {
+        home-manager.verbose = true;
+        security.sudo.extraConfig = lib.mkAfter "recovery ALL=(ALL:ALL) NOPASSWD:ALL";
+        users.extraUsers.recovery = {
+          name = "recovery";
+          description = "Recovery Account";
+          isNormalUser = true;
+          uid = 1100;
+          group = "users";
+          extraGroups = ["wheel"];
+          useDefaultShell = true;
+          initialHashedPassword = lib.mkDefault (lib.fileContents ../../secrets/passwords/default);
+        };
+      };
     };
   };
 }
