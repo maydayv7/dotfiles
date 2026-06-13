@@ -57,7 +57,6 @@ in {
 
       (mkIf (runner.support == "gitlab") {
         # Docker Support
-        boot.kernel.sysctl."net.ipv4.ip_forward" = true;
         virtualisation.docker.enable = true;
 
         # GitLab Runner

@@ -109,12 +109,6 @@ in {
 
     homeManager.theme = {lib, ...}: {
       config = {
-        home.persist.directories = [
-          ".config/dconf"
-          ".config/gtk-3.0"
-          ".config/gtk-4.0"
-        ];
-
         stylix = {
           enable = lib.mkDefault true;
           icons = lib.mkForce {

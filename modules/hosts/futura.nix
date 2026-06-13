@@ -1,4 +1,4 @@
-# Host: Futura - Dell Inspiron 11 3000
+# Futura - Dell Inspiron 11 3000
 {
   config,
   inputs,
@@ -7,42 +7,45 @@
   inherit (config.flake.modules) nixos homeManager;
   inherit (config) util;
 
-  sharedHmModules = [
-    homeManager.user
-    homeManager.base
-    homeManager.filesystem
-    homeManager.shell
-    homeManager.nix
-    homeManager.laptop
-    homeManager.theme
-    homeManager.gtk
-    homeManager.firefox
-    homeManager.office
-  ];
+  sharedHmModules =
+    util.map.array [
+      "user"
+      "base"
+      "filesystem"
+      "shell"
+      "nix"
+      "laptop"
+      "theme"
+      "gtk"
+      "firefox"
+      "office"
+    ]
+    homeManager;
 in {
   configurations.nixos.futura = {
     system = "x86_64-linux";
     module = {pkgs, ...}: {
       imports =
-        [
-          nixos.base
-          nixos.security
-          nixos.secrets
-          nixos.boot
-          nixos.filesystem
-          nixos.cpu
-          nixos.laptop
-          nixos.nix
-          nixos.shell
-          nixos.user
-          nixos.theme
-          nixos.qt
-          nixos.gtk
-          nixos.fonts
-          nixos.office
-          nixos.flatpak
-          nixos.gnome
+        util.map.array [
+          "base"
+          "security"
+          "secrets"
+          "boot"
+          "filesystem"
+          "cpu"
+          "laptop"
+          "nix"
+          "shell"
+          "user"
+          "theme"
+          "qt"
+          "gtk"
+          "fonts"
+          "office"
+          "flatpak"
+          "gnome"
         ]
+        nixos
         ++ util.map.array [
           "common-pc"
           "common-pc-laptop"

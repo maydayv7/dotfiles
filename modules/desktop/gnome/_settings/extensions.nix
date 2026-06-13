@@ -87,6 +87,7 @@ lib.mkIf (osConfig != null) (
             ];
           };
         }
+        {package = app-name-indicator;}
         {
           package = status-area-horizontal-spacing;
           settings.hpadding = 4;
@@ -121,11 +122,6 @@ lib.mkIf (osConfig != null) (
           settings.always-show-icon = false;
         }
         {
-          package = power-profile-indicator-2;
-          name = "power-profile";
-          settings.colored-icon = false;
-        }
-        {
           package = user-themes;
           name = "user-theme";
           settings.name = mkForce "custom";
@@ -139,6 +135,7 @@ lib.mkIf (osConfig != null) (
             enable-battery-level-icon = false;
             enable-battery-level-text = false;
             enable-multi-indicator-mode = false;
+            enable-sony-device = true;
             enable-upower-level-icon = true;
             hide-bluetooth-indicator = 0;
             indicator-type = 1;
@@ -150,6 +147,7 @@ lib.mkIf (osConfig != null) (
         }
         {
           package = brightness-control-using-ddcutil;
+          disable = true;
           settings = {
             button-location = 1;
             ddcutil-binary-path = getExe pkgs.ddcutil;
@@ -243,26 +241,6 @@ lib.mkIf (osConfig != null) (
             use-custom-shortcuts = true;
             use-transparency = true;
             visibility = 55;
-          };
-        }
-        {
-          package = tasks-in-panel;
-          settings = {
-            accent-panel = false;
-            light-style = false;
-            move-date = false;
-            scroll-panel = false;
-            show-active-workspace = true;
-            show-activities = true;
-            show-favorites-menu = false;
-            show-focused-window = true;
-            show-power-profile = false;
-            show-recent-apps-menu = false;
-            show-user-id = false;
-            show-window-icon = false;
-            show-window-title = true;
-            show-workspaces-bar = false;
-            yaru-panel = false;
           };
         }
         {

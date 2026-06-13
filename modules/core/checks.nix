@@ -1,4 +1,4 @@
-## Code formatting and checks ##
+## Code Formatting & Checks ##
 {inputs, ...}: {
   imports = [inputs.formatter.flakeModule];
 

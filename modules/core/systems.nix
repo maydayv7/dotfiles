@@ -1,4 +1,4 @@
-## Supported system architectures ##
+## Supported Architectures ##
 _: {
   systems = [
     "x86_64-linux"

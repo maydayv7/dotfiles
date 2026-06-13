@@ -1,10 +1,5 @@
 ## Install Media Desktop Configuration ##
-{
-  util ? null,
-  files ? null,
-  inputs ? null,
-  ...
-}: {
+_: {
   lib,
   pkgs,
   ...

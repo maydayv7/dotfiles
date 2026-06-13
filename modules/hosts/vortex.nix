@@ -1,28 +1,31 @@
-# Host: Vortex - Dell Inspiron 15 5000
+# Vortex - Dell Inspiron 15 5000
 {
   config,
   inputs,
   ...
 }: let
-  inherit (config.flake.modules) nixos homeManager;
   inherit (config) util;
+  inherit (config.flake.modules) nixos homeManager;
 
-  sharedHmModules = [
-    homeManager.user
-    homeManager.base
-    homeManager.filesystem
-    homeManager.shell
-    homeManager.shell-utils
-    homeManager.nix
-    homeManager.laptop
-    homeManager.theme
-    homeManager.gtk
-    homeManager.discord
-    homeManager.firefox
-    homeManager.internet
-    homeManager.office
-    homeManager.wine
-  ];
+  hmModules =
+    util.map.array [
+      "user"
+      "base"
+      "filesystem"
+      "shell"
+      "shell-utils"
+      "nix"
+      "laptop"
+      "theme"
+      "gtk"
+      "discord"
+      "firefox"
+      "internet"
+      "office"
+      "wine"
+      "hyprland"
+    ]
+    homeManager;
 in {
   configurations.nixos.vortex = {
     system = "x86_64-linux";
@@ -32,30 +35,32 @@ in {
       ...
     }: {
       imports =
+        util.map.array
         [
-          nixos.base
-          nixos.security
-          nixos.secrets
-          nixos.boot
-          nixos.filesystem
-          nixos.cpu
-          nixos.laptop
-          nixos.mobile
-          nixos.printer
-          nixos.virtualisation
-          nixos.nix
-          nixos.shell
-          nixos.shell-utils
-          nixos.prompt
-          nixos.user
-          nixos.theme
-          nixos.qt
-          nixos.gtk
-          nixos.fonts
-          nixos.office
-          nixos.wine
-          nixos.hyprland
+          "base"
+          "security"
+          "secrets"
+          "boot"
+          "filesystem"
+          "cpu"
+          "laptop"
+          "mobile"
+          "printer"
+          "virtualisation"
+          "nix"
+          "shell"
+          "shell-utils"
+          "prompt"
+          "user"
+          "theme"
+          "qt"
+          "gtk"
+          "fonts"
+          "office"
+          "wine"
+          "hyprland"
         ]
+        nixos
         ++ util.map.array ["dell-inspiron-5509"] inputs.hardware.nixosModules;
 
       networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" "vortex");
@@ -117,23 +122,13 @@ in {
         ];
       };
 
-      home-manager.users.v7.imports =
-        sharedHmModules
-        ++ [
-          homeManager.v7
-          homeManager.hyprland
-        ];
+      home-manager.users.v7.imports = hmModules ++ [homeManager.v7 homeManager.hyprland];
     };
   };
 
   configurations.homeManager."v7@vortex" = {
     module = {
-      imports =
-        sharedHmModules
-        ++ [
-          homeManager.v7
-          homeManager.hyprland
-        ];
+      imports = hmModules ++ [homeManager.v7];
       home = {
         username = "v7";
         homeDirectory = "/home/v7";

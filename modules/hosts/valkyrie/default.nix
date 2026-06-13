@@ -1,4 +1,4 @@
-# Host: Valkyrie - ASUS ROG Zephyrus G14
+# Valkyrie - ASUS ROG Zephyrus G14
 {
   config,
   inputs,
@@ -7,34 +7,67 @@
   inherit (config.flake.modules) nixos homeManager;
   inherit (config) util;
 
-  sharedHmModules = [
-    homeManager.user
-    homeManager.base
-    homeManager.filesystem
-    homeManager.shell
-    homeManager.shell-utils
-    homeManager.nix
-    homeManager.laptop
-    # homeManager.virtualisation
-    homeManager.theme
-    homeManager.gtk
-    homeManager.discord
-    homeManager.firefox
-    # homeManager.flatpak
-    # homeManager.games
-    # homeManager.osu
-    # homeManager.minecraft
-    homeManager.git
-    homeManager.internet
-    homeManager.office
-    # homeManager.latex
-    # homeManager.notes
-    # homeManager.spotify
-    homeManager.tools
-    # homeManager.stream
-    homeManager.vscode
-    # homeManager.wine
+  nixosModules = [
+    "android"
+    # "blockchain"
+    "boot"
+    "cpu"
+    "docker"
+    "fonts"
+    # "git-hosting"
+    # "git-runner"
+    "gpu"
+    # "mc-server"
+    "mobile"
+    "printer"
+    "prompt"
+    "qt"
+    # "roblox"
+    "secrets"
+    "security"
+    # "vfio"
   ];
+
+  hmModules = [
+    "discord"
+    "firefox"
+    "internet"
+    # "minecraft"
+    # "notes"
+    # "osu"
+    # "spotify"
+    # "stream"
+    "vscode"
+    # "youtube"
+  ];
+
+  mixedModules = [
+    "base"
+    "filesystem"
+    # "flatpak"
+    # "games"
+    "git"
+    "gnome"
+    "gtk"
+    # "hyprland"
+    "laptop"
+    # "latex"
+    "nix"
+    "office"
+    "shell"
+    "shell-utils"
+    "theme"
+    "tools"
+    "user"
+    # "virtualisation"
+    # "wine"
+  ];
+
+  hmImports =
+    util.map.array hmModules homeManager
+    ++ util.map.array mixedModules homeManager;
+
+  settings = import ./_settings {};
 in {
   configurations.nixos.valkyrie = {
     system = "x86_64-linux";
@@ -44,44 +77,10 @@ in {
       ...
     }: {
       imports =
-        [
-          nixos.base
-          nixos.security
-          nixos.secrets
-          nixos.boot
-          nixos.filesystem
-          nixos.cpu
-          nixos.gpu
-          nixos.laptop
-          nixos.mobile
-          nixos.printer
-          # nixos.virtualisation
-          # nixos.vfio
-          nixos.android
-          nixos.nix
-          nixos.shell
-          nixos.shell-utils
-          nixos.prompt
-          nixos.user
-          nixos.theme
-          nixos.qt
-          nixos.gtk
-          nixos.fonts
-          # nixos.flatpak
-          # nixos.games
-          # nixos.roblox
-          # nixos.mc-server
-          nixos.git
-          nixos.office
-          # nixos.latex
-          nixos.tools
-          # nixos.wine
-
-          # Desktop
-          nixos.gnome
-
-          # Device-specific imports
-          ./_settings
+        util.map.array nixosModules nixos
+        ++ util.map.array mixedModules nixos
+        ++ [
+          (settings.nixos or {})
           # ./_minecraft.nix
         ]
         ++ util.map.array ["asus-zephyrus-ga402x-nvidia"] inputs.hardware.nixosModules;
@@ -134,7 +133,7 @@ in {
       # GUI
       gui = {
         display = "eDP-1";
-        wallpaper = "Quasar";
+        wallpaper = "Bluewatch";
         fancy = true;
       };
 
@@ -152,39 +151,33 @@ in {
         extraGroups = [
           "wheel"
           "keys"
-          "systemd-journal"
-          # "minecraft"
-          "networkmanager"
-          # "adbusers"
-          # "lp"
-          # "scanner"
-          # "kvm"
-          # "libvirtd"
+          "adbusers"
+          "docker"
           "i2c"
           "input"
+          "lp"
+          "networkmanager"
+          "scanner"
+          "systemd-journal"
           "video"
+          # "minecraft"
+          # "kvm"
+          # "libvirtd"
         ];
       };
 
       home-manager.users.v7.imports =
-        sharedHmModules
+        hmImports
         ++ [
           homeManager.v7
-          homeManager.gnome
-          ./_settings/home.nix
+          (settings.home or {})
         ];
     };
   };
 
   configurations.homeManager."v7@valkyrie" = {
     module = {
-      imports =
-        sharedHmModules
-        ++ [
-          homeManager.v7
-          homeManager.gnome
-          ./_settings/home.nix
-        ];
+      imports = hmImports ++ [homeManager.v7];
       home = {
         username = "v7";
         homeDirectory = "/home/v7";

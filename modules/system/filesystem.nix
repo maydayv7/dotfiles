@@ -212,14 +212,18 @@ in {
       ];
     };
 
-    homeManager.filesystem = {lib, ...}: {
-      imports = [
-        (lib.mkAliasOptionModule ["home" "persist"] ["home" "persistence" files.path.data])
-        (_: {home.persist.enable = lib.mkDefault false;})
-      ];
+    homeManager.filesystem = {
+      lib,
+      pkgs,
+      osConfig ? null,
+      ...
+    }: let
+      advanced = osConfig != null && osConfig.hardware.fs.scheme == "advanced";
+    in {
+      imports = [(lib.mkAliasOptionModule ["home" "persist"] ["home" "persistence" files.path.data])];
 
-      home.persistence."${files.path.data}" = lib.mkDefault {
-        enable = false;
+      home.persistence."${files.path.data}" = {
+        enable = advanced;
         allowTrash = true;
         hideMounts = true;
         directories = [
@@ -235,6 +239,42 @@ in {
             mode = "0700";
           }
         ];
+      };
+
+      # Persist Trash Folder
+      systemd.user.services.persist-trash = lib.mkIf advanced {
+        Unit.Description = "Persist Trash Folder";
+        Install.WantedBy = ["default.target"];
+        Service = let
+          run = script:
+            lib.getExe (
+              pkgs.writeShellApplication {
+                name = "script";
+                runtimeInputs = [pkgs.coreutils];
+                text = ''
+                  LOCAL="$HOME/.local/share/Trash"
+                  PERSIST="${files.path.data}/home/$USER/Trash"
+                  mkdir -p "$LOCAL"
+                  ${script}
+                '';
+              }
+            );
+        in {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          StandardOutput = "journal";
+          ExecStart = run ''
+            if [ -d "$PERSIST" ]
+            then
+              cp -r "$PERSIST"/. "$LOCAL"
+              rm -rf "$PERSIST"
+            fi
+          '';
+          ExecStop = run ''
+            mkdir -p "$PERSIST"
+            cp -r "$LOCAL"/. "$PERSIST"
+          '';
+        };
       };
     };
   };

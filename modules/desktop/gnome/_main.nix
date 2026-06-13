@@ -41,10 +41,6 @@
     programs = {
       gnupg.agent.pinentryPackage = pkgs.lib.mkForce pkgs.pinentry-gnome3;
       geary.enable = true;
-      nautilus-open-any-terminal = {
-        enable = true;
-        terminal = "ghostty";
-      };
 
       kdeconnect = {
         enable = true;
@@ -178,7 +174,6 @@
             "ctrl+shift+i=inspector:toggle"
             "ctrl+shift+r=reload_config"
             "ctrl+t=new_tab"
-            "ctrl+f=write_scrollback_file:open"
           ];
         };
       };

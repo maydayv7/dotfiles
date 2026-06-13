@@ -187,7 +187,27 @@
             directory = ".gnupg";
             mode = "0700";
           }
+          {
+            directory = ".ssh";
+            mode = "0700";
+          }
         ];
+      };
+
+      programs.ssh = {
+        enable = true;
+        settings."*" = {
+          ForwardAgent = false;
+          AddKeysToAgent = "no";
+          Compression = false;
+          ServerAliveInterval = 0;
+          ServerAliveCountMax = 3;
+          HashKnownHosts = false;
+          UserKnownHostsFile = "~/.ssh/known_hosts";
+          ControlMaster = "no";
+          ControlPath = "~/.ssh/master-%r@%n:%p";
+          ControlPersist = "no";
+        };
       };
     };
   };
