@@ -1,4 +1,5 @@
 {files ? null, ...}: {
+  config,
   lib,
   pkgs,
   osConfig ? null,
@@ -39,7 +40,6 @@ lib.mkIf (osConfig != null) (
         {package = gsconnect;}
         {package = guillotine;}
         {package = hide-minimized;}
-        # {package = invert-window-color;}
         {package = media-progress;}
         {package = night-light-slider-updated;}
         {package = notification-counter;}
@@ -57,16 +57,22 @@ lib.mkIf (osConfig != null) (
           disable = !osConfig.services.supergfxd.enable;
         }
         {
+          package = syncthing-indicator;
+          name = "syncthing";
+          disable = !config.services.syncthing.enable;
+          settings.auto-start = false;
+        }
+        {
           package = top-bar-organizer;
           settings = {
             center-box-order = ["dateMenu"];
             left-box-order = [
               "activities"
+              "arrange-menu"
+              "tilingshell@ferrarodomenico.com"
               "guillotine"
               "guillotine@fopdoodle.net"
               "appMenu"
-              "arrange-menu"
-              "tilingshell@ferrarodomenico.com"
             ];
 
             right-box-order = [

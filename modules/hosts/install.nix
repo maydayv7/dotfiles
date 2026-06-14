@@ -25,15 +25,13 @@ in {
                 type = lib.types.attrsOf lib.types.anything;
                 default = {};
               };
-              hardware.fs.persist = lib.mkOption {
+              system.fs.persist = lib.mkOption {
                 type = lib.types.attrsOf lib.types.anything;
                 default = {};
               };
             };
             config = {
               sops.secrets = lib.mkForce {};
-
-              # No Home Manager on install media
               home-manager.sharedModules = lib.mkForce [];
             };
           }

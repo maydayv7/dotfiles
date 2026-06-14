@@ -16,12 +16,12 @@
       optional
       types
       ;
-    loader = config.hardware.boot;
+    scheme = config.system.scheme;
   in {
     imports = [inputs.boot.nixosModules.lanzaboote];
 
-    options.hardware.boot = mkOption {
-      description = "Supported Boot Firmware";
+    options.system.scheme = mkOption {
+      description = "Supported Boot Firmware Scheme";
       type = types.nullOr (
         types.enum [
           "mbr"
@@ -33,10 +33,8 @@
     };
 
     config =
-      {
-        warnings = optional (loader == null) "Boot firmware is unset";
-      }
-      // mkIf (loader != null) (mkMerge [
+      {warnings = optional (scheme == null) "Boot firmware is unknown";}
+      // mkIf (scheme != null) (mkMerge [
         {
           boot = {
             tmp.cleanOnBoot = true;
@@ -73,7 +71,7 @@
         }
 
         ## GRUB MBR Boot Loader ##
-        (mkIf (loader == "mbr") {
+        (mkIf (scheme == "mbr") {
           boot.loader.grub = {
             enable = mkForce true;
             device = "nodev";
@@ -86,7 +84,7 @@
         })
 
         ## SYSTEMD EFI Boot Loader ##
-        (mkIf (loader == "efi") {
+        (mkIf (scheme == "efi") {
           boot.loader.systemd-boot = {
             enable = mkForce true;
             editor = false;
@@ -95,7 +93,7 @@
         })
 
         ## EFI Secure Boot ##
-        (mkIf (loader == "secure") rec {
+        (mkIf (scheme == "secure") rec {
           boot.lanzaboote = {
             enable = true;
             configurationLimit = 15;

@@ -31,9 +31,10 @@ _: {
 
   home = _: {
     services = {
-      poweralertd.enable = true;
-      mpris-proxy.enable = true;
+      poweralertd.enable = true; # Power Alerts
+      mpris-proxy.enable = true; # BT Controls
     };
+
     home.persist.directories = [
       ".config/autostart"
       ".local/share/gvfs-metadata"

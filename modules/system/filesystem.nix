@@ -27,7 +27,7 @@ in {
         types
         ;
       inherit (builtins) listToAttrs map;
-      inherit (config.hardware.fs) scheme;
+      inherit (config.system.fs) scheme;
     in {
       imports = [
         inputs.impermanence.nixosModule
@@ -42,7 +42,7 @@ in {
         )
         (
           mkAliasOptionModule
-          ["hardware" "fs" "persist"]
+          ["system" "fs" "persist"]
           [
             "environment"
             "persistence"
@@ -51,7 +51,7 @@ in {
         )
       ];
 
-      options.hardware.fs.scheme = mkOption {
+      options.system.fs.scheme = mkOption {
         description = "Disk Filesystem Scheme";
         type = with types;
           nullOr (enum [
@@ -111,7 +111,7 @@ in {
 
         {
           environment.persist.enable = mkDefault false;
-          hardware.fs.persist.enable = mkDefault false;
+          system.fs.persist.enable = mkDefault false;
         }
 
         ## Advanced File System Configuration using ZFS ##
@@ -195,7 +195,7 @@ in {
             };
 
             # Persisted Files
-            hardware.fs.persist.enable = true;
+            system.fs.persist.enable = true;
             environment.persistence."${files.path.persist}" = {
               enable = true;
               files = ["/etc/machine-id"];
@@ -218,7 +218,7 @@ in {
       osConfig ? null,
       ...
     }: let
-      advanced = osConfig != null && osConfig.hardware.fs.scheme == "advanced";
+      advanced = osConfig != null && osConfig.system.fs.scheme == "advanced";
     in {
       imports = [(lib.mkAliasOptionModule ["home" "persist"] ["home" "persistence" files.path.data])];
 

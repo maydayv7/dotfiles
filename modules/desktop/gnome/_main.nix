@@ -40,7 +40,6 @@
 
     programs = {
       gnupg.agent.pinentryPackage = pkgs.lib.mkForce pkgs.pinentry-gnome3;
-      geary.enable = true;
 
       kdeconnect = {
         enable = true;
@@ -116,7 +115,6 @@
         directory = ["org.gnome.Nautilus.desktop"];
         image = ["org.gnome.Loupe.desktop"];
         magnet = ["de.haeckerfelix.Fragments.desktop"];
-        mail = ["org.gnome.Geary.desktop"];
         markdown = ["org.gnome.gitlab.somas.Apostrophe.desktop"];
         password = ["org.gnome.World.Secrets.desktop"];
         pdf = ["org.gnome.Papers.desktop"];
@@ -133,7 +131,6 @@
         ".config/gnome-builder"
         ".local/share/epiphany"
         ".local/share/evolution"
-        ".local/share/geary"
         ".local/share/gnome-boxes"
         ".local/share/gnome-builder"
         ".local/share/lollypop"

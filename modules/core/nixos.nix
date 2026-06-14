@@ -41,6 +41,8 @@ in {
               # Default Modules
               util.map.array [
                 "base"
+                "cpu"
+                "gpu"
                 "nix"
                 "user"
                 "secrets"

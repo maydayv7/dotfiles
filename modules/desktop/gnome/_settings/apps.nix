@@ -22,19 +22,6 @@ lib.mkIf (osConfig != null) (
         ];
       };
 
-      "org/gnome/Geary" = {
-        ask-open-attachment = true;
-        compose-as-html = true;
-        formatting-toolbar-visible = false;
-        migrated-config = true;
-        optional-plugins = [
-          "email-templates"
-          "sent-sound"
-          "mail-merge"
-        ];
-        startup-notifications = true;
-      };
-
       "org/gnome/epiphany/sync".sync-device-name = osConfig.networking.hostName;
       "org/gnome/epiphany/web" = {
         default-zoom-level = 1.0;
@@ -99,7 +86,7 @@ lib.mkIf (osConfig != null) (
       "org/gnome/shell" = {
         favorite-apps = [
           "brave-browser.desktop"
-          "org.gnome.Geary.desktop"
+          "thunderbird.desktop"
           "org.gnome.Nautilus.desktop"
           "com.mitchellh.ghostty.desktop"
           "org.gnome.TextEditor.desktop"
@@ -116,6 +103,11 @@ lib.mkIf (osConfig != null) (
           "b79e9b82-2127-459b-9e82-11bd3be09d04"
           "cb1c8797-b52e-4df5-80d6-2c46e8f7ef22"
           "e57a32e8-8e5d-4808-aad7-b1f9152d01ee"
+          "3ef67acf-9b33-4087-9a9b-52bf7bfb7e55"
+          "5931d8a1-7532-4ae1-b21a-ab22ef6ee516"
+          "7464f88f-e282-4cd7-b4ec-956276e9f709"
+          "9293f22d-8d4f-466d-ac3e-9fc76731c2c9"
+          "fba50444-598d-4e14-b7d3-f6bb0f03232c"
         ];
       };
 
@@ -133,6 +125,17 @@ lib.mkIf (osConfig != null) (
           "Steam Linux Runtime 2.0 (soldier).desktop"
           "Steam Linux Runtime 3.0 (sniper).desktop"
           "Proton Hotfix.desktop"
+        ];
+      };
+
+      "org/gnome/desktop/app-folders/folders/3ef67acf-9b33-4087-9a9b-52bf7bfb7e55" = {
+        name = "Social";
+        apps = [
+          "Zoom.desktop"
+          "io.github.tobagin.karere.desktop"
+          "teams-for-linux.desktop"
+          "org.gnome.Fractal.desktop"
+          "vesktop.desktop"
         ];
       };
 
@@ -183,6 +186,50 @@ lib.mkIf (osConfig != null) (
         ];
       };
 
+      "org/gnome/desktop/app-folders/folders/5931d8a1-7532-4ae1-b21a-ab22ef6ee516" = {
+        name = "Internet";
+        apps = [
+          "de.haeckerfelix.Fragments.desktop"
+          "firefox.desktop"
+          "wihotspot.desktop"
+          "org.gnome.Epiphany.desktop"
+          "com.cloudflare.WarpTaskbar.desktop"
+        ];
+      };
+
+      "org/gnome/desktop/app-folders/folders/7464f88f-e282-4cd7-b4ec-956276e9f709" = {
+        name = "Writing";
+        apps = [
+          "Logseq.desktop"
+          "org.cvfosammmm.Setzer.desktop"
+          "com.github.xournalpp.xournalpp.desktop"
+          "org.gnome.gitlab.somas.Apostrophe.desktop"
+          "com.github.jeromerobert.pdfarranger.desktop"
+          "dev.mufeed.Wordbook.desktop"
+          "app.drey.Dialect.desktop"
+        ];
+      };
+
+      "org/gnome/desktop/app-folders/folders/9293f22d-8d4f-466d-ac3e-9fc76731c2c9" = {
+        name = "Graphics";
+        apps = [
+          "org.inkscape.Inkscape.desktop"
+          "gimp.desktop"
+          "fr.handbrake.ghb.desktop"
+          "com.obsproject.Studio.desktop"
+          "org.libvips.vipsdisp.desktop"
+        ];
+      };
+
+      "org/gnome/desktop/app-folders/folders/fba50444-598d-4e14-b7d3-f6bb0f03232c" = {
+        name = "Sound & Video";
+        apps = [
+          "spotify.desktop"
+          "org.rncbc.qpwgraph.desktop"
+          "com.stremio.Stremio.desktop"
+        ];
+      };
+
       "org/gnome/desktop/app-folders/folders/4bfbecbd-804e-4359-b1c2-00daef4c009e" = {
         name = "System";
         apps = [
@@ -199,6 +246,7 @@ lib.mkIf (osConfig != null) (
           "net.lutris.Lutris.desktop"
           "Notepad++.desktop"
           "winetricks.desktop"
+          "protontricks.desktop"
         ];
       };
 

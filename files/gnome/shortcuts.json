@@ -114,10 +114,6 @@
       {
         "key": "Super + -",
         "description": "Zoom out"
-      },
-      {
-        "key": "Super + I",
-        "description": "Invert window colors"
       }
     ]
   },

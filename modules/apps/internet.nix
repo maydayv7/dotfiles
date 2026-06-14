@@ -1,27 +1,44 @@
 ## Internet Apps Configuration ##
-_: {
+{config, ...}: let
+  inherit (config) util;
+in {
   flake.modules.homeManager.internet = {pkgs, ...}: {
-    programs.chromium = {
-      enable = true;
-      extensions = [
-        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # UBlock Origin
-        "djflhoibgkdhkhhcedjiklpkjnoahfmg" # User Agent Switcher
-        "lckanjgmijmafbedllaakclkaicjfmnk" # ClearURLs
-        "oofgbpoabipfcfjapgnbbjjaenockbdp" # SetupVPN
-        "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Booster
-        "jaioibhbkffompljnnipmpkeafhpicpd" # Tab Auto Refresh
-        "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
-        "clngdbkpkpeebahjckkjfobafhncgmne" # Stylus
-      ];
+    programs = {
+      # Browser
+      brave = {
+        enable = true;
+        extensions = [
+          "cjpalhdlnbpafiamejdnhcphjbkeiagm" # UBlock Origin
+          "djflhoibgkdhkhhcedjiklpkjnoahfmg" # User Agent Switcher
+          "lckanjgmijmafbedllaakclkaicjfmnk" # ClearURLs
+          "oofgbpoabipfcfjapgnbbjjaenockbdp" # SetupVPN
+          "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Booster
+          "jaioibhbkffompljnnipmpkeafhpicpd" # Tab Auto Refresh
+          "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+          "clngdbkpkpeebahjckkjfobafhncgmne" # Stylus
+        ];
+      };
+
+      # Mail Client
+      thunderbird = {
+        enable = true;
+        profiles.default = {
+          isDefault = true;
+          extensions = [pkgs.custom.thunderbird-tools-ng];
+          settings."extensions.autoDisableScopes" = 0;
+        };
+      };
+    };
+
+    xdg.mimeApps.defaultApplications = util.build.mime {
+      mail = ["thunderbird.desktop"];
     };
 
     home.packages = with pkgs; [
-      brave
       karere
       linux-wifi-hotspot
       openfortivpn
       teams-for-linux
-      thunderbird
       zoom-us
     ];
 
@@ -30,8 +47,6 @@ _: {
       directories = [
         ".config/BraveSoftware"
         ".cache/BraveSoftware"
-        ".config/chromium"
-        ".cache/chromium"
         ".thunderbird"
         ".cache/thunderbird"
         ".config/karere"

@@ -81,7 +81,7 @@
     };
 
     config = mkIf (cfg != []) {
-      hardware.fs.persist.directories = [dataDir];
+      system.fs.persist.directories = [dataDir];
       networking.firewall = {
         allowedTCPPorts = map (srv: srv.port) cfg;
         allowedUDPPorts = concatMap (srv:

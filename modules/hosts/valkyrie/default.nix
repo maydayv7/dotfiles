@@ -12,8 +12,6 @@
     "boot"
     "security"
     "prompt"
-    "cpu"
-    "gpu"
     "mobile"
     "printer"
     "docker"
@@ -22,12 +20,14 @@
   ];
 
   hmModules = [
+    "auth"
     "discord"
     "firefox"
     "internet"
     "notes"
     "spotify"
     "stream"
+    "syncthing"
     "vscode"
     "minecraft"
     "osu"
@@ -77,6 +77,9 @@ in {
       environment.variables."LC_ALL" = "en_IN.UTF-8";
 
       system = {
+        scheme = "secure";
+        fs.scheme = "advanced";
+
         # Kernel
         kernel = "xanmod";
         kernelModules = [
@@ -93,8 +96,6 @@ in {
 
       # Hardware
       hardware = {
-        boot = "secure";
-        fs.scheme = "advanced";
         cpu = {
           model = "amd";
           cores = 8;

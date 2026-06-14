@@ -43,7 +43,7 @@ _: {
       powerManagement.cpuFreqGovernor = cfg.mode;
       nix.settings.max-jobs = cfg.cores;
 
-      specialisation.powersave.configuration = {
+      specialisation.powersave.configuration = lib.mkIf (cfg.model != "") {
         system.nixos.label = "special.powersave";
         hardware.cpu.mode = lib.mkForce "powersave";
       };

@@ -24,7 +24,6 @@ in {
           "boot"
           "security"
           "filesystem"
-          "cpu"
           "laptop"
           "office"
           "flatpak"
@@ -44,15 +43,15 @@ in {
       i18n.defaultLocale = "en_IN";
       environment.variables."LC_ALL" = "en_IN.UTF-8";
 
-      system.kernel = "lts";
-
-      hardware = {
-        boot = "efi";
+      system = {
+        kernel = "lts";
+        scheme = "efi";
         fs.scheme = "simple";
-        cpu = {
-          model = "intel";
-          cores = 4;
-        };
+      };
+
+      hardware.cpu = {
+        model = "intel";
+        cores = 4;
       };
 
       # Auto-upgrade

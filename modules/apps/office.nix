@@ -22,11 +22,9 @@ in {
     };
 
     homeManager.office = {pkgs, ...}: {
-      programs.keepassxc.enable = true;
       home.packages = with pkgs; [
         calibre
         gscan2pdf
-        keepassxc
         libreoffice
         onlyoffice-desktopeditors
         pdfarranger
@@ -39,7 +37,6 @@ in {
 
       xdg.mimeApps.defaultApplications = util.build.mime {
         office = ["onlyoffice-desktopeditors.desktop"];
-        password = ["org.keepassxc.KeePassXC.desktop"];
       };
 
       home = {
@@ -51,8 +48,6 @@ in {
             ".config/GIMP"
             ".cache/gimp"
             ".config/inkscape"
-            ".config/keepassxc"
-            ".cache/keepassxc"
             ".config/libreoffice"
             ".config/onlyoffice"
             ".local/share/onlyoffice"

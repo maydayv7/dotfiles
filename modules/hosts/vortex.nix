@@ -34,7 +34,6 @@ in {
           "security"
           "boot"
           "filesystem"
-          "cpu"
           "laptop"
           "mobile"
           "printer"
@@ -57,6 +56,8 @@ in {
       services.fwupd.enable = true;
 
       system = {
+        scheme = "secure";
+        fs.scheme = "advanced";
         kernel = "xanmod";
         kernelModules = [
           "nvme"
@@ -69,13 +70,9 @@ in {
         };
       };
 
-      hardware = {
-        boot = "secure";
-        fs.scheme = "advanced";
-        cpu = {
-          model = "intel";
-          cores = 8;
-        };
+      hardware.cpu = {
+        model = "intel";
+        cores = 8;
       };
 
       gui = {
