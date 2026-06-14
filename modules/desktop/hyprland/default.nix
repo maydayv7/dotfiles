@@ -6,6 +6,7 @@
 }: let
   inherit (config) util;
   inherit (config.flake) files;
+  inherit (config.flake.modules) nixos homeManager;
 
   theme = {
     name = "catppuccin";
@@ -23,11 +24,19 @@
 in {
   flake.modules = {
     nixos.hyprland.imports =
-      [(base.nixos or {})]
+      [
+        (base.nixos or {})
+        nixos.qt
+        nixos.gtk
+      ]
       ++ builtins.map (f: f.nixos or {}) features;
 
     homeManager.hyprland.imports =
-      [(base.home or {})]
+      [
+        (base.home or {})
+        homeManager.qt
+        homeManager.gtk
+      ]
       ++ builtins.map (f: f.home or {}) features
       ++ settings;
   };

@@ -24,12 +24,12 @@
       ;
     inherit (pkgs) fetchurl fetchzip linkFarmFromDrvs;
 
-    cfg = config.apps.mc-servers;
+    cfg = config.games.mc-servers;
     dataDir = "/srv/minecraft";
   in {
     imports = [inputs.minecraft.nixosModules.minecraft-servers];
 
-    options.apps.mc-servers = mkOption {
+    options.games.mc-servers = mkOption {
       description = "List of Minecraft Servers";
       default = [];
       type = types.listOf (

@@ -6,7 +6,9 @@
       lib,
       pkgs,
       ...
-    }: {
+    }: let
+      isGnome = config.services.desktopManager.gnome.enable or false;
+    in {
       imports = [inputs.flatpak.nixosModules.nix-flatpak];
 
       xdg.portal.enable = true;
@@ -28,7 +30,7 @@
               location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
             }
           ]
-          ++ lib.optionals (config.services.desktopManager.gnome.enable or false) [
+          ++ lib.optionals isGnome [
             {
               name = "gnome-nightly";
               location = "https://nightly.gnome.org/gnome-nightly.flatpakrepo";

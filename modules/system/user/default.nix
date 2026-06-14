@@ -4,11 +4,11 @@
   inputs,
   ...
 }: let
-  inherit (config.flake) files;
+  inherit (config.flake) files modules;
   inherit (config) util;
 in {
   flake.modules = {
-    # Shared user base config (imported into NixOS as part of home-manager setup)
+    # Base User Configuration
     nixos.user = {
       config,
       lib,
@@ -41,7 +41,17 @@ in {
           useGlobalPkgs = true;
           useUserPackages = true;
           backupFileExtension = "bak";
-          extraSpecialArgs = {}; # intentionally empty - use closures
+
+          # Default Modules
+          sharedModules =
+            util.map.array [
+              "base"
+              "user"
+              "nix"
+              "shell"
+              "theme"
+            ]
+            modules.homeManager;
         };
 
         # XDG directories
@@ -118,6 +128,7 @@ in {
           };
         };
 
+        # GPG Keys
         programs.gpg = {
           settings = mkIf (cfg.key != "") {
             default-key = cfg.key;
@@ -145,6 +156,7 @@ in {
             );
         };
 
+        # User Directories
         xdg = {
           enable = true;
           mime.enable = true;

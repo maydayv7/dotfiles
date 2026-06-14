@@ -6,6 +6,7 @@ _: {
       persist.directories = ["/var/lib/docker"];
       systemPackages = [pkgs.docker-compose];
     };
+
     # ? # Use '--add-host=host.docker.internal:host-gateway' to create containers
     networking = {
       firewall.trustedInterfaces = ["docker0"];

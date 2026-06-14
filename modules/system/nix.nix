@@ -9,7 +9,7 @@
     }: let
       inherit (lib) mkEnableOption mkIf;
     in {
-      options.nix = {
+      options.system.nix = {
         tools = mkEnableOption "Enable Additional Nix Tools";
         index = mkEnableOption "Enable Package Indexer";
       };
@@ -76,13 +76,13 @@
 
         ## Nix Tools ##
         # Nix Tools
-        nix.settings.system-features = mkIf config.nix.tools [
+        nix.settings.system-features = mkIf config.system.nix.tools [
           "kvm"
           "big-parallel"
           "recursive-nix"
         ];
 
-        environment.systemPackages = mkIf config.nix.tools (
+        environment.systemPackages = mkIf config.system.nix.tools (
           with pkgs; [
             cachix
             dix
@@ -105,7 +105,7 @@
     }: let
       enable =
         if osConfig != null
-        then osConfig.nix.index
+        then osConfig.system.nix.index
         else false;
     in {
       imports = [inputs.index.homeModules.nix-index];

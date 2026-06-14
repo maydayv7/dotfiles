@@ -9,15 +9,9 @@
 
   hmModules =
     util.map.array [
-      "user"
-      "base"
-      "filesystem"
-      "shell"
       "shell-utils"
-      "nix"
+      "filesystem"
       "laptop"
-      "theme"
-      "gtk"
       "discord"
       "firefox"
       "internet"
@@ -37,25 +31,16 @@ in {
       imports =
         util.map.array
         [
-          "base"
           "security"
-          "secrets"
           "boot"
           "filesystem"
           "cpu"
           "laptop"
           "mobile"
           "printer"
-          "virtualisation"
-          "nix"
-          "shell"
+          "libvirt"
           "shell-utils"
           "prompt"
-          "user"
-          "theme"
-          "qt"
-          "gtk"
-          "fonts"
           "office"
           "wine"
           "hyprland"
@@ -71,12 +56,17 @@ in {
 
       services.fwupd.enable = true;
 
-      base = {
+      system = {
         kernel = "xanmod";
         kernelModules = [
           "nvme"
           "thunderbolt"
         ];
+
+        nix = {
+          index = true;
+          tools = true;
+        };
       };
 
       hardware = {
@@ -86,11 +76,6 @@ in {
           model = "intel";
           cores = 8;
         };
-      };
-
-      nix = {
-        index = true;
-        tools = true;
       };
 
       gui = {
@@ -122,7 +107,7 @@ in {
         ];
       };
 
-      home-manager.users.v7.imports = hmModules ++ [homeManager.v7 homeManager.hyprland];
+      home-manager.users.v7.imports = hmModules ++ [homeManager.v7];
     };
   };
 

@@ -1,5 +1,5 @@
 ## Base Configuration ##
-{inputs, ...}: {
+_: {
   flake.modules = {
     nixos.base = {
       config,
@@ -18,11 +18,9 @@
         removePrefix
         types
         ;
-      cfg = config.base;
+      cfg = config.system;
     in {
-      imports = [inputs.gaming.nixosModules.pipewireLowLatency];
-
-      options.base = {
+      options.system = {
         kernel = mkOption {
           description = "Linux Kernel Variant to be used";
           default = "lts";
@@ -41,12 +39,6 @@
       config = {
         # System version
         system.stateVersion = lib.mkDefault lib.trivial.release;
-
-        # AppImage Support
-        programs.appimage = {
-          enable = true;
-          binfmt = true;
-        };
 
         # Kernel Configuration
         boot = {
@@ -67,24 +59,11 @@
           );
         };
 
-        # Documentation
-        documentation = {
-          dev.enable = true;
-          man.enable = true;
-        };
-
-        # Console
-        console = {
-          earlySetup = true;
-          packages = [pkgs.terminus_font];
-          font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
-        };
-
-        # Essential Utilities
         environment = {
           variables."NIXOS_SPECIALISATION" = with config.system.nixos;
             mkIf (hasPrefix "special." label) (removePrefix "special." label);
 
+          # Essential Utilities
           systemPackages = with pkgs; [
             custom.nixos
             cryptsetup
@@ -107,6 +86,13 @@
           ];
         };
 
+        # Console
+        console = {
+          earlySetup = true;
+          packages = [pkgs.terminus_font];
+          font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
+        };
+
         # Drivers
         security.rtkit.enable = true;
         hardware = {
@@ -120,11 +106,6 @@
           alsa.enable = true;
           alsa.support32Bit = true;
           pulse.enable = true;
-          lowLatency = {
-            enable = true;
-            quantum = 64;
-            rate = 48000;
-          };
         };
 
         networking = {

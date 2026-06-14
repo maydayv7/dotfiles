@@ -7,13 +7,9 @@ _: {
     lib,
     pkgs,
     ...
-  }: let
-    inherit (lib) mkEnableOption mkIf optional;
-  in {
-    options.hardware.vm.android.enable = mkEnableOption "Enable Android Virtualisation";
-
-    config = mkIf config.hardware.vm.android.enable {
-      warnings = optional (config.boot.kernelPackages != options.boot.kernelPackages.default) ''
+  }: {
+    config = {
+      warnings = lib.optional (config.boot.kernelPackages != options.boot.kernelPackages.default) ''
         Android Virtualisation may not work
         - Kernel may not have requisite 'binder' module
         - Use the mainline/LTS kernel for assured support

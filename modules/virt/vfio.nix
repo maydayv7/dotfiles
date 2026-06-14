@@ -10,26 +10,18 @@ _: {
     inherit
       (lib)
       generators
+      mkEnableOption
       mkForce
       mkIf
       mkMerge
       mkOption
       types
       ;
-    cfg = config.hardware.vm;
+    cfg = config.virt.vfio;
     inherit (config.hardware.cpu) model;
   in {
-    options.hardware.vm = {
-      vfio = mkOption {
-        description = "Configure VFIO PCI passthrough";
-        type = types.enum [
-          "on"
-          "off"
-          "setup"
-        ];
-        default = "off";
-      };
-
+    options.virt.vfio = {
+      mode = mkEnableOption "VFIO Mode";
       passthrough = mkOption {
         description = "PCI Device IDs for VFIO";
         type = types.listOf types.str;
@@ -41,7 +33,7 @@ _: {
       };
     };
 
-    config = mkIf (cfg.vfio != "off") (mkMerge [
+    config = mkMerge [
       {
         specialisation.vfio.configuration = {
           system.nixos.label = "special.vfio";
@@ -52,7 +44,7 @@ _: {
         };
       }
 
-      (mkIf (cfg.vfio == "on") {
+      (mkIf cfg.mode {
         specialisation.no-vfio.configuration = {
           system.nixos.label = "special.no-vfio";
           hardware.vm.vfio = mkForce "setup";
@@ -121,6 +113,6 @@ _: {
           };
         };
       })
-    ]);
+    ];
   };
 }

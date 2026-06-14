@@ -2,7 +2,9 @@
   lib,
   config,
   ...
-}: {
+}: let
+  inherit (config) util flake;
+in {
   options.configurations.nixos = lib.mkOption {
     type = lib.types.lazyAttrsOf (
       lib.types.submodule {
@@ -28,11 +30,25 @@
           system,
         }:
           lib.nixosSystem {
-            modules = [
-              module
-              {networking.hostName = name;}
-              {nixpkgs.pkgs = config.flake.legacyPackages.${system};}
-            ];
+            modules =
+              [
+                module
+
+                {networking.hostName = name;}
+                {nixpkgs.pkgs = config.flake.legacyPackages.${system};}
+              ]
+              ++
+              # Default Modules
+              util.map.array [
+                "base"
+                "nix"
+                "user"
+                "secrets"
+                "shell"
+                "theme"
+                "fonts"
+              ]
+              flake.modules.nixos;
           }
       )
       config.configurations.nixos;

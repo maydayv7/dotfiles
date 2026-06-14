@@ -1,7 +1,7 @@
-## Virtualisation Settings ##
+## Libvirt Settings ##
 _: {
   flake.modules = {
-    nixos.virtualisation = {
+    nixos.libvirt = {
       config,
       pkgs,
       ...
@@ -40,7 +40,7 @@ _: {
       };
     };
 
-    homeManager.virtualisation = _: {
+    homeManager.libvirt = _: {
       home.persist.directories = [
         ".config/libvirt"
         ".local/share/libvirt"

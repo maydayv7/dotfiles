@@ -2,7 +2,7 @@
   ## Minecraft Server
   specialisation.minecraft.configuration = {
     system.nixos.label = "special.minecraft";
-    apps.mc-servers = let
+    games.mc-servers = let
       shared = {
         gamemode = "survival";
         difficulty = "normal";

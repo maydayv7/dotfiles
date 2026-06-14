@@ -4,26 +4,20 @@
   inputs,
   ...
 }: let
-  inherit (config.flake.modules) nixos;
   inherit (config) util;
   inherit (config.flake) files;
 in {
   configurations.nixos.install = {
     system = "x86_64-linux";
-    module = {lib, ...}: {
+    module = {
+      lib,
+      pkgs,
+      ...
+    }: {
       imports = [
-        nixos.base
-        nixos.nix
-        nixos.shell
-        nixos.user
-        nixos.secrets
-        nixos.theme
-        nixos.fonts
+        (import ../desktop/_install.nix {inherit util files inputs;})
 
-        # ISO image definition
-        ./_image.nix
-
-        (import ../../desktop/_install.nix {inherit util files inputs;})
+        # Disabled Modules
         (
           {lib, ...}: {
             options = {
@@ -36,12 +30,25 @@ in {
                 default = {};
               };
             };
+            config = {
+              sops.secrets = lib.mkForce {};
+
+              # No Home Manager on install media
+              home-manager.sharedModules = lib.mkForce [];
+            };
           }
         )
       ];
 
-      base.kernel = "lts";
+      # Environment
+      system.kernel = "lts";
       boot.loader.grub.device = lib.mkDefault "nodev";
+      fileSystems."/".fsType = "tmpfs";
+      environment.systemPackages = [pkgs.custom.install];
+      image.modules.iso = {
+        image.baseName = lib.mkForce "install";
+        system.switch.enable = false;
+      };
 
       # Localization
       time.timeZone = "Asia/Kolkata";
@@ -52,7 +59,7 @@ in {
         isNormalUser = true;
         description = "Default User";
         extraGroups = ["wheel"];
-        initialHashedPassword = lib.fileContents ../../../secrets/passwords/default;
+        initialHashedPassword = lib.fileContents ../../secrets/passwords/default;
       };
 
       # Automatic Login

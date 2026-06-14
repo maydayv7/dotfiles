@@ -9,14 +9,8 @@
 
   sharedHmModules =
     util.map.array [
-      "user"
-      "base"
       "filesystem"
-      "shell"
-      "nix"
       "laptop"
-      "theme"
-      "gtk"
       "firefox"
       "office"
     ]
@@ -27,20 +21,11 @@ in {
     module = {pkgs, ...}: {
       imports =
         util.map.array [
-          "base"
-          "security"
-          "secrets"
           "boot"
+          "security"
           "filesystem"
           "cpu"
           "laptop"
-          "nix"
-          "shell"
-          "user"
-          "theme"
-          "qt"
-          "gtk"
-          "fonts"
           "office"
           "flatpak"
           "gnome"
@@ -59,7 +44,7 @@ in {
       i18n.defaultLocale = "en_IN";
       environment.variables."LC_ALL" = "en_IN.UTF-8";
 
-      base.kernel = "lts";
+      system.kernel = "lts";
 
       hardware = {
         boot = "efi";

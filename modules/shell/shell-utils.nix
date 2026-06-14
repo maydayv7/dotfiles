@@ -10,8 +10,8 @@ in {
     }: {
       config = {
         environment = {
+          # Utilities
           systemPackages = with pkgs; [
-            # Utilities
             bat
             btop
             eza
@@ -42,6 +42,7 @@ in {
 
         ## Program Configuration
         services.lorri.enable = true;
+
         # Programs
         programs = {
           yazi.enable = true; # File Manager

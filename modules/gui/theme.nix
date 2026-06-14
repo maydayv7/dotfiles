@@ -67,22 +67,6 @@ in {
       };
 
       config = {
-        # Environment Setup
-        programs.dconf.enable = true;
-        services.dbus.packages = [pkgs.dconf];
-
-        environment.systemPackages =
-          [
-            config.stylix.cursor.package
-          ]
-          ++ optionals enable [
-            cfg.icons.package
-            cfg.cursors.package
-          ];
-
-        # Desktop Integration
-        programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
-
         stylix = {
           inherit enable;
           autoEnable = true;
@@ -104,33 +88,31 @@ in {
         home-manager.sharedModules = optionals (!enable) [
           config.stylix.homeManagerIntegration.module
         ];
+
+        environment.systemPackages =
+          [config.stylix.cursor.package]
+          ++ optionals enable [
+            cfg.icons.package
+            cfg.cursors.package
+          ];
+
+        programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
       };
     };
 
     homeManager.theme = {lib, ...}: {
-      config = {
-        stylix = {
-          enable = lib.mkDefault true;
-          icons = lib.mkForce {
-            enable = true;
-            light = "Papirus-Dark";
-            dark = "Papirus-Dark";
-          };
-          targets = {
-            firefox.enable = false;
-            gtk.enable = false;
-            gnome.enable = lib.mkDefault false;
-            spicetify.enable = false;
-            vscode.enable = false;
-          };
-        };
-
-        # Theming
-        dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-        gtk = {
+      config.stylix = {
+        enable = lib.mkDefault true;
+        icons = lib.mkForce {
           enable = true;
-          gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-          gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+          light = "Papirus-Dark";
+          dark = "Papirus-Dark";
+        };
+        targets = {
+          firefox.enable = false;
+          gnome.enable = lib.mkDefault false;
+          spicetify.enable = false;
+          vscode.enable = false;
         };
       };
     };

@@ -8,59 +8,43 @@
   inherit (config) util;
 
   nixosModules = [
-    "android"
-    # "blockchain"
+    "base-ext"
     "boot"
+    "security"
+    "prompt"
     "cpu"
-    "docker"
-    "fonts"
-    # "git-hosting"
-    # "git-runner"
     "gpu"
-    # "mc-server"
     "mobile"
     "printer"
-    "prompt"
-    "qt"
-    # "roblox"
-    "secrets"
-    "security"
-    # "vfio"
+    "docker"
+    #"mc-server"
+    #"roblox"
   ];
 
   hmModules = [
     "discord"
     "firefox"
     "internet"
-    # "minecraft"
-    # "notes"
-    # "osu"
-    # "spotify"
-    # "stream"
+    "notes"
+    "spotify"
+    "stream"
     "vscode"
-    # "youtube"
+    "minecraft"
+    "osu"
   ];
 
   mixedModules = [
-    "base"
     "filesystem"
-    # "flatpak"
-    # "games"
-    "git"
-    "gnome"
-    "gtk"
-    # "hyprland"
     "laptop"
-    # "latex"
-    "nix"
-    "office"
-    "shell"
     "shell-utils"
-    "theme"
+    "git"
+    "office"
     "tools"
-    "user"
-    # "virtualisation"
-    # "wine"
+    #"flatpak"
+    "latex"
+    #"wine"
+    "games"
+    "gnome"
   ];
 
   hmImports =
@@ -92,13 +76,19 @@ in {
       i18n.defaultLocale = "en_IN";
       environment.variables."LC_ALL" = "en_IN.UTF-8";
 
-      # Kernel
-      base = {
+      system = {
+        # Kernel
         kernel = "xanmod";
         kernelModules = [
           "nvme"
           "thunderbolt"
         ];
+
+        # Nix Tools
+        nix = {
+          index = true;
+          tools = true;
+        };
       };
 
       # Hardware
@@ -114,20 +104,6 @@ in {
           enable = true;
           model = "nvidia";
         };
-        # vm = {
-        #   android.enable = false;
-        #   vfio = "setup";
-        #   passthrough = [
-        #     "10de:28e0" # Graphics
-        #     "10de:22be" # Audio
-        #   ];
-        # };
-      };
-
-      # Nix tools
-      nix = {
-        index = true;
-        tools = true;
       };
 
       # GUI
@@ -136,6 +112,15 @@ in {
         wallpaper = "Bluewatch";
         fancy = true;
       };
+
+      # Virtualisation
+      # virt.vfio = {
+      #   mode = false;
+      #   passthrough = [
+      #     "10de:28e0" # Graphics
+      #     "10de:22be" # Audio
+      #   ];
+      # };
 
       # Wine utilities
       # apps.wine.utilities = true;
@@ -160,9 +145,9 @@ in {
           "scanner"
           "systemd-journal"
           "video"
-          # "minecraft"
-          # "kvm"
-          # "libvirtd"
+          "minecraft"
+          #"kvm"
+          #"libvirtd"
         ];
       };
 

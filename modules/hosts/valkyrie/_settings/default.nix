@@ -8,6 +8,7 @@ _: {
     # ! # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
     boot.kernelParams = lib.mkIf (config.hardware.cpu.mode == "performance") [
       "amdgpu.dcdebugmask=0x10"
+      "usbcore.autosuspend=-1"
     ];
 
     services = {
