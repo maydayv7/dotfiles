@@ -11,6 +11,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - name: Clone Repo
         uses: actions/checkout@v6
@@ -30,7 +33,7 @@ jobs:
         run: mv public site/git/public
       - name: Deploy to Cloudflare
         id: deploy
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           workingDirectory: "site/git"
           command: deploy --env production
