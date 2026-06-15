@@ -14,7 +14,7 @@ lib.mkIf (osConfig != null) (
     wayland.windowManager.hyprland = {
       inherit (osConfig.programs.hyprland) enable package portalPackage;
 
-      # Generate hyprland.conf (26.05 defaults to the Lua config type)
+      # ! # TODO
       configType = "hyprlang";
 
       # Use 'nwg-displays' to configure monitors
@@ -33,6 +33,7 @@ lib.mkIf (osConfig != null) (
 
         input = {
           follow_mouse = 1; # Focus on cursor move
+          follow_mouse_threshold = 15;
           focus_on_close = 1;
 
           # Keyboard
@@ -46,6 +47,7 @@ lib.mkIf (osConfig != null) (
             tap-and-drag = true;
             natural_scroll = true;
             disable_while_typing = false;
+            drag_3fg = 1; # 3-finger window drag
           };
         };
 
@@ -54,6 +56,7 @@ lib.mkIf (osConfig != null) (
           workspace_center_on = 1;
           movefocus_cycles_fullscreen = true;
           workspace_back_and_forth = true;
+          drag_threshold = 30;
         };
 
         gesture = [
@@ -76,7 +79,6 @@ lib.mkIf (osConfig != null) (
 
         # Tiling Layout
         dwindle = {
-          pseudotile = true; # Keep floating dimensions
           preserve_split = true;
           smart_split = true;
         };
@@ -151,6 +153,7 @@ lib.mkIf (osConfig != null) (
             font_size = 10;
             font_weight_active = "bold";
             keep_upper_gap = false;
+            middle_click_close = true;
             indicator_height = 0;
             gradient_rounding = 5;
             gradient_round_only_edges = false;
@@ -184,11 +187,11 @@ lib.mkIf (osConfig != null) (
 
         decoration = mkIf fancy {
           rounding = 10;
+          rounding_power = 3.0;
           dim_special = 0.3;
 
           shadow = {
             enabled = true;
-            ignore_window = true;
             offset = "0 2";
             range = 20;
           };
@@ -198,6 +201,7 @@ lib.mkIf (osConfig != null) (
             brightness = 1.0;
             contrast = 1.0;
             passes = 2;
+            input_methods = true;
           };
         };
 

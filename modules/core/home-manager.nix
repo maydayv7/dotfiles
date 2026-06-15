@@ -8,19 +8,7 @@
   inherit (config.flake) files modules;
 in {
   options.configurations.homeManager = lib.mkOption {
-    type = lib.types.lazyAttrsOf (
-      lib.types.submodule {
-        options = {
-          module = lib.mkOption {
-            type = lib.types.deferredModule;
-          };
-          system = lib.mkOption {
-            type = lib.types.str;
-            default = "x86_64-linux";
-          };
-        };
-      }
-    );
+    type = lib.types.lazyAttrsOf util.types.configuration;
     default = {};
   };
 
@@ -40,11 +28,7 @@ in {
               inputs.stylix.homeModules.stylix
               (
                 {lib, ...}: {
-                  stylix.base16Scheme = lib.mkDefault files.colors.catppuccin;
-                }
-              )
-              (
-                {lib, ...}: {
+                  config.stylix.base16Scheme = lib.mkDefault files.colors.catppuccin;
                   options.home.persistence = lib.mkOption {
                     type = lib.types.attrsOf lib.types.anything;
                     default = {};

@@ -98,7 +98,7 @@
     ];
   };
 
-  home = {lib, ...}: {
+  home = _: {
     config = {
       stylix.targets = {
         gnome.enable = true;

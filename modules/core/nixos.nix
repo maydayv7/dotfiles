@@ -6,19 +6,7 @@
   inherit (config) util flake;
 in {
   options.configurations.nixos = lib.mkOption {
-    type = lib.types.lazyAttrsOf (
-      lib.types.submodule {
-        options = {
-          module = lib.mkOption {
-            type = lib.types.deferredModule;
-          };
-          system = lib.mkOption {
-            type = lib.types.str;
-            default = "x86_64-linux";
-          };
-        };
-      }
-    );
+    type = lib.types.lazyAttrsOf util.types.configuration;
     default = {};
   };
 
@@ -33,9 +21,10 @@ in {
             modules =
               [
                 module
-
-                {networking.hostName = name;}
-                {nixpkgs.pkgs = config.flake.legacyPackages.${system};}
+                {
+                  networking.hostName = name;
+                  nixpkgs.pkgs = flake.legacyPackages.${system};
+                }
               ]
               ++
               # Default Modules
@@ -60,7 +49,7 @@ in {
         name: {system, ...}: {
           ${system} = {
             "configurations:nixos:${name}" =
-              config.flake.nixosConfigurations.${name}.config.system.build.toplevel;
+              flake.nixosConfigurations.${name}.config.system.build.toplevel;
           };
         }
       )

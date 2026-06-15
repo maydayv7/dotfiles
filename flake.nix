@@ -202,12 +202,15 @@
 
     # Plugins
     hyprsplit = {
-      url = "github:shezdy/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
+      url = "github:zjeffer/split-monitor-workspaces/v0.55.4";
+      inputs = {
+        hyprland.follows = "hyprland";
+        nix-filter.follows = "filters";
+      };
     };
 
     hyprcursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
+      url = "github:VirtCode/hypr-dynamic-cursors/da447486c84e0be81f2cdd208af1ef92469f0a88";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprland.follows = "hyprland";

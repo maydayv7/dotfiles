@@ -8,10 +8,35 @@ _: {
 lib.mkIf (osConfig != null) {
   wayland.windowManager.hyprland = {
     plugins = with pkgs.hyprworld; [
-      hyprsplit
+      split-monitor-workspaces
+      hypr-dynamic-cursors
     ];
 
-    # Workspaces per Monitor
-    settings.plugin.hyprsplit.num_workspaces = 9;
+    settings.plugin = {
+      # Workspaces per Monitor
+      split-monitor-workspaces.count = 9;
+
+      # Cursor Effects
+      dynamic-cursors = {
+        enabled = true;
+        mode =
+          if osConfig.gui.fancy
+          then "tilt"
+          else "none";
+
+        hyprcursor = {
+          enabled = true;
+          nearest = true;
+        };
+
+        shake = {
+          enabled = true;
+          effects = false;
+          ipc = false;
+        };
+
+        tilt.activation = "negative_quadratic";
+      };
+    };
   };
 }

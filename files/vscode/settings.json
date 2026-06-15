@@ -16,6 +16,7 @@
   "extensions.ignoreRecommendations": true,
   "files.autoSave": "onWindowChange",
   "files.trimFinalNewlines": true,
+  "security.workspace.trust.enabled": false,
   "search.showLineNumbers": true,
   "search.smartCase": true,
   "search.useGlobalIgnoreFiles": true,

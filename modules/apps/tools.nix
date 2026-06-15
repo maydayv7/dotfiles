@@ -47,8 +47,10 @@ in {
         directories = [
           ".appimages"
           ".config/de.leopoldluley.Clapgrep"
+          ".config/easyeffects"
           ".config/obs-studio"
           ".config/pitivi"
+          ".local/share/easyeffects"
         ];
       };
     };

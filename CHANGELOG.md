@@ -2,6 +2,9 @@
 
 ### June
 
+- Add "auth" and "syncthing"
+- Use Thunderbird for mail
+- Drop Niri & Pantheon
 - Refactor NixOS Configuration to use [dendritic](https://github.com/mightyiam/dendritic) pattern
 - Switch back formatter to `alejandra`
 - Switch back to NixOS (Yay!)

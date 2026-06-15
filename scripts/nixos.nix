@@ -109,6 +109,17 @@ in
         set +eu
         ${scripts.commands}
 
+        installed() { nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq; }
+
+        missing() {
+          if nix search nixpkgs#"$1" &> /dev/null
+          then error "Package '$1' is not installed"
+          else error "$2"
+          fi
+        }
+
+        secret_exists() { find ${path.system} -name "$1".secret | grep "secret" &> /dev/null; }
+
         if [[ -n $IN_NIX_SHELL ]]
         then
           warn "You are in a Nix Developer Shell" "This script may not work here properly\n"
@@ -282,16 +293,11 @@ in
         ;;
         "list")
           case $2 in
-          "") nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq;;
-          *) find=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep "$2")
+          "") installed;;
+          *) find=$(installed | grep "$2")
           if [ -z "$find" ]
             then
-              if nix search nixpkgs#"$2" &> /dev/null
-              then
-                error "Package '$2' is not installed"
-              else
-                error "Package '$2' not found"
-              fi
+              missing "$2" "Package '$2' not found"
             else
               echo "$find"
             fi
@@ -302,7 +308,7 @@ in
           case $2 in
           "") error "Expected Package Name";;
           *)
-            package=$(nix-store -q -R /run/current-system | sed -n -e 's/\/nix\/store\/[0-9a-z]\{32\}-//p' | sort | uniq | grep "$2")
+            package=$(installed | grep "$2")
             if [ -z "$package" ]
             then
               location=$(find /nix/store -maxdepth 1 -type d -name "*$2*")
@@ -315,12 +321,7 @@ in
                   echo -e "Location: $location"
                 fi
               else
-                if nix search nixpkgs#"$2" &> /dev/null
-                then
-                  error "Package '$2' is not installed"
-                else
-                  error "Package '$2' is invalid"
-                fi
+                missing "$2" "Package '$2' is invalid"
               fi
             else
               if (( $(grep -c . <<<"$package") > 1 ))
@@ -393,7 +394,7 @@ in
             case $3 in
             "") error "Expected 'name' of Secret";;
             *)
-              if find ${path.system} -name "$3".secret | grep "secret" &> /dev/null
+              if secret_exists "$3"
               then
                 echo "Editing Secret '$3'..."
                 find ${path.system} -name "$3".secret -exec sops --config ${path.sops} -i {} \+
@@ -408,7 +409,7 @@ in
             grep / ${path.sops} | sed -e 's|- path_regex:||' -e 's/\/\.\*\$//' -e 's|   |${path.system}/|' | xargs tree -C --noreport -P '*.secret' -I '_*' | sed 's/\.secret//'
           ;;
           "show")
-            if find ${path.system} -name "$3".secret | grep "secret" &> /dev/null
+            if secret_exists "$3"
             then
               echo "Showing Secret '$3'..."
               find ${path.system} -name "$3".secret -exec sops --config ${path.sops} -d {} \+

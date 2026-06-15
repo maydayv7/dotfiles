@@ -17,7 +17,7 @@ in {
           "$mod, C, movecursortocorner, 2"
           "$mod, E, fullscreen, 1"
           "$mod, P, pin"
-          "$mod, Space, togglesplit"
+          "$mod, Space, layoutmsg, togglesplit"
           "$mod SHIFT, S, toggleswallow"
 
           # Window Focus
@@ -48,20 +48,20 @@ in {
           "$mod, apostrophe, exec, hyprutils toggle float"
 
           # Cycle Workspaces
-          "$mod, comma, split:workspace, m-1"
-          "$mod, period, split:workspace, m+1"
-          "$mod CTRL, comma, split:workspace, r-1"
-          "$mod CTRL, period, split:workspace, r+1"
-          "$mod, mouse_up, split:workspace, r-1"
-          "$mod, mouse_down, split:workspace, r+1"
+          "$mod, comma, split-cycleworkspaces, prev"
+          "$mod, period, split-cycleworkspaces, next"
+          "$mod CTRL, comma, split-cycleworkspaces, prev"
+          "$mod CTRL, period, split-cycleworkspaces, next"
+          "$mod, mouse_up, split-cycleworkspaces, prev"
+          "$mod, mouse_down, split-cycleworkspaces, next"
 
           # Special Workspace
           "$mod, 0, togglespecialworkspace, Stash"
           "$mod SHIFT, 0, exec, pypr toggle_special Stash"
 
           # Move Window to Workspace
-          "$mod SHIFT, comma, split:movetoworkspace, r-1"
-          "$mod SHIFT, period, split:movetoworkspace, r+1"
+          "$mod SHIFT, comma, split-movetoworkspace, -1"
+          "$mod SHIFT, period, split-movetoworkspace, +1"
 
           # Cycle Monitors
           "$mod ALT, comma, focusmonitor, l"
@@ -96,8 +96,8 @@ in {
             n: let
               num = toString (n + 1);
             in [
-              "$mod, ${num}, split:workspace, ${num}"
-              "$mod SHIFT, ${num}, split:movetoworkspace, ${num}"
+              "$mod, ${num}, split-workspace, ${num}"
+              "$mod SHIFT, ${num}, split-movetoworkspace, ${num}"
             ]
           )
           9
@@ -180,8 +180,8 @@ in {
           "SHIFT, right, moveactive, 30 0"
           "SHIFT, up, moveactive, 0 -30"
           "SHIFT, down, moveactive, 0 30"
-          ", comma, split:movetoworkspace, r-1"
-          ", period, split:movetoworkspace, r+1"
+          ", comma, split-movetoworkspace, -1"
+          ", period, split-movetoworkspace, +1"
           ", escape, submap, reset"
           "$mod, M, submap, reset"
         ];

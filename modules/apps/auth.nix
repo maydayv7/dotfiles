@@ -6,7 +6,7 @@ in {
     home.packages = [pkgs.ente-auth];
     programs.keepassxc = {
       enable = true;
-      autostart = true;
+      autostart = false;
     };
 
     xdg.mimeApps.defaultApplications = util.build.mime {

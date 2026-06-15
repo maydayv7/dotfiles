@@ -57,6 +57,10 @@ lib.mkIf (osConfig != null) (
           disable = !osConfig.services.supergfxd.enable;
         }
         {
+          package = solaar-extension;
+          disable = !osConfig.hardware.logitech.wireless.enableGraphical;
+        }
+        {
           package = syncthing-indicator;
           name = "syncthing";
           disable = !config.services.syncthing.enable;

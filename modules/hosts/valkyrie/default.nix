@@ -36,6 +36,7 @@
   mixedModules = [
     "filesystem"
     "laptop"
+    "mouse"
     "shell-utils"
     "git"
     "office"
