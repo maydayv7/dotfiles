@@ -4,7 +4,7 @@
   <img alt="Banner" src="./files/images/banner-dark.png">
 </picture>
 
-[![NixOS](https://img.shields.io/badge/NixOS-25.11-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
+[![NixOS](https://img.shields.io/badge/NixOS-26.05-9cf.svg?style=flat-square&logo=NixOS&logoColor=white)](https://nixos.org)
 ![License](https://img.shields.io/github/license/maydayv7/dotfiles?color=dgreen&style=flat-square)
 ![Size](https://img.shields.io/github/repo-size/maydayv7/dotfiles?color=red&label=size&style=flat-square)
 
@@ -94,12 +94,12 @@ It also builds and deploys my website to [maydayv7.cc](https://maydayv7.cc).
 - Incorporates PipeWire, Wayland, ...!
 - Automatically builds and deploys my [Website](./site)
 - Credentials management using the [`sops-nix`](https://github.com/Mic92/sops-nix) module and [`gnupg`](https://gnupg.org/) keys
-- Comprehensive User Configuration using the [`home-manager`](https://github.com/nix-community/home-manager) module, with [support](./modules/user/default.nix) for setting global conditionals and shared/user-specific configuration
+- Comprehensive User Configuration using the [`home-manager`](https://github.com/nix-community/home-manager) module
 - Ephemeral, Opt-In filesystem state using the [`impermanence`](https://github.com/nix-community/impermanence) module and [ZFS](https://zfsonlinux.org/)
 - Support for Secure Boot using [`lanzaboote`](https://github.com/nix-community/lanzaboote)
 - Multiple development [`shells`](./shells) integrated with [`direnv`](https://direnv.net/) and [`lorri`](https://github.com/nix-community/lorri)
 - Automatic `packages` updates using [`update.sh`](./packages/update.sh)
-- Syntax [formatting](./modules/nix/format.nix) using [`treefmt`](https://github.com/numtide/treefmt)
+- Syntax [formatting](./modules/core/checks.nix) using [`treefmt`](https://github.com/numtide/treefmt)
 - Support for `source` filters with [`nix-filter`](https://github.com/numtide/nix-filter)
 - Support for Base16 color theming using [`stylix`](https://github.com/danth/stylix)
 - Support for declaratively installing [Flatpak](./modules/apps/flatpak.nix) applications using [`nix-flatpak`](https://github.com/gmodena/nix-flatpak)
@@ -109,14 +109,13 @@ It also builds and deploys my website to [maydayv7.cc](https://maydayv7.cc).
 
 ## Programs
 
-| Type        |                                                           Programs                                                           |
-| :---------- | :--------------------------------------------------------------------------------------------------------------------------: |
-| Editors     | [`nano`](https://www.nano-editor.org/), [`micro`](https://micro-editor.github.io), [VS Code](https://code.visualstudio.com/) |
-| Shells      |                          [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                          |
-| Terminal    |                          [Ghostty](https://ghostty.org/), [Kitty](https://sw.kovidgoyal.net/kitty/)                          |
-| Browser     |                                      [Firefox](https://www.mozilla.org/en-US/firefox/)                                       |
-| Desktops    |                              [GNOME](https://www.gnome.org), [Pantheon](https://elementary.io/)                              |
-| Compositors |                                                [Hyprland](https://hypr.land/)                                                |
+| Type     |                                                           Programs                                                           |
+| :------- | :--------------------------------------------------------------------------------------------------------------------------: |
+| Editors  | [`nano`](https://www.nano-editor.org/), [`micro`](https://micro-editor.github.io), [VS Code](https://code.visualstudio.com/) |
+| Shells   |                          [`bash`](https://www.gnu.org/software/bash/), [`zsh`](https://www.zsh.org)                          |
+| Terminal |                          [Ghostty](https://ghostty.org/), [Kitty](https://sw.kovidgoyal.net/kitty/)                          |
+| Browser  |                                      [Firefox](https://www.mozilla.org/en-US/firefox/)                                       |
+| Desktops |                                [GNOME](https://www.gnome.org), [Hyprland](https://hypr.land/)                                |
 
 ## Structure
 
@@ -133,17 +132,22 @@ github:maydayv7/dotfiles
 │       ├───sysutils: app
 │       ├───hyprutils: app
 │       ├───install: app
-│       └───nixos: app
+│       ├───nixos: app
+│       └───default: app
 ├───checks
 │   └───x86_64-linux
-│       ├───Device-iso: derivation 'nixos-rebuild'
+│       ├───configurations:nixos:futura: derivation
+│       ├───configurations:nixos:valkyrie: derivation
+│       ├───configurations:nixos:vortex: derivation
 │       └───treefmt: derivation 'treefmt-check'
 ├───devShells
 │   └───x86_64-linux
 │       ├───cc: development environment 'C'
+│       ├───android: development environment 'Android'
 │       ├───default: development environment 'devShell'
 │       ├───format: development environment 'nix-shell'
 │       ├───java: development environment 'Java'
+│       ├───js: development environment 'JavaScript'
 │       ├───lua: development environment 'Lua'
 │       ├───python: development environment 'Python'
 │       ├───rust: development environment 'Rust'
@@ -153,11 +157,16 @@ github:maydayv7/dotfiles
 ├───files: 'dotfiles' and program configuration
 ├───formatter
 │   └───x86_64-linux: package 'treefmt'
+├───homeConfigurations
+│   ├───navya@futura: Home Manager configuration
+│   ├───v7@valkyrie: Home Manager configuration
+│   └───v7@vortex: Home Manager configuration
 ├───legacyPackages
 │   └───x86_64-linux (Default package channel)
-├───lib: utility library functions
+├───modules: dendritic configuration modules
 ├───nixosConfigurations
 │   ├───futura: NixOS configuration
+│   ├───install: NixOS configuration
 │   ├───valkyrie: NixOS configuration
 │   └───vortex: NixOS configuration
 ├───overlays
@@ -167,7 +176,6 @@ github:maydayv7/dotfiles
 │       ├───nixos: package 'nixos'
 │       └───website: package 'website-stable'
 ├───patchedPkgs: patched package source
-├───systems: supported architectures
 └───templates
     └───default: template: My NixOS Configuration
 ```
@@ -179,12 +187,9 @@ github:maydayv7/dotfiles
 ├── flake.lock
 ├── files
 ├── site
-├── devices
-├── users
-│   └── passwords
 ├── secrets
+│   └── passwords
 ├── shells
-├── checks
 ├── lib
 │   ├── build.nix
 │   └── map.nix
@@ -192,34 +197,34 @@ github:maydayv7/dotfiles
 │   ├── install.nix
 │   └── nixos.nix
 ├── packages
-│   └── overlays
+│   ├── overlays
+│   └── patches
 └── modules
-    ├── configuration.nix
+    ├── core
+    ├── hosts
     ├── apps
-    ├── base
+    ├── desktop
+    ├── games
     ├── gui
     ├── hardware
-    ├── nix
     ├── shell
-    └── user
+    ├── system
+    ├── users
+    └── virt
 ```
 
 - `flake.nix`: toplevel configuration file and repository version control  
-  [`flake-parts`](https://github.com/hercules-ci/flake-parts) is used for modularization
+  [`flake-parts`](https://github.com/hercules-ci/flake-parts) is used for modularization, following the [dendritic](https://github.com/mightyiam/dendritic) pattern
 
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`site`](./site/README.md): personal website generated using [`zola`](https://www.getzola.org/)
-- [`devices`](./devices/README.md): system configuration for various devices
-- [`users`](./users/README.md): individual user-specific configuration
-- [`secrets`](./secrets/README.md): authentication credentials management using [`sops-nix`](https://github.com/Mic92/sops-nix)
+- [`secrets`](./secrets/README.md): authentication credentials and user passwords managed using [`sops-nix`](https://github.com/Mic92/sops-nix)
 - `shells`: sand-boxed shells for development purposes
-- `checks`: configuration checks and continuous integration
 - [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
 - [`scripts`](./scripts/README.md): useful system management scripts
 - [`packages`](./packages/README.md): locally built custom packages
 - `overlays`: overrides for pre-built packages
 - [`modules`](./modules/README.md): custom configuration modules for additional functionality
-- `configuration.nix`: builds system configuration
 
 ## Installation
 
@@ -264,81 +269,11 @@ To use my configuration as-is for a fresh NixOS installation, you can try the fo
    _Replace_ **_PATH_** _with the path to the `secret`_
    <pre><code>sops --config <i>/path/to/<b>secrets.yaml</b></i> -i <b><i>PATH</i></b></code></pre>
 
-6. Add device-specific configuration by creating a new file in [`devices`](./devices). Do keep in mind that the filesystems must be appropriately created and labeled as defined [here](./modules/hardware/filesystem.nix).
+6. Add device-specific configuration by creating a new file in [`modules/hosts`](./modules/hosts). Do keep in mind that the filesystems must be appropriately created and labeled as defined [here](./modules/system/filesystem.nix).
 
 7. Finally, run `nixos-rebuild switch --flake /etc/nixos#HOSTNAME` (as `root`) to switch to the configuration!
 
 </details>
-
-<details>
-<summary><b>Minimal Configuration</b></summary>
-
-The `lib.build.device` function can be used to generate the full configuration minimally  
-Read [this](./devices/README.md) for definition information
-
-Example `flake.nix`:
-
-```nix
-{
-  description = "Minimal NixOS Configuration";
-
-  ## System Repositories ##
-  inputs = {
-    ## Package Repositories ##
-    # NixOS Package Repository
-    nixpkgs.follows = "dotfiles/nixpkgs";
-
-    ## Configuration Modules ##
-    # My PC Dotfiles
-    dotfiles.url = "github:maydayv7/dotfiles";
-  };
-
-  ## System Configuration ##
-  outputs = inputs: let
-    lib = with inputs; nixpkgs.lib // dotfiles.lib;
-  in {
-    nixosConfigurations.host = lib.build.device {
-      name = "HOST_NAME";
-      system = "x86_64-linux";
-
-      imports = [
-        # Generate using 'nixos-generate-config'
-        ./hardware-configuration.nix
-
-        # Passwords
-        {
-          users.extraUsers = {
-            root.hashedPassword = "HASHED_PASSWORD";
-            recovery.initialHashedPassword = "HASHED_PASSWORD";
-          };
-        }
-      ];
-
-      timezone = "Continent/City";
-      locale = "US";
-
-      kernel = "lts";
-      kernelModules = ["nvme"];
-
-      gui = {};
-      hardware = {
-        boot = "efi";
-        cores = 4;
-        fs.scheme = "simple";
-        modules = [ /* Imported from 'nixos-hardware' */];
-      };
-
-      # Default User
-      user = {
-        name = "nixos";
-        description = "Default User";
-        minimal = true;
-        password = "HASHED_PASSWORD"; # Generate using 'mkpasswd -m sha-512'
-      };
-    };
-  };
-}
-```
 
 </details>
 
@@ -380,8 +315,8 @@ _The `install` script handles partition creation and labeling, so it is recommen
 | Name           | Label  | Format | Size (minimum) |
 | :------------- | :----: | :----: | :------------: |
 | BOOT Partition |  ESP   |  vfat  |      500M      |
-| ROOT Partition | System |  ZFS   |      25G       |
-| SWAP Area      |  swap  |  swap  |       4G       |
+| ROOT Partition | System |  ZFS   |      50G       |
+| SWAP Area      |  swap  |  swap  |       8G       |
 | DATA Partition | Files  |  ZFS   |      10G       |
 
 > [!NOTE]
@@ -433,19 +368,14 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 
 ### Continuous Integration
 
-This repository makes use of [`GitHub Actions`](./checks/github/workflows) in order to automatically check the configuration syntax on every commit and format it (using [`treefmt-nix`](https://github.com/numtide/treefmt-nix)), update the `inputs` and build the Install Media `.iso` every month, and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles) (You can also find `GitLab CI/CD` configuration [here](./checks/gitlab/.gitlab-ci.yml)).
+This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax & format on every commit, update the `inputs` and build the Install Media `.iso` every month, and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles).
 A `git` [hook](./files/git/hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ##### Variables
 
 - [`ACCESS_TOKEN`](./secrets/github-token.secret): Personal Access Token
-  (To create one - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), [GitLab](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html))
+  (To create one, see [this](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token))
 - [`CACHIX_TOKEN`](./secrets/cachix-token.secret): Cachix Authentication Token
-
-### Home Manager
-
-The [`home-manager`](https://github.com/nix-community/home-manager) module is used in tandem with the system configuration in order to define user-specific configuration.
-Each feature contributes both a `flake.modules.nixos.<aspect>` and a `flake.modules.homeManager.<aspect>` module; hosts compose the desired aspects explicitly. Home-manager modules read system state via the standard `osConfig` argument.
 
 ---
 

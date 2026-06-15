@@ -48,7 +48,7 @@ To override the URL, run: <pre><code>nix build --impure --expr 'with (builtins.g
 
 ## `git` frontend
 
-The [`git`](./git) directory contains the configuration for my static `git` frontend, hosted at [git.maydayv7.cc](https://maydayv7.cc)  
+The [`git`](./git) directory contains the configuration for my static `git` frontend, hosted at [git.maydayv7.cc](https://git.maydayv7.cc)  
 It is built using my `stagit` [fork](https://github.com/maydayv7/stagit) to generate static HTML pages for my repositories  
 To build it, run `nix run .#build-stagit`  
-[`GitHub Actions`](../checks/github/workflows/website-git.yml) is used to automatically build the site and deploy it to Cloudflare every week
+[`GitHub Actions`](../.github/workflows/website-git.yaml) is used to automatically build the site and deploy it to Cloudflare every week

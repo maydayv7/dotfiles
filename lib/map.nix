@@ -1,3 +1,4 @@
+## Mapping Functions ##
 lib: let
   inherit
     (builtins)
@@ -34,7 +35,6 @@ lib: let
   in
     type == "set" || type == "lambda";
 in rec {
-  ## Mapping Functions ##
   array = list: func: forEach list (name: getAttrFromPath [name] func);
   filter = name: func: attrs:
     filterAttrs (_: type: type != null) (mapAttrs' func (filterAttrs name attrs));

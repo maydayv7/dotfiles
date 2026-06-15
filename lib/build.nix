@@ -1,3 +1,4 @@
+## Builder Functions ##
 lib: let
   inherit
     (builtins)
@@ -19,7 +20,6 @@ lib: let
     splitString
     ;
 in {
-  ## Builder Functions ##
   # Mime Types Handler
   mime = option:
     listToAttrs (

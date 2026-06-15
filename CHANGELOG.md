@@ -2,9 +2,11 @@
 
 ### June
 
-- Add "auth" and "syncthing"
+- Add `auth`, `syncthing`, `mouse`
 - Use Thunderbird for mail
+- Upgrade to NixOS 26.05
 - Drop Niri & Pantheon
+- Support standalone `home-manager` configurations
 - Refactor NixOS Configuration to use [dendritic](https://github.com/mightyiam/dendritic) pattern
 - Switch back formatter to `alejandra`
 - Switch back to NixOS (Yay!)

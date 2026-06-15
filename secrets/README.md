@@ -1,7 +1,7 @@
 ### Credentials
 
 The authentication credentials are managed using [`sops-nix`](https://github.com/Mic92/sops-nix) at `secrets`.
-The [`sops`](https://github.com/mozilla/sops) encrypted secrets (using GPG) are stored at multiple places, like in this directory, as well as [`users/passwords`](../users/passwords).
+The [`sops`](https://github.com/mozilla/sops) encrypted secrets (using GPG) are stored at multiple places, like in this directory, as well as [`passwords`](./passwords).
 User passwords are generated using `mkpasswd -m sha-512` and specified using the `hashedPasswordFile` option.
 The `sops` encrypted secrets are of `binary` format (and have the extension `.secret`) and can be conveniently managed using the [`nixos`](../scripts/README.md) `secret` command.
 The `keys` directory contains the _public_ User GPG Keys which are automatically imported
