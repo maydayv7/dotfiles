@@ -21,9 +21,9 @@ _: {
     inherit (config.hardware.cpu) model;
   in {
     options.virt.vfio = {
-      mode = mkEnableOption "VFIO Mode";
+      setup = mkEnableOption "VFIO Setup Mode";
       passthrough = mkOption {
-        description = "PCI Device IDs for VFIO";
+        description = "PCI Device IDs for VFIO Passthrough";
         type = types.listOf types.str;
         default = [];
         example = [
@@ -37,17 +37,15 @@ _: {
       {
         specialisation.vfio.configuration = {
           system.nixos.label = "special.vfio";
-          hardware = {
-            vm.vfio = mkForce "on";
-            cpu.mode = mkForce "performance";
-          };
+          virt.vfio.setup = true;
+          hardware.cpu.mode = mkForce "performance";
         };
       }
 
-      (mkIf cfg.mode {
+      (mkIf (!cfg.setup) {
         specialisation.no-vfio.configuration = {
           system.nixos.label = "special.no-vfio";
-          hardware.vm.vfio = mkForce "setup";
+          virt.vfio.setup = false;
         };
 
         # Disable GPU

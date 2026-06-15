@@ -1,9 +1,8 @@
-# Terminal (kitty)
-{theme ? null, ...}: {
+_: {
   home = {pkgs, ...}: {
     programs.kitty = {
       enable = true;
-      themeFile = with theme; "${name-alt}-${variant-alt}";
+      themeFile = "Catppuccin-Macchiato";
       keybindings = {
         "ctrl+c" = "copy_or_interrupt";
         "kitty_mod+f" = "launch --allow-remote-control kitty +kitten search/search.py @active-kitty-window-id";

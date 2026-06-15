@@ -62,7 +62,7 @@ in {
         gtk = {
           enable = true;
           inherit (osConfig.gui.gtk) theme;
-          cursorTheme = osConfig.gui.cursors;
+          cursorTheme = config.stylix.cursor;
           font = with config.stylix.fonts; {
             inherit (sansSerif) package name;
             size = sizes.applications;

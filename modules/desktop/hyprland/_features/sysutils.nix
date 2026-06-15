@@ -1,4 +1,3 @@
-# System utilities, power management, network settings
 {
   util ? null,
   files ? null,

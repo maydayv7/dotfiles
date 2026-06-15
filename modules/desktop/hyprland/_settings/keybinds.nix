@@ -1,7 +1,7 @@
+## Compositor Binds
 _: _: let
   inherit (builtins) concatLists genList toString;
 in {
-  ## Compositor Binds ##
   wayland.windowManager.hyprland = {
     ## Keybindings
     settings = {

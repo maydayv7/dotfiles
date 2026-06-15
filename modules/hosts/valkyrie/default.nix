@@ -116,7 +116,7 @@ in {
 
       # Virtualisation
       # virt.vfio = {
-      #   mode = false;
+      #   setup = true;
       #   passthrough = [
       #     "10de:28e0" # Graphics
       #     "10de:22be" # Audio

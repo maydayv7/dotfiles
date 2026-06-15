@@ -1,4 +1,3 @@
-# Screen lock, idle daemon, logout
 {
   util ? null,
   files ? null,
@@ -95,5 +94,10 @@
         }
       ];
     };
+
+    home.file.".config/kwalletrc".text = ''
+      [Wallet]
+      Enabled=false
+    '';
   };
 }

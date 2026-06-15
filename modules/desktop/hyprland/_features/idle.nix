@@ -1,4 +1,3 @@
-# Idle timeouts
 _: {
   home = {
     lib,

@@ -24,8 +24,8 @@ in {
 
   # Excluded Packages
   environment.gnome.excludePackages = with pkgs; [
-    totem
     gnome-music
+    showtime
   ];
 
   # Dconf Settings

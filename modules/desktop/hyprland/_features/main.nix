@@ -1,4 +1,3 @@
-# Compositor
 {
   util ? null,
   files ? null,

@@ -34,31 +34,6 @@ in {
           default = "eDP-1";
           example = "HDMI-A-1";
         };
-
-        icons = {
-          name = mkOption {
-            type = types.str;
-            default = "Papirus-Dark";
-          };
-          package = mkOption {
-            type = types.package;
-            default = pkgs.papirus-icon-theme;
-          };
-        };
-        cursors = {
-          name = mkOption {
-            type = types.str;
-            default = "Bibata-Original-Classic";
-          };
-          package = mkOption {
-            type = types.package;
-            default = pkgs.bibata-cursors;
-          };
-          size = mkOption {
-            type = types.int;
-            default = 28;
-          };
-        };
         wallpaper = mkOption {
           type = types.enum (attrNames files.wallpapers);
           default = "Beauty";
@@ -70,14 +45,32 @@ in {
         stylix = {
           inherit enable;
           autoEnable = true;
+          homeManagerIntegration = {
+            autoImport = true;
+            followSystem = true;
+          };
+
           image = cfg.wallpaper;
-          cursor = cfg.cursors;
           polarity = "dark";
+
+          icons = {
+            enable = true;
+            package = pkgs.papirus-icon-theme;
+            light = "Papirus-Dark";
+            dark = "Papirus-Dark";
+          };
+
+          cursor = {
+            name = "Bibata-Original-Classic";
+            package = pkgs.bibata-cursors;
+            size = 28;
+          };
+
           opacity = {
             popups = 0.9;
             terminal = 0.9;
           };
-          homeManagerIntegration.autoImport = true;
+
           targets = {
             console.enable = true;
             plymouth.enable = false;
@@ -89,13 +82,6 @@ in {
           config.stylix.homeManagerIntegration.module
         ];
 
-        environment.systemPackages =
-          [config.stylix.cursor.package]
-          ++ optionals enable [
-            cfg.icons.package
-            cfg.cursors.package
-          ];
-
         programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
       };
     };
@@ -103,13 +89,8 @@ in {
     homeManager.theme = {lib, ...}: {
       config.stylix = {
         enable = lib.mkDefault true;
-        icons = lib.mkForce {
-          enable = true;
-          light = "Papirus-Dark";
-          dark = "Papirus-Dark";
-        };
         targets = {
-          firefox.enable = false;
+          firefox.enable = lib.mkDefault false;
           gnome.enable = lib.mkDefault false;
           spicetify.enable = false;
           vscode.enable = false;

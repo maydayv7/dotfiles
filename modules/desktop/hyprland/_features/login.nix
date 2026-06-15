@@ -1,4 +1,3 @@
-# Login greeter (regreet)
 _: {
   nixos = {
     config,
@@ -26,7 +25,11 @@ _: {
 
       extraCss = mkForce "";
       theme = mkForce config.gui.gtk.theme;
-      iconTheme = mkForce config.gui.icons;
+      iconTheme = with config.stylix.icons;
+        mkForce {
+          name = dark;
+          inherit package;
+        };
     };
   };
 }

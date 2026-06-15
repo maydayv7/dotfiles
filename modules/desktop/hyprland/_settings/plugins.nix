@@ -1,3 +1,4 @@
+## Compositor Plugins
 _: {
   lib,
   pkgs,
@@ -5,7 +6,6 @@ _: {
   ...
 }:
 lib.mkIf (osConfig != null) {
-  ## Plugin Settings
   wayland.windowManager.hyprland = {
     plugins = with pkgs.hyprworld; [
       hyprsplit

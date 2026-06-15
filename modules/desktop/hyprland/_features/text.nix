@@ -1,8 +1,6 @@
-# Text editor (geany) + clipboard
 {
   util ? null,
   files ? null,
-  theme ? null,
   ...
 }: {
   nixos = {pkgs, ...}: {
@@ -29,7 +27,7 @@
       file = with files.geany; {
         ".config/geany/geany.conf".text = settings;
         ".config/geany/keybindings.conf".text = keybindings;
-        ".config/geany/colorschemes/theme.conf".source = with theme; "${pkgs.custom.geany-catppuccin}/share/geany/colorschemes/${name}-${variant}.conf";
+        ".config/geany/colorschemes/theme.conf".source = "${pkgs.custom.geany-catppuccin}/share/geany/colorschemes/catppuccin-macchiato.conf";
       };
     };
 

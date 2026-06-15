@@ -1,5 +1,4 @@
-# Browser theming
-{theme ? null, ...}: {
+_: {
   home = _: {
     home.file.".config/mozilla/firefox/default/chrome/userChrome.css".text = ''
       #TabsToolbar {
@@ -9,7 +8,7 @@
 
     # Theme
     programs.firefox.policies.ExtensionSettings = {
-      name = with theme; "${name}-${variant}-${accent}";
+      name = "catppuccin-macchiato-blue";
       value = {
         installation_mode = "normal_installed";
         install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/{d49033ac-8969-488c-afb0-5cdb73957f41}/latest.xpi";

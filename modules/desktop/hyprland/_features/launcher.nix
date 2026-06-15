@@ -1,4 +1,3 @@
-# Application launcher
 {
   util ? null,
   files ? null,

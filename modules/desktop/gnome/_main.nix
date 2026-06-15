@@ -68,7 +68,6 @@
       gnome-sound-recorder
       gnome-tweaks
       papers
-      zenity
 
       # Games
       gnome-chess
@@ -177,7 +176,7 @@
 
       # Firefox GNOME Theme
       stylix.targets.firefox = {
-        enable = lib.mkForce true;
+        enable = true;
         profileNames = ["default"];
         firefoxGnomeTheme.enable = true;
       };

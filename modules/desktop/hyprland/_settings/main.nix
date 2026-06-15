@@ -1,3 +1,4 @@
+## Compositor Settings
 _: {
   lib,
   osConfig ? null,
@@ -9,7 +10,6 @@ lib.mkIf (osConfig != null) (
     inherit (osConfig.gui) display fancy;
     inherit (osConfig.lib.stylix.colors) base03 base05 base0D;
   in {
-    ## Hyprland Settings
     stylix.targets.hyprland.enable = true;
     wayland.windowManager.hyprland = {
       inherit (osConfig.programs.hyprland) enable package portalPackage;

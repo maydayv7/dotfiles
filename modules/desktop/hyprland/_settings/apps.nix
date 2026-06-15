@@ -1,4 +1,5 @@
 _: {
+  config,
   lib,
   pkgs,
   osConfig ? null,
@@ -8,19 +9,20 @@ lib.mkIf (osConfig != null) (
   let
     inherit (builtins) map toString;
     inherit (lib) flatten getExe head splitString;
-    inherit (osConfig.gui) cursors display;
-    cursor = "${cursors.name}-Hyprcursor";
 
-    # systemd unit name = first word of the command (before any argument)
+    inherit (osConfig.gui) display;
+    inherit (config.stylix) cursor;
+    hyprcursor = "${cursor.name}-Hyprcursor";
+
     unit = command: head (splitString " " command);
   in {
     ## App Environment
     # Cursor
-    xdg.dataFile."icons/${cursor}".source = "${cursors.package}/share/icons/${cursor}";
+    xdg.dataFile."icons/${hyprcursor}".source = "${cursor.package}/share/icons/${hyprcursor}";
     wayland.windowManager.hyprland.settings = {
       env = [
-        "HYPRCURSOR_THEME, ${cursor}"
-        "HYPRCURSOR_SIZE, ${toString cursors.size}"
+        "HYPRCURSOR_THEME, ${hyprcursor}"
+        "HYPRCURSOR_SIZE, ${toString cursor.size}"
 
         # QT Apps
         "QT_WAYLAND_DISABLE_WINDOWDECORATION, 1"
@@ -36,7 +38,7 @@ lib.mkIf (osConfig != null) (
       exec-once =
         [
           "uwsm finalize"
-          "hyprctl setcursor ${cursor} ${toString cursors.size}"
+          "hyprctl setcursor ${hyprcursor} ${toString cursor.size}"
         ]
         ++ (map (app: "uwsm app -t service -u ${unit app}.service -- " + app) [
           "hyprutils daemon"

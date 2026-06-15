@@ -8,19 +8,9 @@
   inherit (config.flake) files;
   inherit (config.flake.modules) nixos homeManager;
 
-  theme = {
-    name = "catppuccin";
-    name-alt = "Catppuccin";
-    accent = "blue";
-    variant = "macchiato";
-    variant-alt = "Macchiato";
-    icons = "Papirus-Dark";
-  };
-
   base = import ../_base.nix {};
-  args = {inherit util files inputs theme;};
+  args = {inherit util files inputs;};
   features = builtins.map (p: import p args) (util.map.modules.list ./_features);
-  settings = builtins.map (p: import p args) (util.map.modules.list ./_settings);
 in {
   flake.modules = {
     nixos.hyprland.imports =
@@ -38,6 +28,6 @@ in {
         homeManager.gtk
       ]
       ++ builtins.map (f: f.home or {}) features
-      ++ settings;
+      ++ builtins.map (p: import p args) (util.map.modules.list ./_settings);
   };
 }

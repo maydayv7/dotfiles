@@ -1,4 +1,3 @@
-# Hyprland utilities (wallpaper, hot corners, drawer, shaders)
 {
   util ? null,
   files ? null,

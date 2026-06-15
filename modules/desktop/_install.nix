@@ -58,6 +58,7 @@ in {
     gnome-backgrounds
     gnome-tour
     gnome-user-docs
+    orca
   ];
 
   # Disable suspension

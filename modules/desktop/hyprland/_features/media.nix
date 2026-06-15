@@ -1,4 +1,3 @@
-# Media apps
 {util ? null, ...}: {
   nixos = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [

@@ -1,51 +1,61 @@
-# Desktop integration: theme data, GTK/QT, stylix scheme
 {
+  inputs,
   files ? null,
-  theme ? null,
   ...
 }: {
-  nixos = {pkgs, ...}: let
-    inherit (theme) accent variant;
-
-    gtk = {
-      name = "catppuccin-${variant}-${accent}-standard";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [accent];
-        inherit variant;
-      };
-    };
-
-    qt = {
-      name = "catppuccin-${variant}-${accent}";
-      package = pkgs.catppuccin-kvantum.override {
-        inherit accent variant;
-      };
-    };
-
-    icons = {
-      name = theme.icons;
-      package = pkgs.catppuccin-papirus-folders.override {
-        inherit accent;
-        flavor = variant;
-      };
-    };
-  in {
-    stylix.base16Scheme = files.colors.catppuccin;
+  nixos = {pkgs, ...}: {
     environment.systemPackages = [pkgs.custom.cursors];
+    stylix = {
+      base16Scheme = files.colors.catppuccin;
+      icons.package = pkgs.catppuccin-papirus-folders.override {
+        accent = "blue";
+        flavor = "macchiato";
+      };
+    };
 
     gui = {
-      inherit icons;
-      gtk.theme = gtk;
+      gtk.theme = {
+        name = "catppuccin-macchiato-blue-standard";
+        package = pkgs.catppuccin-gtk.override {
+          accents = ["blue"];
+          variant = "macchiato";
+        };
+      };
+
       qt = {
-        theme = qt;
         style = "kvantum";
+        theme = {
+          name = "catppuccin-macchiato-blue";
+          package = pkgs.catppuccin-kvantum.override {
+            accent = "blue";
+            variant = "macchiato";
+          };
+        };
       };
     };
   };
 
-  # GTK Apps
-  home.dconf.settings."org/gnome/desktop/wm/preferences" = {
-    action-double-click-titlebar = "none";
-    button-layout = "appmenu";
+  home = {config, ...}: {
+    imports = [inputs.catppuccin.homeModules.catppuccin];
+
+    config = {
+      # Theme
+      catppuccin = {
+        accent = "blue";
+        flavor = "macchiato";
+
+        brave.enable = config.programs.brave.enable or false;
+        thunderbird.enable = config.programs.thunderbird.enable or false;
+        obs.enable = config.programs.obs-studio.enable or false;
+        vesktop.enable = config.programs.nixcord.vesktop.enable or false;
+        vscode.profiles.default.enable = config.programs.vscode.enable or false;
+      };
+
+      # GTK Apps
+      dconf.settings."org/gnome/desktop/wm/preferences" = {
+        action-double-click-titlebar = "none";
+        button-layout = "appmenu";
+      };
+    };
   };
 }

@@ -1,9 +1,7 @@
-# File manager (nemo) + desktop icons (pcmanfm)
 {
   util ? null,
   files ? null,
   inputs ? null,
-  theme ? null,
   ...
 }: {
   nixos = {pkgs, ...}: let
@@ -114,7 +112,7 @@
             "@archiver"
           ]
           [
-            theme.icons
+            config.stylix.icons.dark
             config.stylix.fonts.sansSerif.name
             terminal
             (builtins.toString files.images.transparent)
