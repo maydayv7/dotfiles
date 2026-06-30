@@ -41,9 +41,9 @@
   "better-comments.highlightPlainText": true,
   "scm.repositories.visible": 7,
   "nix.enableLanguageServer": true,
-  "nix.serverPath": "nil",
+  "nix.serverPath": "nixd",
   "nix.serverSettings": {
-    "nil": {
+    "nixd": {
       "formatting": {
         "command": ["alejandra"]
       }

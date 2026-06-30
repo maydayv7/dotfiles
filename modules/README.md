@@ -31,6 +31,7 @@ An overview of every configuration module in this repository.
 | `youtube`     | Home Manager | YouTube Music & TUI                |
 | `vscode`      | Home Manager | Visual Studio Code editor          |
 | `antigravity` | Home Manager | Google Antigravity                 |
+| `zed`         | Home Manager | Zed Editor                         |
 | `flatpak`     | Both         | Flatpak app sandboxing             |
 | `latex`       | Both         | LaTeX typesetting                  |
 | `office`      | Both         | Office suite environment           |

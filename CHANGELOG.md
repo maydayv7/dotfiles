@@ -2,6 +2,7 @@
 
 ### June
 
+- Add Zed Editor
 - Rename `nixos` script to `os` and adopt [`nh`](https://github.com/nix-community/nh)
 - Use `micro` as default editor
 - Use [`disko`](https://github.com/nix-community/disko) for declarative disk partitioning

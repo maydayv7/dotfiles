@@ -46,7 +46,7 @@ in {
         ".vscode-shared"
       ];
       packages = with pkgs; [
-        nil
+        nixd
         alejandra
       ];
     };

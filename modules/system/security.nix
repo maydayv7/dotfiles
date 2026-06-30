@@ -2,21 +2,10 @@
 {config, ...}: let
   inherit (config.flake) files;
 in {
-  flake.modules.nixos.security = {
-    lib,
-    pkgs,
-    ...
-  }: {
+  flake.modules.nixos.security = {lib, ...}: {
     config = {
       security = {
         protectKernelImage = false;
-
-        # Sandbox
-        apparmor = {
-          enable = true;
-          killUnconfinedConfinables = true;
-          packages = [pkgs.apparmor-profiles];
-        };
 
         # Sudo
         sudo = {
@@ -26,7 +15,12 @@ in {
             Defaults lecture = always, lecture_file = ${files.ascii.groot}
           '';
         };
+
+        # Sandbox
+        #! https://discourse.nixos.org/t/apparmor-on-nixos-roadmap/57217
+        apparmor.enable = false;
       };
+      programs.firejail.enable = true;
 
       # Recovery Account
       specialisation.recovery.configuration = {
@@ -45,11 +39,8 @@ in {
         };
       };
 
-      # Block Junk Sites
-      networking.stevenblack.enable = true;
-      programs.firejail.enable = true;
-
       # Hardening
+      networking.stevenblack.enable = true; # Block Junk Sites
       boot = {
         # Kernel
         kernelParams = [

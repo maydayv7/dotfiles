@@ -7,7 +7,7 @@ _: {
     boot = {
       plymouth.extraConfig = "DeviceScale=2";
 
-      # ! # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
+      #! https://gitlab.freedesktop.org/drm/amd/-/issues/3388
       kernelParams = lib.mkIf (config.hardware.cpu.mode == "performance") [
         "amdgpu.dcdebugmask=0x10"
         "usbcore.autosuspend=-1"

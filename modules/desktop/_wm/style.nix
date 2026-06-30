@@ -35,11 +35,7 @@
     theme = "${pkgs.custom.adw-catppuccin}/share/adw-catppuccin/macchiato";
 
     # Use Catppuccin over Stylix
-    alias = {
-      qt = "kvantum";
-      discord = "vesktop";
-      zed = "zed-editor";
-    };
+    alias = {qt = "kvantum";};
     except = ["kitty"];
     targets = filter (n: !hasPrefix "_" n) (attrNames options.stylix.targets);
     derived = filter (t: elem (alias.${t} or t) (attrNames config.catppuccin) && !elem t except) targets;

@@ -7,7 +7,7 @@ _: {
       systemPackages = [pkgs.docker-compose];
     };
 
-    # ? # Use '--add-host=host.docker.internal:host-gateway' to create containers
+    #? Use '--add-host=host.docker.internal:host-gateway' to create containers
     networking = {
       firewall.trustedInterfaces = ["docker0"];
       extraHosts = "127.0.0.1 host.docker.internal";
