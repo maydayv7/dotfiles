@@ -1,0 +1,17 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-/": "command_palette::Toggle",
+      "alt-t": "terminal_panel::ToggleFocus",
+      "ctrl-shift-t": "workspace::NewTerminal"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-d": "editor::DeleteLine",
+      "ctrl-'": "editor::ToggleComments"
+    }
+  }
+]

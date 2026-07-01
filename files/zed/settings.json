@@ -1,0 +1,109 @@
+{
+  "cli_default_open_behavior": "existing_window",
+  "disable_ai": true,
+  "agent": {
+    "button": false,
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "auto_update": false,
+  "edit_predictions": {
+    "provider": "none"
+  },
+  "features": {
+    "edit_prediction_provider": "none"
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+
+  "window_decorations": "client",
+  "title_bar": {
+    "button_layout": "minimize,close",
+    "show_branch_status_icon": true,
+    "show_branch_name": true,
+    "show_menus": false
+  },
+  "tab_bar": {
+    "show_pinned_tabs_in_separate_row": true
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "git_panel": {
+    "show_count_badge": false,
+    "file_icons": false,
+    "dock": "left"
+  },
+  "project_panel": {
+    "git_status_indicator": true,
+    "dock": "left"
+  },
+  "minimap": {
+    "current_line_highlight": "all",
+    "thumb_border": "right_open",
+    "thumb": "always",
+    "show": "auto"
+  },
+  "scrollbar": {
+    "show": "auto"
+  },
+
+  "colorize_brackets": true,
+  "indent_guides": {
+    "background_coloring": "disabled",
+    "coloring": "fixed"
+  },
+  "cursor_blink": true,
+  "cursor_shape": "bar",
+  "scroll_beyond_last_line": "vertical_scroll_margin",
+  "which_key": {
+    "enabled": true
+  },
+
+  "autosave": "on_window_change",
+  "close_on_file_delete": true,
+  "when_closing_with_no_tabs": "close_window",
+  "format_on_save": "on",
+  "ensure_final_newline_on_save": false,
+  "remove_trailing_whitespace_on_save": true,
+  "use_smartcase_search": true,
+
+  "terminal": {
+    "show_count_badge": false,
+    "cursor_shape": "bar",
+    "shell": "system"
+  },
+
+  "languages": {
+    "Nix": {
+      "language_servers": ["nixd"],
+      "formatter": {
+        "external": {
+          "command": "alejandra",
+          "arguments": ["-q", "-"]
+        }
+      }
+    }
+  },
+
+  "lsp": {
+    "nixd": {
+      "settings": {
+        "nixpkgs": {
+          "expr": "import (builtins.getFlake \"/etc/nixos\").inputs.nixpkgs { }"
+        },
+        "options": {
+          "nixos": {
+            "expr": "let f = builtins.getFlake \"/etc/nixos\"; h = builtins.replaceStrings [\"\\n\"] [\"\"] (builtins.readFile /etc/hostname); in f.nixosConfigurations.${h}.options"
+          }
+        }
+      }
+    }
+  }
+}

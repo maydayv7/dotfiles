@@ -15,6 +15,7 @@
       "laptop"
       "discord"
       "firefox"
+      "security"
       "internet"
       "office"
       "wine"

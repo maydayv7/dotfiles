@@ -137,6 +137,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Application Sandboxing
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     # Declarative Flatpak Wrapper
     flatpak.url = "github:gmodena/nix-flatpak/latest";
 

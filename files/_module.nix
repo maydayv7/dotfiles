@@ -4,8 +4,6 @@
   ...
 }: let
   inherit (config) util;
-  inherit (util) build map;
-  inherit (builtins) fromJSON readFile;
 in {
   flake.files = rec {
     # File Paths
@@ -29,7 +27,7 @@ in {
     repl = ./repl.nix;
 
     # ASCII Art
-    ascii = map.files {
+    ascii = util.map.files {
       directory = ./ascii;
       extension = "";
       recursive = true;
@@ -43,18 +41,18 @@ in {
     '';
 
     # Base16 Color Schemes
-    colors = map.files {
+    colors = util.map.files {
       directory = ./colors;
       extension = ".yaml";
     };
 
     # Fastfetch
-    fetch = readFile ./fastfetch.jsonc;
+    fetch = builtins.readFile ./fastfetch.jsonc;
 
     # Geany Text Editor
-    geany = map.files {
+    geany = util.map.files {
       directory = ./geany;
-      apply = readFile;
+      apply = builtins.readFile;
       extension = ".conf";
     };
 
@@ -62,14 +60,14 @@ in {
     git.hooks = ./git/hooks;
 
     # Gitea Code Hosting
-    gitea = map.files {
+    gitea = util.map.files {
       directory = ./gitea;
-      apply = readFile;
+      apply = builtins.readFile;
       extension = ".css";
     };
 
     # GNOME Desktop
-    gnome = map.files {
+    gnome = util.map.files {
       directory = ./gnome;
       extension = ".json";
     };
@@ -78,33 +76,33 @@ in {
     hyprland = {
       shaders = ./hyprland/shaders;
       noctalia = ./hyprland/noctalia;
-      pypr = readFile ./hyprland/pypr.toml;
-      kebihelp = readFile ./hyprland/kebihelp.json;
+      pypr = builtins.readFile ./hyprland/pypr.toml;
+      kebihelp = builtins.readFile ./hyprland/kebihelp.json;
     };
 
     # Pictures
-    images = map.files {
+    images = util.map.files {
       directory = ./images;
       extension = ".png";
     };
 
     # Password Manager
-    keepassxc = readFile ./keepassxc.ini;
+    keepassxc = builtins.readFile ./keepassxc.ini;
 
     # Nano Text Editor
-    nano = readFile ./nanorc;
+    nano = builtins.readFile ./nanorc;
 
     # PcmanFM File Manager
-    pcmanfm = readFile ./pcmanfm.conf;
+    pcmanfm = builtins.readFile ./pcmanfm.conf;
 
     # Custom Proprietary Files
     proprietary = inputs.proprietary.files;
     inherit (proprietary) wallpapers;
 
     # Bash Scripts
-    scripts = map.files {
+    scripts = util.map.files {
       directory = ../scripts;
-      apply = build.script;
+      apply = util.build.script;
       extension = ".sh";
     };
 
@@ -112,9 +110,9 @@ in {
     templates = ./templates;
 
     # Visual Studio Code Editor
-    vscode = map.files {
+    vscode = util.map.files {
       directory = ./vscode;
-      apply = file: fromJSON (readFile file);
+      apply = file: builtins.fromJSON (builtins.readFile file);
       extension = ".json";
     };
 
@@ -122,6 +120,13 @@ in {
     website = ../site;
 
     # YouTube
-    youtube = readFile ./ytmusic.json;
+    youtube = builtins.readFile ./ytmusic.json;
+
+    # Zed Editor
+    zed = util.map.files {
+      directory = ./zed;
+      apply = file: builtins.fromJSON (builtins.readFile file);
+      extension = ".json";
+    };
   };
 }

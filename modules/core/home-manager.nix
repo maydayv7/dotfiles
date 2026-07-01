@@ -20,6 +20,7 @@ in {
       }:
         inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = config.flake.legacyPackages.${system};
+          extraSpecialArgs = {inherit inputs;};
           modules =
             [
               module

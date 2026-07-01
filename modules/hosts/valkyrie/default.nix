@@ -9,7 +9,6 @@
 
   nixosModules = [
     "boot"
-    "security"
     "prompt"
     "mobile"
     "printer"
@@ -39,6 +38,7 @@
   mixedModules = [
     "base-ext"
     "filesystem"
+    "security"
     "laptop"
     "mouse"
     "shell-utils"

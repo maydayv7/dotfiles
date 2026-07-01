@@ -42,8 +42,17 @@
   "scm.repositories.visible": 7,
   "nix.enableLanguageServer": true,
   "nix.serverPath": "nixd",
+  "nix.hiddenLanguageServerErrors": ["textDocument/definition"],
   "nix.serverSettings": {
     "nixd": {
+      "nixpkgs": {
+        "expr": "import (builtins.getFlake \"/etc/nixos\").inputs.nixpkgs { }"
+      },
+      "options": {
+        "nixos": {
+          "expr": "let f = builtins.getFlake \"/etc/nixos\"; h = builtins.replaceStrings [\"\\n\"] [\"\"] (builtins.readFile /etc/hostname); in f.nixosConfigurations.${h}.options"
+        }
+      },
       "formatting": {
         "command": ["alejandra"]
       }

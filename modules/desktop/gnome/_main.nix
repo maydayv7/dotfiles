@@ -76,7 +76,7 @@
     ];
   };
 
-  home = _: {
+  home = {pkgs, ...}: {
     config = {
       # Default Applications
       xdg.mimeApps.defaultApplications = util.build.mime {
@@ -147,7 +147,7 @@
 
         # Browser
         firefox = {
-          enableGnomeExtensions = true;
+          nativeMessagingHosts = [pkgs.gnome-browser-connector];
           policies.ExtensionSettings = {
             name = "gnome-shell-integration";
             value = {

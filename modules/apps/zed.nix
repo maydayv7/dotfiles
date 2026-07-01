@@ -1,16 +1,13 @@
 ## Zed Editor ##
 {config, ...}: let
   inherit (config) util;
+  inherit (config.flake) files;
 in {
   flake.modules.homeManager.zed = {
-    lib,
+    config,
     pkgs,
-    osConfig ? {},
     ...
-  }: let
-    isGnome = osConfig.services.desktopManager.gnome.enable or false;
-    isWM = (osConfig.programs.hyprland.enable or false) || (osConfig.programs.niri.enable or false);
-  in {
+  }: {
     xdg.mimeApps = let
       mime = util.build.mime {
         code = ["dev.zed.Zed.desktop"];
@@ -22,79 +19,23 @@ in {
       associations.added = mime;
     };
 
-    home.persist.directories = [".config/zed"];
+    home.persist.directories = [
+      ".config/zed"
+      ".local/share/zed"
+    ];
+
     programs.zed-editor = {
       enable = true;
       package = pkgs.zed-editor;
-      extraPackages = with pkgs; [
-        nixd
-        alejandra
-      ];
 
-      ## Settings
-      userSettings = lib.mkMerge [
-        {
-          # Editor
-          "format_on_save" = "on";
-          "ensure_final_newline_on_save" = true;
-          "remove_trailing_whitespace_on_save" = true;
-          "cursor_blink" = true;
-          "cursor_shape" = "bar";
-          "scrollbar"."show" = "auto";
-          "use_smartcase_search" = true;
-          "autosave" = "on_window_change";
-          "close_on_file_delete" = true;
-          "when_closing_with_no_tabs" = "close_window";
-
-          # Terminal
-          "terminal"."cursor_shape" = "bar";
-
-          # Telemetry
-          "auto_update" = false;
-          "features"."edit_prediction_provider" = "none";
-          "telemetry" = {
-            "diagnostics" = false;
-            "metrics" = false;
-          };
-
-          # Icons
-          "icon_theme" = lib.mkDefault "Material Icon Theme";
-
-          # Formatters
-          "languages"."Nix" = {
-            "language_servers" = ["nixd"];
-            "formatter"."external" = {
-              "command" = "alejandra";
-              "arguments" = ["-q" "-"];
-            };
-          };
-        }
-        (lib.mkIf isGnome {
-          "terminal"."shell"."program" = "ghostty";
-        })
-        (lib.mkIf isWM {
-          "terminal"."shell"."program" = "kitty";
-        })
-      ];
-
-      # Keymaps
-      userKeymaps = [
-        {
-          context = "Workspace";
-          bindings = {
-            "ctrl-/" = "command_palette::Toggle";
-            "alt-t" = "terminal_panel::ToggleFocus";
-            "ctrl-shift-t" = "workspace::NewTerminal";
-          };
-        }
-        {
-          context = "Editor";
-          bindings = {
-            "ctrl-d" = "editor::DeleteLine";
-            "ctrl-'" = "editor::ToggleComments";
-          };
-        }
-      ];
+      # Settings
+      userSettings =
+        files.zed.settings
+        // (with config.stylix.fonts; {
+          "ui_font_family" = sansSerif.name;
+          "buffer_font_family" = monospace.name;
+        });
+      userKeymaps = files.zed.keymap;
 
       ## Extensions
       extensions = [
@@ -111,6 +52,22 @@ in {
         "log" # Log Files
         "git-firefly" # Git
         "material-icon-theme" # File Icons
+      ];
+
+      extraPackages = with pkgs; [
+        nixd
+        alejandra
+        clang-tools # C/C++
+        rust-analyzer # Rust
+        gopls # Go
+        basedpyright # Python
+        bash-language-server # Bash
+        vscode-langservers-extracted # HTML/CSS/JSON
+        yaml-language-server # YAML
+        marksman # Markdown
+        taplo # TOML
+        texlab # LaTeX
+        dockerfile-language-server # Docker
       ];
     };
   };

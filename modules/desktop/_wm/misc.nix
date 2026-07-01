@@ -1,6 +1,6 @@
 ## Miscellaneous
 _: {
-  home = _: {
+  home = {lib, ...}: {
     # GTK Apps
     dconf.settings."org/gnome/desktop/wm/preferences" = {
       action-double-click-titlebar = "none";
@@ -15,6 +15,7 @@ _: {
     '';
 
     # Code Editor
+    programs.zed-editor.userSettings."title_bar"."button_layout" = lib.mkForce "";
     programs.vscode.profiles.default.userSettings = {
       "window.titleBarStyle" = "custom";
       "window.controlsStyle" = "hidden";

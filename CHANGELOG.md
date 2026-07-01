@@ -2,6 +2,7 @@
 
 ### June
 
+- Sandbox Firefox using [NixPak](https://github.com/nixpak/nixpak)
 - Add Zed Editor
 - Rename `nixos` script to `os` and adopt [`nh`](https://github.com/nix-community/nh)
 - Use `micro` as default editor

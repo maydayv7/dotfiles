@@ -41,6 +41,7 @@ in {
           useGlobalPkgs = true;
           useUserPackages = true;
           backupFileExtension = "bak";
+          extraSpecialArgs = {inherit inputs;};
 
           # Default Modules
           sharedModules =
