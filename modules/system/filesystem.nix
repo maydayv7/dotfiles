@@ -190,7 +190,7 @@ in {
                   };
 
                   # Reserved space
-                  #? Free with 'zfs set refreservation=none fspool/reserve'
+                  # ? # Free with 'zfs set refreservation=none fspool/reserve'
                   "reserve" = {
                     type = "zfs_fs";
                     options = {

@@ -43,7 +43,6 @@ with files; let
         'specialisation'             - Activates specified system specialisation
         --activate [ home ]          - Activates current [ home ] config
         --boot                       - Applies config on boot
-        --delta                      - Shows config build delta
         --rollback [ 'generation' ]  - Reverts to last [ or specified ] build
         --test                       - Tests config build
     '';
@@ -160,10 +159,6 @@ in
             else
               error "Couldn't build generation successfully"
             fi
-          ;;
-          "--delta")
-            echo "Building Configuration..."
-            nh os switch -a ${path.system}
           ;;
           "--test")
             echo "Testing Configuration..."

@@ -4,6 +4,7 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "line-thin",
   "editor.formatOnSave": true,
+  "editor.linkedEditing": true,
   "editor.smoothScrolling": true,
   "editor.suggest.preview": true,
   "editor.suggest.showStatusBar": true,
@@ -40,6 +41,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "better-comments.highlightPlainText": true,
   "scm.repositories.visible": 7,
+  "python.languageServer": "None",
   "nix.enableLanguageServer": true,
   "nix.serverPath": "nixd",
   "nix.hiddenLanguageServerErrors": ["textDocument/definition"],
@@ -65,9 +67,12 @@
     "editor.defaultFormatter": "ms-vscode.cpptools"
   },
   "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter"
+    "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tombi-toml.tombi"
   }
 }

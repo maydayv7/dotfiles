@@ -45,8 +45,8 @@ lib.mkIf (osConfig != null) (
             scale = 2;
           }
           {
-            fingers = 4;
-            direction = "horizontal";
+            fingers = 3;
+            direction = "vertical";
             action = "workspace";
           }
         ];
@@ -87,21 +87,17 @@ lib.mkIf (osConfig != null) (
 
         # Custom Animations
         curve = lib.optionals fancy [
-          (curve "accelerate" {
+          (curve "snappy" {
             type = "bezier";
-            points = [[0.3 0] [0.8 0.15]];
+            points = [[0.2 1] [0.25 1]];
           })
-          (curve "decelerate" {
+          (curve "overshoot" {
             type = "bezier";
-            points = [[0.05 0.7] [0.1 1]];
+            points = [[0.05 0.9] [0.1 1.05]];
           })
-          (curve "zoom" {
+          (curve "slide" {
             type = "bezier";
-            points = [[0.38 0.04] [1 0.07]];
-          })
-          (curve "crash" {
-            type = "bezier";
-            points = [[0.1 1] [0 1]];
+            points = [[0.25 1] [0.5 1]];
           })
         ];
         animation = lib.optionals fancy [
@@ -114,55 +110,61 @@ lib.mkIf (osConfig != null) (
           {
             leaf = "fade";
             enabled = true;
-            speed = 3;
-            bezier = "decelerate";
+            speed = 2;
+            bezier = "snappy";
           }
           {
             leaf = "fadeLayersIn";
             enabled = true;
             speed = 2;
-            bezier = "crash";
+            bezier = "snappy";
           }
           {
             leaf = "fadeLayersOut";
             enabled = true;
             speed = 0.5;
-            bezier = "zoom";
+            bezier = "snappy";
           }
           {
             leaf = "specialWorkspace";
             enabled = true;
-            speed = 3;
-            bezier = "decelerate";
+            speed = 2.5;
+            bezier = "snappy";
             style = "slidevert";
           }
           {
             leaf = "windows";
             enabled = true;
-            speed = 3;
-            bezier = "decelerate";
-            style = "popin 60%";
+            speed = 2.5;
+            bezier = "overshoot";
+            style = "popin 70%";
           }
           {
             leaf = "windowsIn";
             enabled = true;
-            speed = 3;
-            bezier = "decelerate";
-            style = "popin 60%";
+            speed = 2.5;
+            bezier = "overshoot";
+            style = "popin 70%";
           }
           {
             leaf = "windowsOut";
             enabled = true;
-            speed = 3;
-            bezier = "accelerate";
-            style = "popin 60%";
+            speed = 2;
+            bezier = "snappy";
+            style = "popin 70%";
+          }
+          {
+            leaf = "windowsMove";
+            enabled = true;
+            speed = 2.5;
+            bezier = "slide";
           }
           {
             leaf = "workspaces";
             enabled = true;
-            speed = 7;
-            bezier = "crash";
-            style = "slide";
+            speed = 4;
+            bezier = "slide";
+            style = "slidevert";
           }
         ];
 
@@ -215,7 +217,6 @@ lib.mkIf (osConfig != null) (
             };
 
             # Tiling Layout
-            general.layout = "scrolling";
             scrolling = {
               column_width = 0.5;
               explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
@@ -249,6 +250,7 @@ lib.mkIf (osConfig != null) (
             general = {
               allow_tearing = !fancy;
               resize_on_border = true;
+              layout = "scrolling";
 
               # Floating Layout
               snap = {

@@ -201,7 +201,7 @@
 
     # Desktop Shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia";
+      url = "github:noctalia-dev/noctalia/v5.0.0-beta1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -243,6 +243,15 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprland.follows = "hyprland";
+      };
+    };
+
+    hyprscrolloverview = {
+      url = "github:yayuuu/hyprland-scroll-overview";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        hyprland.follows = "hyprland";
+        flake-parts.follows = "flake-parts";
       };
     };
   };

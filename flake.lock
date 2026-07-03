@@ -1229,6 +1229,32 @@
         "type": "github"
       }
     },
+    "hyprscrolloverview": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "hyprland": [
+          "hyprland"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782953521,
+        "narHash": "sha256-xJx9LgpLqfNn/nUd8NdkSILin1/mgYNwct1solYGyqw=",
+        "owner": "yayuuu",
+        "repo": "hyprland-scroll-overview",
+        "rev": "c5623c96b8b9b0400595996956661210510685ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yayuuu",
+        "repo": "hyprland-scroll-overview",
+        "type": "github"
+      }
+    },
     "hyprshutdown": {
       "inputs": {
         "aquamarine": "aquamarine_3",
@@ -1764,15 +1790,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1782839287,
-        "narHash": "sha256-r4ewSFPTO86O5njPZEvQ77/hYQr/n6yn2t02DAKqQ3Y=",
+        "lastModified": 1783018875,
+        "narHash": "sha256-6fvuoptg/RzxtebP+OC2LtqVZSjzs4fBg6ilYzuFjqQ=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "1c7d339298a75ffa53f7553ea50e36187695884a",
+        "rev": "ad11b4ba6f782dd9b7f965a123cfaae3e89a4636",
         "type": "github"
       },
       "original": {
         "owner": "noctalia-dev",
+        "ref": "v5.0.0-beta1",
         "repo": "noctalia",
         "type": "github"
       }
@@ -1903,6 +1930,7 @@
         "home-manager": "home-manager",
         "hyprcursors": "hyprcursors",
         "hyprland": "hyprland",
+        "hyprscrolloverview": "hyprscrolloverview",
         "hyprsplit": "hyprsplit",
         "impermanence": "impermanence",
         "import-tree": "import-tree",

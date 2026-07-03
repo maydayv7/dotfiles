@@ -46,27 +46,31 @@ with files.vscode; {
 
       github.vscode-pull-request-github # GitHub
       github.copilot # Copilot AI
+      dart-code.dart-code # Dart
       dart-code.flutter # Flutter
       jnoortheen.nix-ide # Nix
-      ms-python.python # Python
       ms-vscode.cpptools # C/C++
       redhat.java # Java
       rust-lang.rust-analyzer # Rust
-      tomoki1207.pdf # PDF Viewer
+      tombi-toml.tombi # TOML
       yzhang.markdown-all-in-one # Markdown
+
+      # Python
+      ms-python.python
+      charliermarsh.ruff
+      detachhead.basedpyright
 
       # HTML/CSS/XML
       ecmel.vscode-html-css
-      formulahendry.auto-rename-tag
       redhat.vscode-xml
 
       # JS
       dbaeumer.vscode-eslint
-      ritwickdey.liveserver
+      ms-vscode.live-server # Live Preview
     ]
     ++ (with pkgs.vscode-marketplace; [
+      cweijan.vscode-office # Document Viewer
       langningchen.cph-ng # CP
-      kisstkondoros.vscode-gutter-preview # Image Preview
     ])
     ++ lib.optionals isGnome [pkgs.vscode-extensions.piousdeer.adwaita-theme];
 }

@@ -16,18 +16,24 @@ label_key = "settings.command.label"
 description_key = "settings.command.description"
 default = "socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock -"
 
+[[setting]]
+key = "aliases"
+type = "string_list"
+label_key = "settings.aliases.label"
+description_key = "settings.aliases.description"
+
 [[widget]]
 id = "indicator"
 entry = "submap.luau"
 
-  [[widget.setting]]
-  key = "glyph"
-  type = "glyph"
-  label_key = "settings.glyph.label"
-  default = "keyboard"
+[[widget.setting]]
+key = "glyph"
+type = "glyph"
+label_key = "settings.glyph.label"
+default = "keyboard"
 
-  [[widget.setting]]
-  key = "show_glyph"
-  type = "bool"
-  label_key = "settings.show_glyph.label"
-  default = true
+[[widget.setting]]
+key = "show_glyph"
+type = "bool"
+label_key = "settings.show_glyph.label"
+default = true

@@ -10,6 +10,7 @@
   {
     "context": "Editor",
     "bindings": {
+      "ctrl-/": "command_palette::Toggle",
       "ctrl-d": "editor::DeleteLine",
       "ctrl-'": "editor::ToggleComments"
     }

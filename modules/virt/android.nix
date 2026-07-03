@@ -1,5 +1,5 @@
 ## Android Virtualisation ##
-#? Run 'waydroid init -s GAPPS -f' to install system image
+# ? # Run 'waydroid init -s GAPPS -f' to install system image
 _: {
   flake.modules.nixos.android = {
     config,

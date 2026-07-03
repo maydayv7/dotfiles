@@ -350,12 +350,16 @@
             "label": ""
           },
           {
-            "value": "3F Swipe",
-            "label": "Scrolling: switch apps / columns"
+            "value": "3F Swipe ↔",
+            "label": "Switch apps / columns"
           },
           {
-            "value": "4F Swipe",
+            "value": "3F Swipe ↕",
             "label": "Switch across workspaces"
+          },
+          {
+            "value": "4F Swipe ↑",
+            "label": "Toggle workspace overview"
           },
           {
             "value": "",
@@ -363,7 +367,11 @@
           },
           {
             "value": "L' (in overview)",
-            "label": "Change workspace"
+            "label": "Select workspace / window"
+          },
+          {
+            "value": "R' (in overview)",
+            "label": "Close window"
           },
           {
             "value": "L' drag (in overview)",
@@ -441,6 +449,30 @@
           {
             "value": "Q",
             "label": "Close selected window"
+          },
+          {
+            "value": "",
+            "label": ""
+          },
+          {
+            "value": "$mod `",
+            "label": "Overview Submap"
+          },
+          {
+            "value": "<ARROW>",
+            "label": "Navigate workspaces / windows"
+          },
+          {
+            "value": "<NUM>",
+            "label": "Jump to workspace"
+          },
+          {
+            "value": "Return or L'",
+            "label": "Select workspace / window"
+          },
+          {
+            "value": "R'",
+            "label": "Close window under cursor"
           }
         ]
       }

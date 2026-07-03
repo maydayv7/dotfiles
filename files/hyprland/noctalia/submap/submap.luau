@@ -2,7 +2,19 @@
 
 local glyph = barWidget.getConfig("glyph")
 local showGlyph = barWidget.getConfig("show_glyph")
+local aliasList = barWidget.getConfig("aliases")
 local command = barWidget.getConfig("command")
+
+-- Aliases
+local aliases = {}
+if type(aliasList) == "table" then
+  for _, entry in ipairs(aliasList) do
+    local key, label = string.match(entry, "^([^=]+)=(.*)$")
+    if key ~= nil then
+      aliases[key] = label
+    end
+  end
+end
 
 local function apply(name)
   if name == nil or name == "" then
@@ -12,11 +24,13 @@ local function apply(name)
     return
   end
 
+  local display = aliases[name] or name
+
   if showGlyph then
     barWidget.setGlyph(glyph)
   end
-  barWidget.setText(name)
-  barWidget.setTooltip(noctalia.tr("active") .. name)
+  barWidget.setText(display)
+  barWidget.setTooltip(noctalia.tr("active") .. display)
   barWidget.setVisible(true)
 end
 

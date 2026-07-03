@@ -48,7 +48,7 @@ in {
             (extension "keepassxc-browser" "keepassxc-browser@keepassxc.org")
             (extension "setupvpn" "@setupvpncom")
             (extension "stylus" "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}")
-            (extension "tabliss" "extension@tabliss.io")
+            (extension "tablissng" "extension@tabliss-maintained")
             (extension "uaswitcher" "user-agent-switcher@ninetailed.ninja")
             (extension "ublock-origin" "uBlock0@raymondhill.net")
           ];

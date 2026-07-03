@@ -9,6 +9,10 @@
     "show_glyph": {
       "label": "Show glyph"
     },
+    "aliases": {
+      "label": "Name aliases",
+      "description": "Display-name overrides as 'submap=Label' entries."
+    },
     "command": {
       "label": "Stream command",
       "description": "Shell command emitting Hyprland socket2 event lines."

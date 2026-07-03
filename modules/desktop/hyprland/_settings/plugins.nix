@@ -7,13 +7,21 @@ _: {
 }:
 lib.mkIf (osConfig != null) (
   let
+    inherit (osConfig.gui) fancy;
     inherit (pkgs.hyprworld) hyprsplitlua hypr-dynamic-cursors;
+    scrolloverview = pkgs.hyprworld.scrolloverview.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''ln -s libscrolloverview.so "$out/lib/lib${old.pname}.so"'';
+    });
 
     lua = import ./_lib.nix lib;
     inherit (lua) inline;
+    luaBool = b:
+      if b
+      then "true"
+      else "false";
 
     cursorMode =
-      if osConfig.gui.fancy
+      if fancy
       then "tilt"
       else "none";
   in {
@@ -24,9 +32,9 @@ lib.mkIf (osConfig != null) (
         _var = inline ''(function() local hs = require("hyprsplit"); hs.config({ num_workspaces = 9 }); return hs end)()'';
       };
 
-      # Cursor Effects
-      plugins = [hypr-dynamic-cursors];
+      plugins = [hypr-dynamic-cursors scrolloverview];
       extraConfig = ''
+        -- Cursor Effects
         if hl.plugin.dynamic_cursors then
           hl.config({ plugin = { dynamic_cursors = {
             enabled = true,
@@ -35,6 +43,21 @@ lib.mkIf (osConfig != null) (
             shake = { enabled = true, effects = false, ipc = false },
             tilt = { activation = "negative_quadratic" },
           } } })
+        end
+
+        -- Workspace Overview
+        if hl.plugin.scrolloverview then
+          hl.config({ plugin = { scrolloverview = {
+            gesture_distance = 300,
+            scale = 0.5,
+            workspace_gap = 100,
+            layout = "vertical",
+            wallpaper = 2,
+            blur = ${luaBool fancy},
+            shadow = { enabled = ${luaBool fancy} },
+          } } })
+
+          hl.plugin.scrolloverview.gesture({ fingers = 4, direction = "up" })
         end
       '';
     };

@@ -60,7 +60,7 @@ math_katex = true
 
 # Generate Table of Contents for all articles
 # Use 'ToC = true' in [extra] on individual pages
-table_of_contents = false 
+table_of_contents = false
 
 # Logo
 favicon = "website.ico"
@@ -84,10 +84,10 @@ giscus = { enabled = true, repo = "maydayv7/dotfiles", repo_id = "R_kgDOHEEEUA",
 
 # Main Menu
 main_menu_items = [
-  { url = "/blog/", name="Blog" },
-  { url = "/projects/", name="Projects" },
-  { url = "/about/", name="About" },
-  { url = "https://git.maydayv7.cc", name="Git", external = true },
+  { url = "/blog/", name = "Blog" },
+  { url = "/projects/", name = "Projects" },
+  { url = "/about/", name = "About" },
+  { url = "https://git.maydayv7.cc", name = "Git", external = true },
 ]
 
 # Socials Bar

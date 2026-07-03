@@ -9,9 +9,7 @@ pkgs: {
           pip
           poetry-core
           setuptools
-
-          black
-          pylint
+          ruff
 
           ipython
           matplotlib

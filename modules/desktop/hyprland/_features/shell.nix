@@ -9,7 +9,7 @@
     programs.noctalia.settings = {
       # Bar
       bar.main = {
-        start = ["session" "taskbar" "group:g1" "media"];
+        start = ["control-center" "taskbar" "group:g1" "media"];
         capsule_group = [
           {
             id = "g1";
@@ -66,7 +66,16 @@
         jq = lib.getExe pkgs.jq;
         socket2 = "${lib.getExe pkgs.socat} -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock -";
       in {
-        "maydayv7/hyprland-submap".command = socket2;
+        "maydayv7/hyprland-submap" = {
+          command = socket2;
+          aliases = [
+            "inhibit=Inhibit"
+            "resize=Resize"
+            "move=Move"
+            "minimized=Minimized"
+            "scrolloverview=Overview"
+          ];
+        };
         "maydayv7/hyprland-layout" = {
           command = socket2;
           layout_command = "${hyprctl} getoption -j general:layout";

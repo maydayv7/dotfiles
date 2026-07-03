@@ -79,7 +79,7 @@ in
               if hyprctl workspaces | grep "special:minimized"
               then
                 hyprctl dispatch 'hl.dsp.focus({ workspace = "special:minimized" })'
-                hyprctl dispatch 'hl.dsp.submap("Minimized")'
+                hyprctl dispatch 'hl.dsp.submap("minimized")'
               else
                 hyprnotify 1 "No minimized windows present"
               fi

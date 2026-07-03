@@ -1,5 +1,5 @@
 ## Windows VM
-#? Run 'virsh -c qemu:///system start windows'
+# ? # Run 'virsh -c qemu:///system start windows'
 {inputs}: {
   nixos = {pkgs, ...}: {
     imports = [inputs.nixvirt.nixosModules.default];

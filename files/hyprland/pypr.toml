@@ -1,14 +1,9 @@
 [pyprland]
-plugins = [
-  "gamemode",
-  "magnify",
-  "scratchpads",
-  "toggle_special"
-]
+plugins = ["gamemode", "magnify", "scratchpads", "toggle_special"]
 
 [gamemode]
 auto = true
-# Refine via: hyprctl clients -j | jq '.[].class'
+# ? # Refine via: hyprctl clients -j | jq '.[].class'
 patterns = ["steam_app_*", "gamescope*", "*.exe"]
 border_size = 2
 hysteresis = 2.0

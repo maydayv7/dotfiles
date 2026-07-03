@@ -12,7 +12,7 @@ _: {
       };
 
       # Game Mode
-      #? Use 'gamemoderun <command>'
+      # ? # Use 'gamemoderun <command>'
       hardware.cpu.mode = lib.mkOverride 51 "performance";
       programs.gamemode.enable = true;
       hardware.steam-hardware.enable = true;

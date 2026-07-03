@@ -38,7 +38,11 @@ in {
 
                 disko = disko.packages."${system}";
                 spicetify = spicetify.legacyPackages."${system}";
-                hyprworld = hyprland.packages."${system}" // hyprsplit.packages."${system}" // hyprcursors.packages."${system}";
+                hyprworld =
+                  hyprland.packages."${system}"
+                  // hyprsplit.packages."${system}"
+                  // hyprcursors.packages."${system}"
+                  // hyprscrolloverview.packages."${system}";
               })
               minecraft.overlay
               vscode.overlays.default

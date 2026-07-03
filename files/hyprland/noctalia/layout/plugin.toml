@@ -34,20 +34,20 @@ default = ""
 id = "indicator"
 entry = "layout.luau"
 
-  [[widget.setting]]
-  key = "scroll_glyph"
-  type = "glyph"
-  label_key = "settings.scroll_glyph.label"
-  default = "layout-columns"
+[[widget.setting]]
+key = "scroll_glyph"
+type = "glyph"
+label_key = "settings.scroll_glyph.label"
+default = "layout-columns"
 
-  [[widget.setting]]
-  key = "dwindle_glyph"
-  type = "glyph"
-  label_key = "settings.dwindle_glyph.label"
-  default = "binary-tree"
+[[widget.setting]]
+key = "dwindle_glyph"
+type = "glyph"
+label_key = "settings.dwindle_glyph.label"
+default = "binary-tree"
 
-  [[widget.setting]]
-  key = "float_glyph"
-  type = "glyph"
-  label_key = "settings.float_glyph.label"
-  default = "app-window"
+[[widget.setting]]
+key = "float_glyph"
+type = "glyph"
+label_key = "settings.float_glyph.label"
+default = "app-window"

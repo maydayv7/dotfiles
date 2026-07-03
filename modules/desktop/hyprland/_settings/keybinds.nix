@@ -36,6 +36,13 @@ _: {lib, ...}: let
   moveActive = x: y: ''hl.dsp.window.move({ x = ${toString x}, y = ${toString y}, relative = true })'';
   resizeActive = x: y: ''hl.dsp.window.resize({ x = ${toString x}, y = ${toString y}, relative = true })'';
   multi = disps: "function() " + concatStringsSep " " (map (d: "hl.dispatch(${d});") disps) + " end";
+  call = d: "hl.dispatch(${d})";
+
+  # Overview
+  seq = stmts: "function() " + concatStringsSep " " (map (s: "${s};") stmts) + " end";
+  overview = action: ''hl.plugin.scrolloverview.overview("${action}")'';
+  soNav = d: ''hl.plugin.scrolloverview.navigate("${dir d}")'';
+  soWindow = action: ''hl.plugin.scrolloverview.window("${action}")'';
 
   # Layout-specific binds
   layout = msg: ''hl.dsp.layout("${msg}")'';
@@ -133,10 +140,16 @@ in {
         (bind (combo [] "Print") (exec "noctalia msg screenshot-region"))
         (bind (combo ["SHIFT"] "Print") (exec "noctalia msg screenshot-fullscreen pick"))
 
+        # Overview
+        (bind (combo [mod] "grave") (seq [
+          (overview "toggle")
+          (call ''hl.dsp.submap("scrolloverview")'')
+        ]))
+
         # Submaps
-        (bind (combo [mod "SHIFT"] "Escape") ''hl.dsp.submap("Inhibit")'')
-        (bind (combo [mod] "R") ''hl.dsp.submap("Resize")'')
-        (bind (combo [mod] "M") ''hl.dsp.submap("Move")'')
+        (bind (combo [mod "SHIFT"] "Escape") ''hl.dsp.submap("inhibit")'')
+        (bind (combo [mod] "R") ''hl.dsp.submap("resize")'')
+        (bind (combo [mod] "M") ''hl.dsp.submap("move")'')
       ]
       ++
       # Workspaces
@@ -191,10 +204,50 @@ in {
     ## Submaps
     submaps = {
       # Inhibit Keybinds
-      Inhibit.settings.bind = [(bind (combo [mod "SHIFT"] "Escape") ''hl.dsp.submap("reset")'')];
+      inhibit.settings.bind = [(bind (combo [mod "SHIFT"] "Escape") ''hl.dsp.submap("reset")'')];
+
+      # Workspace Overview
+      scrolloverview.settings.bind =
+        [
+          (bind (combo [] "left") (seq [(soNav "l")]))
+          (bind (combo [] "right") (seq [(soNav "r")]))
+          (bind (combo [] "up") (seq [(soNav "u")]))
+          (bind (combo [] "down") (seq [(soNav "d")]))
+          (bind (combo [] "Return") (seq [
+            (overview "select")
+            (call ''hl.dsp.submap("reset")'')
+          ]))
+          (bind (combo [] "escape") (seq [
+            (overview "off")
+            (call ''hl.dsp.submap("reset")'')
+          ]))
+          (bind (combo [mod] "grave") (seq [
+            (overview "off")
+            (call ''hl.dsp.submap("reset")'')
+          ]))
+          (bindOpts (combo [] "mouse:272") (seq [
+              (overview "select")
+              (soWindow "select")
+              (overview "off")
+              (call ''hl.dsp.submap("reset")'')
+            ])
+            mouse)
+          (bindOpts (combo [] "mouse:274") (seq [(soWindow "close")]) mouse)
+        ]
+        ++ genList (
+          n: let
+            i = toString (n + 1);
+          in
+            bind (combo [] i) (seq [
+              (call "hs.dsp.focus({ workspace = ${i} })")
+              (overview "off")
+              (call ''hl.dsp.submap("reset")'')
+            ])
+        )
+        9;
 
       # Window Resize
-      Resize.settings.bind = [
+      resize.settings.bind = [
         (bindOpts (combo [] "right") (resizeActive 10 0) repeat)
         (bindOpts (combo [] "left") (resizeActive (-10) 0) repeat)
         (bindOpts (combo [] "up") (resizeActive 0 (-10)) repeat)
@@ -205,7 +258,7 @@ in {
       ];
 
       # Window Movement
-      Move.settings.bind = [
+      move.settings.bind = [
         (bind (combo [] "C") "hl.dsp.window.center()")
         (bind (combo [] "P") "hl.dsp.window.pin()")
         (bind (combo [] "left") (moveOrGroup "l"))
@@ -224,7 +277,7 @@ in {
       ];
 
       # Window Minimization
-      Minimized.settings.bind = [
+      minimized.settings.bind = [
         (bind (combo [] "left") (focusDir "l"))
         (bind (combo [] "right") (focusDir "r"))
         (bind (combo [] "up") (focusDir "u"))

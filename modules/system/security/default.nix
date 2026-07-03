@@ -18,7 +18,7 @@ in {
           };
 
           # Sandbox
-          #! https://discourse.nixos.org/t/apparmor-on-nixos-roadmap/57217
+          # ! # https://discourse.nixos.org/t/apparmor-on-nixos-roadmap/57217
           apparmor.enable = false;
         };
         programs.firejail.enable = true;

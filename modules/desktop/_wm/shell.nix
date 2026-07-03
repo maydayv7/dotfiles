@@ -6,7 +6,6 @@
     lib,
     ...
   }: let
-    inherit (lib) mkDefault;
     output = osConfig.gui.display or "eDP-1";
   in {
     imports = [inputs.noctalia.homeModules.default];
@@ -23,24 +22,33 @@
         shell = {
           font_family = config.stylix.fonts.sansSerif.name;
           avatar_path = "~/.face";
-          clipboard_enabled = true;
-          clipboard_history_max_entries = 150;
           polkit_agent = true;
           launch_apps_as_systemd_services = true;
           settings_show_advanced = true;
-          panel.launcher_session_search = true;
-          shadow.direction = "center";
-          screen_corners = {
-            enabled = true;
-            size = 30;
+          panel = {
+            launcher_session_search = true;
+            open_near_click_control_center = true;
+            open_near_click_session = true;
           };
+
+          # Clipboard
+          clipboard_enabled = true;
+          clipboard_history_max_entries = 150;
 
           # Screenshots
           screenshot = {
             save_to_file = true;
             copy_to_clipboard = true;
             freeze_screen = true;
+            confirm_region = true;
             directory = "~/Pictures/Screenshots";
+          };
+
+          # Appearance
+          shadow.direction = "center";
+          screen_corners = {
+            enabled = true;
+            size = 30;
           };
         };
 
@@ -59,8 +67,8 @@
         # Bar
         bar.main = {
           position = "top";
-          start = mkDefault ["session" "taskbar" "media"];
-          center = ["launcher" "clock" "control-center"];
+          start = lib.mkDefault ["control-center" "taskbar" "media"];
+          center = ["launcher" "clock" "weather"];
           end = [
             "group:g2"
             "recorder"
@@ -71,6 +79,7 @@
             "brightness"
             "battery"
             "notifications"
+            "session"
           ];
           background_opacity = 0.75;
           margin_edge = 0;
@@ -80,20 +89,14 @@
           scale = 1.1;
           thickness = 30;
           widget_spacing = 14;
-          capsule_group = mkDefault [
+          capsule_group = lib.mkDefault [
             {
               id = "g2";
               members = ["tray"];
             }
           ];
         };
-
-        # Audio
-        audio = {
-          enable_overdrive = true;
-          enable_sounds = true;
-          sound_volume = 0.3;
-        };
+        control_center.sidebar_section = "none";
 
         # Widgets
         widget = {
@@ -112,8 +115,23 @@
             show_active_indicator = false;
             workspace_label_placement = "inside";
           };
+          weather = {
+            show_condition = false;
+            show_temperature = false;
+          };
+          control-center = {
+            custom_image = "${config.programs.noctalia.package}/share/noctalia/assets/images/distros/nixos.svg";
+            custom_image_colorize = true;
+          };
         };
         system.monitor.enabled = true;
+
+        # Audio
+        audio = {
+          enable_overdrive = true;
+          enable_sounds = true;
+          sound_volume = 0.3;
+        };
 
         # Calendar
         calendar = {
@@ -299,7 +317,7 @@
 
         # Plugins
         plugins = {
-          source = mkDefault [
+          source = lib.mkDefault [
             {
               name = "official";
               kind = "git";
@@ -311,7 +329,7 @@
               location = "https://github.com/noctalia-dev/community-plugins";
             }
           ];
-          enabled = mkDefault [
+          enabled = lib.mkDefault [
             "noctalia/screen_recorder"
             "noctalia/timer"
           ];
