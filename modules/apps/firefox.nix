@@ -103,6 +103,7 @@ in {
           "extensions.pocket.enabled" = false;
           "extensions.htmlaboutaddons.inline-options.enabled" = false;
           "extensions.htmlaboutaddons.recommendations.enabled" = false;
+          "extensions.webextensions.ExtensionStorageIDB.enabled" = true;
 
           # Security
           "security.family_safety.mode" = 0;
