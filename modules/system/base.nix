@@ -8,30 +8,22 @@ _: {
       lib,
       ...
     }: let
-      inherit (builtins) attrNames map;
-      inherit
-        (lib)
-        hasPrefix
-        mkIf
-        mkOption
-        optionals
-        removePrefix
-        types
-        ;
       cfg = config.system;
     in {
       options.system = {
-        kernel = mkOption {
+        kernel = lib.mkOption {
           description = "Linux Kernel Variant to be used";
           default = "lts";
-          type = types.enum (
-            ["lts"] ++ (map (name: removePrefix "linux_" name) (attrNames pkgs.linuxKernel.kernels))
+          type = lib.types.enum (
+            ["lts"]
+            ++ (map (name: lib.removePrefix "linux_" name)
+              (builtins.attrNames pkgs.linuxKernel.kernels))
           );
         };
 
-        kernelModules = mkOption {
+        kernelModules = lib.mkOption {
           description = "Linux Kernel Modules to load";
-          type = with types; listOf str;
+          type = with lib.types; listOf str;
           default = [];
         };
       };
@@ -47,7 +39,7 @@ _: {
             then options.boot.kernelPackages.default
             else pkgs.linuxKernel.packages."${"linux_" + cfg.kernel}";
 
-          initrd.availableKernelModules = optionals (cfg.kernelModules != []) (
+          initrd.availableKernelModules = lib.optionals (cfg.kernelModules != []) (
             cfg.kernelModules
             ++ [
               "ahci"
@@ -61,8 +53,8 @@ _: {
 
         environment = {
           etc."specialisation" =
-            mkIf (hasPrefix "special." cfg.nixos.label)
-            {text = removePrefix "special." cfg.nixos.label;};
+            lib.mkIf (lib.hasPrefix "special." cfg.nixos.label)
+            {text = lib.removePrefix "special." cfg.nixos.label;};
 
           # Essential Utilities
           systemPackages = with pkgs; [
@@ -134,6 +126,22 @@ _: {
           "/var/lib/alsa"
           "/var/lib/bluetooth"
         ];
+
+        # Recovery Account
+        specialisation.recovery.configuration = {
+          home-manager.verbose = true;
+          security.sudo.extraConfig = lib.mkAfter "recovery ALL=(ALL:ALL) NOPASSWD:ALL";
+          users.extraUsers.recovery = {
+            name = "recovery";
+            description = "Recovery Account";
+            isNormalUser = true;
+            uid = 1100;
+            group = "users";
+            extraGroups = ["wheel"];
+            useDefaultShell = true;
+            initialHashedPassword = lib.mkDefault (lib.fileContents ../../secrets/passwords/default);
+          };
+        };
       };
     };
 

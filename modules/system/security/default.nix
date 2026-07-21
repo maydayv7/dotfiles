@@ -23,24 +23,7 @@ in {
         };
         programs.firejail.enable = true;
 
-        # Recovery Account
-        specialisation.recovery.configuration = {
-          home-manager.verbose = true;
-          services.openssh.enable = lib.mkForce false;
-          security.sudo.extraConfig = lib.mkAfter "recovery ALL=(ALL:ALL) NOPASSWD:ALL";
-          users.extraUsers.recovery = {
-            name = "recovery";
-            description = "Recovery Account";
-            isNormalUser = true;
-            uid = 1100;
-            group = "users";
-            extraGroups = ["wheel"];
-            useDefaultShell = true;
-            initialHashedPassword = lib.mkDefault (lib.fileContents ../../../secrets/passwords/default);
-          };
-        };
-
-        # Hardening
+        ## Hardening
         networking.stevenblack.enable = true; # Block Junk Sites
         boot = {
           # Kernel

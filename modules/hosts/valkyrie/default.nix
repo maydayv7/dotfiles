@@ -3,7 +3,7 @@
   config,
   inputs,
   ...
-}: let
+} @ args: let
   inherit (config.flake.modules) nixos homeManager;
   inherit (config) util;
 
@@ -14,14 +14,14 @@
     "printer"
     "docker"
     "mc-server"
-    "roblox"
-    "vfio"
+    #"roblox"
+    #"vfio"
   ];
 
   hmModules = [
     "secrets"
     "auth"
-    "syncthing"
+    #"syncthing"
     "internet"
     "firefox"
     "notes"
@@ -30,9 +30,9 @@
     "vscode"
     "antigravity"
     "zed"
-    "stream"
+    #"stream"
     "minecraft"
-    "osu"
+    #"osu"
   ];
 
   mixedModules = [
@@ -45,11 +45,11 @@
     "git"
     "office"
     "tools"
-    "flatpak"
-    "latex"
-    "wine"
-    "games"
-    "libvirt"
+    #"flatpak"
+    #"latex"
+    #"wine"
+    #"games"
+    #"libvirt"
     "hyprland"
   ];
 
@@ -57,9 +57,10 @@
     util.map.array hmModules homeManager
     ++ util.map.array mixedModules homeManager;
 
+  disk = import ./_disk/dualboot.nix args;
   asus = import ./_asus {};
   dev = import ./_dev.nix {};
-  vm = import ./_vm {inherit inputs;};
+  #vm = import ./_vm args;
 in {
   configurations.nixos.valkyrie = {
     system = "x86_64-linux";
@@ -71,7 +72,7 @@ in {
       imports =
         util.map.array nixosModules nixos
         ++ util.map.array mixedModules nixos
-        ++ [(asus.nixos or {}) (dev.nixos or {}) (vm.nixos or {})]
+        ++ [disk.nixos (asus.nixos or {}) (dev.nixos or {})]
         ++ util.map.array ["asus-zephyrus-ga402x-nvidia"] inputs.hardware.nixosModules;
 
       networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" "valkyrie");
@@ -83,10 +84,6 @@ in {
 
       system = {
         scheme = "secure";
-        fs = {
-          scheme = "advanced";
-          disk = "/dev/disk/by-id/nvme-eui.00000000000000000026b7686ab56005";
-        };
 
         # Kernel
         kernel = "zen";
@@ -124,15 +121,15 @@ in {
       };
 
       # Virtualisation
-      virt.vfio = {
-        setup = true;
-        passthrough = [
-          "10de:28e0" # Graphics
-          "10de:22be" # Audio
-        ];
-        isolate = "2-4,10-12";
-        hugepages = 16;
-      };
+      # virt.vfio = {
+      #   setup = true;
+      #   passthrough = [
+      #     "10de:28e0" # Graphics
+      #     "10de:22be" # Audio
+      #   ];
+      #   isolate = "2-4,10-12";
+      #   hugepages = 16;
+      # };
 
       # Minecraft Server
       games.mc-servers = [

@@ -12,11 +12,13 @@ in {
 
       system = "/etc/nixos";
       persist = "/nix/state";
-      data = "/data";
-      sync = "${data}/sync";
 
       gpg = "/etc/gpg";
       sops = ../secrets/secrets.yaml;
+
+      data = "/data";
+      files = "${data}/files";
+      sync = "${data}/sync";
 
       cache = "maydayv7-dotfiles";
       flake = "github:maydayv7/dotfiles";
@@ -35,7 +37,7 @@ in {
 
     # Directory Bookmarks
     bookmarks = ''
-      file://${path.data}/files Files
+      file://${path.files} Files
       file://${path.sync} Sync
       file:/// Computer
     '';

@@ -1,6 +1,10 @@
 ## Windows VM
 # ? # Run 'virsh -c qemu:///system start windows'
-{inputs}: {
+{
+  config,
+  inputs,
+  ...
+}: {
   nixos = {pkgs, ...}: {
     imports = [inputs.nixvirt.nixosModules.default];
 
@@ -35,7 +39,10 @@
 
         domains = [
           {
-            definition = ./windows.xml;
+            definition = pkgs.writeText "windows.xml" (
+              builtins.replaceStrings ["@files"] [config.flake.files.path.files]
+              (builtins.readFile ./windows.xml)
+            );
             active = null;
           }
         ];
