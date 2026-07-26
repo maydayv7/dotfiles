@@ -7,9 +7,6 @@ _: {
 }:
 lib.mkIf (osConfig != null) (
   let
-    inherit (builtins) map toString;
-    inherit (lib) concatStringsSep getExe head splitString;
-
     lua = import ./_lib.nix lib;
     inherit (lua) combo bind exec env on permission;
 
@@ -19,7 +16,7 @@ lib.mkIf (osConfig != null) (
 
     mod = "SUPER";
 
-    unit = command: head (splitString " " command);
+    unit = command: lib.head (lib.splitString " " command);
     toggle = app: "pkill ${app} || uwsm app -u ${app}.scope -- ${app}";
     runOnce = app: "pgrep ${app} || uwsm app -u ${app}.scope -- ${app}";
   in {
@@ -38,7 +35,7 @@ lib.mkIf (osConfig != null) (
       ## Autostart
       on = [
         (on "hyprland.start" ("function() "
-          + concatStringsSep " " (map (c: ''hl.exec_cmd("${c}");'') (
+          + lib.concatStringsSep " " (map (c: ''hl.exec_cmd("${c}");'') (
             [
               "uwsm finalize"
               "hyprctl setcursor ${hyprcursor} ${toString cursor.size}"
@@ -85,14 +82,13 @@ lib.mkIf (osConfig != null) (
         (bind (combo [mod "SHIFT"] "D") (exec "hyprutils toggle monitor ${display}"))
         (bind (combo [mod] "S") (exec "hyprutils toggle shader"))
         (bind (combo [mod "SHIFT"] "T") (exec "pypr toggle term"))
-        (bind (combo [mod] "backslash") (exec "pypr toggle emoji"))
       ];
 
       ## Permissions
       permission = [
         (permission "${osConfig.programs.hyprland.portalPackage}/libexec/.xdg-desktop-portal-hyprland-wrapped" "screencopy" "allow")
-        (permission (getExe pkgs.gpu-screen-recorder) "screencopy" "allow")
-        (permission (getExe pkgs.wl-screenrec) "screencopy" "allow")
+        (permission (lib.getExe pkgs.gpu-screen-recorder) "screencopy" "allow")
+        (permission (lib.getExe pkgs.wl-screenrec) "screencopy" "allow")
       ];
 
       ## Layer Rules

@@ -31,8 +31,10 @@
         type = "custom_button";
         glyph = "arrow-bar-to-down";
         tooltip = "Minimize window";
-        command = ''hyprctl dispatch 'hl.dsp.window.move({ workspace = "special:minimized", follow = false })' '';
-        right_command = "hyprutils toggle minimized";
+        actions = {
+          right = "exec hyprutils toggle minimized";
+          left = ''exec hyprctl dispatch 'hl.dsp.window.move({ workspace = "special:minimized", follow = false })' '';
+        };
       };
 
       # Plugins

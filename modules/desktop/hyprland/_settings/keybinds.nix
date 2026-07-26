@@ -1,8 +1,5 @@
 ## Compositor Binds
 _: {lib, ...}: let
-  inherit (builtins) concatLists genList toString;
-  inherit (lib) concatStringsSep;
-
   lua = import ./_lib.nix lib;
   inherit (lua) combo bind bindOpts exec;
 
@@ -35,11 +32,11 @@ _: {lib, ...}: let
   moveOrGroup = d: ''hl.dsp.window.move({ direction = "${dir d}", group_aware = true })'';
   moveActive = x: y: ''hl.dsp.window.move({ x = ${toString x}, y = ${toString y}, relative = true })'';
   resizeActive = x: y: ''hl.dsp.window.resize({ x = ${toString x}, y = ${toString y}, relative = true })'';
-  multi = disps: "function() " + concatStringsSep " " (map (d: "hl.dispatch(${d});") disps) + " end";
+  multi = disps: "function() " + lib.concatStringsSep " " (map (d: "hl.dispatch(${d});") disps) + " end";
   call = d: "hl.dispatch(${d})";
 
   # Overview
-  seq = stmts: "function() " + concatStringsSep " " (map (s: "${s};") stmts) + " end";
+  seq = stmts: "function() " + lib.concatStringsSep " " (map (s: "${s};") stmts) + " end";
   overview = action: ''hl.plugin.scrolloverview.overview("${action}")'';
   soNav = d: ''hl.plugin.scrolloverview.navigate("${dir d}")'';
   soWindow = action: ''hl.plugin.scrolloverview.window("${action}")'';
@@ -110,8 +107,8 @@ in {
         (bind (combo [mod] "period") ''hs.dsp.focus({ workspace = "m+1" })'')
         (bind (combo [mod "CTRL"] "comma") ''hs.dsp.focus({ workspace = "r-1" })'')
         (bind (combo [mod "CTRL"] "period") ''hs.dsp.focus({ workspace = "r+1" })'')
-        (bind (combo [mod] "mouse_up") ''hs.dsp.focus({ workspace = "r-1" })'')
-        (bind (combo [mod] "mouse_down") ''hs.dsp.focus({ workspace = "r+1" })'')
+        (bind (combo [mod] "mouse_down") ''hs.dsp.focus({ workspace = "r-1" })'')
+        (bind (combo [mod] "mouse_up") ''hs.dsp.focus({ workspace = "r+1" })'')
 
         # Special Workspace
         (bind (combo [mod] "0") ''hl.dsp.workspace.toggle_special("Stash")'')
@@ -153,8 +150,8 @@ in {
       ]
       ++
       # Workspaces
-      (concatLists (
-        genList (
+      (builtins.concatLists (
+        builtins.genList (
           n: let
             i = toString (n + 1);
           in [
@@ -178,8 +175,8 @@ in {
         (bindOpts (combo [] "XF86AudioMute") (exec "noctalia msg volume-mute") locked)
 
         # Keyboard Backlight
-        (bindOpts (combo [] "XF86KbdBrightnessUp") (exec "hyprutils backlight up") locked)
-        (bindOpts (combo [] "XF86KbdBrightnessDown") (exec "hyprutils backlight down") locked)
+        (bindOpts (combo [] "XF86KbdBrightnessUp") (exec "noctalia msg kbd-brightness-up") locked)
+        (bindOpts (combo [] "XF86KbdBrightnessDown") (exec "noctalia msg kbd-brightness-down") locked)
 
         # Touchpad
         (bindOpts (combo [] "XF86TouchpadToggle") (exec "hyprutils toggle touchpad") locked)
@@ -234,7 +231,7 @@ in {
             mouse)
           (bindOpts (combo [] "mouse:274") (seq [(soWindow "close")]) mouse)
         ]
-        ++ genList (
+        ++ builtins.genList (
           n: let
             i = toString (n + 1);
           in

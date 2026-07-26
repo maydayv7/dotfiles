@@ -123,10 +123,15 @@ in {
         ];
       };
 
-      # Text Editor
-      programs.micro = {
-        enable = true;
-        settings = editor;
+      programs = {
+        bash.enable = true;
+        zsh.enable = true;
+
+        # Text Editor
+        micro = {
+          enable = true;
+          settings = editor;
+        };
       };
     };
   };

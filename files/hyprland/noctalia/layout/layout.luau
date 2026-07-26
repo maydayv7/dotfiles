@@ -1,12 +1,12 @@
 -- Hyprland Layout Indicator bar widget
 
-local scrollGlyph = barWidget.getConfig("scroll_glyph")
-local dwindleGlyph = barWidget.getConfig("dwindle_glyph")
-local floatGlyph = barWidget.getConfig("float_glyph")
+local scrollGlyph = noctalia.getConfig("scroll_glyph")
+local dwindleGlyph = noctalia.getConfig("dwindle_glyph")
+local floatGlyph = noctalia.getConfig("float_glyph")
 
-local command = barWidget.getConfig("command")
-local layoutCommand = barWidget.getConfig("layout_command")
-local floatCommand = barWidget.getConfig("float_command")
+local command = noctalia.getConfig("command")
+local layoutCommand = noctalia.getConfig("layout_command")
+local floatCommand = noctalia.getConfig("float_command")
 
 local state = {
   layout = "scrolling",

@@ -2,6 +2,7 @@
 id = "maydayv7/hyprland-submap"
 name = "Hyprland Submap"
 version = "1.0.0"
+plugin_api = 14
 min_noctalia = "5.0.0"
 author = "maydayv7"
 license = "GPL-3.0-only"

@@ -83,10 +83,12 @@ in {
     };
 
     # Pictures
-    images = util.map.files {
-      directory = ./images;
-      extension = ".png";
-    };
+    images =
+      {nixos = ./images/nixos.svg;}
+      // util.map.files {
+        directory = ./images;
+        extension = ".png";
+      };
 
     # Password Manager
     keepassxc = builtins.readFile ./keepassxc.ini;

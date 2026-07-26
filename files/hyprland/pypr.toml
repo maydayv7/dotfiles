@@ -22,17 +22,11 @@ lazy = true
 [scratchpads.calc]
 command = "qalculate-gtk"
 class = "qalculate-gtk"
-use = "top"
+use = "bottom"
 unfocus = "hide"
 
 [scratchpads.term]
 command = "kitty --class kitty-dropterm"
 class = "kitty-dropterm"
 use = "top"
-unfocus = "hide"
-
-[scratchpads.emoji]
-use = "bottom"
-command = "smile"
-class = "it.mijorus.smile"
 unfocus = "hide"

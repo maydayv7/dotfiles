@@ -10,7 +10,6 @@
       qalculate-gtk
       remmina
       resources
-      smile
 
       # Utilities
       hyprpicker

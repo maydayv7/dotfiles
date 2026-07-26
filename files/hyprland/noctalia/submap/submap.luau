@@ -1,9 +1,9 @@
 -- Hyprland Submap Indicator bar widget
 
-local glyph = barWidget.getConfig("glyph")
-local showGlyph = barWidget.getConfig("show_glyph")
-local aliasList = barWidget.getConfig("aliases")
-local command = barWidget.getConfig("command")
+local glyph = noctalia.getConfig("glyph")
+local showGlyph = noctalia.getConfig("show_glyph")
+local aliasList = noctalia.getConfig("aliases")
+local command = noctalia.getConfig("command")
 
 -- Aliases
 local aliases = {}

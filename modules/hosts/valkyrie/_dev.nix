@@ -15,7 +15,7 @@ _: {
     services.tailscale = {
       enable = true;
       openFirewall = true;
-      authKeyFile = config.sops.secrets."tailscale.secret".path;
+      #authKeyFile = config.sops.secrets."tailscale.secret".path;
     };
 
     environment = {
@@ -28,7 +28,6 @@ _: {
       systemPackages = with pkgs; [
         cloudflared
         gcc
-        github-copilot-cli
         (mongodb-compass.overrideAttrs (oldAttrs: {
           buildCommand =
             (oldAttrs.buildCommand or "")
@@ -57,7 +56,6 @@ _: {
 
     home = {
       persist.directories = [
-        ".copilot"
         ".mongodb"
         ".npm"
         ".config/rog"

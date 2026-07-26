@@ -149,10 +149,6 @@
         "description": "Open Task Manager"
       },
       {
-        "key": "Super + SHIFT + E",
-        "description": "Open Emoji Picker"
-      },
-      {
         "key": "Super + /",
         "description": "Show this shortcuts menu"
       },

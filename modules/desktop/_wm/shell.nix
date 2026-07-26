@@ -1,5 +1,9 @@
 ## Noctalia Shell
-{inputs ? null, ...}: {
+{
+  inputs ? null,
+  files ? null,
+  ...
+}: {
   home = {
     config,
     osConfig ? {},
@@ -25,8 +29,18 @@
           polkit_agent = true;
           launch_apps_as_systemd_services = true;
           settings_show_advanced = true;
+          greeter_sync.auto_sync = true;
+
+          launcher.providers = {
+            calculator.prefix = "=";
+            emoji.prefix = "emo";
+            session.prefix = "session";
+            wallpaper.prefix = "wall";
+            windows.prefix = "win";
+          };
+
           panel = {
-            launcher_session_search = true;
+            list_item_background = true;
             open_near_click_control_center = true;
             open_near_click_session = true;
           };
@@ -41,6 +55,7 @@
             copy_to_clipboard = true;
             freeze_screen = true;
             confirm_region = true;
+            show_cursor = true;
             directory = "~/Pictures/Screenshots";
           };
 
@@ -96,7 +111,6 @@
             }
           ];
         };
-        control_center.sidebar_section = "none";
 
         # Widgets
         widget = {
@@ -120,11 +134,16 @@
             show_temperature = false;
           };
           control-center = {
-            custom_image = "${config.programs.noctalia.package}/share/noctalia/assets/images/distros/nixos.svg";
+            custom_image = files.images.nixos;
             custom_image_colorize = true;
           };
         };
+
         system.monitor.enabled = true;
+        control_center = {
+          sidebar_section = "none";
+          calendar.show_week_numbers = true;
+        };
 
         # Audio
         audio = {
@@ -151,19 +170,7 @@
             show_toast = true;
           };
         };
-        osd = {
-          background_opacity = 0.75;
-          kinds = {
-            volume = true;
-            brightness = true;
-            wifi = true;
-            bluetooth = true;
-            power_profile = true;
-            caffeine = true;
-            dnd = true;
-            keyboard_layout = true;
-          };
-        };
+        osd.background_opacity = 0.75;
 
         # Wallpaper
         wallpaper = {
@@ -216,23 +223,26 @@
         };
 
         # Screen Idle
-        idle.behavior = {
-          lock = {
-            enabled = true;
-            timeout = 300;
-            command = "noctalia:session lock";
-          };
-          screen-off = {
-            enabled = true;
-            timeout = 360;
-            command = "noctalia:dpms-off";
-            resume_command = "noctalia:dpms-on";
-          };
-          suspend = {
-            enabled = true;
-            timeout = 600;
-            action = "suspend";
-            lock_before_suspend = true;
+        idle = {
+          pre_action_fade_seconds = 10;
+          behavior = {
+            lock = {
+              enabled = true;
+              timeout = 300;
+              command = "noctalia:session lock";
+            };
+            screen-off = {
+              enabled = true;
+              timeout = 360;
+              command = "noctalia:dpms-off";
+              resume_command = "noctalia:dpms-on";
+            };
+            suspend = {
+              enabled = true;
+              timeout = 600;
+              action = "suspend";
+              lock_before_suspend = true;
+            };
           };
         };
 
@@ -262,10 +272,10 @@
           widget = {
             "lockscreen-login-box@${output}" = {
               inherit output;
-              box_height = 70.0;
-              box_width = 400.0;
-              cx = 1280.0;
-              cy = 1477.0;
+              box_height = 213.0;
+              box_width = 810.0;
+              cx = 1104.0;
+              cy = 832.0;
               rotation = 0.0;
               type = "login_box";
               settings = {
@@ -274,7 +284,13 @@
                 background_radius = 12.0;
                 input_opacity = 1.0;
                 input_radius = 6.0;
+                layout = "regular";
+                center_password_text = false;
+                show_caps_lock = true;
+                show_keyboard_layout = true;
                 show_login_button = true;
+                show_password_hint = true;
+                show_session_buttons = false;
               };
             };
             "lockscreen-widget-0000000000000001" = {
@@ -286,16 +302,6 @@
               rotation = 0.0;
               type = "clock";
               settings.format = "{:%H:%M:%S}";
-            };
-            "lockscreen-widget-0000000000000003" = {
-              inherit output;
-              box_height = 192.0;
-              box_width = 368.0;
-              cx = 768.0;
-              cy = 640.0;
-              rotation = 0.0;
-              type = "media_player";
-              settings.hide_when_no_media = true;
             };
           };
         };

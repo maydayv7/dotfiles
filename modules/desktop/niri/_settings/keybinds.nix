@@ -1,14 +1,5 @@
 ## Compositor Binds
-_: {
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
-  inherit (builtins) concatLists genList listToAttrs toString;
-  inherit (lib) getExe;
-  brillo = getExe pkgs.brillo;
-in {
+_: {config, ...}: {
   programs.niri.settings = {
     input.power-key-handling.enable = false;
     binds = with config.lib.niri.actions; let
@@ -60,8 +51,8 @@ in {
         "XF86AudioLowerVolume".action = sh "noctalia msg volume-down";
         "XF86MonBrightnessUp".action = sh "noctalia msg brightness-up";
         "XF86MonBrightnessDown".action = sh "noctalia msg brightness-down";
-        "XF86KbdBrightnessUp".action = sh "${brillo} -k -A 10";
-        "XF86KbdBrightnessDown".action = sh "${brillo} -k -U 10";
+        "XF86KbdBrightnessUp".action = sh "noctalia msg kbd-brightness-up";
+        "XF86KbdBrightnessDown".action = sh "noctalia msg kbd-brightness-down";
 
         # Mouse
         "Super+Shift+MouseRight".action = switch-preset-window-width;
@@ -84,9 +75,9 @@ in {
       }
       //
       # Workspaces
-      listToAttrs (
-        concatLists (
-          genList (
+      builtins.listToAttrs (
+        builtins.concatLists (
+          builtins.genList (
             n: let
               num = n + 1;
               snum = toString (n + 1);

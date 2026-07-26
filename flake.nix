@@ -201,7 +201,7 @@
 
     # Desktop Shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.0.0-beta1";
+      url = "github:noctalia-dev/noctalia/v5.0.0-beta.5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -222,10 +222,11 @@
 
     # Hyprland
     hyprland = {
-      url = "github:hyprwm/hyprnix/92cabda9b41bdf13c488f9cd8b646f2b352b6b1a";
+      url = "github:hyprwm/hyprnix/196daaea609e6fa644bc34e94485e5e626e30b9e";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "unstable";
         systems.follows = "systems";
+        aquamarine.url = "github:hyprwm/aquamarine/aaed2488ebcb555b53938bf5cf4abca9d8611e1d";
       };
     };
 
@@ -239,7 +240,7 @@
     };
 
     hyprcursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors/da447486c84e0be81f2cdd208af1ef92469f0a88";
+      url = "github:VirtCode/hypr-dynamic-cursors/f5ba36c7622098b53bf62ddb8ddf03b914abbdf8";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprland.follows = "hyprland";
@@ -247,7 +248,7 @@
     };
 
     hyprscrolloverview = {
-      url = "github:yayuuu/hyprland-scroll-overview";
+      url = "github:yayuuu/hyprland-scroll-overview/df519f6702bedfc4cb9f7c5cb7e65554c5286a4b";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         hyprland.follows = "hyprland";

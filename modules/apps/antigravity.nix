@@ -51,8 +51,12 @@ in {
         ".gemini"
       ];
 
-      # Superpowers Extension
-      file.".gemini/extensions/superpowers".source = "${pkgs.custom.superpowers}/share/superpowers";
+      file = {
+        ".gemini/antigravity-cli/settings.json".force = true;
+
+        # Superpowers Extension
+        ".gemini/extensions/superpowers".source = "${pkgs.custom.superpowers}/share/superpowers";
+      };
     };
   };
 }

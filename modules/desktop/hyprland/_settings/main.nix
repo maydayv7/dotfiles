@@ -230,13 +230,15 @@ lib.mkIf (osConfig != null) (
 
             misc = {
               disable_autoreload = true; # Disable configuration Polling
-              enable_swallow = true; # Window Swallowing
-              swallow_regex = "^(kitty)$";
 
               focus_on_activate = true;
               initial_workspace_tracking = 1;
               middle_click_paste = false;
               on_focus_under_fullscreen = 2;
+
+              # Window Swallowing
+              enable_swallow = true;
+              swallow_regex = "^(kitty)$";
 
               # Interfere with wallpaper daemons
               force_default_wallpaper = 0;

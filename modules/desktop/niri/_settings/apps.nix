@@ -95,11 +95,6 @@ _: {
         action = runOnce "nwg-displays" "";
         hotkey-overlay.title = "Display Settings";
       };
-
-      "Super+backslash" = {
-        action = spawn "smile";
-        hotkey-overlay.title = "Emoji Picker";
-      };
     };
 
     ## Window Rules

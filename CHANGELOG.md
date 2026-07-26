@@ -1,11 +1,16 @@
 ## 2026
 
-### June
+### July
 
+- Use `zoxide`
+- Add Dual Boot Configuration
 - Update VS Code Extensions
 - Use Hyprland [scroll-overview](https://github.com/yayuuu/hyprland-scroll-overview)
 - Sandbox Firefox using [NixPak](https://github.com/nixpak/nixpak)
 - Add Zed Editor
+
+### June
+
 - Rename `nixos` script to `os` and adopt [`nh`](https://github.com/nix-community/nh)
 - Use `micro` as default editor
 - Use [`disko`](https://github.com/nix-community/disko) for declarative disk partitioning

@@ -8,9 +8,7 @@ in {
         environment = {
           # Utilities
           systemPackages = with pkgs; [
-            bat
             btop
-            eza
             fastfetch
             fd
             hstr
@@ -27,7 +25,6 @@ in {
           shellAliases = {
             hi = "echo 'Hi there. How are you?'";
             bye = "exit";
-            dotfiles = "cd ${files.path.system}";
             c = "bat";
             l = "eza -b -h -l -F --octal-permissions --time-style iso";
             grep = "grep --color";
@@ -57,14 +54,36 @@ in {
     homeManager.shell-utils = _: {
       home.persist = {
         files = [".hstr_favorites"];
-        directories = [".local/share/direnv"];
+        directories = [
+          ".local/share/direnv"
+          ".local/share/zoxide"
+        ];
       };
 
       programs = {
         btop.enable = true; # Resource Monitor
-        hstr.enable = true; # Command History Manager
-        yazi.enable = true; # File Manager
         zellij.enable = true; # Terminal Multiplexer
+
+        # Command History Manager
+        hstr = {
+          enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
+        };
+
+        # File Manager
+        yazi = {
+          enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
+        };
+
+        # Smarter cd
+        zoxide = {
+          enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
+        };
 
         # Pager
         bat = {
@@ -78,6 +97,8 @@ in {
         # File Lister
         eza = {
           enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
           colors = "auto";
           icons = "auto";
           git = true;
