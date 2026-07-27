@@ -35,17 +35,31 @@ in {
       };
     };
 
-    sops.templates."gh-hosts.yml" = {
-      path = "${homeDir}/.config/gh/hosts.yml";
-      content = ''
-        github.com:
-            git_protocol: https
-            user: ${name}
-            oauth_token: ${config.sops.placeholder."github-token.secret"}
-            users:
-                ${name}:
-                    oauth_token: ${config.sops.placeholder."github-token.secret"}
-      '';
+    sops.templates = let
+      github-token = config.sops.placeholder."github-token.secret";
+    in {
+      "gh-hosts.yml" = {
+        path = "${homeDir}/.config/gh/hosts.yml";
+        content = ''
+          github.com:
+              git_protocol: https
+              user: ${name}
+              oauth_token: ${github-token}
+              users:
+                  ${name}:
+                      oauth_token: ${github-token}
+        '';
+      };
+
+      "github-mcp.sh" = {
+        content = ''
+          export ${config.programs.mcp.servers.github.bearer_token_env_var}='${github-token}'
+        '';
+      };
     };
+
+    programs.zsh.initContent = lib.mkAfter ''
+      source ${config.sops.templates."github-mcp.sh".path}
+    '';
   };
 }

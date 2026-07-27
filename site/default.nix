@@ -16,9 +16,9 @@ pkgs.stdenvNoCC.mkDerivation {
     else ""
   }";
 
-  meta = with lib; {
+  meta = {
     description = "My Personal Website";
-    license = licenses.gpl3Only;
+    license = lib.licenses.gpl3Only;
     maintainers = ["maydayv7"];
   };
 }

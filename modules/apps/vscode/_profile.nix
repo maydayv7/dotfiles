@@ -45,7 +45,6 @@ with files.vscode; {
       johnpapa.vscode-peacock # Workspace Color
 
       github.vscode-pull-request-github # GitHub
-      github.copilot # Copilot AI
       dart-code.dart-code # Dart
       dart-code.flutter # Flutter
       jnoortheen.nix-ide # Nix

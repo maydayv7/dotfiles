@@ -22,10 +22,10 @@ in
       cp -r ./. $out/share/superpowers/
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Composable agentic skills library for coding agents";
       homepage = metadata.repo;
-      license = licenses.mit;
+      license = lib.licenses.mit;
       maintainers = ["maydayv7"];
     };
   }

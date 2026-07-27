@@ -23,10 +23,10 @@ in
       cp -r ./src/. $out/share/geany/colorschemes/
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Soothing pastel theme for Geany";
       homepage = metadata.repo;
-      license = licenses.mit;
+      license = lib.licenses.mit;
       maintainers = ["maydayv7"];
     };
   }

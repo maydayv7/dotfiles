@@ -22,10 +22,10 @@ in
       cp -r ./themes/. $out/share/adw-catppuccin/
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Catppuccin port for Adwaita, compatible with libadwaita and adw-gtk3";
       homepage = metadata.repo;
-      license = licenses.gpl3Only;
+      license = lib.licenses.gpl3Only;
       maintainers = ["maydayv7"];
     };
   }

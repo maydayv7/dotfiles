@@ -14,6 +14,7 @@ in {
     isWM = (osConfig.programs.hyprland.enable or false) || (osConfig.programs.niri.enable or false);
   in {
     imports = [
+      ./_mcp.nix
       (import ./vscode/_mutable.nix {
         program = "antigravity";
         configDir = "Antigravity";
@@ -32,16 +33,13 @@ in {
     # CLI
     programs.antigravity-cli = {
       enable = true;
-      package = pkgs.unstable.antigravity-cli;
+      package = pkgs.llm.antigravity-cli;
       enableMcpIntegration = true;
       settings.altScreenMode = "always";
       permissions = {
         deny = ["command(rm -rf)"];
         ask = ["command(*)"];
       };
-
-      # Context7 Extension
-      mcpServers.context7.serverUrl = "https://mcp.context7.com/mcp";
     };
 
     home = {

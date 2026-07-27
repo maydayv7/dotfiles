@@ -22,10 +22,10 @@ in
       cp -r ./src/. $out/share/Kvantum/
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Libadwaita style theme for Kvantum";
       homepage = metadata.repo;
-      license = licenses.gpl3Only;
+      license = lib.licenses.gpl3Only;
       maintainers = ["maydayv7"];
     };
   }

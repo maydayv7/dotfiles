@@ -6,15 +6,16 @@ _: {
       enable = true;
       withUWSM = true;
       xwayland.enable = true;
-      package = pkgs.hyprworld.hyprland;
-      portalPackage = pkgs.hyprworld.xdg-desktop-portal-hyprland;
+      package = pkgs.hyprland;
+      portalPackage = pkgs.xdg-desktop-portal-hyprland;
     };
 
     # App Environment
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
-  home = _: {
+  home = {pkgs, ...}: {
     home.persist.directories = [".config/hypr"];
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 }

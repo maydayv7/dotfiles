@@ -33,10 +33,10 @@ in
       makeWrapperArgs+=("''${qtWrapperArgs[@]}")
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Universal Keybinding helper written in Python and QT5";
       homepage = metadata.repo;
-      license = licenses.mit;
+      license = lib.licenses.mit;
       maintainers = ["maydayv7"];
     };
   }

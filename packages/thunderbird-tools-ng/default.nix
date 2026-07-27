@@ -27,10 +27,10 @@ in
       runHook postInstall
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Import/Export tools for messages and folders in Thunderbird";
       homepage = metadata.repo;
-      license = licenses.gpl3Only;
+      license = lib.licenses.gpl3Only;
       maintainers = ["maydayv7"];
     };
   }

@@ -8,10 +8,6 @@ _: {
 lib.mkIf (osConfig != null) (
   let
     inherit (osConfig.gui) fancy;
-    inherit (pkgs.hyprworld) hyprsplitlua hypr-dynamic-cursors;
-    scrolloverview = pkgs.hyprworld.scrolloverview.overrideAttrs (old: {
-      postInstall = (old.postInstall or "") + ''ln -s libscrolloverview.so "$out/lib/lib${old.pname}.so"'';
-    });
 
     lua = import ./_lib.nix lib;
     inherit (lua) inline;
@@ -26,13 +22,13 @@ lib.mkIf (osConfig != null) (
       else "none";
   in {
     # Workspaces per Monitor
-    xdg.configFile."hypr/hyprsplit/init.lua".source = "${hyprsplitlua}/share/hyprsplit/init.lua";
+    xdg.configFile."hypr/hyprsplit/init.lua".source = "${pkgs.custom.hypr-split}/init.lua";
     wayland.windowManager.hyprland = {
       settings.hs = {
         _var = inline ''(function() local hs = require("hyprsplit"); hs.config({ num_workspaces = 9 }); return hs end)()'';
       };
 
-      plugins = [hypr-dynamic-cursors scrolloverview];
+      plugins = with pkgs; [hyprlandPlugins.hypr-dynamic-cursors custom.hypr-overview];
       extraConfig = ''
         -- Cursor Effects
         if hl.plugin.dynamic_cursors then

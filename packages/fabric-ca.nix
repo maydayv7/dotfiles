@@ -27,10 +27,10 @@ with pkgs;
       "cmd/fabric-ca-server"
     ];
 
-    meta = with lib; {
+    meta = {
       description = "Certificate Authority for Hyperledger Fabric";
       homepage = "https://wiki.hyperledger.org/display/fabric";
-      license = licenses.asl20;
+      license = lib.licenses.asl20;
       maintainers = ["maydayv7"];
     };
   }

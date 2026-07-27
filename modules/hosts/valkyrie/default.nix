@@ -30,6 +30,7 @@
     "vscode"
     "antigravity"
     "zed"
+    "codex"
     #"stream"
     "minecraft"
     #"osu"

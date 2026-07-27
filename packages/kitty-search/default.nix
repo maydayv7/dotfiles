@@ -19,10 +19,10 @@ in
     dontBuild = true;
     installPhase = "mkdir -p $out/ && cp -r . $out/";
 
-    meta = with lib; {
+    meta = {
       description = " Kitten for searching in Kitty Terminal";
       homepage = metadata.repo;
-      license = licenses.gpl3Only;
+      license = lib.licenses.gpl3Only;
       maintainers = ["maydayv7"];
     };
   }

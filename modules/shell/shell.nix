@@ -110,7 +110,7 @@ in {
       };
     };
 
-    homeManager.shell = _: {
+    homeManager.shell = {config, ...}: {
       home.persist = {
         files = [
           ".bash_history"
@@ -124,8 +124,34 @@ in {
       };
 
       programs = {
-        bash.enable = true;
-        zsh.enable = true;
+        bash = {
+          enable = true;
+          historySize = 100000;
+          historyFileSize = 100000;
+          historyControl = [
+            "erasedups"
+            "ignoredups"
+            "ignorespace"
+          ];
+          historyIgnore = [
+            "rm"
+            "killall"
+          ];
+        };
+
+        zsh = {
+          enable = true;
+          history = {
+            path = "${config.home.homeDirectory}/.zsh_history";
+            size = 100000;
+            save = 100000;
+            extended = true;
+            expireDuplicatesFirst = true;
+            ignoreDups = true;
+            ignoreSpace = true;
+            share = true;
+          };
+        };
 
         # Text Editor
         micro = {

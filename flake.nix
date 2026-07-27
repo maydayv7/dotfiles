@@ -62,6 +62,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # LLM Agents
+    llm.url = "github:numtide/llm-agents.nix";
+
     ## Configuration Modules ##
     ## Language Addendum
     # Supported Architectures
@@ -219,42 +222,6 @@
         nixpkgs-stable.follows = "stable";
       };
     };
-
-    # Hyprland
-    hyprland = {
-      url = "github:hyprwm/hyprnix/196daaea609e6fa644bc34e94485e5e626e30b9e";
-      inputs = {
-        nixpkgs.follows = "unstable";
-        systems.follows = "systems";
-        aquamarine.url = "github:hyprwm/aquamarine/aaed2488ebcb555b53938bf5cf4abca9d8611e1d";
-      };
-    };
-
-    hyprsplit = {
-      url = "github:maydayv7/hyprsplit";
-      # url = "github:shezdy/hyprsplit";
-      inputs = {
-        hyprland.follows = "hyprland";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    hyprcursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors/f5ba36c7622098b53bf62ddb8ddf03b914abbdf8";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        hyprland.follows = "hyprland";
-      };
-    };
-
-    hyprscrolloverview = {
-      url = "github:yayuuu/hyprland-scroll-overview/df519f6702bedfc4cb9f7c5cb7e65554c5286a4b";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        hyprland.follows = "hyprland";
-        flake-parts.follows = "flake-parts";
-      };
-    };
   };
 
   ## Configuration ##
@@ -282,9 +249,10 @@
       "https://nixpkgs-unfree.cachix.org"
       "https://nix-community.cachix.org"
       "https://cache.flox.dev"
+      "https://cache.numtide.com"
+      "https://noctalia.cachix.org"
       "https://hyprland.cachix.org"
       "https://catppuccin.cachix.org"
-      "https://noctalia.cachix.org"
     ];
     trusted-substituters = substituters;
 
@@ -295,9 +263,10 @@
       "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
   };
 }

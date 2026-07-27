@@ -2,6 +2,7 @@
 
 ### July
 
+- Add `codex` and MCP Servers
 - Use `zoxide`
 - Add Dual Boot Configuration
 - Update VS Code Extensions
