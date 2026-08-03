@@ -43,18 +43,12 @@ in {
     };
 
     home = {
+      file.".gemini/antigravity-cli/settings.json".force = true;
       persist.directories = [
         ".config/Antigravity"
         ".antigravity"
         ".gemini"
       ];
-
-      file = {
-        ".gemini/antigravity-cli/settings.json".force = true;
-
-        # Superpowers Extension
-        ".gemini/extensions/superpowers".source = "${pkgs.custom.superpowers}/share/superpowers";
-      };
     };
   };
 }

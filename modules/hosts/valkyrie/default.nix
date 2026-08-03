@@ -87,11 +87,11 @@ in {
         scheme = "secure";
 
         # Kernel
-        kernel = "zen";
+        kernel = "xanmod";
         kernelModules = [
           "nvme"
           "thunderbolt"
-          "asus-armoury"
+          #"asus-armoury" # ! # Uncomment after updating kernel
         ];
 
         # Nix Tools
