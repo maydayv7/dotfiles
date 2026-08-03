@@ -9,6 +9,7 @@ in {
     ...
   }: let
     homeDir = config.home.homeDirectory;
+    github-mcp = config.programs.mcp.servers ? github;
   in {
     credentials = {
       inherit name;
@@ -37,29 +38,29 @@ in {
 
     sops.templates = let
       github-token = config.sops.placeholder."github-token.secret";
-    in {
-      "gh-hosts.yml" = {
-        path = "${homeDir}/.config/gh/hosts.yml";
-        content = ''
-          github.com:
-              git_protocol: https
-              user: ${name}
-              oauth_token: ${github-token}
-              users:
-                  ${name}:
-                      oauth_token: ${github-token}
-        '';
-      };
-
-      "github-mcp.sh" = {
-        content = ''
+    in
+      {
+        "gh-hosts.yml" = {
+          path = "${homeDir}/.config/gh/hosts.yml";
+          content = ''
+            github.com:
+                git_protocol: https
+                user: ${name}
+                oauth_token: ${github-token}
+                users:
+                    ${name}:
+                        oauth_token: ${github-token}
+          '';
+        };
+      }
+      // lib.optionalAttrs github-mcp {
+        "github-mcp.sh".content = ''
           export ${config.programs.mcp.servers.github.bearer_token_env_var}='${github-token}'
         '';
       };
-    };
 
-    programs.zsh.initContent = lib.mkAfter ''
+    programs.zsh.initContent = lib.mkIf github-mcp (lib.mkAfter ''
       source ${config.sops.templates."github-mcp.sh".path}
-    '';
+    '');
   };
 }

@@ -4,9 +4,13 @@
 # Useful Commands #
 
 temp(){
-  TEMP=/tmp/"$1"
-  if [ "$2" != "1" ]; then rm -rf "$TEMP"; fi
-  if [ "$2" != "2" ]; then mkdir -p "$TEMP"; fi
+  TEMP="${XDG_RUNTIME_DIR:-/tmp}/$1"
+  case "${2:-}" in
+    1) mkdir -p "$TEMP" ;;
+    2) rm -rf "$TEMP" ;;
+    3) ;;
+    *) rm -rf "$TEMP"; mkdir -p "$TEMP" ;;
+  esac
 }
 
 extract() {

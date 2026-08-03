@@ -193,9 +193,9 @@ in {
         (bindOpts (combo [] "XF86MonBrightnessDown") (exec "noctalia msg brightness-down") lockedRepeat)
 
         # Magnifier
-        (bindOpts (combo [mod] "equal") (exec "pypr zoom ++0.5") lockedRepeat)
-        (bindOpts (combo [mod] "minus") (exec "pypr zoom --0.5") lockedRepeat)
-        (bindOpts (combo [mod "SHIFT"] "minus") (exec "pypr zoom") lockedRepeat)
+        (bindOpts (combo [mod] "equal") (exec "hyprutils magnify ++0.5") lockedRepeat)
+        (bindOpts (combo [mod] "minus") (exec "hyprutils magnify --0.5") lockedRepeat)
+        (bindOpts (combo [mod "SHIFT"] "minus") (exec "hyprutils magnify") lockedRepeat)
       ];
 
     ## Submaps

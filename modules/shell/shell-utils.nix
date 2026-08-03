@@ -64,6 +64,26 @@ in {
         btop.enable = true; # Resource Monitor
         zellij.enable = true; # Terminal Multiplexer
 
+        # Text Search
+        ripgrep = {
+          enable = true;
+          arguments = [
+            "--smart-case"
+            "--hidden"
+            "--heading"
+            "--line-number"
+            "--column"
+            "--color=auto"
+            "--max-columns=150"
+            "--max-columns-preview"
+            "--colors=line:style:bold"
+            "--colors=path:fg:cyan"
+            "--colors=path:style:bold"
+            "--colors=match:fg:magenta"
+            "--colors=match:style:bold"
+          ];
+        };
+
         # Command History Manager
         hstr = {
           enable = true;

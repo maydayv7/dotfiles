@@ -13,6 +13,8 @@
     # Usage #
       help                           - Show this information
       backlight [up,down]            - Keyboard Backlight Controls
+      gamemode                       - Toggle Game Mode
+      magnify [level]                - Adjust magnification
       toggle 
         float                        - Toggle window floating in current workspace
         minimized                    - Show minimized windows
@@ -56,6 +58,12 @@ in
           error "$1" "Try 'hyprutils help' for more information"
         }
 
+        temp hyprutils-gamemode 3
+        GAMEMODE_STATE="$TEMP"
+        game_mode_active() {
+          [ -d "$GAMEMODE_STATE" ]
+        }
+
         case "$1" in
           "") error "Expected an Option" "${help}";;
           "help") echo -e "## Hyprland Utility Script ##\n${help}";;
@@ -66,6 +74,32 @@ in
             "") fail "Expected an Option" ;;
             *) fail "Unexpected Option 'backlight $2'" ;;
             esac
+          ;;
+          "gamemode")
+            if game_mode_active
+            then
+              if pypr gamemode
+              then
+                temp hyprutils-gamemode 2
+              fi
+            elif pypr gamemode
+            then
+              temp hyprutils-gamemode 1
+              hyprctl keyword plugin:dynamic_cursors:enabled false
+              hyprshade off
+              pypr zoom 0
+            fi
+          ;;
+          "magnify")
+            if game_mode_active
+            then
+              hyprnotify 0 "Magnification disabled in Game Mode"
+            elif [ -n "$2" ]
+            then
+              pypr zoom "$2"
+            else
+              pypr zoom 0
+            fi
           ;;
           "toggle")
             case "$2" in
@@ -98,10 +132,15 @@ in
               fi
             ;;
             "shader")
-              hyprshade off
-              mapfile SHADERS < <(hyprshade ls)
-              SHADER=$(zenity --list --title="Compositor Shader Toggle" --column="Shaders" "''${SHADERS[@]}" | sed "s/^[ \t]*//")
-              hyprshade on "$SHADER" && hyprctl seterror ""
+              if game_mode_active
+              then
+                hyprnotify 0 "Shaders disabled in Game Mode"
+              else
+                hyprshade off
+                mapfile SHADERS < <(hyprshade ls)
+                SHADER=$(zenity --list --title="Compositor Shader Toggle" --column="Shaders" "''${SHADERS[@]}" | sed "s/^[ \t]*//")
+                hyprshade on "$SHADER" && hyprctl seterror ""
+              fi
             ;;
             "touchpad")
               touchpad=$(hyprctl devices | grep touchpad | xargs)

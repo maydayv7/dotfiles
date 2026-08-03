@@ -78,7 +78,7 @@ lib.mkIf (osConfig != null) (
         (bind (combo [mod] "V") (exec "noctalia msg panel-toggle clipboard"))
 
         # Tools
-        (bind (combo [mod] "G") (exec "pypr gamemode"))
+        (bind (combo [mod] "G") (exec "hyprutils gamemode"))
         (bind (combo [mod "SHIFT"] "D") (exec "hyprutils toggle monitor ${display}"))
         (bind (combo [mod] "S") (exec "hyprutils toggle shader"))
         (bind (combo [mod "SHIFT"] "T") (exec "pypr toggle term"))
