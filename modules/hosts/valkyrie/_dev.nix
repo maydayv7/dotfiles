@@ -28,6 +28,7 @@ _: {
       systemPackages = with pkgs; [
         cloudflared
         gcc
+        repomix
         (mongodb-compass.overrideAttrs (oldAttrs: {
           buildCommand =
             (oldAttrs.buildCommand or "")

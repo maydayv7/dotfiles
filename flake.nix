@@ -160,10 +160,11 @@
 
     # Discord Module
     nixcord = {
-      url = "github:FlameFlag/nixcord";
+      url = "github:4evy/nixcord";
       inputs = {
         nixpkgs.follows = "unstable";
         flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "formatter";
       };
     };
 
@@ -204,7 +205,7 @@
 
     # Desktop Shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.0.0-beta.5";
+      url = "github:noctalia-dev/noctalia/v5.0.0-beta.7";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

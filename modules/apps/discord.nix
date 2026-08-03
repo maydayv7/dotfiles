@@ -47,7 +47,6 @@
           decor.enable = true;
           expressionCloner.enable = true;
           favoriteEmojiFirst.enable = true;
-          favoriteGifSearch.enable = true;
           fakeNitro.enable = true;
           fixImagesQuality.enable = true;
           fixSpotifyEmbeds.enable = true;

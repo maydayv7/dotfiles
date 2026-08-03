@@ -5,9 +5,7 @@ _: {
     lib,
     pkgs,
     ...
-  }: let
-    superpowers = "${pkgs.custom.superpowers}/share/superpowers/skills";
-  in {
+  }: {
     imports = [./_mcp.nix];
 
     programs.vscode.profiles.default.extensions =
@@ -26,12 +24,6 @@ _: {
       enable = true;
       package = pkgs.llm.codex;
       enableMcpIntegration = true;
-
-      # Superpowers Extension
-      skills =
-        lib.mapAttrs
-        (name: _type: "${superpowers}/${name}")
-        (builtins.readDir superpowers);
 
       settings = {
         approval_policy = "on-request";
