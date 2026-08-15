@@ -205,7 +205,7 @@
 
     # Desktop Shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.0.0-beta.7";
+      url = "github:noctalia-dev/noctalia/v5.0.0-beta.8";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

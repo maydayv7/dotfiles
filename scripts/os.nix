@@ -219,7 +219,7 @@ in
             warn "Run as 'root' or use '--all' to clean system generations"
           else
             echo "Running Garbage Collection..."
-            sudo nh clean all --optimise
+            nh clean all --optimise
             sudo rm -rf /run/secrets/*
             os apply --activate
           fi

@@ -65,6 +65,7 @@ _: {
             killall
             man-pages
             mkpasswd
+            net-tools
             ntfsprogs
             parted
             pciutils
@@ -102,10 +103,7 @@ _: {
         };
 
         networking = {
-          networkmanager = {
-            enable = true;
-            wifi.backend = "iwd";
-          };
+          networkmanager.enable = true;
           firewall.enable = true;
         };
 

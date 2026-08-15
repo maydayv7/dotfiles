@@ -11,11 +11,12 @@ _: {config, ...}: {
         "Alt+F4".action = close-window;
         "Super+Q".action = close-window;
         "Super+C".action = center-window;
-        "Super+Shift+F".action = fullscreen-window;
-        "Super+equal".action = switch-preset-column-width;
+        "Super+E".action = maximize-window-to-edges;
+        "Super+Shift+E".action = fullscreen-window;
+        "Super+bracketright".action = set-column-width "+10%";
+        "Super+bracketleft".action = switch-preset-column-width;
+        "Super+equal".action = maximize-column;
         "Super+minus".action = switch-preset-window-height;
-        "Super+Shift+equal".action = maximize-column;
-        "Super+Shift+minus".action = set-column-width "+10%";
         "Super+semicolon".action = toggle-window-floating;
         "Super+apostrophe".action = switch-focus-between-floating-and-tiling;
         "Super+Shift+Tab".action = toggle-column-tabbed-display;

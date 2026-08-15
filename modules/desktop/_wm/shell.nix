@@ -27,6 +27,7 @@
           font_family = config.stylix.fonts.sansSerif.name;
           avatar_path = "~/.face";
           polkit_agent = true;
+          password_style = "random";
           launch_apps_as_systemd_services = true;
           settings_show_advanced = true;
           greeter_sync.auto_sync = true;
@@ -56,6 +57,7 @@
             freeze_screen = true;
             confirm_region = true;
             show_cursor = true;
+            remember_last_region = true;
             directory = "~/Pictures/Screenshots";
           };
 
@@ -192,11 +194,6 @@
           widget = {
             "desktop-widget-0000000000000001" = {
               inherit output;
-              box_height = 352.0;
-              box_width = 368.0;
-              cx = 1328.0;
-              cy = 240.0;
-              rotation = 0.0;
               type = "clock";
               settings = {
                 background = false;
@@ -208,11 +205,6 @@
             };
             "desktop-widget-0000000000000002" = {
               inherit output;
-              box_height = 112.0;
-              box_width = 240.0;
-              cx = 1392.0;
-              cy = 856.0;
-              rotation = 0.0;
               type = "weather";
               settings = {
                 background = false;
@@ -260,9 +252,8 @@
           enabled = true;
           schema_version = 2;
           widget_order = [
-            "lockscreen-login-box@eDP-1"
+            "lockscreen-login-box@${output}"
             "lockscreen-widget-0000000000000001"
-            "lockscreen-widget-0000000000000003"
           ];
           grid = {
             cell_size = 16;
@@ -272,11 +263,6 @@
           widget = {
             "lockscreen-login-box@${output}" = {
               inherit output;
-              box_height = 213.0;
-              box_width = 810.0;
-              cx = 1104.0;
-              cy = 832.0;
-              rotation = 0.0;
               type = "login_box";
               settings = {
                 background_color = "surface_variant";
@@ -289,17 +275,11 @@
                 show_caps_lock = true;
                 show_keyboard_layout = true;
                 show_login_button = true;
-                show_password_hint = true;
                 show_session_buttons = false;
               };
             };
             "lockscreen-widget-0000000000000001" = {
               inherit output;
-              box_height = 256.0;
-              box_width = 736.0;
-              cx = 768.0;
-              cy = 352.0;
-              rotation = 0.0;
               type = "clock";
               settings.format = "{:%H:%M:%S}";
             };

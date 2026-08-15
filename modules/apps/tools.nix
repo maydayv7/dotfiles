@@ -24,6 +24,7 @@ in {
 
         # Media
         pitivi
+        poppler-utils
         xnviewmp
 
         # Graphics

@@ -19,7 +19,7 @@
       "internet"
       "office"
       "wine"
-      "niri"
+      "hyprland"
     ]
     homeManager;
 in {
@@ -44,7 +44,7 @@ in {
           "prompt"
           "office"
           "wine"
-          "niri"
+          "hyprland"
         ]
         nixos
         ++ util.map.array ["dell-inspiron-5509"] inputs.hardware.nixosModules;
