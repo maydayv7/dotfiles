@@ -32,6 +32,7 @@
   "window.doubleClickIconToClose": true,
   "window.menuBarVisibility": "toggle",
   "window.titleSeparator": " / ",
+  "workbench.browser.openLocalhostLinks": true,
   "workbench.commandPalette.preserveInput": true,
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.list.horizontalScrolling": true,

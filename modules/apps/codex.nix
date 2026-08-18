@@ -13,7 +13,13 @@ _: {
       [pkgs.vscode-marketplace.openai.chatgpt];
 
     home = {
-      persist.directories = [".codex"];
+      packages = [pkgs.llm.chatgpt];
+      persist.directories = [
+        ".codex"
+        ".config/Codex"
+        ".cache/Codex"
+      ];
+
       file.".codex/config.toml" = {
         force = true;
         mutable = true;

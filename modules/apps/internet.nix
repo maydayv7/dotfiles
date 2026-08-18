@@ -69,6 +69,7 @@ in {
         directories = [
           ".config/BraveSoftware"
           ".cache/BraveSoftware"
+          ".config/teams-for-linux"
           ".thunderbird"
           ".cache/thunderbird"
           ".config/ZapZap"

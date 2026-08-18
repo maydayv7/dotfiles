@@ -1,18 +1,19 @@
 ## Minecraft Server Configuration ##
 # ? # Run 'systemctl start minecraft-server-NAME' to start the server
 # ? # Run 'echo COMMAND > /run/minecraft/NAME.stdin' to run commands
-{inputs, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: let
+  inherit (config.flake.files) path;
+in {
   flake.modules.nixos.mc-server = {
     config,
     lib,
     pkgs,
     ...
   }: let
-    inherit
-      (builtins)
-      listToAttrs
-      toString
-      ;
     inherit
       (lib)
       concatMap
@@ -89,6 +90,17 @@
 
     config = mkIf (cfg != []) {
       system.fs.persist.directories = [dataDir];
+      disko.devices.zpool.fspool.datasets."data/minecraft" = mkIf (config.system.fs.scheme == "advanced") {
+        type = "zfs_fs";
+        mountpoint = "${path.data}${dataDir}";
+        options = {
+          atime = "off";
+          mountpoint = "legacy";
+          recordsize = "32K";
+          "com.sun:auto-snapshot" = "true";
+        };
+      };
+
       networking.firewall = {
         allowedTCPPorts = map (srv: srv.port) cfg;
         allowedUDPPorts = concatMap (srv:
@@ -108,7 +120,7 @@
           systemd-socket.enable = true;
         };
 
-        servers = listToAttrs (
+        servers = builtins.listToAttrs (
           map (srv: {
             inherit (srv) name;
             value = mkMerge [

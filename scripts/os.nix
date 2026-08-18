@@ -402,6 +402,8 @@ in
           sudo git clone --recurse-submodules ${path.repo} "$DIR"
           pushd "$DIR" &> /dev/null; sudo git config core.fileMode false; popd &> /dev/null
           sudo chgrp -R keys "$DIR"
+          sudo chmod -R u=rwX,g=rwX,o= "$DIR"
+          sudo find -P "$DIR" -type d -exec chmod g+s {} +
           newline
 
           read -rp "Enter path to GPG Keys (path/.git): " KEY

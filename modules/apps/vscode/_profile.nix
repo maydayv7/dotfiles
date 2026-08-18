@@ -69,6 +69,7 @@ with files.vscode; {
     ]
     ++ (with pkgs.vscode-marketplace; [
       cweijan.vscode-office # Document Viewer
+      bruno-api-client.bruno # API Client
       langningchen.cph-ng # CP
     ])
     ++ lib.optionals isGnome [pkgs.vscode-extensions.piousdeer.adwaita-theme];

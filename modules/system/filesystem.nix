@@ -26,7 +26,7 @@ in {
         optional
         types
         ;
-      inherit (builtins) listToAttrs map;
+
       cfg = config.system.fs;
     in {
       imports = [
@@ -149,9 +149,14 @@ in {
             (mkIf (cfg.scheme == "advanced") {
               zpool.fspool = {
                 type = "zpool";
-                options.cachefile = "none";
+                options = {
+                  ashift = "12";
+                  cachefile = "none";
+                };
                 rootFsOptions = {
+                  atime = "off";
                   compression = "zstd";
+                  dnodesize = "auto";
                   encryption = "on";
                   keyformat = "passphrase";
                   keylocation = "prompt";
@@ -175,7 +180,7 @@ in {
                     mountpoint = "/nix";
                     options = {
                       mountpoint = "legacy";
-                      atime = "off";
+                      recordsize = "1M";
                     };
                   };
 
@@ -217,7 +222,8 @@ in {
             dir = "${path}${system}";
           in ''
             chown root:keys ${dir}
-            chmod 774 -R ${dir}
+            chmod -R u=rwX,g=rwX,o= ${dir}
+            chmod g+s ${dir}
           '';
         })
 
@@ -233,7 +239,7 @@ in {
                 "${files.path.data}".neededForBoot = true;
               }
               // filterAttrs (name: _: hasPrefix "/etc" name) (
-                listToAttrs (
+                builtins.listToAttrs (
                   map (
                     item:
                       nameValuePair item.directory {
@@ -249,8 +255,6 @@ in {
 
             # Early Boot Requirements
             boot = {
-              # Boot Settings
-              kernelParams = ["elevator=none"];
               zfs = {
                 forceImportAll = false;
                 devNodes = "/dev/disk/by-partlabel/System";
@@ -273,8 +277,16 @@ in {
 
             # Maintainence
             services.zfs = {
-              trim.enable = true;
-              autoScrub.enable = true;
+              trim = {
+                enable = true;
+                interval = "weekly";
+              };
+
+              autoScrub = {
+                enable = true;
+                interval = "monthly";
+              };
+
               autoSnapshot = {
                 enable = true;
                 hourly = 12;
