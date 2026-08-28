@@ -52,8 +52,8 @@ _: {config, ...}: {
         "XF86AudioLowerVolume".action = sh "noctalia msg volume-down";
         "XF86MonBrightnessUp".action = sh "noctalia msg brightness-up";
         "XF86MonBrightnessDown".action = sh "noctalia msg brightness-down";
-        "XF86KbdBrightnessUp".action = sh "noctalia msg kbd-brightness-up";
-        "XF86KbdBrightnessDown".action = sh "noctalia msg kbd-brightness-down";
+        "XF86KbdBrightnessUp".action = sh "noctalia msg keyboard-backlight-up";
+        "XF86KbdBrightnessDown".action = sh "noctalia msg keyboard-backlight-down";
 
         # Mouse
         "Super+Shift+MouseRight".action = switch-preset-window-width;

@@ -6,7 +6,8 @@ _: {
       lib,
       ...
     }: {
-      # AppImage Support
+      # Binaries
+      programs.nix-ld.enable = true;
       programs.appimage = {
         enable = true;
         binfmt = true;

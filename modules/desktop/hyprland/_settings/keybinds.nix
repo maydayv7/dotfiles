@@ -175,8 +175,8 @@ in {
         (bindOpts (combo [] "XF86AudioMute") (exec "noctalia msg volume-mute") locked)
 
         # Keyboard Backlight
-        (bindOpts (combo [] "XF86KbdBrightnessUp") (exec "noctalia msg kbd-brightness-up") locked)
-        (bindOpts (combo [] "XF86KbdBrightnessDown") (exec "noctalia msg kbd-brightness-down") locked)
+        (bindOpts (combo [] "XF86KbdBrightnessUp") (exec "noctalia msg keyboard-backlight-up") locked)
+        (bindOpts (combo [] "XF86KbdBrightnessDown") (exec "noctalia msg keyboard-backlight-down") locked)
 
         # Touchpad
         (bindOpts (combo [] "XF86TouchpadToggle") (exec "hyprutils toggle touchpad") locked)

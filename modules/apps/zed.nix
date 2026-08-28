@@ -27,6 +27,7 @@ in {
     programs.zed-editor = {
       enable = true;
       package = pkgs.zed-editor;
+      installRemoteServer = true;
 
       # Settings
       userSettings =
@@ -55,19 +56,36 @@ in {
       ];
 
       extraPackages = with pkgs; [
+        # Nix
         nixd
         alejandra
-        clang-tools # C/C++
+
+        clang-tools # C / C++
         rust-analyzer # Rust
         gopls # Go
-        basedpyright # Python
-        bash-language-server # Bash
-        vscode-langservers-extracted # HTML/CSS/JSON
-        yaml-language-server # YAML
-        marksman # Markdown
-        taplo # TOML
         texlab # LaTeX
-        dockerfile-language-server # Docker
+        jdt-language-server # Java
+        sqls # SQL
+
+        # Python
+        basedpyright
+        ruff
+
+        # Shell
+        bash-language-server
+        shellcheck
+        shfmt
+
+        # Web / JSON / Markup
+        nodejs
+        marksman
+        taplo
+        vtsls
+        dockerfile-language-server
+        tailwindcss-language-server
+        typescript-language-server
+        yaml-language-server
+        vscode-langservers-extracted
       ];
     };
   };

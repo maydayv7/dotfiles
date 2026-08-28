@@ -32,6 +32,8 @@ An overview of every configuration module in this repository.
 | `vscode`      | Home Manager | Visual Studio Code editor          |
 | `antigravity` | Home Manager | Google Antigravity                 |
 | `zed`         | Home Manager | Zed Editor                         |
+| `codex`       | Home Manager | OpenAI Codex                       |
+| `claude`      | Home Manager | Anthropic Claude                   |
 | `flatpak`     | Both         | Flatpak app sandboxing             |
 | `latex`       | Both         | LaTeX typesetting                  |
 | `office`      | Both         | Office suite environment           |

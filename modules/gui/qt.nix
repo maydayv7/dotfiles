@@ -50,6 +50,7 @@ _: {
 
     homeManager.qt = {
       config,
+      lib,
       osConfig ? {},
       ...
     }: let
@@ -57,7 +58,7 @@ _: {
       cfg = osConfig.gui.qt or {};
     in {
       gui._unmanaged = ["qt"];
-      xdg.configFile."Kvantum" = {
+      xdg.configFile."Kvantum" = lib.mkIf (cfg ? package) {
         source = "${cfg.package}/share/Kvantum";
         recursive = true;
       };

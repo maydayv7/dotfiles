@@ -29,15 +29,7 @@ _: {
         cloudflared
         gcc
         repomix
-        (mongodb-compass.overrideAttrs (oldAttrs: {
-          buildCommand =
-            (oldAttrs.buildCommand or "")
-            + ''
-              wrapProgram $out/bin/mongodb-compass \
-                --add-flags "--ignore-additional-command-line-flags" \
-                --add-flags "--password-store=gnome-libsecret"
-            '';
-        }))
+        mongodb-compass
 
         # Node
         nodejs
@@ -66,10 +58,11 @@ _: {
 
       # NPM
       sessionPath = ["$HOME/.npm/packages/bin"];
-      file.".npmrc".text = ''
-        prefix=''${HOME}/.npm/packages
-        cache=''${HOME}/.npm/cache
-      '';
+      sessionVariables = {
+        NPM_CONFIG_USERCONFIG = "$HOME/.npm/npmrc";
+        NPM_CONFIG_PREFIX = "$HOME/.npm/packages";
+        NPM_CONFIG_CACHE = "$HOME/.npm/cache";
+      };
     };
   };
 }

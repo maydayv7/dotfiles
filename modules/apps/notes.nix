@@ -86,7 +86,7 @@ in {
               };
             }
           ];
-          themes = [{pkg = theme;}];
+          themes = lib.optional (theme != null) {pkg = theme;};
         };
       };
     };
