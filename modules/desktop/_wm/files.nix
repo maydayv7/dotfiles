@@ -108,10 +108,14 @@
             "@archiver"
           ]
           [
-            config.stylix.icons.dark
+            (
+              if config.stylix.icons.dark != null
+              then config.stylix.icons.dark
+              else "default"
+            )
             config.stylix.fonts.sansSerif.name
             terminal
-            (builtins.toString files.images.transparent)
+            (toString files.images.transparent)
             "file-roller"
           ]
           files.pcmanfm;

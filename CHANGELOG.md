@@ -1,5 +1,11 @@
 ## 2026
 
+### August
+
+- Editor `direnv` integration
+- Fix Zed LSPs and enable Remote Server
+- Add `claude`
+
 ### July
 
 - Add `codex` and MCP Servers

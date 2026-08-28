@@ -12,7 +12,6 @@
 
     # Usage #
       help                           - Show this information
-      backlight [up,down]            - Keyboard Backlight Controls
       gamemode                       - Toggle Game Mode
       magnify [level]                - Adjust magnification
       toggle 
@@ -39,11 +38,9 @@ in
       runtimeInputs = with pkgs; [
         coreutils
         gnugrep
-
-        brightnessctl
-        hyprland
-        hyprshade
         zenity
+        hyprshade
+        hyprland
       ];
 
       text = ''
@@ -67,14 +64,6 @@ in
         case "$1" in
           "") error "Expected an Option" "${help}";;
           "help") echo -e "## Hyprland Utility Script ##\n${help}";;
-          "backlight")
-            case "$2" in
-            "up") brightnessctl -d "*::kbd_backlight" set 33%+ ;;
-            "down") brightnessctl -d "*::kbd_backlight" set 33%- ;;
-            "") fail "Expected an Option" ;;
-            *) fail "Unexpected Option 'backlight $2'" ;;
-            esac
-          ;;
           "gamemode")
             if game_mode_active
             then

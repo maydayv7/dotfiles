@@ -4,7 +4,8 @@
     "bindings": {
       "ctrl-/": "command_palette::Toggle",
       "alt-t": "terminal_panel::ToggleFocus",
-      "ctrl-shift-t": "workspace::NewTerminal"
+      "ctrl-shift-t": "workspace::NewTerminal",
+      "ctrl-q": null
     }
   },
   {
@@ -12,7 +13,8 @@
     "bindings": {
       "ctrl-/": "command_palette::Toggle",
       "ctrl-d": "editor::DeleteLine",
-      "ctrl-'": "editor::ToggleComments"
+      "ctrl-'": "editor::ToggleComments",
+      "ctrl-q": null
     }
   }
 ]

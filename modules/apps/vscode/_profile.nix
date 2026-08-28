@@ -31,6 +31,9 @@ with files.vscode; {
       "xml.server.preferBinary" = true;
       "xml.server.binary.path" = lemminx;
       "xml.server.binary.trustedHashes" = [(builtins.hashFile "sha256" lemminx)];
+      "direnv.restart.automatic" = true;
+      "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
+      "direnv.status.show" = true;
     })
   ];
 
@@ -44,6 +47,7 @@ with files.vscode; {
       naumovs.color-highlight # Color Viewer
       johnpapa.vscode-peacock # Workspace Color
 
+      mkhl.direnv # Direnv Integration
       github.vscode-pull-request-github # GitHub
       dart-code.dart-code # Dart
       dart-code.flutter # Flutter

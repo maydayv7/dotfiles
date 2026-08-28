@@ -13,7 +13,7 @@
     "mobile"
     "printer"
     "docker"
-    "mc-server"
+    #"mc-server"
     #"roblox"
     #"vfio"
   ];
@@ -28,11 +28,11 @@
     "discord"
     "spotify"
     "vscode"
-    "antigravity"
     "zed"
+    "antigravity"
     "codex"
     #"stream"
-    "minecraft"
+    #"minecraft"
     #"osu"
   ];
 
@@ -87,11 +87,11 @@ in {
         scheme = "secure";
 
         # Kernel
-        kernel = "xanmod";
+        kernel = "zen";
         kernelModules = [
           "nvme"
           "thunderbolt"
-          #"asus-armoury" # ! # Uncomment after updating kernel
+          "asus-armoury"
         ];
 
         # Nix Tools
@@ -133,22 +133,22 @@ in {
       # };
 
       # Minecraft Server
-      games.mc-servers = [
-        {
-          type = "fabric";
-          memory = 16;
-          port = 25565;
-          vc-port = 24454;
-          config = {
-            gamemode = "survival";
-            difficulty = "normal";
-            online-mode = false;
-            server-ip = "0.0.0.0";
-            spawn-protection = 0;
-            motd = "My World";
-          };
-        }
-      ];
+      # games.mc-servers = [
+      #   {
+      #     type = "fabric";
+      #     memory = 16;
+      #     port = 25565;
+      #     vc-port = 24454;
+      #     config = {
+      #       gamemode = "survival";
+      #       difficulty = "normal";
+      #       online-mode = false;
+      #       server-ip = "0.0.0.0";
+      #       spawn-protection = 0;
+      #       motd = "My World";
+      #     };
+      #   }
+      # ];
 
       # User V7
       users.users.v7 = {

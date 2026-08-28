@@ -1,8 +1,15 @@
 ## Model Context Protocol Servers ##
 {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.mcp = {
     enable = true;
     servers = {
+      # NixOS MCP
+      nixos.command = lib.getExe pkgs.mcp-nixos;
+
       # Library documentation
       context7.url = "https://mcp.context7.com/mcp";
 

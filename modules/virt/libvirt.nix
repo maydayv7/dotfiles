@@ -27,7 +27,7 @@ _: {
             package = pkgs.qemu_kvm;
             runAsRoot = false;
             swtpm.enable = true;
-            vhostUserPackages = [pkgs.virtiofsd];
+            vhostUserPackages = [pkgs.unstable.virtiofsd];
           };
         };
       };
