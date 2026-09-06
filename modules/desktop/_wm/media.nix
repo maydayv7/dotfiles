@@ -5,8 +5,8 @@
       celluloid
       lollypop
       papers
+      pix
       playerctl
-      shotwell
       transmission_4-gtk
     ];
   };
@@ -16,7 +16,7 @@
     xdg.mimeApps.defaultApplications = util.build.mime {
       audio = ["org.gnome.Lollypop.desktop"];
       document = ["org.gnome.Papers.desktop"];
-      image = ["org.gnome.Shotwell-Viewer.desktop"];
+      image = ["pix.desktop"];
       magnet = ["transmission-gtk.desktop"];
       pdf = ["org.gnome.Papers.desktop"];
       video = ["io.github.celluloid_player.Celluloid.desktop"];
@@ -25,10 +25,10 @@
     # Persisted Files
     home.persist.directories = [
       ".config/mpv"
-      ".config/shotwell"
       ".local/share/lollypop"
-      ".local/share/shotwell"
-      ".cache/shotwell"
+      ".config/pix"
+      ".local/share/pix"
+      ".cache/pix"
     ];
 
     # Media Player

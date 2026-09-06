@@ -4,7 +4,7 @@
     "bindings": {
       "ctrl-/": "command_palette::Toggle",
       "alt-t": "terminal_panel::ToggleFocus",
-      "ctrl-shift-t": "workspace::NewTerminal",
+      "ctrl-shift-t": "workspace::NewCenterTerminal",
       "ctrl-q": null
     }
   },

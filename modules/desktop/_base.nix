@@ -38,6 +38,7 @@ _: {
     home.persist.directories = [
       ".config/autostart"
       ".local/share/gvfs-metadata"
+      ".cache/thumbnails"
     ];
   };
 }

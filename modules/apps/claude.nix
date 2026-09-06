@@ -14,11 +14,14 @@ _: {
 
     home = {
       packages = [pkgs.llm.claude-desktop];
-      persist.directories = [
-        ".claude"
-        ".config/Claude"
-        ".cache/Claude"
-      ];
+      persist = {
+        files = [".claude.json"];
+        directories = [
+          ".claude"
+          ".config/Claude"
+          ".cache/Claude"
+        ];
+      };
     };
 
     programs.claude-code = {
@@ -39,7 +42,6 @@ _: {
           ];
           deny = [
             "Bash(rm -rf /*)"
-            "Read(./secrets/**)"
             "Read(~/.ssh/**)"
           ];
         };
