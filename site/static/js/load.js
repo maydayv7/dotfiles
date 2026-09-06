@@ -1,5 +1,2 @@
-var loading = document.querySelector(".loading");
-
-window.addEventListener("load", function () {
-  loading.style.display = "none";
-});
+// The HTML is ready when this deferred script runs
+document.querySelector(".loading")?.remove();

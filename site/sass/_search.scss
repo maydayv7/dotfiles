@@ -3,7 +3,7 @@
 .search {
   &-container {
     display: inline-block;
-    left: 666px;
+    align-self: flex-end;
     position: relative;
     top: -32px;
     transition: all 0.5s ease-out;
@@ -20,7 +20,7 @@
     }
 
     @media (max-width: $tablet-max-width) {
-      left: 300px;
+      align-self: flex-end;
       width: 300px;
     }
 
@@ -58,7 +58,7 @@
     &__number {
       font-size: small;
       text-align: end;
-      margin: -15px 5px -25px;
+      margin: 0 0 1rem;
     }
 
     &__item {
@@ -82,6 +82,8 @@
 
     &__items {
       list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
     li {

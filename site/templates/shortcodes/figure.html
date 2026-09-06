@@ -1,6 +1,22 @@
 {% if src %}
 <figure class="{% if position %}{{ position }}{% else -%} center {%- endif %}">
   <img
+    loading="lazy"
+    decoding="async"
+    {%
+    if
+    width
+    %}width="{{ width }}"
+    {%
+    endif
+    %}
+    {%
+    if
+    height
+    %}height="{{ height }}"
+    {%
+    endif
+    %}
     src="{{ src | safe }}"
     {%
     if
@@ -16,7 +32,8 @@
     style="{{ style }}"
     {%
     endif
-    %} />
+    %}
+  />
   {% if caption %}
   <figcaption
     class="{% if caption_position %}{{ caption_position }}{% else -%} center {%- endif %}"
@@ -27,7 +44,8 @@
     style="{{ caption_style | safe }}"
     {%
     endif
-    %}>
+    %}
+  >
     {{ caption }}
   </figcaption>
   {% endif %}

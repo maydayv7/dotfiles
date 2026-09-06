@@ -112,6 +112,10 @@ a.backlink {
     p {
       display: inline;
       color: rgba(255, 255, 255, 0.7);
+
+      &:first-of-type {
+        margin-inline-start: 1ch;
+      }
     }
 
     &-label {

@@ -10,14 +10,14 @@
   </span>
 </div>
 {% endmacro copyright %} {% macro theme(config) %}
-<div class="theme-container">
+<div class="theme-container js-only">
   <div class="theme_before"></div>
   <div class="theme-content">
-    Theme:
+    <label for="theme-select">Theme:</label>
     <select id="theme-select">
       {% for theme in config.extra.color_schemes %} {% if
       config.extra.theme_color %} {% set default_theme =
-      config.extra.theme_color %} {% else %} {% set default_theme = "blue" %} {%
+      config.extra.theme_color %} {% else %} {% set default_theme = "red" %} {%
       endif %} {% if default_theme == theme %}
       <option selected="selected" value="{{ theme }}">{{ theme }}</option>
       {% else %}
@@ -30,11 +30,11 @@
 {% endmacro theme %} {% macro webring(config) %} {% if config.extra.webring %}
 <div class="webring">
   <a href="{{ config.extra.webring_url }}/prev/{{ config.extra.author }}"
-    ><- prev</a
-  >
-  <a href="{{ config.extra.webring_url }}">{{ config.extra.webring_name }}</a>
-  <a href="{{ config.extra.webring_url }}/next/{{ config.extra.author }}"
-    >next -></a
+    >&lt;- prev</a
+  >&nbsp;<a href="{{ config.extra.webring_url }}"
+    >{{ config.extra.webring_name }}</a
+  >&nbsp;<a href="{{ config.extra.webring_url }}/next/{{ config.extra.author }}"
+    >next -&gt;</a
   >
 </div>
 {% endif %} {% endmacro webring %}

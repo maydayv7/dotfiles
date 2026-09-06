@@ -55,7 +55,7 @@ boot.kernelParams = [
 ];
 ```
 
-**Case B - the host renders on the _same_ GPU you want to pass** (Eg. NVIDIA PRIME Sync, where the desktop holds `nvidia_drm`). A NixOS [specialisation](https://nixos.org/manual/nixos/stable/#sec-specialisation) can be used: your default boot keeps the GPU for the desktop, and a different boot entry binds it to `vfio-pci` instead:
+**Case B - the host renders on the _same_ GPU you want to pass** (Eg. NVIDIA PRIME Sync, where the desktop holds `nvidia_drm`). A NixOS [specialisation](https://wiki.nixos.org/wiki/Specialisation) can be used: your default boot keeps the GPU for the desktop, and a different boot entry binds it to `vfio-pci` instead:
 
 ```
 specialisation.vfio.configuration = {

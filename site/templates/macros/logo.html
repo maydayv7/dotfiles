@@ -3,7 +3,7 @@
   href="{%- if config.extra.logo_home_link -%}{{ config.extra.logo_home_link }}{%- else -%}{{ config.base_url }}{%- endif -%}">
   <div class="logo">
     {{ config.extra.logo_text | default(value="logo") | safe }}
-    <div class="loading"></div>
+    <div class="loading js-only" aria-hidden="true"></div>
   </div>
 </a>
 {%- endmacro logo -%}

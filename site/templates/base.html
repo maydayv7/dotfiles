@@ -20,13 +20,26 @@ squiggle -%} {% import "macros/edit.html" as edit -%} {% import
     head::styling(config=config) }} {%- endblock css -%} {%- block font -%} {{
     head::font(config=config) }} {%- endblock font -%} {%- block rss -%} {%-
     endblock rss -%} {%- block favicon -%} {{ head::favicon(config=config) }}
-    {%- endblock favicon -%} {%- block math -%} {%- endblock math -%}
+    {%- endblock favicon -%} {%- block math -%} {%- endblock math -%} {% block
+    analytics -%} {{ analytics::google_analytics(config=config) }} {%- endblock
+    analytics %}
+    <noscript
+      ><style>
+        .js-only,
+        .header .menu-trigger,
+        .header .menu-mobile {
+          display: none !important;
+        }
+        .header .menu-desktop,
+        .header .menu-inner-desktop {
+          display: flex;
+        }
+      </style></noscript
+    >
   </head>
 
-  {% block analytics -%} {{ analytics::google_analytics(config=config) }} {%-
-  endblock analytics %}
-
   <body class="">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     {%- if config.extra.full_width -%} {%- set container = "container full" -%}
     {%- elif config.extra.center -%} {%- set container = "container center" -%}
     {%- else -%} {%- set container = "container" -%} {%- endif -%} {%- if not
@@ -36,9 +49,9 @@ squiggle -%} {% import "macros/edit.html" as edit -%} {% import
       {%- block header -%} {{ header::header(config=config,
       current_url=current_url) }} {%- endblock header -%}
 
-      <div class="content">
+      <main class="content" id="main-content" tabindex="-1">
         {%- block main -%} {{ lists::list_pages() }} {%- endblock main -%}
-      </div>
+      </main>
 
       {%- block pagination -%} {{ pagination::paginate(pagelink = current_url)
       }} {%- endblock pagination -%} {%- block footer -%}

@@ -20,6 +20,15 @@ zola -r site serve
 Then click [here](http://localhost:1111)
 
 To build the site, run `nix build .#website`.
+The build also subsets webfonts, retaining text glyphs, ligatures, and Nerd icons referenced by generated HTML/CSS/JS.
+
+To produce the same optimized assets from the `site` development shell:
+
+```sh
+zola build
+python3 scripts/optimize_fonts.py public
+```
+
 To override the URL, run: <pre><code>nix build --impure --expr 'with (builtins.getFlake (toString ../.)).legacyPackages.x86_64-linux; callPackage ./site { site = "<b><i>URL</i></b>"; }'</code></pre>
 
 #### Continuous Integration

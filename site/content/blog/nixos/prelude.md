@@ -66,7 +66,7 @@ But why stop there? I grabbed [**Spicetify**](https://github.com/Gerg-L/spicetif
 
 You have no idea [^4].
 
-I don't "install" development tools. I have a [directory](https://github.com/maydayv7/dotfiles/tree/main/shells) that defines isolated environments for C++, Python, JavaScript and so on.
+I don't "install" development tools. I have a [directory](https://github.com/maydayv7/dotfiles/tree/stable/shells) that defines isolated environments for C++, Python, JavaScript and so on.
 When I `cd` into a project, [Direnv](https://direnv.net/) and [**Lorri**](https://github.com/nix-community/lorri) kick in, and the compiler, linter, LSP and whatnot along with all of their configuration just _appear_ in my shell. When I leave, they vanish.
 
 Every little thing is specified in code, from backups to network settings and even complex editor workflows (thanks for your concern, but I very likey my trusty [VS Code](https://code.visualstudio.com/)).
@@ -128,7 +128,7 @@ You can check out the list of links below to resourceful Nix documentation/tutor
 - NixOS [Package Search](https://search.nixos.org/)
 - [`nixpkgs`](https://github.com/NixOS/nixpkgs) Package Repository
 - [NUR](https://github.com/nix-community/NUR) Nix User Repository
-- NixOS [Hardware Modules](https://github.com/nixos/hardware)
+- NixOS [Hardware Modules](https://github.com/nixos/nixos-hardware)
 - Home Manager [Options](https://nix-community.github.io/home-manager/options.html)
 
 ### Other Sources

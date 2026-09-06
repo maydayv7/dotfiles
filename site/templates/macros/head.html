@@ -1,12 +1,14 @@
-{%- macro font(config) %} <link rel="stylesheet" href="{{
+{%- macro font(config) %}
+<link rel="preload" href="{{ get_url(path="fonts/JetBrainsMono-Nerd-Regular.woff2") }}" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="{{
 get_url(path="fonts.css", trailing_slash=false) }}"> {% endmacro font -%} {%
 macro styling(config) %}
 <link rel="stylesheet" href="{{
 get_url(path="style.css", trailing_slash=false) }}"> {% if
 config.extra.theme_color -%} {% set color = "color/" ~config.extra.theme_color ~
 ".css" -%}
-<link rel="stylesheet" href="{{ get_url(path=color, trailing_slash=false) }}" />
-{%- else -%} <link rel="stylesheet" href="{{ get_url(path="color/red.css",
+<link id="site-theme" data-theme="{{ config.extra.theme_color }}" rel="stylesheet" href="{{ get_url(path=color, trailing_slash=false) }}" />
+{%- else -%} <link id="site-theme" data-theme="red" rel="stylesheet" href="{{ get_url(path="color/red.css",
 trailing_slash=false) }}"> {% endif %} {% endmacro styling %} {% macro
 feed_discovery(path) %}
 <link
@@ -18,12 +20,29 @@ feed_discovery(path) %}
 config.extra.favicon %}
 <link
   rel="shortcut icon"
-  href="{{ get_url(path=config.extra.favicon, trailing_slash=false) }}?"
+  href="{{ get_url(path=config.extra.favicon, trailing_slash=false) }}"
   type="image/x-icon" />
 {% endif %} {% endmacro favicon %} {% macro general_meta() %}
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-<meta name="description" content="{{ config.description }}" />
+{% set description = config.description %}
+{% set title = config.title %}
+{% if page %}
+  {% set title = page.title %}
+  {% if page.description %}{% set description = page.description %}
+  {% else %}{% set description = page.content | striptags | truncate(length=160) %}{% endif %}
+{% elif section %}
+  {% set title = section.title %}
+  {% if section.description %}{% set description = section.description %}{% endif %}
+{% elif term %}{% set title = term.name %}
+{% elif taxonomy %}{% set title = taxonomy.name %}{% endif %}
+<meta name="description" content="{{ description }}" />
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:description" content="{{ description }}" />
+<meta property="og:site_name" content="{{ config.title }}" />
+<meta property="og:type" content="{% if page and page.date %}article{% else %}website{% endif %}" />
+<meta name="twitter:card" content="summary" />
+{% if current_url %}
+<link rel="canonical" href="{{ current_url }}" />
+<meta property="og:url" content="{{ current_url }}" />
+{% else %}<meta name="robots" content="noindex" />{% endif %}
+{{ head::feed_discovery(path=config.extra.feed_path) }}
 {% endmacro general_meta %}

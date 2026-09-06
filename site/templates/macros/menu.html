@@ -5,24 +5,24 @@ if config.extra.main_menu_show -%} {%- set show_len =
 config.extra.main_menu_show -%} {%- set menu_more = config.extra.main_menu_more
 -%} {%- else -%} {%- set show_len = main_len -%} {%- set menu_more = "" -%} {%-
 endif -%}
-<nav class="menu-desktop">
+<nav class="menu-desktop" aria-label="Main navigation">
   <ul class="menu-inner menu-inner-desktop">
     {{ menu::items(menu=menu_items | slice(end=show_len),
     current_url=current_url)}} {%- if main_len > show_len -%}
-    <ul class="menu-inner-list">
-      <li class="menu-inner-list-more-trigger" tabindex="0">
+    <li class="menu-inner-list">
+      <button type="button" class="menu-inner-list-more-trigger" aria-controls="more-menu" aria-expanded="false">
         {{ menu_more }} ▾
-      </li>
-      <ul class="menu-inner-list-more">
+      </button>
+      <ul class="menu-inner-list-more" id="more-menu">
         {{ menu::items(menu=menu_items | slice(start=show_len),
         current_url=current_url) }}
       </ul>
-    </ul>
+    </li>
     {%- endif -%}
   </ul>
 </nav>
-<nav class="menu-mobile">
-  <ul class="menu-inner menu-inner-mobile hidden">
+<nav class="menu-mobile hidden" id="mobile-menu" aria-label="Main navigation">
+  <ul class="menu-inner menu-inner-mobile">
     {{ menu::items(menu=menu_items, current_url=current_url) }}
   </ul>
 </nav>

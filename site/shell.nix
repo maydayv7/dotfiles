@@ -5,6 +5,7 @@ pkgs.mkShell {
     git
     zola
     wrangler
+    (python3.withPackages (python: [python.fonttools python.brotli]))
   ];
   shellHook = ''echo "## Website Builder Shell ##"'';
 }

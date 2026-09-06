@@ -72,7 +72,7 @@
     }
 
     &-mobile {
-      @media (min-width: $phone-max-width) {
+      @media (min-width: ($phone-max-width + 1px)) {
         display: none;
       }
 
@@ -144,6 +144,9 @@
           top: 35px;
 
           &-trigger {
+            background: none;
+            border: none;
+            font: inherit;
             color: var(--accent-secondary);
             cursor: pointer;
             margin: 0;
@@ -160,6 +163,9 @@
     }
 
     &-trigger {
+      background: none;
+      font: inherit;
+      cursor: pointer;
       display: none;
 
       @media (max-width: $phone-max-width) {

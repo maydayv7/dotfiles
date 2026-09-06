@@ -3,16 +3,31 @@
 <header class="header">
   <div class="header-inner">
     <div class="header-logo">{{ logo::logo(config=config) }}</div>
-    <div class="menu-trigger" tabindex="0">
-      <div class="menu-trigger-button">menu</div>
-    </div>
+    <button
+      type="button"
+      class="menu-trigger menu-trigger-button"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      menu
+    </button>
   </div>
   {{ menu::menu(config=config, current_url=current_url) }} {% if
   config.build_search_index %}
-  <div class="search-container js-only">
-    <input class="input" id="search" type="search" placeholder="   Search" />
-    <div class="search-results box">
-      <div class="search-results__items"></div>
+  <div class="search-container js-only" role="search">
+    <input
+      class="input"
+      id="search"
+      type="search"
+      placeholder="   Search"
+      aria-label="Search this site"
+      aria-controls="search-results"
+      data-library="{{ get_url(path='fuse.min.js') }}"
+      data-index="{{ get_url(path='search_index.en.json') }}"
+    />
+    <div class="search-results box" id="search-results">
+      <p class="search-results__number" role="status"></p>
+      <ul class="search-results__items"></ul>
     </div>
   </div>
   {% endif %}

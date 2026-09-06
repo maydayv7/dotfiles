@@ -32,6 +32,7 @@ in
         coreutils
         git
         stagit-fork
+        (python3.withPackages (python: [python.fonttools python.brotli]))
       ];
 
       text = ''
@@ -103,6 +104,8 @@ in
         # 4. Generate Index
         echo "Generating Index..."
         stagit-index -n ${sitename} "$BUILD_ROOT"/*.git > "$OUTPUT_DIR/index.html"
+
+        python3 ${../scripts/optimize_fonts.py} "$OUTPUT_DIR" --source "$FONTS_SRC"
 
         echo "Successfully built to $OUTPUT_DIR!"
       '';

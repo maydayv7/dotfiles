@@ -1,138 +1,44 @@
-(function (switch_theme) {
-  const COOKIE_NAME = "theme_color";
-  function getCookie(name) {
-    const v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
-    return v ? v[2] : null;
-  }
+(() => {
+  const selector = document.getElementById("theme-select");
+  let current = document.getElementById("site-theme");
+  if (!selector || !current) return;
+  const allowed = new Set([...selector.options].map((option) => option.value));
+  let pending;
 
-  function setCookie(name, value) {
-    document.cookie = `${name}=${value}; path=/; max-age=31536000; SameSite=Lax`;
-  }
-
-  function saveTheme(themeName) {
-    setCookie(COOKIE_NAME, themeName);
-  }
-
-  function clearTheme() {
-    document.cookie = `${COOKIE_NAME}=; path=/; max-age=0; SameSite=Lax`;
-  }
-
-  const THEME = getCookie(COOKIE_NAME);
-  const STOP_BLINK_CSS_ID = "stop-blink";
-  const STYLESHEET_CLASSNAME = "stylesheet";
-  let previousLink = null;
-  let baseUrl = "";
-
-  const onLinkLoad = (event) => {
-    let link = event.currentTarget;
-    link.removeEventListener("load", onLinkLoad);
-    link.removeEventListener("error", onLinkError);
-    removeStylesheets();
-    link.className += STYLESHEET_CLASSNAME;
-    previousLink = null;
-    showBody();
-  };
-
-  const onLinkError = (event) => {
-    let link = event.currentTarget;
-    link.removeEventListener("load", onLinkLoad);
-    link.removeEventListener("error", onLinkError);
-    clearTheme();
-    updateThemeSelect(link.id, false);
-    link.remove();
-    if (previousLink) {
-      document.getElementsByTagName("head")[0].appendChild(previousLink);
+  function changeTheme(theme) {
+    if (!allowed.has(theme)) return;
+    if (pending) {
+      pending.remove();
+      pending = null;
     }
-    let sheets = document.querySelectorAll(`.${STYLESHEET_CLASSNAME}`);
-    if (sheets.length > 0) updateThemeSelect(sheets[0].id, true);
-    showBody();
-  };
-
-  function changeTheme(themeName, firstLoad) {
-    var fileref = document.createElement("link");
-    fileref.rel = "stylesheet";
-    fileref.type = "text/css";
-    fileref.href = `${baseUrl}${
-      baseUrl.slice(-1) !== "/" ? "/" : ""
-    }color/${themeName}.css`;
-    fileref.id = themeName;
-
-    let link = document.getElementsByTagName("head")[0].appendChild(fileref);
-    link.addEventListener("load", onLinkLoad);
-    link.addEventListener("error", onLinkError);
-
-    if (firstLoad) {
-      let sheets = document.querySelectorAll(`.${STYLESHEET_CLASSNAME}`);
-      if (sheets.length > 0) previousLink = sheets[0];
+    if (theme === current.dataset.theme) {
+      selector.value = theme;
+      return;
     }
-
-    saveTheme(themeName);
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = new URL(`${theme}.css`, current.href).href;
+    link.dataset.theme = theme;
+    pending = link;
+    link.onload = () => {
+      if (pending !== link) return;
+      current.replaceWith(link);
+      link.id = "site-theme";
+      current = link;
+      pending = null;
+      selector.value = theme;
+      document.cookie = `theme_color=${theme}; path=/; max-age=31536000; SameSite=Lax`;
+    };
+    link.onerror = () => {
+      if (pending !== link) return;
+      link.remove();
+      pending = null;
+      selector.value = current.dataset.theme;
+    };
+    document.head.appendChild(link);
   }
 
-  function removeStylesheets() {
-    document.querySelectorAll(`.${STYLESHEET_CLASSNAME}`).forEach((el) => {
-      if (el !== previousLink) el.remove();
-    });
-  }
-
-  function hideBody() {
-    let head = document.getElementsByTagName("head")[0];
-    let style = document.createElement("style");
-    let css = "body{visibility:hidden;}";
-
-    style.id = STOP_BLINK_CSS_ID;
-    style.setAttribute("type", "text/css");
-
-    if (style.styleSheet) {
-      style.styleSheet.cssText = css;
-    } else {
-      style.appendChild(document.createTextNode(css));
-    }
-    head.appendChild(style);
-  }
-
-  function showBody() {
-    let css = document.getElementById(STOP_BLINK_CSS_ID);
-    if (css) css.remove();
-  }
-
-  function updateThemeSelect(theme, setSelected) {
-    let elements = document.querySelectorAll("#theme-select>option");
-    if (elements.length) {
-      elements.forEach((element) => {
-        if (element.value === theme) {
-          if (setSelected) {
-            element.selected = "selected";
-          } else {
-            element.remove();
-          }
-        }
-      });
-    } else {
-      window.addEventListener("load", () => {
-        updateThemeSelect(theme, setSelected);
-      });
-    }
-  }
-
-  switch_theme.init = function (url) {
-    baseUrl = url;
-    if (THEME) {
-      setCookie(COOKIE_NAME, THEME);
-      if (!document.getElementById(THEME)) {
-        hideBody();
-        changeTheme(THEME, true);
-        updateThemeSelect(THEME, true);
-      }
-    }
-
-    window.addEventListener("load", () => {
-      let selector = document.getElementById("theme-select");
-      if (selector) {
-        selector.onchange = function () {
-          changeTheme(this.value);
-        };
-      }
-    });
-  };
-})((window.switch_theme = window.switch_theme || {}));
+  selector.addEventListener("change", () => changeTheme(selector.value));
+  const saved = document.cookie.match(/(?:^|;\s*)theme_color=([^;]*)/);
+  if (saved && allowed.has(saved[1])) changeTheme(saved[1]);
+})();

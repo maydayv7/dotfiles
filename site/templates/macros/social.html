@@ -3,53 +3,116 @@
   {%- if config.generate_feeds -%}
   <a href="{{ config.extra.feed_path }}" style="text-decoration: none">
     {%- set rss_image = resize_image(path="../static/social/rss.png", width=33,
-    height=33, op="scale", format="png") -%}
-    <img src="{{ rss_image.url }}" style="display: inline" alt="RSS Badge" />
+    height=33, op="scale", format="png") -%} {%- set rss_image_2x =
+    resize_image(path="../static/social/rss.png", width=66, height=66,
+    op="scale", format="png") -%} {%- set rss_image_3x =
+    resize_image(path="../static/social/rss.png", width=99, height=99,
+    op="scale", format="png") -%}
+    <img
+      src="{{ rss_image.url }}"
+      srcset="{{ rss_image_2x.url }} 2x, {{ rss_image_3x.url }} 3x"
+      width="33"
+      height="33"
+      loading="lazy"
+      decoding="async"
+      style="display: inline"
+      alt="RSS Badge"
+    />
   </a>
   {%- endif -%} {%- if config.extra.github_profile -%}
   <a href="{{ config.extra.github_profile }}" style="text-decoration: none">
     {%- set gh_image = resize_image(path="../static/social/github.png",
-    width=33, height=33, op="scale", format="png") -%}
+    width=33, height=33, op="scale", format="png") -%} {%- set gh_image_2x =
+    resize_image(path="../static/social/github.png", width=66, height=66,
+    op="scale", format="png") -%} {%- set gh_image_3x =
+    resize_image(path="../static/social/github.png", width=99, height=99,
+    op="scale", format="png") -%}
     <img
       src="{{ gh_image.url }}"
+      srcset="{{ gh_image_2x.url }} 2x, {{ gh_image_3x.url }} 3x"
+      width="33"
+      height="33"
+      loading="lazy"
+      decoding="async"
       style="display: inline"
-      alt="GitHub Profile Badge" />
+      alt="GitHub Profile Badge"
+    />
   </a>
   {%- endif -%} {%- if config.extra.email -%}
   <a href="{{ config.extra.email }}" style="text-decoration: none">
     {%- set email_image = resize_image(path="../static/social/mail.png",
-    width=36, height=36, op="scale", format="png") -%}
+    width=36, height=36, op="scale", format="png") -%} {%- set email_image_2x =
+    resize_image(path="../static/social/mail.png", width=72, height=72,
+    op="scale", format="png") -%} {%- set email_image_3x =
+    resize_image(path="../static/social/mail.png", width=108, height=108,
+    op="scale", format="png") -%}
     <img
       src="{{ email_image.url }}"
+      srcset="{{ email_image_2x.url }} 2x, {{ email_image_3x.url }} 3x"
+      width="36"
+      height="36"
+      loading="lazy"
+      decoding="async"
       style="display: inline"
-      alt="Email Badge" />
+      alt="Email Badge"
+    />
   </a>
   {%- endif -%} {%- if config.extra.twitter -%}
   <a href="{{ config.extra.twitter }}" style="text-decoration: none">
     {%- set twitter_image = resize_image(path="../static/social/twitter.png",
-    width=33, height=33, op="scale", format="png") -%}
+    width=33, height=33, op="scale", format="png") -%} {%- set twitter_image_2x
+    = resize_image(path="../static/social/twitter.png", width=66, height=66,
+    op="scale", format="png") -%} {%- set twitter_image_3x =
+    resize_image(path="../static/social/twitter.png", width=99, height=99,
+    op="scale", format="png") -%}
     <img
       src="{{ twitter_image.url }}"
+      srcset="{{ twitter_image_2x.url }} 2x, {{ twitter_image_3x.url }} 3x"
+      width="33"
+      height="33"
+      loading="lazy"
+      decoding="async"
       style="display: inline"
-      alt="Twitter Badge" />
+      alt="Twitter Badge"
+    />
   </a>
   {%- endif -%} {%- if config.extra.reddit_profile -%}
   <a href="{{ config.extra.reddit_profile }}" style="text-decoration: none">
     {%- set reddit_image = resize_image(path="../static/social/reddit.png",
-    width=33, height=33, op="scale", format="png") -%}
+    width=33, height=33, op="scale", format="png") -%} {%- set reddit_image_2x =
+    resize_image(path="../static/social/reddit.png", width=66, height=66,
+    op="scale", format="png") -%} {%- set reddit_image_3x =
+    resize_image(path="../static/social/reddit.png", width=99, height=99,
+    op="scale", format="png") -%}
     <img
       src="{{ reddit_image.url }}"
+      srcset="{{ reddit_image_2x.url }} 2x, {{ reddit_image_3x.url }} 3x"
+      width="33"
+      height="33"
+      loading="lazy"
+      decoding="async"
       style="display: inline"
-      alt="Reddit Badge" />
+      alt="Reddit Badge"
+    />
   </a>
   {%- endif -%} {%- if config.extra.discord_profile -%}
   <a href="{{ config.extra.discord_profile }}" style="text-decoration: none">
     {%- set discord_image = resize_image(path="../static/social/discord.png",
-    width=39, height=39, op="scale", format="png") -%}
+    width=39, height=39, op="scale", format="png") -%} {%- set discord_image_2x
+    = resize_image(path="../static/social/discord.png", width=78, height=78,
+    op="scale", format="png") -%} {%- set discord_image_3x =
+    resize_image(path="../static/social/discord.png", width=117, height=117,
+    op="scale", format="png") -%}
     <img
       src="{{ discord_image.url }}"
+      srcset="{{ discord_image_2x.url }} 2x, {{ discord_image_3x.url }} 3x"
+      width="39"
+      height="39"
+      loading="lazy"
+      decoding="async"
       style="display: inline"
-      alt="Discord Badge" />
+      alt="Discord Badge"
+    />
   </a>
   {%- endif -%}
 </div>

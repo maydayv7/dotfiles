@@ -3,6 +3,7 @@
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 
   &.center {
     margin-left: auto;
@@ -19,15 +20,17 @@ img {
 }
 
 figure {
-  display: table;
-  min-width: 300px;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  min-width: min(300px, 100%);
   text-align: center;
 
   figcaption {
     background: var(--background);
     caption-side: bottom;
     color: var(--accent);
-    display: table-caption;
+    display: block;
     font-size: 14px;
     margin-top: 5px;
     padding: 5px 10px;

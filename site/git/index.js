@@ -14,9 +14,9 @@ export default {
     const url = new URL(request.url);
 
     // Theme Switching
-    if (url.pathname.endsWith("style.css")) {
+    if (url.pathname === "/style.css") {
       const theme = getCookie(request.headers.get("Cookie"), "theme_color");
-      if (theme && theme !== "red") {
+      if (["black", "blue"].includes(theme)) {
         const themeUrl = new URL(url);
         themeUrl.pathname = themeUrl.pathname.replace(
           "style.css",
@@ -28,7 +28,7 @@ export default {
         if (themed.ok) {
           const headers = new Headers(themed.headers);
           headers.set("Vary", "Cookie");
-          headers.set("Cache-Control", "no-store");
+          headers.set("Cache-Control", "private, no-cache");
           return new Response(themed.body, {
             status: themed.status,
             headers,
@@ -39,10 +39,11 @@ export default {
 
     // Serve assets
     const response = await env.ASSETS.fetch(request);
-    if (response.status === 404) {
-      const fallbackUrl = new URL(request.url);
-      fallbackUrl.pathname = "/index.html";
-      return env.ASSETS.fetch(new Request(fallbackUrl, request));
+    if (url.pathname === "/style.css") {
+      const headers = new Headers(response.headers);
+      headers.set("Vary", "Cookie");
+      headers.set("Cache-Control", "private, no-cache");
+      return new Response(response.body, { status: response.status, headers });
     }
     return response;
   },

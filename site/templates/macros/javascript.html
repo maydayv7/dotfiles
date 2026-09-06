@@ -1,18 +1,15 @@
 {% macro script() %}
-<script src="{{ get_url(path="js/load.js") }}"></script>
-<script src="{{ get_url(path="js/theme.js") }}"></script>
-<script src="{{ get_url(path="js/scroll.js") }}"></script>
-<script> switch_theme.init("{{config.base_url | safe}}"); </script>
-<script src="{{ get_url(path="js/clipboard.js") }}"></script>
-<script src="{{ get_url(path="js/footnote.js") }}"></script>
+<script defer src="{{ get_url(path="js/load.js") }}"></script>
+<script defer src="{{ get_url(path="js/theme.js") }}"></script>
+{% if page %}<script defer src="{{ get_url(path="js/scroll.js") }}"></script>{% endif %}
+{% if page and page.content is containing("<pre") %}<script defer src="{{ get_url(path="js/clipboard.js") }}"></script>{% endif %}
+{% if page and page.content is containing("footnote-reference") %}<script defer src="{{ get_url(path="js/footnote.js") }}"></script>{% endif %}
 {% if config.build_search_index %}
-  <script src="{{ get_url(path="fuse.min.js") }}"></script>
-  <script src="{{ get_url(path="search_index.en.js") }}"></script>
-  <script src="{{ get_url(path="js/search.js") }}"></script>
+  <script defer src="{{ get_url(path="js/search.js") }}"></script>
 {% endif %}
 {% endmacro script %}
-{% macro mobile() %} <script src="{{ get_url(path="js/mobile.js") }}"></script> {% endmacro mobile %}
-{% macro comments() %} <script src="{{ get_url(path="js/comments.js") }}"></script> {% endmacro comments %}
+{% macro mobile() %} <script defer src="{{ get_url(path="js/mobile.js") }}"></script> {% endmacro mobile %}
+{% macro comments() %} <script defer src="{{ get_url(path="js/comments.js") }}"></script> {% endmacro comments %}
 {% macro katex() %} {% if config.extra.math_katex %}
   <link rel="stylesheet" href="{{ get_url(path="math/katex.css") }}">
   <script defer type="text/javascript" src="{{ get_url(path="js/katex.js") | safe }}"></script>
@@ -25,5 +22,5 @@
         {left: '\\(', right: '\\)', display: false},
         {left: '\\[', right: '\\]', display: true}
       ]
-    });"></script>
+    }); document.querySelectorAll('.katex-display').forEach(element => element.tabIndex = 0);"></script>
 {% endif %} {% endmacro katex %}

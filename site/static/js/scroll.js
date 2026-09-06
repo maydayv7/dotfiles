@@ -16,10 +16,12 @@ if (scrollButton) {
   function scrollBack() {
     rootElement.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
     });
   }
 
   scrollButton.addEventListener("click", scrollBack);
-  document.addEventListener("scroll", handleScroll);
+  document.addEventListener("scroll", handleScroll, { passive: true });
 }

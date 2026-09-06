@@ -1,13 +1,13 @@
 # Site URL
-base_url = "/"
+base_url = "https://maydayv7.cc"
 title = "maydayv7"
 description = "My Personal Website"
 
 # Default Language used in Feeds
 default_language = "en"
 
-# Compile all '.scss' files in './sass'
-compile_sass = true
+compile_sass = true  # Compile all '.scss' files in './sass'
+minify_html = true
 
 # Build search index to be used later by JS Library
 build_search_index = true
@@ -47,7 +47,7 @@ include_title = true
 include_description = false
 include_path = false
 include_content = true
-index_format = "fuse_javascript"
+index_format = "fuse_json"
 
 [extra]
 # Site Theme

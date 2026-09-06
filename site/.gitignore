@@ -3,3 +3,4 @@ public
 node_modules
 static/processed_images
 static/giallo.css
+__pycache__

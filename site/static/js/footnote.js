@@ -14,6 +14,7 @@ window.addEventListener("load", function () {
     backlink.href = "#" + refhash;
     backlink.className = "backlink";
     backlink.innerText = "↩";
+    backlink.setAttribute("aria-label", "Back to footnote reference " + hash);
     const paras = footnote.children;
     const lastPara = paras[paras.length - 1];
     lastPara.appendChild(backlink);

@@ -4,6 +4,10 @@ document.querySelectorAll("pre > code").forEach(function (codeBlock) {
   button.type = "button";
   button.innerText = " Copy";
   button.addEventListener("click", function () {
+    if (!navigator.clipboard) {
+      button.innerText = "Select code to copy";
+      return;
+    }
     navigator.clipboard.writeText(codeBlock.innerText).then(
       function () {
         button.blur();
@@ -19,6 +23,7 @@ document.querySelectorAll("pre > code").forEach(function (codeBlock) {
   });
 
   var pre = codeBlock.parentNode;
+  pre.tabIndex = 0;
   var block = pre.parentNode.classList.contains("highlight")
     ? pre.parentNode
     : pre;

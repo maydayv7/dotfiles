@@ -136,6 +136,8 @@ blockquote {
 
 .post {
   text-align: left;
+  min-width: 0;
+  overflow-wrap: anywhere;
   width: 100%;
 
   &:not(:last-of-type) {
@@ -184,6 +186,7 @@ blockquote {
     }
 
     &-sub {
+      font-size: 1.2rem;
       --border: 2.5px dotted var(--accent-secondary) !important;
       color: var(--accent-secondary) !important;
       padding-top: 15px !important;
@@ -293,17 +296,14 @@ blockquote {
           margin-left: 0.5rem;
           text-decoration: none;
           vertical-align: 1%;
-          visibility: hidden;
+          opacity: 0;
         }
 
-        &:hover {
+        &:hover,
+        &:focus-within {
           .zola-anchor {
-            visibility: visible;
+            opacity: 1;
           }
-        }
-
-        @media (max-width: $phone-max-width) {
-          visibility: visible;
         }
       }
     }

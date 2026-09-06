@@ -84,7 +84,7 @@ fn foo(arg: String) -> Result<u32, Io::Error> {
 
 ## Math
 
-Supports Math Type-Setting using [$\KaTeX$](http://khan.github.io/KaTeX/)
+Supports Math Type-Setting using [KaTeX](https://katex.org/)
 
 ```
 $$
@@ -107,11 +107,11 @@ I'm not a fool to be fooled by a fool, you fool ;)
 
 # Media
 
-Supports wide range of Multi-Media using [_shortcodes_](https://www.getzola.org/documentation/content/shortcodes/)
+Supports wide range of Multi-Media using [_shortcodes_](https://www.getzola.org/documentation/)
 
 ## Image
 
-{{ figure(src="https://picsum.photos/700", alt="Random", style="border-style: inset; border-radius: 5px;", caption="Random Image", caption_style="font-weight: bold;") }}
+{{ figure(src="https://picsum.photos/700", alt="Random", width=700, height=700, style="border-style: inset; border-radius: 5px;", caption="Random Image", caption_style="font-weight: bold;") }}
 
 ## Video
 

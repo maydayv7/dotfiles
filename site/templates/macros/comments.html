@@ -1,44 +1,44 @@
-{% macro comments() %} {% if config.extra.disqus.enabled is defined and
-config.extra.disqus.enabled == true %} {{ comments::disqus() }} {{
-js::comments() }} {% endif %} {% if config.extra.giscus.enabled is defined and
-config.extra.giscus.enabled == true %} {{ comments::giscus() }} {{
-js::comments() }} {% endif %} {% endmacro comments %} {% macro disqus() %}
-<div class="comments" id="disqus_thread"></div>
-<script>
-  var disqus_config = function () {
-    this.page.url = "{{ page.permalink | safe }}";
-    this.page.identifier = "{{ page.permalink | safe }}";
-  };
-
-  (function () {
-    var d = document,
-      s = d.createElement("script");
-    s.src = "https://{{ config.extra.disqus.short_name }}.disqus.com/embed.js";
-    s.setAttribute("data-timestamp", +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
-</script>
-<noscript
-  >Please enable JavaScript to view the
-  <a href="https://disqus.com/?ref_noscript"
-    >Comments powered by Disqus</a
-  ></noscript
+{% macro comments() %} {% if config.extra.disqus.enabled or
+config.extra.giscus.enabled %} {% if config.extra.disqus.enabled %}{% set thread
+= "disqus_thread" %}{% else %}{% set thread = "giscus_thread" %}{% endif %}
+<button
+  type="button"
+  class="comments-collapsible js-only"
+  aria-expanded="false"
+  aria-controls="comments-{{ thread }}"
 >
-{% endmacro disqus %} {% macro giscus() %}
-<div class="comments" id="giscus_thread">
-  <script
-    src="https://giscus.app/client.js"
-    data-repo="{{ config.extra.giscus.repo }}"
-    data-repo-id="{{ config.extra.giscus.repo_id }}"
-    data-category="{{ config.extra.giscus.category }}"
-    data-category-id="{{ config.extra.giscus.category_id }}"
-    data-mapping="pathname"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="transparent_dark"
-    data-lang="en"
-    crossorigin="anonymous"
-    async></script>
+  Show Comments
+</button>
+<div
+  class="comments"
+  id="comments-{{ thread }}"
+  data-url="{{ page.permalink }}"
+  hidden
+  inert
+>
+  <div class="comments-content" id="{{ thread }}">
+    {% if config.extra.disqus.enabled %}
+    <script
+      type="text/plain"
+      data-src="https://{{ config.extra.disqus.short_name }}.disqus.com/embed.js"
+    ></script>
+    {% else %}
+    <script
+      type="text/plain"
+      data-src="https://giscus.app/client.js"
+      data-repo="{{ config.extra.giscus.repo }}"
+      data-repo-id="{{ config.extra.giscus.repo_id }}"
+      data-category="{{ config.extra.giscus.category }}"
+      data-category-id="{{ config.extra.giscus.category_id }}"
+      data-mapping="pathname"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="transparent_dark"
+      data-lang="en"
+      crossorigin="anonymous"
+    ></script>
+    {% endif %}
+  </div>
 </div>
-{% endmacro giscus %}
+{{ js::comments() }} {% endif %} {% endmacro comments %}

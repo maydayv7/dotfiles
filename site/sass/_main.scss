@@ -67,6 +67,38 @@ body {
 
 .content {
   display: flex;
+  min-width: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 20px;
+  top: -100px;
+  padding: 10px;
+  background: var(--background);
+  z-index: 200;
+
+  &:focus {
+    top: 10px;
+  }
+}
+
+:focus-visible {
+  outline: 2px dotted var(--accent-secondary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
 h1 {
@@ -100,7 +132,7 @@ h6 {
   }
 
   .zola-anchor {
-    visibility: hidden;
+    opacity: 0;
   }
 }
 
