@@ -10,6 +10,6 @@ run_worker_first = true
 
 [env.production]
 routes = [
-  { pattern = "maydayv7.cc", custom_domain = true },
-  { pattern = "www.maydayv7.cc", custom_domain = true }
+  { pattern = "maydayv7.dev", custom_domain = true },
+  { pattern = "www.maydayv7.dev", custom_domain = true }
 ]

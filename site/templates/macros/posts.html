@@ -1,44 +1,37 @@
 {% macro meta(page, list=false) %}
 <div class="post-meta {% if list %}meta-list{% else %}meta-page{% endif %}">
-  {{ posts::date(date=page.date, updated=page.updated) }}
-  {% if page.date or page.updated %} :: {% endif %}
-  {% if list %}
+  {{ posts::date(date=page.date, updated=page.updated) }} {% if page.date or
+  page.updated %} :: {% endif %} {% if list %}
   <span class="post-metatitle">
     <strong>@<a href="{{ page.permalink | safe }}">{{ page.title }}</a></strong>
   </span>
   {% else %}
-  <span class="post-readtime"> <span class="post-icon"></span> <i>{{ page.reading_time }}</i> min </span>
-  :: <span class="post-wordcount"> <span class="post-icon"></span> <i>{{ page.word_count }}</i> words </span>
-  {% endif %} 
-  {{ posts::taxonomies(taxonomy=page.taxonomies) }}
+  <span class="post-readtime">
+    <span class="post-icon"></span> <i>{{ page.reading_time }}</i> min
+  </span>
+  ::
+  <span class="post-wordcount">
+    <span class="post-icon"></span> <i>{{ page.word_count }}</i> words
+  </span>
+  {% endif %} {{ posts::taxonomies(taxonomy=page.taxonomies) }}
 </div>
-{% endmacro meta %}
-{% macro date(date, updated) %}
+{% endmacro meta %} {% macro date(date, updated) %}
 <span class="post-date">
   {%- if updated -%}
-    <span class="post-icon"></span> {{ updated | date(format="%d.%m.%Y") }}
-    {%- if date -%}&nbsp;::&nbsp;{%- endif -%}
-  {%- endif -%}
-  {%- if date -%}
-    <span class="post-icon"></span> {{ date | date(format="%d.%m.%Y") }}
-  {%- endif -%}
+  <span class="post-icon"></span> {{ updated | date(format="%d.%m.%Y") }} {%-
+  if date -%}&nbsp;::&nbsp;{%- endif -%} {%- endif -%} {%- if date -%}
+  <span class="post-icon"></span> {{ date | date(format="%d.%m.%Y") }} {%-
+  endif -%}
 </span>
-{% endmacro date %}
-{% macro taxonomies(taxonomy) %}
-  {% if taxonomy.series -%}
-    :: {{ posts::series(series=taxonomy.series) }}
-  {% endif -%}
-  {% if taxonomy.tags -%}
-    :: {{ posts::tags(tags=taxonomy.tags) }}
-  {% endif -%}
-{% endmacro taxonomies %}
-{% macro series(series) %}
-  {% for serie in series -%}
-    <strong>^<a href="{{ get_taxonomy_url(kind="series", name=serie) }}">{{ serie }}</a></strong>
-  {% endfor -%}
-{% endmacro series %}
-{% macro tags(tags) %}
-  {% for tag in tags -%}
-    #<a href="{{ get_taxonomy_url(kind="tags", name=tag) }}">{{ tag }}</a>
-  {% endfor -%}
-{% endmacro tags %}
+{% endmacro date %} {% macro taxonomies(taxonomy) %} {% if taxonomy.series -%}
+:: {{ posts::series(series=taxonomy.series) }} {% endif -%} {% if taxonomy.tags
+-%} :: {{ posts::tags(tags=taxonomy.tags) }} {% endif -%} {% endmacro taxonomies
+%} {% macro series(series) %} {% for serie in series -%}
+<strong
+  >^<a href="{{ get_taxonomy_url(kind='series', name=serie) }}"
+    >{{ serie }}</a
+  ></strong
+>
+{% endfor -%} {% endmacro series %} {% macro tags(tags) %} {% for tag in tags
+-%} #<a href="{{ get_taxonomy_url(kind='tags', name=tag) }}">{{ tag }}</a>
+{% endfor -%} {% endmacro tags %}

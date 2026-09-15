@@ -21,6 +21,7 @@
   "search.smartCase": true,
   "search.useGlobalIgnoreFiles": true,
   "search.useParentIgnoreFiles": true,
+  "telemetry.telemetryLevel": "off",
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.enableVisualBell": true,
   "terminal.integrated.tabs.separator": " / ",

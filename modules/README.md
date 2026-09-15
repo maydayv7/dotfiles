@@ -125,7 +125,7 @@ The following are the custom configuration options exposed by the modules above:
   - `git` -
     - `hosting` -
       - `enable`: Enable Gitea Code Hosting - `true / false`
-      - `domain`: Website Domain Name - Ex. `maydayv7.cc`
+      - `domain`: Website Domain Name - Ex. `maydayv7.dev`
       - `secret`: Path to Cloudflare Authentication Credentials
     - `runner` -
       - `support`: Enable Support for `git` Runners - `null / "github" / "gitlab"`

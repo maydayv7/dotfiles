@@ -15,6 +15,6 @@ Tech enthusiast (_read:_ fanatic) and avid reader
 
 Ways to follow or get in contact with me
 
-- Mail: <mail@maydayv7.cc>
+- Mail: <mail@maydayv7.dev>
 - GitHub: @[maydayv7 ](https://github.com/maydayv7)
 - LinkedIn: [maydayv7 ](https://www.linkedin.com/in/maydayv7/)

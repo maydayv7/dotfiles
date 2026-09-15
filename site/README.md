@@ -1,10 +1,10 @@
 ## My Personal Website
 
-[![website](../files/images/website.png)](https://maydayv7.cc)
+[![website](../files/images/website.png)](https://maydayv7.dev)
 
 Built with [Zola](https://www.getzola.org/)  
 Deployed via [Nix](https://nixos.org/) and [Cloudflare](https://www.cloudflare.com/)  
-Hosted at [maydayv7.cc](https://maydayv7.cc)
+Hosted at [maydayv7.dev](https://maydayv7.dev)
 
 ### Build
 
@@ -57,7 +57,7 @@ To override the URL, run: <pre><code>nix build --impure --expr 'with (builtins.g
 
 ## `git` frontend
 
-The [`git`](./git) directory contains the configuration for my static `git` frontend, hosted at [git.maydayv7.cc](https://git.maydayv7.cc)  
+The [`git`](./git) directory contains the configuration for my static `git` frontend, hosted at [git.maydayv7.dev](https://git.maydayv7.dev)  
 It is built using my `stagit` [fork](https://github.com/maydayv7/stagit) to generate static HTML pages for my repositories  
 To build it, run `nix run .#build-stagit`  
 [`GitHub Actions`](../.github/workflows/website-git.yaml) is used to automatically build the site and deploy it to Cloudflare every week

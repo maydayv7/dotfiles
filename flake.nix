@@ -20,7 +20,7 @@
 #          ▟███▛  ▜███▙       ▜███▙           #
 #          ▝▀▀▀    ▀▀▀▀▘       ▀▀▀▘           #
 #   ---------------------------------------   #
-#     Author  -> V 7 <mail@maydayv7.cc>       #
+#     Author  -> V 7 <mail@maydayv7.dev>      #
 #     License -> GPL-3.0                      #
 #     URL     -> github:maydayv7/dotfiles     #
 #   ---------------------------------------   #
@@ -205,13 +205,13 @@
 
     # Desktop Shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.0.1";
+      url = "github:noctalia-dev/noctalia/v5.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Login Greeter
     noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter";
+      url = "github:noctalia-dev/noctalia-greeter/v1.5.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

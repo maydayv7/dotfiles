@@ -35,8 +35,8 @@ endblock math -%} {%- block title %}
   </ul>
   {% endif %} {% if config.extra.edit_page and page.extra.edit %} {{
   edit::edit_page(current_path=current_path) }} {% endif %} {% if
-  page.extra.comments %}
-  {{ comments::comments() }} {% endif %} {% if page.extra.github %}
+  page.extra.comments %} {{ comments::comments() }} {% endif %} {% if
+  page.extra.github %}
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   {% endif %} {{ pages::related() }}
 </article>

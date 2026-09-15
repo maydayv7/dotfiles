@@ -9,5 +9,5 @@ run_worker_first = ["/style.css"]
 
 [env.production]
 routes = [
-  { pattern = "git.maydayv7.cc", custom_domain = true }
+  { pattern = "git.maydayv7.dev", custom_domain = true }
 ]

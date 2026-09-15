@@ -14,7 +14,7 @@
 
 This directory contains the configuration and `dotfiles` for my continuously evolving multi-PC setup (using [Nix](https://nixos.org/)).
 All the devices I own, controlled by code.
-It also builds and deploys my website to [maydayv7.cc](https://maydayv7.cc).
+It also builds and deploys my website to [maydayv7.dev](https://maydayv7.dev).
 
 <details>
 <summary><b>Pictures</b></summary>
@@ -106,7 +106,7 @@ It also builds and deploys my website to [maydayv7.cc](https://maydayv7.cc).
 - Support for Base16 color theming using [`stylix`](https://github.com/danth/stylix)
 - Support for declaratively installing [Flatpak](./modules/apps/flatpak.nix) applications using [`nix-flatpak`](https://github.com/gmodena/nix-flatpak)
 - Support for Android Virtualisation using [Waydroid](https://waydro.id/)
-- Support for VFIO PCI Device Passthrough with a declarative, performant Windows VM using [NixVirt](https://github.com/AshleyYakeley/NixVirt) and [Looking Glass](https://looking-glass.io/) (see my [blog post](https://maydayv7.cc/blog/nixos/win11vm))
+- Support for VFIO PCI Device Passthrough with a declarative, performant Windows VM using [NixVirt](https://github.com/AshleyYakeley/NixVirt) and [Looking Glass](https://looking-glass.io/) (see my [blog post](https://maydayv7.dev/blog/nixos/win11vm))
 
 ## Programs
 
@@ -337,7 +337,7 @@ _In case you are using the `advanced` filesystem scheme, you may need to set the
 <summary><b>Build It Yourself</b></summary>
 
 If you really want to get dirty with Nix and decide to invest oodles of your time into building your own configuration, this repository can be used as inspiration.  
-Follow along with my [NixOS Desktop](https://maydayv7.cc/series/nixos-desktop/) Series
+Follow along with my [NixOS Desktop](https://maydayv7.dev/series/nixos-desktop/) Series
 
 **Welcome** to the Nix Community! ;)
 

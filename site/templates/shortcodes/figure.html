@@ -32,8 +32,7 @@
     style="{{ style }}"
     {%
     endif
-    %}
-  />
+    %} />
   {% if caption %}
   <figcaption
     class="{% if caption_position %}{{ caption_position }}{% else -%} center {%- endif %}"
@@ -44,8 +43,7 @@
     style="{{ caption_style | safe }}"
     {%
     endif
-    %}
-  >
+    %}>
     {{ caption }}
   </figcaption>
   {% endif %}

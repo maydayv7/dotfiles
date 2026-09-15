@@ -13,8 +13,7 @@
       <form
         class="pagination__form"
         enctype="text/plain"
-        action="{{ paginator.base_url }}"
-      >
+        action="{{ paginator.base_url }}">
         <label for="page">page</label>
         <input
           id="page"
@@ -24,8 +23,7 @@
           min="1"
           max="{{ paginator.number_pagers }}"
           oninput="this.style.width = this.value.length + 3 + 'ch'"
-          required
-        />/ {{ paginator.number_pagers }}
+          required />/ {{ paginator.number_pagers }}
         <button>Go</button>
       </form>
     </div>

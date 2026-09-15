@@ -5,8 +5,7 @@ config.extra.giscus.enabled %} {% if config.extra.disqus.enabled %}{% set thread
   type="button"
   class="comments-collapsible js-only"
   aria-expanded="false"
-  aria-controls="comments-{{ thread }}"
->
+  aria-controls="comments-{{ thread }}">
   Show Comments
 </button>
 <div
@@ -14,14 +13,12 @@ config.extra.giscus.enabled %} {% if config.extra.disqus.enabled %}{% set thread
   id="comments-{{ thread }}"
   data-url="{{ page.permalink }}"
   hidden
-  inert
->
+  inert>
   <div class="comments-content" id="{{ thread }}">
     {% if config.extra.disqus.enabled %}
     <script
       type="text/plain"
-      data-src="https://{{ config.extra.disqus.short_name }}.disqus.com/embed.js"
-    ></script>
+      data-src="https://{{ config.extra.disqus.short_name }}.disqus.com/embed.js"></script>
     {% else %}
     <script
       type="text/plain"
@@ -36,8 +33,7 @@ config.extra.giscus.enabled %} {% if config.extra.disqus.enabled %}{% set thread
       data-input-position="top"
       data-theme="transparent_dark"
       data-lang="en"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
     {% endif %}
   </div>
 </div>

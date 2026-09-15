@@ -1,8 +1,8 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.hostname === "www.maydayv7.cc") {
-      url.hostname = "maydayv7.cc";
+    if (url.hostname === "www.maydayv7.dev") {
+      url.hostname = "maydayv7.dev";
       url.protocol = "https:";
       return Response.redirect(url, 308);
     }

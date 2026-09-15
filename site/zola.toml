@@ -1,5 +1,5 @@
 # Site URL
-base_url = "https://maydayv7.cc"
+base_url = "https://maydayv7.dev"
 title = "maydayv7"
 description = "My Personal Website"
 
@@ -87,11 +87,11 @@ main_menu_items = [
   { url = "/blog/", name = "Blog" },
   { url = "/projects/", name = "Projects" },
   { url = "/about/", name = "About" },
-  { url = "https://git.maydayv7.cc", name = "Git", external = true },
+  { url = "https://git.maydayv7.dev", name = "Git", external = true },
 ]
 
 # Socials Bar
-email = "mailto:mail@maydayv7.cc"
+email = "mailto:mail@maydayv7.dev"
 feed_path = "/rss.xml"
 reddit_profile = "https://reddit.com/u/maydayv7"
 github_profile = "https://github.com/maydayv7"

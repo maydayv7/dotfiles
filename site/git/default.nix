@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  site ? "https://git.maydayv7.cc",
+  site ? "https://git.maydayv7.dev",
   sitename ? "maydayv7",
   test ? false,
 }: let

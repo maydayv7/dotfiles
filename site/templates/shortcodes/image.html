@@ -1,6 +1,5 @@
 <figure
-  class="{% if class is defined %}{{ class | safe }}{% else -%} center {%- endif %}"
->
+  class="{% if class is defined %}{{ class | safe }}{% else -%} center {%- endif %}">
   {%- if static is defined -%}
   <img
     loading="lazy"
@@ -13,8 +12,7 @@
     alt="{{ alt }}"
     {%
     endif
-    %}
-  />
+    %} />
   {%- else -%} {%- set src = page.path ~ src -%}
   <img
     loading="lazy"
@@ -27,8 +25,7 @@
     alt="{{ alt }}"
     {%
     endif
-    %}
-  />
+    %} />
   {%- endif -%} {% if caption %}
   <figcaption
     {%
@@ -38,8 +35,7 @@
     style="{{ caption_style | safe }}"
     {%
     endif
-    %}
-  >
+    %}>
     {{ caption }}
   </figcaption>
   {% endif %}

@@ -7,8 +7,10 @@
   <ul class="post-list">
     {% for term in terms %}
     <li>
-      <a href="{{ get_taxonomy_url(kind="tags", name=term.name) }}">{{ term.name
-      }}</a> ({{ term.pages | length }} post{{ term.pages | length | pluralize }})
+      <a href="{{ get_taxonomy_url(kind='tags', name=term.name) }}"
+        >{{ term.name }}</a
+      >
+      ({{ term.pages | length }} post{{ term.pages | length | pluralize }})
     </li>
     {% endfor %}
   </ul>
