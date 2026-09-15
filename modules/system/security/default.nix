@@ -24,7 +24,12 @@ in {
         programs.firejail.enable = true;
 
         ## Hardening
-        networking.stevenblack.enable = true; # Block Junk Sites
+        # Block Junk Sites
+        networking.stevenblack = {
+          enable = true;
+          whitelist = ["analytics.google.com"];
+        };
+
         boot = {
           # Kernel
           kernelParams = [
