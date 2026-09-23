@@ -14,6 +14,7 @@ This is my personal fork of [stagit](https://git.codemadness.org/stagit/).
   - Code syntax highlighting with [Pygments](https://pygments.org/)
   - Markdown rendering with [Python-Markdown](https://github.com/Python-Markdown/markdown)
   - Tables, task lists, GitHub callouts and math markup
+- File and diff previews limited to 2 MiB
 - Modified markup and shared elements through the website's [build](../default.nix) and [assembly](../assemble.py)
 
 ## Usage

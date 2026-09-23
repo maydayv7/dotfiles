@@ -18,6 +18,7 @@
 #include "compat.h"
 
 #define CMD_BUFSIZE 255
+#define MAX_CONTENT_SIZE (2 * 1024 * 1024)
 
 #define LEN(s) (sizeof(s) / sizeof(*s))
 
@@ -651,6 +652,7 @@ void printshowfile(FILE *fp, struct commitinfo *ci) {
   const git_diff_line *line;
   git_patch *patch;
   size_t nhunks, nhunklines, changed, add, del, total, i, j, k;
+  size_t diffsize = 0;
   char linestr[80];
   int c;
 
@@ -659,9 +661,15 @@ void printshowfile(FILE *fp, struct commitinfo *ci) {
   if (!ci->deltas)
     return;
 
+  for (i = 0; i < ci->ndeltas; i++) {
+    diffsize += git_patch_size(ci->deltas[i]->patch, 1, 1, 1);
+    if (diffsize > MAX_CONTENT_SIZE)
+      break;
+  }
   if (ci->filecount > 1000 || ci->ndeltas > 1000 || ci->addcount > 100000 ||
-      ci->delcount > 100000) {
+      ci->delcount > 100000 || diffsize > MAX_CONTENT_SIZE) {
     fputs("Diff is too large, output suppressed.\n", fp);
+    fprintf(stderr, "Skipping diff %s: preview limit exceeded.\n", ci->oid);
     return;
   }
 
@@ -1006,10 +1014,18 @@ size_t writeblob(git_object *obj, const char *fpath, const char *filename,
   fprintf(fp, " (%zuB)", filesize);
   fputs("</p><hr/>", fp);
 
-  if (git_blob_is_binary((git_blob *)obj))
+  if (filesize > MAX_CONTENT_SIZE) {
+    fprintf(fp, "<p>File is too large to display (limit: %d MiB).</p>\n",
+            MAX_CONTENT_SIZE / (1024 * 1024));
+    fprintf(stderr, "Skipping %s (%zu bytes): preview limit exceeded.\n",
+            filename, filesize);
+  } else if (filesize && git_blob_data_is_binary(
+                             git_blob_rawcontent((git_blob *)obj), filesize)) {
     fputs("<p>Binary file.</p>\n", fp);
-  else
+    fprintf(stderr, "Skipping %s: binary file.\n", filename);
+  } else {
     lc = writeblobhtml(filename, fp, (git_blob *)obj);
+  }
 
   writefooter(fp);
   checkfileerror(fp, fpath, 'w');
@@ -1108,7 +1124,7 @@ int writefilestree(FILE *fp, git_tree *tree, const char *path) {
       }
 
       filesize = git_blob_rawsize((git_blob *)obj);
-      lc = writeblob(obj, filepath, entryname, filesize);
+      lc = writeblob(obj, filepath, entrypath, filesize);
 
       fputs("<tr><td>", fp);
       fputs(filemode(git_tree_entry_filemode(entry)), fp);

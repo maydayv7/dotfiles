@@ -10,8 +10,9 @@ from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_for_filename, TextLexer
 from pygments.util import ClassNotFound
 
-# Highlighting Limit
+# Preview Limits
 MAX_HIGHLIGHT = 512 * 1024
+MAX_OUTPUT = 8 * 1024 * 1024
 FORMAT = HtmlFormatter(
     cssclass="highlight",
     linenos="inline",
@@ -83,6 +84,8 @@ def safe_attribute(tag, attr, value):
 
 
 def render(filename, contents):
+    lexer = TextLexer() if len(contents) > MAX_HIGHLIGHT else lexer_for(filename)
+    print(f"Filename: {filename!r}; Lexer: {lexer.name}.", file=sys.stderr, flush=True)
     rendered = ""
     if len(contents) <= MAX_HIGHLIGHT and filename.lower().endswith(
         (".md", ".markdown", ".mdown")
@@ -104,6 +107,7 @@ def render(filename, contents):
             + markup
             + "</article><h3>Code</h3>"
         )
+        print("Markdown was rendered in addition.", file=sys.stderr, flush=True)
     if len(contents) > MAX_HIGHLIGHT:
         # Plain Text
         code = (
@@ -115,8 +119,16 @@ def render(filename, contents):
             + "</pre>"
         )
     else:
-        code = highlight(contents, lexer_for(filename), FORMAT)
-    return rendered + '<div id="blob">' + code + "</div>"
+        code = highlight(contents, lexer, FORMAT)
+    result = rendered + '<div id="blob">' + code + "</div>"
+    if len(result.encode("utf-8")) > MAX_OUTPUT:
+        print(
+            f"Skipping {filename!r}: rendered HTML exceeds 8 MiB.",
+            file=sys.stderr,
+            flush=True,
+        )
+        return "<p>File is too large to display.</p>"
+    return result
 
 
 if __name__ == "__main__":
