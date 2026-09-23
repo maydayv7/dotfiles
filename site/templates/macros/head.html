@@ -14,21 +14,17 @@ get_url(path='fonts.css', trailing_slash=false) }}" />
   rel="stylesheet"
   href="{{
 get_url(path='style.css', trailing_slash=false) }}" />
-{% if config.extra.theme_color -%} {% set color = "color/"
-~config.extra.theme_color ~ ".css" -%}
+<script>
+  (() => {
+    const theme = document.cookie.match(/(?:^|;\s*)site_theme=([^;]*)/);
+    if (theme && {{ config.extra.color_schemes | json_encode | safe }}.includes(theme[1]))
+      document.documentElement.dataset.theme = theme[1];
+  })();
+</script>
 <link
-  id="site-theme"
-  data-theme="{{ config.extra.theme_color }}"
   rel="stylesheet"
-  href="{{ get_url(path=color, trailing_slash=false) }}" />
-{%- else -%}
-<link
-  id="site-theme"
-  data-theme="red"
-  rel="stylesheet"
-  href="{{ get_url(path='color/red.css',
-trailing_slash=false) }}" />
-{% endif %} {% endmacro styling %} {% macro feed_discovery(path) %}
+  href="{{ get_url(path='color.css', trailing_slash=false) }}" />
+{% endmacro styling %} {% macro feed_discovery(path) %}
 <link
   rel="alternate"
   type="application/rss+xml"

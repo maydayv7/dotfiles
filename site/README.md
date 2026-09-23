@@ -55,9 +55,22 @@ To override the URL, run: <pre><code>nix build --impure --expr 'with (builtins.g
   - [x] GitHub : Star Count - <code>{{ github(repo="<b>USER</b>/<b>NAME</b>") }}</code>
   - [x] YouTube : Embed Video - <code>{{ youtube(id="<b>ID</b>") }}</code>
 
-## `git` frontend
+## `git` Site
 
 The [`git`](./git) directory contains the configuration for my static `git` frontend, hosted at [git.maydayv7.dev](https://git.maydayv7.dev)  
-It is built using my `stagit` [fork](https://github.com/maydayv7/stagit) to generate static HTML pages for my repositories  
-To build it, run `nix run .#build-stagit`  
-[`GitHub Actions`](../.github/workflows/website-git.yaml) is used to automatically build the site and deploy it to Cloudflare every week
+It is built using [`stagit`](./git/stagit) to generate static HTML pages for my repositories
+
+### Build
+
+To build it, run `nix run .#gitsite`  
+[`GitHub Actions`](../.github/workflows/website-git.yaml) is used to automatically build the site and deploy it every week
+
+For testing, run the following commands:
+
+```sh
+PREVIEW=$(mktemp -d)
+nix run .#gitsite -- "$PREVIEW/site" .
+python3 -m http.server 1112 --bind 127.0.0.1 --directory "$PREVIEW/site"
+```
+
+Then click [here](http://localhost:1112)

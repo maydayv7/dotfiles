@@ -25,6 +25,8 @@
           enable = true;
           settings.bracketSameLine = true;
         };
+        clang-format.enable = true;
+        ruff-format.enable = true;
       };
     };
 

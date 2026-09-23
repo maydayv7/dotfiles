@@ -6,9 +6,11 @@ on:
       - stable
     paths:
       - "site/**"
+      - "flake.lock"
   pull_request:
     paths:
       - "site/**"
+      - "flake.lock"
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -35,6 +37,7 @@ jobs:
           mkdir -p site/public
           cp -rL result/* site/public/
       - name: Deploy to Cloudflare
+        if: github.event_name != 'pull_request'
         id: deploy
         uses: cloudflare/wrangler-action@v4
         with:
@@ -44,5 +47,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Print Deployment URL
+        if: github.event_name != 'pull_request'
         run: |
           echo "Site deployed to: ${{ steps.deploy.outputs.deployment-url }}"

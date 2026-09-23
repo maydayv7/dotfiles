@@ -27,6 +27,7 @@ _: {
       # Tools
       systemPackages = with pkgs; [
         cloudflared
+        dig
         gcc
         repomix
         mongodb-compass

@@ -6,12 +6,6 @@
     owner = "V7";
   }
   {
-    name = "stagit";
-    url = "https://github.com/maydayv7/stagit";
-    description = "Personal Stagit Fork";
-    owner = "V7";
-  }
-  {
     name = "creek";
     url = "https://github.com/maydayv7/creek";
     description = "The AI Image Editor of 2030";

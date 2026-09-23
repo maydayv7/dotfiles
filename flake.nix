@@ -47,15 +47,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Personal Stagit Fork
-    stagit = {
-      url = "github:maydayv7/stagit";
-      inputs = {
-        nixpkgs.follows = "stable";
-        utils.follows = "utils";
-      };
-    };
-
     # VS Code Extensions
     vscode = {
       url = "github:nix-community/nix-vscode-extensions";

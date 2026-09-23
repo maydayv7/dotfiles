@@ -31,7 +31,6 @@
     "zed"
     "antigravity"
     "codex"
-    "claude"
     #"stream"
     #"minecraft"
     #"osu"

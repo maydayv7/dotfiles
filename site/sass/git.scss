@@ -1,0 +1,103 @@
+.git-site {
+  .git-content {
+    display: block;
+  }
+  #content,
+  #repo-header {
+    min-width: 0;
+  }
+  .repo-menu {
+    margin-top: 20px;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      list-style: none;
+      margin: 0;
+    }
+    a {
+      font-weight: bold;
+    }
+  }
+  #repo-header .url {
+    overflow-wrap: anywhere;
+    margin: 15px 0;
+  }
+  .desc {
+    display: block;
+    margin-top: 10px;
+    opacity: 0.7;
+  }
+  .table-scroll {
+    max-width: 100%;
+    overflow: auto;
+    margin: 20px 0;
+  }
+  table {
+    table-layout: auto;
+    overflow-wrap: normal;
+    margin: 0;
+  }
+  th {
+    white-space: nowrap;
+  }
+  td,
+  th {
+    text-align: left;
+    vertical-align: top;
+  }
+  .num {
+    text-align: right;
+    white-space: nowrap;
+  }
+  #log td:first-child,
+  #index td:last-child {
+    white-space: nowrap;
+  }
+  #files td:nth-child(2),
+  #log td:nth-child(2) {
+    min-width: 16ch;
+  }
+  pre {
+    font: inherit;
+    font-size: 0.95rem;
+    padding: 15px 10px;
+    overflow: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+  }
+  #blob pre {
+    background: var(--accent-alpha-20);
+  }
+  #blob .linenos a,
+  #blob .linenos {
+    opacity: 0.8;
+  }
+  #blob .linenos {
+    margin-right: 1ch;
+  }
+  .highlight {
+    color: var(--color);
+  }
+  .highlight pre {
+    line-height: 1.54;
+  }
+  .i,
+  .A {
+    color: var(--accent-secondary);
+  }
+  .d,
+  .D {
+    color: var(--accent);
+  }
+  .h,
+  .M {
+    color: var(--accent-secondary-alpha-70);
+  }
+  :target {
+    scroll-margin-top: 15px;
+  }
+  pre :target {
+    background: var(--accent-secondary-alpha-20);
+  }
+}

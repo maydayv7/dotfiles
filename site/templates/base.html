@@ -9,7 +9,9 @@ squiggle -%} {% import "macros/edit.html" as edit -%} {% import
 "macros/javascript.html" as js -%}
 
 <!doctype html>
-<html lang="en">
+<html
+  lang="en"
+  data-theme="{{ config.extra.theme_color | default(value='red') }}">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -70,6 +72,6 @@ squiggle -%} {% import "macros/edit.html" as edit -%} {% import
       </footer>
       {%- endblock footer -%}
     </div>
-    {{ js::script() }}
+    {% block javascript %}{{ js::script() }}{% endblock javascript %}
   </body>
 </html>

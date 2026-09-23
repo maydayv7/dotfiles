@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}<title>
+  Git · {{ config.title }}</title
+>{% endblock title %} {% block general_meta %}{% endblock general_meta %} {%
+block analytics %}{% endblock analytics %} {% block header %}{{
+header::header(config=config, current_url="", search=false, navigation=false)
+}}{% endblock header %} {% block main %}{% endblock main %} {% block pagination
+%}{% endblock pagination %} {% block javascript %}
+<script defer src="{{ get_url(path='js/load.js') }}"></script>
+<script defer src="{{ get_url(path='js/theme.js') }}"></script>
+{% endblock javascript %} {% block css %}{{ super() }}
+<link rel="stylesheet" href="/git.css" />
+{% endblock css %} {% block copyright %}{{ footer::copyright(config=config,
+generator="Stagit", generator_url="https://git.codemadness.org/stagit/") }}{%
+endblock copyright %} {% block script %}{% endblock script %}

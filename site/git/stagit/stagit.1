@@ -1,0 +1,126 @@
+.Dd August 2, 2021
+.Dt STAGIT 1
+.Os
+.Sh NAME
+.Nm stagit
+.Nd static git page generator
+.Sh SYNOPSIS
+.Nm
+.Op Fl c Ar cachefile
+.Op Fl l Ar commits
+.Op Fl u Ar baseurl
+.Op Fl n Ar sitename
+.Ar repodir
+.Sh DESCRIPTION
+.Nm
+writes HTML pages for the repository
+.Ar repodir
+to the current directory.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl c Ar cachefile
+Cache the entries of the log page up to the point of
+the last commit.
+The
+.Ar cachefile
+will store the last commit id and the entries in the HTML table.
+It is up to the user to make sure the state of the
+.Ar cachefile
+is in sync with the history of the repository.
+.It Fl l Ar commits
+Write a maximum number of
+.Ar commits
+to the log.html file only.
+However the commit files are written as usual.
+.It Fl u Ar baseurl
+Base URL to make links in the Atom feeds absolute.
+For example: "https://github.com/maydayv7/stagit/".
+.It Fl n Ar sitename
+Set the site name used in the header link.
+.El
+.Pp
+The options
+.Fl c
+and
+.Fl l
+cannot be used at the same time.
+.Pp
+The following files will be written:
+.Bl -tag -width Ds
+.It atom.xml
+Atom XML feed of the last 100 commits.
+.It tags.xml
+Atom XML feed of the tags.
+.It files.html
+List of files in the latest tree, linking to the file.
+.It log.html
+List of commits in reverse chronological applied commit order, each commit
+links to a page with a diffstat and diff of the commit.
+.It refs.html
+Lists references of the repository such as branches and tags.
+.El
+.Pp
+For each entry in HEAD a file will be written in the format:
+file/filepath.html.
+This file will contain the textual data of the file prefixed by line numbers.
+The file will have the string "Binary file" if the data is considered to be
+non-textual.
+.Pp
+For each commit a file will be written in the format:
+commit/commitid.html.
+This file will contain the diffstat and diff of the commit.
+It will write the string "Binary files differ" if the data is considered to
+be non-textual.
+Too large diffs will be suppressed and a string
+"Diff is too large, output suppressed" will be written.
+.Pp
+When a commit HTML file exists it won't be overwritten again, note that if
+you've changed
+.Nm
+or changed one of the metadata files of the repository it is recommended to
+recreate all the output files because it will contain old data.
+To do this remove the output directory and
+.Ar cachefile ,
+then recreate the files.
+.Pp
+The basename of the directory is used as the repository name.
+The suffix ".git" is removed from the basename, this suffix is commonly used
+for "bare" repos.
+.Pp
+The content of the follow files specifies the metadata for each repository:
+.Bl -tag -width Ds
+.It .git/description or description (bare repo).
+description
+.It .git/owner or owner (bare repo).
+owner of repository
+.It .git/url or url (bare repo).
+primary clone URL of the repository, for example:
+https://github.com/maydayv7/stagit
+.El
+.Pp
+When a README or LICENSE file exists in HEAD or a .gitmodules submodules file
+exists in HEAD a direct link in the menu is made.
+.Pp
+For changing the style of the page you can use the following files:
+.Bl -tag -width Ds
+.It favicon.png
+favicon image.
+.It /style.css
+Global CSS stylesheet (must be present at root).
+.El
+.Sh EXIT STATUS
+.Ex -std
+.Sh EXAMPLES
+.Bd -literal
+mkdir -p htmlroot/htmlrepo1 && cd htmlroot/htmlrepo1
+stagit path/to/gitrepo1
+# repeat for other repositories.
+.Ed
+.Pp
+To update the HTML files when the repository is changed a git post-receive hook
+can be used, see the file example_post-receive.sh for an example.
+.Sh SEE ALSO
+.Xr stagit-index 1
+.Sh AUTHORS
+.An V7

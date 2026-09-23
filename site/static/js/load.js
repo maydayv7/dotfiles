@@ -1,2 +1,2 @@
-// The HTML is ready when this deferred script runs
+// Loading Indicator
 document.querySelector(".loading")?.remove();

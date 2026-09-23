@@ -30,7 +30,6 @@ in {
             ++ [
               (final: _: {
                 custom = config.flake.packages."${system}" or {};
-                stagit-fork = stagit.packages."${system}".default;
                 unstable = import unstable {
                   inherit system;
                   config = nixpkgsConfig;

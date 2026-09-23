@@ -1,0 +1,47 @@
+.Dd August 2, 2021
+.Dt STAGIT-INDEX 1
+.Os
+.Sh NAME
+.Nm stagit-index
+.Nd static git index page generator
+.Sh SYNOPSIS
+.Nm
+.Op Fl n Ar sitename
+.Op Ar repodir...
+.Sh DESCRIPTION
+.Nm
+will create an index HTML page for the repositories specified and writes
+the HTML data to stdout.
+The repos in the index are sorted by last commit time, newest first.
+Repositories with the same commit time are sorted by name.
+.Pp
+The basename of the directory is used as the repository name.
+The suffix ".git" is removed from the basename, this suffix is commonly used
+for "bare" repos.
+.Pp
+The content of the follow files specifies the meta data for each repository:
+.Bl -tag -width Ds
+.It .git/description or description (bare repos).
+description
+.It .git/owner or owner (bare repo).
+owner of repository
+.It Fl n Ar sitename
+Set the site name used in the header link and page title.
+.El
+.Pp
+For changing the style of the page you can use the following files:
+.Bl -tag -width Ds
+.It favicon.png
+favicon image.
+.It style.css
+Global CSS stylesheet (must be present at root).
+.El
+.Sh EXAMPLES
+.Bd -literal
+cd htmlroot
+stagit-index path/to/gitrepo1 path/to/gitrepo2 > index.html
+.Ed
+.Sh SEE ALSO
+.Xr stagit 1
+.Sh AUTHORS
+.An V7

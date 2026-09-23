@@ -1,4 +1,5 @@
-:root {
+:root,
+:root[data-theme="red"] {
   --accent: rgb(255, 98, 102);
   --accent-alpha-20: rgba(255, 98, 102, 0.2);
   --accent-alpha-70: rgba(255, 98, 102, 0.7);

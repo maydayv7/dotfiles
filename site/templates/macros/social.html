@@ -1,7 +1,9 @@
 {% macro socials_bar() %}
 <div class="socials-bar">
   {%- if config.generate_feeds -%}
-  <a href="{{ config.extra.feed_path }}" style="text-decoration: none">
+  <a
+    href="{{ get_url(path=config.extra.feed_path) }}"
+    style="text-decoration: none">
     {%- set rss_image = resize_image(path="../static/social/rss.png", width=33,
     height=33, op="scale", format="png") -%} {%- set rss_image_2x =
     resize_image(path="../static/social/rss.png", width=66, height=66,

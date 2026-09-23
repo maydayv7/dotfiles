@@ -1,12 +1,13 @@
-{% macro copyright(config) %}
+{% macro copyright(config, generator="Zola",
+generator_url="https://getzola.org/") %}
 <div class="copyright">
   <span>
     © {{ now() | date(format="%Y") }} {{ config.extra.copyright | safe}}
   </span>
   <span>
-    Powered by {{ url::external(url="https://getzola.org/", text="Zola",
-    icon=false) }} :: Site {{ url::external(url=config.extra.repo_url,
-    text="Source", icon=false) }}
+    Powered by {{ url::external(url=generator_url, text=generator, icon=false)
+    }} :: Site {{ url::external(url=config.extra.repo_url, text="Source",
+    icon=false) }}
   </span>
 </div>
 {% endmacro copyright %} {% macro theme(config) %}
@@ -14,7 +15,9 @@
   <div class="theme_before"></div>
   <div class="theme-content">
     <label for="theme-select">Theme:</label>
-    <select id="theme-select">
+    <select
+      id="theme-select"
+      data-cookie-domain="{{ config.extra.theme_cookie_domain | default(value='') }}">
       {% for theme in config.extra.color_schemes %} {% if
       config.extra.theme_color %} {% set default_theme =
       config.extra.theme_color %} {% else %} {% set default_theme = "red" %} {%

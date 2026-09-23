@@ -9,7 +9,8 @@ _: {
     packages.website = pkgs.callPackage ./. {inherit lib pkgs;};
 
     # 'git' Frontend
-    apps.build-stagit = {
+    packages.stagit = pkgs.callPackage ./git/stagit {};
+    apps.gitsite = {
       type = "app";
       program = lib.getExe (pkgs.callPackage ./git {inherit lib pkgs;});
     };

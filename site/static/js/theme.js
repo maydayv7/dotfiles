@@ -1,44 +1,30 @@
 (() => {
   const selector = document.getElementById("theme-select");
-  let current = document.getElementById("site-theme");
-  if (!selector || !current) return;
+  if (!selector) return;
+  const root = document.documentElement;
   const allowed = new Set([...selector.options].map((option) => option.value));
-  let pending;
 
-  function changeTheme(theme) {
+  function applyTheme(theme) {
     if (!allowed.has(theme)) return;
-    if (pending) {
-      pending.remove();
-      pending = null;
-    }
-    if (theme === current.dataset.theme) {
-      selector.value = theme;
-      return;
-    }
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = new URL(`${theme}.css`, current.href).href;
-    link.dataset.theme = theme;
-    pending = link;
-    link.onload = () => {
-      if (pending !== link) return;
-      current.replaceWith(link);
-      link.id = "site-theme";
-      current = link;
-      pending = null;
-      selector.value = theme;
-      document.cookie = `theme_color=${theme}; path=/; max-age=31536000; SameSite=Lax`;
-    };
-    link.onerror = () => {
-      if (pending !== link) return;
-      link.remove();
-      pending = null;
-      selector.value = current.dataset.theme;
-    };
-    document.head.appendChild(link);
+    root.dataset.theme = theme;
+    selector.value = theme;
   }
 
-  selector.addEventListener("change", () => changeTheme(selector.value));
-  const saved = document.cookie.match(/(?:^|;\s*)theme_color=([^;]*)/);
-  if (saved && allowed.has(saved[1])) changeTheme(saved[1]);
+  selector.addEventListener("change", () => {
+    const theme = selector.value;
+    applyTheme(theme);
+    const domain = selector.dataset.cookieDomain;
+    const shared =
+      domain &&
+      (location.hostname === domain ||
+        location.hostname.endsWith(`.${domain}`));
+    const secure = location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = `site_theme=${theme}; path=/; max-age=31536000; SameSite=Lax${secure}${shared ? `; Domain=${domain}` : ""}`;
+  });
+
+  applyTheme(root.dataset.theme);
+  window.addEventListener("pageshow", () => {
+    const saved = document.cookie.match(/(?:^|;\s*)site_theme=([^;]*)/);
+    if (saved) applyTheme(saved[1]);
+  });
 })();

@@ -16,7 +16,7 @@ pkgs.stdenvNoCC.mkDerivation {
   buildPhase = ''
     zola build ${
       if (site != null)
-      then "--base-url " + site
+      then "--base-url " + lib.escapeShellArg site
       else ""
     }
     python3 scripts/optimize_fonts.py public

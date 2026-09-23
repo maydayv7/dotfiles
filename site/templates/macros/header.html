@@ -1,8 +1,9 @@
 {% import "macros/menu.html" as menu -%} {% import "macros/logo.html" as logo
--%} {% macro header(config, current_url) %}
+-%} {% macro header(config, current_url, search=true, navigation=true) %}
 <header class="header">
   <div class="header-inner">
     <div class="header-logo">{{ logo::logo(config=config) }}</div>
+    {% if navigation %}
     <button
       type="button"
       class="menu-trigger menu-trigger-button"
@@ -10,9 +11,10 @@
       aria-expanded="false">
       menu
     </button>
+    {% endif %}
   </div>
-  {{ menu::menu(config=config, current_url=current_url) }} {% if
-  config.build_search_index %}
+  {% if navigation %}{{ menu::menu(config=config, current_url=current_url) }}{%
+  endif %} {% if config.build_search_index and search %}
   <div class="search-container js-only" role="search">
     <input
       class="input"

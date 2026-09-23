@@ -1,11 +1,8 @@
 name = "site-git"
-main = "index.js"
 compatibility_date = "2025-12-15"
 
 [assets]
-binding = "ASSETS"
 directory = "./public"
-run_worker_first = ["/style.css"]
 
 [env.production]
 routes = [

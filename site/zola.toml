@@ -53,6 +53,7 @@ index_format = "fuse_json"
 # Site Theme
 theme_color = "red"
 color_schemes = ["black", "blue", "red"]
+theme_cookie_domain = "maydayv7.dev"
 
 # Enable Math Typesetting with KaTeX
 # Use 'math=true' in [extra] on individual pages

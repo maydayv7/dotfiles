@@ -29,6 +29,13 @@
 }
 
 // Comments
+.highlight .c,
+.highlight .ch,
+.highlight .cm,
+.highlight .cp,
+.highlight .cpf,
+.highlight .c1,
+.highlight .cs,
 .z-comment {
   color: var(--color);
   opacity: 0.6;
@@ -36,6 +43,14 @@
 }
 
 // Keywords
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt,
+.highlight .o,
+.highlight .ow,
 .z-keyword {
   color: var(--accent-alpha-70);
 }
@@ -55,6 +70,13 @@
 }
 
 // Constants
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo,
 .z-constant {
   color: var(--accent-alpha-70);
 }
@@ -65,11 +87,32 @@
 }
 
 // Strings
+.highlight .s,
+.highlight .sa,
+.highlight .sb,
+.highlight .sc,
+.highlight .dl,
+.highlight .sd,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .s1,
+.highlight .ss,
 .z-string {
   color: var(--color);
 }
 
-.z-string.z-comment {
+.z-string.highlight .c,
+.highlight .ch,
+.highlight .cm,
+.highlight .cp,
+.highlight .cpf,
+.highlight .c1,
+.highlight .cs,
+.z-comment {
   color: var(--color);
   opacity: 0.6;
 }
@@ -79,6 +122,10 @@
 }
 
 // Variables
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
 .z-variable {
   color: var(--accent-secondary);
   font-weight: bold;
@@ -111,21 +158,37 @@
   color: var(--accent-secondary-alpha-70);
 }
 
+.highlight .nc,
+.highlight .no,
+.highlight .nd,
+.highlight .ne,
+.highlight .nl,
+.highlight .nf,
+.highlight .fm,
 .z-entity.z-name {
   color: var(--accent-secondary-alpha-70);
   font-weight: bold;
 }
 
+.highlight .nt,
 .z-entity.z-name.z-tag {
   color: var(--accent-alpha-70);
   font-weight: normal;
 }
 
-.z-entity.z-name.z-constant {
+.z-entity.z-name.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo,
+.z-constant {
   color: var(--accent-secondary-alpha-70);
   font-weight: bold;
 }
 
+.highlight .na,
 .z-entity.z-other.z-attribute-name {
   color: var(--accent-secondary);
   font-style: italic;
@@ -136,11 +199,22 @@
   color: var(--accent-alpha-70);
 }
 
-.z-support.z-constant {
+.z-support.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo,
+.z-constant {
   color: var(--accent-alpha-70);
 }
 
-.z-support.z-variable {
+.z-support.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.z-variable {
   color: var(--accent-secondary);
 }
 
@@ -150,11 +224,32 @@
 }
 
 // Punctuation
-.z-punctuation.z-definition.z-string {
+.z-punctuation.z-definition.highlight .s,
+.highlight .sa,
+.highlight .sb,
+.highlight .sc,
+.highlight .dl,
+.highlight .sd,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .s1,
+.highlight .ss,
+.z-string {
   color: var(--color);
 }
 
-.z-punctuation.z-definition.z-comment {
+.z-punctuation.z-definition.highlight .c,
+.highlight .ch,
+.highlight .cm,
+.highlight .cp,
+.highlight .cpf,
+.highlight .c1,
+.highlight .cs,
+.z-comment {
   color: var(--color);
   opacity: 0.6;
 }
@@ -164,7 +259,11 @@
   font-weight: bold;
 }
 
-.z-punctuation.z-definition.z-variable {
+.z-punctuation.z-definition.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.z-variable {
   color: var(--accent-secondary-alpha-70);
 }
 
@@ -245,10 +344,12 @@
   text-decoration: line-through;
 }
 
+.highlight .gd,
 .z-markup.z-deleted {
   color: var(--accent);
 }
 
+.highlight .gi,
 .z-markup.z-inserted {
   color: var(--accent-secondary);
 }
