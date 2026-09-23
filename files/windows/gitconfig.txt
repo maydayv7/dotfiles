@@ -1,0 +1,106 @@
+[user]
+	name = 
+	email = 
+	signingkey = 
+
+[github]
+	user = 
+
+[core]
+	editor = notepad
+	hooksPath = ~/.git-hooks
+	autocrlf = true
+	pager = delta
+	excludesFile = ~/.gitignore_global
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[color]
+	ui = auto
+
+[diff]
+	colorMoved = default
+
+[credential]
+	helper = manager
+
+[safe]
+	directory = *
+
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[gpg]
+	format = openpgp
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+	theme = Monokai Extended
+[merge]
+	conflictStyle = diff3
+
+[alias]
+	a = add
+	ad = add -A .
+	ai = add -i
+	ap = add -p
+	b = branch
+	bc = branch --show-current
+	bd = branch -D
+	backup = "!CURRENT=$(git branch --show-current) && git stash && git checkout -B backup && git stash apply && git add -A . && git commit -am \"backup\" && git push --force $1 && git checkout $CURRENT && git stash pop && git branch -D backup && :"
+	cfg = config
+	ci = commit -v
+	cam = commit -v -am
+	cia = commit -v -a
+	cmx = log -1 --format=%B
+	co = checkout
+	cp = cherry-pick
+	cpp = "!CURRENT=$(git branch --show-current) && git stash && git checkout -B $2 $3 && git cherry-pick $1 && git push --force $4 && git checkout $CURRENT && git stash pop && :"
+	d = diff
+	df = diff HEAD
+	dx = diff --color-words
+	dc = diff --cached
+	dcx = diff --cached --color-words
+	l = log --graph --decorate --abbrev-commit
+	l1 = log --graph --decorate --abbrev-commit --pretty=oneline --all
+	lf = log -p --follow
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+	ll = log --graph --decorate --abbrev-commit -p
+	m = merge
+	ms = merge --squash
+	p = push
+	pf = push --force
+	pl = "!git pull && git fetch -p"
+	pt = push --tag
+	pu = push --set-upstream
+	rb = rebase
+	record = "!f() { (git add -p -- \"$@\" && git commit -v) || git reset; }; f"
+	ro = restore
+	r = reset
+	rs = reset --soft
+	rh = reset --hard
+	rsh = reset --soft HEAD^
+	s = "!git --no-pager status"
+	sm = submodule
+	st = stash
+	std = stash drop
+	sti = stash --keep-index
+	stp = stash pop
+	sync = push --force --mirror
+	t = tag
+	td = "!git tag -d $1 && git push origin :$1 && :"
+	tl = tag -l
