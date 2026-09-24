@@ -69,7 +69,7 @@ newline() {
 
 error() {
   echo -e "\n\033[0;31merror:\033[0m $1"
-  if [ -n "$2" ]
+  if [ -n "${2:-}" ]
   then
     echo -e "\n$2"
   fi
@@ -78,7 +78,7 @@ error() {
 
 info() {
   echo -e "\n\033[0;35minfo:\033[0m $1"
-  if [ -n "$2" ]
+  if [ -n "${2:-}" ]
   then
     echo -e "\n$2"
   fi
@@ -86,7 +86,7 @@ info() {
 
 warn() {
   echo -e "\n\033[0;35mwarning:\033[0m $1"
-  if [ -n "$2" ]
+  if [ -n "${2:-}" ]
   then
     echo -e "\n$2"
   fi

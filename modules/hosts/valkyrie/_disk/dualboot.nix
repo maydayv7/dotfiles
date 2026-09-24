@@ -24,7 +24,7 @@
     zramSwap = {
       enable = true;
       algorithm = "zstd";
-      memoryPercent = 25;
+      memoryPercent = 17;
     };
 
     # Shared ESP

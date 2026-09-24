@@ -19,6 +19,7 @@ in {
       home.packages = with pkgs; [
         # Utilities
         clapgrep
+        freefilesync
         gearlever
         popsicle
 
@@ -52,6 +53,7 @@ in {
           ".appimages"
           ".config/de.leopoldluley.Clapgrep"
           ".config/easyeffects"
+          ".config/FreeFileSync"
           ".config/obs-studio"
           ".config/pitivi"
           ".config/xnviewmp"

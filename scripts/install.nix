@@ -37,11 +37,18 @@ in
         ${files.scripts.commands}
 
         TRIES=5
+        CLEAN_TARGET=false
 
         cleanup() {
-          umount -R /mnt 2> /dev/null || true
-          zpool export fspool 2> /dev/null || true
+          if [ "$CLEAN_TARGET" = true ]
+          then
+            umount -R /mnt 2> /dev/null || true
+            zpool export fspool 2> /dev/null || true
+            CLEAN_TARGET=false
+          fi
         }
+
+        trap cleanup EXIT
 
         install_system() {
           local attempt=0
@@ -58,11 +65,11 @@ in
           return 1
         }
 
-        internet
         if [ "$EUID" -ne 0 ]
         then
           error "This Command must be Executed as 'root'"
         fi
+        internet
 
         # Target Device and Repository
         read -rp "Enter Name of Device to Install: " HOST
@@ -79,7 +86,7 @@ in
 
         # Target Disk
         echo "Resolving target disk for '$HOST'..."
-        if ! DISK=$(nix eval --raw "$URL#nixosConfigurations.$HOST.config.system.fs.disk" 2> /dev/null)
+        if ! DISK=$(nix eval --raw "$URL#nixosConfigurations.$HOST.config.system.fs.disk")
         then
           error "Couldn't resolve 'system.fs.disk' for '$HOST'"
         fi
@@ -87,8 +94,13 @@ in
         then
           error "'$DISK' is not a valid block device" "Set 'system.fs.disk' for '$HOST' to this device's disk"
         fi
+        if [ "$(lsblk --nodeps --noheadings --output TYPE "$DISK" | tr -d '[:space:]')" != "disk" ]
+        then
+          error "'$DISK' is not a whole-disk block device"
+        fi
 
         # Confirm Destructive Wipe
+        lsblk --nodeps --output NAME,PATH,SIZE,MODEL,SERIAL "$DISK"
         warn "ALL DATA on '$DISK' will be PERMANENTLY ERASED for Automatic Partitioning"
         read -rp "Type the Disk path to confirm: " CONFIRM
         if [ "$CONFIRM" != "$DISK" ]
@@ -97,6 +109,7 @@ in
         fi
 
         # Wipe Stale Signatures
+        CLEAN_TARGET=true
         echo "Wiping existing signatures on '$DISK'..."
         swapoff --all 2> /dev/null || true
         zpool labelclear -f "$DISK" 2> /dev/null || true

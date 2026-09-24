@@ -20,25 +20,14 @@ in {
         # Disabled Modules
         (
           {lib, ...}: {
-            options = {
-              environment.persist = lib.mkOption {
-                type = lib.types.attrsOf lib.types.anything;
-                default = {};
-              };
-              system.fs.persist = lib.mkOption {
-                type = lib.types.attrsOf lib.types.anything;
-                default = {};
-              };
-            };
-            config = {
-              sops.secrets = lib.mkForce {};
-              home-manager.sharedModules = lib.mkForce [];
-            };
+            sops.secrets = lib.mkForce {};
+            home-manager.sharedModules = lib.mkForce [];
           }
         )
       ];
 
       # Environment
+      networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" "install");
       system.kernel = "lts";
       boot.loader.grub.device = lib.mkDefault "nodev";
       fileSystems."/".fsType = "tmpfs";
@@ -46,6 +35,11 @@ in {
       image.modules.iso = {
         image.baseName = lib.mkForce "install";
         system.switch.enable = false;
+        isoImage = {
+          makeBiosBootable = true;
+          makeEfiBootable = true;
+          makeUsbBootable = true;
+        };
       };
 
       # Localization

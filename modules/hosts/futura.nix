@@ -9,7 +9,6 @@
 
   sharedHmModules =
     util.map.array [
-      "filesystem"
       "laptop"
       "firefox"
       "office"
@@ -25,9 +24,7 @@ in {
     }: {
       imports =
         util.map.array [
-          "boot"
           "security"
-          "filesystem"
           "laptop"
           "office"
           "flatpak"

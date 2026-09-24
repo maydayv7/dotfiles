@@ -8,12 +8,11 @@
   inherit (config) util;
 
   nixosModules = [
-    "boot"
     "prompt"
     "mobile"
     "printer"
     "docker"
-    #"mc-server"
+    "mc-server"
     #"roblox"
     #"vfio"
   ];
@@ -21,7 +20,7 @@
   hmModules = [
     "secrets"
     "auth"
-    #"syncthing"
+    "syncthing"
     "internet"
     "firefox"
     "notes"
@@ -29,16 +28,14 @@
     "spotify"
     "vscode"
     "zed"
-    "antigravity"
     "codex"
-    #"stream"
-    #"minecraft"
-    #"osu"
+    "stream"
+    "minecraft"
+    "osu"
   ];
 
   mixedModules = [
     "base-ext"
-    "filesystem"
     "security"
     "laptop"
     "mouse"
@@ -46,10 +43,10 @@
     "git"
     "office"
     "tools"
+    "games"
+    "latex"
     #"flatpak"
-    #"latex"
     #"wine"
-    #"games"
     #"libvirt"
     "niri"
   ];
@@ -58,7 +55,7 @@
     util.map.array hmModules homeManager
     ++ util.map.array mixedModules homeManager;
 
-  disk = import ./_disk/dualboot.nix args;
+  disk = import ./_disk/full.nix args;
   asus = import ./_asus {};
   dev = import ./_dev.nix {};
   #vm = import ./_vm args;
@@ -73,7 +70,11 @@ in {
       imports =
         util.map.array nixosModules nixos
         ++ util.map.array mixedModules nixos
-        ++ [disk.nixos (asus.nixos or {}) (dev.nixos or {})]
+        ++ [
+          disk.nixos
+          (asus.nixos or {})
+          (dev.nixos or {})
+        ]
         ++ util.map.array ["asus-zephyrus-ga402x-nvidia"] inputs.hardware.nixosModules;
 
       networking.hostId = builtins.substring 0 8 (builtins.hashString "md5" "valkyrie");
@@ -121,6 +122,24 @@ in {
         fancy = true;
       };
 
+      # Minecraft Server
+      games.mc-servers = [
+        {
+          type = "fabric";
+          memory = 16;
+          port = 25565;
+          vc-port = 24454;
+          config = {
+            gamemode = "survival";
+            difficulty = "normal";
+            online-mode = false;
+            server-ip = "0.0.0.0";
+            spawn-protection = 0;
+            motd = "My World";
+          };
+        }
+      ];
+
       # Virtualisation
       # virt.vfio = {
       #   setup = true;
@@ -131,24 +150,6 @@ in {
       #   isolate = "2-4,10-12";
       #   hugepages = 16;
       # };
-
-      # Minecraft Server
-      # games.mc-servers = [
-      #   {
-      #     type = "fabric";
-      #     memory = 16;
-      #     port = 25565;
-      #     vc-port = 24454;
-      #     config = {
-      #       gamemode = "survival";
-      #       difficulty = "normal";
-      #       online-mode = false;
-      #       server-ip = "0.0.0.0";
-      #       spawn-protection = 0;
-      #       motd = "My World";
-      #     };
-      #   }
-      # ];
 
       # User V7
       users.users.v7 = {

@@ -31,10 +31,13 @@ in {
         };
 
         # User Passwords
-        sops.secrets = util.map.secrets {
-          directory = ../../../secrets/passwords;
-          neededForUsers = true;
-        };
+        sops.secrets =
+          lib.filterAttrs (
+            name: _: builtins.hasAttr (lib.removeSuffix ".secret" name) config.users.users
+          ) (util.map.secrets {
+            directory = ../../../secrets/passwords;
+            neededForUsers = true;
+          });
 
         # Home Manager settings
         home-manager = {
@@ -47,6 +50,7 @@ in {
           sharedModules =
             util.map.array [
               "base"
+              "filesystem"
               "user"
               "nix"
               "shell"
@@ -142,7 +146,7 @@ in {
           };
 
           publicKeys =
-            builtins.map
+            map
             (source: {
               inherit source;
               trust = "ultimate";

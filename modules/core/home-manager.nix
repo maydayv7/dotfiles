@@ -41,6 +41,7 @@ in {
             # Default Modules
             util.map.array [
               "base"
+              "filesystem"
               "user"
               "nix"
               "shell"

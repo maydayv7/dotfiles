@@ -30,6 +30,8 @@ in {
               # Default Modules
               util.map.array [
                 "base"
+                "boot"
+                "filesystem"
                 "cpu"
                 "gpu"
                 "nix"

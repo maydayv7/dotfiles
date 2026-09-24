@@ -1,5 +1,13 @@
 ## 2026
 
+### September
+
+- Update `mc-server` to 26.3
+- Change `site` domain
+- Refactor `gitsite` and move `stagit` in-tree
+- Improve `website` performance and accessibility
+- Use `pix` instead of `shotwell`
+
 ### August
 
 - Editor `direnv` integration

@@ -284,7 +284,9 @@ To use my configuration as-is for a fresh NixOS installation, you can try the fo
 > [!IMPORTANT]
 > These instructions are mainly intended for personal use
 
-To download the Install Media, click on the latest successsful run listed [here](../../actions/workflows/install.yml) and download the image artifact. Burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/)
+To download the Install Media, click on the latest successsful run listed [here](../../actions/workflows/install.yml) and download the image artifact.
+Burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/).
+The image supports both UEFI and legacy BIOS USB boot with Secure Boot disabled.
 
 > [!TIP]
 > In order to directly use the configuration, you must first create a clone of this repository and follow steps 2 to 6 from the first section, and preferably create your own install media

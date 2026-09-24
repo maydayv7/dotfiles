@@ -11,7 +11,6 @@
     util.map.array [
       "secrets"
       "shell-utils"
-      "filesystem"
       "laptop"
       "discord"
       "firefox"
@@ -34,8 +33,6 @@ in {
         util.map.array
         [
           "security"
-          "boot"
-          "filesystem"
           "laptop"
           "mobile"
           "printer"

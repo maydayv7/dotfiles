@@ -23,7 +23,7 @@ in {
       mkOption
       types
       ;
-    inherit (pkgs) fetchurl fetchzip linkFarmFromDrvs;
+    inherit (pkgs) fetchurl fetchzip linkFarm;
 
     cfg = config.games.mc-servers;
     dataDir = "/srv/minecraft";
@@ -33,7 +33,11 @@ in {
     mkMods = srv: loader: let
       mods = filter (m: !(m ? require) || (m.require == "vc-port" && srv.vc-port != null)) loader.mods;
     in
-      linkFarmFromDrvs "mods" (map (m: fetchurl {inherit (m) name url hash;}) mods);
+      linkFarm "mods" (map (m: {
+          name = "${m.name}.jar";
+          path = fetchurl {inherit (m) name url hash;};
+        })
+        mods);
   in {
     imports = [inputs.minecraft.nixosModules.minecraft-servers];
 
@@ -130,12 +134,20 @@ in {
                 serverProperties = srv.config // {server-port = srv.port;};
                 jvmOpts = let
                   mem = toString srv.memory;
-                in "-Xms${mem}G -Xmx${mem}G --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=40 -XX:G1MaxNewSizePercent=50 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=15";
+                in
+                  lib.concatStringsSep " " [
+                    "-Xms${mem}G"
+                    "-Xmx${mem}G"
+                    "-XX:+UseZGC"
+                    "-XX:+AlwaysPreTouch"
+                    "--add-modules=jdk.incubator.vector"
+                    "--enable-native-access=ALL-UNNAMED"
+                  ];
               }
 
               ## Fabric Server
               (mkIf (srv.type == "fabric") {
-                package = pkgs.fabricServers.fabric-26_1_2;
+                package = pkgs.fabricServers.fabric-26_3.override {jre_headless = pkgs.jdk25_headless;};
                 symlinks.mods = mkMods srv modData.fabric;
               })
 

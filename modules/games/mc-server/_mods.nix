@@ -3,26 +3,28 @@
 # require - Included only when the server option is set [Optional]
 {
   fabric = {
-    version = "26.1.2";
+    version = "26.3";
     mods = [
-      # Server
+      # Dependencies
       {
         name = "FabricAPI";
         id = "P7dR8mSH";
-        url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/NqRnXk9x/fabric-api-0.152.1%2B26.1.2.jar";
-        hash = "sha256-slrZJsj9EH0hs6l1Gpjat4dzZSOzmke8LMsEiWJoDXY=";
+        url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar";
+        hash = "sha512-7Wslhtb94R/ehHL1pSfFHpm2cCbkb5TUv9hefijOXuKZFz7hatV2zrUfOfmNMKgRCGpt6xqGpSSFnMFuEtoQnQ==";
       }
+      {
+        name = "FabricKotlin";
+        id = "Ha28R6CL";
+        url = "https://cdn.modrinth.com/data/Ha28R6CL/versions/eRRZzGMc/fabric-language-kotlin-1.14.1%2Bkotlin.2.4.20.jar";
+        hash = "sha512-kUBPh3dEZs6GBKr+p5HYzJe2A7wxDc4XyBiPlPd4PMptwU/HJs6HHKMXv+kDPBmdjYWNUShBBqAHVOlSFHcDuA==";
+      }
+
+      # Performance
       {
         name = "Lithium";
         id = "gvQqBUqZ";
-        url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/fQBdPR1m/lithium-fabric-0.24.6%2Bmc26.1.2.jar";
-        hash = "sha256-UJ5/dwx9SL036VkpFzKdsnaORpXHKkPiLBnvZND5g58=";
-      }
-      {
-        name = "Krypton";
-        id = "fQEb0iXm";
-        url = "https://cdn.modrinth.com/data/fQEb0iXm/versions/kYAGItyj/krypton-0.3.0.jar";
-        hash = "sha256-dFsRFgQ0dC1EQFRqp+RF0U1ZuhJG5br5kdKTGQuplGM=";
+        url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/WXHRsMRl/lithium-fabric-0.26.1%2Bmc26.3.jar";
+        hash = "sha512-rLubA3ogPwBeA6IL8dmGYBk4Srta0nZkgIoSuRljmiUB7LUvjw130n4UCZNbDb27cOAaxGZIDArkIe5AP2ScWQ==";
       }
       {
         name = "FerriteCore";
@@ -33,64 +35,66 @@
       {
         name = "ScalableLux";
         id = "Ps1zyz6x";
-        url = "https://cdn.modrinth.com/data/Ps1zyz6x/versions/gYbHVCz8/ScalableLux-0.2.0%2Bfabric.2b63825-all.jar";
-        hash = "sha256-bamBsryRWGU1zjuw+kGXWonMRgO5w6EG0kMaIUF7HfA=";
+        url = "https://cdn.modrinth.com/data/Ps1zyz6x/versions/g4eqNSKd/ScalableLux-fabric-mc26.3-0.3.0-alpha.0.6-all.jar";
+        hash = "sha512-3tWpOfsgq4HB8zsUfKm5gFB3Pbso3/Ft+TnH1We2JoCVIplOyNv7mef0mNxqTmLyXhQah9GO+0P3P8WtFWnMyQ==";
       }
       {
         name = "C2ME";
         id = "VSNURh3q";
-        url = "https://cdn.modrinth.com/data/VSNURh3q/versions/v1RNsfu7/c2me-fabric-mc26.1.2-0.4.0-alpha.0.17.jar";
-        hash = "sha256-W6hKW/dASyp+A9yT85luhMTg9fF59GTeYoVdRLM6Dx8=";
+        url = "https://cdn.modrinth.com/data/VSNURh3q/versions/sSoXjAqP/c2me-fabric-mc26.3-0.4.2-alpha.0.88.jar";
+        hash = "sha512-u3QdEYyI6m2Vd/7Rr/rMHx8Ke3JaYZ7pM0N8xeQDyPFHSnCKub1ALRVO/ePOZu9Ng+2VDAz099xlblJYNyOSJg==";
       }
+
+      # Server-side
       {
         name = "PlayerRoles";
         id = "Rt1mrUHm";
-        url = "https://cdn.modrinth.com/data/Rt1mrUHm/versions/sUiL9n9i/player-roles-1.9.0.jar";
-        hash = "sha256-0q6WzsxFdOqrslFmH8C5Si9fADgOShnBhWa4SMcBY/8=";
+        url = "https://cdn.modrinth.com/data/Rt1mrUHm/versions/CMb2UHlv/player-roles-1.11.0.jar";
+        hash = "sha512-l5Gr7bZW4CXcgc8oMfjz/hJfBtqtlH/WnJZputW3ldehyqYT5UPlpCsMZQXdO5UPyu87AToA98in14JWlzgLtQ==";
       }
       {
         name = "SkinRestorer";
         id = "ghrZDhGW";
-        url = "https://cdn.modrinth.com/data/ghrZDhGW/versions/rgcYRGDt/skinrestorer-2.8.1%2B26.1-fabric.jar";
-        hash = "sha256-MazpunDTQeMBLN3Da1t5akwBBXH+ia733loqgA4Ft38=";
-      }
-      {
-        name = "Silk";
-        id = "aTaCgKLW";
-        url = "https://cdn.modrinth.com/data/aTaCgKLW/versions/dm3Sfg3x/silk-all-1.11.8.jar";
-        hash = "sha256-4+u68yBi4nom7b96+PCuJvwpAnQHgtgByjTxYaF5gpM=";
-      }
-      {
-        name = "FabricKotlin";
-        id = "Ha28R6CL";
-        url = "https://cdn.modrinth.com/data/Ha28R6CL/versions/Pd0xrHCw/fabric-language-kotlin-1.13.12%2Bkotlin.2.4.0.jar";
-        hash = "sha256-NsXdi3KONHDSiCrmMRm5OiBQD8Dqb1yUXBK/ZbWrGDI=";
+        url = "https://cdn.modrinth.com/data/ghrZDhGW/versions/K7BFrFJD/skinrestorer-2.11.0%2B26.3-fabric.jar";
+        hash = "sha512-hPu+nGVL+haEp+uyXqK5ij/NoXb8YvRF6Wn19TH2qkAukTK3Pg8cCDwAOZYJ6ivUKoJCU/GjjmhPiyxmkTfzKg==";
       }
       {
         name = "Veinminer";
         id = "OhduvhIc";
-        url = "https://cdn.modrinth.com/data/OhduvhIc/versions/h4Z7xAL0/veinminer-fabric-2.10.3.jar";
-        hash = "sha256-/Q4M4yr/kjAMtuSyBeVbgSBMmNoCWrB4tStHSUdUSVk=";
+        url = "https://cdn.modrinth.com/data/OhduvhIc/versions/G10nvigw/veinminer-fabric-2.12.2.jar";
+        hash = "sha512-XjGGMpijZXnS62aYFwm57tecoBV1MbRPgXiXfEIWaAENNu9EXAAyFcKD6swPayE+eylwyDkCVAFEqtjf+yQPwA==";
       }
       {
         name = "VeinminerEnchant";
         id = "4sP0LXxp";
-        url = "https://cdn.modrinth.com/data/4sP0LXxp/versions/6zzsM770/veinminer-enchant-2.10.3.jar";
-        hash = "sha256-/li1ve6r0w9Mha+9tPO0Vf5mWafQghUpFzZDSEVcivs=";
+        url = "https://cdn.modrinth.com/data/4sP0LXxp/versions/9C8zH5YI/veinminer-enchant-2.11.2.jar";
+        hash = "sha512-E3vrBokjmfpFIZy5nLUUFalEWXnfu1t0JQNLTDlw2j1VJsL+8puGZ+xSQ48z+ZPr9WY+BuYfefVCNybD0hm43g==";
       }
 
-      # Client and Server
+      # Server and Client
+      {
+        name = "DistantHorizons";
+        id = "uCdwusMi";
+        url = "https://cdn.modrinth.com/data/uCdwusMi/versions/gfi11b05/DistantHorizons-3.3.2-26.3-fabric-neoforge.jar";
+        hash = "sha512-eKN41ewRezMJIwFf5lF/z6usPbRkszIdeiW25dd90RIlyDtHB+g6xyBQfFrHGKFjkQEzIpWhxYBBPPJJj0cpWQ==";
+      }
+      {
+        name = "JEI";
+        id = "u6dRKJwZ";
+        url = "https://cdn.modrinth.com/data/u6dRKJwZ/versions/wS0zzU8r/jei-26.3-fabric-31.7.0.34.jar";
+        hash = "sha512-xaBTc1SuYTI93+NAQUezHhGJ9eDobNODpRFzxHmXfnWDRFFi+p0EqLaPbxeiFUWVo/W+PdzDJ+BRpZF8U6bAhA==";
+      }
       {
         name = "Jade";
         id = "nvQzSEkH";
-        url = "https://cdn.modrinth.com/data/nvQzSEkH/versions/zu6GcgEW/Jade-mc26.1-Fabric-26.1.6.jar";
-        hash = "sha256-X+1RyaOSVWNyLWRGTKSJErPRYci1XFJVdcbt/rsphS8=";
+        url = "https://cdn.modrinth.com/data/nvQzSEkH/versions/lt43vWtF/Jade-mc26.3-Fabric-26.3.1.jar";
+        hash = "sha512-E1nWV2IU//rct71CAr/RYGyCerbHUUPLx3Ryae19QTH12yJqkUuakkyskuWWx5lOb+MwNnH/jVotzUHK9hPnrg==";
       }
       {
         name = "SimpleVC";
         id = "9eGKb6K1";
-        url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/xmAicr0J/voicechat-fabric-2.6.19%2B26.1.2.jar";
-        hash = "sha256-JsPgZqSfRb70Z00m0FN2/noc8Tm4++ncOLt0r0Z0rdQ=";
+        url = "https://cdn.modrinth.com/data/9eGKb6K1/versions/OLnMVWXy/voicechat-fabric-2.6.24%2B26.3.jar";
+        hash = "sha512-QU61GWcwX+d0DTQBa8jj5OL6FZDhJ4rQa836Bof2UAe4JdNF3An3mpknBKUeyTuvAf5yfgu8Mv31BoKLWmXYWg==";
         require = "vc-port";
       }
     ];
