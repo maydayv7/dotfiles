@@ -33,7 +33,10 @@ in {
 
     programs.vscode = {
       enable = true;
-      package = pkgs.vscode;
+      package = pkgs.vscode.override {
+        commandLineArgs = lib.optionalString pkgs.stdenv.hostPlatform.isLinux "--password-store=gnome-libsecret";
+      };
+
       profiles.default = import ./_profile.nix {
         inherit lib pkgs files font isGnome isWM;
       };

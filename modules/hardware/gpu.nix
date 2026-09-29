@@ -43,6 +43,11 @@ _: {
           hybrid = with config.hardware.nvidia.prime; (amdgpuBusId != "" || intelBusId != "");
         in {
           services.xserver.videoDrivers = mkForce ["nvidia"];
+          services.udev.extraRules = mkIf hybrid ''
+            SUBSYSTEM=="drm", ENV{DEVTYPE}=="drm_minor", KERNEL=="card[0-9]*", DRIVERS=="nvidia", SYMLINK+="dri/nvidia-dgpu"
+            SUBSYSTEM=="drm", ENV{DEVTYPE}=="drm_minor", KERNEL=="card[0-9]*", DRIVERS=="amdgpu|i915|xe", SYMLINK+="dri/integrated-gpu"
+          '';
+
           environment = {
             systemPackages = [pkgs.btop-cuda];
             variables."__GLX_VENDOR_LIBRARY_NAME" = mkIf mode "nvidia";

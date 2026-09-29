@@ -88,7 +88,6 @@ lib.mkIf (osConfig != null) (
       permission = [
         (permission "${osConfig.programs.hyprland.portalPackage}/libexec/.xdg-desktop-portal-hyprland-wrapped" "screencopy" "allow")
         (permission (lib.getExe pkgs.gpu-screen-recorder) "screencopy" "allow")
-        (permission (lib.getExe pkgs.wl-screenrec) "screencopy" "allow")
       ];
 
       ## Layer Rules
@@ -207,6 +206,7 @@ lib.mkIf (osConfig != null) (
             "Save As"
             "Save File"
             "Select a File"
+            "Extract"
             ".*Properties"
           ]);
     };

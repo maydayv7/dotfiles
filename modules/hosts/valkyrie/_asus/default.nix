@@ -14,6 +14,10 @@ _: {
       ];
     };
 
+    environment.sessionVariables.AQ_DRM_DEVICES =
+      lib.mkIf (config.hardware.cpu.mode == "performance")
+      "/dev/dri/nvidia-dgpu:/dev/dri/integrated-gpu";
+
     services = {
       fwupd.enable = true;
 

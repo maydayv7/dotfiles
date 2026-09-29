@@ -34,16 +34,22 @@
 
           launcher.providers = {
             calculator.prefix = "=";
-            emoji.prefix = "emo";
-            session.prefix = "session";
-            wallpaper.prefix = "wall";
-            windows.prefix = "win";
+            emoji.prefix = "e";
+            panels.prefix = "p";
+            session.prefix = "s";
+            windows.prefix = "w";
+            wallpaper.prefix = "wl";
           };
 
           panel = {
             list_item_background = true;
             open_near_click_control_center = true;
             open_near_click_session = true;
+          };
+
+          window_switcher = {
+            mru = true;
+            show_all_outputs = false;
           };
 
           # Clipboard
@@ -58,6 +64,8 @@
             confirm_region = true;
             show_cursor = true;
             remember_last_region = true;
+            annotate = true;
+            skip_annotate_on_copy_save = true;
             directory = "~/Pictures/Screenshots";
           };
 
@@ -151,7 +159,7 @@
         audio = {
           enable_overdrive = true;
           enable_sounds = true;
-          sound_volume = 0.3;
+          sound_volume = 1.0;
         };
 
         # Calendar
@@ -244,7 +252,7 @@
           blurred_desktop = false;
           blur_intensity = 0.0;
           tint_intensity = 0.25;
-          fingerprint = false;
+          transition = ["honeycomb"];
         };
 
         # Lockscreen Widgets

@@ -6,8 +6,8 @@
 with pkgs; let
   metadata = import ./metadata.nix;
 in
-  stdenv.mkDerivation rec {
-    pname = "hyprscrolloverview";
+  hyprlandPlugins.mkHyprlandPlugin {
+    pluginName = "hyprscrolloverview";
     version = metadata.rev;
 
     src = fetchFromGitHub {
@@ -16,21 +16,10 @@ in
       inherit (metadata) rev sha256;
     };
 
-    inherit (hyprland) buildInputs;
-    nativeBuildInputs =
-      hyprland.nativeBuildInputs
-      ++ [
-        hyprland
-        gcc14
-        pkg-config
-        lua5_4
-      ];
-
+    buildInputs = [expat lua5_4];
     enableParallelBuilding = true;
-
     buildPhase = ''
       runHook preBuild
-      export SCROLLOVERVIEW_BUILD_VERSION="${metadata.rev}"
       make all
       runHook postBuild
     '';
@@ -38,14 +27,14 @@ in
     installPhase = ''
       runHook preInstall
       mkdir -p "$out/lib"
-      cp libscrolloverview.so "$out/lib/lib${pname}.so"
+      cp scrolloverview.so "$out/lib/libhyprscrolloverview.so"
       runHook postInstall
     '';
 
     meta = {
       homepage = metadata.repo;
       description = "Hyprland plugin for workspace overview";
-      license = lib.licenses.gpl3Only;
+      license = lib.licenses.bsd3;
       maintainers = ["maydayv7"];
     };
   }

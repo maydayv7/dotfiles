@@ -92,15 +92,15 @@ An overview of every configuration module in this repository.
 
 ### [`system`](./system)
 
-| Module       | Type  | Description                         |
-| ------------ | ----- | ----------------------------------- |
-| `base` ★     | Both  | Base system configuration           |
-| `base-ext`   | Both  | Extended base configuration         |
-| `boot`       | NixOS | Boot loader configuration           |
-| `filesystem` | Both  | File system layout                  |
-| `nix` ★      | Both  | Nix daemon & settings               |
-| `user` ★     | Both  | User accounts & Home Manager wiring |
-| `security`   | NixOS | Security & hardening                |
+| Module         | Type  | Description                         |
+| -------------- | ----- | ----------------------------------- |
+| `base` ★       | Both  | Base system configuration           |
+| `base-ext`     | Both  | Extended base configuration         |
+| `boot` ★       | NixOS | Boot loader configuration           |
+| `filesystem` ★ | Both  | File system layout                  |
+| `nix` ★        | Both  | Nix daemon & settings               |
+| `user` ★       | Both  | User accounts & Home Manager wiring |
+| `security`     | NixOS | Security & hardening                |
 
 ### [`virt`](./virt)
 

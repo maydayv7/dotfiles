@@ -48,7 +48,7 @@
     #"flatpak"
     #"wine"
     #"libvirt"
-    "niri"
+    "hyprland"
   ];
 
   hmImports =

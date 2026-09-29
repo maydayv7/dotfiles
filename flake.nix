@@ -100,7 +100,7 @@
 
     # Secure Boot
     boot = {
-      url = "github:nix-community/lanzaboote/v1.1.0";
+      url = "github:nix-community/lanzaboote/v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -196,13 +196,13 @@
 
     # Desktop Shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.1.0";
+      url = "github:noctalia-dev/noctalia/v5.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Login Greeter
     noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter/v1.5.0";
+      url = "github:noctalia-dev/noctalia-greeter/v1.6.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
