@@ -311,7 +311,7 @@
 
         # Plugins
         plugins = {
-          source = lib.mkDefault [
+          source = [
             {
               name = "official";
               kind = "git";
@@ -322,10 +322,16 @@
               kind = "git";
               location = "https://github.com/noctalia-dev/community-plugins";
             }
+            {
+              name = "local";
+              kind = "path";
+              location = files.noctalia;
+            }
           ];
-          enabled = lib.mkDefault [
+          enabled = [
             "noctalia/screen_recorder"
             "noctalia/timer"
+            "maydayv7/keyhelp"
           ];
         };
         plugin_settings."noctalia/screen_recorder" = {

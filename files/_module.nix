@@ -77,9 +77,7 @@ in {
     # Hyprland WM
     hyprland = {
       shaders = ./hyprland/shaders;
-      noctalia = ./hyprland/noctalia;
       pypr = builtins.readFile ./hyprland/pypr.toml;
-      kebihelp = builtins.readFile ./hyprland/kebihelp.json;
     };
 
     # Pictures
@@ -95,6 +93,9 @@ in {
 
     # Nano Text Editor
     nano = builtins.readFile ./nanorc;
+
+    # Noctalia Shell
+    noctalia = ./noctalia;
 
     # PcmanFM File Manager
     pcmanfm = builtins.readFile ./pcmanfm.conf;

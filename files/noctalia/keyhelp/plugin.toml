@@ -1,0 +1,39 @@
+id = "maydayv7/keyhelp"
+name = "Keyhelp"
+version = "1.0.0"
+plugin_api = 30
+author = "maydayv7"
+license = "GPL-3.0-only"
+icon = "keyboard"
+tags = ["hyprland", "niri", "panel", "utility"]
+description = "Searchable application and desktop shortcut reference."
+
+[[setting]]
+key = "hyprctl_path"
+type = "string"
+label_key = "settings.hyprctl"
+default = "hyprctl"
+advanced = true
+
+[[setting]]
+key = "niri_path"
+type = "string"
+label_key = "settings.niri"
+default = "niri"
+advanced = true
+
+[[service]]
+id = "controller"
+entry = "controller.luau"
+
+[[panel]]
+id = "panel"
+entry = "panel.luau"
+width = 900
+height = 720
+placement = "floating"
+position = "center"
+layer = "overlay"
+keyboard_focus = "exclusive"
+dismiss_on_outside_click = true
+capture_keys = ["ctrl+Tab", "ctrl+shift+Tab", "Page_Down", "Page_Up", "ctrl+f"]

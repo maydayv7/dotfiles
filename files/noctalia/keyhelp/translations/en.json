@@ -1,0 +1,18 @@
+{
+  "title": "Keyhelp",
+  "close": "Close",
+  "search": "Search {app} shortcuts…",
+  "loading": "Loading shortcuts…",
+  "load_error": "Could not load shortcuts",
+  "invalid_data": "The shortcut file is invalid.",
+  "read_busy": "The file reader is busy. Try again.",
+  "retry": "Retry",
+  "no_results": "No matching shortcuts in this app. Try another search or select another app.",
+  "count": "{count} shortcuts",
+  "page": "{current} / {total}",
+  "previous": "Previous",
+  "next": "Next",
+  "hints": "Ctrl+Tab: apps · Page Up/Down: pages · Ctrl+F: search · Esc: close",
+  "settings.hyprctl": "Hyprctl executable",
+  "settings.niri": "Niri executable"
+}

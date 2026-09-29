@@ -17,7 +17,6 @@ lib.mkIf (osConfig != null) (
     mod = "SUPER";
 
     unit = command: lib.head (lib.splitString " " command);
-    toggle = app: "pkill ${app} || uwsm app -u ${app}.scope -- ${app}";
     runOnce = app: "pgrep ${app} || uwsm app -u ${app}.scope -- ${app}";
   in {
     ## App Environment
@@ -63,7 +62,7 @@ lib.mkIf (osConfig != null) (
 
         # Utilities
         (bind (combo [mod] "A") (exec "noctalia msg panel-toggle launcher"))
-        (bind (combo [mod] "slash") (exec "${toggle "kebihelp"} show -a"))
+        (bind (combo [mod] "slash") (exec "noctalia msg plugin maydayv7/keyhelp:controller all toggle hyprland"))
         (bind (combo [mod "SHIFT"] "C") (exec "${runOnce "hyprpicker"} -arf hex"))
         (bind (combo [mod "SHIFT"] "B") (exec (runOnce "overskride")))
         (bind (combo [mod] "D") (exec (runOnce "nwg-displays")))
@@ -118,14 +117,6 @@ lib.mkIf (osConfig != null) (
           {
             match.class = "^(gnome-control-center)$";
             stay_focused = true;
-          }
-
-          # Keybinds Viewer
-          {
-            match.title = "^(Kebihelp)$";
-            pin = true;
-            stay_focused = true;
-            opacity = "0.9 override";
           }
 
           # Browser Windows

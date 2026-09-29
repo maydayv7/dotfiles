@@ -1,5 +1,5 @@
 ## Shell Integration
-{files ? null, ...}: {
+_: {
   home = {
     config,
     lib,
@@ -38,36 +38,16 @@
       };
 
       # Plugins
-      plugins = {
-        source = [
-          {
-            name = "official";
-            kind = "git";
-            location = "https://github.com/noctalia-dev/official-plugins";
-          }
-          {
-            name = "community";
-            kind = "git";
-            location = "https://github.com/noctalia-dev/community-plugins";
-          }
-          {
-            name = "local";
-            kind = "path";
-            location = files.hyprland.noctalia;
-          }
-        ];
-        enabled = [
-          "noctalia/screen_recorder"
-          "noctalia/timer"
-          "maydayv7/hyprland-submap"
-          "maydayv7/hyprland-layout"
-        ];
-      };
+      plugins.enabled = lib.mkAfter [
+        "maydayv7/hyprland-submap"
+        "maydayv7/hyprland-layout"
+      ];
       plugin_settings = let
         hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
         jq = lib.getExe pkgs.jq;
         socket2 = "${lib.getExe pkgs.socat} -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock -";
       in {
+        "maydayv7/keyhelp".hyprctl_path = hyprctl;
         "maydayv7/hyprland-submap" = {
           command = socket2;
           aliases = [

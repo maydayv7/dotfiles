@@ -10,7 +10,7 @@
 
   base = import ../_base.nix {};
   args = {inherit util files inputs;};
-  features = builtins.map (p: import p args) (
+  features = map (p: import p args) (
     util.map.modules.list ../_wm
     ++ util.map.modules.list ./_features
   );
@@ -22,7 +22,7 @@ in {
         nixos.qt
         nixos.gtk
       ]
-      ++ builtins.map (f: f.nixos or {}) features;
+      ++ map (f: f.nixos or {}) features;
 
     homeManager.hyprland.imports =
       [
@@ -30,7 +30,7 @@ in {
         homeManager.qt
         homeManager.gtk
       ]
-      ++ builtins.map (f: f.home or {}) features
-      ++ builtins.map (p: import p args) (util.map.modules.list ./_settings);
+      ++ map (f: f.home or {}) features
+      ++ map (p: import p args) (util.map.modules.list ./_settings);
   };
 }

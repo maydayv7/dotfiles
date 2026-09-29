@@ -7,7 +7,6 @@ _: {config, ...}: {
     in
       {
         # Compositor
-        "Super+slash".action = show-hotkey-overlay;
         "Alt+F4".action = close-window;
         "Super+Q".action = close-window;
         "Super+C".action = center-window;
@@ -72,6 +71,13 @@ _: {config, ...}: {
         "Super+Shift+WheelScrollDown" = {
           action = focus-workspace-down;
           cooldown-ms = 150;
+        };
+
+        # Keyhelp
+        "Super+slash" = {
+          action = spawn "noctalia" "msg" "plugin" "maydayv7/keyhelp:controller" "all" "toggle" "niri";
+          repeat = false;
+          hotkey-overlay.title = "Keyhelp";
         };
       }
       //
