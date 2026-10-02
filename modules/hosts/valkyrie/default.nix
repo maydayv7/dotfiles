@@ -113,6 +113,9 @@ in {
           enable = true;
           model = "nvidia";
         };
+
+        # ! # Fix build with Linux 7.2
+        nvidia.package = (pkgs.unstable.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.production;
       };
 
       # GUI

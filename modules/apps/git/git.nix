@@ -102,10 +102,8 @@ in {
             "*~*"
             "*.bak"
             ".direnv"
-            ".vscode"
             "result"
             "result-*"
-            "tags.*"
           ];
 
           settings = {
