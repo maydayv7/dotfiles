@@ -3,7 +3,7 @@
   nixos = {config, ...}: {
     imports = [inputs.noctalia-greeter.nixosModules.default];
     environment.persist.directories = ["/var/lib/noctalia-greeter"];
-    programs.noctalia-greeter = {
+    services.displayManager.noctalia-greeter = {
       enable = true;
       settings.cursor = {
         theme = config.stylix.cursor.name;

@@ -154,7 +154,7 @@
       url = "github:4evy/nixcord";
       inputs = {
         nixpkgs.follows = "unstable";
-        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
         treefmt-nix.follows = "formatter";
       };
     };
