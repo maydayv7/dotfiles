@@ -10,7 +10,7 @@ _: {
 
     programs.vscode.profiles.default.extensions =
       lib.mkIf config.programs.vscode.enable
-      [pkgs.vscode-marketplace.openai.chatgpt];
+      (with pkgs.vscode-marketplace.openai; [chatgpt codex-audio]);
 
     home = {
       packages = [pkgs.llm.chatgpt];

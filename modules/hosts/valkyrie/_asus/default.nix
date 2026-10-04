@@ -3,19 +3,21 @@ _: {
     config,
     lib,
     ...
-  }: {
+  }: let
+    perf = config.hardware.cpu.mode == "performance";
+  in {
     boot = {
       plymouth.extraConfig = "DeviceScale=2";
 
       # ! # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
-      kernelParams = lib.mkIf (config.hardware.cpu.mode == "performance") [
+      kernelParams = lib.mkIf perf [
         "amdgpu.dcdebugmask=0x10"
         "usbcore.autosuspend=-1"
       ];
     };
 
     environment.sessionVariables.AQ_DRM_DEVICES =
-      lib.mkIf (config.hardware.cpu.mode == "performance")
+      lib.mkIf (config.hardware.gpu.enable && perf)
       "/dev/dri/nvidia-dgpu:/dev/dri/integrated-gpu";
 
     services = {

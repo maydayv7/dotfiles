@@ -12,7 +12,14 @@
       cinnamon-desktop
       bulky
       file-roller
-      lxqt.pcmanfm-qt
+      (lxqt.pcmanfm-qt.overrideAttrs (old: {
+        postPatch =
+          (old.postPatch or "")
+          + ''
+            substituteInPlace pcmanfm/application.cpp \
+              --replace-fail 'dbus.interface()->registerService(fileManagerService, QDBusConnectionInterface::QueueService);' ""
+          '';
+      }))
     ];
   };
 
@@ -29,6 +36,9 @@
       archive = ["org.gnome.FileRoller.desktop"];
       directory = ["nemo.desktop"];
     };
+
+    # Prefer Nemo
+    xdg.dataFile."dbus-1/services/org.freedesktop.FileManager1.service".source = "${pkgs.nemo-with-extensions}/share/dbus-1/services/nemo.FileManager1.service";
 
     # Settings
     dconf.settings = {

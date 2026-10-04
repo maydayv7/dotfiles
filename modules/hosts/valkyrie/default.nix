@@ -14,7 +14,7 @@
     "docker"
     "mc-server"
     #"roblox"
-    #"vfio"
+    "vfio"
   ];
 
   hmModules = [
@@ -29,6 +29,7 @@
     "vscode"
     "zed"
     "codex"
+    "antigravity"
     "stream"
     "minecraft"
     "osu"
@@ -47,7 +48,7 @@
     "latex"
     #"flatpak"
     #"wine"
-    #"libvirt"
+    "libvirt"
     "hyprland"
   ];
 
@@ -58,7 +59,7 @@
   disk = import ./_disk/full.nix args;
   asus = import ./_asus {};
   dev = import ./_dev.nix {};
-  #vm = import ./_vm args;
+  vm = import ./_vm args;
 in {
   configurations.nixos.valkyrie = {
     system = "x86_64-linux";
@@ -74,6 +75,7 @@ in {
           disk.nixos
           (asus.nixos or {})
           (dev.nixos or {})
+          vm.nixos
         ]
         ++ util.map.array ["asus-zephyrus-ga402x-nvidia"] inputs.hardware.nixosModules;
 
@@ -144,15 +146,15 @@ in {
       ];
 
       # Virtualisation
-      # virt.vfio = {
-      #   setup = true;
-      #   passthrough = [
-      #     "10de:28e0" # Graphics
-      #     "10de:22be" # Audio
-      #   ];
-      #   isolate = "2-4,10-12";
-      #   hugepages = 16;
-      # };
+      virt.vfio = {
+        setup = true;
+        passthrough = [
+          "10de:28e0" # Graphics
+          "10de:22be" # Audio
+        ];
+        isolate = "2-4,10-12";
+        hugepages = 16;
+      };
 
       # User V7
       users.users.v7 = {

@@ -2,6 +2,7 @@
 title = "Windows VM"
 description = "A declarative, performant Windows 11 VM with dGPU passthrough and Looking Glass"
 date = 2026-06-27
+updated = 2026-10-04
 
 [taxonomies]
 series = ["NixOS Desktop"]
@@ -111,11 +112,11 @@ $ sudo zfs create -s -V 120G -o volblocksize=16k <pool>/vm/windows
 # appears as /dev/zvol/<pool>/vm/windows
 ```
 
-Now create a standard Windows 11 guest (`virt-manager` makes this easy, you may refer to [**this guide**](https://sysguides.com/install-a-windows-11-virtual-machine-on-kvm)). The settings that matter:
+Now create a standard Windows 11 guest (`virt-manager` makes this easy, you may refer to [**this guide**](https://sysguides.com/install-windows-11-on-kvm)). The settings that matter:
 
 - **Q35** chipset + **UEFI/OVMF** with **Secure Boot**, and **TPM 2.0** (`swtpm`) - Windows 11 requires the latter two.
 - **`host-passthrough`** CPU.
-- **virtio everywhere** - disk (on the zvol above) with `cache=none`, `io=native`, `discard=unmap`; virtio NIC (for performance).
+- **virtio everywhere** - disk (on the zvol above) with `cache=none`, `io=native`, `discard=unmap` + virtio NIC (for performance).
 - **Hyper-V enlightenments** so Windows uses its kernel fast paths.
 - A **QEMU guest agent** channel.
 
@@ -152,6 +153,23 @@ services.udev.extraRules = ''
 environment.systemPackages = [ pkgs.looking-glass-client ];
 ```
 
+With `runAsRoot = false`, QEMU runs as `qemu-libvirtd`, so it also needs membership in the `kvm` group.
+Because the device is passed through a custom QEMU command line, libvirt also needs explicit device-access settings:
+
+```nix
+users.users.qemu-libvirtd.extraGroups = [ "kvm" ];
+virtualisation.libvirtd.qemu.verbatimConfig = ''
+  namespaces = []
+  cgroup_device_acl = [
+    "/dev/null", "/dev/full", "/dev/zero",
+    "/dev/random", "/dev/urandom",
+    "/dev/ptmx", "/dev/kvm",
+    "/dev/userfaultfd",
+    "/dev/kvmfr0"
+  ]
+'';
+```
+
 Give the VM the matching `ivshmem` device via a `<qemu:commandline>` block that points `mem-path` at `/dev/kvmfr0` (this needs `xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'` on the root `<domain>` tag):
 
 ```xml
@@ -166,7 +184,7 @@ Give the VM the matching `ivshmem` device via a `<qemu:commandline>` block that 
 Inside Windows, install the following:
 
 1. **NVIDIA driver** - Automatic via Windows Update.
-2. **A virtual display driver** ([MikeTheTech's VDD](https://github.com/VirtualDrivers/Virtual-Display-Driver)) - gives the desktop a head to render on. Its config (`C:\VirtualDisplayDriver\vdd_settings.xml`) can pin the virtual display to a specific GPU and define exact modes, so bind it to the passed-through GPU at your native resolution:
+2. **A virtual display driver** ([MikeTheTech&#39;s VDD](https://github.com/VirtualDrivers/Virtual-Display-Driver)) - gives the desktop a head to render on. Its config (`C:\VirtualDisplayDriver\vdd_settings.xml`) can pin the virtual display to a specific GPU and define exact modes, so bind it to the passed-through GPU at your native resolution:
 
    ```xml
    <vdd_settings>
@@ -270,13 +288,14 @@ Run the host CPU governor at `performance` (`powerManagement.cpuFreqGovernor = "
       {
         definition = ./windows.xml;
         active = null;
+        restart = false;
       }
     ];
   };
 }
 ```
 
-`active = null` is important: NixVirt redefines the domain on every rebuild but never starts, stops or destroys a running guest.
+`active = null` and `restart = false` is important: NixVirt redefines the domain on every rebuild but never starts, stops or destroys a running guest.
 
 If you use **impermanence** (an erase-on-boot root), the domain definition is now regenerated from Nix, so you only need to persist the actual state. Two directories matter:
 

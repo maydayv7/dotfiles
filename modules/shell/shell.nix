@@ -98,6 +98,7 @@ in {
               bindkey '^[[D'    backward-char
               bindkey '^[[F'    end-of-linegestures
               bindkey '^[[H'    beginning-of-line
+              bindkey '^H'      backward-kill-word
               bindkey '^J'      backward-kill-line
             '';
 

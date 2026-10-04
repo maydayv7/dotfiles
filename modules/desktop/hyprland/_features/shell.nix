@@ -26,14 +26,19 @@ _: {
         ];
       };
 
-      # Minimize Button
-      widget.minimize = {
-        type = "custom_button";
-        glyph = "arrow-bar-to-down";
-        tooltip = "Minimize window";
-        actions = {
-          right = "exec hyprutils toggle minimized";
-          left = ''exec hyprctl dispatch 'hl.dsp.window.move({ workspace = "special:minimized", follow = false })' '';
+      widget = {
+        # Game Mode
+        battery.actions.right = "exec hyprutils gamemode";
+
+        # Minimize Button
+        minimize = {
+          type = "custom_button";
+          glyph = "arrow-bar-to-down";
+          tooltip = "Minimize window";
+          actions = {
+            right = "exec hyprutils toggle minimized";
+            left = ''exec hyprctl dispatch 'hl.dsp.window.move({ workspace = "special:minimized", follow = false })' '';
+          };
         };
       };
 
