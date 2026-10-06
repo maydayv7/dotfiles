@@ -10,7 +10,7 @@ _: {
       # Bar
       bar.main = {
         start = ["control-center" "taskbar" "group:g1" "media"];
-        capsule_group = [
+        capsule_group = lib.mkBefore [
           {
             id = "g1";
             members = [
@@ -18,10 +18,6 @@ _: {
               "maydayv7/hyprland-layout:indicator"
               "maydayv7/hyprland-submap:indicator"
             ];
-          }
-          {
-            id = "g2";
-            members = ["tray"];
           }
         ];
       };

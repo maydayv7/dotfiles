@@ -11,6 +11,7 @@
     ...
   }: let
     output = osConfig.gui.display or "eDP-1";
+    sync = config.services.syncthing.enable;
   in {
     imports = [inputs.noctalia.homeModules.default];
     gui._unmanaged = ["noctalia-shell"];
@@ -93,10 +94,9 @@
         bar.main = {
           position = "top";
           start = lib.mkDefault ["control-center" "taskbar" "media"];
-          center = ["launcher" "clock" "weather"];
+          center = ["launcher" "notes" "clock" "weather" "recorder"];
           end = [
             "group:g2"
-            "recorder"
             "clipboard"
             "bluetooth"
             "network"
@@ -114,10 +114,10 @@
           scale = 1.1;
           thickness = 30;
           widget_spacing = 14;
-          capsule_group = lib.mkDefault [
+          capsule_group = [
             {
               id = "g2";
-              members = ["tray"];
+              members = ["tray"] ++ lib.optional sync "syncthing";
             }
           ];
         };
@@ -125,12 +125,20 @@
         # Widgets
         widget = {
           clock.anchor = true;
-          control-center.glyph = "menu";
           network.show_label = false;
+          notes.type = "noctalia/notes:notes";
           recorder.type = "noctalia/screen_recorder:recorder";
+          control-center = {
+            custom_image = files.images.nixos;
+            custom_image_colorize = true;
+          };
           media = {
             hide_when_no_media = true;
             title_scroll = "on_hover";
+          };
+          weather = {
+            show_condition = false;
+            show_temperature = false;
           };
           taskbar = {
             group_by_workspace = true;
@@ -139,13 +147,10 @@
             show_active_indicator = false;
             workspace_label_placement = "inside";
           };
-          weather = {
-            show_condition = false;
-            show_temperature = false;
-          };
-          control-center = {
-            custom_image = files.images.nixos;
-            custom_image_colorize = true;
+          syncthing = lib.mkIf sync {
+            type = "rylos/syncthing:bar";
+            enable_scroll = false;
+            show_pending = false;
           };
         };
 
@@ -328,15 +333,19 @@
               location = files.noctalia;
             }
           ];
-          enabled = [
-            "noctalia/screen_recorder"
-            "noctalia/timer"
-            "maydayv7/keyhelp"
-          ];
+          enabled =
+            [
+              "noctalia/notes"
+              "noctalia/screen_recorder"
+              "noctalia/timer"
+              "maydayv7/keyhelp"
+            ]
+            ++ lib.optional sync "rylos/syncthing";
         };
+        plugin_settings."noctalia/notes".panel_placement = "attached";
         plugin_settings."noctalia/screen_recorder" = {
           copy_to_clipboard = true;
-          video_source = "focused";
+          video_source = "portal";
         };
       };
 

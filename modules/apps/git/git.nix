@@ -37,10 +37,13 @@ in {
         ];
 
         # Hooks
-        file.".git-hooks" = {
-          source = files.git.hooks;
-          recursive = true;
-        };
+        file = lib.mapAttrs' (
+          name: _:
+            lib.nameValuePair ".git-hooks/${name}" {
+              text = builtins.readFile "${files.git.hooks}/${name}";
+              executable = true;
+            }
+        ) (builtins.readDir files.git.hooks);
       };
 
       # GitHub CLI

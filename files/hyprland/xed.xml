@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<style-scheme id="custom" name="custom" version="1.0">
+  <description>Soothing pastel theme</description>
+
+  <!-- Palette -->
+  <color name="base00" value="#@base00" />
+  <color name="base01" value="#@base01" />
+  <color name="base02" value="#@base02" />
+  <color name="base03" value="#@base03" />
+  <color name="base04" value="#@base04" />
+  <color name="base05" value="#@base05" />
+  <color name="base06" value="#@base06" />
+  <color name="base07" value="#@base07" />
+  <color name="base08" value="#@base08" />
+  <color name="base09" value="#@base09" />
+  <color name="base0A" value="#@base0A" />
+  <color name="base0B" value="#@base0B" />
+  <color name="base0C" value="#@base0C" />
+  <color name="base0D" value="#@base0D" />
+  <color name="base0E" value="#@base0E" />
+  <color name="base0F" value="#@base0F" />
+
+  <!-- Global Settings -->
+  <style name="text" foreground="base05" background="base00" />
+  <style name="selection" foreground="base05" background="base04" />
+  <style name="cursor" foreground="base06" />
+  <style name="secondary-cursor" foreground="base06" />
+  <style name="current-line" background="base02" />
+  <style name="line-numbers" foreground="base05" background="base01" />
+  <style name="draw-spaces" foreground="base05" />
+  <style name="background-pattern" background="base00" />
+
+  <!-- Bracket Matching -->
+  <style name="bracket-match" foreground="base0E" />
+  <style name="bracket-mismatch" foreground="base05" background="base09" />
+
+  <!-- Right Margin -->
+  <style name="right-margin" foreground="base05" background="base01" />
+
+  <!-- Search Matching -->
+  <style name="search-match" foreground="base05" background="base0D" />
+
+  <!-- Comments -->
+  <style name="def:comment" foreground="base04" />
+  <style name="def:shebang" foreground="base04" bold="true" />
+  <style name="def:doc-comment-element" italic="true" />
+
+  <!-- Constants -->
+  <style name="def:constant" foreground="base0B" />
+  <style name="def:string" foreground="base0B" />
+  <style name="def:special-char" foreground="base07" />
+  <style name="def:special-constant" foreground="base07" />
+  <style name="def:floating-point" foreground="base07" />
+
+  <!-- Identifiers -->
+  <style name="def:identifier" foreground="base0D" />
+
+  <!-- Statements -->
+  <style name="def:statement" foreground="base0D" bold="true" />
+
+  <!-- Types -->
+  <style name="def:type" foreground="base08" bold="true" />
+
+  <!-- Markup -->
+  <style name="def:emphasis" italic="true" />
+  <style name="def:strong-emphasis" foreground="base0A" bold="true" />
+  <style name="def:inline-code" foreground="base0B" />
+  <style name="def:insertion" underline="single" />
+  <style name="def:deletion" strikethrough="true" />
+  <style name="def:link-text" foreground="base06" />
+  <style name="def:link-symbol" foreground="base0D" bold="true" />
+  <style name="def:link-destination" foreground="base0D" italic="true" underline="single" />
+  <style name="def:heading" foreground="base0C" bold="true" />
+  <style name="def:thematic-break" foreground="base0B" bold="true" />
+  <style name="def:preformatted-section" foreground="base0B" />
+  <style name="def:list-marker" foreground="base0C" bold="true" />
+
+  <!-- Others -->
+  <style name="def:preprocessor" foreground="base0C" />
+  <style name="def:error" foreground="base08" bold="true" />
+  <style name="def:warning" foreground="base09" />
+  <style name="def:note" foreground="base0D" bold="true" />
+  <style name="def:net-address" italic="true" underline="single" />
+</style-scheme>

@@ -1,7 +1,12 @@
 ## 2026
 
+### October
+
+- Replace `geany` with `xed-editor`
+
 ### September
 
+- Noctalia plugin `keyhelp`
 - Update `mc-server` to 26.3
 - Change `site` domain
 - Refactor `gitsite` and move `stagit` in-tree

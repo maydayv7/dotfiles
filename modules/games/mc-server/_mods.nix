@@ -23,8 +23,14 @@
       {
         name = "Lithium";
         id = "gvQqBUqZ";
-        url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/WXHRsMRl/lithium-fabric-0.26.1%2Bmc26.3.jar";
-        hash = "sha512-rLubA3ogPwBeA6IL8dmGYBk4Srta0nZkgIoSuRljmiUB7LUvjw130n4UCZNbDb27cOAaxGZIDArkIe5AP2ScWQ==";
+        url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/xS0Q8LSi/lithium-fabric-0.26.2%2Bmc26.3.jar";
+        hash = "sha512-TX/uZhMu7ccf6rk5C5LJXXBY7b2tD+z6wdg2opULl6fKRjr77eYcfvNhzmXh+Sernond5b8uDgzkhq+1xdvuQA==";
+      }
+      {
+        name = "Krypton";
+        id = "fQEb0iXm";
+        url = "https://cdn.modrinth.com/data/fQEb0iXm/versions/UugdIYJw/krypton-0.3.2.jar";
+        hash = "sha512-0dV+vUE5W3WwHxMM2VA+uNIIISQko5n/nzZ/UL6PvBxkckQrM8aG53fDFI9qYJUg6PtzLHVRV8NYyyB/1NESOg==";
       }
       {
         name = "FerriteCore";
@@ -41,8 +47,8 @@
       {
         name = "C2ME";
         id = "VSNURh3q";
-        url = "https://cdn.modrinth.com/data/VSNURh3q/versions/sSoXjAqP/c2me-fabric-mc26.3-0.4.2-alpha.0.88.jar";
-        hash = "sha512-u3QdEYyI6m2Vd/7Rr/rMHx8Ke3JaYZ7pM0N8xeQDyPFHSnCKub1ALRVO/ePOZu9Ng+2VDAz099xlblJYNyOSJg==";
+        url = "https://cdn.modrinth.com/data/VSNURh3q/versions/FXjQDzq7/c2me-fabric-mc26.3-0.4.2-alpha.0.89.jar";
+        hash = "sha512-tPz4K74Vv6JT46tt9Na2ToAKLM20XUyiuAQNqH9yAz/tNPT5QBaqxQdZbHj92xjbooxmQnkBgWQsrkb64os6hQ==";
       }
 
       # Server-side
@@ -61,8 +67,8 @@
       {
         name = "Veinminer";
         id = "OhduvhIc";
-        url = "https://cdn.modrinth.com/data/OhduvhIc/versions/G10nvigw/veinminer-fabric-2.12.2.jar";
-        hash = "sha512-XjGGMpijZXnS62aYFwm57tecoBV1MbRPgXiXfEIWaAENNu9EXAAyFcKD6swPayE+eylwyDkCVAFEqtjf+yQPwA==";
+        url = "https://cdn.modrinth.com/data/OhduvhIc/versions/Hpw3qIxS/veinminer-fabric-2.12.3.jar";
+        hash = "sha512-7H+SYppgEL9mQzfJ1DNDcER9y8brKxgC72Enuw4MhYt9VusZ03K8WX6HgwNPj7kPDGbQRDM68jz2vCTxXawDjw==";
       }
       {
         name = "VeinminerEnchant";
@@ -75,20 +81,20 @@
       {
         name = "DistantHorizons";
         id = "uCdwusMi";
-        url = "https://cdn.modrinth.com/data/uCdwusMi/versions/gfi11b05/DistantHorizons-3.3.2-26.3-fabric-neoforge.jar";
-        hash = "sha512-eKN41ewRezMJIwFf5lF/z6usPbRkszIdeiW25dd90RIlyDtHB+g6xyBQfFrHGKFjkQEzIpWhxYBBPPJJj0cpWQ==";
+        url = "https://cdn.modrinth.com/data/uCdwusMi/versions/TGgEbP9A/DistantHorizons-3.3.4-26.3-fabric-neoforge.jar";
+        hash = "sha512-C5CxsI2Zl0v8PI6Gss6yUuL5FxXtZrklAEwoM1+0Thvdu7a4BD5NTVPIftJHeJzReIsbpOP0OU7+FU4MWc/yNg==";
       }
       {
         name = "JEI";
         id = "u6dRKJwZ";
-        url = "https://cdn.modrinth.com/data/u6dRKJwZ/versions/wS0zzU8r/jei-26.3-fabric-31.7.0.34.jar";
-        hash = "sha512-xaBTc1SuYTI93+NAQUezHhGJ9eDobNODpRFzxHmXfnWDRFFi+p0EqLaPbxeiFUWVo/W+PdzDJ+BRpZF8U6bAhA==";
+        url = "https://cdn.modrinth.com/data/u6dRKJwZ/versions/QfoQJyPO/jei-26.3-fabric-31.9.0.58.jar";
+        hash = "sha512-zfUlfSuD8kVUKRzjn/BuW5wwuQwSE2vgL4d320uYvqzjFcguHsbidVPEQs0q0fufd0QiNbXOMYMYWixH2sWtuw==";
       }
       {
         name = "Jade";
         id = "nvQzSEkH";
-        url = "https://cdn.modrinth.com/data/nvQzSEkH/versions/lt43vWtF/Jade-mc26.3-Fabric-26.3.1.jar";
-        hash = "sha512-E1nWV2IU//rct71CAr/RYGyCerbHUUPLx3Ryae19QTH12yJqkUuakkyskuWWx5lOb+MwNnH/jVotzUHK9hPnrg==";
+        url = "https://cdn.modrinth.com/data/nvQzSEkH/versions/71CTWqdE/Jade-mc26.3-Fabric-26.3.5.jar";
+        hash = "sha512-LnMx5i62ZYJorpLcQt6LRp9Q3WxqnSVGpvZJuul8LN/Y1MFWCUjPRiaRddLHnGxHo2oCaF451HZ2jRj7sqKHAw==";
       }
       {
         name = "SimpleVC";

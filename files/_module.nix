@@ -51,13 +51,6 @@ in {
     # Fastfetch
     fetch = builtins.readFile ./fastfetch.jsonc;
 
-    # Geany Text Editor
-    geany = util.map.files {
-      directory = ./geany;
-      apply = builtins.readFile;
-      extension = ".conf";
-    };
-
     # 'git' Version Control
     git.hooks = ./git/hooks;
 
@@ -78,6 +71,7 @@ in {
     hyprland = {
       shaders = ./hyprland/shaders;
       pypr = builtins.readFile ./hyprland/pypr.toml;
+      xed = builtins.readFile ./hyprland/xed.xml;
     };
 
     # Pictures
