@@ -43,10 +43,17 @@ in {
       # Mail Client
       thunderbird = {
         enable = true;
+        package = pkgs.custom.betterbird;
         profiles.default = {
           isDefault = true;
           extensions = [pkgs.custom.thunderbird-tools-ng];
-          settings."extensions.autoDisableScopes" = 0;
+          settings = {
+            "extensions.autoDisableScopes" = 0;
+            "mail.biff.show_tray_icon" = true;
+            "mail.biff.show_tray_icon_always" = true;
+            "mail.minimizeToTray" = true;
+            "mail.closeToTray" = true;
+          };
         };
       };
     };

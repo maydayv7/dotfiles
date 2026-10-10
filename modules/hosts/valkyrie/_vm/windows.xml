@@ -90,7 +90,7 @@
     <!-- Disk images
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw' />
-      <source file='/data/vm/iso/Win11.iso' />
+      <source file='/data/vm/Win11.iso' />
       <target dev='sda' bus='sata' />
       <readonly />
       <boot order='1' />
@@ -98,7 +98,7 @@
     </disk>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw' />
-      <source file='/data/vm/iso/virtio-win.iso' />
+      <source file='/data/vm/virtio-win.iso' />
       <target dev='sdb' bus='sata' />
       <readonly />
       <boot order='2' />

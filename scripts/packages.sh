@@ -30,6 +30,7 @@ update() {
     repo="$(cat "${t1}" | jq -r .repo)"
     branch="$(cat "${t1}" | jq -r .branch)"          # Optional
     release="$(cat "${t1}" | jq -r .release)"        # Optional
+    regex="$(jq -r '.regex // "."' "${t1}")"         # Optional
     cargoHash="$(cat "${t1}" | jq -r .cargoHash)"    # Optional
     vendorHash="$(cat "${t1}" | jq -r .vendorHash)"  # Optional
     skip="$(cat "${t1}" | jq -r .skip)"              # Optional
@@ -50,7 +51,7 @@ update() {
     then
       if [[ "${release}" == "true" ]]
       then
-        newrev="$(git ls-remote --refs --sort="version:refname" --tags "${repo}" | cut -d/ -f3- | tail -n1)"
+        newrev="$(git ls-remote --refs --sort="version:refname" --tags "${repo}" | cut -d/ -f3- | grep -E "${regex}" | tail -n1)"
       else
         if [[ "${branch}" == "null" ]]
         then
@@ -58,6 +59,12 @@ update() {
         fi
         newrev="$(git ls-remote "${repo}" "refs/heads/${branch}" | awk '{ print $1}')"
       fi
+    fi
+
+    if [[ -z "${newrev:-}" ]]
+    then
+      echo "Could not determine the latest revision for '${pkgname}'" >&2
+      exit 1
     fi
 
     # Early Quit

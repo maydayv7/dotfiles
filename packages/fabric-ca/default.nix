@@ -3,16 +3,17 @@
   pkgs,
   ...
 }:
-with pkgs;
-  buildGoModule rec {
+with pkgs; let
+  metadata = import ./metadata.nix;
+in
+  buildGoModule {
     pname = "fabric-ca";
-    version = "1.5.15";
+    version = lib.removePrefix "v" metadata.rev;
 
     src = fetchFromGitHub {
       owner = "hyperledger";
       repo = "fabric-ca";
-      rev = "v${version}";
-      hash = "sha256-kJGeA30hoRk98/io/O5lorw96bpiGpheSaHrHVqqO+s=";
+      inherit (metadata) rev sha256;
     };
 
     vendorHash = null;

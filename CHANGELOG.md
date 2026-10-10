@@ -2,6 +2,7 @@
 
 ### October
 
+- Use [`betterbird`](https://www.betterbird.eu/)
 - Replace `geany` with `xed-editor`
 
 ### September
