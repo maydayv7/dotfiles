@@ -1,6 +1,6 @@
 ### Packages
 
-The `packages` directory contains custom-built packages (can be accessed by `github:maydayv7/dotfiles#packages.${system}`). Packages which have a separate `metadata.nix` can be automatically updated using `sh update.sh`
+The `packages` directory contains custom-built packages (can be accessed by `github:maydayv7/dotfiles#packages.${system}`). Packages which have a separate `metadata.nix` can be automatically updated by running `./update.sh` from the `packages` directory.
 
 The `overlays` directory contains overrides for pre-built packages (See [this](https://wiki.nixos.org/wiki/Overlays) for more information)
 
@@ -17,4 +17,4 @@ Otherwise run <code>nix hash convert --hash-algo sha256 $(nix-prefetch-url <b>ur
 
 ### Patches
 
-The `nixpkgs` package channel can be patched by simply dropping a valid `.patch` file into the `patches` directory
+The `nixpkgs` package channel can be patched by simply dropping a valid `.patch` or `.diff` file into the `patches` directory

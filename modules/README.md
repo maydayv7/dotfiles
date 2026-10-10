@@ -5,6 +5,7 @@ The `modules` directory contains the custom configuration modules that form the 
 - Directories are purely organizational
 - Files prefixed with `_` are not auto-imported
 - [`core`](./core): `flake-parts` plumbing that wires everything together
+- [`lib`](./lib/README.md): custom utility functions exposed through `util`, with helper files excluded from auto-import
 - [`hosts`](./hosts): per-device configuration, declared as `configurations.nixos.<host>` and `configurations.homeManager.<user@host>`, composing the modules below
 - [`users`](./users/): user-specific Home Manager configurations
 
@@ -30,8 +31,8 @@ An overview of every configuration module in this repository.
 | `syncthing`   | Home Manager | Syncthing file sync                |
 | `youtube`     | Home Manager | YouTube Music & TUI                |
 | `vscode`      | Home Manager | Visual Studio Code editor          |
-| `antigravity` | Home Manager | Google Antigravity                 |
 | `zed`         | Home Manager | Zed Editor                         |
+| `antigravity` | Home Manager | Google Antigravity                 |
 | `codex`       | Home Manager | OpenAI Codex                       |
 | `claude`      | Home Manager | Anthropic Claude                   |
 | `flatpak`     | Both         | Flatpak app sandboxing             |
@@ -100,7 +101,7 @@ An overview of every configuration module in this repository.
 | `filesystem` ★ | Both  | File system layout                  |
 | `nix` ★        | Both  | Nix daemon & settings               |
 | `user` ★       | Both  | User accounts & Home Manager wiring |
-| `security`     | NixOS | Security & hardening                |
+| `security`     | Both  | Security & hardening                |
 
 ### [`virt`](./virt)
 
@@ -113,9 +114,9 @@ An overview of every configuration module in this repository.
 
 ### [`secrets`](../secrets)
 
-| Module      | Type  | Description        |
-| ----------- | ----- | ------------------ |
-| `secrets` ★ | NixOS | Secrets management |
+| Module      | Type | Description        |
+| ----------- | ---- | ------------------ |
+| `secrets` ★ | Both | Secrets management |
 
 ## Options
 
@@ -157,7 +158,7 @@ The following are the custom configuration options exposed by the modules above:
     - `model`: Discrete GPU Model - `null / "nvidia"`
 
 - [`system`](./system) -
-  - `kernel`: Linux Kernel Variant to be used - `"lts" / "variant"`
+  - `kernel`: Linux Kernel Variant to be used - `"lts"` or a suffix from `pkgs.linuxKernel.kernels`
   - `kernelModules`: Linux Kernel Modules to load
   - `scheme`: Supported Boot Firmware Scheme - `null / "mbr" / "efi" / "secure"`
   - `fs` -

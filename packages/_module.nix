@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  map = import ../lib/map.nix lib;
+  map = import ../modules/lib/_map.nix lib;
   inherit (builtins) any attrValues isPath;
 in {
   perSystem = {

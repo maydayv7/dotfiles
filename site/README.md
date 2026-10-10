@@ -25,6 +25,7 @@ The build also subsets webfonts, retaining text glyphs, ligatures, and Nerd icon
 To produce the same optimized assets from the `site` development shell:
 
 ```sh
+cd site
 zola build
 python3 scripts/optimize_fonts.py public
 ```

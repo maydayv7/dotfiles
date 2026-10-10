@@ -14,8 +14,8 @@ in {
     isWM = (osConfig.programs.hyprland.enable or false) || (osConfig.programs.niri.enable or false);
   in {
     imports = [
-      ./_mcp.nix
-      (import ./vscode/_mutable.nix {
+      ./_common.nix
+      (import ../vscode/_mutable.nix {
         program = "antigravity";
         configDir = "Antigravity";
       })
@@ -25,7 +25,7 @@ in {
     programs.antigravity = {
       enable = true;
       package = pkgs.antigravity;
-      profiles.default = import ./vscode/_profile.nix {
+      profiles.default = import ../vscode/_profile.nix {
         inherit lib pkgs files font isGnome isWM;
       };
     };

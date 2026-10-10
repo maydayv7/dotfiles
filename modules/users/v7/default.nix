@@ -19,7 +19,6 @@ in {
     };
 
     home = {
-      packages = [pkgs.home-manager];
       persist.directories = [
         "TBD"
         "Projects"
@@ -34,6 +33,12 @@ in {
           file://${homeDir}/Projects Projects
         '';
       };
+
+      packages = with pkgs; [
+        home-manager
+        cloudflared
+        dig
+      ];
     };
 
     sops.templates = let
@@ -59,8 +64,12 @@ in {
         '';
       };
 
-    programs.zsh.initContent = lib.mkIf github-mcp (lib.mkAfter ''
-      source ${config.sops.templates."github-mcp.sh".path}
-    '');
+    programs = {
+      zsh.initContent = lib.mkIf github-mcp (lib.mkAfter ''
+        source ${config.sops.templates."github-mcp.sh".path}
+      '');
+
+      ssh.includes = [config.sops.secrets."ssh-config.secret".path];
+    };
   };
 }

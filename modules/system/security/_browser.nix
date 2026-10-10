@@ -69,6 +69,9 @@
 
         bind.ro = [
           "/sys/bus/pci"
+          "/sys/class/drm"
+          "/run/udev/data"
+          "/etc/egl/egl_external_platform.d"
           ["${firefox}/lib/firefox" "/app/etc/firefox"]
           (sloth.concat' sloth.homeDir "/.mozilla/native-messaging-hosts")
 
@@ -86,7 +89,13 @@
           "/etc/zoneinfo"
         ];
 
-        bind.dev = ["/dev/shm"];
+        bind.dev = [
+          "/dev/shm"
+          "/dev/nvidia0"
+          "/dev/nvidiactl"
+          "/dev/nvidia-modeset"
+          "/dev/nvidia-uvm"
+        ];
         tmpfs = ["/tmp"];
         newSession = true;
       };

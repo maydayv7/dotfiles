@@ -1,9 +1,9 @@
-## Model Context Protocol Servers ##
 {
   lib,
   pkgs,
   ...
 }: {
+  ## Model Context Protocol Servers
   programs.mcp = {
     enable = true;
     servers = {
@@ -23,4 +23,10 @@
       figma.url = "https://mcp.figma.com/mcp";
     };
   };
+
+  ## Utilities
+  home.packages = with pkgs; [
+    poppler-utils # PDF to Text
+    repomix # Repo to XML
+  ];
 }

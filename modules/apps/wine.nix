@@ -21,7 +21,7 @@ _: {
         hardware.graphics.enable32Bit = true;
 
         environment.systemPackages = with pkgs.wine // pkgs; (
-          builtins.map
+          map
           (
             name:
               if (name.override.__functionArgs ? wine)

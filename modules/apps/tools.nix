@@ -18,17 +18,12 @@ in {
     homeManager.tools = {pkgs, ...}: {
       home.packages = with pkgs; [
         # Utilities
-        clapgrep
         freefilesync
         gearlever
         popsicle
 
         # Media
         pitivi
-        poppler-utils
-        xnviewmp
-
-        # Graphics
         drawing
         identity
         vipsdisp
@@ -51,12 +46,10 @@ in {
         files = [".config/rncbc.org/qpwgraph"];
         directories = [
           ".appimages"
-          ".config/de.leopoldluley.Clapgrep"
           ".config/easyeffects"
           ".config/FreeFileSync"
           ".config/obs-studio"
           ".config/pitivi"
-          ".config/xnviewmp"
           ".local/share/easyeffects"
         ];
       };

@@ -102,10 +102,12 @@ _: {
           pulse.enable = true;
         };
 
+        # Wireless
         networking = {
           networkmanager.enable = true;
           firewall.enable = true;
         };
+        systemd.network.wait-online.enable = false;
 
         hardware.bluetooth = {
           enable = true;

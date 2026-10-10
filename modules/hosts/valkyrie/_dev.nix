@@ -26,10 +26,7 @@ _: {
 
       # Tools
       systemPackages = with pkgs; [
-        cloudflared
-        dig
         gcc
-        repomix
         mongodb-compass
 
         # Node
@@ -45,14 +42,11 @@ _: {
     };
   };
 
-  home = {config, ...}: {
-    programs.ssh.includes = [config.sops.secrets."ssh-config.secret".path];
-
+  home = _: {
     home = {
       persist.directories = [
         ".mongodb"
         ".npm"
-        ".config/rog"
         ".config/MongoDB Compass"
         ".local/share/cloudflare-warp-gui"
       ];

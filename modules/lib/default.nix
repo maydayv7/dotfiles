@@ -7,8 +7,8 @@
   };
 
   config.util = {
-    map = import ./map.nix lib;
-    build = import ./build.nix lib;
-    types = import ./types.nix lib;
+    map = import ./_map.nix lib;
+    build = import ./_build.nix lib;
+    types = import ./_types.nix lib;
   };
 }

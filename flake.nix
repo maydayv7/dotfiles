@@ -223,7 +223,6 @@
       imports = [
         (inputs.import-tree ./modules)
         ./files/_module.nix
-        ./lib/_module.nix
         ./packages/_module.nix
         ./secrets/_module.nix
         ./site/_module.nix

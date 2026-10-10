@@ -40,6 +40,8 @@ _: {
   };
 
   home = {lib, ...}: {
+    home.persist.directories = [".config/rog"];
+
     # Keybinds
     wayland.windowManager.hyprland.settings.bind = let
       inline = lib.generators.mkLuaInline;

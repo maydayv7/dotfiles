@@ -6,7 +6,7 @@ _: {
     pkgs,
     ...
   }: {
-    imports = [./_mcp.nix];
+    imports = [./_common.nix];
 
     programs.vscode.profiles.default.extensions =
       lib.mkIf config.programs.vscode.enable

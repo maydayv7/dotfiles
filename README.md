@@ -130,13 +130,12 @@ $ nix flake show
 github:maydayv7/dotfiles
 ├───apps
 │   └───x86_64-linux
-│       ├───sysutils: app
 │       ├───hyprutils: app
 │       ├───install: app
-│       ├───nixos: app
-│       └───default: app
+│       └───os: app
 ├───checks
 │   └───x86_64-linux
+│       ├───configurations:nixos:install: derivation
 │       ├───configurations:nixos:futura: derivation
 │       ├───configurations:nixos:valkyrie: derivation
 │       ├───configurations:nixos:vortex: derivation
@@ -174,7 +173,7 @@ github:maydayv7/dotfiles
 ├───packages
 │   └───x86_64-linux
 │       ├───install: package 'os-install'
-│       ├───nixos: package 'nixos'
+│       ├───os: package 'os'
 │       └───website: package 'website-stable'
 ├───patchedPkgs: patched package source
 └───templates
@@ -191,9 +190,6 @@ github:maydayv7/dotfiles
 ├── secrets
 │   └── passwords
 ├── shells
-├── lib
-│   ├── build.nix
-│   └── map.nix
 ├── scripts
 │   ├── install.nix
 │   └── os.nix
@@ -202,7 +198,9 @@ github:maydayv7/dotfiles
 │   └── patches
 └── modules
     ├── core
+    ├── lib
     ├── hosts
+    ├── users
     ├── apps
     ├── desktop
     ├── games
@@ -210,7 +208,6 @@ github:maydayv7/dotfiles
     ├── hardware
     ├── shell
     ├── system
-    ├── users
     └── virt
 ```
 
@@ -220,12 +217,12 @@ github:maydayv7/dotfiles
 - [`files`](./files/README.md): `dotfiles` and program configuration
 - [`site`](./site/README.md): personal website generated using [`zola`](https://www.getzola.org/)
 - [`secrets`](./secrets/README.md): authentication credentials and user passwords managed using [`sops-nix`](https://github.com/Mic92/sops-nix)
-- `shells`: sand-boxed shells for development purposes
-- [`lib`](./lib/README.md): custom functions designed for conveniently defining configuration
+- [`shells`](./shells): sand-boxed shells for development purposes
 - [`scripts`](./scripts/README.md): useful system management scripts
 - [`packages`](./packages/README.md): locally built custom packages
-- `overlays`: overrides for pre-built packages
+- [`overlays`](./packages/overlays): overrides for pre-built packages
 - [`modules`](./modules/README.md): custom configuration modules for additional functionality
+- [`lib`](./modules/lib/README.md): custom functions designed for conveniently defining configuration
 
 ## Installation
 
@@ -262,9 +259,9 @@ To use my configuration as-is for a fresh NixOS installation, you can try the fo
    gpg --output private.pgp --armor --export-secret-key <b><i>USER</i></b>@<b><i>EMAIL</i></b>
    </code></pre>
 
-   _Save the keys `public.gpg` and `private.gpg` in a secure location_
+   _Save the keys `public.pgp` and `private.pgp` in a secure location_
 
-4. Import all required GPG Keys into a convenient location (like `/etc/gpg`) using <code>gpg --homedir <i>DIR</i> import</code> and specify it at `config.sops.gnupg.home` (Required for decryption of `secrets` on boot, can also be on an external drive)
+4. Import all required GPG Keys into a convenient location (like `/etc/gpg`) using <code>gpg --homedir <i>DIR</i> --import <i>KEY_FILE</i></code> and specify it at `config.sops.gnupg.home` (Required for decryption of `secrets` on boot, can also be on an external drive)
 
 5. Make new `secrets` and `passwords` in the desired directories by appending the paths to `secrets.yaml` and then using the following command (The [`os`](./scripts/README.md) script can be used to simplify the process):  
    _Replace_ **_PATH_** _with the path to the `secret`_
@@ -276,15 +273,13 @@ To use my configuration as-is for a fresh NixOS installation, you can try the fo
 
 </details>
 
-</details>
-
 <details>
 <summary><b>From Scratch</b></summary>
 
 > [!IMPORTANT]
 > These instructions are mainly intended for personal use
 
-To download the Install Media, click on the latest successsful run listed [here](../../actions/workflows/install.yml) and download the image artifact.
+To download the Install Media, click on the latest successful run listed [here](https://github.com/maydayv7/dotfiles/actions/workflows/install.yml) and download the image artifact.
 Burn it to a USB using a flashing utility such as [Etcher](https://www.balena.io/etcher/).
 The image supports both UEFI and legacy BIOS USB boot with Secure Boot disabled.
 
@@ -361,8 +356,7 @@ It is not recommended to use NixOS if you are a beginner just starting out, with
 
 _May change according to available hardware_
 
-This configuration works well with an Intel CPU + iGPU, and is currently being improved to support an AMD APU + Nvidia GPU. Any other setup is untested.  
-The `hardware.modules` option can be used to load relevant configuration from [`nixos-hardware`](https://github.com/nixos/nixos-hardware).
+This configuration works well with an Intel CPU + iGPU, and is currently being improved to support an AMD APU + Nvidia GPU. Any other setup is untested.
 
 See [this](./modules/hardware/README.md) for additional information
 
@@ -372,12 +366,12 @@ The system build cache is publicly hosted using [Cachix](https://www.cachix.org)
 
 ### Continuous Integration
 
-This repository makes use of [`GitHub Actions`](./.github/workflows) in order to automatically check the configuration syntax & format on every commit, update the `inputs` and build the Install Media `.iso` every month, and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles).
+This repository makes use of [`GitHub Actions`](./.github/workflows) to evaluate configurations, update `inputs` and custom packages, build the Install Media `.iso` every month, and upload the build cache to [Cachix](https://app.cachix.org/cache/maydayv7-dotfiles).
 A `git` [hook](./files/git/hooks) is used to check the commit message to adhere to the [`Conventional Commits`](https://www.conventionalcommits.org) specification
 
 ##### Variables
 
-- [`ACCESS_TOKEN`](./secrets/github-token.secret): Personal Access Token
+- [`GITHUB_TOKEN`](./secrets/github-token.secret): Personal Access Token
   (To create one, see [this](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token))
 - [`CACHIX_TOKEN`](./secrets/cachix-token.secret): Cachix Authentication Token
 
