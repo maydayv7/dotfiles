@@ -28,6 +28,7 @@ _: {
       enable = true;
       package = pkgs.llm.claude-code;
       enableMcpIntegration = true;
+      skills = config.ai._skills;
 
       settings = {
         attribution = {

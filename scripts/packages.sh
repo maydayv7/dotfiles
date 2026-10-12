@@ -13,17 +13,17 @@ update() {
   then
     t1="$(mktemp)"; trap 'rm ${t1}' EXIT;
     t2="$(mktemp)"; trap 'rm ${t2}' EXIT;
-    pkg="${1}"
-    metadata="${pkg}/metadata.nix"
+    metadata="${1}"
+    pkg="$(dirname "${metadata}")"
     pkgname="$(basename "${pkg}")"
 
-    if [[ ! -f "${pkg}/metadata.nix" ]]
+    if [[ ! -f "${metadata}" ]]
     then
       exit 0
     fi
 
     # Extraction
-    # Include ${pkg}/metadata.nix according to spec
+    # Each *meta.nix file tracks one source
     nix eval -f "${metadata}" --json > "${t1}" 2>/dev/null
     rev="$(cat "${t1}" | jq -r .rev)"
     sha256="$(cat "${t1}" | jq -r .sha256)"
@@ -136,7 +136,7 @@ main() {
 while true
 do
   (main)
-  find . -mindepth 1 -maxdepth 1 -type d -exec bash -c 'update "$0"' {} \;
+  find . -mindepth 2 -maxdepth 2 -type f -name '*meta.nix' -exec bash -c 'update "$0"' {} \;
   res=$?
   if (( res != 255 ))
   then

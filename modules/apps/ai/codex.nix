@@ -30,6 +30,7 @@ _: {
       enable = true;
       package = pkgs.llm.codex;
       enableMcpIntegration = true;
+      skills = config.ai._skills;
 
       settings = {
         approval_policy = "on-request";

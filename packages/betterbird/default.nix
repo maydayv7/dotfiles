@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  metadata = import ./metadata.nix;
+  metadata = import ./meta.nix;
   version = metadata.rev;
   unwrapped = pkgs.stdenv.mkDerivation {
     pname = "betterbird-unwrapped";

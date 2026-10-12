@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  metadata = import ./metadata.nix;
+  metadata = import ./meta.nix;
 in
   pkgs.stdenvNoCC.mkDerivation {
     pname = "xed-extra-plugins";

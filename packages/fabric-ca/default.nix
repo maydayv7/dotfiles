@@ -2,15 +2,14 @@
   lib,
   pkgs,
   ...
-}:
-with pkgs; let
-  metadata = import ./metadata.nix;
+}: let
+  metadata = import ./meta.nix;
 in
-  buildGoModule {
+  pkgs.buildGoModule {
     pname = "fabric-ca";
     version = lib.removePrefix "v" metadata.rev;
 
-    src = fetchFromGitHub {
+    src = pkgs.fetchFromGitHub {
       owner = "hyperledger";
       repo = "fabric-ca";
       inherit (metadata) rev sha256;

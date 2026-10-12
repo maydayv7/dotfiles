@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  metadata = import ./metadata.nix;
+  metadata = import ./meta.nix;
   obsidian = import ../_obsidian.nix {
     inherit lib;
     inherit (pkgs) stdenvNoCC fetchFromGitHub fetchurl;

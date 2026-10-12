@@ -1,11 +1,12 @@
 ## Discord Configuration ##
 {inputs, ...}: {
   flake.modules.homeManager.discord = {
-    lib,
+    config,
     osConfig ? {},
     ...
   }: let
     isGnome = osConfig.services.desktopManager.gnome.enable or false;
+    isWM = (osConfig.programs.hyprland.enable or false) || (osConfig.programs.niri.enable or false);
   in {
     imports = [inputs.nixcord.homeModules.nixcord];
     home.persist.directories = [".config/discord"];
@@ -18,8 +19,11 @@
 
       # Theming
       quickCss =
-        lib.mkIf isGnome
-        ''@import url("https://raw.githubusercontent.com/ricewind012/discord-gnome-theme/master/gnome.theme.css");'';
+        if isGnome
+        then ''@import url("https://raw.githubusercontent.com/ricewind012/discord-gnome-theme/master/gnome.theme.css");''
+        else if isWM
+        then ''@import url("https://catppuccin.github.io/discord/dist/catppuccin-${config.catppuccin.flavor}-${config.catppuccin.accent}.theme.css");''
+        else "";
 
       config = {
         useQuickCss = true;

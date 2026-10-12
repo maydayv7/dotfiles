@@ -42,16 +42,23 @@ in {
       # Audio Effects
       services.easyeffects.enable = true;
 
-      home.persist = {
-        files = [".config/rncbc.org/qpwgraph"];
-        directories = [
-          ".appimages"
-          ".config/easyeffects"
-          ".config/FreeFileSync"
-          ".config/obs-studio"
-          ".config/pitivi"
-          ".local/share/easyeffects"
-        ];
+      home = {
+        file.".local/share/easyeffects" = {
+          source = "${pkgs.custom.easyeffects-presets}/share/easyeffects";
+          recursive = true;
+        };
+
+        persist = {
+          files = [".config/rncbc.org/qpwgraph"];
+          directories = [
+            ".appimages"
+            ".config/easyeffects"
+            ".local/share/easyeffects"
+            ".config/FreeFileSync"
+            ".config/obs-studio"
+            ".config/pitivi"
+          ];
+        };
       };
     };
   };

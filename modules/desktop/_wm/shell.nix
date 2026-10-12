@@ -20,6 +20,21 @@
       ".local/state/noctalia"
     ];
 
+    # ! # https://github.com/noctalia-dev/noctalia/pull/4707
+    systemd.user.services = {
+      noctalia.Service = {
+        Type = "dbus";
+        BusName = "org.kde.StatusNotifierWatcher";
+      };
+
+      easyeffects = lib.mkIf config.services.easyeffects.enable {
+        Unit = {
+          After = ["noctalia.service"];
+          Wants = ["noctalia.service"];
+        };
+      };
+    };
+
     programs.noctalia = {
       enable = true;
       systemd.enable = true;

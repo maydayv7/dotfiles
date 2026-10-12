@@ -2,16 +2,15 @@
   lib,
   pkgs,
   ...
-}:
-with pkgs; let
-  metadata = import ./metadata.nix;
+}: let
+  metadata = import ./meta.nix;
   addonId = "ImportExportToolsNG@cleidigh.kokkini.net";
 in
-  stdenvNoCC.mkDerivation rec {
+  pkgs.stdenvNoCC.mkDerivation rec {
     pname = "thunderbird-importexporttools-ng";
     version = lib.removePrefix "v" metadata.rev;
 
-    src = fetchurl {
+    src = pkgs.fetchurl {
       url = "${metadata.repo}/releases/download/v${version}/import-export-tools-ng-${version}-tb.xpi";
       inherit (metadata) sha256;
     };

@@ -2,21 +2,20 @@
   lib,
   pkgs,
   ...
-}:
-with pkgs; let
-  metadata = import ./metadata.nix;
+}: let
+  metadata = import ./meta.nix;
 in
-  hyprlandPlugins.mkHyprlandPlugin {
+  pkgs.hyprlandPlugins.mkHyprlandPlugin {
     pluginName = "hyprscrolloverview";
     version = metadata.rev;
 
-    src = fetchFromGitHub {
+    src = pkgs.fetchFromGitHub {
       owner = "yayuuu";
       repo = "hyprland-scroll-overview";
       inherit (metadata) rev sha256;
     };
 
-    buildInputs = [expat lua5_4];
+    buildInputs = [pkgs.expat pkgs.lua5_4];
     enableParallelBuilding = true;
     buildPhase = ''
       runHook preBuild

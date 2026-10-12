@@ -35,6 +35,7 @@ in {
       enable = true;
       package = pkgs.llm.antigravity-cli;
       enableMcpIntegration = true;
+      skills = config.ai._skills;
       settings.altScreenMode = "always";
       permissions = {
         deny = ["command(rm -rf)"];

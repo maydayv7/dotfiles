@@ -2,6 +2,9 @@
 
 ### October
 
+- Allow automatic package updates with `srcs`
+- Add some SKILLS
+- Add `easyeffects-presets`
 - Use [`betterbird`](https://www.betterbird.eu/)
 - Replace `geany` with `xed-editor`
 

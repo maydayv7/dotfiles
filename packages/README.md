@@ -1,6 +1,6 @@
 ### Packages
 
-The `packages` directory contains custom-built packages (can be accessed by `github:maydayv7/dotfiles#packages.${system}`). Packages which have a separate `metadata.nix` can be automatically updated by running `./update.sh` from the `packages` directory.
+The `packages` directory contains custom-built packages (can be accessed by `github:maydayv7/dotfiles#packages.${system}`). Packages which have a separate `meta.nix` (or multiple `*meta.nix`) can be automatically updated by running `./update.sh` from the `packages` directory.
 
 The `overlays` directory contains overrides for pre-built packages (See [this](https://wiki.nixos.org/wiki/Overlays) for more information)
 

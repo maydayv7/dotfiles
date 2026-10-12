@@ -2,15 +2,14 @@
   lib,
   pkgs,
   ...
-}:
-with pkgs; let
-  metadata = import ./metadata.nix;
+}: let
+  metadata = import ./meta.nix;
 in
-  stdenv.mkDerivation rec {
+  pkgs.stdenv.mkDerivation rec {
     pname = "kitty-kitten-search";
     version = metadata.rev;
 
-    src = fetchFromGitHub {
+    src = pkgs.fetchFromGitHub {
       owner = "trygveaa";
       repo = pname;
       inherit (metadata) rev sha256;

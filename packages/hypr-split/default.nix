@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  metadata = import ./metadata.nix;
+  metadata = import ./meta.nix;
 
   src = pkgs.fetchFromGitHub {
     owner = "maydayv7";
