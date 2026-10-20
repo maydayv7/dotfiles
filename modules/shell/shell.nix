@@ -90,8 +90,8 @@ in {
               bindkey '^[[1;5D' backward-word
               bindkey '^[[3;5~' kill-word
               bindkey '^[[3~'   delete-char
-              bindkey "^[[5~"   beginning-of-history
-              bindkey "^[[6~"   end-of-history
+              bindkey '^[[5~'   beginning-of-history
+              bindkey '^[[6~'   end-of-history
               bindkey '^[[A'    up-line-or-search
               bindkey '^[[B'    down-line-or-search
               bindkey '^[[C'    forward-char

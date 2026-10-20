@@ -4,10 +4,20 @@ antidote load
 autoload -Uz compinit && compinit
 
 # Keybinds
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey "^[[3~" delete-char
-bindkey "^[[3;5~" kill-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+bindkey '^[[3;5~' kill-word
+bindkey '^[[3~'   delete-char
+bindkey '^[[5~'   beginning-of-history
+bindkey '^[[6~'   end-of-history
+bindkey '^[[A'    up-line-or-search
+bindkey '^[[B'    down-line-or-search
+bindkey '^[[C'    forward-char
+bindkey '^[[D'    backward-char
+bindkey '^[[F'    end-of-linegestures
+bindkey '^[[H'    beginning-of-line
+bindkey '^H'      backward-kill-word
+bindkey '^J'      backward-kill-line
 
 # Command Aliases
 alias c="bat"
@@ -17,15 +27,18 @@ alias sike="fastfetch"
 alias whome="cd /mnt/c/Users"
 
 # Editor
-npp() {
-    local npp_exe="/mnt/c/Program Files/Notepad++/notepad++.exe"
-    if [ $# -eq 0 ]; then
-        "$npp_exe" > /dev/null 2>&1 &!
+np() {
+    local notepad_exe="/mnt/c/Windows/System32/notepad.exe"
+
+    if [ $# -eq 0 ]
+    then
+        "$notepad_exe" > /dev/null 2>&1 &!
         return
     fi
 
-    local win_path="$(wslpath -w "$1")"
-    "$npp_exe" "$win_path" > /dev/null 2>&1 &!
+    local win_path
+    win_path="$(wslpath -aw "$1")" || return
+    "$notepad_exe" "$win_path" > /dev/null 2>&1 &!
 }
 
 # Command History

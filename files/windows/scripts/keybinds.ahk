@@ -1,4 +1,4 @@
-﻿#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.0
 
 ; ==============================================================================
 ; Keybinds
@@ -88,3 +88,11 @@
         }
     }
 }
+
+; ==============================================================================
+; Miscellaneous
+; ==============================================================================
+; [SumatraPDF] Shift + /: Command Pallete
+#HotIf WinActive("ahk_exe SumatraPDF.exe")
+^vkBF:: Send "^k"
+#HotIf

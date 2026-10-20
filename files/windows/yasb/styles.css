@@ -1,7 +1,7 @@
 /* ---- YASB Panel Style ---- */
 :root {
   /* Fonts */
-  --font-primary: "Segoe UI", system-ui;
+  --font-primary: "Segoe UI Variable Text", "Segoe UI", system-ui;
   --font-text: "Segoe UI Variable Text", "Segoe UI", system-ui;
   --font-mono: "MesloLGS NF";
   --font-icon: "Segoe Fluent Icons", "MesloLGS NF";
@@ -17,7 +17,7 @@
   --font-size-display: 48px;
 
   --font-weight-regular: 400;
-  --font-weight-semibold: 500;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
   /* Spacing */
@@ -27,29 +27,24 @@
   --space-8: 8px;
   --space-12: 12px;
   --space-16: 16px;
-  --space-20: 20px;
   --space-24: 24px;
-  --space-32: 32px;
 
   /* Dimensions */
   --width-menu-sm: 160px;
   --width-menu-md: 280px;
   --width-menu-lg: 380px;
   --size-icon-btn: 28px;
-  --size-app-icon: 32px;
+  --size-app-icon: 24px;
   --height-item-md: 36px;
   --height-item-lg: 80px;
 
-  /* Border Radius  */
-  --radius-none: 0;
+  /* Border radii */
   --radius-small: 4px;
   --radius-medium: 6px;
   --radius-large: 8px;
-  --radius-circle: 32px;
 
   /* -- Light Theme -- */
   --color-background-base: rgba(243, 243, 243, 0.9);
-  --color-background-layer: rgba(249, 249, 249, 0.8);
   --color-background-elevated: rgba(252, 252, 252, 0.9);
   --color-background-elevated-x2: rgba(255, 255, 255, 0.7);
 
@@ -57,9 +52,7 @@
   --color-widget-container: rgba(212, 212, 212, 0.7);
 
   /* Surface Colors */
-  --color-surface-default: rgba(0, 0, 0, 0.0373);
   --color-surface-secondary: rgba(0, 0, 0, 0.0241);
-  --color-surface-tertiary: rgba(0, 0, 0, 0.0186);
   --color-surface-disabled: rgba(0, 0, 0, 0.0241);
 
   /* Text Colors */
@@ -71,14 +64,11 @@
   /* Accent Colors */
   --color-accent-default: #0078d4;
   --color-accent-secondary: #005a9e;
-  --color-accent-tertiary: rgba(0, 120, 212, 0.4);
-  --color-accent-disabled: rgba(0, 0, 0, 0.2);
 
   /* Semantic Colors */
   --color-success: #107c10;
-  --color-warning: #ffe600c0;
+  --color-warning: #9d5d00;
   --color-error: #c42b1c;
-  --color-info: #0078d4;
 
   /* Component Colors */
   --color-traffic-download: #1a7c0d;
@@ -90,7 +80,6 @@
   --color-subtle-fill-rest: rgba(0, 0, 0, 0.0373);
   --color-subtle-fill-hover: rgba(0, 0, 0, 0.0578);
   --color-subtle-fill-pressed: rgba(0, 0, 0, 0.0241);
-  --color-subtle-fill-disabled: transparent;
 
   /* Stroke/Border Colors */
   --color-stroke-surface: rgba(0, 0, 0, 0.0578);
@@ -100,7 +89,6 @@
 
   /* -- Dark Theme -- */
   --color-dark-background-base: rgba(30, 30, 30, 0.7);
-  --color-dark-background-layer: rgba(44, 44, 44, 0.5);
   --color-dark-background-elevated: rgba(22, 22, 22, 0.25);
   --color-dark-background-elevated-x2: rgba(22, 22, 22, 0.8);
 
@@ -108,9 +96,7 @@
   --color-dark-widget-container: rgba(60, 60, 60, 0.7);
 
   /* Surface Colors */
-  --color-dark-surface-default: rgba(255, 255, 255, 0.0605);
   --color-dark-surface-secondary: rgba(255, 255, 255, 0.0419);
-  --color-dark-surface-tertiary: rgba(255, 255, 255, 0.0326);
   --color-dark-surface-disabled: rgba(255, 255, 255, 0.0419);
 
   /* Text Colors */
@@ -123,13 +109,11 @@
   --color-dark-accent-default: #60cdff;
   --color-dark-accent-secondary: #0078d4;
   --color-dark-accent-tertiary: rgba(96, 205, 255, 0.5);
-  --color-dark-accent-disabled: rgba(255, 255, 255, 0.1581);
 
   /* Semantic Colors */
   --color-dark-success: #6ccb5f;
   --color-dark-warning: #fce100;
   --color-dark-error: #ff99a4;
-  --color-dark-info: #60cdff;
 
   /* Component Colors */
   --color-dark-traffic-download: var(--color-dark-success);
@@ -141,7 +125,6 @@
   --color-dark-subtle-fill-rest: rgba(255, 255, 255, 0.0605);
   --color-dark-subtle-fill-hover: rgba(255, 255, 255, 0.0837);
   --color-dark-subtle-fill-pressed: rgba(255, 255, 255, 0.0512);
-  --color-dark-subtle-fill-disabled: transparent;
 
   /* Stroke/Border Colors */
   --color-dark-stroke-surface: rgba(255, 255, 255, 0.0698);
@@ -151,7 +134,7 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Global Reset
+   Global reset
    ---------------------------------------------------------------------------- */
 * {
   font-size: var(--font-size-body);
@@ -167,7 +150,7 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Layout
+   Bar layout and labels
    ---------------------------------------------------------------------------- */
 .yasb-panel {
   padding: 0 var(--space-4);
@@ -181,7 +164,6 @@
   border-bottom: 1px solid var(--color-dark-stroke-control-default);
 }
 
-/* Label */
 .widget {
   padding: 0 var(--space-2);
   margin: 0;
@@ -197,24 +179,6 @@
   color: var(--color-dark-text-secondary);
 }
 
-.active-window-widget .widget-container .label,
-.clock-widget .label,
-.media-widget .label,
-.cpu-widget .widget-container .label,
-.gpu-widget .widget-container .label,
-.memory-widget .widget-container .label,
-.disk-widget .widget-container .label,
-.traffic-widget .download,
-.traffic-widget .upload,
-.microphone-widget .widget-container .label,
-.volume-widget .widget-container .label,
-.brightness-widget .widget-container .label,
-.wifi-widget .widget-container .label,
-.bluetooth-widget .widget-container .label,
-.battery-widget .widget-container .label {
-  text-shadow: 0px 0px 1px black;
-}
-
 .widget .label.alt {
   padding: 0 var(--space-4);
 }
@@ -227,7 +191,6 @@
   color: var(--color-dark-text-primary);
 }
 
-/* Icon */
 .widget .icon {
   padding-top: 1px;
   font-family: var(--font-icon);
@@ -248,7 +211,9 @@
   color: var(--color-dark-text-primary);
 }
 
-/* Tooltip */
+/* ----------------------------------------------------------------------------
+   Tooltips
+   ---------------------------------------------------------------------------- */
 .tooltip {
   background-color: var(--color-background-elevated-x2);
   border: 1px solid var(--color-stroke-surface);
@@ -269,10 +234,9 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Context Menu
+   Context menus
    ---------------------------------------------------------------------------- */
-.context-menu,
-.context-menu .menu-checkbox {
+.context-menu {
   background-color: var(--color-dark-background-elevated);
   border: 1px solid var(--color-dark-stroke-surface);
   border-radius: var(--radius-medium);
@@ -282,14 +246,25 @@
   color: var(--color-dark-text-primary);
 }
 
+.context-menu .menu-checkbox {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-body);
+  color: var(--color-dark-text-primary);
+  background-color: transparent;
+  padding: var(--space-4) var(--space-8);
+  margin: var(--space-2) var(--space-4);
+  border-radius: var(--radius-small);
+  border: 0;
+  min-width: var(--width-menu-sm);
+}
+
 .context-menu::right-arrow {
   width: var(--space-8);
   height: var(--space-8);
   padding-right: var(--space-24);
 }
 
-.context-menu::item,
-.context-menu .menu-checkbox {
+.context-menu::item {
   background-color: transparent;
   padding: var(--space-4) var(--space-8);
   margin: var(--space-2) var(--space-4);
@@ -355,7 +330,7 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Common Widget Container
+   Widget containers
    ---------------------------------------------------------------------------- */
 .widget-container {
   padding: 1px var(--space-4);
@@ -381,26 +356,436 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Task View Widget
+   Shared bar widget styling
    ---------------------------------------------------------------------------- */
-.task-view-widget .widget-container {
+.microphone-widget .widget-container .label,
+.volume-widget .widget-container .label,
+.brightness-widget .widget-container .label,
+.wifi-widget .widget-container .label,
+.bluetooth-widget .widget-container .label,
+.battery-widget .widget-container .label {
+  color: var(--color-text-secondary);
+  font-family: var(--font-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+*.dark .microphone-widget .widget-container .label,
+*.dark .volume-widget .widget-container .label,
+*.dark .brightness-widget .widget-container .label,
+*.dark .wifi-widget .widget-container .label,
+*.dark .bluetooth-widget .widget-container .label,
+*.dark .battery-widget .widget-container .label {
+  color: var(--color-dark-text-secondary);
+}
+
+.active-window-widget .widget-container .label,
+.cpu-widget .widget-container .label,
+.gpu-widget .widget-container .label,
+.memory-widget .widget-container .label,
+.disk-widget .widget-container .label {
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-semibold);
+}
+
+*.dark .active-window-widget .widget-container .label,
+*.dark .cpu-widget .widget-container .label,
+*.dark .gpu-widget .widget-container .label,
+*.dark .memory-widget .widget-container .label,
+*.dark .disk-widget .widget-container .label {
+  color: var(--color-dark-text-secondary);
+}
+
+.microphone-widget .icon,
+.volume-widget .icon,
+.brightness-widget .widget-container .icon,
+.wifi-widget .widget-container .icon,
+.bluetooth-widget .widget-container .icon,
+.battery-widget .widget-container .icon {
+  padding-left: var(--space-4);
+}
+
+.cpu-widget .widget-container .icon,
+.gpu-widget .widget-container .icon,
+.memory-widget .widget-container .icon {
+  padding-right: var(--space-4);
+}
+
+.task-view-widget .widget-container,
+.home-widget .widget-container,
+.power-menu-widget .widget-container {
   background-color: transparent;
   border: 0;
 }
 
-.task-view-widget .widget-container:hover {
+.task-view-widget .widget-container:hover,
+.home-widget .widget-container:hover,
+.power-menu-widget .widget-container:hover {
   background-color: transparent;
 }
 
+/* ----------------------------------------------------------------------------
+   Shared flyout surfaces
+   ---------------------------------------------------------------------------- */
+.brightness-menu,
+.audio-menu,
+.microphone-menu,
+.wifi-menu,
+.bluetooth-menu,
+.calendar,
+.media-menu,
+.open-meteo-card {
+  background-color: rgba(249, 249, 249, 0.94);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-stroke-surface);
+  border-radius: var(--radius-large);
+  padding: var(--space-12);
+}
+
+*.dark .brightness-menu,
+*.dark .audio-menu,
+*.dark .microphone-menu,
+*.dark .wifi-menu,
+*.dark .bluetooth-menu,
+*.dark .calendar,
+*.dark .media-menu,
+*.dark .open-meteo-card {
+  background-color: rgba(32, 32, 32, 0.9);
+  color: var(--color-dark-text-primary);
+  border-color: var(--color-dark-stroke-control-default);
+}
+
+/* ----------------------------------------------------------------------------
+   Shared sound and brightness controls
+   ---------------------------------------------------------------------------- */
+.audio-menu,
+.microphone-menu {
+  min-width: var(--width-menu-md);
+  max-width: 360px;
+}
+
+.microphone-menu .microphone-container .device,
+.audio-menu .audio-container .device {
+  background-color: transparent;
+  border: none;
+  padding: var(--space-4) var(--space-8);
+  margin: var(--space-2) 0;
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-small);
+}
+
+*.dark .microphone-menu .microphone-container .device,
+*.dark .audio-menu .audio-container .device {
+  color: var(--color-dark-text-secondary);
+}
+
+.microphone-menu .microphone-container .device:hover,
+.audio-menu .audio-container .device:hover {
+  background-color: var(--color-subtle-fill-hover);
+  color: var(--color-text-primary);
+}
+
+*.dark .microphone-menu .microphone-container .device:hover,
+*.dark .audio-menu .audio-container .device:hover {
+  background-color: var(--color-dark-subtle-fill-hover);
+  color: var(--color-dark-text-primary);
+}
+
+.microphone-menu .microphone-container .device.selected,
+.audio-menu .audio-container .device.selected {
+  background-color: var(--color-subtle-fill-rest);
+  color: var(--color-text-primary);
+}
+
+*.dark .microphone-menu .microphone-container .device.selected,
+*.dark .audio-menu .audio-container .device.selected {
+  background-color: var(--color-dark-subtle-fill-rest);
+  color: var(--color-dark-text-primary);
+}
+
+.audio-menu QSlider,
+.microphone-menu QSlider,
+.brightness-menu QSlider {
+  min-height: 24px;
+  border: none;
+  background-color: transparent;
+}
+
+.audio-menu QSlider::groove:horizontal,
+.microphone-menu QSlider::groove:horizontal,
+.brightness-menu QSlider::groove:horizontal {
+  height: 4px;
+  border: none;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.38);
+}
+
+*.dark .audio-menu QSlider::groove:horizontal,
+*.dark .microphone-menu QSlider::groove:horizontal,
+*.dark .brightness-menu QSlider::groove:horizontal {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+.audio-menu QSlider::sub-page:horizontal,
+.microphone-menu QSlider::sub-page:horizontal,
+.brightness-menu QSlider::sub-page:horizontal {
+  background-color: var(--color-accent-default);
+  border-radius: 2px;
+}
+
+*.dark .audio-menu QSlider::sub-page:horizontal,
+*.dark .microphone-menu QSlider::sub-page:horizontal,
+*.dark .brightness-menu QSlider::sub-page:horizontal {
+  background-color: var(--color-dark-accent-default);
+}
+
+.audio-menu QSlider::handle:horizontal,
+.microphone-menu QSlider::handle:horizontal,
+.brightness-menu QSlider::handle:horizontal {
+  width: 10px;
+  height: 10px;
+  margin: -7px 0;
+  border: 4px solid #ffffff;
+  border-radius: 9px;
+  background-color: var(--color-accent-default);
+}
+
+*.dark .audio-menu QSlider::handle:horizontal,
+*.dark .microphone-menu QSlider::handle:horizontal,
+*.dark .brightness-menu QSlider::handle:horizontal {
+  background-color: var(--color-dark-accent-default);
+}
+
+.audio-menu QSlider::handle:horizontal:hover,
+.microphone-menu QSlider::handle:horizontal:hover,
+.brightness-menu QSlider::handle:horizontal:hover {
+  border-width: 3px;
+}
+
+.audio-menu QSlider::handle:horizontal:pressed,
+.microphone-menu QSlider::handle:horizontal:pressed,
+.brightness-menu QSlider::handle:horizontal:pressed {
+  border-width: 5px;
+}
+
+.audio-menu QSlider::sub-page:horizontal:disabled,
+.microphone-menu QSlider::sub-page:horizontal:disabled,
+.brightness-menu QSlider::sub-page:horizontal:disabled {
+  background-color: var(--color-text-disabled);
+}
+
+/* ----------------------------------------------------------------------------
+   Shared connection flyout controls
+   ---------------------------------------------------------------------------- */
+.wifi-menu .wifi-item,
+.bluetooth-menu .bluetooth-item {
+  min-height: var(--height-item-md);
+  padding: var(--space-4) var(--space-12);
+  margin: var(--space-2) var(--space-8) var(--space-2) var(--space-2);
+  border-radius: var(--radius-small);
+  border: 1px solid transparent;
+}
+
+.wifi-menu .wifi-item:hover,
+.bluetooth-menu .bluetooth-item:hover {
+  background-color: var(--color-subtle-fill-hover);
+  border-color: var(--color-stroke-control-default);
+}
+
+*.dark .wifi-menu .wifi-item:hover,
+*.dark .bluetooth-menu .bluetooth-item:hover {
+  background-color: var(--color-dark-subtle-fill-hover);
+  border-color: var(--color-dark-stroke-control-default);
+}
+
+.wifi-menu .wifi-item[active="true"],
+.bluetooth-menu .bluetooth-item.active {
+  background-color: var(--color-subtle-fill-rest);
+  min-height: var(--height-item-lg);
+}
+
+*.dark .wifi-menu .wifi-item[active="true"],
+*.dark .bluetooth-menu .bluetooth-item.active {
+  background-color: var(--color-dark-subtle-fill-rest);
+}
+
+.wifi-menu .header,
+.bluetooth-menu .header .title {
+  font-family: var(--font-text);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-12);
+}
+
+.wifi-menu .wifi-item .name,
+.bluetooth-menu .bluetooth-item .name {
+  font-size: var(--font-size-body-strong);
+  font-weight: var(--font-weight-semibold);
+}
+
+.wifi-menu .wifi-item .icon,
+.bluetooth-menu .bluetooth-item .icon {
+  font-family: var(--font-icon);
+  font-size: var(--font-size-title);
+  margin-right: var(--space-12);
+}
+
+.wifi-menu .wifi-item .connect,
+.bluetooth-menu .bluetooth-item .connect {
+  background-color: var(--color-accent-default);
+  color: white;
+  padding: var(--space-4) var(--space-16);
+  border-radius: var(--radius-small);
+  border: none;
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--space-8);
+}
+
+*.dark .wifi-menu .wifi-item .connect,
+*.dark .bluetooth-menu .bluetooth-item .connect {
+  background-color: var(--color-dark-accent-default);
+  color: black;
+}
+
+.wifi-menu .wifi-item .connect:hover,
+.bluetooth-menu .bluetooth-item .connect:hover {
+  background-color: var(--color-accent-secondary);
+}
+
+*.dark .wifi-menu .wifi-item .connect:hover,
+*.dark .bluetooth-menu .bluetooth-item .connect:hover {
+  background-color: var(--color-dark-accent-tertiary);
+  color: var(--color-dark-text-primary);
+}
+
+.wifi-menu .wifi-item .status,
+.bluetooth-menu .bluetooth-item .status {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-tertiary);
+}
+
+*.dark .wifi-menu .wifi-item .status,
+*.dark .bluetooth-menu .bluetooth-item .status {
+  color: var(--color-dark-text-tertiary);
+}
+
+.wifi-menu .footer,
+.bluetooth-menu .footer {
+  padding: var(--space-8);
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--color-stroke-divider);
+}
+
+.wifi-menu,
+.bluetooth-menu {
+  min-width: 340px;
+  max-width: var(--width-menu-lg);
+}
+
+.wifi-menu .footer .refresh-icon {
+  color: var(--color-text-primary);
+  font-family: var(--font-icon);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-regular);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-small);
+  min-width: var(--size-icon-btn);
+  min-height: var(--size-icon-btn);
+}
+
+*.dark .wifi-menu .footer .refresh-icon {
+  color: var(--color-dark-text-primary);
+}
+
+.wifi-menu .footer .refresh-icon:hover {
+  color: var(--color-accent-default);
+  background-color: var(--color-subtle-fill-hover);
+}
+
+.wifi-menu .footer .settings-button,
+.bluetooth-menu .footer .settings-button {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  font-family: var(--font-text);
+  color: var(--color-text-secondary);
+  padding: var(--space-6) var(--space-8);
+}
+
+*.dark .wifi-menu .footer .settings-button,
+*.dark .bluetooth-menu .footer .settings-button {
+  color: var(--color-dark-text-secondary);
+}
+
+.wifi-menu .footer .settings-button:hover,
+.bluetooth-menu .footer .settings-button:hover {
+  background-color: var(--color-subtle-fill-hover);
+}
+
+*.dark .wifi-menu .footer .settings-button:hover,
+*.dark .bluetooth-menu .footer .settings-button:hover {
+  background-color: var(--color-dark-subtle-fill-hover);
+}
+
+.bluetooth-menu .footer .scan-icon {
+  font-family: var(--font-icon);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-regular);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-small);
+  min-width: var(--size-icon-btn);
+  min-height: var(--size-icon-btn);
+}
+
+.bluetooth-menu .footer .scan-icon:hover {
+  background-color: var(--color-subtle-fill-hover);
+}
+
+*.dark .bluetooth-menu .footer .scan-icon:hover,
+*.dark .wifi-menu .footer .refresh-icon:hover {
+  background-color: var(--color-dark-subtle-fill-hover);
+}
+
+.wifi-menu .progress-bar,
+.bluetooth-menu .progress-bar {
+  min-height: 2px;
+  max-height: 2px;
+  color: var(--color-accent-default);
+  background-color: transparent;
+}
+
+*.dark .wifi-menu .progress-bar,
+*.dark .bluetooth-menu .progress-bar {
+  color: var(--color-dark-accent-default);
+}
+
+.wifi-menu .error-message,
+.bluetooth-menu .error-message {
+  padding: var(--space-8);
+  border-radius: var(--radius-small);
+  color: var(--color-error);
+  background-color: var(--color-error-bg);
+}
+
+*.dark .wifi-menu .error-message,
+*.dark .bluetooth-menu .error-message {
+  color: var(--color-dark-error);
+  background-color: var(--color-dark-error-bg);
+}
+
+/* ----------------------------------------------------------------------------
+   Task View
+   ---------------------------------------------------------------------------- */
 .task-view-widget .icon {
-  font-family: var(--font-icon-2);
+  font-family: var(--font-icon);
   font-size: var(--font-size-subtitle);
   color: var(--color-text-secondary);
 }
 
 *.dark .task-view-widget .icon {
-  font-family: var(--font-icon-2);
-  font-size: var(--font-size-subtitle);
   color: var(--color-dark-text-secondary);
 }
 
@@ -413,17 +798,8 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Home Widget
+   Home
    ---------------------------------------------------------------------------- */
-.home-widget .widget-container {
-  background-color: transparent;
-  border: 0;
-}
-
-.home-widget .widget-container:hover {
-  background-color: transparent;
-}
-
 .home-widget .icon {
   font-family: var(--font-icon-2);
   font-size: var(--font-size-subtitle);
@@ -491,14 +867,13 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Windows Desktops
+   Windows desktops
    ---------------------------------------------------------------------------- */
 .windows-desktops .ws-btn {
   color: var(--color-text-tertiary);
   background-color: transparent;
   border: none;
   font-size: var(--font-size-body-strong);
-  padding-left: unset;
   padding: 1px 3px;
   margin: -1px 0 0 0;
   border-radius: var(--radius-small);
@@ -569,73 +944,8 @@
   background-color: var(--color-dark-stroke-divider);
 }
 
-/* Qt-specific Dialog Styles */
-.windows-desktops .rename-dialog {
-  border: 1px solid var(--color-stroke-surface);
-  border-radius: var(--radius-large);
-}
-
-*.dark .windows-desktops .rename-dialog {
-  border: 1px solid var(--color-stroke-surface);
-}
-
-.windows-desktops .rename-dialog QPushButton {
-  background-color: var(--color-accent-default);
-  color: var(--color-background-base);
-  border: none;
-  padding: var(--space-8) var(--space-16);
-  border-radius: var(--radius-small);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .windows-desktops .rename-dialog QPushButton {
-  background-color: var(--color-dark-accent-default);
-  color: var(--color-dark-background-base);
-}
-
-.windows-desktops .rename-dialog QPushButton:hover {
-  background-color: var(--color-accent-secondary);
-}
-
-*.dark .windows-desktops .rename-dialog QPushButton:hover {
-  background-color: var(--color-dark-accent-secondary);
-}
-
-.windows-desktops .rename-dialog QLabel {
-  color: var(--color-text-primary);
-  font-size: var(--font-size-body);
-}
-
-*.dark .windows-desktops .rename-dialog QLabel {
-  color: var(--color-dark-text-primary);
-}
-
-.windows-desktops .rename-dialog QLineEdit {
-  background-color: var(--color-surface-secondary);
-  border: 1px solid var(--color-stroke-control-default);
-  border-radius: var(--radius-small);
-  padding: var(--space-8);
-  color: var(--color-text-primary);
-  font-family: var(--font-text);
-}
-
-*.dark .windows-desktops .rename-dialog QLineEdit {
-  background-color: var(--color-dark-surface-secondary);
-  border: 1px solid var(--color-dark-stroke-control-default);
-  color: var(--color-dark-text-primary);
-}
-
-.windows-desktops .rename-dialog QLineEdit:focus {
-  border-color: var(--color-accent-default);
-  outline: none;
-}
-
-*.dark .windows-desktops .rename-dialog QLineEdit:focus {
-  border-color: var(--color-dark-accent-default);
-}
-
 /* ----------------------------------------------------------------------------
-   Active Window Widget
+   Active window
    ---------------------------------------------------------------------------- */
 .active-window-widget .widget-container .icon {
   font-family: var(--font-icon);
@@ -647,18 +957,8 @@
   padding: 0;
 }
 
-.active-window-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .active-window-widget .widget-container .label {
-  color: var(--color-dark-text-secondary);
-}
-
 /* ----------------------------------------------------------------------------
-   Taskbar Widget
+   Taskbar
    ---------------------------------------------------------------------------- */
 .taskbar-widget .app-container {
   padding: 0 var(--space-4);
@@ -731,7 +1031,7 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Apps Widget
+   Applications
    ---------------------------------------------------------------------------- */
 .apps-widget .widget-container {
   padding: 0 var(--space-4);
@@ -755,10 +1055,33 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Media Widget
+   Media
    ---------------------------------------------------------------------------- */
+.media-menu .title,
+.media-menu .artist,
+.media-menu .source {
+  font-family: var(--font-text);
+  margin-left: var(--space-12);
+}
+
+.media-widget .label,
+.media-widget .label.alt {
+  margin-left: var(--space-4);
+  padding: 0 var(--space-4) 0 22px;
+  background-image: url("icons/music-note-light.svg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-origin: padding;
+}
+
+*.dark .media-widget .label,
+*.dark .media-widget .label.alt {
+  background-image: url("icons/music-note-dark.svg");
+}
+
 .media-widget .btn {
-  font-size: var(--font-size-body);
+  font-family: var(--font-icon);
+  font-size: var(--font-size-body-strong);
   color: var(--color-text-secondary);
   padding: var(--space-2) var(--space-4);
   margin: 0 var(--space-2);
@@ -781,41 +1104,23 @@
   background-color: var(--color-dark-subtle-fill-hover);
 }
 
-.media-widget .btn:active {
+.media-widget .btn:pressed {
   background-color: var(--color-subtle-fill-pressed);
 }
 
-*.dark .media-widget .btn:active {
+*.dark .media-widget .btn:pressed {
   background-color: var(--color-dark-subtle-fill-pressed);
 }
 
 .media-menu {
   min-width: var(--width-menu-lg);
   max-width: var(--width-menu-lg);
-  border-radius: var(--radius-medium);
-  padding: var(--space-12);
-  background-color: var(--color-background-elevated);
-}
-
-*.dark .media-menu {
-  background-color: var(--color-dark-background-elevated);
-}
-
-.media-menu .title,
-.media-menu .artist,
-.media-menu .source {
-  font-family: var(--font-text);
-  margin-left: var(--space-12);
 }
 
 .media-menu .title {
   font-size: var(--font-size-body-strong);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-}
-
-*.dark .media-menu .title {
-  color: var(--color-dark-text-primary);
 }
 
 .media-menu .artist {
@@ -825,13 +1130,17 @@
   margin-bottom: var(--space-4);
 }
 
-*.dark .media-menu .artist {
-  color: var(--color-dark-text-secondary);
-}
-
 .media-menu .source {
   font-size: var(--font-size-caption);
   color: var(--color-text-tertiary);
+}
+
+*.dark .media-menu .title {
+  color: var(--color-dark-text-primary);
+}
+
+*.dark .media-menu .artist {
+  color: var(--color-dark-text-secondary);
 }
 
 *.dark .media-menu .source {
@@ -906,7 +1215,7 @@
 
 .media-menu .playback-time {
   font-size: var(--font-size-caption);
-  font-family: var(--font-mono);
+  font-family: var(--font-text);
   color: var(--color-text-tertiary);
   margin-top: var(--space-16);
   min-width: 100px;
@@ -917,42 +1226,48 @@
 }
 
 .media-menu .progress-slider {
-  height: var(--space-16);
-  margin: var(--space-4);
   border-radius: var(--radius-small);
+  min-height: 20px;
+  margin: var(--space-4) 0;
+  background-color: transparent;
 }
 
-.media-menu .progress-slider::groove {
-  background-color: var(--color-surface-tertiary);
+.media-menu .progress-slider::groove:horizontal {
+  height: 4px;
+  background-color: rgba(0, 0, 0, 0.35);
+  border: none;
+  border-radius: 2px;
+}
+
+*.dark .media-menu .progress-slider::groove:horizontal {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.media-menu .progress-slider::sub-page:horizontal {
   height: var(--space-4);
-  border-radius: var(--radius-small);
-}
-
-*.dark .media-menu .progress-slider::groove {
-  background-color: var(--color-dark-surface-tertiary);
-}
-
-.media-menu .progress-slider::groove:hover {
-  height: var(--space-6);
-  background-color: var(--color-surface-secondary);
-}
-
-*.dark .media-menu .progress-slider::groove:hover {
-  background-color: var(--color-dark-surface-secondary);
-}
-
-.media-menu .progress-slider::sub-page {
   background-color: var(--color-accent-default);
-  border-radius: var(--radius-small);
-  height: var(--space-4);
+  border-radius: 2px;
 }
 
-*.dark .media-menu .progress-slider::sub-page {
+*.dark .media-menu .progress-slider::sub-page:horizontal {
+  background-color: var(--color-dark-accent-default);
+}
+
+.media-menu .progress-slider::handle:horizontal {
+  width: 6px;
+  height: 6px;
+  margin: -4px 0;
+  border: 3px solid #ffffff;
+  border-radius: 6px;
+  background-color: var(--color-accent-default);
+}
+
+*.dark .media-menu .progress-slider::handle:horizontal {
   background-color: var(--color-dark-accent-default);
 }
 
 /* ----------------------------------------------------------------------------
-   CPU Widget
+   CPU
    ---------------------------------------------------------------------------- */
 .cpu-widget {
   cursor: crosshair;
@@ -962,57 +1277,13 @@
   padding: 0;
 }
 
-.cpu-widget .widget-container .icon {
-  padding-right: var(--space-4);
-}
-
-.cpu-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .cpu-widget .widget-container .label {
-  color: var(--color-dark-text-secondary);
-}
-
 /* ----------------------------------------------------------------------------
-   GPU Widget
+   Memory
    ---------------------------------------------------------------------------- */
-.gpu-widget .widget-container .icon {
-  padding-right: var(--space-4);
-}
-
-.gpu-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .gpu-widget .widget-container .label {
-  color: var(--color-dark-text-secondary);
-}
-
-/* ----------------------------------------------------------------------------
-   Memory Widget
-   ---------------------------------------------------------------------------- */
-.memory-widget .widget-container .icon {
-  padding-right: var(--space-4);
-}
-
-.memory-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .memory-widget .widget-container .label {
-  color: var(--color-dark-text-secondary);
-}
-
 .memory-widget .widget-container .label.status-low {
   color: var(--color-success);
 }
+
 *.dark .memory-widget .widget-container .label.status-low {
   color: var(--color-dark-success);
 }
@@ -1020,6 +1291,7 @@
 .memory-widget .widget-container .label.status-medium {
   color: var(--color-warning);
 }
+
 *.dark .memory-widget .widget-container .label.status-medium {
   color: var(--color-dark-warning);
 }
@@ -1027,6 +1299,7 @@
 .memory-widget .widget-container .label.status-high {
   color: var(--color-accent-default);
 }
+
 *.dark .memory-widget .widget-container .label.status-high {
   color: var(--color-dark-accent-default);
 }
@@ -1034,37 +1307,36 @@
 .memory-widget .widget-container .label.status-critical {
   color: var(--color-error);
 }
+
 *.dark .memory-widget .widget-container .label.status-critical {
   color: var(--color-dark-error);
 }
 
-.memory-widget .progress-circle {
-  margin-right: var(--space-8);
+/* ----------------------------------------------------------------------------
+   Traffic
+   ---------------------------------------------------------------------------- */
+.traffic-widget .download,
+.traffic-widget .upload {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-semibold);
 }
 
-/* ----------------------------------------------------------------------------
-   Traffic Widget
-   ---------------------------------------------------------------------------- */
+.traffic-widget .download {
+  color: var(--color-traffic-download);
+}
+
+.traffic-widget .upload {
+  color: var(--color-traffic-upload);
+}
+
 .traffic-widget {
   width: 200px;
   min-width: 200px;
   max-width: 200px;
 }
 
-.traffic-widget .download {
-  color: var(--color-traffic-download);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
 *.dark .traffic-widget .download {
   color: var(--color-dark-traffic-download);
-}
-
-.traffic-widget .upload {
-  color: var(--color-traffic-upload);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
 }
 
 *.dark .traffic-widget .upload {
@@ -1122,7 +1394,6 @@
   border: 1px solid var(--color-dark-stroke-control-default);
 }
 
-/* Speed column styles */
 .traffic-menu .download-speed,
 .traffic-menu .upload-speed {
   background-color: transparent;
@@ -1177,7 +1448,6 @@
   color: var(--color-dark-text-tertiary);
 }
 
-/* Section and data styles */
 .traffic-menu .section-title {
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-semibold);
@@ -1218,7 +1488,6 @@
   color: var(--color-dark-text-primary);
 }
 
-/* Interface and Internet info styles */
 .traffic-menu .interface-info {
   margin-top: var(--space-8);
   border-top: 1px solid var(--color-stroke-divider);
@@ -1269,21 +1538,11 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Disk Widget
+   Disks
    ---------------------------------------------------------------------------- */
 .disk-widget .widget-container .icon {
   font-family: var(--font-icon-2);
   font-size: var(--font-size-body);
-}
-
-.disk-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .disk-widget .widget-container .label {
-  color: var(--color-dark-text-secondary);
 }
 
 .disk-group {
@@ -1359,153 +1618,19 @@
 }
 
 /* ----------------------------------------------------------------------------
-   Microphone Widget
+   Volume and app mixer
    ---------------------------------------------------------------------------- */
-.microphone-widget .icon {
-  font-family: var(--font-icon);
-  font-size: var(--font-size-body);
-  padding-left: var(--space-4);
-}
-
-.microphone-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .microphone-widget .widget-container .label {
-  color: var(--color-dark-text-secondary);
-}
-
-.microphone-menu {
-  background-color: var(--color-background-elevated);
-  border: 1px solid var(--color-stroke-surface);
-  border-radius: var(--radius-medium);
-  min-width: var(--width-menu-md);
-  padding: var(--space-8);
-}
-
-*.dark .microphone-menu {
-  background-color: var(--color-dark-background-elevated);
-  border: 1px solid var(--color-dark-stroke-surface);
-}
-
-.microphone-menu .system-volume-container .volume-slider {
-  border: none;
-}
-
-.microphone-menu .microphone-container .device {
-  background-color: transparent;
-  border: none;
-  padding: var(--space-4) var(--space-8);
-  margin: var(--space-2) 0;
-  font-size: var(--font-size-body);
-  color: var(--color-text-secondary);
-  border-radius: var(--radius-small);
-}
-
-*.dark .microphone-menu .microphone-container .device {
-  color: var(--color-dark-text-secondary);
-}
-
-.microphone-menu .microphone-container .device:hover {
-  background-color: var(--color-subtle-fill-hover);
-  color: var(--color-text-primary);
-}
-
-*.dark .microphone-menu .microphone-container .device:hover {
-  background-color: var(--color-dark-subtle-fill-hover);
-  color: var(--color-dark-text-primary);
-}
-
-.microphone-menu .microphone-container .device.selected {
-  background-color: var(--color-subtle-fill-rest);
-  color: var(--color-text-primary);
-}
-
-*.dark .microphone-menu .microphone-container .device.selected {
-  background-color: var(--color-dark-subtle-fill-rest);
-  color: var(--color-dark-text-primary);
-}
-
-/* ----------------------------------------------------------------------------
-   Volume Widget
-   ---------------------------------------------------------------------------- */
-.volume-widget .icon {
-  font-family: var(--font-icon);
-  font-size: var(--font-size-body);
-  padding-left: var(--space-4);
-}
-
-.volume-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .volume-widget .widget-container .label {
-  color: var(--color-dark-text-secondary);
-}
-
-.audio-menu {
-  background-color: var(--color-background-elevated);
-  border: 1px solid var(--color-stroke-surface);
-  border-radius: var(--radius-medium);
-  min-width: var(--width-menu-md);
-  padding: var(--space-8);
-}
-
-*.dark .audio-menu {
-  background-color: var(--color-dark-background-elevated);
-  border: 1px solid var(--color-dark-stroke-surface);
-}
-
-.audio-menu .system-volume-container .volume-slider {
-  border: none;
-}
-
-.audio-menu .audio-container .device {
-  background-color: transparent;
-  border: none;
-  padding: var(--space-4) var(--space-8);
-  margin: var(--space-2) 0;
-  font-size: var(--font-size-body);
-  color: var(--color-text-secondary);
-  border-radius: var(--radius-small);
-}
-
-*.dark .audio-menu .audio-container .device {
-  color: var(--color-dark-text-secondary);
-}
-
-.audio-menu .audio-container .device:hover {
-  background-color: var(--color-subtle-fill-hover);
-  color: var(--color-text-primary);
-}
-
-*.dark .audio-menu .audio-container .device:hover {
-  background-color: var(--color-dark-subtle-fill-hover);
-  color: var(--color-dark-text-primary);
-}
-
-.audio-menu .audio-container .device.selected {
-  background-color: var(--color-subtle-fill-rest);
-  color: var(--color-text-primary);
-}
-
-*.dark .audio-menu .audio-container .device.selected {
-  background-color: var(--color-dark-subtle-fill-rest);
-  color: var(--color-dark-text-primary);
-}
-
 .audio-menu .toggle-apps {
   background-color: transparent;
   border: none;
-  padding: var(--space-4);
-  margin: 0;
+  padding: 0;
+  margin: 0 0 0 var(--space-8);
   min-height: var(--size-icon-btn);
+  max-height: var(--size-icon-btn);
   min-width: var(--size-icon-btn);
+  max-width: var(--size-icon-btn);
   border-radius: var(--radius-small);
+  font-family: var(--font-icon);
 }
 
 .audio-menu .toggle-apps:hover {
@@ -1554,82 +1679,94 @@
   background-color: var(--color-dark-subtle-fill-hover);
 }
 
-/* ----------------------------------------------------------------------------
-   Brightness Widget
-   ---------------------------------------------------------------------------- */
-.brightness-widget .widget-container .icon {
-  font-family: var(--font-icon);
-  padding-left: var(--space-4);
-}
-
-.brightness-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .brightness-widget .widget-container .label {
+*.dark .audio-menu .apps-container .app-label {
   color: var(--color-dark-text-secondary);
 }
 
+.audio-menu .apps-container .app-volume {
+  margin: var(--space-4) 0;
+}
+
+.audio-menu .apps-container .app-label {
+  font-family: var(--font-text);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2);
+}
+
+.audio-menu .app-slider::handle:horizontal:disabled {
+  background-color: var(--color-text-disabled);
+  border-color: var(--color-background-base);
+}
+
+*.dark .audio-menu .app-slider::handle:horizontal:disabled {
+  background-color: var(--color-dark-text-disabled);
+  border-color: var(--color-dark-background-base);
+}
+
+/* ----------------------------------------------------------------------------
+   Brightness
+   ---------------------------------------------------------------------------- */
 .brightness-menu {
-  background-color: var(--color-background-elevated);
-  border: 1px solid var(--color-stroke-surface);
+  min-width: 300px;
+  max-width: 340px;
+}
+
+.brightness-menu .monitor-row {
+  margin: 10px;
+}
+
+.brightness-menu .monitor-title {
+  font-size: var(--font-size-body-strong);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.brightness-menu .monitor-subtitle {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  margin: var(--space-4) 0 var(--space-8) 0;
+}
+
+*.dark .brightness-menu .monitor-subtitle {
+  color: var(--color-dark-text-secondary);
+}
+
+.brightness-menu .slider-rows {
+  background-color: var(--color-surface-secondary);
+  border: 1px solid var(--color-stroke-control-default);
   border-radius: var(--radius-medium);
-  min-width: var(--width-menu-md);
   padding: var(--space-8);
 }
 
-*.dark .brightness-menu {
-  background-color: var(--color-dark-background-elevated);
-  border: 1px solid var(--color-dark-stroke-surface);
+*.dark .brightness-menu .slider-rows {
+  background-color: var(--color-dark-surface-secondary);
+  border-color: var(--color-dark-stroke-control-default);
 }
 
-.brightness-menu .slider-container {
-  padding: var(--space-4);
+.brightness-menu .slider-row {
+  padding: 0;
+}
+
+.brightness-menu .slider-icon {
+  font-family: var(--font-icon);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-regular);
+  min-width: 24px;
+  margin-right: var(--space-4);
 }
 
 /* ----------------------------------------------------------------------------
-   WiFi Widget
+   Wi-Fi
    ---------------------------------------------------------------------------- */
-.wifi-widget .widget-container .icon {
-  font-family: var(--font-icon);
-  padding-left: var(--space-4);
-}
-
-.wifi-widget .widget-container .label {
-  color: var(--color-text-secondary);
-  font-family: var(--font-mono);
-  font-weight: var(--font-weight-semibold);
-}
-
-*.dark .wifi-widget .widget-container .label {
-  color: var(--color-dark-text-secondary);
-}
-
-/* Menu Container */
 .wifi-menu {
   font-family: var(--font-primary);
-  background-color: var(--color-background-elevated);
-  border: 1px solid var(--color-stroke-surface);
-  border-radius: var(--radius-medium);
-  min-height: 400px;
-  max-height: 450px;
-  min-width: var(--width-menu-lg);
-  padding: var(--space-8);
+  min-height: 280px;
+  max-height: 400px;
 }
 
-*.dark .wifi-menu {
-  background-color: var(--color-dark-background-elevated);
-  border: 1px solid var(--color-dark-stroke-surface);
-}
-
-/* Header */
 .wifi-menu .header {
-  font-size: var(--font-size-subtitle);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-8);
-  padding: var(--space-8);
+  margin-bottom: 0;
   background-color: transparent;
   color: var(--color-text-primary);
   border-bottom: 1px solid var(--color-stroke-divider);
@@ -1640,47 +1777,20 @@
   border-bottom: 1px solid var(--color-dark-stroke-divider);
 }
 
-/* WiFi List */
 .wifi-menu .wifi-list {
   background-color: transparent;
   margin: var(--space-2);
 }
 
-/* WiFi Item */
-.wifi-menu .wifi-item {
-  min-height: var(--height-item-md);
-  padding: var(--space-4) var(--space-12);
-  margin: var(--space-2) 0;
-  border-radius: var(--radius-small);
-  border: 1px solid transparent;
-}
-
-.wifi-menu .wifi-item:hover {
-  background-color: var(--color-subtle-fill-hover);
-  border-color: var(--color-stroke-control-default);
-}
-
-*.dark .wifi-menu .wifi-item:hover {
-  background-color: var(--color-dark-subtle-fill-hover);
-  border-color: var(--color-dark-stroke-control-default);
-}
-
 .wifi-menu .wifi-item[active="true"] {
-  background-color: var(--color-subtle-fill-rest);
   border: 1px solid var(--color-accent-default);
-  min-height: var(--height-item-lg);
 }
 
 *.dark .wifi-menu .wifi-item[active="true"] {
-  background-color: var(--color-dark-subtle-fill-rest);
   border: 1px solid var(--color-dark-accent-default);
 }
 
-/* Item Text & Icons */
 .wifi-menu .wifi-item .icon {
-  font-family: var(--font-icon);
-  font-size: var(--font-size-title);
-  margin-right: var(--space-12);
   color: var(--color-text-secondary);
 }
 
@@ -1689,8 +1799,6 @@
 }
 
 .wifi-menu .wifi-item .name {
-  font-size: var(--font-size-body-strong);
-  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
 }
 
@@ -1698,45 +1806,10 @@
   color: var(--color-dark-text-primary);
 }
 
-.wifi-menu .wifi-item .status {
-  font-size: var(--font-size-caption);
-  color: var(--color-text-tertiary);
-}
-
-*.dark .wifi-menu .wifi-item .status {
-  color: var(--color-dark-text-tertiary);
-}
-
-/* Connect Button */
-.wifi-menu .wifi-item .connect {
-  background-color: var(--color-accent-default);
-  color: white;
-  padding: var(--space-4) var(--space-16);
-  border-radius: var(--radius-small);
-  border: none;
-  font-weight: var(--font-weight-semibold);
-  margin-top: var(--space-8);
-}
-
-*.dark .wifi-menu .wifi-item .connect {
-  background-color: var(--color-dark-accent-default);
-  color: black;
-}
-
-.wifi-menu .wifi-item .connect:hover {
-  background-color: var(--color-accent-secondary);
-}
-
-/* Footer */
 .wifi-menu .footer {
   font-size: var(--font-size-caption);
-  padding: var(--space-8);
-  margin-top: var(--space-8);
   color: var(--color-text-tertiary);
   background-color: transparent;
-  border-top: 1px solid var(--color-stroke-divider);
-  display: flex;
-  justify-content: space-between;
 }
 
 *.dark .wifi-menu .footer {
@@ -1744,157 +1817,198 @@
   border-top: 1px solid var(--color-dark-stroke-divider);
 }
 
-.wifi-menu .footer .refresh-icon {
-  font-family: var(--font-icon);
-  background-color: transparent;
-  border: none;
-  font-size: var(--font-size-subtitle);
-  color: var(--color-text-primary);
-}
-
-*.dark .wifi-menu .footer .refresh-icon {
-  color: var(--color-dark-text-primary);
-}
-
-.wifi-menu .footer .refresh-icon:hover {
-  color: var(--color-accent-default);
-}
-
-/* ----------------------------------------------------------------------------
-   Bluetooth Widget
-   ---------------------------------------------------------------------------- */
-.bluetooth-widget .widget-container .icon {
-  font-family: var(--font-icon);
-  font-size: var(--font-size-body);
-  padding-left: var(--space-4);
-}
-
-.bluetooth-widget .widget-container .label {
+.wifi-menu .wifi-item .strength {
   color: var(--color-text-secondary);
-  font-family: var(--font-text);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-body);
 }
 
-*.dark .bluetooth-widget .widget-container .label {
+*.dark .wifi-menu .wifi-item .strength {
   color: var(--color-dark-text-secondary);
 }
 
-/* --- Bluetooth States --- */
-
-/* OFF */
-.bluetooth-widget.bluetooth-off .widget-container .icon {
+/* ----------------------------------------------------------------------------
+   Bluetooth
+   ---------------------------------------------------------------------------- */
+.bluetooth-widget .icon.bt-off,
+.bluetooth-widget .label.bt-off {
   color: var(--color-text-disabled);
 }
-*.dark .bluetooth-widget.bluetooth-off .widget-container .icon {
+
+*.dark .bluetooth-widget .icon.bt-off,
+*.dark .bluetooth-widget .label.bt-off {
   color: var(--color-dark-text-disabled);
 }
 
-/* ON */
-.bluetooth-widget.bluetooth-on .widget-container .icon {
+.bluetooth-widget .icon.bt-connected {
   color: var(--color-accent-default);
 }
-*.dark .bluetooth-widget.bluetooth-on .widget-container .icon {
+
+*.dark .bluetooth-widget .icon.bt-connected {
   color: var(--color-dark-accent-default);
 }
 
-/* CONNECTED */
-.bluetooth-widget.bluetooth-connected .widget-container .icon {
-  color: var(--color-accent-default);
-}
-.bluetooth-widget.bluetooth-connected .widget-container .label {
-  color: var(--color-text-primary);
+.bluetooth-menu {
+  min-height: 240px;
+  max-height: 460px;
 }
 
-*.dark .bluetooth-widget.bluetooth-connected .widget-container .icon {
-  color: var(--color-dark-accent-default);
-}
-*.dark .bluetooth-widget.bluetooth-connected .widget-container .label {
-  color: var(--color-dark-text-primary);
-}
-
-/* ----------------------------------------------------------------------------
-   Battery Widget
-   ---------------------------------------------------------------------------- */
-.battery-widget .widget-container .icon {
-  font-family: var(--font-icon);
-  font-size: var(--font-size-body);
-  padding-left: var(--space-4);
+.bluetooth-menu .bluetooth-list {
+  background-color: transparent;
+  border: none;
+  margin: var(--space-2);
 }
 
-.battery-widget .widget-container .label {
+.bluetooth-menu .section {
+  background-color: transparent;
+  border: none;
+}
+
+.bluetooth-menu .header {
+  padding: 0;
+  border-bottom: 1px solid var(--color-stroke-divider);
+}
+
+*.dark .bluetooth-menu .header {
+  border-color: var(--color-dark-stroke-divider);
+}
+
+.bluetooth-menu .header .title {
+  margin: 0;
+}
+
+.bluetooth-menu .header .power-button {
+  margin-right: var(--space-12);
+  padding: var(--space-4) var(--space-16);
+  border: 1px solid var(--color-stroke-control-default);
+  border-radius: var(--radius-small);
+  background-color: var(--color-subtle-fill-rest);
+}
+
+.bluetooth-menu .header .power-button:checked {
+  background-color: var(--color-accent-default);
+  color: white;
+}
+
+*.dark .bluetooth-menu .header .power-button {
+  border-color: var(--color-dark-stroke-control-default);
+  background-color: var(--color-dark-subtle-fill-rest);
+}
+
+*.dark .bluetooth-menu .header .power-button:checked {
+  background-color: var(--color-dark-accent-default);
+  color: #1a1a1a;
+}
+
+.bluetooth-menu .section-title {
+  padding: var(--space-12) var(--space-12) var(--space-4) var(--space-12);
   color: var(--color-text-secondary);
-  font-family: var(--font-mono);
   font-weight: var(--font-weight-semibold);
 }
 
-*.dark .battery-widget .widget-container .label {
+*.dark .bluetooth-menu .section-title {
   color: var(--color-dark-text-secondary);
 }
 
-/* --- Battery States --- */
+.bluetooth-menu .bluetooth-item.active {
+  border-color: var(--color-accent-default);
+}
 
-/* Critical (Red) */
+*.dark .bluetooth-menu .bluetooth-item.active {
+  border-color: var(--color-dark-accent-default);
+}
+
+.bluetooth-menu .bluetooth-item .icon {
+  font-weight: var(--font-weight-regular);
+  min-width: 24px;
+}
+
+.bluetooth-menu .bluetooth-item .battery-icon {
+  font-family: var(--font-icon);
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-regular);
+  min-width: 24px;
+  margin-right: var(--space-12);
+}
+
+.bluetooth-menu .bluetooth-item .battery {
+  color: var(--color-text-secondary);
+}
+
+*.dark .bluetooth-menu .bluetooth-item .battery {
+  color: var(--color-dark-text-secondary);
+}
+
+.bluetooth-menu .bluetooth-item .controls-container {
+  padding: 0;
+}
+
+*.dark .bluetooth-menu .footer {
+  border-color: var(--color-dark-stroke-divider);
+}
+
+/* ----------------------------------------------------------------------------
+   Battery
+   ---------------------------------------------------------------------------- */
 .battery-widget .widget-container .icon.status-critical {
   color: var(--color-error);
 }
+
 *.dark .battery-widget .widget-container .icon.status-critical {
   color: var(--color-dark-error);
 }
 
-/* Low (Orange/Warning) */
 .battery-widget .widget-container .icon.status-low {
   color: var(--color-warning);
 }
+
 *.dark .battery-widget .widget-container .icon.status-low {
   color: var(--color-dark-warning);
 }
 
-/* Medium (Standard Text Color) */
 .battery-widget .widget-container .icon.status-medium {
   color: var(--color-text-secondary);
 }
+
 *.dark .battery-widget .widget-container .icon.status-medium {
   color: var(--color-dark-text-secondary);
 }
 
-/* High/Full (Green) */
 .battery-widget .widget-container .icon.status-high,
 .battery-widget .widget-container .icon.status-full {
-  color: var(--color-success);
-}
-*.dark .battery-widget .widget-container .icon.status-high,
-*.dark .battery-widget .widget-container .icon.status-full {
-  color: var(--color-dark-success);
+  color: var(--color-text-secondary);
 }
 
-/* Charging (Accent Blue) */
+*.dark .battery-widget .widget-container .icon.status-high,
+*.dark .battery-widget .widget-container .icon.status-full {
+  color: var(--color-dark-text-secondary);
+}
+
 .battery-widget .widget-container .icon.status-charging {
   color: var(--color-accent-default);
 }
+
 *.dark .battery-widget .widget-container .icon.status-charging {
   color: var(--color-dark-accent-default);
 }
 
-/* Charging Animation */
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.battery-widget .widget-container .icon.status-charging.blink {
-  animation: blink 2s infinite ease-in-out;
-}
-
 /* ----------------------------------------------------------------------------
-   Clock Widget
+   Clock and calendar
    ---------------------------------------------------------------------------- */
+.calendar .day-label,
+.calendar .month-label,
+.calendar .date-label {
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
+  min-width: var(--width-menu-sm);
+  max-width: var(--width-menu-sm);
+}
+
+.clock-widget .label {
+  font-family: var(--font-text);
+  font-size: var(--font-size-body-strong);
+  font-weight: var(--font-weight-regular);
+}
+
 .clock-widget .widget-container {
   background-color: transparent;
   border: transparent;
@@ -1905,57 +2019,14 @@
   padding-left: var(--space-4);
 }
 
-.clock-widget .label {
-  font-family: var(--font-text);
-  font-size: var(--font-size-body-strong);
-  font-weight: var(--font-weight-regular);
-}
-
-/* ----------------------------------------------------------------------------
-   Calendar Flyout
-   ---------------------------------------------------------------------------- */
-.calendar {
-  padding: var(--space-12);
-  border: 1px solid var(--color-stroke-surface);
-  border-radius: var(--radius-medium);
-  background-color: var(--color-background-elevated);
-}
-
-*.dark .calendar {
-  border: 1px solid var(--color-dark-stroke-surface);
-  background-color: var(--color-dark-background-elevated);
-}
-
 .calendar .calendar-table::item:selected {
   background-color: var(--color-accent-default);
-  color: var(--color-background-base);
-  border-radius: var(--radius-small);
+  color: #ffffff;
 }
 
 *.dark .calendar .calendar-table::item:selected {
   background-color: var(--color-dark-accent-default);
-  color: var(--color-dark-background-base);
-}
-
-.calendar .day-label,
-.calendar .month-label,
-.calendar .date-label {
-  font-family: var(--font-primary);
-  color: var(--color-text-primary);
-  min-width: var(--width-menu-sm);
-  max-width: var(--width-menu-sm);
-}
-
-*.dark .calendar .day-label,
-*.dark .calendar .month-label,
-*.dark .calendar .date-label {
-  color: var(--color-dark-text-primary);
-}
-
-.calendar .month-label {
-  font-size: var(--font-size-body-strong);
-  font-weight: var(--font-weight-semibold);
-  margin-top: var(--space-16);
+  color: #1a1a1a;
 }
 
 .calendar .day-label {
@@ -1964,43 +2035,271 @@
   margin-top: var(--space-8);
 }
 
+.calendar .month-label {
+  font-size: var(--font-size-body-strong);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--space-16);
+}
+
 .calendar .date-label {
   font-size: var(--font-size-display);
   font-weight: var(--font-weight-bold);
   margin-top: -var(--space-8);
 }
 
-/* ----------------------------------------------------------------------------
-   Weather Widget
-   ---------------------------------------------------------------------------- */
-.weather-widget .widget-container {
-  background-color: transparent;
-  border: transparent;
+*.dark .calendar .day-label,
+*.dark .calendar .month-label,
+*.dark .calendar .date-label {
+  color: var(--color-dark-text-primary);
 }
 
-.weather-widget .widget-container .icon {
+.calendar QCalendarWidget {
+  min-width: 280px;
+  max-width: 280px;
+}
+
+.calendar .calendar-table {
+  background: qlineargradient(
+    x1: 0,
+    y1: 0,
+    x2: 1,
+    y2: 0,
+    stop: 0 rgba(0, 0, 0, 0.025),
+    stop: 0.1428 rgba(0, 0, 0, 0.025),
+    stop: 0.1429 transparent,
+    stop: 0.8571 transparent,
+    stop: 0.8572 rgba(0, 0, 0, 0.025),
+    stop: 1 rgba(0, 0, 0, 0.025)
+  );
+  background-origin: content;
+  background-clip: content;
+  alternate-background-color: transparent;
+  border: none;
+  border-left: 1px solid var(--color-stroke-divider);
+  margin-left: var(--space-8);
+  padding-left: var(--space-12);
+  outline: none;
+}
+
+*.dark .calendar .calendar-table {
+  background: qlineargradient(
+    x1: 0,
+    y1: 0,
+    x2: 1,
+    y2: 0,
+    stop: 0 rgba(255, 255, 255, 0.035),
+    stop: 0.1428 rgba(255, 255, 255, 0.035),
+    stop: 0.1429 transparent,
+    stop: 0.8571 transparent,
+    stop: 0.8572 rgba(255, 255, 255, 0.035),
+    stop: 1 rgba(255, 255, 255, 0.035)
+  );
+  border-left-color: var(--color-dark-stroke-divider);
+}
+
+.calendar .calendar-table::item {
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-small);
+}
+
+/* ----------------------------------------------------------------------------
+   Weather
+   ---------------------------------------------------------------------------- */
+.open-meteo-card {
+  min-width: 520px;
+  max-width: 600px;
+}
+
+.open-meteo-widget .widget-container {
+  background-color: transparent;
+  border: none;
+}
+
+.open-meteo-widget .icon {
+  font-family: var(--font-icon-2);
   margin-right: var(--space-8);
   padding-left: var(--space-4);
 }
 
-.weather-widget .label {
+.open-meteo-widget .label {
   font-family: var(--font-text);
   font-size: var(--font-size-body-strong);
   font-weight: var(--font-weight-regular);
 }
 
+.open-meteo-card-today {
+  padding: var(--space-8);
+}
+
+.open-meteo-card-today .label {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+}
+
+*.dark .open-meteo-card-today .label {
+  color: var(--color-dark-text-secondary);
+}
+
+.open-meteo-card-today .label.location {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+}
+
+*.dark .open-meteo-card-today .label.location {
+  color: var(--color-dark-text-primary);
+}
+
+.open-meteo-card-today .label.sunrisesunset-icon {
+  font-family: var(--font-icon-2);
+}
+
+.open-meteo-card-today .label.sunrisesunset {
+  color: var(--color-text-secondary);
+  margin-top: var(--space-8);
+}
+
+*.dark .open-meteo-card-today .label.sunrisesunset {
+  color: var(--color-dark-text-secondary);
+}
+
+.open-meteo-card-day {
+  border: 1px solid var(--color-stroke-control-default);
+  border-radius: var(--radius-medium);
+  background-color: var(--color-surface-secondary);
+  padding: var(--space-4);
+  min-width: 56px;
+}
+
+*.dark .open-meteo-card-day {
+  border-color: var(--color-dark-stroke-control-default);
+  background-color: var(--color-dark-surface-secondary);
+}
+
+.open-meteo-card-day:hover,
+.open-meteo-card-day.active {
+  background-color: var(--color-subtle-fill-hover);
+  border-color: var(--color-accent-default);
+}
+
+*.dark .open-meteo-card-day:hover,
+*.dark .open-meteo-card-day.active {
+  background-color: var(--color-dark-subtle-fill-hover);
+  border-color: var(--color-dark-accent-default);
+}
+
+.open-meteo-card-day .day-name,
+.open-meteo-card-day .day-temp-min {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+}
+
+*.dark .open-meteo-card-day .day-name,
+*.dark .open-meteo-card-day .day-temp-min {
+  color: var(--color-dark-text-secondary);
+}
+
+.open-meteo-card-day .day-temp-max {
+  font-size: var(--font-size-body-strong);
+  font-weight: var(--font-weight-semibold);
+}
+
+.open-meteo-card .hourly-container {
+  min-height: 120px;
+  background-color: transparent;
+  border: none;
+}
+
+.open-meteo-card .hourly-data {
+  font-family: var(--font-text);
+  font-size: var(--font-size-body);
+}
+
+.open-meteo-card .hourly-data.temperature {
+  background-color: var(--color-accent-default);
+}
+
+*.dark .open-meteo-card .hourly-data.temperature {
+  background-color: var(--color-dark-accent-default);
+}
+
+.open-meteo-card .hourly-data.rain {
+  background-color: #4a90e2;
+}
+
+.open-meteo-card .hourly-data.snow {
+  background-color: #a0c4ff;
+}
+
+.open-meteo-card .search-head {
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-semibold);
+  padding-bottom: var(--space-8);
+}
+
+.open-meteo-card .search-description,
+.open-meteo-card .no-data-text {
+  color: var(--color-text-secondary);
+  padding-bottom: var(--space-12);
+}
+
+*.dark .open-meteo-card .search-description,
+*.dark .open-meteo-card .no-data-text {
+  color: var(--color-dark-text-secondary);
+}
+
+.open-meteo-card .no-data-icon {
+  font-size: var(--font-size-display);
+  font-family: var(--font-icon-2);
+}
+
+.open-meteo-card .search-input {
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-stroke-control-default);
+  border-bottom: 2px solid var(--color-text-tertiary);
+  border-radius: var(--radius-small);
+  background-color: var(--color-surface-secondary);
+}
+
+*.dark .open-meteo-card .search-input {
+  border-color: var(--color-dark-stroke-control-default);
+  border-bottom-color: var(--color-dark-text-tertiary);
+  background-color: var(--color-dark-surface-secondary);
+}
+
+.open-meteo-card .search-input:focus {
+  border-bottom-color: var(--color-accent-default);
+}
+
+*.dark .open-meteo-card .search-input:focus {
+  border-bottom-color: var(--color-dark-accent-default);
+}
+
+.open-meteo-card .search-results {
+  background-color: transparent;
+  border: none;
+}
+
+.open-meteo-card .search-results::item {
+  padding: var(--space-8);
+  border-radius: var(--radius-small);
+}
+
+.open-meteo-card .search-results::item:hover,
+.open-meteo-card .search-results::item:selected {
+  background-color: var(--color-subtle-fill-hover);
+}
+
+*.dark .open-meteo-card .search-results::item:hover,
+*.dark .open-meteo-card .search-results::item:selected {
+  background-color: var(--color-dark-subtle-fill-hover);
+}
+
 /* ----------------------------------------------------------------------------
-   Power Menu Widget
+   Power menu
    ---------------------------------------------------------------------------- */
-.power-menu-widget .widget-container {
-  background-color: transparent;
-  border: 0;
-}
-
-.power-menu-widget .widget-container:hover {
-  background-color: transparent;
-}
-
 .power-menu-widget .label {
   font-family: var(--font-icon);
   font-size: var(--font-size-body);
@@ -2031,14 +2330,11 @@
   height: var(--height-item-lg);
   padding: var(--space-12);
   margin: var(--space-4);
-
   background-color: var(--color-dark-subtle-fill-rest);
   border: 1px solid var(--color-dark-stroke-control-default);
   border-radius: var(--radius-medium);
-
   color: var(--color-dark-text-primary);
   font-family: var(--font-primary);
-
   cursor: pointer;
 }
 
@@ -2048,7 +2344,7 @@
   border-color: var(--color-dark-stroke-focus);
 }
 
-.power-menu-popup .button:active {
+.power-menu-popup .button:pressed {
   background-color: var(--color-dark-subtle-fill-pressed);
 }
 
@@ -2058,6 +2354,7 @@
   color: var(--color-dark-text-primary);
   margin-bottom: var(--space-4);
 }
+
 .power-menu-popup .button .icon {
   font-size: var(--font-size-icon-large);
   color: var(--color-dark-text-tertiary);

@@ -63,8 +63,8 @@ widgets:
   task_view:
     type: "yasb.custom.CustomWidget"
     options:
-      label: "<span>\ue154</span>"
-      label_alt: "<span>\ue154</span>"
+      label: "<span>\ue7c4</span>"
+      label_alt: "<span>\ue7c4</span>"
       class_name: "task-view-widget"
       callbacks:
         on_left: "exec explorer.exe shell:::{3080F90E-D7AD-11D9-BD98-0000947B0257}"
@@ -126,7 +126,7 @@ widgets:
   clock:
     type: "yasb.clock.ClockWidget"
     options:
-      label: "<span>\uf017</span>  {%a %d %b   %H:%M}"
+      label: "<span>\ue917</span>  {%a %d %b   %H:%M}"
       label_alt: "{%A %d %B %Y %H:%M:%S}"
       timezones: []
       calendar:
@@ -175,8 +175,8 @@ widgets:
   media:
     type: "yasb.media.MediaWidget"
     options:
-      label: "<span>\u266a</span> {title}"
-      label_alt: "<span>\u266a</span> {artist}"
+      label: "{title}"
+      label_alt: "{artist}"
       hide_empty: true
       callbacks:
         on_left: "toggle_media_menu"
@@ -185,6 +185,7 @@ widgets:
       max_field_size:
         label: 45
         label_alt: 80
+        truncate_whole_label: false
       show_thumbnail: false
       controls_only: false
       controls_left: false
@@ -192,10 +193,10 @@ widgets:
       thumbnail_padding: 8
       thumbnail_corner_radius: 16
       icons:
-        prev_track: "\udb81\udcae"
-        next_track: "\udb81\udcad"
-        play: "\udb81\udc0a"
-        pause: "\udb80\udfe4"
+        prev_track: "\ue892"
+        next_track: "\ue893"
+        play: "\ue768"
+        pause: "\ue769"
       media_menu:
         blur: true
         round_corners: true
@@ -216,13 +217,12 @@ widgets:
         next_track: "\ue893"
 
   weather:
-    type: "yasb.weather.WeatherWidget"
+    type: "yasb.open_meteo.OpenMeteoWidget"
     options:
       label: "<span>{icon}</span> {temp}"
       label_alt: "{location}: {min_temp}/{max_temp}"
-      api_key: "$env:YASB_WEATHER_API_KEY"
-      location: "auto:ip"
-      show_alerts: true
+      forecast_days: 7
+      update_interval: 900
       hide_decimal: true
       units: "metric"
       callbacks:
@@ -238,7 +238,6 @@ widgets:
         rainyNight: "\udb81\ude7e"
         snowyDay: "\udb81\udd98"
         snowyNight: "\udb81\udd98"
-        blizzardDay: "\uebaa"
         default: "\uebaa"
       weather_card:
         blur: True
@@ -248,7 +247,10 @@ widgets:
         alignment: "right"
         direction: "down"
         offset_top: 6
-        icon_size: 64
+        icon_size: 48
+        show_hourly_forecast: true
+        time_format: "24h"
+        hourly_icon_size: 24
 
   cpu:
     type: "yasb.cpu.CpuWidget"
@@ -404,7 +406,7 @@ widgets:
       mute_text: "Mute"
       icons:
         normal: "\ue720"
-        muted: "\uf12e"
+        muted: "\uec54"
       mic_menu:
         blur: true
         round_corners: true
@@ -423,17 +425,24 @@ widgets:
       label: "<span>{icon}</span> {level}"
       label_alt: "{volume}"
       mute_text: "Mute"
-      volume_icons:
-        - "\ue74f" # Mute
-        - "\ue992" # 10%
-        - "\ue993" # 30%
-        - "\ue994" # 60%
-        - "\ue995" # 100%
+      icons:
+        muted: "\ue74f"
+        "10": "\ue992"
+        "30": "\ue993"
+        "60": "\ue994"
+        "100": "\ue995"
       callbacks:
         on_left: "toggle_volume_menu"
         on_middle: "exec cmd.exe /c start ms-settings:sound"
         on_right: "toggle_mute"
       audio_menu:
+        show_apps: true
+        show_app_labels: true
+        show_app_icons: true
+        show_apps_expanded: true
+        app_icons:
+          toggle_down: "\ue70d"
+          toggle_up: "\ue70e"
         blur: true
         round_corners: true
         round_corners_type: "normal"
@@ -494,13 +503,21 @@ widgets:
       max_length: 15
       max_length_ellipsis: "..."
       icons:
-        bluetooth_on: "\uec41"
-        bluetooth_off: "\ueb90"
+        bluetooth_on: "\ue702"
+        bluetooth_off: "\ue702"
         bluetooth_connected: "\ue702"
       callbacks:
-        on_left: "exec cmd.exe /c start ms-settings:bluetooth"
-        on_middle: "do_nothing"
+        on_left: "toggle_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:bluetooth"
         on_right: "toggle_label"
+      menu_config:
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "system"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
 
   battery:
     type: "yasb.battery.BatteryWidget"
@@ -511,7 +528,7 @@ widgets:
       hide_unsupported: true
       charging_options:
         icon_format: "{charging_icon}"
-        blink_charging_icon: true
+        blink_charging_icon: false
         blink_interval: 800
       status_thresholds:
         critical: 10
