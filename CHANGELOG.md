@@ -2,6 +2,9 @@
 
 ### October
 
+- Windows
+  - NixOS on WSL!
+  - YASB Improvements
 - Allow automatic package updates with `srcs`
 - Add some SKILLS
 - Add `easyeffects-presets`

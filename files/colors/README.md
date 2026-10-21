@@ -4,7 +4,7 @@ The color schemes are specified according to the following format -
 
 ```yaml
 scheme: Name
-author: Maker
+author: Maintainer
 base00: Base
 base01: Mantle
 base02: Surface0

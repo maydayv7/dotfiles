@@ -5,8 +5,41 @@
   ...
 }: let
   inherit (config.flake) files;
+  cli = {lib, ...}: {
+    stylix = {
+      enable = lib.mkDefault true;
+      image = lib.mkDefault files.wallpapers.Beauty;
+      polarity = lib.mkDefault "dark";
+      base16Scheme = files.colors.campbell;
+    };
+  };
 in {
   flake.modules = {
+    nixos.theme-cli = {
+      imports = [inputs.stylix.nixosModules.stylix cli];
+      stylix = {
+        autoEnable = false;
+        homeManagerIntegration.autoImport = false;
+      };
+    };
+
+    homeManager.theme-cli = {
+      config,
+      lib,
+      options,
+      ...
+    }: {
+      imports = [inputs.stylix.homeModules.stylix cli];
+      stylix = {
+        autoEnable = true;
+        targets =
+          lib.mapAttrs (name: _: {
+            enable = lib.mkDefault (config.programs.${name}.enable or false);
+          })
+          options.stylix.targets;
+      };
+    };
+
     nixos.theme = {
       config,
       lib,

@@ -24,14 +24,11 @@
 in {
   configurations.nixos.vortex = {
     system = "x86_64-linux";
-    module = {
-      config,
-      pkgs,
-      ...
-    }: {
+    module = _: {
       imports =
         util.map.array
         [
+          "v7"
           "security"
           "laptop"
           "mobile"
@@ -84,26 +81,19 @@ in {
         fancy = true;
       };
 
-      users.users.v7 = {
-        isNormalUser = true;
-        description = "V 7";
-        uid = 1000;
-        group = "users";
-        shell = pkgs.zsh;
-        hashedPasswordFile = config.sops.secrets."v7.secret".path;
-        extraGroups = [
-          "wheel"
-          "keys"
-          "networkmanager"
-          "adbusers"
-          "lp"
-          "scanner"
-          "kvm"
-          "libvirtd"
-          "input"
-          "video"
-        ];
-      };
+      # User
+      users.users.v7.extraGroups = [
+        "wheel"
+        "keys"
+        "networkmanager"
+        "adbusers"
+        "lp"
+        "scanner"
+        "kvm"
+        "libvirtd"
+        "input"
+        "video"
+      ];
 
       home-manager.users.v7.imports = hmModules ++ [homeManager.v7];
     };

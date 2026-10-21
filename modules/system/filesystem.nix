@@ -31,16 +31,6 @@ in {
     in {
       imports = [
         inputs.disko.nixosModules.disko
-        inputs.impermanence.nixosModule
-        (
-          mkAliasOptionModule
-          ["environment" "persist"]
-          [
-            "environment"
-            "persistence"
-            files.path.persist
-          ]
-        )
         (
           mkAliasOptionModule
           ["system" "fs" "persist"]
@@ -81,6 +71,8 @@ in {
       config = mkMerge [
         {
           warnings = optional (cfg.scheme == null) "Disk Filesystem Scheme is unset";
+          system.fs.persist.enable = mkDefault false;
+
           boot = {
             supportedFilesystems = {
               ntfs = true;
@@ -89,9 +81,6 @@ in {
             };
             zfs.forceImportRoot = false;
           };
-
-          environment.persist.enable = mkDefault false;
-          system.fs.persist.enable = mkDefault false;
 
           ## Disk Layout
           disko.devices = mkMerge [
@@ -320,7 +309,7 @@ in {
       osConfig ? null,
       ...
     }: let
-      advanced = osConfig != null && osConfig.system.fs.scheme == "advanced";
+      advanced = osConfig != null && (osConfig.system.fs.scheme or null) == "advanced";
     in {
       imports = [(lib.mkAliasOptionModule ["home" "persist"] ["home" "persistence" files.path.data])];
 

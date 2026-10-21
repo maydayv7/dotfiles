@@ -17,13 +17,10 @@
 in {
   configurations.nixos.futura = {
     system = "x86_64-linux";
-    module = {
-      config,
-      pkgs,
-      ...
-    }: {
+    module = _: {
       imports =
         util.map.array [
+          "navya"
           "security"
           "laptop"
           "office"
@@ -65,18 +62,11 @@ in {
         flake = "github:maydayv7/dotfiles";
       };
 
-      users.users.navya = {
-        isNormalUser = true;
-        description = "Navya";
-        uid = 1000;
-        group = "users";
-        shell = pkgs.zsh;
-        hashedPasswordFile = config.sops.secrets."navya.secret".path;
-        extraGroups = [
-          "wheel"
-          "networkmanager"
-        ];
-      };
+      # User
+      users.users.navya.extraGroups = [
+        "wheel"
+        "networkmanager"
+      ];
 
       home-manager.users.navya.imports =
         sharedHmModules

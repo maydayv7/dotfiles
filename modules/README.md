@@ -7,42 +7,49 @@ The `modules` directory contains the custom configuration modules that form the 
 - [`core`](./core): `flake-parts` plumbing that wires everything together
 - [`lib`](./lib/README.md): custom utility functions exposed through `util`, with helper files excluded from auto-import
 - [`hosts`](./hosts): per-device configuration, declared as `configurations.nixos.<host>` and `configurations.homeManager.<user@host>`, composing the modules below
-- [`users`](./users/): user-specific Home Manager configurations
+- [`users`](./users/): user accounts and user-specific Home Manager configurations
 
 ## Module List
 
 An overview of every configuration module in this repository.
 
-**Type** indicates whether a module extends `flake.modules.nixos`, `flake.modules.homeManager`, or both.
+- **Type** indicates whether a module extends `flake.modules.nixos`, `flake.modules.homeManager`, or both
+- **★** marks modules imported by default
+- **◇** marks WSL-compatible modules (' for HM-only)
 
-**★** marks modules imported by default
+#### WSL
+
+The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) configuration.  
+`<name>-cli` holds reusable command-line settings when `<name>` also includes desktop/native-host configuration.
 
 ### [`apps`](./apps)
 
-| Module        | Type         | Description                        |
-| ------------- | ------------ | ---------------------------------- |
-| `auth`        | Home Manager | Authentication credential managers |
-| `discord`     | Home Manager | Discord chat client                |
-| `firefox`     | Home Manager | Firefox browser                    |
-| `internet`    | Home Manager | Internet apps                      |
-| `notes`       | Home Manager | Obsidian note-taking               |
-| `spotify`     | Home Manager | Spotify music client               |
-| `stream`      | Home Manager | Streaming tools                    |
-| `syncthing`   | Home Manager | Syncthing file sync                |
-| `youtube`     | Home Manager | YouTube Music & TUI                |
-| `vscode`      | Home Manager | Visual Studio Code editor          |
-| `zed`         | Home Manager | Zed Editor                         |
-| `antigravity` | Home Manager | Google Antigravity                 |
-| `codex`       | Home Manager | OpenAI Codex                       |
-| `claude`      | Home Manager | Anthropic Claude                   |
-| `flatpak`     | Both         | Flatpak app sandboxing             |
-| `latex`       | Both         | LaTeX typesetting                  |
-| `office`      | Both         | Office suite environment           |
-| `tools`       | Both         | General CLI/GUI tools              |
-| `wine`        | Both         | Wine Windows compatibility         |
-| `git`         | Both         | `git` version control              |
-| `git-hosting` | NixOS        | Gitea code hosting                 |
-| `git-runner`  | NixOS        | GitHub/GitLab CI runner            |
+| Module              | Type         | Description                        |
+| ------------------- | ------------ | ---------------------------------- |
+| `auth`              | Home Manager | Authentication credential managers |
+| `discord`           | Home Manager | Discord chat client                |
+| `firefox`           | Home Manager | Firefox browser                    |
+| `internet`          | Home Manager | Internet apps                      |
+| `notes`             | Home Manager | Obsidian note-taking               |
+| `spotify`           | Home Manager | Spotify music client               |
+| `stream`            | Home Manager | Streaming tools                    |
+| `syncthing` ◇       | Home Manager | Syncthing file sync                |
+| `youtube`           | Home Manager | YouTube Music & TUI                |
+| `vscode`            | Home Manager | Visual Studio Code editor          |
+| `zed`               | Home Manager | Zed Editor                         |
+| `antigravity-cli` ◇ | Home Manager | Google Antigravity CLI             |
+| `antigravity`       | Home Manager | Antigravity CLI + IDE              |
+| `codex-cli` ◇       | Home Manager | OpenAI Codex CLI                   |
+| `codex`             | Home Manager | Codex CLI + Desktop                |
+| `claude`            | Home Manager | Anthropic Claude                   |
+| `flatpak`           | Both         | Flatpak app sandboxing             |
+| `latex`             | Both         | LaTeX typesetting                  |
+| `office`            | Both         | Office suite environment           |
+| `tools`             | Both         | General CLI/GUI tools              |
+| `wine`              | Both         | Wine Windows compatibility         |
+| `git` ◇             | Both         | `git` version control              |
+| `git-hosting` ◇     | NixOS        | Gitea code hosting                 |
+| `git-runner` ◇      | NixOS        | GitHub/GitLab CI runner            |
 
 ### [`desktop`](./desktop)
 
@@ -64,44 +71,55 @@ An overview of every configuration module in this repository.
 
 ### [`gui`](./gui)
 
-| Module    | Type  | Description         |
-| --------- | ----- | ------------------- |
-| `theme` ★ | Both  | System-wide theming |
-| `fonts` ★ | NixOS | System fonts        |
-| `gtk`     | Both  | GTK theming         |
-| `qt`      | Both  | Qt theming          |
+| Module        | Type  | Description         |
+| ------------- | ----- | ------------------- |
+| `theme` ★     | Both  | System-wide theming |
+| `theme-cli` ◇ | Both  | CLI/TUI theming     |
+| `fonts` ★     | NixOS | System fonts        |
+| `gtk`         | Both  | GTK theming         |
+| `qt`          | Both  | Qt theming          |
 
 ### [`hardware`](./hardware)
 
-| Module       | Type  | Description         |
-| ------------ | ----- | ------------------- |
-| `cpu` ★      | NixOS | CPU configuration   |
-| `gpu` ★      | NixOS | GPU configuration   |
-| `laptop`     | Both  | Laptop tweaks       |
-| `mouse`      | Both  | Mouse configuration |
-| `mobile`     | NixOS | Mobile firmware     |
-| `printer`    | NixOS | Printer firmware    |
-| `blockchain` | NixOS | Blockchain support  |
+| Module         | Type  | Description         |
+| -------------- | ----- | ------------------- |
+| `cpu` ★        | NixOS | CPU configuration   |
+| `gpu` ★        | NixOS | GPU configuration   |
+| `laptop`       | Both  | Laptop tweaks       |
+| `mouse`        | Both  | Mouse configuration |
+| `mobile`       | NixOS | Mobile firmware     |
+| `printer`      | NixOS | Printer firmware    |
+| `blockchain` ◇ | NixOS | Blockchain support  |
 
 ### [`shell`](./shell)
 
-| Module        | Type  | Description         |
-| ------------- | ----- | ------------------- |
-| `shell` ★     | Both  | Shell configuration |
-| `shell-utils` | Both  | Shell utilities     |
-| `prompt`      | NixOS | Shell prompt        |
+| Module          | Type  | Description         |
+| --------------- | ----- | ------------------- |
+| `shell` ★ ◇'    | Both  | Shell configuration |
+| `shell-cli` ◇   | NixOS | Shells & TUIs       |
+| `shell-utils` ◇ | Both  | Shell utilities     |
+| `prompt` ◇      | NixOS | Shell prompt        |
 
 ### [`system`](./system)
 
-| Module         | Type  | Description                         |
-| -------------- | ----- | ----------------------------------- |
-| `base` ★       | Both  | Base system configuration           |
-| `base-ext`     | Both  | Extended base configuration         |
-| `boot` ★       | NixOS | Boot loader configuration           |
-| `filesystem` ★ | Both  | File system layout                  |
-| `nix` ★        | Both  | Nix daemon & settings               |
-| `user` ★       | Both  | User accounts & Home Manager wiring |
-| `security`     | Both  | Security & hardening                |
+| Module            | Type  | Description                          |
+| ----------------- | ----- | ------------------------------------ |
+| `base` ★ ◇'       | Both  | Base system configuration            |
+| `base-cli` ◇      | NixOS | Shared base utilities & declarations |
+| `extbase`         | NixOS | Extended base configuration          |
+| `extbase-cli` ◇   | NixOS | Extended base CLI configuration      |
+| `crypt` ◇         | Both  | GPG agent & SSH client/server        |
+| `boot` ★          | NixOS | Boot loader configuration            |
+| `filesystem` ★ ◇' | Both  | File system layout                   |
+| `nix` ★ ◇         | Both  | Nix daemon & settings                |
+| `user-cli` ◇      | Both  | User CLI setup                       |
+| `user` ★          | Both  | User accounts & Home Manager wiring  |
+| `security`        | Both  | Security & hardening                 |
+
+### [`users`](./users)
+
+The `core` Home Manager profiles `default` and `cli` compose the standard and
+CLI base modules respectively.
 
 ### [`virt`](./virt)
 
@@ -114,9 +132,9 @@ An overview of every configuration module in this repository.
 
 ### [`secrets`](../secrets)
 
-| Module      | Type | Description        |
-| ----------- | ---- | ------------------ |
-| `secrets` ★ | Both | Secrets management |
+| Module        | Type | Description        |
+| ------------- | ---- | ------------------ |
+| `secrets` ★ ◇ | Both | Secrets management |
 
 ## Options
 
@@ -124,6 +142,7 @@ The following are the custom configuration options exposed by the modules above:
 
 - [`apps`](./apps) -
   - `git` -
+    - `package`: System `git` package - Ex. `pkgs.gitFull`
     - `hosting` -
       - `enable`: Enable Gitea Code Hosting - `true / false`
       - `domain`: Website Domain Name - Ex. `maydayv7.dev`

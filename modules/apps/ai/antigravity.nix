@@ -1,6 +1,6 @@
 ## Google Antigravity ##
 {config, ...}: let
-  inherit (config.flake) files;
+  inherit (config.flake) files modules;
 in {
   flake.modules.homeManager.antigravity = {
     config,
@@ -14,7 +14,7 @@ in {
     isWM = (osConfig.programs.hyprland.enable or false) || (osConfig.programs.niri.enable or false);
   in {
     imports = [
-      ./_common.nix
+      modules.homeManager.antigravity-cli
       (import ../vscode/_mutable.nix {
         program = "antigravity";
         configDir = "Antigravity";
@@ -29,6 +29,16 @@ in {
         inherit lib pkgs files font isGnome isWM;
       };
     };
+
+    home.persist.directories = [".config/Antigravity"];
+  };
+
+  flake.modules.homeManager.antigravity-cli = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [./_common.nix];
 
     # CLI
     programs.antigravity-cli = {
@@ -45,11 +55,7 @@ in {
 
     home = {
       file.".gemini/antigravity-cli/settings.json".force = true;
-      persist.directories = [
-        ".config/Antigravity"
-        ".antigravity"
-        ".gemini"
-      ];
+      persist.directories = [".antigravity" ".gemini"];
     };
   };
 }

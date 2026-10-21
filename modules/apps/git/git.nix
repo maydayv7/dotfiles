@@ -3,16 +3,29 @@
   inherit (config.flake) files;
 in {
   flake.modules = {
-    nixos.git = {pkgs, ...}: {
-      # Utilities
-      environment.systemPackages = with pkgs; [
-        gitFull
-        git-crypt
-        git-lfs
-        gh
-        tig
-        treefmt
-      ];
+    nixos.git = {
+      config,
+      lib,
+      pkgs,
+      ...
+    }: {
+      options.apps.git.package = lib.mkOption {
+        description = "System 'git' package";
+        type = lib.types.package;
+        default = pkgs.gitFull;
+      };
+
+      config = {
+        # Utilities
+        environment.systemPackages = with pkgs; [
+          config.apps.git.package
+          git-crypt
+          git-lfs
+          gh
+          tig
+          treefmt
+        ];
+      };
     };
 
     homeManager.git = {
@@ -22,7 +35,6 @@ in {
     }: let
       cfg = config.credentials;
     in {
-      # User Credentials
       assertions = [
         {
           assertion = cfg.mail != "";
@@ -89,7 +101,7 @@ in {
           };
         };
 
-        # 'git' Settings
+        ## 'git' Settings
         git = {
           enable = true;
           lfs.enable = true;
@@ -112,7 +124,7 @@ in {
           settings = {
             color.ui = "auto";
             core.hooksPath = "~/.git-hooks";
-            credential.helper = ["libsecret"];
+            credential.helper = lib.mkDefault ["libsecret"];
             diff.colorMoved = "default";
             init.defaultBranch = "main";
             pull.rebase = "true";

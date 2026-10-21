@@ -1,8 +1,39 @@
 {config, ...}: let
-  inherit (config.flake) files;
+  inherit (config.flake) files modules;
   name = "maydayv7";
 in {
+  flake.modules.nixos.v7 = {
+    config,
+    pkgs,
+    ...
+  }: {
+    users.users.v7 = {
+      isNormalUser = true;
+      description = "V 7";
+      uid = 1000;
+      group = "users";
+      shell = pkgs.zsh;
+      hashedPasswordFile = config.sops.secrets."v7.secret".path;
+    };
+  };
+
   flake.modules.homeManager.v7 = {
+    config,
+    lib,
+    ...
+  }: {
+    imports = [modules.homeManager.v7-cli];
+    home.file = {
+      ".face".source = ./profile.png;
+      ".config/goa-1.0/accounts.conf".text = builtins.readFile ./accounts.conf;
+      ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+        file://${config.home.homeDirectory}/TBD TBD
+        file://${config.home.homeDirectory}/Projects Projects
+      '';
+    };
+  };
+
+  flake.modules.homeManager.v7-cli = {
     config,
     lib,
     pkgs,
@@ -24,15 +55,7 @@ in {
         "Projects"
       ];
 
-      file = {
-        ".face".source = ./profile.png;
-        ".config/goa-1.0/accounts.conf".text = builtins.readFile ./accounts.conf;
-        "Projects/dotfiles".source = config.lib.file.mkOutOfStoreSymlink files.path.system;
-        ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
-          file://${homeDir}/TBD TBD
-          file://${homeDir}/Projects Projects
-        '';
-      };
+      file."Projects/dotfiles".source = config.lib.file.mkOutOfStoreSymlink files.path.system;
 
       packages = with pkgs; [
         home-manager

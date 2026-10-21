@@ -10,6 +10,11 @@ in {
   flake.modules = {
     # Base User Configuration
     nixos.user = {
+      imports = [modules.nixos.user-cli];
+      system.homeModules = [modules.homeManager.default];
+    };
+
+    nixos.user-cli = {
       config,
       lib,
       ...
@@ -18,16 +23,18 @@ in {
     in {
       imports = [inputs.home-manager.nixosModules.home-manager];
 
+      options.system.homeModules = lib.mkOption {
+        type = lib.types.listOf lib.types.deferredModule;
+        default = [modules.homeManager.cli];
+        description = "Shared system Home Manager modules";
+      };
+
       config = {
         users.mutableUsers = false;
         users.extraUsers.root = {
           isNormalUser = false;
           extraGroups = ["wheel"];
-          hashedPasswordFile =
-            mkIf (
-              config.sops.secrets ? "root.secret"
-            )
-            config.sops.secrets."root.secret".path;
+          hashedPasswordFile = mkIf (config.sops.secrets ? "root.secret") config.sops.secrets."root.secret".path;
         };
 
         # User Passwords
@@ -47,16 +54,7 @@ in {
           extraSpecialArgs = {inherit inputs;};
 
           # Default Modules
-          sharedModules =
-            util.map.array [
-              "base"
-              "filesystem"
-              "user"
-              "nix"
-              "shell"
-              "theme"
-            ]
-            modules.homeManager;
+          sharedModules = config.system.homeModules;
         };
 
         # XDG directories
@@ -71,6 +69,49 @@ in {
 
     # Global Home Manager Configuration
     homeManager.user = {
+      config,
+      lib,
+      ...
+    }: {
+      imports = [modules.homeManager.user-cli];
+      config = {
+        # Environment Settings
+        home.file = {
+          ".local/share/backgrounds".source = files.wallpapers.path;
+          ".config/gtk-3.0/bookmarks" = {
+            text = lib.mkBefore ''
+              file://${config.home.homeDirectory}/Downloads Downloads
+              file://${config.home.homeDirectory}/Pictures Pictures
+              file://${config.home.homeDirectory}/Documents Documents
+            '';
+            force = true;
+          };
+        };
+
+        # User Directories
+        xdg = {
+          enable = true;
+          mime.enable = true;
+          mimeApps.enable = true;
+          configFile."mimeapps.list".force = true;
+          userDirs = {
+            enable = true;
+            createDirectories = true;
+            desktop = "$HOME/Desktop";
+            documents = "$HOME/Documents";
+            download = "$HOME/Downloads";
+            music = "$HOME/Music";
+            pictures = "$HOME/Pictures";
+            publicShare = "$HOME/Public";
+            templates = "$HOME/Templates";
+            videos = "$HOME/Videos";
+            extraConfig."SCREENSHOTS" = "$HOME/Pictures/Screenshots";
+          };
+        };
+      };
+    };
+
+    homeManager.user-cli = {
       config,
       lib,
       ...
@@ -111,6 +152,8 @@ in {
       };
 
       config = {
+        xdg.enable = true;
+
         # Update News
         news.display = "show";
 
@@ -118,19 +161,6 @@ in {
         systemd.user = {
           enable = true;
           startServices = true;
-        };
-
-        # Environment Settings
-        home.file = {
-          ".local/share/backgrounds".source = files.wallpapers.path;
-          ".config/gtk-3.0/bookmarks" = {
-            text = lib.mkBefore ''
-              file://${config.home.homeDirectory}/Downloads Downloads
-              file://${config.home.homeDirectory}/Pictures Pictures
-              file://${config.home.homeDirectory}/Documents Documents
-            '';
-            force = true;
-          };
         };
 
         # GPG Keys
@@ -159,27 +189,6 @@ in {
                 }
               )
             );
-        };
-
-        # User Directories
-        xdg = {
-          enable = true;
-          mime.enable = true;
-          mimeApps.enable = true;
-          configFile."mimeapps.list".force = true;
-          userDirs = {
-            enable = true;
-            createDirectories = true;
-            desktop = "$HOME/Desktop";
-            documents = "$HOME/Documents";
-            download = "$HOME/Downloads";
-            music = "$HOME/Music";
-            pictures = "$HOME/Pictures";
-            publicShare = "$HOME/Public";
-            templates = "$HOME/Templates";
-            videos = "$HOME/Videos";
-            extraConfig."SCREENSHOTS" = "$HOME/Pictures/Screenshots";
-          };
         };
       };
     };

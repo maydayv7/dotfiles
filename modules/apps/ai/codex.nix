@@ -1,12 +1,14 @@
 ## OpenAI Codex ##
-_: {
+{config, ...}: let
+  inherit (config.flake) modules;
+in {
   flake.modules.homeManager.codex = {
     config,
     lib,
     pkgs,
     ...
   }: {
-    imports = [./_common.nix];
+    imports = [modules.homeManager.codex-cli];
 
     programs.vscode.profiles.default.extensions =
       lib.mkIf config.programs.vscode.enable
@@ -14,12 +16,18 @@ _: {
 
     home = {
       packages = [pkgs.llm.chatgpt];
-      persist.directories = [
-        ".codex"
-        ".config/Codex"
-        ".cache/Codex"
-      ];
+      persist.directories = [".config/Codex" ".cache/Codex"];
+    };
+  };
+  flake.modules.homeManager.codex-cli = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [./_common.nix];
 
+    home = {
+      persist.directories = [".codex"];
       file.".codex/config.toml" = {
         force = true;
         mutable = true;

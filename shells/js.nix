@@ -7,6 +7,5 @@ pkgs: {
 
     eslint
     nodemon
-    postman
   ];
 }

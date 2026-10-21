@@ -96,6 +96,7 @@ It also builds and deploys my website to [maydayv7.dev](https://maydayv7.dev).
 - Automatically builds and deploys my [Website](./site)
 - Credentials management using the [`sops-nix`](https://github.com/Mic92/sops-nix) module and [`gnupg`](https://gnupg.org/) keys
 - Comprehensive User Configuration using the [`home-manager`](https://github.com/nix-community/home-manager) module
+- Support for [NixOS on WSL](./modules/hosts/wsl) with shared CLI configuration
 - Ephemeral, opt-in filesystem state using the [`impermanence`](https://github.com/nix-community/impermanence) module and [ZFS](https://zfsonlinux.org/)
 - Declarative disk partitioning and installation using [`disko`](https://github.com/nix-community/disko)
 - Support for Secure Boot using [`lanzaboote`](https://github.com/nix-community/lanzaboote)
@@ -139,6 +140,7 @@ github:maydayv7/dotfiles
 │       ├───configurations:nixos:futura: derivation
 │       ├───configurations:nixos:valkyrie: derivation
 │       ├───configurations:nixos:vortex: derivation
+│       ├───configurations:nixos:wsl: derivation
 │       └───treefmt: derivation 'treefmt-check'
 ├───devShells
 │   └───x86_64-linux
@@ -160,7 +162,8 @@ github:maydayv7/dotfiles
 ├───homeConfigurations
 │   ├───navya@futura: Home Manager configuration
 │   ├───v7@valkyrie: Home Manager configuration
-│   └───v7@vortex: Home Manager configuration
+│   ├───v7@vortex: Home Manager configuration
+│   └───v7@wsl: Home Manager configuration
 ├───legacyPackages
 │   └───x86_64-linux (Default package channel)
 ├───modules: dendritic configuration modules
@@ -168,7 +171,8 @@ github:maydayv7/dotfiles
 │   ├───futura: NixOS configuration
 │   ├───install: NixOS configuration
 │   ├───valkyrie: NixOS configuration
-│   └───vortex: NixOS configuration
+│   ├───vortex: NixOS configuration
+│   └───wsl: NixOS configuration
 ├───overlays
 ├───packages
 │   └───x86_64-linux

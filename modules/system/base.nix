@@ -1,6 +1,40 @@
 ## Base Configuration ##
-_: {
+{
+  config,
+  inputs,
+  ...
+}: let
+  inherit (config.flake) files modules;
+in {
   flake.modules = {
+    nixos.base-cli = {
+      lib,
+      pkgs,
+      ...
+    }: {
+      system.stateVersion = lib.mkDefault lib.trivial.release;
+
+      imports = [
+        inputs.impermanence.nixosModule
+        (lib.mkAliasOptionModule ["environment" "persist"] ["environment" "persistence" files.path.persist])
+      ];
+      environment.persist.enable = lib.mkDefault false;
+
+      environment.systemPackages = with pkgs; [
+        custom.os
+        curl
+        file
+        killall
+        man-pages
+        mkpasswd
+        net-tools
+        rsync
+        unrar
+        unzip
+        wget
+      ];
+    };
+
     nixos.base = {
       config,
       options,
@@ -10,6 +44,8 @@ _: {
     }: let
       cfg = config.system;
     in {
+      imports = [modules.nixos.base-cli];
+
       options.system = {
         kernel = lib.mkOption {
           description = "Linux Kernel Variant to be used";
@@ -29,9 +65,6 @@ _: {
       };
 
       config = {
-        # System version
-        system.stateVersion = lib.mkDefault lib.trivial.release;
-
         # Kernel Configuration
         boot = {
           kernelPackages =
@@ -58,24 +91,14 @@ _: {
 
           # Essential Utilities
           systemPackages = with pkgs; [
-            custom.os
             cryptsetup
-            file
             inxi
-            killall
-            man-pages
-            mkpasswd
-            net-tools
             ntfsprogs
             parted
             pciutils
-            rsync
             sdparm
             smartmontools
-            unrar
-            unzip
             usbutils
-            wget
             alsa-utils
           ];
         };

@@ -57,7 +57,6 @@
             max-free = ${builtins.toString (10 * 1024 * 1024 * 1024)}
           '';
 
-          ## Nix Registry ##
           # Registry
           nixPath = ["/etc/nix/inputs"];
           registry = builtins.mapAttrs (_: value: {flake = value;}) (
@@ -79,8 +78,7 @@
           })
           inputs;
 
-        ## Nix Tools ##
-        # Nix Tools
+        ## Tools
         nix.settings.system-features = mkIf config.system.nix.tools [
           "kvm"
           "big-parallel"
@@ -102,7 +100,7 @@
       };
     };
 
-    ## Package Indexer ##
+    ## Package Indexer
     homeManager.nix = {
       lib,
       osConfig ? null,

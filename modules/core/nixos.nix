@@ -16,6 +16,7 @@ in {
         name: {
           module,
           system,
+          defaults,
         }:
           lib.nixosSystem {
             modules =
@@ -28,20 +29,20 @@ in {
               ]
               ++
               # Default Modules
-              util.map.array [
-                "base"
-                "boot"
-                "filesystem"
-                "cpu"
-                "gpu"
-                "nix"
-                "user"
-                "secrets"
-                "shell"
-                "theme"
-                "fonts"
-              ]
-              flake.modules.nixos;
+              lib.optionals defaults (util.map.array [
+                  "base"
+                  "boot"
+                  "filesystem"
+                  "cpu"
+                  "gpu"
+                  "nix"
+                  "user"
+                  "secrets"
+                  "shell"
+                  "theme"
+                  "fonts"
+                ]
+                flake.modules.nixos);
           }
       )
       config.configurations.nixos;

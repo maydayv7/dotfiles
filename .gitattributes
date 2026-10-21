@@ -1,3 +1,4 @@
+* text=auto eol=lf
 *.secret binary
-site/static/js/* linguist-vendored
+site/static/js/katex.js linguist-vendored
 *.zip filter=lfs diff=lfs merge=lfs -text

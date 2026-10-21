@@ -110,6 +110,12 @@
       inputs.nixpkgs.follows = "unstable";
     };
 
+    # Windows Subsystem for Linux
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL?ref=release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Declarative Disk Partitioning
     disko = {
       url = "github:nix-community/disko/v1.13.0";

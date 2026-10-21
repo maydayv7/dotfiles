@@ -10,7 +10,7 @@ Use [UniGetUI](https://github.com/devolutions/unigetui) to install all [programs
 
 Can't live without this quintessential piece of software on this otherwise dysfunctional OS.
 
-Use [scorpion421/Windhawk-Services-Backup-Utility](https://github.com/scorpion421/Windhawk-Services-Backup-Utility) to backup/restore all mods.
+Use [Windhawk-Backup-Manager](https://github.com/osmanonurkoc/Windhawk-Backup-Manager) to backup/restore all mods.
 
 ## AutoHotKey v2
 

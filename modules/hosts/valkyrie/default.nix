@@ -8,6 +8,8 @@
   inherit (config) util;
 
   nixosModules = [
+    "v7"
+    "extbase"
     "prompt"
     "mobile"
     "printer"
@@ -36,7 +38,7 @@
   ];
 
   mixedModules = [
-    "base-ext"
+    "crypt"
     "security"
     "laptop"
     "mouse"
@@ -156,31 +158,23 @@ in {
         hugepages = 16;
       };
 
-      # User V7
-      users.users.v7 = {
-        isNormalUser = true;
-        description = "V 7";
-        uid = 1000;
-        group = "users";
-        shell = pkgs.zsh;
-        hashedPasswordFile = config.sops.secrets."v7.secret".path;
-        extraGroups = [
-          "wheel"
-          "keys"
-          "adbusers"
-          "docker"
-          "i2c"
-          "input"
-          "lp"
-          "networkmanager"
-          "scanner"
-          "systemd-journal"
-          "video"
-          "minecraft"
-          "kvm"
-          "libvirtd"
-        ];
-      };
+      # User
+      users.users.v7.extraGroups = [
+        "wheel"
+        "keys"
+        "adbusers"
+        "docker"
+        "i2c"
+        "input"
+        "lp"
+        "networkmanager"
+        "scanner"
+        "systemd-journal"
+        "video"
+        "minecraft"
+        "kvm"
+        "libvirtd"
+      ];
 
       home-manager.users.v7.imports =
         hmImports

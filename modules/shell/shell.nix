@@ -1,6 +1,6 @@
 ## Shell Configuration ##
 {config, ...}: let
-  inherit (config.flake) files;
+  inherit (config.flake) files modules;
 
   editor = {
     autoindent = true;
@@ -24,7 +24,15 @@
   };
 in {
   flake.modules = {
-    nixos.shell = {pkgs, ...}: {
+    nixos.shell = {
+      imports = [modules.nixos.shell-cli];
+      programs = {
+        bash.vteIntegration = true;
+        zsh.vteIntegration = true;
+      };
+    };
+
+    nixos.shell-cli = {pkgs, ...}: {
       config = {
         environment = {
           shells = [pkgs.bashInteractive];
@@ -53,24 +61,21 @@ in {
           };
 
           # Bourne Shell
-          bash = {
-            vteIntegration = true;
-            promptInit = ''
-              shopt -s autocd
-              shopt -s cdspell
-              shopt -s checkjobs
-              shopt -s checkwinsize
-              shopt -s cmdhist
-              shopt -s extglob
-              shopt -s globstar
-              shopt -s histappend
+          bash.promptInit = ''
+            shopt -s autocd
+            shopt -s cdspell
+            shopt -s checkjobs
+            shopt -s checkwinsize
+            shopt -s cmdhist
+            shopt -s extglob
+            shopt -s globstar
+            shopt -s histappend
 
-              HISTCONTROL=erasedups:ignoredups:ignorespace
-              HISTFILESIZE=100000
-              HISTIGNORE=rm:killall
-              HISTSIZE=100000
-            '';
-          };
+            HISTCONTROL=erasedups:ignoredups:ignorespace
+            HISTFILESIZE=100000
+            HISTIGNORE=rm:killall
+            HISTSIZE=100000
+          '';
 
           # Z Shell
           zsh = {
@@ -78,7 +83,6 @@ in {
             autosuggestions.enable = true;
             enableCompletion = false;
             syntaxHighlighting.enable = true;
-            vteIntegration = true;
             setOptions = [
               "autocd"
               "EXTENDED_HISTORY"
