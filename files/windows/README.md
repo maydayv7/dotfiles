@@ -20,6 +20,19 @@ Place everything under [scripts](./scripts/) in `shell:startup`.
 
 Place [yasb](./yasb/) at `.config\yasb`.
 
+## Nilesoft Shell
+
+Run the following commands:
+
+```pwsh
+$config = (Resolve-Path .\files\windows\nilesoft).Path
+$shell = Join-Path $env:ProgramFiles 'Nilesoft Shell'
+New-Item -ItemType SymbolicLink -Path "$shell\shell.nss" -Target "$config\shell.nss"
+New-Item -ItemType Junction -Path "$shell\imports" -Target "$config\imports"
+```
+
+Hold Ctrl while right-clicking to reload.
+
 ## Rainmeter
 
 Install the [`.rmskin`](./Vollmond.rmskin), and align using the [grids](https://forum.rainmeter.net/viewtopic.php?t=20197).

@@ -3,6 +3,7 @@
 ### October
 
 - Windows
+  - Nilesoft Shell
   - NixOS on WSL!
   - YASB Improvements
 - Allow automatic package updates with `srcs`
