@@ -1,5 +1,5 @@
 {
   repo = "https://github.com/blader/humanizer";
-  rev = "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8";
-  sha256 = "sha256-n8cbTzhlGf8VnWpPukq7XD2mucIrqyE1XMpAAc5oA8A=";
+  rev = "0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0";
+  sha256 = "sha256-KaAcA2rxlkae3DID4w3GFQbyXrnararlHVrL32C5jeE=";
 }
