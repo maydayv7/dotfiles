@@ -12,16 +12,16 @@
 }
 
 ; ==============================================================================
-; Horizontal Scrolling (Shift + Scroll)
+; Horizontal Scrolling (Right Ctrl + Scroll)
 ; ==============================================================================
-; Shift + Scroll Up: Scroll Left
-+WheelUp::
+; Right Ctrl + Scroll Up: Scroll Left
+>^WheelUp::
 {
     Send "{WheelLeft}"
 }
 
-; Shift + Scroll Down: Scroll Right
-+WheelDown::
+; Right Ctrl + Scroll Down: Scroll Right
+>^WheelDown::
 {
     Send "{WheelRight}"
 }

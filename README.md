@@ -323,7 +323,7 @@ _Replace_ **_DEVICE_** _with the name of Device to build_
 
 > [!NOTE]
 > The layout is derived from the device's `system.fs.scheme`.
-> The `advanced` scheme additionally creates the encrypted `fspool` datasets - `system/root` (opt-in state), `system/nix`, `data` and `reserve`
+> The `advanced` scheme additionally creates the encrypted `fspool` datasets - `system/root` (opt-in state), `system/nix`, `system/state`, `data` and `reserve`.
 
 #### Procedure
 

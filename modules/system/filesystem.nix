@@ -15,14 +15,15 @@ in {
     }: let
       inherit
         (lib)
-        filterAttrs
+        catAttrs
+        filter
+        genAttrs
         hasPrefix
         mkAliasOptionModule
         mkDefault
         mkIf
         mkMerge
         mkOption
-        nameValuePair
         optional
         types
         ;
@@ -72,6 +73,7 @@ in {
         {
           warnings = optional (cfg.scheme == null) "Disk Filesystem Scheme is unset";
           system.fs.persist.enable = mkDefault false;
+          environment.systemPackages = [pkgs.httm];
 
           boot = {
             supportedFilesystems = {
@@ -79,7 +81,10 @@ in {
               vfat = true;
               zfs = true;
             };
-            zfs.forceImportRoot = false;
+            zfs = {
+              forceImportRoot = false;
+              unsafeAllowHibernation = mkDefault (cfg.scheme == "simple");
+            };
           };
 
           ## Disk Layout
@@ -142,6 +147,7 @@ in {
                   ashift = "12";
                   cachefile = "none";
                 };
+
                 rootFsOptions = {
                   atime = "off";
                   compression = "zstd";
@@ -173,6 +179,17 @@ in {
                     };
                   };
 
+                  # STATE Dataset
+                  "system/state" = {
+                    type = "zfs_fs";
+                    mountpoint = files.path.persist;
+                    options = {
+                      mountpoint = "legacy";
+                      recordsize = "128K";
+                      "com.sun:auto-snapshot" = "true";
+                    };
+                  };
+
                   # Persisted Dataset
                   "data" = {
                     type = "zfs_fs";
@@ -201,7 +218,7 @@ in {
 
         (mkIf (cfg.scheme != null) {
           programs.fuse.userAllowOther = true;
-          boot.kernel.sysctl."vm.swappiness" = 1; # SWAP Behaviour
+          boot.kernel.sysctl."vm.swappiness" = 10; # SWAP Behaviour
 
           system.activationScripts.dotfiles = with files.path; let
             path =
@@ -219,28 +236,23 @@ in {
         ## Advanced File System Configuration using ZFS ##
         (mkIf (cfg.scheme == "advanced") (
           let
+            needed = filter (hasPrefix "/etc") (catAttrs "directory" config.environment.persist.directories);
             rollback = ''
               zfs rollback -r fspool/system/root@blank && echo "Rollback Complete!"
             '';
           in {
+            # ! # https://github.com/nix-community/impermanence/issues/294
             fileSystems =
               {
                 "${files.path.data}".neededForBoot = true;
+                "${files.path.persist}".neededForBoot = true;
               }
-              // filterAttrs (name: _: hasPrefix "/etc" name) (
-                builtins.listToAttrs (
-                  map (
-                    item:
-                      nameValuePair item.directory {
-                        device = "${files.path.persist}${item.directory}";
-                        fsType = "none";
-                        options = ["bind"];
-                        neededForBoot = true;
-                      }
-                  )
-                  config.environment.persist.directories
-                )
-              );
+              // genAttrs needed (directory: {
+                device = "${files.path.persist}${directory}";
+                fsType = "none";
+                options = ["bind"];
+                neededForBoot = true;
+              });
 
             # Early Boot Requirements
             boot = {
@@ -278,6 +290,7 @@ in {
 
               autoSnapshot = {
                 enable = true;
+                frequent = 4;
                 hourly = 12;
                 daily = 7;
                 weekly = 3;
@@ -332,7 +345,7 @@ in {
         ];
       };
 
-      # Persist Trash Folder
+      # ! # https://github.com/nix-community/impermanence/issues/147
       systemd.user.services.persist-trash = lib.mkIf advanced {
         Unit.Description = "Persist Trash Folder";
         Install.WantedBy = ["default.target"];
@@ -340,7 +353,7 @@ in {
           run = script:
             lib.getExe (
               pkgs.writeShellApplication {
-                name = "script";
+                name = "persist-trash";
                 runtimeInputs = [pkgs.coreutils];
                 text = ''
                   LOCAL="$HOME/.local/share/Trash"
@@ -357,13 +370,13 @@ in {
           ExecStart = run ''
             if [ -d "$PERSIST" ]
             then
-              cp -r "$PERSIST"/. "$LOCAL"
+              cp -a "$PERSIST"/. "$LOCAL"
               rm -rf "$PERSIST"
             fi
           '';
           ExecStop = run ''
             mkdir -p "$PERSIST"
-            cp -r "$LOCAL"/. "$PERSIST"
+            cp -a "$LOCAL"/. "$PERSIST"
           '';
         };
       };
