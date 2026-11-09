@@ -2,7 +2,8 @@
 Persistent
 
 ; Configuration
-SyncDir := "C:\Sync\Clipboard"
+SyncDir := "C:\Files\Sync\Clipboard"
+DirCreate(SyncDir)
 PcFile := SyncDir "\pc_clip.txt"
 AndroidFile := SyncDir "\android_clip.txt"
 global LastAndroidMod := 0

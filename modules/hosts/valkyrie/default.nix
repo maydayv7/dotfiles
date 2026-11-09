@@ -16,16 +16,15 @@
     "docker"
     "mc-server"
     #"roblox"
-    "vfio"
+    #"vfio"
   ];
 
   hmModules = [
     "secrets"
     "auth"
-    "syncthing"
     "internet"
     "firefox"
-    "notes"
+    "v7-notes"
     "discord"
     "spotify"
     "vscode"
@@ -38,6 +37,7 @@
   ];
 
   mixedModules = [
+    "syncthing"
     "crypt"
     "security"
     "laptop"
@@ -50,7 +50,7 @@
     "latex"
     #"flatpak"
     #"wine"
-    "libvirt"
+    #"libvirt"
     "hyprland"
   ];
 
@@ -58,10 +58,10 @@
     util.map.array hmModules homeManager
     ++ util.map.array mixedModules homeManager;
 
-  disk = import ./_disk/full.nix args;
+  disk = import ./_disk/dualboot.nix args;
   asus = import ./_asus {};
   dev = import ./_dev.nix {};
-  vm = import ./_vm args;
+  #vm = import ./_vm args;
 in {
   configurations.nixos.valkyrie = {
     system = "x86_64-linux";
@@ -77,7 +77,7 @@ in {
           disk.nixos
           (asus.nixos or {})
           (dev.nixos or {})
-          vm.nixos
+          #vm.nixos
         ]
         ++ util.map.array ["asus-zephyrus-ga402x-nvidia"] inputs.hardware.nixosModules;
 
@@ -148,15 +148,15 @@ in {
       ];
 
       # Virtualisation
-      virt.vfio = {
-        setup = true;
-        passthrough = [
-          "10de:28e0" # Graphics
-          "10de:22be" # Audio
-        ];
-        isolate = "2-4,10-12";
-        hugepages = 16;
-      };
+      # virt.vfio = {
+      #   setup = true;
+      #   passthrough = [
+      #     "10de:28e0" # Graphics
+      #     "10de:22be" # Audio
+      #   ];
+      #   isolate = "2-4,10-12";
+      #   hugepages = 16;
+      # };
 
       # User
       users.users.v7.extraGroups = [
@@ -172,8 +172,8 @@ in {
         "systemd-journal"
         "video"
         "minecraft"
-        "kvm"
-        "libvirtd"
+        #"kvm"
+        #"libvirtd"
       ];
 
       home-manager.users.v7.imports =

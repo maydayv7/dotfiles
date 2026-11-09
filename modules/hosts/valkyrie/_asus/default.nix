@@ -10,7 +10,7 @@ _: {
       plymouth.extraConfig = "DeviceScale=2";
 
       # ! # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
-      kernelParams = lib.mkIf perf [
+      kernelParams = lib.optionals perf [
         "amdgpu.dcdebugmask=0x10"
         "usbcore.autosuspend=-1"
       ];

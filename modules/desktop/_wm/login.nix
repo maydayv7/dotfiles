@@ -6,8 +6,9 @@
     services.displayManager.noctalia-greeter = {
       enable = true;
       settings.cursor = {
+        path = config.stylix.cursor.package;
         theme = config.stylix.cursor.name;
-        inherit (config.stylix.cursor) size package;
+        inherit (config.stylix.cursor) size;
       };
     };
   };

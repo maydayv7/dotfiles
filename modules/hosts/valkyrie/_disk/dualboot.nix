@@ -1,8 +1,9 @@
 ## Dual Boot Layout
 {config, ...}: {
   nixos = {lib, ...}: let
-    inherit (config.flake) files;
     inherit (lib) mkForce;
+    inherit (config.flake.files) path;
+    windows = "${path.data}/windows";
   in {
     # Filesystem
     system.fs = {
@@ -11,7 +12,7 @@
     };
 
     # Bypass Disko
-    disko.devices.disk.main = mkForce {};
+    disko.devices.disk = mkForce {};
 
     # Boot Loader
     boot = {
@@ -29,28 +30,23 @@
 
     # Shared ESP
     fileSystems."/boot" = {
-      device = "/dev/disk/by-partuuid/4fdd8116-b999-4dab-97a6-bb56e99e0635";
+      device = "/dev/disk/by-partuuid/5564bc59-d0ed-477b-b7db-47df192845b0";
       fsType = "vfat";
       options = ["umask=0077"];
     };
 
     # Windows Partition
-    fileSystems."${files.path.data}/windows" = {
-      device = "/dev/disk/by-label/System";
+    fileSystems."${windows}" = {
+      device = "/dev/disk/by-partuuid/83b4b77c-c23a-4ae7-9609-9cae7cd1b06d";
       fsType = "ntfs3";
-      options = ["rw" "nofail" "uid=1000" "gid=100" "dmask=022" "fmask=133"];
+      options = ["rw" "nofail" "x-systemd.device-timeout=10s" "uid=1000" "gid=100" "dmask=022" "fmask=133"];
     };
 
-    fileSystems."${files.path.files}" = {
-      device = "${files.path.data}/windows/Files";
+    fileSystems."${path.files}" = {
+      device = "${windows}/Files";
       fsType = "none";
-      options = ["bind"];
-    };
-
-    fileSystems."${files.path.sync}" = {
-      device = "${files.path.data}/windows/Files/Sync";
-      fsType = "none";
-      options = ["bind"];
+      depends = [windows];
+      options = ["bind" "nofail"];
     };
 
     # System Clock

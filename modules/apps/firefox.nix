@@ -42,7 +42,6 @@ in {
           };
         in
           builtins.listToAttrs [
-            (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")
             (extension "darkreader" "addon@darkreader.org")
             (extension "firefox-color" "FirefoxColor@mozilla.com")
             (extension "keepassxc-browser" "keepassxc-browser@keepassxc.org")

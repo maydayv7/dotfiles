@@ -18,7 +18,6 @@ in {
 
       data = "/data";
       files = "${data}/files";
-      sync = "${data}/sync";
 
       cache = "maydayv7-dotfiles";
       flake = "github:maydayv7/dotfiles";
@@ -38,7 +37,6 @@ in {
     # Directory Bookmarks
     bookmarks = ''
       file://${path.files} Files
-      file://${path.sync} Sync
       file:/// Computer
     '';
 

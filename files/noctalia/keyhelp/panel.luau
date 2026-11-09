@@ -45,26 +45,31 @@ local function renderResults(rows)
       )
       previousGroup = group
     elseif row.entry.gap_before then
-      table.insert(content, ui.separator({ key = "gap-" .. row.key, color = "outline", spacing = 4 }))
+      table.insert(content, ui.separator({ key = "gap-" .. row.key, color = "outline_variant", spacing = 4 }))
     end
     table.insert(
       content,
-      ui.row(
-        { key = row.key, gap = 16, paddingH = 12, paddingV = 8, fill = "surface_variant", radius = 8, align = "center" },
-        {
-          ui.label({ text = row.entry.description, flexGrow = 1, maxWidth = 460, maxLines = 5, fontSize = 14 }),
-          ui.label({
-            text = row.entry.keys,
-            width = 260,
-            maxWidth = 260,
-            maxLines = 5,
-            textAlign = "end",
-            fontSize = 13,
-            fontWeight = "bold",
-            color = "primary",
-          }),
-        }
-      )
+      ui.row({
+        key = row.key,
+        gap = 16,
+        paddingH = 12,
+        paddingV = 8,
+        fill = "surface_container",
+        radius = 8,
+        align = "center",
+      }, {
+        ui.label({ text = row.entry.description, flexGrow = 1, maxWidth = 460, maxLines = 5, fontSize = 14 }),
+        ui.label({
+          text = row.entry.keys,
+          width = 260,
+          maxWidth = 260,
+          maxLines = 5,
+          textAlign = "end",
+          fontSize = 13,
+          fontWeight = "bold",
+          color = "primary",
+        }),
+      })
     )
   end
   if #rows == 0 then

@@ -15,7 +15,6 @@ in {
         extensions =
           [
             "djflhoibgkdhkhhcedjiklpkjnoahfmg" # User Agent Switcher
-            "lckanjgmijmafbedllaakclkaicjfmnk" # ClearURLs
             "oofgbpoabipfcfjapgnbbjjaenockbdp" # SetupVPN
             "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Booster
             "jaioibhbkffompljnnipmpkeafhpicpd" # Tab Auto Refresh

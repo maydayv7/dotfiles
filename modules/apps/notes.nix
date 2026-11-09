@@ -1,15 +1,15 @@
-## Obsidian Configuration ##
-{config, ...}: let
-  inherit (config.flake) files;
-in {
+## Obsidian Notes Configuration ##
+{
   flake.modules.homeManager.notes = {
+    config,
     lib,
     pkgs,
     osConfig ? {},
     ...
   }: let
-    vault = "${files.path.sync}/Notes";
+    inherit (config.apps.obsidian) vault;
     target = "Documents/Notes";
+    targetPath = "${config.home.homeDirectory}/${target}";
 
     isGnome = osConfig.services.desktopManager.gnome.enable or false;
     isWM = (osConfig.programs.hyprland.enable or false) || (osConfig.programs.niri.enable or false);
@@ -20,18 +20,20 @@ in {
       then pkgs.custom.obsidian-catppuccin
       else null;
   in {
+    options.apps.obsidian.vault = lib.mkOption {
+      type = lib.types.path;
+      default = targetPath;
+      description = "Path to notes vault (linked at ~/Documents/Notes)";
+    };
+
     config = {
       home = {
         persist.directories = [".config/obsidian"];
         activation.obsidianVault = lib.hm.dag.entryBetween ["linkGeneration"] ["writeBoundary"] ''
-          run mkdir -p ${vault} "$HOME/$(dirname ${target})"
-          run ln -sfn ${vault} "$HOME/${target}"
-
-          stignore="${files.path.sync}/.stignore"
-          if ! { [ -e "$stignore" ] && ${pkgs.gnugrep}/bin/grep -qxF "/Notes/.obsidian" "$stignore"; }
-          then
-            echo "/Notes/.obsidian" >> "$stignore"
-          fi
+          run mkdir -p -- ${lib.escapeShellArg vault} ${lib.escapeShellArg (dirOf targetPath)}
+          ${lib.optionalString (vault != targetPath) ''
+            run ln -sfnT -- ${lib.escapeShellArg vault} ${lib.escapeShellArg targetPath}
+          ''}
         '';
       };
 

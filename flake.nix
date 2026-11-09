@@ -202,13 +202,13 @@
 
     # Desktop Shell
     noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.2.1";
+      url = "github:noctalia-dev/noctalia/v5.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Login Greeter
     noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter/v1.6.0";
+      url = "github:noctalia-dev/noctalia-greeter/v1.7.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

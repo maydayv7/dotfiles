@@ -33,7 +33,7 @@ The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-commun
 | `notes`             | Home Manager | Obsidian note-taking               |
 | `spotify`           | Home Manager | Spotify music client               |
 | `stream`            | Home Manager | Streaming tools                    |
-| `syncthing` ◇       | Home Manager | Syncthing file sync                |
+| `syncthing` ◇       | Both         | Syncthing file sync                |
 | `youtube`           | Home Manager | YouTube Music & TUI                |
 | `vscode`            | Home Manager | Visual Studio Code editor          |
 | `zed`               | Home Manager | Zed Editor                         |
@@ -138,7 +138,9 @@ CLI base modules respectively.
 
 ## Options
 
-The following are the custom configuration options exposed by the modules above:
+The following are the custom configuration options exposed by the modules above.
+
+### NixOS
 
 - [`apps`](./apps) -
   - `git` -
@@ -166,6 +168,9 @@ The following are the custom configuration options exposed by the modules above:
   - `fancy`: Enable Fancy GUI Effects - `true / false`
   - `display`: Main GUI Display - Ex. `"HDMI-A-1"`
   - `wallpaper`: Desktop Wallpaper Choice (taken from `files.wallpapers`)
+  - `qt` -
+    - `theme`: Qt application theme name
+    - `package`: Qt theme package - Ex. `pkgs.adwaita-qt`
 
 - [`hardware`](./hardware) -
   - `cpu` -
@@ -177,6 +182,7 @@ The following are the custom configuration options exposed by the modules above:
     - `model`: Discrete GPU Model - `null / "nvidia"`
 
 - [`system`](./system) -
+  - `homeModules`: Home Manager modules shared by all configured users
   - `kernel`: Linux Kernel Variant to be used - `"lts"` or a suffix from `pkgs.linuxKernel.kernels`
   - `kernelModules`: Linux Kernel Modules to load
   - `scheme`: Supported Boot Firmware Scheme - `null / "mbr" / "efi" / "secure"`
@@ -184,10 +190,12 @@ The following are the custom configuration options exposed by the modules above:
     - `scheme`: Disk Filesystem Scheme - `null / "simple" / "advanced"`
     - `swap`: Size of SWAP Partition - Ex. `"8G"`
     - `disk`: Target Disk for Installation (Use `ls -l /dev/disk/by-id`) - Ex. `"/dev/disk/by-id/nvme-..."`
-    - `persist`: System Files to preserve across reboots (while using the `advanced` File System Layout)
+    - `persist`: Service files to preserve (across reboots with `advanced` FS scheme)
   - `nix` -
     - `index`: Enable Package Indexer - `true / false`
     - `tools`: Enable Additional Nix Tools - `true / false`
+
+- `environment.persist`: System files to preserve (across reboots with `advanced` FS scheme)
 
 - [`virt`](./virt) -
   - `vfio` -
@@ -196,9 +204,22 @@ The following are the custom configuration options exposed by the modules above:
     - `isolate`: Host CPU set to isolate for pinned vCPUs - Ex. `"2-4,10-12"`
     - `hugepages`: Number of 1 GiB hugepages to reserve - Ex. `16`
 
-- [`user`](./system/user) -
-  - `credentials`: Individual User Credentials -
-    - `name`: Alternative (Work) User Name
-    - `fullname`: Full User Name
-    - `mail`: User Mail ID - Ex. `"user@email.com"`
-    - `key`: User GPG Key - Ex. `"CF616EB19C2765E4"`
+### Home Manager
+
+- [`apps`](./apps) -
+  - `obsidian.vault`: Path to notes vault (linked at `~/Documents/Notes`) - Ex. `/data/files/Sync/Notes`
+
+- [`credentials`](./system/user) -
+  - `name`: Work User Name
+  - `fullname`: Full User Name
+  - `mail`: User Mail ID - Ex. `"user@email.com"`
+  - `key`: User GPG Key - Ex. `"CF616EB19C2765E4"`
+
+- [`home.persist`](./system/filesystem.nix): User files to preserve (across reboots with `advanced` FS scheme)
+
+- [Mutable files](./system/user/_mutable.nix) -
+  - `home.file.<name>.mutable`
+  - `xdg.configFile.<name>.mutable`
+  - `xdg.dataFile.<name>.mutable`
+
+  Set `mutable = true` and `force = true` to create a writable copy instead of a store symlink

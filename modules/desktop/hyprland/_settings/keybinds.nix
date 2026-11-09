@@ -136,6 +136,7 @@ in {
         # Screenshot
         (bind (combo [] "Print") (exec "noctalia msg screenshot-region"))
         (bind (combo ["SHIFT"] "Print") (exec "noctalia msg screenshot-fullscreen pick"))
+        (bind (combo ["CTRL"] "Print") (exec "noctalia msg screenshot-window"))
 
         # Overview
         (bind (combo [mod] "grave") (seq [

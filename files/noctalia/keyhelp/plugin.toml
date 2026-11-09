@@ -1,7 +1,7 @@
 id = "maydayv7/keyhelp"
 name = "Keyhelp"
 version = "1.0.0"
-plugin_api = 30
+plugin_api = 43
 author = "maydayv7"
 license = "GPL-3.0-only"
 icon = "keyboard"

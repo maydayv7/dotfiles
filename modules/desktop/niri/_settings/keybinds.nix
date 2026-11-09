@@ -35,7 +35,7 @@ _: {config, ...}: {
         # Screenshots
         "Print".action = sh "noctalia msg screenshot-region";
         "Shift+Print".action = sh "noctalia msg screenshot-fullscreen pick";
-        "Ctrl+Print".action.screenshot-window = [];
+        "Ctrl+Print".action = sh "noctalia msg screenshot-window";
 
         # Controls
         "Super+L" = {

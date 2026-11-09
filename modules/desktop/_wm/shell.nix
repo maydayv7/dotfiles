@@ -48,13 +48,16 @@
           settings_show_advanced = true;
           greeter_sync.auto_sync = true;
 
-          launcher.providers = {
-            calculator.prefix = "=";
-            emoji.prefix = "e";
-            panels.prefix = "p";
-            session.prefix = "s";
-            windows.prefix = "w";
-            wallpaper.prefix = "wl";
+          launcher = {
+            search_position = "top";
+            providers = {
+              calculator.prefix = "=";
+              emoji.prefix = "e";
+              panels.prefix = "p";
+              session.prefix = "s";
+              windows.prefix = "w";
+              wallpaper.prefix = "wl";
+            };
           };
 
           panel = {
@@ -78,6 +81,7 @@
             copy_to_clipboard = true;
             freeze_screen = true;
             confirm_region = true;
+            region_modifier = "ctrl";
             show_cursor = true;
             remember_last_region = true;
             annotate = true;
@@ -149,6 +153,7 @@
           };
           media = {
             hide_when_no_media = true;
+            hide_when_idle = true;
             title_scroll = "on_hover";
           };
           weather = {
@@ -172,7 +177,10 @@
         system.monitor.enabled = true;
         control_center = {
           sidebar_section = "none";
-          calendar.show_week_numbers = true;
+          calendar = {
+            show_week_numbers = true;
+            show_events_location = true;
+          };
         };
 
         # Audio
@@ -189,6 +197,7 @@
         };
 
         # Notifications
+        bluetooth.connection_notifications = true;
         notification = {
           enable_daemon = true;
           layer = "overlay";
@@ -293,7 +302,7 @@
               inherit output;
               type = "login_box";
               settings = {
-                background_color = "surface_variant";
+                background_color = "surface_container";
                 background_opacity = 0.88;
                 background_radius = 12.0;
                 input_opacity = 1.0;

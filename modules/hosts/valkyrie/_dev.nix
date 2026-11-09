@@ -18,6 +18,17 @@ _: {
       #authKeyFile = config.sops.secrets."tailscale.secret".path;
     };
 
+    # ! # Separate Docker networks from LAN
+    virtualisation.docker.daemon.settings = {
+      bip = "10.203.0.1/24";
+      "default-address-pools" = [
+        {
+          base = "10.204.0.0/16";
+          size = 24;
+        }
+      ];
+    };
+
     environment = {
       persist.directories = [
         "/var/lib/tailscale"

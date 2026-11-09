@@ -33,6 +33,14 @@ in {
     };
   };
 
+  flake.modules.homeManager.v7-notes = {lib, ...}: {
+    imports = [modules.homeManager.notes];
+    apps.obsidian.vault = "${files.path.files}/Sync/Notes";
+    home.file.".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+      file://${files.path.files}/Sync Sync
+    '';
+  };
+
   flake.modules.homeManager.v7-cli = {
     config,
     lib,
