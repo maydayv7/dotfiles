@@ -6,14 +6,12 @@ _: {
   }: let
     perf = config.hardware.cpu.mode == "performance";
   in {
+    # ! # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
+    hardware.amdgpu.dcDebugMask.disablePsr = perf;
+
     boot = {
       plymouth.extraConfig = "DeviceScale=2";
-
-      # ! # https://gitlab.freedesktop.org/drm/amd/-/issues/3388
-      kernelParams = lib.optionals perf [
-        "amdgpu.dcdebugmask=0x10"
-        "usbcore.autosuspend=-1"
-      ];
+      kernelParams = lib.optionals perf ["usbcore.autosuspend=-1"];
     };
 
     environment.sessionVariables.AQ_DRM_DEVICES =

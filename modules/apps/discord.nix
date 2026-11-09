@@ -49,7 +49,7 @@
           copyUserUrls.enable = true;
           crashHandler.enable = true;
           decor.enable = true;
-          expressionCloner.enable = true;
+          expressionManager.enable = true;
           favoriteEmojiFirst.enable = true;
           fakeNitro.enable = true;
           fixImagesQuality.enable = true;

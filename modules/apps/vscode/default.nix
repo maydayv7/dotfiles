@@ -33,7 +33,7 @@ in {
 
     programs.vscode = {
       enable = true;
-      package = pkgs.vscode.override {
+      package = pkgs.unstable.vscode.override {
         commandLineArgs = lib.optionalString pkgs.stdenv.hostPlatform.isLinux "--password-store=gnome-libsecret";
       };
 
