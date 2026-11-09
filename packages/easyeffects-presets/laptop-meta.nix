@@ -1,6 +1,6 @@
 {
   repo = "https://github.com/Digitalone1/EasyEffects-Presets";
   branch = "master";
-  rev = "6fc0630f3d18f5668b11ebe4846179914b0bd24e";
-  sha256 = "sha256-MQ72Tg4YAlzsRrQtVOUxaQKNmbxUjaci+FAr2MvjrEQ=";
+  rev = "037adfa70d9b438e77760e88c30a2f44a444c879";
+  sha256 = "sha256-/iha9j8vjaqV6N7XGMZ4ItTenki7k4MvLDtL+s0+si0=";
 }
