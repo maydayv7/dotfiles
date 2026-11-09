@@ -44,7 +44,7 @@
           }
         ];
 
-        overrides.global = {
+        overrides.settings.global = {
           Context = {
             filesystems = [
               "~/.config/dconf:ro"

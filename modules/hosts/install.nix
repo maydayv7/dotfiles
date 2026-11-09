@@ -47,6 +47,7 @@ in {
       i18n.defaultLocale = "en_IN";
 
       # Default User
+      security.sudo.wheelNeedsPassword = false;
       users.users.nixos = {
         isNormalUser = true;
         description = "Default User";

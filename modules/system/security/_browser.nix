@@ -60,7 +60,10 @@
           sloth.xdgDownloadDir
 
           (sloth.concat' sloth.runtimeDir "/at-spi/bus")
-          (sloth.concat' sloth.runtimeDir "/doc")
+          [
+            (sloth.concat' sloth.runtimeDir "/doc/by-app/${appId}")
+            (sloth.concat' sloth.runtimeDir "/doc")
+          ]
           (sloth.concat' sloth.runtimeDir "/gvfsd")
           (sloth.concat' sloth.xdgCacheHome "/fontconfig")
 

@@ -52,6 +52,11 @@
           gtk.icon.enable = false;
           firefox.force = true;
           kvantum.enable = false;
+
+          # ! # Temporary override
+          sources.vscode = (import inputs.catppuccin {inherit pkgs;}).packages.vscode.override {
+            pnpm_10 = pkgs.pnpm_10_latest;
+          };
         }
         // genAttrs except (_: {enable = false;});
 

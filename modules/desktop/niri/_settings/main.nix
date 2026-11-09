@@ -1,9 +1,5 @@
 ## Compositor Settings
-_: {
-  config,
-  lib,
-  ...
-}: let
+_: {config, ...}: let
   inherit (config.lib.stylix.colors) base04 base08;
 in {
   programs.niri.settings = {
@@ -15,9 +11,9 @@ in {
     };
 
     # Use 'nwg-displays' to configure monitors
-    includes = with config.lib.niri.include; [
-      (optional "~/.config/niri/monitors.kdl")
-      (optional "~/.config/niri/workspaces.kdl")
+    includes = [
+      "monitors.kdl"
+      "workspaces.kdl"
     ];
 
     input = {
@@ -58,7 +54,12 @@ in {
     };
 
     # Mouse Gestures
-    gestures.hot-corners.enable = true;
+    gestures.hot-corners = {
+      top-left = true;
+      top-right = false;
+      bottom-left = false;
+      bottom-right = false;
+    };
 
     # Window Switcher
     recent-windows = {
@@ -75,7 +76,7 @@ in {
         max-scale = 0.5;
       };
       binds = let
-        ra = lib.mergeAttrsList config.lib.niri.actions.recent-windows;
+        ra = config.lib.niri.actions.recent-windows;
       in {
         "Alt+Tab".action = ra.next-window;
         "Alt+Shift+Tab".action = ra.previous-window;
