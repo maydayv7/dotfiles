@@ -1,5 +1,5 @@
 {
   repo = "https://github.com/catppuccin/obsidian";
-  rev = "7e22a6e8cfe805c9278a07d91d1dc772553cbb9f";
-  sha256 = "sha256-i4hNCLsu7oIyymsMoMD3ksl6cND469Tpj6p9n5C8ZUs=";
+  rev = "5f36251340fb442b94492f4ec7d8e5093e0b50ad";
+  sha256 = "sha256-ZekHtSD9Y51Rkh+ha/pZUpQpwCqctFUIGZDoaHmOy9g=";
 }
