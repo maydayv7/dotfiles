@@ -147,7 +147,7 @@ in {
 
               ## Fabric Server
               (mkIf (srv.type == "fabric") {
-                package = pkgs.fabricServers.fabric-26_3.override {jre_headless = pkgs.jdk25_headless;};
+                package = pkgs.fabricServers.fabric-26_3.override {jre_headless = pkgs.jdk25;};
                 symlinks.mods = mkMods srv modData.fabric;
               })
 
@@ -156,15 +156,19 @@ in {
                 let
                   inherit (inputs.minecraft.lib) collectFilesAt;
 
-                  # Ozone Skyblock Reborn 2
+                  # Ozone Skyblock Reborn 2 (1.21.1)
                   modpack = fetchzip {
-                    url = "https://mediafilez.forgecdn.net/files/8061/293/OSR%201.5.4%20-%20Server.zip";
-                    sha256 = "sha256-L9bh+MbKgKeD+RezVkmUWSK7kFiUSZrDyPLp7MrPXAY=";
+                    name = "ozone-skyblock-reborn-2-1.8.1";
+                    url = "https://mediafilez.forgecdn.net/files/9480/939/OSR2-1.8.1-Server.zip";
+                    hash = "sha256-zrXQmXdRLTNLLizxvjQdj/eYNcoQFqYXcu+7bZO0aak=";
                   };
                 in {
-                  package = pkgs.neoforgeServers.neoforge-1_21_1;
-                  files = (collectFilesAt modpack "config") // (collectFilesAt modpack "kubejs");
+                  package = pkgs.neoforgeServers.neoforge-1_21_1.override {jre_headless = pkgs.jdk21;};
                   symlinks = collectFilesAt modpack "mods";
+                  files =
+                    (collectFilesAt modpack "config")
+                    // (collectFilesAt modpack "kubejs")
+                    // {"default-server.properties" = "${modpack}/default-server.properties";};
                 }
               ))
             ];

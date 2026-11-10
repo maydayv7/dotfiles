@@ -39,7 +39,7 @@ in {
           # Command Correction Helper
           pay-respects = {
             enable = true;
-            alias = "fix";
+            alias = "f";
           };
 
           # DirENV Support

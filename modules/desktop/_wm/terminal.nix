@@ -14,6 +14,9 @@ _: {
       };
 
       settings = {
+        allow_remote_control = "password";
+        remote_control_password = ''"" get-text'';
+
         kitty_mod = "ctrl+shift";
         confirm_os_window_close = 2;
         copy_on_select = "clipboard";

@@ -2,23 +2,6 @@
 {config, ...}: let
   inherit (config.flake) modules;
 in {
-  flake.modules.homeManager.codex = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
-    imports = [modules.homeManager.codex-cli];
-
-    programs.vscode.profiles.default.extensions =
-      lib.mkIf config.programs.vscode.enable
-      (with pkgs.vscode-marketplace.openai; [chatgpt codex-audio]);
-
-    home = {
-      packages = [pkgs.llm.chatgpt];
-      persist.directories = [".config/Codex" ".cache/Codex"];
-    };
-  };
   flake.modules.homeManager.codex-cli = {
     config,
     pkgs,
@@ -59,6 +42,51 @@ in {
             "weekly-limit"
             "task-progress"
           ];
+        };
+      };
+    };
+  };
+
+  flake.modules.homeManager.codex = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    imports = [modules.homeManager.codex-cli];
+
+    programs.vscode.profiles.default.extensions =
+      lib.mkIf config.programs.vscode.enable
+      (with pkgs.vscode-marketplace.openai; [chatgpt codex-audio]);
+
+    home = {
+      packages = [pkgs.llm.chatgpt];
+      persist.directories = [".config/Codex" ".cache/Codex"];
+    };
+
+    programs.codex.settings.desktop = rec {
+      appearanceTheme = "dark";
+      appearanceLightChromeTheme = appearanceDarkChromeTheme;
+      appearanceDarkChromeTheme = with config.lib.stylix.colors.withHashtag; {
+        accentSource = "custom";
+        contrast = 70;
+        opaqueWindows = false;
+
+        fonts = let
+          font = builtins.toJSON config.stylix.fonts.monospace.name;
+        in {
+          ui = font;
+          content = font;
+          code = font;
+        };
+
+        accent = base0D;
+        ink = base05;
+        surface = base00;
+        semanticColors = {
+          diffAdded = base0B;
+          diffRemoved = base08;
+          skill = base0E;
         };
       };
     };

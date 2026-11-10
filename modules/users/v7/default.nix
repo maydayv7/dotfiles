@@ -74,6 +74,7 @@ in {
 
     sops.templates = let
       github-token = config.sops.placeholder."github-token.secret";
+      env-var = config.programs.mcp.servers.github.bearer_token_env_var;
     in
       {
         "gh-hosts.yml" = {
@@ -91,7 +92,9 @@ in {
       }
       // lib.optionalAttrs github-mcp {
         "github-mcp.sh".content = ''
-          export ${config.programs.mcp.servers.github.bearer_token_env_var}='${github-token}'
+          if [ -z "''${${env-var}+x}" ]; then
+            export ${env-var}='${github-token}'
+          fi
         '';
       };
 
