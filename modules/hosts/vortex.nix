@@ -12,15 +12,14 @@
       "secrets"
       "shell-utils"
       "laptop"
+      "security"
       "discord"
       "firefox"
-      "security"
       "brave"
       "thunderbird"
       "teams"
       "whatsapp"
       "zoom"
-      "network"
       "office"
       "calibre"
       "libreoffice"
@@ -96,15 +95,10 @@ in {
       # User
       users.users.v7.extraGroups = [
         "wheel"
-        "keys"
         "networkmanager"
         "adbusers"
         "lp"
         "scanner"
-        "kvm"
-        "libvirtd"
-        "input"
-        "video"
       ];
 
       home-manager.users.v7.imports = hmModules ++ [homeManager.v7];

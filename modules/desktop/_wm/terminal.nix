@@ -1,6 +1,7 @@
 ## Terminal Emulator
 {files, ...}: {
   home = {
+    config,
     pkgs,
     lib,
     ...
@@ -39,6 +40,46 @@
         inactive_tab_font_style = "normal";
         window_padding_width = 10;
       };
+
+      diffConfig.settings = let
+        colors = config.lib.stylix.colors;
+        blend = color: percent:
+          "#"
+          + lib.concatMapStrings (
+            channel: let
+              accent = lib.toInt colors."${color}-rgb-${channel}";
+              background = lib.toInt colors."base00-rgb-${channel}";
+              mixed = builtins.div (accent * percent + background * (100 - percent)) 100;
+            in
+              lib.fixedWidthString 2 "0" (lib.toHexString mixed)
+          ) ["r" "g" "b"];
+        palette = with colors.withHashtag; {
+          pygments_style = "catppuccin-${config.catppuccin.flavor}";
+          foreground = base05;
+          background = base00;
+          title_fg = base0D;
+          title_bg = base01;
+          margin_fg = base04;
+          margin_bg = base00;
+          removed_bg = blend "base08" 20;
+          highlight_removed_bg = blend "base08" 40;
+          removed_margin_bg = blend "base08" 40;
+          added_bg = blend "base0B" 20;
+          highlight_added_bg = blend "base0B" 40;
+          added_margin_bg = blend "base0B" 40;
+          moved_bg = blend "base0A" 20;
+          moved_margin_bg = blend "base0A" 40;
+          filler_bg = base01;
+          margin_filler_bg = base01;
+          hunk_bg = blend "base0D" 20;
+          hunk_margin_bg = blend "base0D" 40;
+          search_fg = base00;
+          search_bg = base0A;
+          select_fg = base05;
+          select_bg = base02;
+        };
+      in
+        palette // lib.mapAttrs' (name: value: lib.nameValuePair "dark_${name}" value) palette;
     };
 
     home.file = {

@@ -470,6 +470,10 @@
               "description": "Toggle mute"
             },
             {
+              "keys": [["XF86AudioMicMute"]],
+              "description": "Toggle microphone mute"
+            },
+            {
               "keys": [["XF86AudioRaiseVolume"]],
               "description": "Increase volume"
             },
@@ -734,6 +738,10 @@
             {
               "keys": [["XF86AudioMute"]],
               "description": "Toggle mute"
+            },
+            {
+              "keys": [["XF86AudioMicMute"]],
+              "description": "Toggle microphone mute"
             },
             {
               "keys": [["XF86AudioRaiseVolume"]],

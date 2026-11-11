@@ -33,6 +33,7 @@ def draw_tab(
     before: int,
     max_tab_length: int,
     index: int,
+    is_last: bool,
     extra_data: ExtraData,
 ) -> int:
     if extra_data.for_layout:

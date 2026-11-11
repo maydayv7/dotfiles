@@ -174,6 +174,7 @@ in {
 
         # Volume
         (bindOpts (combo [] "XF86AudioMute") (exec "noctalia msg volume-mute") locked)
+        (bindOpts (combo [] "XF86AudioMicMute") (exec "noctalia msg mic-mute") locked)
 
         # Keyboard Backlight
         (bindOpts (combo [] "XF86KbdBrightnessUp") (exec "noctalia msg keyboard-backlight-up") locked)

@@ -40,7 +40,7 @@ The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-commun
 | `inkscape`          | Home Manager | Vector editor                      |
 | `libreoffice`       | Home Manager | LibreOffice suite                  |
 | `media`             | Home Manager | Media utilities                    |
-| `network`           | Home Manager | Wi-Fi & VPN Tools                  |
+| `network`           | Both         | Network tools & Wireshark          |
 | `notes`             | Home Manager | Obsidian Notes                     |
 | `onlyoffice`        | Home Manager | OnlyOffice suite                   |
 | `pdf`               | Home Manager | PDF editing, annotation, scanning  |
@@ -165,11 +165,12 @@ Add needed groups to `users.users.<name>.extraGroups` in the host configuration.
 | `security`, `nix`  | `wheel`           | Sudo and trusted Nix access                          |
 | `filesystem`       | `keys`            | Edit the system configuration                        |
 | `base`             | `networkmanager`  | Manage network connections                           |
-| `mobile`           | `adbusers`        | Android USB access for ADB and `fastboot`            |
 | `printer`          | `scanner`, `lp`   | Scanners and multifunction printers                  |
 | `docker`           | `docker`          | Docker without superuser privileges                  |
 | `libvirt`          | `libvirtd`, `kvm` | VM management. `kvm` for direct QEMU/KVM access      |
 | `vfio`             | `kvm`             | Looking Glass device access                          |
+| `network`          | `wireshark`       | Capture network traffic without superuser privileges |
+| `mobile`           | `adbusers`        | Android USB access for ADB and `fastboot`            |
 | `android`          | `android`         | Aqccess to persisted Waydroid data                   |
 | `mc-server`        | `minecraft`       | Server files and command console access              |
 | `games`            | `gamemode`        | GameMode's privileged helpers without authentication |

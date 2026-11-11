@@ -38,7 +38,6 @@
     "inkscape"
     "media"
     "audio"
-    "network"
     "easyeffects"
     "gearlever"
     "freefilesync"
@@ -58,13 +57,14 @@
   ];
 
   mixedModules = [
-    "syncthing"
     "crypt"
     "security"
     "laptop"
     "mouse"
     "shell-utils"
     "git"
+    "network"
+    "syncthing"
     "office"
     "obs-studio"
     "games"
@@ -186,6 +186,7 @@ in {
         "adbusers"
         "docker"
         "networkmanager"
+        "wireshark"
         "i2c"
         "input"
         "video"

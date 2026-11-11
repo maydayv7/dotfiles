@@ -46,7 +46,16 @@ _: {config, ...}: {
         "XF86AudioPlay".action = sh "noctalia msg media toggle";
         "XF86AudioPrev".action = sh "noctalia msg media previous";
         "XF86AudioNext".action = sh "noctalia msg media next";
-        "XF86AudioMute".action = sh "noctalia msg volume-mute";
+        "XF86AudioMute" = {
+          action = sh "noctalia msg volume-mute";
+          allow-when-locked = true;
+          repeat = false;
+        };
+        "XF86AudioMicMute" = {
+          action = sh "noctalia msg mic-mute";
+          allow-when-locked = true;
+          repeat = false;
+        };
         "XF86AudioRaiseVolume".action = sh "noctalia msg volume-up";
         "XF86AudioLowerVolume".action = sh "noctalia msg volume-down";
         "XF86MonBrightnessUp".action = sh "noctalia msg brightness-up";

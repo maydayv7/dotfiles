@@ -39,6 +39,7 @@ _: {
       systemPackages = with pkgs; [
         gcc
         mongodb-compass
+        openfortivpn
 
         # Node
         nodejs
