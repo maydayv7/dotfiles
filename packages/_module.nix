@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  map = import ../modules/lib/_map.nix lib;
+  umap = import ../modules/lib/_map.nix lib;
   inherit (builtins) any attrValues isPath;
 in {
   perSystem = {
@@ -57,9 +57,9 @@ in {
         };
       in {
         packages =
-          map.modules ../packages call // map.modules ../scripts call.script // inputs'.proprietary.packages;
+          umap.modules ../packages call // umap.modules ../scripts call.script // inputs'.proprietary.packages;
         apps =
-          map.modules ../scripts (
+          umap.modules ../scripts (
             name: let
               drv = call.script name;
             in {
@@ -77,7 +77,7 @@ in {
   flake = {
     patchedPkgs = system: let
       src = inputs.nixpkgs;
-      patches = map.patches ./patches;
+      patches = umap.patches ./patches;
       pkgs' = import src {inherit system;};
     in
       if !(any isPath patches)
@@ -88,6 +88,6 @@ in {
           name = "nixpkgs-patched-${src.shortRev}";
         };
 
-    overlays = map.modules ./overlays import;
+    overlays = umap.modules ./overlays import;
   };
 }

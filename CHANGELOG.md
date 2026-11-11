@@ -2,6 +2,9 @@
 
 ### October
 
+- Add `util.map.optional`
+- Revamp `noctalia` Keyhelp plugin
+- Custom `kitty` tab bar
 - Windows
   - Nilesoft Shell
   - NixOS on WSL!

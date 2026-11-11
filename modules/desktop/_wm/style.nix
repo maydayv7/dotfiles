@@ -3,16 +3,18 @@
   inputs,
   files ? null,
   ...
-}: {
-  nixos = {pkgs, ...}: {
-    environment.systemPackages = [pkgs.custom.cursors];
-    stylix = {
-      base16Scheme = files.colors.catppuccin;
-      icons.package = pkgs.catppuccin-papirus-folders.override {
-        accent = "blue";
-        flavor = "macchiato";
-      };
+}: let
+  stylix = pkgs: {
+    base16Scheme = files.colors.catppuccin;
+    icons.package = pkgs.catppuccin-papirus-folders.override {
+      accent = "blue";
+      flavor = "macchiato";
     };
+  };
+in {
+  nixos = {pkgs, ...}: {
+    stylix = stylix pkgs;
+    environment.systemPackages = [pkgs.custom.cursors];
 
     # QT Theme
     gui.qt = {
@@ -29,6 +31,7 @@
     lib,
     pkgs,
     options,
+    osConfig ? null,
     ...
   }: let
     inherit (lib) attrNames elem filter genAttrs hasPrefix;
@@ -42,6 +45,7 @@
   in {
     imports = [inputs.catppuccin.homeModules.catppuccin];
     config = {
+      stylix = lib.mkIf (osConfig == null) (stylix pkgs);
       gui._unmanaged = derived ++ ["spicetify"];
       catppuccin =
         {

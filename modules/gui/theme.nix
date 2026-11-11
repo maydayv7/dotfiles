@@ -4,7 +4,36 @@
   inputs,
   ...
 }: let
-  inherit (config.flake) files;
+  inherit (config.flake) files modules;
+
+  desktop = {
+    lib,
+    pkgs,
+    ...
+  }: {
+    stylix = {
+      polarity = "dark";
+
+      icons = {
+        enable = true;
+        package = lib.mkDefault pkgs.papirus-icon-theme;
+        light = "Papirus-Dark";
+        dark = "Papirus-Dark";
+      };
+
+      cursor = {
+        name = "Bibata-Original-Classic";
+        package = pkgs.bibata-cursors;
+        size = 28;
+      };
+
+      opacity = {
+        popups = 0.9;
+        terminal = 0.9;
+      };
+    };
+  };
+
   cli = {lib, ...}: {
     stylix = {
       enable = lib.mkDefault true;
@@ -50,7 +79,7 @@ in {
       stl = config.stylix;
       inherit (cfg) enable;
     in {
-      imports = [inputs.stylix.nixosModules.stylix];
+      imports = [inputs.stylix.nixosModules.stylix desktop];
 
       options.gui = {
         enable = lib.mkEnableOption "Graphical Desktop Session";
@@ -78,26 +107,6 @@ in {
           };
 
           image = cfg.wallpaper;
-          polarity = "dark";
-
-          icons = {
-            enable = true;
-            package = lib.mkDefault pkgs.papirus-icon-theme;
-            light = "Papirus-Dark";
-            dark = "Papirus-Dark";
-          };
-
-          cursor = {
-            name = "Bibata-Original-Classic";
-            package = pkgs.bibata-cursors;
-            size = 28;
-          };
-
-          opacity = {
-            popups = 0.9;
-            terminal = 0.9;
-          };
-
           targets = {
             console.enable = true;
             plymouth.enable = false;
@@ -121,27 +130,40 @@ in {
     homeManager.theme = {
       config,
       lib,
+      pkgs,
+      osConfig ? null,
       ...
     }: {
+      imports = [modules.homeManager.fonts];
+
       options.gui._unmanaged = lib.mkOption {
         description = "Stylix targets handled manually";
         type = lib.types.listOf lib.types.str;
         default = [];
       };
 
-      config.stylix = {
-        enable = lib.mkDefault true;
-        targets = lib.mkMerge [
-          {
-            gnome.enable = lib.mkDefault false;
-            firefox.enable = lib.mkDefault false;
-            vscode.enable = lib.mkDefault false;
-            obsidian.enable = lib.mkDefault false;
-            nixcord.enable = lib.mkDefault false;
+      config.stylix = lib.mkMerge [
+        (lib.mkIf (osConfig == null) (
+          (desktop {inherit lib pkgs;}).stylix
+          // {
+            image = lib.mkDefault files.wallpapers.Beauty;
+            base16Scheme = lib.mkDefault files.colors.campbell;
           }
-          (lib.genAttrs (lib.unique config.gui._unmanaged) (_: {enable = false;}))
-        ];
-      };
+        ))
+        {
+          enable = lib.mkDefault true;
+          targets = lib.mkMerge [
+            {
+              gnome.enable = lib.mkDefault false;
+              firefox.enable = lib.mkDefault false;
+              vscode.enable = lib.mkDefault false;
+              obsidian.enable = lib.mkDefault false;
+              nixcord.enable = lib.mkDefault false;
+            }
+            (lib.genAttrs (lib.unique config.gui._unmanaged) (_: {enable = false;}))
+          ];
+        }
+      ];
     };
   };
 }

@@ -1,10 +1,39 @@
 ## Font Configuration ##
-_: {
+_: let
+  shared = {pkgs, ...}: {
+    stylix.fonts = {
+      sansSerif = {
+        package = pkgs.adwaita-fonts;
+        name = "Adwaita Sans";
+      };
+      serif = {
+        package = pkgs.eb-garamond;
+        name = "EB Garamond";
+      };
+      monospace = {
+        package = pkgs.custom.fonts;
+        name = "Iosvmata";
+      };
+      emoji = {
+        package = pkgs.twitter-color-emoji;
+        name = "Twitter Color Emoji";
+      };
+      sizes = {
+        applications = 11;
+        desktop = 11;
+        popups = 10;
+        terminal = 12;
+      };
+    };
+  };
+in {
   flake.modules.nixos.fonts = {
     config,
     pkgs,
     ...
   }: {
+    imports = [shared];
+
     fonts = {
       enableDefaultPackages = true;
       fontDir.enable = true;
@@ -33,32 +62,6 @@ _: {
       };
     };
 
-    # Font Sizes
-    stylix.fonts = {
-      sansSerif = {
-        package = pkgs.adwaita-fonts;
-        name = "Adwaita Sans";
-      };
-      serif = {
-        package = pkgs.eb-garamond;
-        name = "EB Garamond";
-      };
-      monospace = {
-        package = pkgs.custom.fonts;
-        name = "Iosvmata";
-      };
-      emoji = {
-        package = pkgs.twitter-color-emoji;
-        name = "Twitter Color Emoji";
-      };
-      sizes = {
-        applications = 11;
-        desktop = 11;
-        popups = 10;
-        terminal = 12;
-      };
-    };
-
     # Font Packages
     fonts.packages = with pkgs; [
       font-awesome
@@ -76,4 +79,12 @@ _: {
       ubuntu-classic
     ];
   };
+
+  flake.modules.homeManager.fonts = {
+    lib,
+    pkgs,
+    osConfig ? null,
+    ...
+  }:
+    lib.mkIf (osConfig == null) (shared {inherit pkgs;});
 }

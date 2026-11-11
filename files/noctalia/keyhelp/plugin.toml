@@ -1,6 +1,6 @@
 id = "maydayv7/keyhelp"
 name = "Keyhelp"
-version = "1.0.0"
+version = "1.3.0"
 plugin_api = 43
 author = "maydayv7"
 license = "GPL-3.0-only"
@@ -36,4 +36,4 @@ position = "center"
 layer = "overlay"
 keyboard_focus = "exclusive"
 dismiss_on_outside_click = true
-capture_keys = ["ctrl+Tab", "ctrl+shift+Tab", "Page_Down", "Page_Up", "ctrl+f"]
+capture_keys = ["ctrl+Tab", "ctrl+shift+Tab", "Up", "Down", "Page_Down", "Page_Up", "ctrl+Home", "ctrl+End", "ctrl+f"]

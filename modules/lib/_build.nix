@@ -6,7 +6,6 @@ lib: let
     filter
     hasAttr
     listToAttrs
-    map
     readFile
     ;
 

@@ -13,6 +13,8 @@ The following is a summary of all the present functions:
 - [`map`](./_map.nix): Mapping functions primarily aimed at shortening code complexity -
   - `array`: Maps required parameter to all elements present in `list`
   - `filter`: Filters out unneeded `attrs` and maps required ones to specified function
+  - `optional`: Defines a module option from a source attribute path when its value is present and non-null, leaves it untouched otherwise
+    - `apply`: Transforms value before defining the option
   - `files`: Maps all files with a particular extension adhering to a particular condition stored in a directory as an `attrset` acted upon by specified function. Enable `recursive` in order to recursively search inside directories
   - `folder`: Maps all files with a particular extension stored in a directory to a given path as an `attrset` acted upon by specified function. Use `replace` in order to modify placeholder text
   - `modules`: Maps all configuration modules stored in a directory as an `attrset` acted upon by specified function

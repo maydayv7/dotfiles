@@ -8,12 +8,12 @@ lib: let
     pathExists
     readDir
     readFile
-    toString
     typeOf
     ;
 
   inherit
     (lib)
+    attrByPath
     flatten
     filterAttrs
     forEach
@@ -23,6 +23,7 @@ lib: let
     id
     mapAttrs'
     mapAttrsToList
+    mkIf
     nameValuePair
     optionalAttrs
     removeSuffix
@@ -39,6 +40,14 @@ in rec {
   array = list: func: forEach list (name: getAttrFromPath [name] func);
   filter = name: func: attrs:
     filterAttrs (_: type: type != null) (mapAttrs' func (filterAttrs name attrs));
+
+  optional = {
+    __functor = self: self.apply id;
+    apply = transform: attrs: path: let
+      value = attrByPath path null attrs;
+    in
+      mkIf (value != null) (transform value);
+  };
 
   ## Files Map
   files = {

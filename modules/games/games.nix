@@ -1,5 +1,7 @@
 ## Games Configuration ##
-_: {
+{config, ...}: let
+  inherit (config.util.map) optional;
+in {
   flake.modules = {
     nixos.games = {lib, ...}: {
       # Steam
@@ -26,8 +28,8 @@ _: {
       # Lutris
       programs.lutris = {
         enable = true;
-        steamPackage = osConfig.programs.steam.package;
-        winePackages = lib.optional ((osConfig.apps.wine or null) != null) osConfig.apps.wine;
+        steamPackage = optional osConfig ["programs" "steam" "package"];
+        winePackages = optional.apply lib.singleton osConfig ["apps" "wine"];
       };
 
       home.persist.directories = [

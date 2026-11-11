@@ -103,13 +103,10 @@
     ## Package Indexer
     homeManager.nix = {
       lib,
-      osConfig ? null,
+      osConfig ? {},
       ...
     }: let
-      enable =
-        if osConfig != null
-        then osConfig.system.nix.index
-        else false;
+      enable = osConfig.system.nix.index or false;
     in {
       imports = [inputs.index.homeModules.nix-index];
 

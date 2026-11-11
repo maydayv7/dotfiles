@@ -36,7 +36,7 @@ in {
   flake.modules.homeManager.v7-notes = {lib, ...}: {
     imports = [modules.homeManager.notes];
     apps.obsidian.vault = "${files.path.files}/Sync/Notes";
-    home.file.".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+    home.file.".config/gtk-3.0/bookmarks".text = lib.mkAfter ''
       file://${files.path.files}/Sync Sync
     '';
   };
@@ -92,7 +92,8 @@ in {
       }
       // lib.optionalAttrs github-mcp {
         "github-mcp.sh".content = ''
-          if [ -z "''${${env-var}+x}" ]; then
+          if [ -z "''${${env-var}+x}" ]
+          then
             export ${env-var}='${github-token}'
           fi
         '';

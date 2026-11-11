@@ -16,7 +16,7 @@ in {
 
     home = {
       persist.directories = [
-        ".cache/keepassxc"
+        ".local/state/keepassxc"
         ".local/share/io.ente.auth"
       ];
 

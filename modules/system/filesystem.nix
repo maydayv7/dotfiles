@@ -319,10 +319,10 @@ in {
     homeManager.filesystem = {
       lib,
       pkgs,
-      osConfig ? null,
+      osConfig ? {},
       ...
     }: let
-      advanced = osConfig != null && (osConfig.system.fs.scheme or null) == "advanced";
+      advanced = (osConfig.system.fs.scheme or null) == "advanced";
     in {
       imports = [(lib.mkAliasOptionModule ["home" "persist"] ["home" "persistence" files.path.data])];
 

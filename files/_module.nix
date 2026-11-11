@@ -83,6 +83,9 @@ in {
     # Password Manager
     keepassxc = builtins.readFile ./keepassxc.ini;
 
+    # Kitty Terminal
+    kitty.tabs = ./kitty/tab_bar.py;
+
     # Nano Text Editor
     nano = builtins.readFile ./nanorc;
 

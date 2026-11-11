@@ -1,13 +1,17 @@
 # Keyhelp
 
 Keyhelp is a key-bindings helper for Hyprland/Niri.  
-The Desktop page displays the compositor's shortcuts.  
-The focused application selects the initial page.
+The Desktop tab displays the compositor's shortcuts.
+The focused application selects the initial tab.
 
 - Tab / Shift+Tab: move between controls
-- Ctrl+Tab / Ctrl+Shift+Tab: switch application pages and clear search
-- Page Up / Page Down: browse 8 results at a time
+- Ctrl+Tab / Ctrl+Shift+Tab: switch application tabs and clear search
+- Mouse wheel / touchpad: scroll through all matching shortcuts
+- Up / Down: highlight and reveal the previous/next result
+- Page Up / Page Down: move 8 results backward/forward
+- Ctrl+Home / Ctrl+End: jump to the first/last result
 - Ctrl+F: focus search without losing its text
+- Clear: clear search and focus the input
 - Escape, outside click, or Super+/: close
 
 ## Integration
@@ -29,6 +33,15 @@ Groups contain `name` and ordered `entries`.
 Entries contain `keys` and `description`. `gap_before` (optional) adds separation.
 Aliases match app IDs exactly.
 Desktop pages declare `compositor = "hyprland"` or `"niri"`.
+
+`keys` alternates between key combinations (arrays) and connectors (`"or"`, `"/"`, `"and"`, or `"then"`).
+Each combination contains the keys pressed together. For example:
+
+```json
+{"keys": [["SUPER", "Q"], "or", ["ALT", "F4"]], "description": "Quit application"}
+{"keys": [["CTRL", "K"], "then", ["CTRL", "S"]], "description": "Keyboard shortcuts"}
+{"keys": [["CTRL", "SHIFT", "/"]], "description": "Command palette"}
+```
 
 ---
 

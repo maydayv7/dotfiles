@@ -1,8 +1,10 @@
 {
-  util ? null,
-  files ? null,
+  util,
+  files,
   ...
-}: {
+}: let
+  scheme = files.colors.adwaita;
+in {
   nixos = {pkgs, ...}: {
     # Desktop Integration
     gui.qt = {
@@ -12,7 +14,7 @@
 
     # Color Scheme
     stylix = {
-      base16Scheme = files.colors.adwaita;
+      base16Scheme = scheme;
       targets.gnome.enable = false;
     };
 
@@ -76,7 +78,12 @@
     ];
   };
 
-  home = {pkgs, ...}: {
+  home = {
+    lib,
+    pkgs,
+    osConfig ? null,
+    ...
+  }: {
     config = {
       # Default Applications
       xdg.mimeApps.defaultApplications = util.build.mime {
@@ -158,13 +165,16 @@
         };
       };
 
-      stylix.targets = {
-        gnome.enable = true;
-        ghostty.enable = true;
-        firefox = {
-          enable = true;
-          profileNames = ["default"];
-          firefoxGnomeTheme.enable = true;
+      stylix = {
+        base16Scheme = lib.mkIf (osConfig == null) scheme;
+        targets = {
+          gnome.enable = true;
+          ghostty.enable = true;
+          firefox = {
+            enable = true;
+            profileNames = ["default"];
+            firefoxGnomeTheme.enable = true;
+          };
         };
       };
     };

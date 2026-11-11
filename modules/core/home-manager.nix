@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (config) util;
-  inherit (config.flake) files modules;
+  inherit (config.flake) modules;
 in {
   options.configurations.homeManager = lib.mkOption {
     type = lib.types.lazyAttrsOf util.types.configuration;
@@ -39,9 +39,8 @@ in {
             ++
             # Default Modules
             lib.optionals defaults [
-              inputs.stylix.homeModules.stylix
-              ({lib, ...}: {stylix.base16Scheme = lib.mkDefault files.colors.catppuccin;})
               modules.homeManager.default
+              inputs.stylix.homeModules.stylix
             ];
         }
     )

@@ -71,13 +71,13 @@ The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-commun
 
 ### [`gui`](./gui)
 
-| Module        | Type  | Description         |
-| ------------- | ----- | ------------------- |
-| `theme` ★     | Both  | System-wide theming |
-| `theme-cli` ◇ | Both  | CLI/TUI theming     |
-| `fonts` ★     | NixOS | System fonts        |
-| `gtk`         | Both  | GTK theming         |
-| `qt`          | Both  | Qt theming          |
+| Module        | Type | Description         |
+| ------------- | ---- | ------------------- |
+| `theme` ★     | Both | System-wide theming |
+| `theme-cli` ◇ | Both | CLI/TUI theming     |
+| `fonts` ★     | Both | System fonts        |
+| `gtk`         | Both | GTK theming         |
+| `qt`          | Both | Qt theming          |
 
 ### [`hardware`](./hardware)
 

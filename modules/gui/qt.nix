@@ -54,7 +54,6 @@ _: {
       osConfig ? {},
       ...
     }: let
-      inherit (builtins) concatStringsSep map;
       cfg = osConfig.gui.qt or {};
     in {
       gui._unmanaged = ["qt"];
@@ -75,7 +74,7 @@ _: {
           ForegroundLink=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
           ForegroundVisited=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
         ''
-        + (concatStringsSep "\n" (
+        + (builtins.concatStringsSep "\n" (
           map
           (name: ''
             [Colors:${name}]

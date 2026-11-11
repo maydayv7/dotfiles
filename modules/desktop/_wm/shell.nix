@@ -10,7 +10,7 @@
     lib,
     ...
   }: let
-    output = osConfig.gui.display or "eDP-1";
+    output = osConfig.gui.display or "";
     sync = config.services.syncthing.enable;
   in {
     imports = [inputs.noctalia.homeModules.default];
@@ -216,7 +216,7 @@
           enabled = true;
           fill_mode = "crop";
           transition_on_startup = true;
-          default.path = osConfig.stylix.image or "";
+          default.path = config.stylix.image;
         };
 
         # Desktop Widgets

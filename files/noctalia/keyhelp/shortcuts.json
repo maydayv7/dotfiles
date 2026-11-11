@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "pages": [
     {
       "name": "Desktop",
@@ -7,95 +7,94 @@
       "compositor": "hyprland",
       "groups": [
         {
-          "name": "Legend",
-          "entries": [
-            {
-              "keys": "SUPER",
-              "description": "$mod"
-            },
-            {
-              "keys": "L' / R'",
-              "description": "Left/Right Mouse Click"
-            }
-          ]
-        },
-        {
           "name": "Compositor",
           "entries": [
             {
-              "keys": "$mod Q or ALT F4",
+              "keys": [["SUPER", "Q"], "or", ["ALT", "F4"]],
               "description": "Quit application"
             },
             {
-              "keys": "$mod SHIFT Q",
+              "keys": [["SUPER", "SHIFT", "Q"]],
               "description": "Force Quit application"
             },
             {
-              "keys": "ALT A",
+              "keys": [["ALT", "A"]],
               "description": "Activate urgent/last window"
             },
             {
-              "keys": "$mod E",
+              "keys": [["SUPER", "E"]],
               "description": "Maximize window"
             },
             {
-              "keys": "$mod SHIFT E",
+              "keys": [["SUPER", "SHIFT", "E"]],
               "description": "Fullscreen window"
             },
             {
-              "keys": "ALT Q",
+              "keys": [["ALT", "Q"]],
               "description": "Minimize window"
             },
             {
-              "keys": "ALT SHIFT Q",
+              "keys": [["ALT", "SHIFT", "Q"]],
               "description": "Show all minimized windows"
             },
             {
-              "keys": "$mod <ARROW>",
+              "keys": [["SUPER", "Arrow"]],
               "description": "Switch focus to window in desired direction"
             },
             {
-              "keys": "$mod SHIFT ← / →",
+              "keys": [["SUPER", "SHIFT", "←"], "or", ["SUPER", "SHIFT", "→"]],
               "description": "Scrolling: move window across | Dwindle: swap windows"
             },
             {
-              "keys": "$mod SHIFT ↑ / ↓",
+              "keys": [["SUPER", "SHIFT", "↑"], "or", ["SUPER", "SHIFT", "↓"]],
               "description": "Scrolling: stack in/out of column | Dwindle: swap windows"
             },
             {
-              "keys": "$mod Space",
+              "keys": [["SUPER", "Space"]],
               "description": "Scrolling: toggle window stacking | Dwindle: split direction"
             },
             {
-              "keys": "$mod Backspace",
+              "keys": [["SUPER", "Backspace"]],
               "description": "Toggle tiling layout"
             },
             {
-              "keys": "$mod [ or ]",
-              "description": "Scrolling: shrink/grow column width"
+              "keys": [["SUPER", "["]],
+              "description": "Scrolling: shrink column width"
             },
             {
-              "keys": "$mod SHIFT [ or ]",
-              "description": "Scrolling: center column / fit all columns on screen"
+              "keys": [["SUPER", "]"]],
+              "description": "Scrolling: grow column width"
             },
             {
-              "keys": "$mod SHIFT Space",
+              "keys": [["SUPER", "SHIFT", "["]],
+              "description": "Scrolling: center column"
+            },
+            {
+              "keys": [["SUPER", "SHIFT", "]"]],
+              "description": "Scrolling: fit all columns on screen"
+            },
+            {
+              "keys": [["SUPER", "SHIFT", "Space"]],
               "description": "Toggle application grouping"
             },
             {
-              "keys": "$mod CTRL <ARROW>",
+              "keys": [["SUPER", "CTRL", "Arrow"]],
               "description": "Move window into desired group"
             },
             {
-              "keys": "$mod ; / '",
-              "description": "Toggle floating for one window / all windows"
+              "keys": [["SUPER", ";"]],
+              "description": "Toggle floating for one window"
             },
             {
-              "keys": "$mod C",
+              "keys": [["SUPER", "'"]],
+              "description": "Toggle floating for all windows"
+            },
+            {
+              "keys": [["SUPER", "C"]],
               "description": "Center floating window and/or move cursor to top right corner"
             },
             {
-              "keys": "$mod P",
+              "keys": [["SUPER", "P"]],
               "description": "Pin floating window on all workspaces"
             }
           ]
@@ -104,16 +103,24 @@
           "name": "Switcher",
           "entries": [
             {
-              "keys": "$mod Tab",
+              "keys": [["SUPER", "Tab"]],
               "description": "Window Switcher"
             },
             {
-              "keys": "ALT [SHIFT] Tab",
-              "description": "Cycle [backwards] through open windows on current workspace"
+              "keys": [["ALT", "Tab"]],
+              "description": "Cycle forward through windows on the current workspace"
             },
             {
-              "keys": "ALT [SHIFT] `",
-              "description": "Cycle [backwards] through grouped windows"
+              "keys": [["ALT", "SHIFT", "Tab"]],
+              "description": "Cycle backward through windows on the current workspace"
+            },
+            {
+              "keys": [["ALT", "`"]],
+              "description": "Cycle forward through grouped windows"
+            },
+            {
+              "keys": [["ALT", "SHIFT", "`"]],
+              "description": "Cycle backward through grouped windows"
             }
           ]
         },
@@ -121,39 +128,43 @@
           "name": "Workspaces",
           "entries": [
             {
-              "keys": "$mod 1-9",
+              "keys": [["SUPER", "1-9"]],
               "description": "Focus workspace 1-9 on the current monitor"
             },
             {
-              "keys": "$mod SHIFT 1-9",
+              "keys": [["SUPER", "SHIFT", "1-9"]],
               "description": "Move window to workspace 1-9 without following"
             },
             {
-              "keys": "$mod , or .",
+              "keys": [["SUPER", ","], "or", ["SUPER", "."]],
               "description": "Move across non-empty workspaces"
             },
             {
-              "keys": "$mod CTRL , or .",
+              "keys": [["SUPER", "CTRL", ","], "or", ["SUPER", "CTRL", "."]],
               "description": "Move across workspaces"
             },
             {
-              "keys": "$mod 0",
+              "keys": [["SUPER", "0"]],
               "description": "Toggle special workspace to stash windows"
             },
             {
-              "keys": "$mod SHIFT 0",
+              "keys": [["SUPER", "SHIFT", "0"]],
               "description": "Move window to/from stash"
             },
             {
-              "keys": "$mod SHIFT , or .",
+              "keys": [["SUPER", "SHIFT", ","], "or", ["SUPER", "SHIFT", "."]],
               "description": "Move window to previous/next workspace"
             },
             {
-              "keys": "$mod ALT , or .",
+              "keys": [["SUPER", "ALT", ","], "or", ["SUPER", "ALT", "."]],
               "description": "Move focus to left/right monitor"
             },
             {
-              "keys": "$mod SHIFT ALT , or .",
+              "keys": [
+                ["SUPER", "SHIFT", "ALT", ","],
+                "or",
+                ["SUPER", "SHIFT", "ALT", "."]
+              ],
               "description": "Move window to left/right monitor"
             }
           ]
@@ -162,47 +173,51 @@
           "name": "Utility",
           "entries": [
             {
-              "keys": "Print",
+              "keys": [["Print"]],
               "description": "Take Screenshot of area"
             },
             {
-              "keys": "SHIFT Print",
+              "keys": [["SHIFT", "Print"]],
               "description": "Take Screenshot of screen"
             },
             {
-              "keys": "CTRL Print",
+              "keys": [["CTRL", "Print"]],
               "description": "Take Screenshot of focused window"
             },
             {
-              "keys": "$mod = or -",
-              "description": "Zoom in/out"
+              "keys": [["SUPER", "="]],
+              "description": "Zoom in"
             },
             {
-              "keys": "$mod SHIFT -",
+              "keys": [["SUPER", "-"]],
+              "description": "Zoom out"
+            },
+            {
+              "keys": [["SUPER", "SHIFT", "-"]],
               "description": "Zoom out fully"
             },
             {
-              "keys": "$mod L",
+              "keys": [["SUPER", "L"]],
               "description": "Lock screen"
             },
             {
-              "keys": "$mod S",
+              "keys": [["SUPER", "S"]],
               "description": "Toggle Compositor Shader"
             },
             {
-              "keys": "$mod G",
+              "keys": [["SUPER", "G"]],
               "description": "Toggle Game Mode"
             },
             {
-              "keys": "$mod SHIFT S",
+              "keys": [["SUPER", "SHIFT", "S"]],
               "description": "Toggle window swallowing"
             },
             {
-              "keys": "$mod SHIFT D",
+              "keys": [["SUPER", "SHIFT", "D"]],
               "description": "Toggle main Display"
             },
             {
-              "keys": "$mod Esc",
+              "keys": [["SUPER", "Esc"]],
               "description": "Open session menu"
             }
           ]
@@ -211,71 +226,75 @@
           "name": "Applications",
           "entries": [
             {
-              "keys": "$mod /",
+              "keys": [["SUPER", "/"]],
               "description": "Toggle Keyhelp"
             },
             {
-              "keys": "$mod A",
+              "keys": [["SUPER", "A"]],
               "description": "Application Launcher"
             },
             {
-              "keys": "$mod SHIFT A",
+              "keys": [["SUPER", "SHIFT", "A"]],
               "description": "Shell Settings"
             },
             {
-              "keys": "$mod SHIFT C",
+              "keys": [["SUPER", "SHIFT", "C"]],
               "description": "Color Picker"
             },
             {
-              "keys": "$mod D",
+              "keys": [["SUPER", "D"]],
               "description": "Monitor Configuration"
             },
             {
-              "keys": "$mod F",
+              "keys": [["SUPER", "F"]],
               "description": "File Manager"
             },
             {
-              "keys": "$mod T",
+              "keys": [["SUPER", "T"]],
               "description": "Terminal"
             },
             {
-              "keys": "$mod SHIFT T",
+              "keys": [["SUPER", "SHIFT", "T"]],
               "description": "Toggle Terminal in Quake mode"
             },
             {
-              "keys": "$mod V",
+              "keys": [["SUPER", "V"]],
               "description": "Toggle Clipboard"
             },
             {
-              "keys": "$mod W",
+              "keys": [["SUPER", "W"]],
               "description": "Web Browser"
             },
             {
-              "keys": "$mod Enter",
+              "keys": [["SUPER", "Enter"]],
               "description": "Task Manager"
             },
             {
-              "keys": "$mod SHIFT =",
+              "keys": [["SUPER", "SHIFT", "="]],
               "description": "Toggle calculator"
             },
             {
-              "keys": "$mod SHIFT B",
+              "keys": [["XF86Calculator"]],
+              "description": "Open calculator"
+            },
+            {
+              "keys": [["SUPER", "SHIFT", "B"]],
               "description": "Bluetooth Settings"
             },
             {
-              "keys": "$mod SHIFT P",
+              "keys": [["SUPER", "SHIFT", "P"]],
               "description": "Volume Control"
             },
             {
-              "keys": "$mod SHIFT N",
+              "keys": [["SUPER", "SHIFT", "N"]],
               "description": "Network Settings"
             },
             {
-              "keys": "$mod N",
+              "keys": [["SUPER", "N"]],
               "description": "Show notification panel"
             },
             {
-              "keys": "$mod SHIFT Esc",
+              "keys": [["SUPER", "SHIFT", "Esc"]],
               "description": "Enter / exit the inhibit submap"
             }
           ]
@@ -284,38 +303,38 @@
           "name": "Mouse",
           "entries": [
             {
-              "keys": "$mod L'",
+              "keys": [["SUPER", "Left Click"]],
               "description": "Move window"
             },
             {
-              "keys": "$mod R'",
+              "keys": [["SUPER", "Right Click"]],
               "description": "Window resize"
             },
             {
-              "keys": "$mod Scroll",
+              "keys": [["SUPER", "Scroll"]],
               "description": "Move across workspaces"
             },
             {
-              "keys": "3F Swipe ↔",
+              "keys": [["3F Swipe ↔"]],
               "description": "Switch apps / columns",
               "gap_before": true
             },
             {
-              "keys": "3F Swipe ↕",
+              "keys": [["3F Swipe ↕"]],
               "description": "Switch across workspaces"
             },
             {
-              "keys": "4F Swipe ↑",
+              "keys": [["4F Swipe ↑"]],
               "description": "Toggle workspace overview"
             },
             {
-              "keys": "L' (in overview)",
-              "description": "Select workspace / window",
+              "keys": [["Left Click"]],
+              "description": "Select workspace / window (in overview)",
               "gap_before": true
             },
             {
-              "keys": "Middle click (in overview)",
-              "description": "Close window under cursor"
+              "keys": [["Middle click"]],
+              "description": "Close window under cursor (in overview)"
             }
           ]
         },
@@ -323,19 +342,19 @@
           "name": "Resize submap",
           "entries": [
             {
-              "keys": "$mod R",
+              "keys": [["SUPER", "R"]],
               "description": "Enter / exit resize submap"
             },
             {
-              "keys": "Arrow keys",
+              "keys": [["Arrow keys"]],
               "description": "Resize window by 10 pixels"
             },
             {
-              "keys": "L' drag",
+              "keys": [["Left Click drag"]],
               "description": "Resize window with the mouse"
             },
             {
-              "keys": "Esc",
+              "keys": [["Esc"]],
               "description": "Exit resize submap"
             }
           ]
@@ -344,35 +363,35 @@
           "name": "Move submap",
           "entries": [
             {
-              "keys": "$mod M",
+              "keys": [["SUPER", "M"]],
               "description": "Enter / exit move submap"
             },
             {
-              "keys": "Arrow keys",
+              "keys": [["Arrow keys"]],
               "description": "Move window in a direction, respecting groups"
             },
             {
-              "keys": "SHIFT Arrow keys",
+              "keys": [["SHIFT", "Arrow keys"]],
               "description": "Move floating window by 30 pixels"
             },
             {
-              "keys": "L' drag",
+              "keys": [["Left Click drag"]],
               "description": "Move window with the mouse"
             },
             {
-              "keys": ", / .",
+              "keys": [[","], "/", ["."]],
               "description": "Move window to previous / next workspace"
             },
             {
-              "keys": "C",
+              "keys": [["C"]],
               "description": "Center floating window"
             },
             {
-              "keys": "P",
+              "keys": [["P"]],
               "description": "Toggle pinned window"
             },
             {
-              "keys": "Esc",
+              "keys": [["Esc"]],
               "description": "Exit move submap"
             }
           ]
@@ -381,23 +400,23 @@
           "name": "Minimized submap",
           "entries": [
             {
-              "keys": "ALT SHIFT Q",
+              "keys": [["ALT", "SHIFT", "Q"]],
               "description": "Show minimized windows"
             },
             {
-              "keys": "Arrow keys",
+              "keys": [["Arrow keys"]],
               "description": "Focus window in a direction"
             },
             {
-              "keys": "Return / L'",
+              "keys": [["Return"], "/", ["Left Click"]],
               "description": "Restore selected window and exit submap"
             },
             {
-              "keys": "Q",
+              "keys": [["Q"]],
               "description": "Close selected window"
             },
             {
-              "keys": "Esc",
+              "keys": [["Esc"]],
               "description": "Hide minimized workspace and exit submap"
             }
           ]
@@ -406,27 +425,27 @@
           "name": "Overview submap",
           "entries": [
             {
-              "keys": "$mod `",
+              "keys": [["SUPER", "`"]],
               "description": "Toggle overview"
             },
             {
-              "keys": "Arrow keys",
+              "keys": [["Arrow keys"]],
               "description": "Navigate workspaces / windows"
             },
             {
-              "keys": "1-9",
+              "keys": [["1-9"]],
               "description": "Focus workspace and close overview"
             },
             {
-              "keys": "Return / L'",
+              "keys": [["Return"], "/", ["Left Click"]],
               "description": "Select workspace / window and close overview"
             },
             {
-              "keys": "Middle click",
+              "keys": [["Middle click"]],
               "description": "Close window under cursor"
             },
             {
-              "keys": "Esc / $mod `",
+              "keys": [["Esc"], "/", ["SUPER", "`"]],
               "description": "Close overview and exit submap"
             }
           ]
@@ -435,35 +454,51 @@
           "name": "Media and hardware",
           "entries": [
             {
-              "keys": "XF86AudioPlay",
+              "keys": [["XF86AudioPlay"]],
               "description": "Play / pause media"
             },
             {
-              "keys": "XF86AudioPrev / XF86AudioNext",
-              "description": "Previous / next track"
+              "keys": [["XF86AudioPrev"]],
+              "description": "Previous track"
             },
             {
-              "keys": "XF86AudioMute",
+              "keys": [["XF86AudioNext"]],
+              "description": "Next track"
+            },
+            {
+              "keys": [["XF86AudioMute"]],
               "description": "Toggle mute"
             },
             {
-              "keys": "XF86AudioRaiseVolume / XF86AudioLowerVolume",
-              "description": "Increase / decrease volume"
+              "keys": [["XF86AudioRaiseVolume"]],
+              "description": "Increase volume"
             },
             {
-              "keys": "XF86MonBrightnessUp / XF86MonBrightnessDown",
-              "description": "Increase / decrease display brightness"
+              "keys": [["XF86AudioLowerVolume"]],
+              "description": "Decrease volume"
             },
             {
-              "keys": "XF86KbdBrightnessUp / XF86KbdBrightnessDown",
-              "description": "Increase / decrease keyboard backlight"
+              "keys": [["XF86MonBrightnessUp"]],
+              "description": "Increase display brightness"
             },
             {
-              "keys": "XF86TouchpadToggle",
+              "keys": [["XF86MonBrightnessDown"]],
+              "description": "Decrease display brightness"
+            },
+            {
+              "keys": [["XF86KbdBrightnessUp"]],
+              "description": "Increase keyboard backlight"
+            },
+            {
+              "keys": [["XF86KbdBrightnessDown"]],
+              "description": "Decrease keyboard backlight"
+            },
+            {
+              "keys": [["XF86TouchpadToggle"]],
               "description": "Toggle touchpad"
             },
             {
-              "keys": "Lid closed",
+              "keys": [["Lid closed"]],
               "description": "Lock screen"
             }
           ]
@@ -476,63 +511,54 @@
       "aliases": [],
       "groups": [
         {
-          "name": "Legend",
-          "entries": [
-            {
-              "keys": "SUPER",
-              "description": "$mod"
-            }
-          ]
-        },
-        {
           "name": "Windows and columns",
           "entries": [
             {
-              "keys": "$mod Q / ALT F4",
+              "keys": [["SUPER", "Q"], "/", ["ALT", "F4"]],
               "description": "Close window"
             },
             {
-              "keys": "$mod C",
+              "keys": [["SUPER", "C"]],
               "description": "Center window"
             },
             {
-              "keys": "$mod E",
+              "keys": [["SUPER", "E"]],
               "description": "Maximize window to edges"
             },
             {
-              "keys": "$mod SHIFT E",
+              "keys": [["SUPER", "SHIFT", "E"]],
               "description": "Toggle fullscreen window"
             },
             {
-              "keys": "$mod ]",
+              "keys": [["SUPER", "]"]],
               "description": "Increase column width by 10%"
             },
             {
-              "keys": "$mod [",
+              "keys": [["SUPER", "["]],
               "description": "Cycle preset column widths"
             },
             {
-              "keys": "$mod =",
+              "keys": [["SUPER", "="]],
               "description": "Maximize column"
             },
             {
-              "keys": "$mod -",
+              "keys": [["SUPER", "-"]],
               "description": "Cycle preset window heights"
             },
             {
-              "keys": "$mod ;",
+              "keys": [["SUPER", ";"]],
               "description": "Toggle floating window"
             },
             {
-              "keys": "$mod '",
+              "keys": [["SUPER", "'"]],
               "description": "Switch focus between floating and tiling"
             },
             {
-              "keys": "$mod SHIFT Tab",
+              "keys": [["SUPER", "SHIFT", "Tab"]],
               "description": "Toggle tabbed column display"
             },
             {
-              "keys": "$mod Tab",
+              "keys": [["SUPER", "Tab"]],
               "description": "Toggle overview"
             }
           ]
@@ -541,23 +567,23 @@
           "name": "Focus and movement",
           "entries": [
             {
-              "keys": "$mod ← / →",
+              "keys": [["SUPER", "←"], "/", ["SUPER", "→"]],
               "description": "Focus previous / next column or monitor"
             },
             {
-              "keys": "$mod ↑ / ↓",
+              "keys": [["SUPER", "↑"], "/", ["SUPER", "↓"]],
               "description": "Focus previous / next window or workspace"
             },
             {
-              "keys": "$mod SHIFT ← / →",
+              "keys": [["SUPER", "SHIFT", "←"], "/", ["SUPER", "SHIFT", "→"]],
               "description": "Consume or expel window left / right"
             },
             {
-              "keys": "$mod SHIFT ↑ / ↓",
+              "keys": [["SUPER", "SHIFT", "↑"], "/", ["SUPER", "SHIFT", "↓"]],
               "description": "Move window up / down, crossing workspaces"
             },
             {
-              "keys": "$mod SHIFT Return",
+              "keys": [["SUPER", "SHIFT", "Return"]],
               "description": "Move window to next monitor"
             }
           ]
@@ -566,11 +592,11 @@
           "name": "Workspaces",
           "entries": [
             {
-              "keys": "$mod 1-9",
+              "keys": [["SUPER", "1-9"]],
               "description": "Focus workspace 1-9"
             },
             {
-              "keys": "$mod SHIFT 1-9",
+              "keys": [["SUPER", "SHIFT", "1-9"]],
               "description": "Move window to workspace 1-9"
             }
           ]
@@ -579,47 +605,47 @@
           "name": "Applications and shell",
           "entries": [
             {
-              "keys": "$mod /",
+              "keys": [["SUPER", "/"]],
               "description": "Toggle Keyhelp"
             },
             {
-              "keys": "$mod F",
+              "keys": [["SUPER", "F"]],
               "description": "Open file manager"
             },
             {
-              "keys": "$mod T",
+              "keys": [["SUPER", "T"]],
               "description": "Open Kitty terminal"
             },
             {
-              "keys": "$mod W",
+              "keys": [["SUPER", "W"]],
               "description": "Open Firefox"
             },
             {
-              "keys": "$mod Return",
+              "keys": [["SUPER", "Return"]],
               "description": "Open task manager"
             },
             {
-              "keys": "XF86Calculator",
+              "keys": [["XF86Calculator"]],
               "description": "Open calculator"
             },
             {
-              "keys": "$mod A",
+              "keys": [["SUPER", "A"]],
               "description": "Open launcher"
             },
             {
-              "keys": "$mod SHIFT A",
+              "keys": [["SUPER", "SHIFT", "A"]],
               "description": "Open shell settings"
             },
             {
-              "keys": "$mod N",
+              "keys": [["SUPER", "N"]],
               "description": "Open notifications"
             },
             {
-              "keys": "$mod V",
+              "keys": [["SUPER", "V"]],
               "description": "Open clipboard"
             },
             {
-              "keys": "$mod Esc",
+              "keys": [["SUPER", "Esc"]],
               "description": "Open session menu"
             }
           ]
@@ -628,39 +654,39 @@
           "name": "Utilities",
           "entries": [
             {
-              "keys": "Print",
+              "keys": [["Print"]],
               "description": "Capture a screen region"
             },
             {
-              "keys": "SHIFT Print",
+              "keys": [["SHIFT", "Print"]],
               "description": "Pick a screen to capture"
             },
             {
-              "keys": "CTRL Print",
+              "keys": [["CTRL", "Print"]],
               "description": "Capture focused window"
             },
             {
-              "keys": "$mod L",
+              "keys": [["SUPER", "L"]],
               "description": "Lock screen"
             },
             {
-              "keys": "$mod SHIFT C",
+              "keys": [["SUPER", "SHIFT", "C"]],
               "description": "Pick a color"
             },
             {
-              "keys": "$mod SHIFT B",
+              "keys": [["SUPER", "SHIFT", "B"]],
               "description": "Open Bluetooth settings"
             },
             {
-              "keys": "$mod SHIFT N",
+              "keys": [["SUPER", "SHIFT", "N"]],
               "description": "Open network settings"
             },
             {
-              "keys": "$mod SHIFT P",
+              "keys": [["SUPER", "SHIFT", "P"]],
               "description": "Open audio settings"
             },
             {
-              "keys": "$mod D",
+              "keys": [["SUPER", "D"]],
               "description": "Open display settings"
             }
           ]
@@ -669,16 +695,24 @@
           "name": "Mouse",
           "entries": [
             {
-              "keys": "$mod SHIFT Right click",
+              "keys": [["SUPER", "SHIFT", "Right click"]],
               "description": "Cycle preset window widths"
             },
             {
-              "keys": "$mod Scroll up / down",
-              "description": "Focus previous / next column"
+              "keys": [["SUPER", "Scroll up"]],
+              "description": "Focus previous column"
             },
             {
-              "keys": "$mod SHIFT Scroll up / down",
-              "description": "Focus previous / next workspace"
+              "keys": [["SUPER", "Scroll down"]],
+              "description": "Focus next column"
+            },
+            {
+              "keys": [["SUPER", "SHIFT", "Scroll up"]],
+              "description": "Focus previous workspace"
+            },
+            {
+              "keys": [["SUPER", "SHIFT", "Scroll down"]],
+              "description": "Focus next workspace"
             }
           ]
         },
@@ -686,28 +720,44 @@
           "name": "Media and hardware",
           "entries": [
             {
-              "keys": "XF86AudioPlay",
+              "keys": [["XF86AudioPlay"]],
               "description": "Play / pause media"
             },
             {
-              "keys": "XF86AudioPrev / XF86AudioNext",
-              "description": "Previous / next track"
+              "keys": [["XF86AudioPrev"]],
+              "description": "Previous track"
             },
             {
-              "keys": "XF86AudioMute",
+              "keys": [["XF86AudioNext"]],
+              "description": "Next track"
+            },
+            {
+              "keys": [["XF86AudioMute"]],
               "description": "Toggle mute"
             },
             {
-              "keys": "XF86AudioRaiseVolume / XF86AudioLowerVolume",
-              "description": "Increase / decrease volume"
+              "keys": [["XF86AudioRaiseVolume"]],
+              "description": "Increase volume"
             },
             {
-              "keys": "XF86MonBrightnessUp / XF86MonBrightnessDown",
-              "description": "Increase / decrease display brightness"
+              "keys": [["XF86AudioLowerVolume"]],
+              "description": "Decrease volume"
             },
             {
-              "keys": "XF86KbdBrightnessUp / XF86KbdBrightnessDown",
-              "description": "Increase / decrease keyboard backlight"
+              "keys": [["XF86MonBrightnessUp"]],
+              "description": "Increase display brightness"
+            },
+            {
+              "keys": [["XF86MonBrightnessDown"]],
+              "description": "Decrease display brightness"
+            },
+            {
+              "keys": [["XF86KbdBrightnessUp"]],
+              "description": "Increase keyboard backlight"
+            },
+            {
+              "keys": [["XF86KbdBrightnessDown"]],
+              "description": "Decrease keyboard backlight"
             }
           ]
         }
@@ -721,27 +771,27 @@
           "name": "General",
           "entries": [
             {
-              "keys": "CTRL /",
+              "keys": [["CTRL", "/"]],
               "description": "Show Command Palette"
             },
             {
-              "keys": "CTRL P",
+              "keys": [["CTRL", "P"]],
               "description": "Quick Open, Go to File..."
             },
             {
-              "keys": "CTRL SHIFT N",
+              "keys": [["CTRL", "SHIFT", "N"]],
               "description": "New window/instance"
             },
             {
-              "keys": "CTRL SHIFT W",
+              "keys": [["CTRL", "SHIFT", "W"]],
               "description": "Close window/instance"
             },
             {
-              "keys": "CTRL ,",
+              "keys": [["CTRL", ","]],
               "description": "User Settings"
             },
             {
-              "keys": "CTRL K + CTRL S",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "S"]],
               "description": "Keyboard Shortcuts"
             }
           ]
@@ -750,99 +800,99 @@
           "name": "Editing",
           "entries": [
             {
-              "keys": "CTRL X",
+              "keys": [["CTRL", "X"]],
               "description": "Cut line (empty selection)"
             },
             {
-              "keys": "CTRL C",
+              "keys": [["CTRL", "C"]],
               "description": "Copy line (empty selection)"
             },
             {
-              "keys": "ALT Up / Down",
+              "keys": [["ALT", "Up"], "/", ["ALT", "Down"]],
               "description": "Move line up/down"
             },
             {
-              "keys": "SHIFT ALT Up / Down",
+              "keys": [["SHIFT", "ALT", "Up"], "/", ["SHIFT", "ALT", "Down"]],
               "description": "Copy line up/down"
             },
             {
-              "keys": "CTRL D",
+              "keys": [["CTRL", "D"]],
               "description": "Delete line"
             },
             {
-              "keys": "CTRL Return",
+              "keys": [["CTRL", "Return"]],
               "description": "Insert line below"
             },
             {
-              "keys": "CTRL SHIFT Return",
+              "keys": [["CTRL", "SHIFT", "Return"]],
               "description": "Insert line above"
             },
             {
-              "keys": "CTRL SHIFT \\",
+              "keys": [["CTRL", "SHIFT", "\\"]],
               "description": "Jump to matching bracket"
             },
             {
-              "keys": "CTRL ] / [",
+              "keys": [["CTRL", "]"], "/", ["CTRL", "["]],
               "description": "Indent/outdent line"
             },
             {
-              "keys": "Home / End",
+              "keys": [["Home"], "/", ["End"]],
               "description": "Go to beginning/end of line"
             },
             {
-              "keys": "CTRL Home",
+              "keys": [["CTRL", "Home"]],
               "description": "Go to beginning of file"
             },
             {
-              "keys": "CTRL End",
+              "keys": [["CTRL", "End"]],
               "description": "Go to end of file"
             },
             {
-              "keys": "CTRL Up / Down",
+              "keys": [["CTRL", "Up"], "/", ["CTRL", "Down"]],
               "description": "Scroll line up/down"
             },
             {
-              "keys": "ALT PgUp / PgDown",
+              "keys": [["ALT", "PgUp"], "/", ["ALT", "PgDown"]],
               "description": "Scroll page up/down"
             },
             {
-              "keys": "CTRL SHIFT [",
+              "keys": [["CTRL", "SHIFT", "["]],
               "description": "Fold (collapse) region"
             },
             {
-              "keys": "CTRL SHIFT ]",
+              "keys": [["CTRL", "SHIFT", "]"]],
               "description": "Unfold (uncollapse) region"
             },
             {
-              "keys": "CTRL K + CTRL [",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "["]],
               "description": "Fold (collapse) all subregions"
             },
             {
-              "keys": "CTRL K + CTRL ]",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "]"]],
               "description": "Unfold (uncollapse) all subregions"
             },
             {
-              "keys": "CTRL K + CTRL 0",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "0"]],
               "description": "Fold (collapse) all regions"
             },
             {
-              "keys": "CTRL K + CTRL J",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "J"]],
               "description": "Unfold (uncollapse) all regions"
             },
             {
-              "keys": "CTRL K + CTRL C",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "C"]],
               "description": "Add line comment"
             },
             {
-              "keys": "CTRL K + CTRL U",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "U"]],
               "description": "Remove line comment"
             },
             {
-              "keys": "SHIFT ALT A",
+              "keys": [["SHIFT", "ALT", "A"]],
               "description": "Toggle block comment"
             },
             {
-              "keys": "ALT Z",
+              "keys": [["ALT", "Z"]],
               "description": "Toggle word wrap"
             }
           ]
@@ -851,43 +901,43 @@
           "name": "Navigation",
           "entries": [
             {
-              "keys": "CTRL T",
+              "keys": [["CTRL", "T"]],
               "description": "Show all Symbols"
             },
             {
-              "keys": "CTRL G",
+              "keys": [["CTRL", "G"]],
               "description": "Go to Line..."
             },
             {
-              "keys": "CTRL P",
+              "keys": [["CTRL", "P"]],
               "description": "Go to File..."
             },
             {
-              "keys": "CTRL SHIFT O",
+              "keys": [["CTRL", "SHIFT", "O"]],
               "description": "Go to Symbol..."
             },
             {
-              "keys": "CTRL SHIFT M",
+              "keys": [["CTRL", "SHIFT", "M"]],
               "description": "Show Problems panel"
             },
             {
-              "keys": "F8",
+              "keys": [["F8"]],
               "description": "Go to next error or warning"
             },
             {
-              "keys": "SHIFT F8",
+              "keys": [["SHIFT", "F8"]],
               "description": "Go to previous error or warning"
             },
             {
-              "keys": "CTRL SHIFT TAB",
+              "keys": [["CTRL", "SHIFT", "TAB"]],
               "description": "Navigate editor group history"
             },
             {
-              "keys": "ALT Left / Right",
+              "keys": [["ALT", "Left"], "/", ["ALT", "Right"]],
               "description": "Go back/forward"
             },
             {
-              "keys": "CTRL M",
+              "keys": [["CTRL", "M"]],
               "description": "Toggle Tab moves focus"
             }
           ]
@@ -896,32 +946,40 @@
           "name": "Search",
           "entries": [
             {
-              "keys": "CTRL F",
+              "keys": [["CTRL", "F"]],
               "description": "Find"
             },
             {
-              "keys": "CTRL H",
+              "keys": [["CTRL", "H"]],
               "description": "Replace"
             },
             {
-              "keys": "F3",
+              "keys": [["F3"]],
               "description": "Find next"
             },
             {
-              "keys": "SHIFT F3",
+              "keys": [["SHIFT", "F3"]],
               "description": "Find previous"
             },
             {
-              "keys": "ALT Return",
+              "keys": [["ALT", "Return"]],
               "description": "Select all occurences of Find match"
             },
             {
-              "keys": "CTRL K + CTRL D",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "D"]],
               "description": "Move last selection to next Find match"
             },
             {
-              "keys": "ALT C / R / W",
-              "description": "Toggle case-sensitive/regex/whole word"
+              "keys": [["ALT", "C"]],
+              "description": "Toggle case-sensitive search"
+            },
+            {
+              "keys": [["ALT", "R"]],
+              "description": "Toggle regex search"
+            },
+            {
+              "keys": [["ALT", "W"]],
+              "description": "Toggle whole-word search"
             }
           ]
         },
@@ -929,43 +987,47 @@
           "name": "Selection",
           "entries": [
             {
-              "keys": "ALT Click",
+              "keys": [["ALT", "Click"]],
               "description": "Insert cursor"
             },
             {
-              "keys": "CTRL ALT Up / Down",
+              "keys": [["CTRL", "ALT", "Up"], "/", ["CTRL", "ALT", "Down"]],
               "description": "Insert cursor above/below"
             },
             {
-              "keys": "CTRL U",
+              "keys": [["CTRL", "U"]],
               "description": "Undo last cursor operation"
             },
             {
-              "keys": "SHIFT ALT I",
+              "keys": [["SHIFT", "ALT", "I"]],
               "description": "Insert cursor at end of each line selected"
             },
             {
-              "keys": "CTRL I",
+              "keys": [["CTRL", "I"]],
               "description": "Select current line"
             },
             {
-              "keys": "CTRL SHIFT L",
+              "keys": [["CTRL", "SHIFT", "L"]],
               "description": "Select all occurrences of current selection"
             },
             {
-              "keys": "CTRL F2",
+              "keys": [["CTRL", "F2"]],
               "description": "Select all occurrences of current word"
             },
             {
-              "keys": "SHIFT ALT Right",
+              "keys": [["SHIFT", "ALT", "Right"]],
               "description": "Expand selection"
             },
             {
-              "keys": "SHIFT ALT Left",
+              "keys": [["SHIFT", "ALT", "Left"]],
               "description": "Shrink selection"
             },
             {
-              "keys": "SHIFT ALT (Mouse Drag) or <ARROW>",
+              "keys": [
+                ["SHIFT", "ALT", "Mouse Drag"],
+                "or",
+                ["SHIFT", "ALT", "Arrow"]
+              ],
               "description": "Column (box) selection"
             }
           ]
@@ -974,36 +1036,48 @@
           "name": "Editor",
           "entries": [
             {
-              "keys": "CTRL F4",
+              "keys": [["CTRL", "F4"]],
               "description": "Close editor"
             },
             {
-              "keys": "CTRL W",
+              "keys": [["CTRL", "W"]],
               "description": "Close editor"
             },
             {
-              "keys": "CTRL K + F",
+              "keys": [["CTRL", "K"], "then", ["F"]],
               "description": "Close folder"
             },
             {
-              "keys": "CTRL \\",
+              "keys": [["CTRL", "\\"]],
               "description": "Split editor"
             },
             {
-              "keys": "CTRL 1 / 2 / 3",
+              "keys": [["CTRL", "1"], "/", ["CTRL", "2"], "/", ["CTRL", "3"]],
               "description": "Focus into 1st, 2nd, or 3rd editor group"
             },
             {
-              "keys": "CTRL K + CTRL Left / Right",
-              "description": "Focus into previous/next editor group"
+              "keys": [["CTRL", "K"], "then", ["CTRL", "Left"]],
+              "description": "Focus previous editor group"
             },
             {
-              "keys": "CTRL SHIFT PgUp / PgDown",
-              "description": "Move editor left/right"
+              "keys": [["CTRL", "K"], "then", ["CTRL", "Right"]],
+              "description": "Focus next editor group"
             },
             {
-              "keys": "CTRL K + Left / Right",
-              "description": "Move active editor group"
+              "keys": [["CTRL", "SHIFT", "PgUp"]],
+              "description": "Move editor left"
+            },
+            {
+              "keys": [["CTRL", "SHIFT", "PgDown"]],
+              "description": "Move editor right"
+            },
+            {
+              "keys": [["CTRL", "K"], "then", ["Left"]],
+              "description": "Move active editor group left"
+            },
+            {
+              "keys": [["CTRL", "K"], "then", ["Right"]],
+              "description": "Move active editor group right"
             }
           ]
         },
@@ -1011,59 +1085,59 @@
           "name": "File",
           "entries": [
             {
-              "keys": "CTRL N",
+              "keys": [["CTRL", "N"]],
               "description": "New File"
             },
             {
-              "keys": "CTRL O",
+              "keys": [["CTRL", "O"]],
               "description": "Open File..."
             },
             {
-              "keys": "CTRL S",
+              "keys": [["CTRL", "S"]],
               "description": "Save"
             },
             {
-              "keys": "CTRL SHIFT S",
+              "keys": [["CTRL", "SHIFT", "S"]],
               "description": "Save As..."
             },
             {
-              "keys": "CTRL K + S",
+              "keys": [["CTRL", "K"], "then", ["S"]],
               "description": "Save All"
             },
             {
-              "keys": "CTRL F4",
+              "keys": [["CTRL", "F4"]],
               "description": "Close"
             },
             {
-              "keys": "CTRL K + CTRL W",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "W"]],
               "description": "Close All"
             },
             {
-              "keys": "CTRL SHIFT T",
+              "keys": [["CTRL", "SHIFT", "T"]],
               "description": "Reopen closed editor"
             },
             {
-              "keys": "CTRL K + Return",
+              "keys": [["CTRL", "K"], "then", ["Return"]],
               "description": "Keep preview mode editor open"
             },
             {
-              "keys": "CTRL TAB",
+              "keys": [["CTRL", "TAB"]],
               "description": "Open next"
             },
             {
-              "keys": "CTRL SHIFT TAB",
+              "keys": [["CTRL", "SHIFT", "TAB"]],
               "description": "Open previous"
             },
             {
-              "keys": "CTRL K + P",
+              "keys": [["CTRL", "K"], "then", ["P"]],
               "description": "Copy path of active file"
             },
             {
-              "keys": "CTRL K + R",
+              "keys": [["CTRL", "K"], "then", ["R"]],
               "description": "Reveal active file in Explorer"
             },
             {
-              "keys": "CTRL K + O",
+              "keys": [["CTRL", "K"], "then", ["O"]],
               "description": "Show active file in new window/instance"
             }
           ]
@@ -1072,63 +1146,67 @@
           "name": "Display",
           "entries": [
             {
-              "keys": "F11",
+              "keys": [["F11"]],
               "description": "Toggle full screen"
             },
             {
-              "keys": "SHIFT ALT 0",
+              "keys": [["SHIFT", "ALT", "0"]],
               "description": "Toggle editor layout"
             },
             {
-              "keys": "CTRL =/-",
-              "description": "Zoom in/out"
+              "keys": [["CTRL", "="]],
+              "description": "Zoom in"
             },
             {
-              "keys": "CTRL B",
+              "keys": [["CTRL", "-"]],
+              "description": "Zoom out"
+            },
+            {
+              "keys": [["CTRL", "B"]],
               "description": "Toggle Sidebar visibility"
             },
             {
-              "keys": "CTRL SHIFT E",
+              "keys": [["CTRL", "SHIFT", "E"]],
               "description": "Show Explorer/Toggle focus"
             },
             {
-              "keys": "CTRL SHIFT F",
+              "keys": [["CTRL", "SHIFT", "F"]],
               "description": "Show Search"
             },
             {
-              "keys": "CTRL SHIFT G",
+              "keys": [["CTRL", "SHIFT", "G"]],
               "description": "Show Source Control"
             },
             {
-              "keys": "CTRL SHIFT D",
+              "keys": [["CTRL", "SHIFT", "D"]],
               "description": "Show Debug"
             },
             {
-              "keys": "CTRL SHIFT X",
+              "keys": [["CTRL", "SHIFT", "X"]],
               "description": "Show Extensions"
             },
             {
-              "keys": "CTRL SHIFT H",
+              "keys": [["CTRL", "SHIFT", "H"]],
               "description": "Replace in files"
             },
             {
-              "keys": "CTRL SHIFT J",
+              "keys": [["CTRL", "SHIFT", "J"]],
               "description": "Toggle Search details"
             },
             {
-              "keys": "CTRL SHIFT U",
+              "keys": [["CTRL", "SHIFT", "U"]],
               "description": "Show Output panel"
             },
             {
-              "keys": "CTRL SHIFT V",
+              "keys": [["CTRL", "SHIFT", "V"]],
               "description": "Open Markdown preview"
             },
             {
-              "keys": "CTRL K + V",
+              "keys": [["CTRL", "K"], "then", ["V"]],
               "description": "Open Markdown preview to the side"
             },
             {
-              "keys": "CTRL K + Z",
+              "keys": [["CTRL", "K"], "then", ["Z"]],
               "description": "Zen Mode (Esc to exit)"
             }
           ]
@@ -1137,31 +1215,31 @@
           "name": "Debug",
           "entries": [
             {
-              "keys": "F9",
+              "keys": [["F9"]],
               "description": "Toggle breakpoint"
             },
             {
-              "keys": "F5",
+              "keys": [["F5"]],
               "description": "Start/Continue"
             },
             {
-              "keys": "SHIFT F5",
+              "keys": [["SHIFT", "F5"]],
               "description": "Stop"
             },
             {
-              "keys": "F11",
+              "keys": [["F11"]],
               "description": "Step into"
             },
             {
-              "keys": "SHIFT F11",
+              "keys": [["SHIFT", "F11"]],
               "description": "Step out"
             },
             {
-              "keys": "F10",
+              "keys": [["F10"]],
               "description": "Step over"
             },
             {
-              "keys": "CTRL K + CTRL I",
+              "keys": [["CTRL", "K"], "then", ["CTRL", "I"]],
               "description": "Show hover"
             }
           ]
@@ -1170,27 +1248,27 @@
           "name": "Terminal",
           "entries": [
             {
-              "keys": "ALT T",
+              "keys": [["ALT", "T"]],
               "description": "Show terminal"
             },
             {
-              "keys": "CTRL C",
+              "keys": [["CTRL", "C"]],
               "description": "Copy selection"
             },
             {
-              "keys": "CTRL V",
+              "keys": [["CTRL", "V"]],
               "description": "Paste into active terminal"
             },
             {
-              "keys": "CTRL Up / Down",
+              "keys": [["CTRL", "Up"], "/", ["CTRL", "Down"]],
               "description": "Scroll up/down"
             },
             {
-              "keys": "SHIFT PgUp / PgDown",
+              "keys": [["SHIFT", "PgUp"], "/", ["SHIFT", "PgDown"]],
               "description": "Scroll page up/down"
             },
             {
-              "keys": "CTRL Home / End",
+              "keys": [["CTRL", "Home"], "/", ["CTRL", "End"]],
               "description": "Scroll to top/bottom"
             }
           ]
@@ -1202,55 +1280,46 @@
       "aliases": ["kitty", "net.kovidgoyal.kitty"],
       "groups": [
         {
-          "name": "Legend",
-          "entries": [
-            {
-              "keys": "CTRL SHIFT",
-              "description": "$mod"
-            }
-          ]
-        },
-        {
           "name": "Scrolling",
           "entries": [
             {
-              "keys": "$mod Up",
+              "keys": [["CTRL", "SHIFT", "Up"]],
               "description": "Scroll line up"
             },
             {
-              "keys": "$mod Down",
+              "keys": [["CTRL", "SHIFT", "Down"]],
               "description": "Scroll line down"
             },
             {
-              "keys": "$mod PgUp",
+              "keys": [["CTRL", "SHIFT", "PgUp"]],
               "description": "Scroll page up"
             },
             {
-              "keys": "$mod PgDown",
+              "keys": [["CTRL", "SHIFT", "PgDown"]],
               "description": "Scroll page down"
             },
             {
-              "keys": "$mod Home",
+              "keys": [["CTRL", "SHIFT", "Home"]],
               "description": "Scroll to beginning"
             },
             {
-              "keys": "$mod End",
+              "keys": [["CTRL", "SHIFT", "End"]],
               "description": "Scroll to end"
             },
             {
-              "keys": "$mod Z",
+              "keys": [["CTRL", "SHIFT", "Z"]],
               "description": "Scroll to prompt -1"
             },
             {
-              "keys": "$mod X",
+              "keys": [["CTRL", "SHIFT", "X"]],
               "description": "Scroll to prompt 1"
             },
             {
-              "keys": "$mod H",
+              "keys": [["CTRL", "SHIFT", "H"]],
               "description": "Show scrollback"
             },
             {
-              "keys": "$mod G",
+              "keys": [["CTRL", "SHIFT", "G"]],
               "description": "Show last command output"
             }
           ]
@@ -1259,39 +1328,39 @@
           "name": "Tabs",
           "entries": [
             {
-              "keys": "$mod Right",
+              "keys": [["CTRL", "SHIFT", "Right"]],
               "description": "Next tab"
             },
             {
-              "keys": "CTRL TAB",
+              "keys": [["CTRL", "TAB"]],
               "description": "Next tab"
             },
             {
-              "keys": "$mod Left",
+              "keys": [["CTRL", "SHIFT", "Left"]],
               "description": "Previous tab"
             },
             {
-              "keys": "CTRL SHIFT TAB",
+              "keys": [["CTRL", "SHIFT", "TAB"]],
               "description": "Previous tab"
             },
             {
-              "keys": "$mod T",
+              "keys": [["CTRL", "SHIFT", "T"]],
               "description": "New tab"
             },
             {
-              "keys": "$mod Q",
+              "keys": [["CTRL", "SHIFT", "Q"]],
               "description": "Close tab"
             },
             {
-              "keys": "$mod .",
+              "keys": [["CTRL", "SHIFT", "."]],
               "description": "Move tab forward"
             },
             {
-              "keys": "$mod ,",
+              "keys": [["CTRL", "SHIFT", ","]],
               "description": "Move tab backward"
             },
             {
-              "keys": "$mod ALT T",
+              "keys": [["CTRL", "SHIFT", "ALT", "T"]],
               "description": "Set tab title"
             }
           ]
@@ -1300,51 +1369,51 @@
           "name": "Window",
           "entries": [
             {
-              "keys": "$mod Return",
+              "keys": [["CTRL", "SHIFT", "Return"]],
               "description": "New window"
             },
             {
-              "keys": "$mod N",
+              "keys": [["CTRL", "SHIFT", "N"]],
               "description": "New OS window"
             },
             {
-              "keys": "$mod W",
+              "keys": [["CTRL", "SHIFT", "W"]],
               "description": "Close window"
             },
             {
-              "keys": "$mod ]",
+              "keys": [["CTRL", "SHIFT", "]"]],
               "description": "Next window"
             },
             {
-              "keys": "$mod [",
+              "keys": [["CTRL", "SHIFT", "["]],
               "description": "Previous window"
             },
             {
-              "keys": "$mod B",
+              "keys": [["CTRL", "SHIFT", "B"]],
               "description": "Move window backward"
             },
             {
-              "keys": "$mod `",
+              "keys": [["CTRL", "SHIFT", "`"]],
               "description": "Move window to top"
             },
             {
-              "keys": "$mod R",
+              "keys": [["CTRL", "SHIFT", "R"]],
               "description": "Resize window"
             },
             {
-              "keys": "$mod <N>",
+              "keys": [["CTRL", "SHIFT", "N"]],
               "description": "'N'th window"
             },
             {
-              "keys": "$mod F7",
+              "keys": [["CTRL", "SHIFT", "F7"]],
               "description": "Focus visible window"
             },
             {
-              "keys": "$mod F8",
+              "keys": [["CTRL", "SHIFT", "F8"]],
               "description": "Swap with window"
             },
             {
-              "keys": "$mod L",
+              "keys": [["CTRL", "SHIFT", "L"]],
               "description": "Next layout"
             }
           ]
@@ -1353,39 +1422,43 @@
           "name": "Actions",
           "entries": [
             {
-              "keys": "$mod F",
+              "keys": [["CTRL", "SHIFT", "F"]],
               "description": "Find occurrences of entered text"
             },
             {
-              "keys": "$mod C",
+              "keys": [["CTRL", "SHIFT", "C"]],
               "description": "Copy to clipboard"
             },
             {
-              "keys": "$mod V",
+              "keys": [["CTRL", "SHIFT", "V"]],
               "description": "Paste from clipboard"
             },
             {
-              "keys": "$mod S or SHIFT Insert",
+              "keys": [["CTRL", "SHIFT", "S"], "or", ["SHIFT", "Insert"]],
               "description": "Paste from selection"
             },
             {
-              "keys": "CTRL C",
+              "keys": [["CTRL", "C"]],
               "description": "Copy or Interrupt"
             },
             {
-              "keys": "$mod O",
+              "keys": [["CTRL", "SHIFT", "O"]],
               "description": "Pass selection to program"
             },
             {
-              "keys": "$mod U",
+              "keys": [["CTRL", "SHIFT", "U"]],
               "description": "Unicode input"
             },
             {
-              "keys": "$mod = / + / -",
-              "description": "Change font size"
+              "keys": [["CTRL", "SHIFT", "="], "or", ["CTRL", "SHIFT", "+"]],
+              "description": "Increase font size"
             },
             {
-              "keys": "$mod E",
+              "keys": [["CTRL", "SHIFT", "-"]],
+              "description": "Decrease font size"
+            },
+            {
+              "keys": [["CTRL", "SHIFT", "E"]],
               "description": "Open URL with hints"
             }
           ]
@@ -1394,27 +1467,31 @@
           "name": "Debug",
           "entries": [
             {
-              "keys": "$mod F1",
+              "keys": [["CTRL", "SHIFT", "/"]],
+              "description": "Command palette"
+            },
+            {
+              "keys": [["CTRL", "SHIFT", "F1"]],
               "description": "Show help"
             },
             {
-              "keys": "$mod F2",
+              "keys": [["CTRL", "SHIFT", "F2"]],
               "description": "Edit config file"
             },
             {
-              "keys": "$mod Esc",
+              "keys": [["CTRL", "SHIFT", "Esc"]],
               "description": "Shell window"
             },
             {
-              "keys": "$mod Del",
+              "keys": [["CTRL", "SHIFT", "Del"]],
               "description": "Clear terminal reset active"
             },
             {
-              "keys": "$mod F5",
+              "keys": [["CTRL", "SHIFT", "F5"]],
               "description": "Load config file"
             },
             {
-              "keys": "$mod F6",
+              "keys": [["CTRL", "SHIFT", "F6"]],
               "description": "Debug config"
             }
           ]
@@ -1429,31 +1506,31 @@
           "name": "Navigation",
           "entries": [
             {
-              "keys": "CTRL + Left",
+              "keys": [["CTRL", "Left"]],
               "description": "Back"
             },
             {
-              "keys": "CTRL + Right",
+              "keys": [["CTRL", "Right"]],
               "description": "Forward"
             },
             {
-              "keys": "ALT + Home",
+              "keys": [["ALT", "Home"]],
               "description": "Home"
             },
             {
-              "keys": "CTRL + O",
+              "keys": [["CTRL", "O"]],
               "description": "Open File"
             },
             {
-              "keys": "CTRL + R",
+              "keys": [["CTRL", "R"]],
               "description": "Reload"
             },
             {
-              "keys": "CTRL + SHIFT + R",
+              "keys": [["CTRL", "SHIFT", "R"]],
               "description": "Reload (override cache)"
             },
             {
-              "keys": "CTRL + .",
+              "keys": [["CTRL", "."]],
               "description": "Stop"
             }
           ]
@@ -1462,55 +1539,55 @@
           "name": "Current Page",
           "entries": [
             {
-              "keys": "Tab",
+              "keys": [["Tab"]],
               "description": "Focus Next Link or Input Field"
             },
             {
-              "keys": "SHIFT + Tab",
+              "keys": [["SHIFT", "Tab"]],
               "description": "Focus Previous Link or Input Field"
             },
             {
-              "keys": "Space",
+              "keys": [["Space"]],
               "description": "Go Down a Screen"
             },
             {
-              "keys": "SHIFT + Space",
+              "keys": [["SHIFT", "Space"]],
               "description": "Go Up a Screen"
             },
             {
-              "keys": "CTRL + Down",
+              "keys": [["CTRL", "Down"]],
               "description": "Go to Bottom of Page"
             },
             {
-              "keys": "CTRL + Up",
+              "keys": [["CTRL", "Up"]],
               "description": "Go to Top of Page"
             },
             {
-              "keys": "F6",
+              "keys": [["F6"]],
               "description": "Move to Next Frame"
             },
             {
-              "keys": "SHIFT + F6",
+              "keys": [["SHIFT", "F6"]],
               "description": "Move to Previous Frame"
             },
             {
-              "keys": "CTRL + P",
+              "keys": [["CTRL", "P"]],
               "description": "Print"
             },
             {
-              "keys": "CTRL + S",
+              "keys": [["CTRL", "S"]],
               "description": "Save Page As"
             },
             {
-              "keys": "CTRL + +",
+              "keys": [["CTRL", "+"]],
               "description": "Zoom In"
             },
             {
-              "keys": "CTRL + -",
+              "keys": [["CTRL", "-"]],
               "description": "Zoom Out"
             },
             {
-              "keys": "CTRL + 0",
+              "keys": [["CTRL", "0"]],
               "description": "Zoom Reset"
             }
           ]
@@ -1519,43 +1596,43 @@
           "name": "Editing",
           "entries": [
             {
-              "keys": "CTRL + C",
+              "keys": [["CTRL", "C"]],
               "description": "Copy"
             },
             {
-              "keys": "CTRL + X",
+              "keys": [["CTRL", "X"]],
               "description": "Cut"
             },
             {
-              "keys": "Backspace",
+              "keys": [["Backspace"]],
               "description": "Delete"
             },
             {
-              "keys": "Home",
+              "keys": [["Home"]],
               "description": "Go to Beginning of Line"
             },
             {
-              "keys": "End",
+              "keys": [["End"]],
               "description": "Go to End of Line"
             },
             {
-              "keys": "CTRL + V",
+              "keys": [["CTRL", "V"]],
               "description": "Paste"
             },
             {
-              "keys": "CTRL + SHIFT + V",
+              "keys": [["CTRL", "SHIFT", "V"]],
               "description": "Paste (as plain text)"
             },
             {
-              "keys": "CTRL + SHIFT + Z",
+              "keys": [["CTRL", "SHIFT", "Z"]],
               "description": "Redo"
             },
             {
-              "keys": "CTRL + A",
+              "keys": [["CTRL", "A"]],
               "description": "Select All"
             },
             {
-              "keys": "CTRL + Z",
+              "keys": [["CTRL", "Z"]],
               "description": "Undo"
             }
           ]
@@ -1564,135 +1641,135 @@
           "name": "Search",
           "entries": [
             {
-              "keys": "CTRL  +  F",
+              "keys": [["CTRL", "F"]],
               "description": "Find"
             },
             {
-              "keys": "CTRL + G",
+              "keys": [["CTRL", "G"]],
               "description": "Find Again"
             },
             {
-              "keys": "CTRL + SHIFT + G",
+              "keys": [["CTRL", "SHIFT", "G"]],
               "description": "Find Previous"
             },
             {
-              "keys": "'",
+              "keys": [["'"]],
               "description": "Quick Find within link-text only"
             },
             {
-              "keys": "/",
+              "keys": [["/"]],
               "description": "Quick Find"
             },
             {
-              "keys": "Esc",
+              "keys": [["Esc"]],
               "description": "Close the Find or Quick Find bar"
             },
             {
-              "keys": "CTRL + K",
+              "keys": [["CTRL", "K"]],
               "description": "Focus Search bar"
             },
             {
-              "keys": "CTRL + Up / Down",
+              "keys": [["CTRL", "Up"], "/", ["CTRL", "Down"]],
               "description": "Change the Default Search Engine"
             },
             {
-              "keys": "ALT + Up / Down",
+              "keys": [["ALT", "Up"], "/", ["ALT", "Down"]],
               "description": "View menu to switch, add, or manage search engines"
             },
             {
-              "keys": "CTRL + W",
+              "keys": [["CTRL", "W"]],
               "description": "Close Tab"
             },
             {
-              "keys": "CTRL + SHIFT + W",
+              "keys": [["CTRL", "SHIFT", "W"]],
               "description": "Close Window"
             },
             {
-              "keys": "CTRL + Tab",
+              "keys": [["CTRL", "Tab"]],
               "description": "Cycle through Tabs in Recently Used Order"
             },
             {
-              "keys": "CTRL + Q",
+              "keys": [["CTRL", "Q"]],
               "description": "Quit"
             },
             {
-              "keys": "CTRL + ALT + Left",
+              "keys": [["CTRL", "ALT", "Left"]],
               "description": "Go one Tab to the Left"
             },
             {
-              "keys": "CTRL + ALT + Right",
+              "keys": [["CTRL", "ALT", "Right"]],
               "description": "Go one Tab to the Right"
             },
             {
-              "keys": "CTRL + SHIFT + PgUp",
+              "keys": [["CTRL", "SHIFT", "PgUp"]],
               "description": "Move Tab Left"
             },
             {
-              "keys": "CTRL + SHIFT + PgDown",
+              "keys": [["CTRL", "SHIFT", "PgDown"]],
               "description": "Move Tab Right"
             },
             {
-              "keys": "CTRL + SHIFT + Home",
+              "keys": [["CTRL", "SHIFT", "Home"]],
               "description": "Move Tab in focus to start"
             },
             {
-              "keys": "CTRL + SHIFT + End",
+              "keys": [["CTRL", "SHIFT", "End"]],
               "description": "Move Tab in focus to end"
             },
             {
-              "keys": "CTRL + M",
+              "keys": [["CTRL", "M"]],
               "description": "Mute/Unmute Audio"
             },
             {
-              "keys": "CTRL + T",
+              "keys": [["CTRL", "T"]],
               "description": "New Tab"
             },
             {
-              "keys": "CTRL + N",
+              "keys": [["CTRL", "N"]],
               "description": "New Window"
             },
             {
-              "keys": "CTRL + SHIFT + P",
+              "keys": [["CTRL", "SHIFT", "P"]],
               "description": "New Private Window"
             },
             {
-              "keys": "ALT + Enter",
+              "keys": [["ALT", "Enter"]],
               "description": "Open Address in New Foreground Tab"
             },
             {
-              "keys": "Enter",
+              "keys": [["Enter"]],
               "description": "Open Focused Bookmark or Link in Current Tab"
             },
             {
-              "keys": "CTRL + Enter",
+              "keys": [["CTRL", "Enter"]],
               "description": "Open Focused Link in New Background Tab"
             },
             {
-              "keys": "CTRL + SHIFT + Enter",
+              "keys": [["CTRL", "SHIFT", "Enter"]],
               "description": "Open Focused Bookmark in New Background Tab"
             },
             {
-              "keys": "SHIFT + Enter",
+              "keys": [["SHIFT", "Enter"]],
               "description": "Open Focused Bookmark or Link in New Window"
             },
             {
-              "keys": "CTRL + SHIFT + T",
+              "keys": [["CTRL", "SHIFT", "T"]],
               "description": "Undo Close Tab"
             },
             {
-              "keys": "CTRL + SHIFT + N",
+              "keys": [["CTRL", "SHIFT", "N"]],
               "description": "Undo Close Window"
             },
             {
-              "keys": "CTRL + 1-8",
+              "keys": [["CTRL", "1-8"]],
               "description": "Select Tab 1-8"
             },
             {
-              "keys": "CTRL + 9",
+              "keys": [["CTRL", "9"]],
               "description": "Select Last Tab"
             },
             {
-              "keys": "CTRL + SHIFT + X",
+              "keys": [["CTRL", "SHIFT", "X"]],
               "description": "Moves the URL left or right"
             }
           ]
@@ -1701,11 +1778,11 @@
           "name": "History",
           "entries": [
             {
-              "keys": "CTRL + SHIFT + H",
+              "keys": [["CTRL", "SHIFT", "H"]],
               "description": "History sidebar"
             },
             {
-              "keys": "CTRL + SHIFT + Delete",
+              "keys": [["CTRL", "SHIFT", "Delete"]],
               "description": "Clear Recent History"
             }
           ]
@@ -1714,24 +1791,24 @@
           "name": "Bookmarks",
           "entries": [
             {
-              "keys": "CTRL + SHIFT + D",
+              "keys": [["CTRL", "SHIFT", "D"]],
               "description": "Bookmark All Tabs"
             },
             {
-              "keys": "CTRL + D",
+              "keys": [["CTRL", "D"]],
               "description": "Bookmark This Page"
             },
             {
-              "keys": "CTRL + B",
+              "keys": [["CTRL", "B"]],
               "description": "Bookmarks sidebar"
             },
             {
-              "keys": "CTRL + SHIFT + S",
+              "keys": [["CTRL", "SHIFT", "S"]],
               "description": "Library window (Bookmarks)"
             },
             {
-              "keys": "(search field in Library) + Space",
-              "description": "Search for all Bookmarks"
+              "keys": [["Space"]],
+              "description": "Search for all Bookmarks (in the Library search field)"
             }
           ]
         },
@@ -1739,63 +1816,63 @@
           "name": "Tools",
           "entries": [
             {
-              "keys": "CTRL + J",
+              "keys": [["CTRL", "J"]],
               "description": "Downloads"
             },
             {
-              "keys": "CTRL + SHIFT + A",
+              "keys": [["CTRL", "SHIFT", "A"]],
               "description": "Add-ons"
             },
             {
-              "keys": "CTRL + ALT + I",
+              "keys": [["CTRL", "ALT", "I"]],
               "description": "Toggle Developer Tools"
             },
             {
-              "keys": "CTRL + ALT + K",
+              "keys": [["CTRL", "ALT", "K"]],
               "description": "Web Console"
             },
             {
-              "keys": "CTRL + ALT + C",
+              "keys": [["CTRL", "ALT", "C"]],
               "description": "Inspector"
             },
             {
-              "keys": "CTRL + ALT + S",
+              "keys": [["CTRL", "ALT", "S"]],
               "description": "Debugger"
             },
             {
-              "keys": "SHIFT + F7",
+              "keys": [["SHIFT", "F7"]],
               "description": "Style Editor"
             },
             {
-              "keys": "SHIFT + F5",
+              "keys": [["SHIFT", "F5"]],
               "description": "Profiler"
             },
             {
-              "keys": "CTRL + ALT + E",
+              "keys": [["CTRL", "ALT", "E"]],
               "description": "Network"
             },
             {
-              "keys": "SHIFT + F2",
+              "keys": [["SHIFT", "F2"]],
               "description": "Developer Toolbar"
             },
             {
-              "keys": "CTRL + ALT + M",
+              "keys": [["CTRL", "ALT", "M"]],
               "description": "Responsive Design View"
             },
             {
-              "keys": "SHIFT + F4",
+              "keys": [["SHIFT", "F4"]],
               "description": "Scratchpad"
             },
             {
-              "keys": "CTRL + U",
+              "keys": [["CTRL", "U"]],
               "description": "Page Source"
             },
             {
-              "keys": "CTRL + SHIFT + J",
+              "keys": [["CTRL", "SHIFT", "J"]],
               "description": "Browser Console"
             },
             {
-              "keys": "CTRL + I",
+              "keys": [["CTRL", "I"]],
               "description": "Page Info"
             }
           ]
@@ -1804,47 +1881,47 @@
           "name": "PDF Viewer",
           "entries": [
             {
-              "keys": "N / J / Right",
+              "keys": [["N"], "/", ["J"], "/", ["Right"]],
               "description": "Next page"
             },
             {
-              "keys": "P / K / Left",
+              "keys": [["P"], "/", ["K"], "/", ["Left"]],
               "description": "Previous page"
             },
             {
-              "keys": "CTRL + +",
+              "keys": [["CTRL", "+"]],
               "description": "Zoom in"
             },
             {
-              "keys": "CTRL + -",
+              "keys": [["CTRL", "-"]],
               "description": "Zoom out"
             },
             {
-              "keys": "CTRL + 0",
+              "keys": [["CTRL", "0"]],
               "description": "Automatic Zoom"
             },
             {
-              "keys": "R",
+              "keys": [["R"]],
               "description": "Rotate the document clockwise"
             },
             {
-              "keys": "CTRL + R",
+              "keys": [["CTRL", "R"]],
               "description": "Rotate counterclockwise"
             },
             {
-              "keys": "CTRL + ALT + P",
+              "keys": [["CTRL", "ALT", "P"]],
               "description": "Switch to Presentation Mode"
             },
             {
-              "keys": "S",
+              "keys": [["S"]],
               "description": "Choose Text Selection Tool"
             },
             {
-              "keys": "H",
+              "keys": [["H"]],
               "description": "Choose Hand Tool"
             },
             {
-              "keys": "CTRL + ALT + G",
+              "keys": [["CTRL", "ALT", "G"]],
               "description": "Focus the Page Number input box"
             }
           ]
@@ -1853,35 +1930,35 @@
           "name": "Miscellaneous",
           "entries": [
             {
-              "keys": "CTRL + Enter",
+              "keys": [["CTRL", "Enter"]],
               "description": "Complete .com address"
             },
             {
-              "keys": "SHIFT + Enter",
+              "keys": [["SHIFT", "Enter"]],
               "description": "Complete .net address"
             },
             {
-              "keys": "CTRL + SHIFT + Enter",
+              "keys": [["CTRL", "SHIFT", "Enter"]],
               "description": "Complete .org address"
             },
             {
-              "keys": "SHIFT + Delete",
+              "keys": [["SHIFT", "Delete"]],
               "description": "Delete Selected Autocomplete Entry"
             },
             {
-              "keys": "CTRL + SHIFT + F",
+              "keys": [["CTRL", "SHIFT", "F"]],
               "description": "Toggle Full Screen"
             },
             {
-              "keys": "CTRL + ALT + R",
+              "keys": [["CTRL", "ALT", "R"]],
               "description": "Toggle Reader Mode"
             },
             {
-              "keys": "F7",
+              "keys": [["F7"]],
               "description": "Caret Browsing"
             },
             {
-              "keys": "CTRL + L",
+              "keys": [["CTRL", "L"]],
               "description": "Select Location Bar"
             }
           ]
@@ -1890,47 +1967,47 @@
           "name": "Media",
           "entries": [
             {
-              "keys": "Space",
+              "keys": [["Space"]],
               "description": "Toggle Play/Pause"
             },
             {
-              "keys": "Down",
+              "keys": [["Down"]],
               "description": "Decrease volume"
             },
             {
-              "keys": "Up",
+              "keys": [["Up"]],
               "description": "Increase volume"
             },
             {
-              "keys": "CTRL + Down",
+              "keys": [["CTRL", "Down"]],
               "description": "Mute audio"
             },
             {
-              "keys": "CTRL + Up",
+              "keys": [["CTRL", "Up"]],
               "description": "Unmute audio"
             },
             {
-              "keys": "Left",
+              "keys": [["Left"]],
               "description": "Seek back 15 seconds"
             },
             {
-              "keys": "CTRL + Left",
+              "keys": [["CTRL", "Left"]],
               "description": "Seek back 10%"
             },
             {
-              "keys": "Right",
+              "keys": [["Right"]],
               "description": "Seek forward 15 seconds"
             },
             {
-              "keys": "CTRL + Right",
+              "keys": [["CTRL", "Right"]],
               "description": "Seek forward 10%"
             },
             {
-              "keys": "Home",
+              "keys": [["Home"]],
               "description": "Seek to the beginning"
             },
             {
-              "keys": "End",
+              "keys": [["End"]],
               "description": "Seek to the end"
             }
           ]

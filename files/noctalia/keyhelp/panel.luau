@@ -1,14 +1,26 @@
 local model = require("./lib/model.luau")
 local pages, selected, query = {}, "", ""
-local pageNumber, pageCount, inputRevision, resultsRevision = 1, 1, 0, 0
+local results, selectedRow = {}, 0
+local inputRevision, resultsRevision = 0, 0
 local generation, opened, loading, errorMessage = 0, false, false, nil
 local context = {}
 local render, load
 local tr = noctalia.tr
 
 local function resetResults()
-  pageNumber = 1
+  selectedRow = 0
   resultsRevision = resultsRevision + 1
+end
+
+local function focusSearch()
+  inputRevision = inputRevision + 1
+  render()
+end
+
+local function clearSearch()
+  query = ""
+  resetResults()
+  focusSearch()
 end
 
 local function choose(id)
@@ -18,19 +30,82 @@ local function choose(id)
   render()
 end
 
-local function changePage(delta)
-  local nextPage = math.max(1, math.min(pageNumber + delta, pageCount))
-  if nextPage == pageNumber then
+local function revealResult(index)
+  if #results == 0 then
     return
   end
-  pageNumber = nextPage
-  resultsRevision = resultsRevision + 1
+  selectedRow = math.clamp(index, 1, #results)
   render()
+end
+
+local function renderKeys(keys)
+  local width, gap = 360, 6
+  local lines = {}
+  local children, used = {}, 0
+  local function flush()
+    if #children > 0 then
+      table.insert(lines, ui.row({ gap = gap, align = "center", justify = "end" }, children))
+      children, used = {}, 0
+    end
+  end
+  for _, token in ipairs(model.keyTokens(keys)) do
+    local label = model.keyLabel(token.key)
+    local connector = token.connector
+    local connectorWidth = connector and (utf8.len(connector) * 8 + 4) or 0
+    local keyWidth = math.min(width - connectorWidth - gap, math.max(30, utf8.len(label) * 9 + 18))
+    local span = keyWidth + (connector and connectorWidth + gap or 0)
+    -- Wrap the connector together with its following key
+    if used + (#children > 0 and gap or 0) + span > width then
+      flush()
+    end
+    if #children > 0 then
+      used = used + gap
+    end
+    if connector then
+      table.insert(
+        children,
+        ui.label({
+          text = connector,
+          width = connectorWidth,
+          textAlign = "center",
+          color = connector == "+" and "on_surface_variant" or "tertiary",
+          fontSize = 12,
+          fontWeight = connector == "+" and "normal" or "bold",
+        })
+      )
+    end
+    table.insert(
+      children,
+      ui.column({
+        width = keyWidth,
+        paddingH = 8,
+        paddingV = 5,
+        fill = "surface_container_high",
+        border = "outline_variant",
+        borderWidth = 1,
+        radius = 5,
+        tooltip = token.key,
+      }, {
+        ui.label({
+          text = label,
+          maxWidth = keyWidth - 16,
+          maxLines = 3,
+          textAlign = "center",
+          fontSize = 13,
+          fontWeight = "bold",
+          color = "primary",
+        }),
+      })
+    )
+    used = used + span
+  end
+  flush()
+  return ui.column({ width = width, gap = 6 }, lines)
 end
 
 local function renderResults(rows)
   local content, previousGroup = {}, nil
-  for _, row in ipairs(rows) do
+  for index, row in ipairs(rows) do
     local group = row.page.id .. "/" .. row.group.id
     if previousGroup ~= group then
       table.insert(
@@ -54,29 +129,27 @@ local function renderResults(rows)
         gap = 16,
         paddingH = 12,
         paddingV = 8,
-        fill = "surface_container",
+        fill = index == selectedRow and "primary/0.10" or "surface_container",
+        border = index == selectedRow and "primary" or "outline_variant/0.35",
+        borderWidth = 1,
         radius = 8,
         align = "center",
       }, {
-        ui.label({ text = row.entry.description, flexGrow = 1, maxWidth = 460, maxLines = 5, fontSize = 14 }),
-        ui.label({
-          text = row.entry.keys,
-          width = 260,
-          maxWidth = 260,
-          maxLines = 5,
-          textAlign = "end",
-          fontSize = 13,
-          fontWeight = "bold",
-          color = "primary",
-        }),
+        ui.label({ text = row.entry.description, flexGrow = 1, maxWidth = 400, maxLines = 5, fontSize = 14 }),
+        renderKeys(row.entry.keys),
       })
     )
   end
   if #rows == 0 then
     table.insert(content, ui.label({ text = tr("no_results"), color = "on_surface_variant" }))
   end
-  -- A new key resets scrolling when the query, app, or page changes
-  return ui.scroll({ key = "results-" .. resultsRevision, flexGrow = 1, gap = 8 }, content)
+  -- Keep scroll container stable during navigation
+  return ui.scroll({
+    key = "results-" .. resultsRevision,
+    flexGrow = 1,
+    gap = 8,
+    revealKey = rows[selectedRow] and rows[selectedRow].key or nil,
+  }, content)
 end
 
 render = function()
@@ -89,7 +162,7 @@ render = function()
       ui.label({ text = tr("title"), fontSize = 20, fontWeight = "bold", flexGrow = 1 }),
       ui.button({
         glyph = "x",
-        variant = "ghost",
+        variant = "outline",
         controlSize = "sm",
         tooltip = tr("close"),
         onClick = function()
@@ -109,6 +182,7 @@ render = function()
         children,
         ui.button({
           text = tr("retry"),
+          variant = "primary",
           onClick = function()
             load()
           end,
@@ -129,16 +203,29 @@ render = function()
 
   table.insert(
     children,
-    ui.input({
-      key = "search-" .. inputRevision,
-      value = query,
-      focus = true,
-      placeholder = tr("search", { app = selectedName }),
-      onChange = function(value)
-        query = value
-        resetResults()
-        render()
-      end,
+    ui.row({ gap = 8, align = "center" }, {
+      ui.glyph({ name = "search", color = "on_surface_variant", size = 20 }),
+      ui.input({
+        key = "search-" .. inputRevision,
+        value = query,
+        focus = true,
+        flexGrow = 1,
+        placeholder = tr("search", { app = selectedName }),
+        onChange = function(value)
+          query = value
+          resetResults()
+          render()
+        end,
+      }),
+      ui.button({
+        key = "clear-search",
+        glyph = "backspace",
+        text = tr("clear"),
+        variant = "outline",
+        enabled = query ~= "",
+        tooltip = tr("clear_search"),
+        onClick = clearSearch,
+      }),
     })
   )
   local tabs = {}
@@ -150,7 +237,7 @@ render = function()
         text = page.name,
         controlSize = "sm",
         flexGrow = 1,
-        variant = "ghost",
+        variant = selected == page.id and "primary" or "outline",
         selected = selected == page.id,
         onClick = function()
           choose(page.id)
@@ -160,35 +247,13 @@ render = function()
   end
   table.insert(children, ui.row({ gap = 8 }, tabs))
 
-  local results = model.search(pages, selected, query)
-  local rows
-  rows, pageNumber, pageCount = model.paginate(results, pageNumber)
-  table.insert(children, renderResults(rows))
+  results = model.search(pages, selected, query)
+  table.insert(children, renderResults(results))
   table.insert(
     children,
     ui.row({ gap = 8, align = "center" }, {
       ui.label({ text = tr("count", { count = #results }), flexGrow = 1, color = "on_surface_variant", fontSize = 12 }),
-      ui.button({
-        key = "previous",
-        text = tr("previous"),
-        controlSize = "sm",
-        variant = "ghost",
-        enabled = pageNumber > 1,
-        onClick = function()
-          changePage(-1)
-        end,
-      }),
-      ui.label({ text = tr("page", { current = pageNumber, total = pageCount }), fontSize = 12 }),
-      ui.button({
-        key = "next",
-        text = tr("next"),
-        controlSize = "sm",
-        variant = "ghost",
-        enabled = pageNumber < pageCount,
-        onClick = function()
-          changePage(1)
-        end,
-      }),
+      ui.label({ text = tr("scroll_hint"), fontSize = 12, color = "on_surface_variant" }),
     })
   )
   table.insert(children, ui.label({ text = tr("hints"), fontSize = 11, color = "on_surface_variant", maxLines = 2 }))
@@ -254,13 +319,22 @@ function onKey(chord, pressed)
   if not pressed or loading or errorMessage then
     return
   end
-  if chord == "Page_Down" then
-    changePage(1)
+  if chord == "Down" then
+    revealResult(selectedRow + 1)
+  elseif chord == "Up" then
+    revealResult(selectedRow - 1)
+  elseif chord == "Page_Down" then
+    revealResult(selectedRow + 8)
   elseif chord == "Page_Up" then
-    changePage(-1)
+    revealResult(selectedRow - 8)
+  elseif chord == "ctrl+Home" then
+    resetResults()
+    revealResult(1)
+  elseif chord == "ctrl+End" then
+    resetResults()
+    revealResult(#results)
   elseif chord == "ctrl+f" then
-    inputRevision = inputRevision + 1
-    render()
+    focusSearch()
   elseif chord == "ctrl+Tab" or chord == "ctrl+shift+Tab" then
     local delta = chord == "ctrl+Tab" and 1 or -1
     for index, page in ipairs(pages) do
