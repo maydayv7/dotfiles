@@ -1,6 +1,5 @@
-## Office Environment Configuration ##
+## Shared Office Environment ##
 {config, ...}: let
-  inherit (config) util;
   inherit (config.flake) files;
 in {
   flake.modules = {
@@ -22,38 +21,8 @@ in {
     };
 
     homeManager.office = {pkgs, ...}: {
-      home.packages = with pkgs; [
-        calibre
-        gscan2pdf
-        libreoffice
-        onlyoffice-desktopeditors
-        pdfarranger
-        simple-scan
-        gimp3
-        handbrake
-        inkscape
-        xournalpp
-      ];
-
-      xdg.mimeApps.defaultApplications = util.build.mime {
-        office = ["onlyoffice-desktopeditors.desktop"];
-      };
-
       home = {
-        persist = {
-          files = [".config/gscan2pdfrc"];
-          directories = [
-            ".calibre"
-            ".config/calibre"
-            ".config/GIMP"
-            ".cache/gimp"
-            ".config/inkscape"
-            ".config/libreoffice"
-            ".config/onlyoffice"
-            ".local/share/onlyoffice"
-            ".local/share/data"
-          ];
-        };
+        persist.directories = [".local/share/data"];
 
         file = {
           "Templates" = rec {

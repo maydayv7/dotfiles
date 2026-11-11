@@ -1370,7 +1370,7 @@
           "entries": [
             {
               "keys": [["CTRL", "SHIFT", "Return"]],
-              "description": "New window"
+              "description": "New terminal split"
             },
             {
               "keys": [["CTRL", "SHIFT", "N"]],
@@ -1378,43 +1378,43 @@
             },
             {
               "keys": [["CTRL", "SHIFT", "W"]],
-              "description": "Close window"
+              "description": "Close active split"
             },
             {
               "keys": [["CTRL", "SHIFT", "]"]],
-              "description": "Next window"
+              "description": "Focus next split"
             },
             {
               "keys": [["CTRL", "SHIFT", "["]],
-              "description": "Previous window"
+              "description": "Focus previous split"
             },
             {
               "keys": [["CTRL", "SHIFT", "B"]],
-              "description": "Move window backward"
+              "description": "Move split backward"
             },
             {
               "keys": [["CTRL", "SHIFT", "`"]],
-              "description": "Move window to top"
+              "description": "Move split to first position"
             },
             {
               "keys": [["CTRL", "SHIFT", "R"]],
-              "description": "Resize window"
+              "description": "Resize active split"
             },
             {
-              "keys": [["CTRL", "SHIFT", "N"]],
-              "description": "'N'th window"
+              "keys": [["CTRL", "SHIFT", "1-9"]],
+              "description": "Focus split 1-9"
             },
             {
               "keys": [["CTRL", "SHIFT", "F7"]],
-              "description": "Focus visible window"
+              "description": "Choose a visible split to focus"
             },
             {
               "keys": [["CTRL", "SHIFT", "F8"]],
-              "description": "Swap with window"
+              "description": "Swap active split with another"
             },
             {
               "keys": [["CTRL", "SHIFT", "L"]],
-              "description": "Next layout"
+              "description": "Cycle layouts"
             }
           ]
         },

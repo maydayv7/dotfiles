@@ -81,7 +81,7 @@
             copy_to_clipboard = true;
             freeze_screen = true;
             confirm_region = true;
-            region_modifier = "ctrl";
+            region_modifier = "none";
             show_cursor = true;
             remember_last_region = true;
             annotate = true;

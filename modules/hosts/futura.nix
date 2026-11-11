@@ -12,6 +12,10 @@
       "laptop"
       "firefox"
       "office"
+      "libreoffice"
+      "onlyoffice"
+      "pdf"
+      "gimp"
     ]
     homeManager;
 in {

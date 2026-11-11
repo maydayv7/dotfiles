@@ -44,7 +44,6 @@ in {
   flake.modules.homeManager.v7-cli = {
     config,
     lib,
-    pkgs,
     ...
   }: let
     homeDir = config.home.homeDirectory;
@@ -64,12 +63,6 @@ in {
       ];
 
       file."Projects/dotfiles".source = config.lib.file.mkOutOfStoreSymlink files.path.system;
-
-      packages = with pkgs; [
-        home-manager
-        cloudflared
-        dig
-      ];
     };
 
     sops.templates = let

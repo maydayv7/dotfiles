@@ -27,29 +27,47 @@ The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-commun
 | Module              | Type         | Description                        |
 | ------------------- | ------------ | ---------------------------------- |
 | `auth`              | Home Manager | Authentication credential managers |
+| `audio`             | Home Manager | Audio controls and routing         |
+| `brave`             | Home Manager | Brave browser                      |
+| `calibre`           | Home Manager | Calibre E-Book manager             |
 | `discord`           | Home Manager | Discord chat client                |
+| `easyeffects`       | Home Manager | Audio effects and presets          |
 | `firefox`           | Home Manager | Firefox browser                    |
-| `internet`          | Home Manager | Internet apps                      |
-| `notes`             | Home Manager | Obsidian note-taking               |
+| `freefilesync`      | Home Manager | File synchronization               |
+| `gearlever`         | Home Manager | AppImage manager                   |
+| `gimp`              | Home Manager | GIMP image editor                  |
+| `handbrake`         | Home Manager | Video converter                    |
+| `inkscape`          | Home Manager | Vector editor                      |
+| `libreoffice`       | Home Manager | LibreOffice suite                  |
+| `media`             | Home Manager | Media utilities                    |
+| `network`           | Home Manager | Wi-Fi & VPN Tools                  |
+| `notes`             | Home Manager | Obsidian Notes                     |
+| `onlyoffice`        | Home Manager | OnlyOffice suite                   |
+| `pdf`               | Home Manager | PDF editing, annotation, scanning  |
+| `pitivi`            | Home Manager | Pitivi video editor                |
 | `spotify`           | Home Manager | Spotify music client               |
 | `stream`            | Home Manager | Streaming tools                    |
 | `syncthing` ◇       | Both         | Syncthing file sync                |
+| `teams`             | Home Manager | Microsoft Teams client             |
+| `thunderbird`       | Home Manager | Mail Client                        |
 | `youtube`           | Home Manager | YouTube Music & TUI                |
 | `vscode`            | Home Manager | Visual Studio Code editor          |
+| `whatsapp`          | Home Manager | ZapZap WhatsApp client             |
 | `zed`               | Home Manager | Zed Editor                         |
+| `zoom`              | Home Manager | Zoom meeting client                |
+| `flatpak`           | Both         | Flatpak app sandboxing             |
+| `latex`             | Both         | LaTeX typesetting                  |
+| `obs-studio`        | Both         | OBS Studio                         |
+| `office`            | Both         | Shared Office environment          |
+| `wine`              | Both         | Wine Windows compatibility         |
+| `git` ◇             | Both         | `git` version control              |
+| `git-hosting` ◇     | NixOS        | Gitea code hosting                 |
+| `git-runner` ◇      | NixOS        | GitHub/GitLab CI runner            |
 | `antigravity-cli` ◇ | Home Manager | Google Antigravity CLI             |
 | `antigravity`       | Home Manager | Antigravity CLI + IDE              |
 | `codex-cli` ◇       | Home Manager | OpenAI Codex CLI                   |
 | `codex`             | Home Manager | Codex CLI + Desktop                |
 | `claude`            | Home Manager | Anthropic Claude                   |
-| `flatpak`           | Both         | Flatpak app sandboxing             |
-| `latex`             | Both         | LaTeX typesetting                  |
-| `office`            | Both         | Office suite environment           |
-| `tools`             | Both         | General CLI/GUI tools              |
-| `wine`              | Both         | Wine Windows compatibility         |
-| `git` ◇             | Both         | `git` version control              |
-| `git-hosting` ◇     | NixOS        | Gitea code hosting                 |
-| `git-runner` ◇      | NixOS        | GitHub/GitLab CI runner            |
 
 ### [`desktop`](./desktop)
 
@@ -106,8 +124,10 @@ The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-commun
 | ----------------- | ----- | ------------------------------------ |
 | `base` ★ ◇'       | Both  | Base system configuration            |
 | `base-cli` ◇      | NixOS | Shared base utilities & declarations |
-| `extbase`         | NixOS | Extended base configuration          |
-| `extbase-cli` ◇   | NixOS | Extended base CLI configuration      |
+| `doc` ◇           | NixOS | Man pages and dev docs               |
+| `appimage`        | NixOS | AppImage execution support           |
+| `ld` ◇            | NixOS | Dynamic binary compatibility         |
+| `kmscon`          | NixOS | KMSCON virtual console               |
 | `crypt` ◇         | Both  | GPG agent & SSH client/server        |
 | `boot` ★          | NixOS | Boot loader configuration            |
 | `filesystem` ★ ◇' | Both  | File system layout                   |
@@ -135,6 +155,28 @@ CLI base modules respectively.
 | Module        | Type | Description        |
 | ------------- | ---- | ------------------ |
 | `secrets` ★ ◇ | Both | Secrets management |
+
+## User Groups
+
+Add needed groups to `users.users.<name>.extraGroups` in the host configuration.
+
+| Module / feature   | Group(s)          | Purpose                                              |
+| ------------------ | ----------------- | ---------------------------------------------------- |
+| `security`, `nix`  | `wheel`           | Sudo and trusted Nix access                          |
+| `filesystem`       | `keys`            | Edit the system configuration                        |
+| `base`             | `networkmanager`  | Manage network connections                           |
+| `mobile`           | `adbusers`        | Android USB access for ADB and `fastboot`            |
+| `printer`          | `scanner`, `lp`   | Scanners and multifunction printers                  |
+| `docker`           | `docker`          | Docker without superuser privileges                  |
+| `libvirt`          | `libvirtd`, `kvm` | VM management. `kvm` for direct QEMU/KVM access      |
+| `vfio`             | `kvm`             | Looking Glass device access                          |
+| `android`          | `android`         | Aqccess to persisted Waydroid data                   |
+| `mc-server`        | `minecraft`       | Server files and command console access              |
+| `games`            | `gamemode`        | GameMode's privileged helpers without authentication |
+| `hyprland`, `niri` | `video`           | Backlight control through `brillo`                   |
+| `gnome`            | `i2c`             | DDC/CI monitor control                               |
+| Input tools        | `input`           | Raw input access                                     |
+| System logs        | `systemd-journal` | Read system logs without superuser privileges        |
 
 ## Options
 

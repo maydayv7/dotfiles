@@ -40,7 +40,8 @@ in {
         ]
         ++ util.map.array [
           "base-cli"
-          "extbase-cli"
+          "doc"
+          "ld"
           "crypt"
           "nix"
           "user-cli"
