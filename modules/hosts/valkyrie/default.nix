@@ -69,6 +69,7 @@
     "obs-studio"
     "games"
     "latex"
+    "claude"
     #"flatpak"
     #"wine"
     #"libvirt"
@@ -195,7 +196,7 @@ in {
         "systemd-journal"
         "gamemode"
         "minecraft"
-        #"kvm"
+        "kvm"
         #"libvirtd"
       ];
 

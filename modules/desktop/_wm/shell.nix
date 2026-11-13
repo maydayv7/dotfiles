@@ -20,19 +20,12 @@
       ".local/state/noctalia"
     ];
 
-    # ! # https://github.com/noctalia-dev/noctalia/pull/4707
-    systemd.user.services = {
-      noctalia.Service = {
-        Type = "dbus";
-        BusName = "org.kde.StatusNotifierWatcher";
-      };
-
-      easyeffects = lib.mkIf config.services.easyeffects.enable {
-        Unit = {
-          After = ["noctalia.service"];
-          Wants = ["noctalia.service"];
-        };
-      };
+    systemd.user.services.noctalia.Unit = {
+      After = lib.mkForce [
+        "wayland-session-waitenv.service"
+        "niri.service"
+      ];
+      Before = ["graphical-session.target"];
     };
 
     programs.noctalia = {
@@ -122,6 +115,7 @@
             "volume"
             "brightness"
             "battery"
+            "privacy"
             "notifications"
             "session"
           ];
@@ -145,6 +139,8 @@
         widget = {
           clock.anchor = true;
           network.show_label = false;
+          privacy.hide_inactive = true;
+          tray.hide_passive = false;
           notes.type = "noctalia/notes:notes";
           recorder.type = "noctalia/screen_recorder:recorder";
           control-center = {
@@ -278,6 +274,7 @@
         # Lock Screen
         lockscreen = {
           enabled = true;
+          dnd = true;
           blurred_desktop = false;
           blur_intensity = 0.0;
           tint_intensity = 0.25;

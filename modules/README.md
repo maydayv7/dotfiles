@@ -67,7 +67,8 @@ The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-commun
 | `antigravity`       | Home Manager | Antigravity CLI + IDE              |
 | `codex-cli` ◇       | Home Manager | OpenAI Codex CLI                   |
 | `codex`             | Home Manager | Codex CLI + Desktop                |
-| `claude`            | Home Manager | Anthropic Claude                   |
+| `claude-cli` ◇      | Home Manager | Anthropic Claude CLI               |
+| `claude`            | Both         | Anthropic Claude CLI + Desktop     |
 
 ### [`desktop`](./desktop)
 
@@ -169,6 +170,7 @@ Add needed groups to `users.users.<name>.extraGroups` in the host configuration.
 | `docker`           | `docker`          | Docker without superuser privileges                  |
 | `libvirt`          | `libvirtd`, `kvm` | VM management. `kvm` for direct QEMU/KVM access      |
 | `vfio`             | `kvm`             | Looking Glass device access                          |
+| `claude`           | `kvm`             | Cowork's local QEMU/KVM VM in Claude Desktop         |
 | `network`          | `wireshark`       | Capture network traffic without superuser privileges |
 | `mobile`           | `adbusers`        | Android USB access for ADB and `fastboot`            |
 | `android`          | `android`         | Aqccess to persisted Waydroid data                   |

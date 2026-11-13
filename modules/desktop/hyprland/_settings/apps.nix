@@ -16,6 +16,7 @@ _: {
 
   unit = command: lib.head (lib.splitString " " command);
   runOnce = app: "pgrep ${app} || uwsm app -u ${app}.scope -- ${app}";
+  exact = path: "^${lib.escapeRegex (toString path)}$";
 in {
   ## App Environment
   # Cursor
@@ -82,10 +83,16 @@ in {
     ];
 
     ## Permissions
-    permission = [
-      (permission "${config.wayland.windowManager.hyprland.portalPackage}/libexec/.xdg-desktop-portal-hyprland-wrapped" "screencopy" "allow")
-      (permission (lib.getExe pkgs.gpu-screen-recorder) "screencopy" "allow")
-    ];
+    permission =
+      (map (path: permission (exact path) "screencopy" "allow") [
+        "${config.wayland.windowManager.hyprland.portalPackage}/libexec/.xdg-desktop-portal-hyprland-wrapped"
+        (lib.getExe pkgs.hyprpicker)
+        "${pkgs.gpu-screen-recorder}/bin/.wrapped/gpu-screen-recorder"
+        "${config.programs.noctalia.package}/bin/.noctalia-wrapped"
+      ])
+      ++ [
+        (permission (exact "${config.programs.noctalia.package}/bin/.noctalia-wrapped") "cursorpos" "allow")
+      ];
 
     ## Layer Rules
     layer_rule = [
@@ -95,6 +102,7 @@ in {
       }
       {
         match.namespace = "^(noctalia-.*)$";
+        no_anim = true;
         blur = true;
         ignore_alpha = 0.6;
       }

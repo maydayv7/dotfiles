@@ -8,7 +8,7 @@ _: {
   fancy = osConfig.gui.fancy or false;
 
   lua = import ./_lib.nix lib;
-  inherit (lua) inline;
+  inherit (lua) inline permission;
   luaBool = b:
     if b
     then "true"
@@ -21,12 +21,20 @@ _: {
 in {
   # Workspaces per Monitor
   xdg.configFile."hypr/hyprsplit/init.lua".source = "${pkgs.custom.hypr-split}/init.lua";
-  wayland.windowManager.hyprland = {
+  wayland.windowManager.hyprland = rec {
     settings.hs = {
       _var = inline ''(function() local hs = require("hyprsplit"); hs.config({ num_workspaces = 9 }); return hs end)()'';
     };
 
     plugins = with pkgs; [hyprlandPlugins.hypr-dynamic-cursors custom.hypr-overview];
+    settings.permission = map (plugin:
+      permission "^${lib.escapeRegex (
+        if lib.types.package.check plugin
+        then "${plugin}/lib/lib${plugin.pname}.so"
+        else toString plugin
+      )}$" "plugin" "allow")
+    plugins;
+
     extraConfig = ''
       -- Cursor Effects
       if hl.plugin.dynamic_cursors then

@@ -10,7 +10,6 @@
     concatLists
     filter
     foldl'
-    map
     ;
 
   inherit

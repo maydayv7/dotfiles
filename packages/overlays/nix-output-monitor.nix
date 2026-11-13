@@ -2,7 +2,7 @@ final: prev: {
   # 'nom' Rendering
   nix-output-monitor = prev.nix-output-monitor.overrideAttrs (old: {
     postPatch =
-      old.postPatch or ""
+      (old.postPatch or "")
       + ''
         sed -ie ${final.lib.escapeShellArg ''
           s/↓/\\xf072e/
