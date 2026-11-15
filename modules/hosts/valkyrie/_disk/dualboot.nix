@@ -28,25 +28,27 @@
       memoryPercent = 17;
     };
 
-    # Shared ESP
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-partuuid/5564bc59-d0ed-477b-b7db-47df192845b0";
-      fsType = "vfat";
-      options = ["umask=0077"];
-    };
+    fileSystems = {
+      # Shared ESP
+      "/boot" = {
+        device = "/dev/disk/by-partuuid/5564bc59-d0ed-477b-b7db-47df192845b0";
+        fsType = "vfat";
+        options = ["umask=0077"];
+      };
 
-    # Windows Partition
-    fileSystems."${windows}" = {
-      device = "/dev/disk/by-partuuid/83b4b77c-c23a-4ae7-9609-9cae7cd1b06d";
-      fsType = "ntfs3";
-      options = ["rw" "nofail" "x-systemd.device-timeout=10s" "uid=1000" "gid=100" "dmask=022" "fmask=133"];
-    };
+      # Windows Partition
+      "${windows}" = {
+        device = "/dev/disk/by-partuuid/83b4b77c-c23a-4ae7-9609-9cae7cd1b06d";
+        fsType = "ntfs3";
+        options = ["rw" "nofail" "x-systemd.device-timeout=10s" "uid=1000" "gid=100" "dmask=022" "fmask=133"];
+      };
 
-    fileSystems."${path.files}" = {
-      device = "${windows}/Files";
-      fsType = "none";
-      depends = [windows];
-      options = ["bind" "nofail"];
+      "${path.files}" = {
+        device = "${windows}/Files";
+        fsType = "none";
+        depends = [windows];
+        options = ["bind" "nofail"];
+      };
     };
 
     # System Clock

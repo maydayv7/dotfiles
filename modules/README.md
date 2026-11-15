@@ -26,7 +26,7 @@ The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-commun
 
 | Module              | Type         | Description                        |
 | ------------------- | ------------ | ---------------------------------- |
-| `auth`              | Home Manager | Authentication credential managers |
+| `auth`              | Both         | Authentication credential managers |
 | `audio`             | Home Manager | Audio controls and routing         |
 | `brave`             | Home Manager | Brave browser                      |
 | `calibre`           | Home Manager | Calibre E-Book manager             |
@@ -45,6 +45,7 @@ The [`wsl` host](./hosts/wsl) provides [NixOS-WSL](https://github.com/nix-commun
 | `onlyoffice`        | Home Manager | OnlyOffice suite                   |
 | `pdf`               | Home Manager | PDF editing, annotation, scanning  |
 | `pitivi`            | Home Manager | Pitivi video editor                |
+| `slack`             | Home Manager | Slack desktop client               |
 | `spotify`           | Home Manager | Spotify music client               |
 | `stream`            | Home Manager | Streaming tools                    |
 | `syncthing` ◇       | Both         | Syncthing file sync                |

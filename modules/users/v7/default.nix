@@ -17,87 +17,89 @@ in {
     };
   };
 
-  flake.modules.homeManager.v7 = {
-    config,
-    lib,
-    ...
-  }: {
-    imports = [modules.homeManager.v7-cli];
-    home.file = {
-      ".face".source = ./profile.png;
-      ".config/goa-1.0/accounts.conf".text = builtins.readFile ./accounts.conf;
-      ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
-        file://${config.home.homeDirectory}/TBD TBD
-        file://${config.home.homeDirectory}/Projects Projects
-      '';
-    };
-  };
-
-  flake.modules.homeManager.v7-notes = {lib, ...}: {
-    imports = [modules.homeManager.notes];
-    apps.obsidian.vault = "${files.path.files}/Sync/Notes";
-    home.file.".config/gtk-3.0/bookmarks".text = lib.mkAfter ''
-      file://${files.path.files}/Sync Sync
-    '';
-  };
-
-  flake.modules.homeManager.v7-cli = {
-    config,
-    lib,
-    ...
-  }: let
-    homeDir = config.home.homeDirectory;
-    github-mcp = config.programs.mcp.servers ? github;
-  in {
-    credentials = {
-      inherit name;
-      fullname = "V7";
-      mail = "maydayv7@gmail.com";
-      key = "8C240C0C11293EE56260601CCF616EB19C2765E4";
-    };
-
-    home = {
-      persist.directories = [
-        "TBD"
-        "Projects"
-      ];
-
-      file."Projects/dotfiles".source = config.lib.file.mkOutOfStoreSymlink files.path.system;
-    };
-
-    sops.templates = let
-      github-token = config.sops.placeholder."github-token.secret";
-      env-var = config.programs.mcp.servers.github.bearer_token_env_var;
-    in
-      {
-        "gh-hosts.yml" = {
-          path = "${homeDir}/.config/gh/hosts.yml";
-          content = ''
-            github.com:
-                git_protocol: https
-                user: ${name}
-                oauth_token: ${github-token}
-                users:
-                    ${name}:
-                        oauth_token: ${github-token}
-          '';
-        };
-      }
-      // lib.optionalAttrs github-mcp {
-        "github-mcp.sh".content = ''
-          if [ -z "''${${env-var}+x}" ]
-          then
-            export ${env-var}='${github-token}'
-          fi
+  flake.modules.homeManager = {
+    v7 = {
+      config,
+      lib,
+      ...
+    }: {
+      imports = [modules.homeManager.v7-cli];
+      home.file = {
+        ".face".source = ./profile.png;
+        ".config/goa-1.0/accounts.conf".text = builtins.readFile ./accounts.conf;
+        ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
+          file://${config.home.homeDirectory}/TBD TBD
+          file://${config.home.homeDirectory}/Projects Projects
         '';
       };
+    };
 
-    programs = {
-      zsh.initContent = lib.mkIf github-mcp (lib.mkAfter ''
-        source ${config.sops.templates."github-mcp.sh".path}
-      '');
+    v7-notes = {lib, ...}: {
+      imports = [modules.homeManager.notes];
+      apps.obsidian.vault = "${files.path.files}/Sync/Notes";
+      home.file.".config/gtk-3.0/bookmarks".text = lib.mkAfter ''
+        file://${files.path.files}/Sync Sync
+      '';
+    };
 
-      ssh.includes = [config.sops.secrets."ssh-config.secret".path];
+    v7-cli = {
+      config,
+      lib,
+      ...
+    }: let
+      homeDir = config.home.homeDirectory;
+      github-mcp = config.programs.mcp.servers ? github;
+    in {
+      credentials = {
+        inherit name;
+        fullname = "V7";
+        mail = "maydayv7@gmail.com";
+        key = "8C240C0C11293EE56260601CCF616EB19C2765E4";
+      };
+
+      home = {
+        persist.directories = [
+          "TBD"
+          "Projects"
+        ];
+
+        file."Projects/dotfiles".source = config.lib.file.mkOutOfStoreSymlink files.path.system;
+      };
+
+      sops.templates = let
+        github-token = config.sops.placeholder."github-token.secret";
+        env-var = config.programs.mcp.servers.github.bearer_token_env_var;
+      in
+        {
+          "gh-hosts.yml" = {
+            path = "${homeDir}/.config/gh/hosts.yml";
+            content = ''
+              github.com:
+                  git_protocol: https
+                  user: ${name}
+                  oauth_token: ${github-token}
+                  users:
+                      ${name}:
+                          oauth_token: ${github-token}
+            '';
+          };
+        }
+        // lib.optionalAttrs github-mcp {
+          "github-mcp.sh".content = ''
+            if [ -z "''${${env-var}+x}" ]
+            then
+              export ${env-var}='${github-token}'
+            fi
+          '';
+        };
+
+      programs = {
+        zsh.initContent = lib.mkIf github-mcp (lib.mkAfter ''
+          source ${config.sops.templates."github-mcp.sh".path}
+        '');
+
+        ssh.includes = [config.sops.secrets."ssh-config.secret".path];
+      };
     };
   };
 }

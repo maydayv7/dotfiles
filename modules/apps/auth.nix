@@ -3,6 +3,11 @@
   inherit (config) util;
   inherit (config.flake) files;
 in {
+  flake.modules.nixos.auth = {pkgs, ...}: {
+    # Quick Unlock
+    environment.systemPackages = [pkgs.keepassxc];
+  };
+
   flake.modules.homeManager.auth = {pkgs, ...}: {
     home.packages = [pkgs.ente-auth];
     programs.keepassxc = {

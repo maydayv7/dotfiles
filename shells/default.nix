@@ -9,7 +9,6 @@ with pkgs;
         jq
         nixFlakes
         sops
-        treefmt
       ]
       ++ [
         figlet

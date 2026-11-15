@@ -87,13 +87,10 @@
 
         environment.systemPackages = mkIf config.system.nix.tools (
           with pkgs; [
-            cachix
-            dix
-            manix
-            alejandra
             nix-output-monitor
-            prettier
-            shellcheck
+            cachix
+            manix
+            deadnix
             statix
           ]
         );

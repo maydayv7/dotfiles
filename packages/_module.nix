@@ -28,7 +28,7 @@ in {
           overlays =
             (attrValues config.flake.overlays or {})
             ++ [
-              (final: _: {
+              (_: _: {
                 custom = config.flake.packages."${system}" or {};
                 unstable = import unstable {
                   inherit system;

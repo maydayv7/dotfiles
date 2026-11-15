@@ -46,7 +46,7 @@ in {
             (extension "firefox-color" "FirefoxColor@mozilla.com")
             (extension "keepassxc-browser" "keepassxc-browser@keepassxc.org")
             (extension "setupvpn" "@setupvpncom")
-            (extension "stylus" "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}")
+            (extension "styl-us" "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}")
             (extension "tablissng" "extension@tabliss-maintained")
             (extension "uaswitcher" "user-agent-switcher@ninetailed.ninja")
             (extension "ublock-origin" "uBlock0@raymondhill.net")
@@ -64,12 +64,16 @@ in {
           "browser.onboarding.enabled" = false;
           "browser.aboutConfig.showWarning" = false;
           "browser.shell.checkDefaultBrowser" = false;
-          "browser.sessionstore.interval" = "1800000";
+          "browser.sessionstore.interval" = 60000;
           "browser.toolbars.bookmarks.visibility" = "always";
           "browser.urlbar.showSearchSuggestionsFirst" = false;
           "browser.urlbar.speculativeConnect.enabled" = false;
           "browser.urlbar.dnsResolveSingleWordsAfterSearch" = 0;
           "browser.search.openintab" = true;
+
+          # System handlers
+          "widget.use-xdg-desktop-portal.mime-handler" = 1;
+          "widget.use-xdg-desktop-portal.open-uri" = 1;
 
           # Features
           "layout.spellcheckDefault" = 2;

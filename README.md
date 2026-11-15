@@ -144,17 +144,16 @@ github:maydayv7/dotfiles
 │       └───treefmt: derivation 'treefmt-check'
 ├───devShells
 │   └───x86_64-linux
-│       ├───cc: development environment 'C'
-│       ├───android: development environment 'Android'
 │       ├───default: development environment 'devShell'
 │       ├───format: development environment 'nix-shell'
+│       ├───android: development environment 'Android'
+│       ├───cc: development environment 'C'
 │       ├───java: development environment 'Java'
 │       ├───js: development environment 'JavaScript'
 │       ├───lua: development environment 'Lua'
 │       ├───python: development environment 'Python'
 │       ├───rust: development environment 'Rust'
 │       ├───sql: development environment 'SQL'
-│       ├───video: development environment 'Video'
 │       └───website: development environment 'Website'
 ├───files: 'dotfiles' and program configuration
 ├───formatter

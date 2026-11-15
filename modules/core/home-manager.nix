@@ -14,7 +14,7 @@ in {
 
   config.flake.homeConfigurations =
     lib.mapAttrs (
-      name: {
+      _: {
         module,
         system,
         defaults,

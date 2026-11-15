@@ -19,21 +19,20 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-      - name: Maximize Build Space
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf "/usr/local/share/boost"
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       - name: Clone Repo
         uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+      - name: Make Space for Nix
+        uses: wimpysworld/nothing-but-nix@v12
+        with:
+          hatchet-protocol: cleave
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
+            build-dir = /nix/build
             experimental-features = nix-command flakes
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}

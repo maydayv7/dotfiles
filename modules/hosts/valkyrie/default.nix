@@ -25,7 +25,6 @@
   hmModules = [
     "v7-notes"
     "secrets"
-    "auth"
     "firefox"
     "brave"
     "thunderbird"
@@ -44,6 +43,7 @@
     "pitivi"
     "stream"
     "discord"
+    "slack"
     "teams"
     "whatsapp"
     "zoom"
@@ -57,6 +57,7 @@
   ];
 
   mixedModules = [
+    "auth"
     "crypt"
     "security"
     "laptop"

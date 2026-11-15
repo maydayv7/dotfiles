@@ -3,8 +3,8 @@
   inherit (config.flake) files;
 in {
   flake.modules = {
+    # Dictionaries
     nixos.office = {pkgs, ...}: {
-      # Dictionaries
       environment = {
         systemPackages = with pkgs; [
           hunspell
@@ -23,7 +23,6 @@ in {
     homeManager.office = {pkgs, ...}: {
       home = {
         persist.directories = [".local/share/data"];
-
         file = {
           "Templates" = rec {
             source = files.templates;

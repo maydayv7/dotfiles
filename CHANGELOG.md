@@ -1,10 +1,20 @@
 ## 2026
 
-### October
+### November
 
+- Add `slack`
+- Add `claude-cli` and KVM for Claude Desktop
+- Enforce Hyprland permissions
+- Add Wireshark configuration
+- Split app modules and `extbase`
 - Add `util.map.optional`
 - Revamp `noctalia` Keyhelp plugin
 - Custom `kitty` tab bar
+- Configure Prism Launcher JDK versions
+- Tweak Obsidian vault activation
+
+### October
+
 - Windows
   - Nilesoft Shell
   - NixOS on WSL!

@@ -18,7 +18,6 @@ _: {
     environment.sessionVariables = {
       "NIXOS_OZONE_WL" = "1";
       "QT_QPA_PLATFORM" = "wayland;xcb";
-      "MOZ_ENABLE_WAYLAND" = "1";
       "CLUTTER_BACKEND" = "wayland";
     };
 
