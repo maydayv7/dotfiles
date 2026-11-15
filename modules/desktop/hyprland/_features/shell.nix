@@ -9,7 +9,7 @@ _: {
     programs.noctalia.settings = {
       # Bar
       bar.main = {
-        start = ["control-center" "taskbar" "group:g1" "media"];
+        start = ["control-center" "taskbar" "group:g1" "active_window"];
         capsule_group = lib.mkBefore [
           {
             id = "g1";

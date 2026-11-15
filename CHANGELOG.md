@@ -2,6 +2,7 @@
 
 ### November
 
+- Sushi previewer for Nemo
 - Add `slack`
 - Add `claude-cli` and KVM for Claude Desktop
 - Enforce Hyprland permissions

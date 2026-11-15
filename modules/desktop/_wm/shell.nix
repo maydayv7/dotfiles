@@ -105,9 +105,10 @@
         # Bar
         bar.main = {
           position = "top";
-          start = lib.mkDefault ["control-center" "taskbar" "media"];
+          start = lib.mkDefault ["control-center" "taskbar" "active_window"];
           center = ["launcher" "notes" "clock" "weather" "recorder"];
           end = [
+            "media"
             "group:g2"
             "clipboard"
             "bluetooth"
@@ -140,21 +141,27 @@
           clock.anchor = true;
           network.show_label = false;
           privacy.hide_inactive = true;
-          tray.hide_passive = false;
           notes.type = "noctalia/notes:notes";
           recorder.type = "noctalia/screen_recorder:recorder";
           control-center = {
             custom_image = files.images.nixos;
             custom_image_colorize = true;
           };
-          media = {
-            hide_when_no_media = true;
-            hide_when_idle = true;
-            title_scroll = "on_hover";
+          tray = {
+            hide_passive = false;
+            drawer = true;
           };
           weather = {
             show_condition = false;
             show_temperature = false;
+          };
+          active_window = {
+            min_length = 0;
+            max_length = 170;
+            display = "text_only";
+            title_scroll = "on_hover";
+            show_empty_label = true;
+            empty_label = "Desktop";
           };
           taskbar = {
             group_by_workspace = true;
@@ -162,6 +169,14 @@
             scale = 1.1;
             show_active_indicator = false;
             workspace_label_placement = "inside";
+          };
+          media = {
+            min_length = 0;
+            max_length = 170;
+            artist_first = true;
+            hide_when_idle = false;
+            hide_when_no_media = true;
+            title_scroll = "on_hover";
           };
           syncthing = lib.mkIf sync {
             type = "rylos/syncthing:bar";

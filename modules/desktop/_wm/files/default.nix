@@ -4,11 +4,15 @@
   files ? null,
   inputs ? null,
   ...
-}: {
-  nixos = {pkgs, ...}: {
-    services.dbus.packages = [pkgs.nemo-with-extensions];
+}: let
+  inherit (import ./_package.nix) cryptuiPkg nemoPkg;
+in {
+  nixos = {pkgs, ...}: let
+    fileManager = nemoPkg pkgs;
+  in {
+    services.dbus.packages = [fileManager (cryptuiPkg pkgs)];
     environment.systemPackages = with pkgs; [
-      nemo-with-extensions
+      fileManager
       cinnamon-desktop
       bulky
       file-roller
@@ -31,6 +35,7 @@
     inherit (pkgs.lib) getExe getExe' replaceStrings;
     inherit (inputs.home-manager.lib) hm;
     terminal = "kitty";
+    fileManager = nemoPkg pkgs;
   in {
     xdg.mimeApps.defaultApplications = util.build.mime {
       archive = ["org.gnome.FileRoller.desktop"];
@@ -38,7 +43,7 @@
     };
 
     # Prefer Nemo
-    xdg.dataFile."dbus-1/services/org.freedesktop.FileManager1.service".source = "${pkgs.nemo-with-extensions}/share/dbus-1/services/nemo.FileManager1.service";
+    xdg.dataFile."dbus-1/services/org.freedesktop.FileManager1.service".source = "${fileManager}/share/dbus-1/services/nemo.FileManager1.service";
 
     # Settings
     dconf.settings = {
@@ -60,6 +65,7 @@
         show-advanced-permissions = true;
         show-new-folder-icon-toolbar = false;
         show-show-thumbnails-toolbar = true;
+        show-toggle-extra-pane-toolbar = true;
         tooltips-in-icon-view = true;
         tooltips-in-list-view = false;
         tooltips-show-access-date = true;
@@ -70,6 +76,7 @@
 
       "org/nemo/preferences/menu-config" = {
         background-menu-open-in-terminal = false;
+        selection-menu-make-link = true;
         selection-menu-open-in-terminal = false;
       };
     };
