@@ -4,8 +4,8 @@
   pkgs,
   files,
   font,
+  terminal,
   isGnome,
-  isWM,
 }:
 with files.vscode; {
   # Keyboard Shortcuts
@@ -17,13 +17,10 @@ with files.vscode; {
       // {
         "workbench.colorTheme" = lib.mkDefault "Dark 2026";
         "editor.fontFamily" = "'${font}', 'monospace', monospace";
+        "terminal.external.linuxExec" = terminal;
       })
     (lib.mkIf isGnome {
       "workbench.productIconTheme" = "adwaita";
-      "terminal.external.linuxExec" = "ghostty";
-    })
-    (lib.mkIf isWM {
-      "terminal.external.linuxExec" = "kitty";
     })
     (let
       lemminx = "${pkgs.lemminx}/bin/lemminx";

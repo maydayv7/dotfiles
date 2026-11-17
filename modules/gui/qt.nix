@@ -34,6 +34,11 @@ _: {
         };
 
         environment = {
+          sessionVariables = {
+            QT_QPA_PLATFORMTHEME = config.qt.platformTheme;
+            QT_STYLE_OVERRIDE = config.qt.style;
+          };
+
           systemPackages = [
             cfg.package
             pkgs.libsForQt5.qt5ct
@@ -55,50 +60,61 @@ _: {
       ...
     }: let
       cfg = osConfig.gui.qt or {};
+      dialog = ''
+        [Appearance]
+        standard_dialogs=xdgdesktopportal
+      '';
     in {
       gui._unmanaged = ["qt"];
-      xdg.configFile."Kvantum" = lib.mkIf (cfg ? package) {
-        source = "${cfg.package}/share/Kvantum";
-        recursive = true;
-      };
 
-      # KDE Apps
-      home.file.".config/kdeglobals".text = with config.lib.stylix.colors;
-        ''
-          [Colors:Selection]
-          BackgroundNormal=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
-          BackgroundAlternate=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
-          ForegroundNormal=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
-          ForegroundActive=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
-          ForegroundInactive=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
-          ForegroundLink=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
-          ForegroundVisited=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
-        ''
-        + (builtins.concatStringsSep "\n" (
-          map
-          (name: ''
-            [Colors:${name}]
-            BackgroundNormal=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
-            BackgroundAlternate=${base01-rgb-r},${base01-rgb-g},${base01-rgb-b}
-            DecorationFocus=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
-            DecorationHover=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
-            ForegroundNormal=${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
-            ForegroundActive=${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
-            ForegroundInactive =${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
-            ForegroundLink=${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
-            ForegroundVisited=${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
-            ForegroundNegative=${base08-rgb-r},${base08-rgb-g},${base08-rgb-b}
-            ForegroundNeutral=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
-            ForegroundPositive=${base0B-rgb-r},${base0B-rgb-g},${base0B-rgb-b}
-          '')
-          [
-            "View"
-            "Window"
-            "Button"
-            "Tooltip"
-            "Complementary"
-          ]
-        ));
+      home.file = {
+        ".config/Kvantum" = lib.mkIf (cfg ? package) {
+          source = "${cfg.package}/share/Kvantum";
+          recursive = true;
+        };
+
+        # File Dialogs
+        ".config/qt5ct/qt5ct.conf".text = dialog;
+        ".config/qt6ct/qt6ct.conf".text = dialog;
+
+        # KDE Apps
+        ".config/kdeglobals".text = with config.lib.stylix.colors;
+          ''
+            [Colors:Selection]
+            BackgroundNormal=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
+            BackgroundAlternate=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
+            ForegroundNormal=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
+            ForegroundActive=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
+            ForegroundInactive=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
+            ForegroundLink=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
+            ForegroundVisited=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
+          ''
+          + (builtins.concatStringsSep "\n" (
+            map
+            (name: ''
+              [Colors:${name}]
+              BackgroundNormal=${base00-rgb-r},${base00-rgb-g},${base00-rgb-b}
+              BackgroundAlternate=${base01-rgb-r},${base01-rgb-g},${base01-rgb-b}
+              DecorationFocus=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
+              DecorationHover=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
+              ForegroundNormal=${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
+              ForegroundActive=${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
+              ForegroundInactive =${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
+              ForegroundLink=${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
+              ForegroundVisited=${base05-rgb-r},${base05-rgb-g},${base05-rgb-b}
+              ForegroundNegative=${base08-rgb-r},${base08-rgb-g},${base08-rgb-b}
+              ForegroundNeutral=${base0D-rgb-r},${base0D-rgb-g},${base0D-rgb-b}
+              ForegroundPositive=${base0B-rgb-r},${base0B-rgb-g},${base0B-rgb-b}
+            '')
+            [
+              "View"
+              "Window"
+              "Button"
+              "Tooltip"
+              "Complementary"
+            ]
+          ));
+      };
     };
   };
 }

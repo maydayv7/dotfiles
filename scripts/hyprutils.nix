@@ -127,7 +127,7 @@ in
               else
                 hyprshade off
                 mapfile SHADERS < <(hyprshade ls)
-                SHADER=$(zenity --list --title="Compositor Shader Toggle" --column="Shaders" "''${SHADERS[@]}" | sed "s/^[ \t]*//")
+                SHADER=$(zenity --list --title="Compositor Shader Toggle" --width=500 --height=400 --column="Shaders" "''${SHADERS[@]}" | sed "s/^[ \t]*//")
                 hyprshade on "$SHADER" && hyprctl seterror ""
               fi
             ;;

@@ -250,6 +250,10 @@
               "description": "File Manager"
             },
             {
+              "keys": [["SUPER", "SHIFT", "F"]],
+              "description": "Text Editor"
+            },
+            {
               "keys": [["SUPER", "T"]],
               "description": "Terminal"
             },
@@ -615,6 +619,10 @@
             {
               "keys": [["SUPER", "F"]],
               "description": "Open file manager"
+            },
+            {
+              "keys": [["SUPER", "SHIFT", "F"]],
+              "description": "Open text editor"
             },
             {
               "keys": [["SUPER", "T"]],

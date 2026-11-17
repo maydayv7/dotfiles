@@ -91,7 +91,7 @@
         {
           "type": "command",
           "title": "Log Desktop",
-          "command": "kgx -e 'sudo journalctl /run/current-system/sw/bin/gnome-shell -f -o cat'",
+          "command": "@terminal -e journalctl /run/current-system/sw/bin/gnome-shell -f -o cat",
           "instancing": "singleInstance",
           "icon": "emblem-documents-symbolic",
           "killOnDisable": false

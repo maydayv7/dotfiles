@@ -2,7 +2,8 @@
 
 ### November
 
-- Sushi previewer for Nemo
+- Use [`strata`](https://github.com/lgse/strata) instead of `nemo`
+- `sushi` previewer for `nemo`
 - Add `slack`
 - Add `claude-cli` and KVM for Claude Desktop
 - Enforce Hyprland permissions

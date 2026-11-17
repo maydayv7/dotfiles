@@ -8,10 +8,15 @@
     ];
   };
 
-  home = _: {
+  home = {
+    config,
+    lib,
+    ...
+  }: {
     home.file = with files.hyprland; {
       # Pyprland
-      ".config/pypr/config.toml".text = pypr;
+      ".config/pypr/config.toml".text =
+        lib.replaceStrings ["@terminal"] [config.home.sessionVariables."TERMINAL"] pypr;
 
       # Shaders
       ".config/hypr/shaders" = {

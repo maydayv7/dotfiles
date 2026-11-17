@@ -913,6 +913,7 @@
         "sops": "sops",
         "spicetify": "spicetify",
         "stable": "stable",
+        "strata": "strata",
         "stylix": "stylix",
         "systems": "systems_3",
         "unstable": "unstable",
@@ -997,6 +998,26 @@
         "owner": "NixOS",
         "ref": "nixos-26.05",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "strata": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794810395,
+        "narHash": "sha256-6GMgBwImgk1ohdhNecFiU+ehZbSdxKKZj2S2C0S5Wt0=",
+        "owner": "lgse",
+        "repo": "strata",
+        "rev": "c5f1323eec07ab1db5e749e72b1ac7b1591c5516",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lgse",
+        "repo": "strata",
         "type": "github"
       }
     },

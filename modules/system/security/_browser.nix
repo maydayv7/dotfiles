@@ -55,6 +55,7 @@
             "LC_ALL"
             "LC_CTYPE"
             "GTK_THEME"
+            "GTK_USE_PORTAL"
             "GTK_PATH"
             "GTK_A11Y"
             "XCURSOR_THEME"

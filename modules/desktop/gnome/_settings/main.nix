@@ -105,7 +105,7 @@ with lib.hm.gvariant; {
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
       binding = "<Super>t";
-      command = "ghostty";
+      command = config.home.sessionVariables."TERMINAL";
       name = "Terminal";
     };
 

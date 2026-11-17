@@ -8,6 +8,7 @@
 in {
   flake.modules = {
     nixos.base-cli = {
+      config,
       lib,
       pkgs,
       ...
@@ -18,21 +19,26 @@ in {
         inputs.impermanence.nixosModule
         (lib.mkAliasOptionModule ["environment" "persist"] ["environment" "persistence" files.path.persist])
       ];
-      environment.persist.enable = lib.mkDefault false;
+      environment = {
+        persist.enable = lib.mkDefault false;
 
-      environment.systemPackages = with pkgs; [
-        custom.os
-        curl
-        file
-        killall
-        man-pages
-        mkpasswd
-        net-tools
-        rsync
-        unrar
-        unzip
-        wget
-      ];
+        sessionVariables."LC_ALL" = with config.i18n;
+          defaultLocale + lib.optionalString (!lib.hasInfix "." defaultLocale) ".${defaultCharset}";
+
+        systemPackages = with pkgs; [
+          custom.os
+          curl
+          file
+          killall
+          man-pages
+          mkpasswd
+          net-tools
+          rsync
+          unrar
+          unzip
+          wget
+        ];
+      };
     };
 
     nixos.base = {

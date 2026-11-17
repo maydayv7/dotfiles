@@ -9,7 +9,10 @@ in {
       services.dbus.packages = [pkgs.dconf];
       environment = {
         systemPackages = [pkgs.adw-gtk3];
-        variables."GTK_THEME" = "adw-gtk3-dark";
+        sessionVariables = {
+          "GTK_THEME" = "adw-gtk3-dark";
+          "GTK_USE_PORTAL" = "1";
+        };
       };
     };
 

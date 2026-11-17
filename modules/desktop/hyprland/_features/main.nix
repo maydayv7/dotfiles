@@ -14,8 +14,7 @@ _: {
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
-  home = {pkgs, ...}: {
+  home = _: {
     home.persist.directories = [".config/hypr"];
-    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 }

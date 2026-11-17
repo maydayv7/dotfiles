@@ -101,7 +101,10 @@
     "text/x-yaml"
   ];
 
-  directory = ["inode/directory"];
+  directory = [
+    "inode/directory"
+    "x-scheme-handler/trash"
+  ];
 
   document = [
     "application/illustrator"

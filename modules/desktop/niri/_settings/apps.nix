@@ -20,8 +20,13 @@ _: {
     in {
       # Applications
       "Super+F" = {
-        action = spawn "nemo";
+        action = spawn "strata";
         hotkey-overlay.title = "Files";
+      };
+
+      "Super+Shift+F" = {
+        action = spawn "xed";
+        hotkey-overlay.title = "Text Editor";
       };
 
       "Super+T" = {
@@ -117,6 +122,7 @@ _: {
           {app-id = "nwg-displays";}
           {app-id = "org.gnome.Settings";}
           {app-id = "gnome-control-center";}
+          {app-id = "zenity";}
         ];
         open-floating = true;
       }

@@ -28,7 +28,10 @@ _: {
     };
   };
 
-  home = _: {
+  home = {lib, ...}: {
+    # OS manages portals
+    xdg.portal.enable = lib.mkForce false;
+
     services = {
       poweralertd.enable = true; # Power Alerts
       mpris-proxy.enable = true; # BT Controls

@@ -56,6 +56,12 @@
     # LLM Agents
     llm.url = "github:numtide/llm-agents.nix";
 
+    # File Manager
+    strata = {
+      url = "github:lgse/strata";
+      inputs.nixpkgs.follows = "unstable";
+    };
+
     ## Configuration Modules ##
     ## Language Addendum
     # Supported Architectures

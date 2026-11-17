@@ -86,6 +86,7 @@ in {
   }: {
     config = {
       # Default Applications
+      home.sessionVariables."TERMINAL" = "ghostty";
       xdg.mimeApps.defaultApplications = util.build.mime {
         archive = ["org.gnome.FileRoller.desktop"];
         audio = ["org.gnome.Lollypop.desktop"];

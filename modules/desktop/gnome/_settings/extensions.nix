@@ -543,7 +543,6 @@ in {
 
   home = {
     packages = [pkgs.dconf2nix] ++ map (ext: ext.package) extensions;
-    file.".config/guillotine.json".source = files.gnome.menu; # Action Menu
     persist.directories = [
       ".local/share/gnome-shell/extensions"
 
@@ -552,5 +551,9 @@ in {
       ".config/copyous@boerdereinar.dev"
       ".local/share/copyous@boerdereinar.dev"
     ];
+
+    # Action Menu
+    file.".config/guillotine.json".text =
+      lib.replaceStrings ["@terminal"] [config.home.sessionVariables."TERMINAL"] (builtins.readFile files.gnome.menu);
   };
 }

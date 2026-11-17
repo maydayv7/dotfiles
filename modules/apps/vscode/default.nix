@@ -12,7 +12,6 @@ in {
   }: let
     font = config.stylix.fonts.monospace.name;
     isGnome = osConfig.services.desktopManager.gnome.enable or false;
-    isWM = (osConfig.programs.hyprland.enable or false) || (osConfig.programs.niri.enable or false);
   in {
     imports = [
       (import ./_mutable.nix {
@@ -38,7 +37,8 @@ in {
       };
 
       profiles.default = import ./_profile.nix {
-        inherit lib pkgs files font isGnome isWM;
+        inherit lib pkgs files font isGnome;
+        terminal = config.home.sessionVariables.TERMINAL or "";
       };
     };
 

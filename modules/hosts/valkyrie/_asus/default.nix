@@ -14,9 +14,11 @@ _: {
       kernelParams = lib.optionals perf ["usbcore.autosuspend=-1"];
     };
 
-    environment.sessionVariables.AQ_DRM_DEVICES =
-      lib.mkIf (config.hardware.gpu.enable && perf)
-      "/dev/dri/nvidia-dgpu:/dev/dri/integrated-gpu";
+    environment.etc."xdg/uwsm/env-hyprland" = lib.mkIf (config.hardware.gpu.enable && perf) {
+      text = ''
+        export AQ_DRM_DEVICES=/dev/dri/nvidia-dgpu:/dev/dri/integrated-gpu
+      '';
+    };
 
     services = {
       fwupd.enable = true;

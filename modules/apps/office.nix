@@ -11,7 +11,7 @@ in {
           hunspellDicts.en_US-large
           hyphen
         ];
-        variables."DICPATH" = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
+        sessionVariables."DICPATH" = "/run/current-system/sw/share/hunspell:/run/current-system/sw/share/hyphen";
         pathsToLink = [
           "/share/hunspell"
           "/share/myspell"

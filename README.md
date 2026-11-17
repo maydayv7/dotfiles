@@ -43,6 +43,7 @@ It also builds and deploys my website to [maydayv7.dev](https://maydayv7.dev).
 - [Catppuccin](https://github.com/catppuccin) Theme: A community-driven Pastel Theme consisting of 4 soothing warm Flavors with 26 eye-candy Colors each
 
 - [Adwaita GTK3](https://github.com/lassekongo83/adw-gtk3): Theme from `libadwaita` ported to GTK3
+- [`adw-catppuccin`](https://github.com/LuminarLeaf/adw-catppuccin): A Catppuccin port for Adwaita and `adw-gtk3`
 - [KvLibadwaita](https://github.com/GabePoel/KvLibadwaita) Kvantum Theme: Integrates QT Apps with GNOME Desktop
 - Firefox [GNOME Theme](https://github.com/rafaelmardojai/firefox-gnome-theme): GNOME Theme for the Mozilla Firefox Browser
 - VS Code [Adwaita Theme](https://github.com/piousdeer/vscode-adwaita): Integrates Visual Studio Code with GNOME Desktop

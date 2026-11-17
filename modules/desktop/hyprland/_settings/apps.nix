@@ -6,7 +6,7 @@ _: {
   ...
 }: let
   lua = import ./_lib.nix lib;
-  inherit (lua) combo bind exec env on permission;
+  inherit (lua) combo bind exec on permission;
 
   display = osConfig.gui.display or "";
   mod = "SUPER";
@@ -19,17 +19,18 @@ _: {
   exact = path: "^${lib.escapeRegex (toString path)}$";
 in {
   ## App Environment
-  # Cursor
-  xdg.dataFile."icons/${hyprcursor}".source = "${cursor.package}/share/icons/${hyprcursor}";
+  xdg = {
+    configFile."uwsm/env-hyprland".text = config.lib.shell.exportAll {
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+
+      # Cursor
+      HYPRCURSOR_THEME = hyprcursor;
+      HYPRCURSOR_SIZE = toString cursor.size;
+    };
+    dataFile."icons/${hyprcursor}".source = "${cursor.package}/share/icons/${hyprcursor}";
+  };
+
   wayland.windowManager.hyprland.settings = {
-    env = [
-      (env "HYPRCURSOR_THEME" hyprcursor)
-      (env "HYPRCURSOR_SIZE" (toString cursor.size))
-
-      # QT Apps
-      (env "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1")
-    ];
-
     ## Autostart
     on = [
       (on "hyprland.start" ("function() "
@@ -52,7 +53,8 @@ in {
     ## Shortcuts
     bind = [
       # Applications
-      (bind (combo [mod] "F") (exec "nemo"))
+      (bind (combo [mod] "F") (exec "strata"))
+      (bind (combo [mod "SHIFT"] "F") (exec "xed"))
       (bind (combo [mod] "T") (exec "kitty"))
       (bind (combo [mod] "W") (exec "firefox"))
       (bind (combo [mod] "Return") (exec (runOnce "resources")))
@@ -191,6 +193,7 @@ in {
           "nwg-displays"
           "gnome-control-center"
           "org.gnome.Settings"
+          "zenity"
         ])
       ++ (map (title: {
           # Dialogs

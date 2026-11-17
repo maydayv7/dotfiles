@@ -11,7 +11,6 @@ in {
   }: let
     font = config.stylix.fonts.monospace.name;
     isGnome = osConfig.services.desktopManager.gnome.enable or false;
-    isWM = (osConfig.programs.hyprland.enable or false) || (osConfig.programs.niri.enable or false);
   in {
     imports = [
       modules.homeManager.antigravity-cli
@@ -26,7 +25,8 @@ in {
       enable = true;
       package = pkgs.antigravity;
       profiles.default = import ../vscode/_profile.nix {
-        inherit lib pkgs files font isGnome isWM;
+        inherit lib pkgs files font isGnome;
+        terminal = config.home.sessionVariables."TERMINAL" or "";
       };
     };
 

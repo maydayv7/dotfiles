@@ -50,8 +50,10 @@ _: {
 
           environment = {
             systemPackages = [pkgs.btop-cuda];
-            variables."__GLX_VENDOR_LIBRARY_NAME" = mkIf mode "nvidia";
-            sessionVariables."GAMEMODERUNEXEC" = mkIf (hybrid && gamemode && !mode) "nvidia-offload";
+            sessionVariables = {
+              "__GLX_VENDOR_LIBRARY_NAME" = mkIf mode "nvidia";
+              "GAMEMODERUNEXEC" = mkIf (hybrid && gamemode && !mode) "nvidia-offload";
+            };
           };
 
           boot = {

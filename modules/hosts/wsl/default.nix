@@ -57,7 +57,6 @@ in {
 
       time.timeZone = "Asia/Kolkata";
       i18n.defaultLocale = "en_IN";
-      environment.variables.LC_ALL = "en_IN.UTF-8";
 
       system.nix.index = true;
       apps.git.package = pkgs.git;

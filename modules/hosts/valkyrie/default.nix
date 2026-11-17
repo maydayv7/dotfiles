@@ -109,7 +109,6 @@ in {
       # Localization
       time.timeZone = "Asia/Kolkata";
       i18n.defaultLocale = "en_IN";
-      environment.variables."LC_ALL" = "en_IN.UTF-8";
 
       system = {
         scheme = "secure";

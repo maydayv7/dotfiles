@@ -82,9 +82,12 @@
         palette // lib.mapAttrs' (name: value: lib.nameValuePair "dark_${name}" value) palette;
     };
 
-    home.file = {
-      ".config/kitty/search".source = pkgs.custom.kitty-search;
-      ".config/kitty/tab_bar.py".source = files.kitty.tabs;
+    home = {
+      sessionVariables."TERMINAL" = "kitty";
+      file = {
+        ".config/kitty/search".source = pkgs.custom.kitty-search;
+        ".config/kitty/tab_bar.py".source = files.kitty.tabs;
+      };
     };
 
     programs.git.settings.alias.d = lib.mkForce (lib.removeSuffix "\n" ''

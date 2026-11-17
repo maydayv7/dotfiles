@@ -95,6 +95,13 @@ in {
     # PcmanFM File Manager
     pcmanfm = builtins.readFile ./pcmanfm.conf;
 
+    # Strata File Manager
+    strata = util.map.files {
+      directory = ./strata;
+      apply = builtins.readFile;
+      extension = ".py";
+    };
+
     # Custom Proprietary Files
     proprietary = inputs.proprietary.files;
     inherit (proprietary) wallpapers;
