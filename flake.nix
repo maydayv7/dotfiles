@@ -62,6 +62,15 @@
       inputs.nixpkgs.follows = "unstable";
     };
 
+    # Desktop Icons
+    dicons = {
+      url = "github:maydayv7/dicons";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "formatter";
+      };
+    };
+
     ## Configuration Modules ##
     ## Language Addendum
     # Supported Architectures

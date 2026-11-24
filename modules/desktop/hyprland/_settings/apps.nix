@@ -14,7 +14,6 @@ _: {
   inherit (config.stylix) cursor;
   hyprcursor = "${cursor.name}-Hyprcursor";
 
-  unit = command: lib.head (lib.splitString " " command);
   runOnce = app: "pgrep ${app} || uwsm app -u ${app}.scope -- ${app}";
   exact = path: "^${lib.escapeRegex (toString path)}$";
 in {
@@ -34,19 +33,11 @@ in {
     ## Autostart
     on = [
       (on "hyprland.start" ("function() "
-        + lib.concatStringsSep " " (map (c: ''hl.exec_cmd("${c}");'') (
-          [
-            "uwsm finalize"
-            "hyprctl setcursor ${hyprcursor} ${toString cursor.size}"
-          ]
-          ++ (map (app: "uwsm app -t service -u ${unit app}.service -- ${app}") [
-            # Pyprland
-            "pypr"
-
-            # Desktop Icons
-            "pcmanfm-qt --desktop"
-          ])
-        ))
+        + lib.concatStringsSep " " (map (c: ''hl.exec_cmd("${c}");'') [
+          "uwsm finalize"
+          "hyprctl setcursor ${hyprcursor} ${toString cursor.size}"
+          "uwsm app -t service -u pypr.service -- pypr"
+        ])
         + " end"))
     ];
 
@@ -113,7 +104,7 @@ in {
         order = 1;
       }
       {
-        match.namespace = "^(desktop)$";
+        match.namespace = "^(dicons)$";
         order = 0;
       }
     ];

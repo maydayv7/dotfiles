@@ -2,6 +2,7 @@
 
 ### November
 
+- Use [`dicons`](https://github.com/maydayv7/dicons) instead of `pcmanfm-qt --desktop` for Wayland Desktop Icons
 - Use [`strata`](https://github.com/lgse/strata) instead of `nemo`
 - `sushi` previewer for `nemo`
 - Add `slack`

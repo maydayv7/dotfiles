@@ -10,6 +10,7 @@ in {
     imports = [./_common.nix];
 
     home = {
+      packages = [pkgs.bubblewrap];
       persist.directories = [".codex"];
       file.".codex/config.toml" = {
         force = true;

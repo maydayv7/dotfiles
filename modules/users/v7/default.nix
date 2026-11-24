@@ -28,7 +28,6 @@ in {
         ".face".source = ./profile.png;
         ".config/goa-1.0/accounts.conf".text = builtins.readFile ./accounts.conf;
         ".config/gtk-3.0/bookmarks".text = lib.mkBefore ''
-          file://${config.home.homeDirectory}/TBD TBD
           file://${config.home.homeDirectory}/Projects Projects
         '';
       };
@@ -58,19 +57,19 @@ in {
       };
 
       home = {
-        persist.directories = [
-          "TBD"
-          "Projects"
-        ];
-
+        persist.directories = ["Projects"];
         file."Projects/dotfiles".source = config.lib.file.mkOutOfStoreSymlink files.path.system;
       };
 
+      nix.extraOptions = "!include ${config.sops.templates."nix-access-tokens.conf".path}";
       sops.templates = let
         github-token = config.sops.placeholder."github-token.secret";
         env-var = config.programs.mcp.servers.github.bearer_token_env_var;
       in
         {
+          "nix-access-tokens.conf".content = ''
+            extra-access-tokens = github.com=${github-token}
+          '';
           "gh-hosts.yml" = {
             path = "${homeDir}/.config/gh/hosts.yml";
             content = ''

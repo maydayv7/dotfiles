@@ -1,20 +1,28 @@
 ## Compositor Settings
-_: {config, ...}: let
+_: {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (config.lib.stylix.colors) base04 base08;
 in {
   programs.niri.settings = {
-    screenshot-path = "~/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png";
-    environment.DISPLAY = ":0"; # XWayland Support
-    hotkey-overlay = {
-      skip-at-startup = true;
-      hide-not-bound = true;
-    };
-
     # Use 'nwg-displays' to configure monitors
     includes = [
       "monitors.kdl"
       "workspaces.kdl"
     ];
+
+    # XWayland support
+    environment."DISPLAY" = ":0";
+    spawn-at-startup = [{command = [(lib.getExe pkgs.xwayland-satellite) ":0"];}];
+
+    screenshot-path = "~/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png";
+    hotkey-overlay = {
+      skip-at-startup = true;
+      hide-not-bound = true;
+    };
 
     input = {
       keyboard.numlock = true;

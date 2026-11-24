@@ -92,9 +92,6 @@ in {
     # Noctalia Shell
     noctalia = ./noctalia;
 
-    # PcmanFM File Manager
-    pcmanfm = builtins.readFile ./pcmanfm.conf;
-
     # Strata File Manager
     strata = util.map.files {
       directory = ./strata;

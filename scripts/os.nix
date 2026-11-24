@@ -400,27 +400,23 @@ in
 
           echo "Cloning Repository..."
           sudo git clone --recurse-submodules ${path.repo} "$DIR"
-          pushd "$DIR" &> /dev/null; sudo git config core.fileMode false; popd &> /dev/null
           sudo chgrp -R keys "$DIR"
           sudo chmod -R u=rwX,g=rwX,o= "$DIR"
           sudo find -P "$DIR" -type d -exec chmod g+s {} +
+          pushd "$DIR" &> /dev/null; git config core.fileMode false; popd &> /dev/null
           newline
 
-          read -rp "Enter path to GPG Keys (path/.git): " KEY
-          LINK='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+          read -rp "Enter path to GPG Keys: " KEY
           if [ -z "$KEY" ]
           then
             error "Path cannot be empty"
-          elif [[ $KEY =~ $LINK ]]
+          elif [ ! -d "$KEY" ]
           then
-            echo "Cloning Keys..."
-            git clone "$KEY" keys --progress
+            error "Invalid directory path"
           else
-            cp -r "$KEY"/. ./keys
+            echo "Importing Keys..."
+            find "$KEY" -type f -name '*.gpg' -exec sudo gpg --homedir ${path.gpg} --import {} \+
           fi
-          echo "Importing Keys..."
-          find ./keys -name '*.gpg' -exec sudo gpg --homedir ${path.gpg} --import {} \+
-          rm -rf ./keys
           newline
 
           os apply --activate

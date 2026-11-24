@@ -30,14 +30,6 @@ in {
     environment.systemPackages = [
       strata
       pkgs.file-roller
-      (pkgs.lxqt.pcmanfm-qt.overrideAttrs (old: {
-        postPatch =
-          (old.postPatch or "")
-          + ''
-            substituteInPlace pcmanfm/application.cpp \
-              --replace-fail 'dbus.interface()->registerService(fileManagerService, QDBusConnectionInterface::QueueService);' ""
-          '';
-      }))
     ];
   };
 
@@ -47,6 +39,13 @@ in {
     pkgs,
     ...
   }: {
+    # Desktop icons
+    imports = [inputs.dicons.homeManagerModules.default];
+    services.dicons = {
+      enable = true;
+      settings.show-trash = true;
+    };
+
     dconf.settings."org/gtk/gtk4/settings/file-chooser".sort-directories-first = true;
 
     xdg.mimeApps.defaultApplications = util.build.mime {
@@ -56,7 +55,6 @@ in {
 
     home = {
       persist.directories = [
-        ".config/pcmanfm-qt"
         ".config/strata"
         ".local/share/strata"
         ".local/state/strata"
@@ -96,23 +94,6 @@ in {
             file
           );
       in {
-        # Desktop Icons
-        ".config/pcmanfm-qt/default/settings.conf".text =
-          lib.replaceStrings
-          ["@icon" "@font" "@terminal" "@wallpaper" "@archiver"]
-          [
-            (
-              if config.stylix.icons.dark != null
-              then config.stylix.icons.dark
-              else "default"
-            )
-            config.stylix.fonts.sansSerif.name
-            config.home.sessionVariables."TERMINAL"
-            (toString files.images.transparent)
-            "file-roller"
-          ]
-          files.pcmanfm;
-
         ".config/strata/settings.toml" = mutable (toml.generate "strata-settings.toml" {
           mode = "theme";
           theme = "stylix";

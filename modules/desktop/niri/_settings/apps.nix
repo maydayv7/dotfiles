@@ -1,18 +1,5 @@
-_: {
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+_: {config, ...}: {
   programs.niri.settings = {
-    ## Autostart
-    spawn-at-startup = let
-      exec = app: args: [app] ++ args;
-    in [
-      {command = exec "pcmanfm-qt" ["--desktop"];}
-      {command = [(lib.getExe pkgs.xwayland-satellite) ":0"];}
-    ];
-
     ## Keybindings
     binds = with config.lib.niri.actions; let
       sh = spawn "sh" "-c";
